@@ -1,0 +1,14 @@
+Label {
+    text: "%1"
+    tooltip: "%1"
+}
+
+LineEdit {
+    backendValue: backendValues.%2
+    placeholderText: backendValue.expression
+    Layout.fillWidth: true
+    showExtendedFunctionButton: true
+    showTranslateCheckBox: false
+    readOnly: true
+}
+

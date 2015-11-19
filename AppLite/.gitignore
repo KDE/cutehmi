@@ -1,0 +1,4 @@
+*.user
+uic/*
+moc/*
+rcc/*

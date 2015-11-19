@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/icon.png</file>
+        <file>qml/MainForm.ui.qml</file>
+        <file>../LibBase/LibBase.qrc</file>
+    </qresource>
+</RCC>

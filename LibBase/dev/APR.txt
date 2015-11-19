@@ -1,0 +1,13 @@
+Assumptions:
+
+- Qt, libmodbus and other required libraries are available.
+- C++11 compiler is available.
+
+Principles:
+
+- Does not rely on Qt GUI module, especially widgets.
+- Take as much burden as possible from backend applications.
+
+Responsibility:
+
+- Provide common functionality for "Qt Widgets + QML" and pure "QML" applications.
