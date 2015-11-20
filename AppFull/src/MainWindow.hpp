@@ -1,15 +1,16 @@
-#ifndef CUTEHMI_APPFULL_SRC_MAINWINDOW_HPP
-#define CUTEHMI_APPFULL_SRC_MAINWINDOW_HPP
+#ifndef CUTYHMI_SRC_MAINWINDOW_HPP
+#define CUTYHMI_SRC_MAINWINDOW_HPP
 
 #include "../uic/ui_MainWindow.h"
 
-#include <utils/DestructorTest.hpp>
-
 #include <QMainWindow>
+
+#include <debug/DestructorTest.hpp>
 
 class QQmlEngine;
 class QQmlContext;
 class QQuickWidget;
+class QQuickView;
 
 class MainWindow : public QMainWindow
 {
@@ -42,6 +43,9 @@ class MainWindow : public QMainWindow
 		void aboutQt();
 
 	private:
+		/**
+		 * QQuickWidget wrapper. Provides QQuickWidget based rendering for QML.
+		 */
 		class QuickWidgetWrapper
 		{
 			public:
@@ -58,7 +62,27 @@ class MainWindow : public QMainWindow
 				QQuickWidget * m_quickWidget;
 		};
 
-		typedef QuickWidgetWrapper QMLWidgetWrapper;
+		/**
+		 * QQuickView wrapper. Provides QQuickView based rendering for QML.
+		 */
+		class QuickViewWrapper
+		{
+			public:
+				QuickViewWrapper(QWidget * parent);
+
+				QWidget * widget();
+
+				QQmlContext * rootContext() const;
+
+				void setSource(const QUrl & url);
+
+			private:
+				QQmlEngine * m_qmlEngine;
+				QQuickView * m_quickView;
+				QWidget * m_widget;
+		};
+
+		typedef QuickViewWrapper QMLWidgetWrapper;	///< QML widget wrapper. Either QuickViewWrapper or QuickWidgetWrapper can be used.
 		typedef QList<QDockWidget *> PLCDockWidgetsContainer;
 
 		void attachPLCClients();

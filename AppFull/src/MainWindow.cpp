@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <QQmlProperty>
 #include <QQuickWidget>
+#include <QQuickView>
 #include <QQmlEngine>
 
 MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
@@ -105,6 +106,31 @@ QQmlContext * MainWindow::QuickWidgetWrapper::rootContext() const
 void MainWindow::QuickWidgetWrapper::setSource(const QUrl & url)
 {
 	m_quickWidget->setSource(url);
+}
+
+MainWindow::QuickViewWrapper::QuickViewWrapper(QWidget * parent):
+	m_qmlEngine(new QQmlEngine),
+	m_quickView(new QQuickView(m_qmlEngine, 0)) // Note: QQuickView won't take ownership of m_qmlEngine.
+{
+	m_quickView->setResizeMode(QQuickView::SizeRootObjectToView);
+	m_qmlEngine->addImportPath("qrc:/qml");
+	m_qmlEngine->setParent(m_quickView);	// Reparent m_qmlEngine so that proper destruction order is quaranteed.
+	m_widget = QWidget::createWindowContainer(m_quickView, parent);	// Note: m_widget (window container) should take ownership of m_quickView.
+}
+
+QWidget * MainWindow::QuickViewWrapper::widget()
+{
+	return m_widget;
+}
+
+QQmlContext * MainWindow::QuickViewWrapper::rootContext() const
+{
+	return m_quickView->rootContext();
+}
+
+void MainWindow::QuickViewWrapper::setSource(const QUrl & url)
+{
+	m_quickView->setSource(url);
 }
 
 void MainWindow::attachPLCClients()
