@@ -6,7 +6,7 @@ Assumptions:
 Principles:
 
 - Does not rely on Qt GUI module, especially widgets.
-- Take as much burden as possible from backend applications.
+- Take as much burden as possible from frontend applications.
 
 Responsibility:
 
