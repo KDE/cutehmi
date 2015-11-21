@@ -43,9 +43,6 @@ QML_IMPORT_PATH = ../LibBase/qml
 include(deployment.pri)
 
 SOURCES += \
-    src/modbus/ClientControlWidget.cpp \
-    src/modbus/ConfigurationDialog.cpp \
-    src/modbus/ControlWidget.cpp \
     src/DeviceCommunicationDispatcher.cpp \
     src/DevicePoint.cpp \
     src/main.cpp \
@@ -54,13 +51,11 @@ SOURCES += \
     src/MessageEvent.cpp \
     src/MessageHandler.cpp \
     src/SmartStatusBar.cpp \
-    src/Settings.cpp
+    src/Settings.cpp \
+    src/modbus/widgets/ClientControlWidget.cpp
 
 HEADERS += \ 
     src/version.hpp \
-    src/modbus/ClientControlWidget.hpp \
-    src/modbus/ConfigurationDialog.hpp \
-    src/modbus/ControlWidget.hpp \
     src/DeviceCommunicationDispatcher.hpp \
     src/DevicePoint.hpp \
     src/MainWindow.hpp \
@@ -68,12 +63,12 @@ HEADERS += \
     src/MessageEvent.hpp \
     src/MessageHandler.hpp \
     src/SmartStatusBar.hpp \
-    src/Settings.hpp
+    src/Settings.hpp \
+    src/modbus/widgets/ClientControlWidget.hpp
 
 FORMS += \ 
     ui/MainWindow.ui \
-    src/modbus/ConfigurationDialog.ui \
-    src/modbus/ClientControlWidget.ui
+    src/modbus/widgets/ClientControlWidget.ui
 
 DISTFILES += \ 
     deployment.pri \

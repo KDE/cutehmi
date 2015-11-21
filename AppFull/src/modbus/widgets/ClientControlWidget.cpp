@@ -1,6 +1,7 @@
 #include "ClientControlWidget.hpp"
 
 namespace modbus {
+namespace widgets {
 
 ClientControlWidget::ClientControlWidget(Client * client, QWidget * parent):
 	QWidget(parent),
@@ -9,4 +10,5 @@ ClientControlWidget::ClientControlWidget(Client * client, QWidget * parent):
 	ui.setupUi(this);
 }
 
+}
 }

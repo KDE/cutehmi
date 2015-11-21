@@ -1,11 +1,12 @@
-#ifndef CUTEHMI_APPFULL_SRC_MODBUS_CLIENTCONTROLWIDGET_HPP
-#define CUTEHMI_APPFULL_SRC_MODBUS_CLIENTCONTROLWIDGET_HPP
+#ifndef CUTEHMI_APPFULL_SRC_MODBUS_WIDGETS_CLIENTCONTROLWIDGET_HPP
+#define CUTEHMI_APPFULL_SRC_MODBUS_WIDGETS_CLIENTCONTROLWIDGET_HPP
 
 #include <QWidget>
 
 #include "../uic/ui_ClientControlWidget.h"
 
 namespace modbus {
+namespace widgets {
 
 class Client;
 
@@ -26,6 +27,7 @@ class ClientControlWidget:
 		Ui::ClientControlWidget ui;
 };
 
+}
 }
 
 #endif
