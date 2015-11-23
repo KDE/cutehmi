@@ -4,7 +4,8 @@
 #include <QEvent>
 #include <QString>
 
-class MessageEvent : public QEvent
+class MessageEvent:
+	public QEvent
 {
 	public:
 		const QString msg;	///< Message string.

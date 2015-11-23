@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_APPFULL_SRC_MAINWINDOW_HPP
-#define CUTEHMI_APPFULL_SRC_MAINWINDOW_HPP
+#ifndef CUTYHMI_SRC_MAINWINDOW_HPP
+#define CUTYHMI_SRC_MAINWINDOW_HPP
 
 #include "../uic/ui_MainWindow.h"
 
@@ -12,7 +12,8 @@ class QQmlContext;
 class QQuickWidget;
 class QQuickView;
 
-class MainWindow : public QMainWindow
+class MainWindow:
+	public QMainWindow
 {
 	Q_OBJECT
 	typedef QMainWindow Parent;
@@ -31,6 +32,10 @@ class MainWindow : public QMainWindow
 		 * @param details detailed information.
 		 */
 		void showErrorDialog(const QString & msg, const QString & details = QString()) const;
+
+		void clientConnected();
+
+		void clientDisconnected();
 
 		/**
 		 * Show about dialog.

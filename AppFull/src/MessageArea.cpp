@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QCoreApplication>
 
+#include <iostream>
 
 //static
 //void MessageArea::Append(const char * msg)
@@ -15,7 +16,7 @@
 //	if (MessageArea::MsgHandler != 0)
 //		QCoreApplication::postEvent(MessageArea::MsgHandler, new MessageEvent(msg));
 //	else
-//		fprintf(stderr, "%s\n", msg);
+//		std::cerr << msg << "\n";
 //}
 
 MessageArea::MessageArea(QWidget * parent):

@@ -3,7 +3,8 @@
 
 #include <QStatusBar>
 
-class SmartStatusBar : public QStatusBar
+class SmartStatusBar:
+	public QStatusBar
 {
 	public:
 		static const int INITIAL_TIMEOUT_PER_CHAR = 500;

@@ -10,7 +10,7 @@
 namespace modbus {
 
 class CUTEHMI_API RTUConnection:
-		public AbstractConnection
+	public AbstractConnection
 {
 	public:
 		enum class Parity : int

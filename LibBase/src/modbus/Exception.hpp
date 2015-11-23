@@ -8,7 +8,7 @@
 namespace modbus {
 
 class CUTEHMI_API Exception:
-		public QException
+	public QException
 {
 	public:
 		Exception(const QString & what, const QString & details = QString());

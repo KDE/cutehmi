@@ -6,24 +6,25 @@
 #include "../uic/ui_ClientControlWidget.h"
 
 namespace modbus {
-namespace widgets {
 
 class Client;
 
+namespace widgets {
+
 class ClientControlWidget:
-		public QWidget
+	public QWidget
 {
 	Q_OBJECT
 
 	public:
-		explicit ClientControlWidget(Client * client, QWidget * parent = 0);
+		explicit ClientControlWidget(modbus::Client * client, QWidget * parent = 0);
 
 	signals:
 
 	public slots:
 
 	private:
-		Client * m_client;
+		modbus::Client * m_client;
 		Ui::ClientControlWidget ui;
 };
 

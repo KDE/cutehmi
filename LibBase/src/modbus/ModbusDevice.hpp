@@ -13,7 +13,7 @@ namespace modbus {
  * @todo delete.
  */
 class CUTEHMI_API ModbusDevice:
-		public QObject
+	public QObject
 {		
 	Q_OBJECT
 	Q_PROPERTY(QQmlListProperty<InputRegister> ir READ ir NOTIFY irChanged)

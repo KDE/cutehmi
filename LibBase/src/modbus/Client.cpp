@@ -38,12 +38,15 @@ void Client::connect()
 		m_connection->connect();
 	} catch (Exception & e) {
 		emit error(QString::fromLocal8Bit(e.what()), QString::fromLocal8Bit(e.details()));
+		return;
 	}
+	emit connected();
 }
 
 void Client::disconnect()
 {
 	m_connection->disconnect();
+	emit disconnected();
 }
 
 }

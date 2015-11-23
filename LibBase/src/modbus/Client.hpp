@@ -17,7 +17,7 @@ class AbstractConnection;
  * Modbus client.
  */
 class CUTEHMI_API Client:
-		public QObject
+	public QObject
 {
 	Q_OBJECT
 	Q_PROPERTY(QQmlListProperty<modbus::InputRegister> ir READ ir NOTIFY irChanged)
@@ -53,6 +53,10 @@ class CUTEHMI_API Client:
 
 	signals:
 		void error(const QString & message, const QString & details = QString());
+
+		void connected();
+
+		void disconnected();
 
 		void irChanged();
 

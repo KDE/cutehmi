@@ -16,7 +16,7 @@ namespace modbus {
  * @internal QML type is registered in ModbusClientPlugin class.
  */
 class CUTEHMI_API InputRegister:
-		public QObject
+	public QObject
 {
 	Q_OBJECT
 	Q_PROPERTY(qint16 value READ value NOTIFY valueChanged)

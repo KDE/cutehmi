@@ -4,6 +4,8 @@
 #include "Settings.hpp"
 #include "MessageHandler.hpp"
 #include "version.hpp"
+#include "PLCWidgetFactory.hpp"
+#include "modbus/widgets/ClientControlWidget.hpp"
 
 #include <QMessageBox>
 #include <QQmlContext>
@@ -23,13 +25,13 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	MessageHandler::Instance().setMessageArea(ui.messageArea);
 	setWindowTitle(QCoreApplication::applicationName());
 
+	// Need to set context properties before loading qml file and create dock widgets before restoreSettings().
+	attachPLCClients();
+
 	QMenu * viewMenu = createPopupMenu();
 	viewMenu->setTitle(tr("&View"));
 	QAction * viewMenuAct = ui.menuApplication->insertMenu(ui.actionExit, viewMenu);
 	viewMenuAct->setStatusTip(tr("Show or hide tool bars and dock windows"));
-
-	// Need to set context properties before loading qml file and create dock widgets before restoreSettings().
-	attachPLCClients();
 
 	show();
 
@@ -66,6 +68,16 @@ void MainWindow::showErrorDialog(const QString & msg, const QString & details) c
 	if (!details.isEmpty())
 		msgBox.setDetailedText(details);
 	msgBox.exec();
+}
+
+void MainWindow::clientConnected()
+{
+	qInfo("Connected");
+}
+
+void MainWindow::clientDisconnected()
+{
+	qInfo("Disconnected");
 }
 
 void MainWindow::about()
@@ -139,9 +151,16 @@ void MainWindow::attachPLCClients()
 
 	modbus::Client & modbusClient = base::PLCClientManager::Instance().m_modbusClient;
 	connect(& modbusClient, & modbus::Client::error, this, & MainWindow::showErrorDialog);
+	// QSignalMapper may be helpful with more clients to send client id for more verbose info.
+	connect(& modbusClient, & modbus::Client::connected, this, & MainWindow::clientConnected);
+	connect(& modbusClient, & modbus::Client::disconnected, this, & MainWindow::clientDisconnected);
+
 //	modbusClient.connect();
 	m_qmlWidgetWrapper.rootContext()->setContextProperty(clientId, & modbusClient);
-//	createDockWidget(QString("Modbus - ") + clientId, PLCClientManager::Instance().m_clientControlWidget);
+	QDockWidget * clientControlDockWidget = createDockWidget(QString("Modbus - ") + clientId, PLCWidgetFactory::Instance().createClientControlWidget(& modbusClient));
+	// Object name must be set for the dock widget to make it work with storeSetting() and restoreSettings().
+	clientControlDockWidget->setObjectName(clientId + QStringLiteral("_clientControlDockWidget"));
+	addDockWidget(Qt::LeftDockWidgetArea, clientControlDockWidget);
 }
 
 QDockWidget * MainWindow::createDockWidget(const QString & title, QWidget * widget)
@@ -149,6 +168,7 @@ QDockWidget * MainWindow::createDockWidget(const QString & title, QWidget * widg
 	QDockWidget * plcDockWidget = new QDockWidget(title, this);
 	plcDockWidget->setWidget(widget);
 	m_plcDockWidgets.append(plcDockWidget);
+	return plcDockWidget;
 }
 
 void MainWindow::storeSettings() const

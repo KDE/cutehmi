@@ -43,8 +43,6 @@ QML_IMPORT_PATH = ../LibBase/qml
 include(deployment.pri)
 
 SOURCES += \
-    src/DeviceCommunicationDispatcher.cpp \
-    src/DevicePoint.cpp \
     src/main.cpp \
     src/MainWindow.cpp \
     src/MessageArea.cpp \
@@ -52,19 +50,19 @@ SOURCES += \
     src/MessageHandler.cpp \
     src/SmartStatusBar.cpp \
     src/Settings.cpp \
-    src/modbus/widgets/ClientControlWidget.cpp
+    src/modbus/widgets/ClientControlWidget.cpp \
+    src/PLCWidgetFactory.cpp
 
 HEADERS += \ 
     src/version.hpp \
-    src/DeviceCommunicationDispatcher.hpp \
-    src/DevicePoint.hpp \
     src/MainWindow.hpp \
     src/MessageArea.hpp \
     src/MessageEvent.hpp \
     src/MessageHandler.hpp \
     src/SmartStatusBar.hpp \
     src/Settings.hpp \
-    src/modbus/widgets/ClientControlWidget.hpp
+    src/modbus/widgets/ClientControlWidget.hpp \
+    src/PLCWidgetFactory.hpp
 
 FORMS += \ 
     ui/MainWindow.ui \

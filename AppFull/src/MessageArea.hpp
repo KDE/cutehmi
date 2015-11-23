@@ -3,7 +3,8 @@
 
 #include <QTextEdit>
 
-class MessageArea : public QTextEdit
+class MessageArea:
+	public QTextEdit
 {
 	public:
 //		/**
@@ -33,8 +34,8 @@ class MessageArea : public QTextEdit
 		 */
 		virtual void customEvent(QEvent * event);
 
-	private:
-		static MessageArea * MsgHandler;	///< Set in constructor.
+//	private:
+//		static MessageArea * MsgHandler;	///< Set in constructor.
 };
 
 #endif

@@ -11,7 +11,8 @@ namespace base {
 /**
  * Programable logic controler client manager.
  */
-class CUTEHMI_API PLCClientManager : public utils::Singleton<PLCClientManager>
+class CUTEHMI_API PLCClientManager:
+	public utils::Singleton<PLCClientManager>
 {
 	friend class utils::Singleton<PLCClientManager>;
 
@@ -26,13 +27,12 @@ class CUTEHMI_API PLCClientManager : public utils::Singleton<PLCClientManager>
 		 */
 		~PLCClientManager() override = default;
 
-	//temporary public access, until AbstractPLCClient is implemented, management is based on a model and appropriate methods are provided
+	/** @todo temporary public access, until AbstractPLCClient is implemented, management is based on a model and appropriate methods are provided. */
 	public:
 		//fake plugin for now
 		modbus::ClientPlugin m_modbusClientPlugin;
-		//for now manager "manages" following fields :)
+		//for now manager "manages" following :)
 		modbus::Client m_modbusClient;
-//		modbus::ClientControlWidget m_clientControlWidget;
 };
 
 }

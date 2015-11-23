@@ -7,7 +7,8 @@
 
 class MessageArea;
 
-class MessageHandler : public utils::Singleton<MessageHandler>
+class MessageHandler:
+	public utils::Singleton<MessageHandler>
 {
 	friend class utils::Singleton<MessageHandler>;
 

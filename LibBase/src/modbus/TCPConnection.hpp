@@ -10,7 +10,7 @@
 namespace modbus {
 
 class CUTEHMI_API TCPConnection:
-		public virtual AbstractConnection
+	public virtual AbstractConnection
 {
 	public:
 		/**

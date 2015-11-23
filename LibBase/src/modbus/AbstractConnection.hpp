@@ -13,8 +13,8 @@ namespace modbus {
  * Abstract connection.
  */
 class CUTEHMI_API AbstractConnection:
-		public utils::NonCopyable,
-		public utils::NonMovable
+	public utils::NonCopyable,
+	public utils::NonMovable
 {
 	public:
 		virtual ~AbstractConnection() = default;

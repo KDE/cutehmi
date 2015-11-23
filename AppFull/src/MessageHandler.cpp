@@ -3,6 +3,8 @@
 
 #include <QMutexLocker>
 
+#include <iostream>
+
 void MessageHandler::qtMessageHandler(QtMsgType type, const QMessageLogContext & context, const QString & msg)
 {
 	Q_UNUSED(context);
@@ -13,7 +15,7 @@ void MessageHandler::qtMessageHandler(QtMsgType type, const QMessageLogContext &
 	if (messageArea() != nullptr)
 		return messageArea()->postMsgEvent(type, msg);
 	else
-		fprintf(stderr, MessageHandler::QtMsgToString(type, msg).toLocal8Bit().constData());
+		std::cerr << MessageHandler::QtMsgToString(type, msg).toLocal8Bit().constData() << "\n";
 }
 
 void MessageHandler::setMessageArea(MessageArea * messageArea)
