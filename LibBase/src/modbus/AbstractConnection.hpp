@@ -23,6 +23,8 @@ class CUTEHMI_API AbstractConnection:
 
 		virtual void disconnect() = 0;
 
+		virtual bool connected() const = 0;
+
 	protected:
 		AbstractConnection() = default;
 };

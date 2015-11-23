@@ -41,4 +41,9 @@ void TCPConnection::disconnect()
 	m_connected = false;
 }
 
+bool TCPConnection::connected() const
+{
+	return m_connected;
+}
+
 }

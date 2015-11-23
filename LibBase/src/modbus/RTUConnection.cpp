@@ -79,5 +79,10 @@ void RTUConnection::disconnect()
 	m_connected = false;
 }
 
+bool RTUConnection::connected() const
+{
+	return m_connected;
+}
+
 }
 

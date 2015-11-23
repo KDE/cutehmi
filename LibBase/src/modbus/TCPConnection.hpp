@@ -10,7 +10,7 @@
 namespace modbus {
 
 class CUTEHMI_API TCPConnection:
-	public virtual AbstractConnection
+	public AbstractConnection
 {
 	public:
 		/**
@@ -25,6 +25,8 @@ class CUTEHMI_API TCPConnection:
 		void connect() override;
 
 		void disconnect() override;
+
+		bool connected() const override;
 
 	private:
 		QString m_node;

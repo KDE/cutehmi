@@ -48,6 +48,8 @@ class CUTEHMI_API RTUConnection:
 
 		void disconnect() override;
 
+		bool connected() const override;
+
 	private:
 		QString m_port;
 		int m_baudRate;

@@ -1,5 +1,5 @@
-#ifndef PLCMANAGER_H
-#define PLCMANAGER_H
+#ifndef CUTEHMI_APPFULL_SRC_PLCWIDGETFACTORY_HPP
+#define CUTEHMI_APPFULL_SRC_PLCWIDGETFACTORY_HPP
 
 #include <utils/Singleton.hpp>
 
@@ -46,4 +46,4 @@ class PLCWidgetFactory:
 //		QWidget * m_parentWidget;
 };
 
-#endif // PLCMANAGER_H
+#endif
