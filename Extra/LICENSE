@@ -6,3 +6,6 @@ CuteHMI distribution or not.
 QtCreator is licensed under GNU Lesser General Public License (LGPL).
 Any work derived from it is licensed under LGPL.
 
+SimpleModbusServer is a work derived from libmodbus library.
+It is a subject of BSD license.
+

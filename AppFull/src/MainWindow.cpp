@@ -35,7 +35,8 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 
 	show();
 
-	// Some bug causes restoreState() to fail in some circustamces, if it's called before show().
+	/// @bug Some bug causes restoreState() to fail in some circustamces, if it's called before show() (Qt bug).
+	/// @bug Dock widgets are not properly restored if one of them is shrinked to the minimum and they are both docked at the bottom (Qt bug).
 	restoreSettings();
 
 	m_qmlWidgetWrapper.setSource(QUrl(QStringLiteral("qrc:/qml/MainForm.ui.qml")));

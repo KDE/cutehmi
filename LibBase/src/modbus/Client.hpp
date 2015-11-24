@@ -30,13 +30,7 @@ class CUTEHMI_API Client:
 //	Q_PROPERTY(QQmlListProperty<modbus::HoldingRegister> rr READ rr NOTIFY rChanged)
 
 	public:
-		template <typename T>
-		static T * At(QQmlListProperty<T> * property, int index);
-
-		template <typename T>
-		static int Count(QQmlListProperty<T> * property);
-
-		Client(std::unique_ptr<AbstractConnection> connection, QObject * parent = 0);
+		explicit Client(std::unique_ptr<AbstractConnection> connection, QObject * parent = 0);
 
 		~Client() override;
 
@@ -47,9 +41,24 @@ class CUTEHMI_API Client:
 //		void setConnection(std::unique_ptr<AbstractConnection> connection);
 
 	public slots:
+		/**
+		 * Connect client to the Modbus device.
+		 */
 		void connect();
 
+		/**
+		 * Disconnect client from the Modbus device.
+		 */
 		void disconnect();
+
+		/**
+		 * Read all values of registers and coils.
+		 *
+		 * @internal It may be desirable to provide "sleeping registers" optimization in future. Sleeping registers
+		 * would be excluded from update of their values. For example, when indicator is not visible it does not
+		 * make sense to read its value.
+		 */
+		void readAll();
 
 	signals:
 		void error(const QString & message, const QString & details = QString());
@@ -69,6 +78,20 @@ class CUTEHMI_API Client:
 	private:
 		typedef typename RegisterTraits<InputRegister>::Container IrDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
 		typedef typename RegisterTraits<HoldingRegister>::Container RDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
+
+		/**
+		 * Get element at specified index of property list. Callback function for QQmlListProperty.
+		 * @return element at index.
+		 */
+		template <typename T>
+		static T * At(QQmlListProperty<T> * property, int index);
+
+		/**
+		 * Return number of property list elements. Callback function for QQmlListProperty.
+		 * @return number of property list elements.
+		 */
+		template <typename T>
+		static int Count(QQmlListProperty<T> * property);
 
 		IrDataContainer m_irData;
 		QQmlListProperty<InputRegister> m_ir;

@@ -12,6 +12,7 @@ ClientControlWidget::ClientControlWidget(modbus::Client * client, QWidget * pare
 	ui.setupUi(this);
 	connect(ui.connectButton, & QPushButton::clicked, client, & modbus::Client::connect);
 	connect(ui.disconnectButton, & QPushButton::clicked, client, & modbus::Client::disconnect);
+	connect(ui.pollButton, & QPushButton::clicked, client, & modbus::Client::readAll);
 }
 
 }

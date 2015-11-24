@@ -53,6 +53,7 @@ void Client::disconnect()
 
 void Client::readAll()
 {
+	
 	qDebug("not implemented yet");
 }
 
