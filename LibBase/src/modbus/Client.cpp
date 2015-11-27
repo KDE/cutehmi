@@ -32,6 +32,25 @@ const QQmlListProperty<HoldingRegister> & Client::r() const
 	return m_r;
 }
 
+void Client::readIr(int addr)
+{
+	IrDataContainer::iterator it = m_irData.find(addr);
+	Q_ASSERT_X(it != m_irData.end(), __func__, "register has not been referenced yet");
+	uint16_t val;
+	m_connection->readIr(addr, 1, val);
+	it.value()->setInt16(val);
+}
+
+void Client::readR(int addr)
+{
+	RDataContainer::iterator it = m_rData.find(addr);
+	Q_ASSERT_X(it != m_rData.end(), __func__, "register has not been referenced yet");
+	uint16_t val;
+	m_connection->readR(addr, 1, val);
+	it.value()->setInt16(val);
+}
+
+
 void Client::connect()
 {
 	try {
@@ -53,7 +72,18 @@ void Client::disconnect()
 
 void Client::readAll()
 {
-	qDebug("not implemented yet");
+	if (!m_connection->connected()) {
+		qDebug("not connected.");
+		return;
+	}
+	for (IrDataContainer::iterator it = m_irData.begin(); it != m_irData.end(); ++it) {
+		qDebug("polling %d.", it.key());
+		readIr(it.key());
+	}
+	for (RDataContainer::iterator it = m_rData.begin(); it != m_rData.end(); ++it) {
+		qDebug("polling %d.", it.key());
+		readR(it.key());
+	}
 }
 
 }

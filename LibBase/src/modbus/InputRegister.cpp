@@ -8,12 +8,12 @@ InputRegister::InputRegister(qint16 value, QObject * parent):
 {
 }
 
-qint16 InputRegister::value() const
+qint16 InputRegister::int16() const
 {
 	return m_value;
 }
 
-void InputRegister::setValue(qint16 value)
+void InputRegister::setInt16(qint16 value)
 {
 	if (value != m_value) {
 		m_value = value;

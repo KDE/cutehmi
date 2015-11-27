@@ -5,6 +5,8 @@
 #include "../utils/NonCopyable.hpp"
 #include "../utils/NonMovable.hpp"
 
+#include <modbus.h>
+
 #include <QObject>
 
 namespace modbus {
@@ -19,14 +21,30 @@ class CUTEHMI_API AbstractConnection:
 	public:
 		virtual ~AbstractConnection() = default;
 
-		virtual void connect() = 0;
+		bool connected() const;
 
-		virtual void disconnect() = 0;
+		virtual void connect();
 
-		virtual bool connected() const = 0;
+		virtual void disconnect();
+
+		virtual int readIr(int addr, int num, uint16_t & dest);
+
+		virtual int readR(int addr, int num, uint16_t & dest);
 
 	protected:
-		AbstractConnection() = default;
+		AbstractConnection(modbus_t * context);
+
+		const modbus_t * context() const;
+
+		modbus_t * context();
+
+		void setContext(modbus_t * context);
+
+		void setConnected(bool connected);
+
+	private:
+		modbus_t * m_context;
+		bool m_connected;
 };
 
 }

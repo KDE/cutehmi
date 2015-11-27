@@ -2,6 +2,7 @@
 #define CUTEHMI_LIBBASE_SRC_MODBUS_RTUCONNECTION_HPP
 
 #include "AbstractConnection.hpp"
+#include "LibmodbusConnectionTrait.hpp"
 
 #include <modbus.h>
 
@@ -9,10 +10,13 @@
 
 namespace modbus {
 
-class CUTEHMI_API RTUConnection:
-	public AbstractConnection
+/**
+ * RTU connection base-from-member. So called base-from-member idiom is used to initialize
+ * members before calling real parent class constructor.
+ */
+class CUTEHMI_API RTUConnection_baseFromMember
 {
-	public:
+	protected:
 		enum class Parity : int
 		{
 			NONE,
@@ -34,6 +38,29 @@ class CUTEHMI_API RTUConnection:
 			BITS_2 = 2
 		};
 
+		RTUConnection_baseFromMember(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits);
+
+		QString m_port;
+		int m_baudRate;
+		Parity m_parity;
+		DataBits m_dataBits;
+		StopBits m_stopBits;
+};
+
+/**
+ * RTU connection.
+ */
+class CUTEHMI_API RTUConnection:
+	private RTUConnection_baseFromMember,
+	public AbstractConnection
+{
+	typedef AbstractConnection Parent;
+
+	public:
+		typedef RTUConnection_baseFromMember::Parity Parity;
+		typedef RTUConnection_baseFromMember::DataBits DataBits;
+		typedef RTUConnection_baseFromMember::StopBits StopBits;
+
 		enum class Mode : int
 		{
 			RS232 = MODBUS_RTU_RS232,
@@ -44,21 +71,10 @@ class CUTEHMI_API RTUConnection:
 
 		virtual ~RTUConnection();
 
-		void connect() override;
-
-		void disconnect() override;
-
-		bool connected() const override;
-
 	private:
-		QString m_port;
-		int m_baudRate;
-		Parity m_parity;
-		DataBits m_dataBits;
-		StopBits m_stopBits;
+		static char ToLibmodbusParity(Parity parity);
+
 		Mode m_mode;
-		bool m_connected;
-		modbus_t * m_context;
 };
 
 }

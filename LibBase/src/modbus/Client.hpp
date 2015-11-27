@@ -40,6 +40,10 @@ class CUTEHMI_API Client:
 
 //		void setConnection(std::unique_ptr<AbstractConnection> connection);
 
+		void readIr(int addr);
+
+		void readR(int addr);
+
 	public slots:
 		/**
 		 * Connect client to the Modbus device.

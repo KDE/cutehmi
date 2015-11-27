@@ -2,6 +2,7 @@
 #define CUTEHMI_LIBBASE_SRC_MODBUS_TCPCONNECTION_HPP
 
 #include "AbstractConnection.hpp"
+#include "LibmodbusConnectionTrait.hpp"
 
 #include <modbus.h>
 
@@ -9,9 +10,14 @@
 
 namespace modbus {
 
+/**
+ * TCP connection.
+ */
 class CUTEHMI_API TCPConnection:
 	public AbstractConnection
 {
+	typedef AbstractConnection Parent;
+
 	public:
 		/**
 		 * Constructor.
@@ -22,17 +28,9 @@ class CUTEHMI_API TCPConnection:
 
 		virtual ~TCPConnection();
 
-		void connect() override;
-
-		void disconnect() override;
-
-		bool connected() const override;
-
 	private:
 		QString m_node;
 		QString m_service;
-		bool m_connected;
-		modbus_t * m_context;
 };
 
 }

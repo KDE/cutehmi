@@ -5,29 +5,22 @@
 
 namespace modbus {
 
-RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode):
+RTUConnection_baseFromMember::RTUConnection_baseFromMember(const QString &port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits):
 	m_port(port),
 	m_baudRate(baudRate),
 	m_parity(parity),
 	m_dataBits(dataBits),
-	m_stopBits(stopBits),
-	m_mode(mode),
-	m_connected(false)
+	m_stopBits(stopBits)
 {
-	//translate Parity enum to char used by libmodbus
-	char libmodbusParity;
-	switch (parity) {
-		case Parity::EVEN:
-			libmodbusParity = 'E';
-			break;
-		case Parity::ODD:
-			libmodbusParity = 'O';
-			break;
-		default:
-			libmodbusParity = 'N';
-	}
-	m_context =  modbus_new_rtu(port.toLocal8Bit().data(), baudRate, libmodbusParity, static_cast<int>(dataBits), static_cast<int>(stopBits));
-	if (m_context == NULL) {
+}
+
+
+RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode):
+	RTUConnection_baseFromMember(port, baudRate, parity, dataBits, stopBits),
+	Parent(modbus_new_rtu(port.toLocal8Bit().data(), baudRate, ToLibmodbusParity(parity), static_cast<int>(dataBits), static_cast<int>(stopBits))),
+	m_mode(mode)
+{
+	if (context() == NULL) {
 		QString title = QObject::tr("Unable to create connection.");
 		switch (errno) {
 			case EINVAL:
@@ -36,7 +29,7 @@ RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, 
 				throw Exception(title, QObject::tr("Unable to create a connection for the port: %1.").arg(m_port));
 		}
 	}
-	if (modbus_rtu_set_serial_mode(m_context, static_cast<int>(mode)) == -1) {
+	if (modbus_rtu_set_serial_mode(context(), static_cast<int>(mode)) == -1) {
 		try {
 			QString title = QObject::tr("Failed to set serial port mode.");
 			switch (errno) {
@@ -48,8 +41,8 @@ RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, 
 					throw Exception(title, QObject::tr("Unrecognized error code."));
 			}
 		} catch (...) {
-			modbus_free(m_context);
-			m_context = NULL;
+			modbus_free(context());
+			setContext(NULL);
 			throw;
 		}
 	}
@@ -57,31 +50,23 @@ RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, 
 
 RTUConnection::~RTUConnection()
 {
-	if (m_context != NULL)
-		modbus_free(m_context);
+	if (context() != NULL)
+		modbus_free(context());
 }
 
-void RTUConnection::connect()
+char RTUConnection::ToLibmodbusParity(Parity parity)
 {
-	if (m_connected)
-		return;
-	if (m_context == NULL)
-		throw Exception(QObject::tr("Unable to connect."), QObject::tr("Connection has not been properly configured."));
-	if (modbus_connect(m_context) == 0)
-		m_connected = true;
-	else
-		throw Exception(QObject::tr("Unable to connect."), QObject::tr("Can not connect to the device using port: %1.").arg(m_port));
-}
-
-void RTUConnection::disconnect()
-{
-	modbus_close(m_context);
-	m_connected = false;
-}
-
-bool RTUConnection::connected() const
-{
-	return m_connected;
+	//translate Parity enum to char used by libmodbus
+	switch (parity) {
+		case Parity::EVEN:
+			return 'E';
+		case Parity::ODD:
+			return 'O';
+		case Parity::NONE:
+			return 'N';
+		default:
+			qFatal("Unrecognized parity code: %d.", parity);
+	}
 }
 
 }

@@ -42,9 +42,15 @@ Item {
 		x: 346
 		y: 29
 		stepSize: 0.1
-		value: 0
+//		value: mb.r[1].int16
+		value: 0.0
 		maximumValue: 1000
 		orientation: Qt.Vertical
+
+//		onValueChanged: {
+//			mb.r[1].int16 = value;
+//		}
+
 	}
 
  TextDisplay {
@@ -65,12 +71,21 @@ Item {
 	 value: mb.r[1].int16
  }
 
-HMISlider {
+ HMISlider {
 	 id: hMISlider1
 	 x: 257
 	 y: 293
 	 maximumValue: 100
 	 bindingTarget: mb.r[1]
+
+	 Component.onCompleted: {
+			bindingTarget.valueChanged.connect(updateValue)
+	 }
+
+	 function updateValue() {
+		 if (value !== mb.r[1].int16)
+			value = mb.r[1].int16
+	 }
  }
 
 }

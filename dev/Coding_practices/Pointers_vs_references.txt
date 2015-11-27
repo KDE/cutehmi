@@ -1,0 +1,14 @@
+There are following differences between pointers and references.
+
+1. When it comes to passing variables, pass by reference looks like pass by value, but has pointer semantics (acts like pointer).
+2. Reference can not be directly initialized to 0 (null).
+3. Reference (reference, not referenced object) can not be modified (equivalent to "* const" pointer).
+4. const reference can accept temporary parameter.
+5. Local const references prolong the lifetime of temporary objects
+
+Taking those into account current rules are as follows.
+
+1. Use references for parameters that will be used locally within a function scope.
+2. Use pointers when 0 (null) is acceptable parameter value or you need to store parameter for further use. 
+3. Mark it somehow if 0 (null) is acceptable pointer value.
+4. Return by reference only if object can guarantee that reference will remain valid through the whole object lifespan.

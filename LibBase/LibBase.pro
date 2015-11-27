@@ -64,7 +64,8 @@ HEADERS += \
     src/utils/NonMovable.hpp \
     src/utils/Singleton.hpp \
     src/base/PLCClientManager.hpp \
-    src/debug/DestructorTest.hpp
+    src/debug/DestructorTest.hpp \
+    src/modbus/LibmodbusConnectionTrait.hpp
 
 DISTFILES += \
     qml/CuteHMI/qmldir \

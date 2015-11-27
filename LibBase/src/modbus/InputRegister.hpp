@@ -19,14 +19,14 @@ class CUTEHMI_API InputRegister:
 	public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(qint16 value READ value NOTIFY valueChanged)
+	Q_PROPERTY(qint16 int16 READ int16 NOTIFY valueChanged)
 
 	public:
 		explicit InputRegister(qint16 value = 0, QObject * parent = 0);
 
-		qint16 value() const;
+		qint16 int16() const;
 
-		void setValue(qint16 value);
+		void setInt16(qint16 value);
 
 	signals:
 		void valueChanged();
