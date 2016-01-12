@@ -1,5 +1,10 @@
 TEMPLATE = app
 
+DESTDIR = $$PWD/../../bin
+CONFIG(debug, debug|release) {
+    TARGET = AppFull-Debug
+}
+
 QT += qml quick widgets quickwidgets
 
 CONFIG += object_parallel_to_source
@@ -10,34 +15,23 @@ RCC_DIR = $$PWD/rcc
 
 QMAKE_CXXFLAGS += -std=c++11
 
-#libcutehmibase
-LIBCUTEHMIBASE_MAJOR = 0
+#cutehmi_base
+CUTEHMI_BASE_MAJOR = 0
 DEFINES += CUTEHMI_DYNAMIC
 INCLUDEPATH += ../LibBase/src
 DEPENDPATH += ../LibBase/src
-CONFIG(debug, debug|release) {
-    LIBS += -L$$OUT_PWD/../LibBase/debug -llibcutehmibase$$LIBCUTEHMIBASE_MAJOR
-} else {
-    LIBS += -L$$OUT_PWD/../LibBase/release -llibcutehmibase$$LIBCUTEHMIBASE_MAJOR
-}
-
-#libmodbus
-DEFINES += DLLBUILD
-INCLUDEPATH += $$OUT_PWD/../../libmodbus-3.1.2/src
-DEPENDPATH += $$OUT_PWD/../../libmodbus-3.1.2/src
-LIBS += -L$$OUT_PWD/../../libmodbus-3.1.2/src/.libs -llibmodbus-5
+LIBS += -L$$PWD/../../bin -l$$qtLibraryTarget(cutehmi_base)$$CUTEHMI_BASE_MAJOR
 
 #translations
 TRANSLATIONS = locale/appfull_pl.ts
 
 #resources
 RESOURCES += AppFull.qrc
-RESOURCES += ../LibBase/LibBase.qrc
 RC_FILE = AppFull.rc
 
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH = ../LibBase/qml
+QML_IMPORT_PATH = ../QML
 
 # Default rules for deployment.
 include(deployment.pri)
@@ -70,6 +64,5 @@ FORMS += \
 
 DISTFILES += \ 
     deployment.pri \
-    AppFull.rc \
-    qml/MainForm.ui.qml
+    AppFull.rc
 

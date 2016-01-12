@@ -39,7 +39,10 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	/// @bug Dock widgets are not properly restored if one of them is shrinked to the minimum and they are both docked at the bottom (Qt bug).
 	restoreSettings();
 
-	m_qmlWidgetWrapper.setSource(QUrl(QStringLiteral("qrc:/qml/MainForm.ui.qml")));
+	m_qmlWidgetWrapper.addImportPath("../CuteHMI/QML");
+	m_qmlWidgetWrapper.addImportPath("../QML");
+	qDebug() << "QML import paths: " << m_qmlWidgetWrapper.importPathList();
+	m_qmlWidgetWrapper.setSource(QUrl(QStringLiteral("../QML/Screens/Test/Main.ui.qml")));
 }
 
 MainWindow::~MainWindow()
@@ -97,12 +100,15 @@ void MainWindow::aboutQt()
 	QApplication::aboutQt();
 }
 
+MainWindow::IQMLWidgetWrapper::~IQMLWidgetWrapper()
+{
+}
+
 MainWindow::QuickWidgetWrapper::QuickWidgetWrapper(QWidget * parent):
 	m_qmlEngine(new QQmlEngine),
 	m_quickWidget(new QQuickWidget(m_qmlEngine, parent)) // Note: QQuickWidget won't take ownership of m_qmlEngine.
 {
 	m_quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
-	m_qmlEngine->addImportPath("qrc:/qml");
 	m_qmlEngine->setParent(m_quickWidget);	// Reparent m_qmlEngine so that proper destruction order is quaranteed.
 }
 
@@ -118,7 +124,19 @@ QQmlContext * MainWindow::QuickWidgetWrapper::rootContext() const
 
 void MainWindow::QuickWidgetWrapper::setSource(const QUrl & url)
 {
+	qDebug() << "Loading QML file: " << url;
 	m_quickWidget->setSource(url);
+}
+
+QStringList MainWindow::QuickWidgetWrapper::importPathList() const
+{
+	return m_qmlEngine->importPathList();
+}
+
+void MainWindow::QuickWidgetWrapper::addImportPath(const QString & dir)
+{
+	qDebug() << "Adding QML import path: " << dir;
+	m_qmlEngine->addImportPath(dir);
 }
 
 MainWindow::QuickViewWrapper::QuickViewWrapper(QWidget * parent):
@@ -126,7 +144,6 @@ MainWindow::QuickViewWrapper::QuickViewWrapper(QWidget * parent):
 	m_quickView(new QQuickView(m_qmlEngine, 0)) // Note: QQuickView won't take ownership of m_qmlEngine.
 {
 	m_quickView->setResizeMode(QQuickView::SizeRootObjectToView);
-	m_qmlEngine->addImportPath("qrc:/qml");
 	m_qmlEngine->setParent(m_quickView);	// Reparent m_qmlEngine so that proper destruction order is quaranteed.
 	m_widget = QWidget::createWindowContainer(m_quickView, parent);	// Note: m_widget (window container) should take ownership of m_quickView.
 }
@@ -143,22 +160,34 @@ QQmlContext * MainWindow::QuickViewWrapper::rootContext() const
 
 void MainWindow::QuickViewWrapper::setSource(const QUrl & url)
 {
+	qDebug() << "Loading QML file: " << url;
 	m_quickView->setSource(url);
+}
+
+QStringList MainWindow::QuickViewWrapper::importPathList() const
+{
+	return m_qmlEngine->importPathList();
+}
+
+void MainWindow::QuickViewWrapper::addImportPath(const QString & dir)
+{
+	qDebug() << "Adding QML import path: " << dir;
+	m_qmlEngine->addImportPath(dir);
 }
 
 void MainWindow::attachPLCClients()
 {
 	QString clientId = "mb";
 
-	modbus::Client & modbusClient = base::PLCClientManager::Instance().m_modbusClient;
-	connect(& modbusClient, & modbus::Client::error, this, & MainWindow::showErrorDialog);
+	modbus::Client * modbusClient = base::PLCClientManager::Instance().m_modbusClient;
+	connect(modbusClient, & modbus::Client::error, this, & MainWindow::showErrorDialog);
 	// QSignalMapper may be helpful with more clients to send client id for more verbose info.
-	connect(& modbusClient, & modbus::Client::connected, this, & MainWindow::clientConnected);
-	connect(& modbusClient, & modbus::Client::disconnected, this, & MainWindow::clientDisconnected);
+	connect(modbusClient, & modbus::Client::connected, this, & MainWindow::clientConnected);
+	connect(modbusClient, & modbus::Client::disconnected, this, & MainWindow::clientDisconnected);
 
 //	modbusClient.connect();
-	m_qmlWidgetWrapper.rootContext()->setContextProperty(clientId, & modbusClient);
-	QDockWidget * clientControlDockWidget = createDockWidget(QString("Modbus - ") + clientId, PLCWidgetFactory::Instance().createClientControlWidget(& modbusClient));
+	m_qmlWidgetWrapper.rootContext()->setContextProperty(clientId, modbusClient);
+	QDockWidget * clientControlDockWidget = createDockWidget(QString("Modbus - ") + clientId, PLCWidgetFactory::Instance().createClientControlWidget(modbusClient));
 	// Object name must be set for the dock widget to make it work with storeSetting() and restoreSettings().
 	clientControlDockWidget->setObjectName(clientId + QStringLiteral("_clientControlDockWidget"));
 	addDockWidget(Qt::LeftDockWidgetArea, clientControlDockWidget);

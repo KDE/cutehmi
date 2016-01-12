@@ -48,19 +48,41 @@ class MainWindow:
 		void aboutQt();
 
 	private:
+		class IQMLWidgetWrapper
+		{
+			public:
+				virtual QWidget * widget() = 0;
+
+				virtual QQmlContext * rootContext() const = 0;
+
+				virtual void setSource(const QUrl & url) = 0;
+
+				virtual QStringList importPathList() const = 0;
+
+				virtual void addImportPath(const QString & dir) = 0;
+
+			protected:
+				~IQMLWidgetWrapper();
+		};
+
 		/**
 		 * QQuickWidget wrapper. Provides QQuickWidget based rendering for QML.
 		 */
-		class QuickWidgetWrapper
+		class QuickWidgetWrapper:
+			public virtual IQMLWidgetWrapper
 		{
 			public:
 				QuickWidgetWrapper(QWidget * parent);
 
-				QWidget * widget();
+				QWidget * widget() override;
 
-				QQmlContext * rootContext() const;
+				QQmlContext * rootContext() const override;
 
-				void setSource(const QUrl & url);
+				void setSource(const QUrl & url) override;
+
+				QStringList importPathList() const override;
+
+				void addImportPath(const QString & dir) override;
 
 			private:
 				QQmlEngine * m_qmlEngine;
@@ -70,16 +92,21 @@ class MainWindow:
 		/**
 		 * QQuickView wrapper. Provides QQuickView based rendering for QML.
 		 */
-		class QuickViewWrapper
+		class QuickViewWrapper:
+			public virtual IQMLWidgetWrapper
 		{
 			public:
 				QuickViewWrapper(QWidget * parent);
 
-				QWidget * widget();
+				QWidget * widget() override;
 
-				QQmlContext * rootContext() const;
+				QQmlContext * rootContext() const override;
 
-				void setSource(const QUrl & url);
+				void setSource(const QUrl & url) override;
+
+				QStringList importPathList() const override;
+
+				void addImportPath(const QString & dir) override;
 
 			private:
 				QQmlEngine * m_qmlEngine;
