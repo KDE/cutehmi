@@ -1,0 +1,4 @@
+module CuteHMI.Base
+TextDisplay 1.0 TextDisplay.qml
+CuteHMI_Base_TextDisplay 1.0 TextDisplay.qml
+designersupported

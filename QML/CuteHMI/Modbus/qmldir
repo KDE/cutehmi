@@ -1,0 +1,7 @@
+module CuteHMI.Modbus
+HoldingRegisterItem 1.0 HoldingRegisterItem.qml
+CuteHMI_Modbus_HoldingRegisterItem 1.0 HoldingRegisterItem.qml
+plugin cutehmi_qmlplugin_modbus plugins
+classname CuteHMIModbusQMLPlugin
+typeinfo QML_Modbus.qmltypes
+designersupported
