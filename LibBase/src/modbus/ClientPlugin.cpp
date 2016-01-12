@@ -10,8 +10,8 @@ namespace modbus {
 
 ClientPlugin::ClientPlugin()
 {
-	qmlRegisterType<InputRegister>("pl.ekterm.libcutehmibase.modbus", 1, 0, "ModbusInputRegister");
-	qmlRegisterType<HoldingRegister>("pl.ekterm.libcutehmibase.modbus", 1, 0, "ModbusHoldingRegister");
+//	qmlRegisterType<InputRegister>("pl.ekterm.libcutehmibase.modbus", 1, 0, "ModbusInputRegister");
+//	qmlRegisterType<HoldingRegister>("pl.ekterm.libcutehmibase.modbus", 1, 0, "ModbusHoldingRegister");
 }
 
 Client * ClientPlugin::createClient() const

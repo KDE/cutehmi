@@ -1,4 +1,0 @@
-module CuteHMI
-HMISlider 1.0 HMISlider.qml
-TextDisplay 1.0 TextDisplay.qml
-designersupported

@@ -10,7 +10,8 @@ namespace debug {
 /**
  * Destructor test. Maintaining object lifetime in Qt can be tricky. Object trees not always make life
  * easier and documentation of functions, which may reparent objects, can be enigmatic. This class
- * is provide for easier testing of object destruction order.
+ * is provide for easier testing of object destruction order. It simply prints debug message
+ * to the standard error.
  */
 template <class DERIVED>
 class DestructorTest : public DERIVED
@@ -19,7 +20,7 @@ class DestructorTest : public DERIVED
 		using DERIVED::DERIVED;
 
 		/**
-		 * Destructor. Prints basic debug info to standard error.
+		 * Destructor. Prints basic debug message ("class@object destructor has been called") to the standard error.
 		 */
 		virtual ~DestructorTest();
 };

@@ -31,8 +31,8 @@ class CUTEHMI_API PLCClientManager:
 	public:
 		//fake plugin for now
 		modbus::ClientPlugin m_modbusClientPlugin;
-		//for now manager "manages" following :)
-		modbus::Client m_modbusClient;
+		//for now manager "manages" following
+		modbus::Client * m_modbusClient;
 };
 
 }

@@ -1,8 +1,11 @@
+TEMPLATE = lib
+
+#todo rename to cutehmi_lib_base (does liblibraryname convention make sense?)
+TARGET = $$qtLibraryTarget(cutehmi_base)
+DESTDIR = $$PWD/../../bin
+
 QT -= gui
 QT += qml
-
-TARGET = libcutehmibase
-TEMPLATE = lib
 
 # Configure the library for building
 VER_MAJ = 0
@@ -19,7 +22,7 @@ MOC_DIR = $$PWD/moc
 RCC_DIR = $$PWD/rcc
 
 #translations
-TRANSLATIONS = locale/libcutehmibase_pl.ts
+TRANSLATIONS = locale/cutehmi_base_pl.ts
 
 QMAKE_CXXFLAGS += -std=c++11
 
@@ -42,10 +45,10 @@ SOURCES += \
     src/modbus/Exception.cpp \
     src/modbus/HoldingRegister.cpp \
     src/modbus/InputRegister.cpp \
-    src/modbus/ModbusDevice.cpp \
     src/modbus/RTUConnection.cpp \
     src/modbus/TCPConnection.cpp \
-    src/base/PLCClientManager.cpp
+    src/base/PLCClientManager.cpp \
+    src/modbus/functions.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -56,7 +59,6 @@ HEADERS += \
     src/modbus/Exception.hpp \
     src/modbus/HoldingRegister.hpp \
     src/modbus/InputRegister.hpp \
-    src/modbus/ModbusDevice.hpp \
     src/modbus/RegisterTraits.hpp \
     src/modbus/RTUConnection.hpp \
     src/modbus/TCPConnection.hpp \
@@ -65,13 +67,8 @@ HEADERS += \
     src/utils/Singleton.hpp \
     src/base/PLCClientManager.hpp \
     src/debug/DestructorTest.hpp \
-    src/modbus/LibmodbusConnectionTrait.hpp
+    src/modbus/functions.hpp
 
-DISTFILES += \
-    qml/CuteHMI/qmldir \
-    qml/CuteHMI/TextDisplay.qml \
-    qml/CuteHMI/designer/CuteHMI.metainfo \
-    qml/CuteHMI/HMISlider.qml
+DISTFILES +=
 
-RESOURCES += \
-    LibBase.qrc
+RESOURCES +=

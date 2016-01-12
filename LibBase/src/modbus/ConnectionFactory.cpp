@@ -3,6 +3,7 @@
 #include "TCPConnection.hpp"
 
 #include <QObject>
+#include <QtDebug>
 
 namespace modbus {
 
@@ -15,7 +16,7 @@ AbstractConnection * ConnectionFactory::Create(ConnectionType type)
 		case ConnectionType::TCP:
 			return new TCPConnection("127.0.0.1");
 		default:
-			qFatal(QObject::tr("Can not create connection object of unrecognized type: %1").arg(static_cast<int>(type)).toLocal8Bit().constData());
+			qFatal("Unrecognized connection type (%d).", type);
 			return 0;
 	}
 }

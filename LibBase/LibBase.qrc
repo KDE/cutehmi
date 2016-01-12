@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>qml/CuteHMI/qmldir</file>
-        <file>qml/CuteHMI/TextDisplay.qml</file>
-        <file>qml/CuteHMI/designer/CuteHMI.metainfo</file>
-        <file>qml/CuteHMI/HMISlider.qml</file>
-    </qresource>
-</RCC>

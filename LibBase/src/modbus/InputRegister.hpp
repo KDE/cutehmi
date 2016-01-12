@@ -4,6 +4,7 @@
 #include "../platform.hpp"
 
 #include <QObject>
+#include <QMutex>
 
 namespace modbus {
 
@@ -12,8 +13,6 @@ namespace modbus {
  *
  * @note to make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
- *
- * @internal QML type is registered in ModbusClientPlugin class.
  */
 class CUTEHMI_API InputRegister:
 	public QObject
@@ -22,17 +21,36 @@ class CUTEHMI_API InputRegister:
 	Q_PROPERTY(qint16 int16 READ int16 NOTIFY valueChanged)
 
 	public:
-		explicit InputRegister(qint16 value = 0, QObject * parent = 0);
+		/**
+		 * Constructor.
+		 * @param value initial value.
+		 * @param parent parent object.
+		 */
+		explicit InputRegister(uint16_t value = 0, QObject * parent = 0);
 
 		qint16 int16() const;
 
 		void setInt16(qint16 value);
 
+	public slots:
+		/**
+		 * Update value.
+		 * @param value new value.
+		 *
+		 * @note this function is thread-safe.
+		 */
+		void updateValue(uint16_t value);
+
 	signals:
 		void valueChanged();
 
+		void valueUpdated();
+
 	private:
-		qint16 m_value;
+		int m_address; ///< @note @p int type is enforced by Qt, which uses it for sizes and indices. This limits addressing to std::numeric_limits<int>::max().
+		uint16_t m_value;
+		QMutex m_valueMutex;
+		uint16_t m_reqValue;
 };
 
 }

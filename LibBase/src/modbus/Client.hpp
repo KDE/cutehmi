@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QQmlListProperty>
 #include <QHash>
+#include <QSignalMapper>
 
 #include <memory>
 
@@ -30,9 +31,20 @@ class CUTEHMI_API Client:
 //	Q_PROPERTY(QQmlListProperty<modbus::HoldingRegister> rr READ rr NOTIFY rChanged)
 
 	public:
+		enum endianness_t {
+			ENDIAN_BIG,
+			ENDIAN_LITTLE
+		};
+
+		static const endianness_t INITIAL_ENDIANNESS = ENDIAN_BIG;
+
 		explicit Client(std::unique_ptr<AbstractConnection> connection, QObject * parent = 0);
 
 		~Client() override;
+
+		void setEndianness(endianness_t endianness);
+
+		endianness_t endianness() const;
 
 		const QQmlListProperty<InputRegister> & ir() const;
 
@@ -40,9 +52,29 @@ class CUTEHMI_API Client:
 
 //		void setConnection(std::unique_ptr<AbstractConnection> connection);
 
+		/**
+		 * Read input register value and update associated InputRegister object.
+		 * @param addr register address.
+		 *
+		 * @note appropriate InputRegister object must be referenced using @a ir list before using this function.
+		 */
 		void readIr(int addr);
 
+		/**
+		 * Read holding register value and update associated HoldingRegister object.
+		 * @param addr register address.
+		 *
+		 * @note appropriate HoldingRegister object must be referenced using @a r list before using this function.
+		 */
 		void readR(int addr);
+
+		/**
+		 * Write value requested by HoldingRegister object. Object will not be updated after writing a value.
+		 * @param addr register address.
+		 *
+		 * @note appropriate HoldingRegister object must be referenced using @a r list before using this function.
+		 */
+		void writeR(int addr);
 
 	public slots:
 		/**
@@ -79,16 +111,24 @@ class CUTEHMI_API Client:
 
 		void bChanged();
 
+	protected slots:
+		void valueRequest(int index);
+
 	private:
 		typedef typename RegisterTraits<InputRegister>::Container IrDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
 		typedef typename RegisterTraits<HoldingRegister>::Container RDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
 
 		/**
-		 * Get element at specified index of property list. Callback function for QQmlListProperty.
+		 * Get element at specified index of property list. If element does not exist function creates it.
+		 * Generic helper for QQmlListProperty.
+		 * @param property property list.
+		 * @param index element index.
+		 * @param onCreate callback function called (if not @p nullptr) if element has been created. Parameters passed to a callback function are
+		 * (@a property, @a index, newly created element).
 		 * @return element at index.
 		 */
 		template <typename T>
-		static T * At(QQmlListProperty<T> * property, int index);
+		static T * At(QQmlListProperty<T> * property, int index, void (*onCreate)(QQmlListProperty<T> *, int, T *) = nullptr);
 
 		/**
 		 * Return number of property list elements. Callback function for QQmlListProperty.
@@ -97,21 +137,42 @@ class CUTEHMI_API Client:
 		template <typename T>
 		static int Count(QQmlListProperty<T> * property);
 
+		/**
+		 * Get HoldingRegister element at specified index of property list. Callback function for QQmlListProperty.
+		 * @return element at index.
+		 */
+		static HoldingRegister * RAt(QQmlListProperty<HoldingRegister> * property, int index);
+
+		/**
+		 * Get InputRegister element at specified index of property list. Callback function for QQmlListProperty.
+		 * @return element at index.
+		 */
+		static InputRegister * IrAt(QQmlListProperty<InputRegister> * property, int index);
+
+		uint16_t fromClientEndian(uint16_t val) const;
+
+		uint16_t toClientEndian(uint16_t val) const;
+
 		IrDataContainer m_irData;
 		QQmlListProperty<InputRegister> m_ir;
 		RDataContainer m_rData;
 		QQmlListProperty<HoldingRegister> m_r;
 		std::unique_ptr<AbstractConnection> m_connection;
+		endianness_t m_endianness;
+		QSignalMapper * m_rValueRequestMapper;
 };
 
 template <typename T>
-T * Client::At(QQmlListProperty<T> * property, int index)
+T * Client::At(QQmlListProperty<T> * property, int index, void (*onCreate)(QQmlListProperty<T> *, int, T *))
 {
 	typedef typename RegisterTraits<T>::Container Container;
 	Container * propertyData = static_cast<Container *>(property->data);
 	typename Container::iterator it = propertyData->find(index);
-	if (it == propertyData->end())
+	if (it == propertyData->end()) {
 		it = propertyData->insert(index, new T);
+		if (onCreate != nullptr)
+			onCreate(property, index, it.value());
+	}
 	return it.value();
 }
 

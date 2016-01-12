@@ -2,7 +2,6 @@
 #define CUTEHMI_LIBBASE_SRC_MODBUS_TCPCONNECTION_HPP
 
 #include "AbstractConnection.hpp"
-#include "LibmodbusConnectionTrait.hpp"
 
 #include <modbus.h>
 

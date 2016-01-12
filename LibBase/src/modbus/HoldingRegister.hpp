@@ -4,6 +4,9 @@
 #include "../platform.hpp"
 
 #include <QObject>
+#include <QMutex>
+#include <QReadWriteLock>
+#include <QVariant>
 
 namespace modbus {
 
@@ -13,7 +16,7 @@ namespace modbus {
  * @note to make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
  *
- * @internal QML type is registered in ModbusClientPlugin class.
+ * @todo remove int16 property and planned uint16, bcd.
  */
 class CUTEHMI_API HoldingRegister:
 	public QObject
@@ -24,17 +27,49 @@ class CUTEHMI_API HoldingRegister:
 //	Q_PROPERTY(qint16 bcd READ bcd NOTIFY valueChanged STORED false)
 
 	public:
-		explicit HoldingRegister(qint16 int16 = 0, QObject * parent = 0);
+		enum encoding_t {
+			INT16
+		};
+		Q_ENUM(encoding_t)
+
+		/**
+		 * Constructor.
+		 * @param value initial value.
+		 * @param parent parent object.
+		 */
+		explicit HoldingRegister(uint16_t int16 = 0, QObject * parent = 0);
 
 		qint16 int16() const;
 
 		void setInt16(qint16 int16);
 
+		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const;
+
+		Q_INVOKABLE uint16_t requestedValue() const;
+
+	public slots:
+		void requestValue(QVariant value, encoding_t encoding = INT16);
+
+		/**
+		 * Update value.
+		 * @param value new value.
+		 *
+		 * @note this function is thread-safe.
+		 */
+		void updateValue(uint16_t value);
+
 	signals:
-		void valueChanged();
+		void valueChanged();	///< @todo remove.
+
+		void valueRequested();
+
+		void valueUpdated();
 
 	private:
-		qint16 m_value;
+		uint16_t m_value;
+		mutable QReadWriteLock m_valueLock;
+		uint16_t m_reqValue;
+		mutable QMutex m_reqValueMutex;
 };
 
 }
