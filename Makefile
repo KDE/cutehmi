@@ -15,8 +15,10 @@ SOURCE_DIRS = AppFull/src LibBase/src
 INCLUDE_DIRS = AppFull/src LibBase/src
 CMAKE_DIRS =
 ORS = "\r\n"
+PWD = pwd
+QMLTYPES_EXTRAPATH = $$(PWD)/../binary-CuteHMI:$$(PWD)/../libmodbus-3.1.2/src/.libs
 
-.PHONY: help sources license guards newlines
+.PHONY: help qmltypes sources license guards newlines
 
 help:
 		@echo "This Makefile is responsible for code maintenance, \
@@ -24,11 +26,15 @@ not building."
 		@echo "Use qmake if you wish to build the software."
 		@echo ""
 		@echo "Make targets are:"
+		@echo "qmltypes - generate QML typeinfo files."
 		@echo "help - displays this info."
 #		@echo "sources - generate list of sources and put them into CMakeLists.txt."
 #		@echo "license - append license footer to source and header files."
 		@echo "guards - update include guards."
 #		@echo "newlines - remove carriage return characters."
+
+qmltypes:
+		@$(SH) qmltypes.sh $(QMLTYPES_EXTRAPATH)
 
 #sources:
 #		@echo "Generating list of sources..."
