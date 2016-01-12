@@ -1,0 +1,5 @@
+1.0
+
+It would be nice to use dictionary method for error messages. Less mess and each error could have a code, which makes user support easier. Errors should be deivided in two cathegories: userspace errors and 
+system errors. Userspace errors are errors that are part of normal functioning of an application (for
+example error is triggered, because user has not configured device properly). Second type is to provide debugging info when something fails in a bit surprising way.

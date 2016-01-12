@@ -1,0 +1,13 @@
+Problem: 
+
+QtDesigner does not render component imported from custom QML module.
+
+Explanation:
+
+If custom QML module contains plugin and plugin depends on other libraries, QtCreator must be 
+able to load all required dependencies.
+
+Solution:
+
+Create script, which will run QtCreator and add directories containing required 
+libraries to PATH environmental variable.

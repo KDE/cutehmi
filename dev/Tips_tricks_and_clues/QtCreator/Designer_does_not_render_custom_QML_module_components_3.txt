@@ -1,0 +1,12 @@
+Problem: 
+
+QtDesigner does not render component imported from custom QML module.
+
+Explanation:
+
+QtDesigner loads release versions of plugins. If custom QML module contains plugin its release
+version must be available to QtDesigner.
+
+Solution:
+
+Build plugin in release mode.

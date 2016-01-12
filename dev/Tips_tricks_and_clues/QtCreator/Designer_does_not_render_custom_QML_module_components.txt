@@ -1,0 +1,15 @@
+Problem: 
+
+QtDesigner does not render component imported from custom module if it imports some custom module.
+
+Explanation:
+
+This problem is described in Qt documentation; section "Using QML Modules with Plugins".
+
+"Qt Quick Designer uses a QML emulation layer (also called QML Puppet) to render and preview images and to collect data. To be able to render custom types correctly from QML modules, the emulation layer must be built with the same Qt version as the QML modules.
+
+By default, a fallback emulation layer is provided by Qt Creator and built with the same Qt version as Qt Creator. Therefore, your QML modules will mostly not work out of the box."
+
+Solution:
+
+Uncheck "Always use the QML emulation layer provided by QtCreator" in Tools > Options > Qt Quick > Qt Quick Designer.

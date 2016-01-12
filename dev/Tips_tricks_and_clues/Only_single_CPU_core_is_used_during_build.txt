@@ -1,0 +1,15 @@
+Problem:
+
+While building project only single CPU core is ever used.
+
+Explanation:
+
+By default GNU Make is processing targets in sequential manner. GCC is using single thread
+for each compilation unit, thus only one CPU core is utilized.
+
+Solution:
+
+To enable parallel builds use Make with "-j N" option, where N is number of tasks performed in parallel.
+This way N compilation units will be processed at the same time.
+N should correspond to number of CPU cores. In QtCreator this can be done by providing "Make arguments" in
+Projects > Build & Run.

@@ -1,0 +1,14 @@
+Problem: 
+
+QtDesigner prints error message: "The QML emulation layer (QML Puppet) cannot be built" and
+falls back to QML emulation layer provided by QtCreator.
+
+Explanation:
+
+Problem occurs when path to QtCreator settings contains space(s). Qt is known for having troubles
+building projects, which contain spaces. It seems that settings path is somehow involved when 
+building QML emulation layer. Default path may contain spaces.
+
+Solution:
+
+Run QtCreator with -settingspath option: qtcreator.exe -settingspath path_without_spaces
