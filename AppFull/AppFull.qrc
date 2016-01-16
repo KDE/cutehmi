@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>img/icon.png</file>
+        <file>icons/ic_open_in_browser_black_48dp.png</file>
     </qresource>
 </RCC>

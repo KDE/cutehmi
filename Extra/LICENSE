@@ -1,7 +1,7 @@
 Files in this directory are not a part of CuteHMI distribution
 and they are a subject of different licenses. They should be
-considered as distributed separately, whether they come with 
-CuteHMI distribution or not.
+considered as independent parts, distributed separately 
+whether they come with CuteHMI distribution or not.
 
 QtCreator is licensed under GNU Lesser General Public License (LGPL).
 Any work derived from it is licensed under LGPL.
@@ -9,3 +9,7 @@ Any work derived from it is licensed under LGPL.
 SimpleModbusServer is a work derived from libmodbus library.
 It is a subject of BSD license.
 
+Material Design Icons are icons designed by Google and distributed
+under Creative Common Attribution 4.0 International License (CC-BY 4.0) 
+without requirement of giving an attribution (check index.html for details).
+ 

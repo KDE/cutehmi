@@ -16,10 +16,16 @@
 #include <QQuickView>
 #include <QQmlEngine>
 
+constexpr const char * MainWindow::INITIAL_ICON_THEME;
+
 MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	QMainWindow(parent, flags),
 	m_qmlWidgetWrapper(this)
 {
+	QIcon::setThemeSearchPaths(QIcon::themeSearchPaths() << "../icons");
+	if (QIcon::themeName().isEmpty())
+		QIcon::setThemeName(INITIAL_ICON_THEME);
+
 	ui.setupUi(this);
 	ui.centralLayout->addWidget(m_qmlWidgetWrapper.widget());
 	MessageHandler::Instance().setMessageArea(ui.messageArea);
@@ -33,11 +39,16 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	QAction * viewMenuAct = ui.menuApplication->insertMenu(ui.actionExit, viewMenu);
 	viewMenuAct->setStatusTip(tr("Show or hide tool bars and dock windows"));
 
+	//<workaround id="AppFull-1">
 	show();
 
-	/// @bug Some bug causes restoreState() to fail in some circustamces, if it's called before show() (Qt bug).
-	/// @bug Dock widgets are not properly restored if one of them is shrinked to the minimum and they are both docked at the bottom (Qt bug).
+	/// @bug Qt bug - restoreState() fails in some circustamces, if it's called before show().
+	/// @bug Qt bug - dock widgets are not properly restored if one of them is shrinked to the minimum and they are both docked at the bottom.
 	restoreSettings();
+	//</workaround>
+
+	qDebug() << "Icon theme search paths: " << QIcon::themeSearchPaths();
+	qDebug() << "Icon theme name: " << QIcon::themeName();
 
 	m_qmlWidgetWrapper.addImportPath("../CuteHMI/QML");
 	m_qmlWidgetWrapper.addImportPath("../QML");
@@ -89,8 +100,17 @@ void MainWindow::about()
 	// %1 application name.
 	QMessageBox::about(this, tr("About %1").arg(QCoreApplication::applicationName()),
 			// %1 application_name, %2 version number.
-			tr("%1 version %2").arg(QCoreApplication::applicationName()).arg(CUTYHMI_VERSION) + "\n\n"
-			+ tr("Visualization software.") + "\n"
+			tr("<b>%1</b> version %2").arg(QCoreApplication::applicationName()).arg(CUTYHMI_VERSION)
+			+ "<hr />"
+
+			+ tr("Material design icons are the official <a href=\"https://design.google.com/icons/\">icon set</a> from Google.") + "<br />"
+			// %1 copyright symbol
+			+ tr("Material design icons are distributed under the terms of:") + "<br />"
+			+ "<a href=\"https://creativecommons.org/licenses/by/4.0/\">Creative Common Attribution 4.0 International License (CC-BY 4.0)</a>." + "<br />"
+			+ tr("Copyright %1 2016, Google.").arg("\u00A9")
+			+ "<hr />"
+
+			+ tr("Visualization software.") + "<br />"
 			// %1 copyright symbol, %2 copyright year.
 			+ tr("Copyright %1 %2, EKTERM. All rights reserved.").arg("\u00A9").arg(CUTYHMI_COPYRIGHT_YEAR));
 }

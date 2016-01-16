@@ -36,6 +36,8 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuApplication">
@@ -80,6 +82,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionOpen"/>
   </widget>
   <action name="actionAbout">
    <property name="text">
@@ -108,6 +111,18 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset theme="document_open" resource="../AppFull.qrc">
+     <normaloff>:/icons/ic_open_in_browser_black_48dp.png</normaloff>:/icons/ic_open_in_browser_black_48dp.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -121,7 +136,9 @@
    <header>../src/MessageArea.hpp</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../AppFull.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionAbout</sender>

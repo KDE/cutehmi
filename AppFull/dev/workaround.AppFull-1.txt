@@ -1,0 +1,9 @@
+Problem:
+
+Some bug causes restoreState() to fail in some circustamces, if it's called before show() (Qt bug).
+
+Workaround:
+
+Need to put restoreSettings() after show().
+
+Snippet:

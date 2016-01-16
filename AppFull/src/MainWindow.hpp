@@ -19,6 +19,8 @@ class MainWindow:
 	typedef QMainWindow Parent;
 
 	public:
+		static constexpr const char * INITIAL_ICON_THEME = "oxygen";
+
 		MainWindow(QWidget * parent = 0, Qt::WindowFlags flags = 0);
 
 		virtual ~MainWindow();

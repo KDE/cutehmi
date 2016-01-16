@@ -4,7 +4,7 @@
 //1 for development version, 0 for release
 #define CUTYHMI_VERSION_IS_DEV 1
 #define CUTYHMI_VERSION_MMM "0.0.0"
-#define CUTYHMI_COPYRIGHT_YEAR "2015"
+#define CUTYHMI_COPYRIGHT_YEAR "2015-2016"
 
 #ifndef NDEBUG
 	#define CUTYHMI_VERSION_DEBUG_QUALIFIER ".debug"
