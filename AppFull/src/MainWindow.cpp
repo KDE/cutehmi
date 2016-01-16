@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	QAction * viewMenuAct = ui.menuApplication->insertMenu(ui.actionExit, viewMenu);
 	viewMenuAct->setStatusTip(tr("Show or hide tool bars and dock windows"));
 
-	//<workaround id="AppFull-1">
+	//<workaround id="AppFull-1" target="Qt">
 	show();
 
 	/// @bug Qt bug - restoreState() fails in some circustamces, if it's called before show().
