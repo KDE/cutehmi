@@ -1,0 +1,9 @@
+Problem:
+
+There's no "Open file" icon in the Material Design Icons set.
+
+Workaround:
+
+Using "Open in browser" icon instead (ic_open_in_browser_black_48dp.png).
+
+Snippet:

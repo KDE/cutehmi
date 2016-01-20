@@ -1,0 +1,9 @@
+Problem:
+
+There's no "Save as" icon in the Material Design Icons set.
+
+Workaround:
+
+Using "Content/Create" icon instead (ic_create_black_48dp.png).
+
+Snippet:

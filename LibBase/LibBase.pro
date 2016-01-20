@@ -48,7 +48,8 @@ SOURCES += \
     src/modbus/RTUConnection.cpp \
     src/modbus/TCPConnection.cpp \
     src/base/PLCClientManager.cpp \
-    src/modbus/functions.cpp
+    src/modbus/functions.cpp \
+    src/base/ProjectModel.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -67,7 +68,8 @@ HEADERS += \
     src/utils/Singleton.hpp \
     src/base/PLCClientManager.hpp \
     src/debug/DestructorTest.hpp \
-    src/modbus/functions.hpp
+    src/modbus/functions.hpp \
+    src/base/ProjectModel.hpp
 
 DISTFILES +=
 

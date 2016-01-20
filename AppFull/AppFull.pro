@@ -45,7 +45,8 @@ SOURCES += \
     src/SmartStatusBar.cpp \
     src/Settings.cpp \
     src/modbus/widgets/ClientControlWidget.cpp \
-    src/PLCWidgetFactory.cpp
+    src/PLCWidgetFactory.cpp \
+    src/RecentFiles.cpp
 
 HEADERS += \ 
     src/version.hpp \
@@ -56,7 +57,8 @@ HEADERS += \
     src/SmartStatusBar.hpp \
     src/Settings.hpp \
     src/modbus/widgets/ClientControlWidget.hpp \
-    src/PLCWidgetFactory.hpp
+    src/PLCWidgetFactory.hpp \
+    src/RecentFiles.hpp
 
 FORMS += \ 
     ui/MainWindow.ui \

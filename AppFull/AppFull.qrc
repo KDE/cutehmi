@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>img/icon.png</file>
         <file>icons/ic_open_in_browser_black_48dp.png</file>
+        <file>icons/ic_create_black_48dp.png</file>
+        <file>icons/ic_add_box_black_48dp.png</file>
+        <file>icons/ic_save_black_48dp.png</file>
     </qresource>
 </RCC>

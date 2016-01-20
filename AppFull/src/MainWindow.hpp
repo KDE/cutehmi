@@ -2,10 +2,12 @@
 #define CUTEHMI_APPFULL_SRC_MAINWINDOW_HPP
 
 #include "../uic/ui_MainWindow.h"
+#include "RecentFiles.hpp"
+
+#include <base/ProjectModel.hpp>
 
 #include <QMainWindow>
-
-#include <debug/DestructorTest.hpp>
+#include <QFileInfo>
 
 class QQmlEngine;
 class QQmlContext;
@@ -48,6 +50,36 @@ class MainWindow:
 		 * Show about Qt dialog.
 		 */
 		void aboutQt();
+
+		/**
+		 * Enable file save action.
+		 *
+		 * @todo check if it can be replaced with some QAction slot.
+		 */
+		void enableSaveFile();
+
+		/**
+		 * New file.
+		 */
+		void newFile();
+
+		/**
+		 * Save file.
+		 * @return
+		 */
+		bool saveFile();
+
+		/**
+		 * Bring file dialog and save file if requested.
+		 */
+		bool saveFileAs();
+
+		/**
+		 * Bring file dialog and load file if requested.
+		 */
+		bool loadFile();
+
+		bool loadRecentFile(const QString & filePath);
 
 	private:
 		class IQMLWidgetWrapper
@@ -123,13 +155,25 @@ class MainWindow:
 
 		QDockWidget * createDockWidget(const QString & title, QWidget * widget);
 
+		bool saveFile(const QString & filePath);
+
+		bool loadFile(const QString & filePath);
+
+		void resetFile();
+
 		void storeSettings() const;
 
 		void restoreSettings();
 
+		bool askSaveDialog();
+
 		Ui::MainWindow ui;
 		QMLWidgetWrapper m_qmlWidgetWrapper;
 		PLCDockWidgetsContainer m_plcDockWidgets;
+		QFileInfo m_file;
+		RecentFiles * m_recentFiles;
+		QMenu * m_recentFilesMenu;
+		base::ProjectModel * m_projectModel;
 };
 
 

@@ -1,0 +1,26 @@
+Problem:
+
+Sometimes bug, missing component or another issue in an external software requires some 
+sort of workaround to overcome an issue. The workaround approach may not be the best one. 
+Implementation could be better if only such issue had not existed.
+
+Workaround:
+
+If workaround is applied to the code, wrap workaround code in
+<workaround id="id" target="target" cause="cause"></workaround> tag comment.
+Attribute "id" is an identifier of workaround. 
+Attribute "target" is a piece of software, which causes the problem. 
+Attribute "cause" indicates a cause of a problem. Typical causes include:
+	bug - bug in external piece of software. If bug has been reported an id of a bug
+		should be provided (i.e. cause="QTBUG-47987").
+	missing - missing functionality in external software.
+
+Additionaly create workaround.id.target.cause.txt file in relevant "dev" directory and describe the workaround.
+
+After the issue has been resolved in target software, it should be easier to find affected code and improve it.
+
+Snippet:
+
+//<workaround id="id" target="target" cause="cause">
+Optional code snippet.
+//</workaround>

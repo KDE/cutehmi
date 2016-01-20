@@ -1,6 +1,6 @@
 import QtQuick 2.5
 
-// <workaround id="QML_Base-1" target="Qt">
+// <workaround id="QML_Base-1" target="Qt" cause="bug">
 // After setting environmental variable QT_QUICK_CONTROLS_STYLE=Flat as documentation suggests Qt desktop application does not use flat style properly,
 // although no warnings are printed to the output (as they normally should, if style can not be loaded). It seems that explicit import overcomes this bug.
 // [It may be that QT_QUICK_CONTROLS_STYLE is not doing regular import and it's not dealing with plugin library correctly.]
