@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_MODBUS_HOLDINGREGISTER_HPP
-#define CUTEHMI_LIBBASE_SRC_MODBUS_HOLDINGREGISTER_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_HOLDINGREGISTER_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_HOLDINGREGISTER_HPP
 
 #include "../platform.hpp"
 
@@ -18,7 +18,7 @@ namespace modbus {
  *
  * @todo remove int16 property and planned uint16, bcd.
  */
-class CUTEHMI_API HoldingRegister:
+class CUTEHMI_MODBUS_API HoldingRegister:
 	public QObject
 {
 	Q_OBJECT

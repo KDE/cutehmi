@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_MODBUS_INPUTREGISTER_HPP
-#define CUTEHMI_LIBBASE_SRC_MODBUS_INPUTREGISTER_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_INPUTREGISTER_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_INPUTREGISTER_HPP
 
 #include "../platform.hpp"
 
@@ -14,7 +14,7 @@ namespace modbus {
  * @note to make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
  */
-class CUTEHMI_API InputRegister:
+class CUTEHMI_MODBUS_API InputRegister:
 	public QObject
 {
 	Q_OBJECT

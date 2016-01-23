@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>modbus::ClientControlWidget</class>
- <widget class="QWidget" name="modbus::ClientControlWidget">
+ <class>modbus::ui::ClientControlWidget</class>
+ <widget class="QWidget" name="modbus::ui::ClientControlWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

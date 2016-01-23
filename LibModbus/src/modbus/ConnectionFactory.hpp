@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_MODBUS_CONNECTIONFACTORY_HPP
-#define CUTEHMI_LIBBASE_SRC_MODBUS_CONNECTIONFACTORY_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_CONNECTIONFACTORY_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_CONNECTIONFACTORY_HPP
 
 #include "../platform.hpp"
 
@@ -7,7 +7,7 @@ namespace modbus {
 
 class AbstractConnection;
 
-class CUTEHMI_API ConnectionFactory
+class CUTEHMI_MODBUS_API ConnectionFactory
 {
 	public:
 		enum class ConnectionType

@@ -1,5 +1,5 @@
-#ifndef RECENTFILES_HPP_
-#define RECENTFILES_HPP_
+#ifndef CUTEHMI_APPFULL_SRC_RECENTFILES_HPP
+#define CUTEHMI_APPFULL_SRC_RECENTFILES_HPP
 
 #include "Settings.hpp"
 
@@ -44,4 +44,4 @@ class RecentFiles:
 		QStringList m_files;
 };
 
-#endif /* RECENTFILES_HPP_ */
+#endif

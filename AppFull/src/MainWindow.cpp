@@ -1,11 +1,11 @@
 #include <base/PLCClientManager.hpp>	//this is on top to avoid "Please include winsock2.h befor windows.h" warning
+#include "modbus/ui/ClientControlWidget.hpp"	// temp
 
 #include "MainWindow.hpp"
 #include "Settings.hpp"
 #include "MessageHandler.hpp"
 #include "version.hpp"
 #include "PLCWidgetFactory.hpp"
-#include "modbus/widgets/ClientControlWidget.hpp"
 
 #include <base/ProjectModel.hpp>
 
@@ -168,7 +168,7 @@ bool MainWindow::saveFile()
 
 bool MainWindow::saveFileAs()
 {
-	QString filePath = QFileDialog::getSaveFileName(this, tr("Save file as"), m_recentFiles->lastDir(), QCoreApplication::applicationName() + " " + tr("file (*.xml)"));
+	QString filePath = QFileDialog::getSaveFileName(this, tr("Save file as"), m_recentFiles->lastDir(), QCoreApplication::applicationName() + " " + tr("project (*.xml)"));
 	if (filePath.isEmpty())
 		return false;
 
@@ -188,7 +188,7 @@ bool MainWindow::loadFile()
 	if (ui.actionSave->isEnabled())
 		if (!askSaveDialog())
 			return false;
-	QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), m_recentFiles->lastDir(), QCoreApplication::applicationName() + " " + tr("file (*.xml)"));
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), m_recentFiles->lastDir(), QCoreApplication::applicationName() + " " + tr("project (*.xml)"));
 	if (fileName.isEmpty())
 		return false;
 

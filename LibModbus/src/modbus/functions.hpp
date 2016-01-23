@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_HPP
-#define FUNCTIONS_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_FUNCTIONS_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_FUNCTIONS_HPP
 
 #include "../platform.hpp"
 
@@ -56,7 +56,7 @@ T fromLittleEndian(T src)
  *
  * @warning it is assumed that value uses 2's complement convention.
  */
-CUTEHMI_API uint16_t intToUint16(int value);
+CUTEHMI_MODBUS_API uint16_t intToUint16(int value);
 
 /**
  * Restore int from 16 bit unsigned integer.
@@ -65,9 +65,9 @@ CUTEHMI_API uint16_t intToUint16(int value);
  *
  * @warning it is assumed that value uses 2's complement convention.
  */
-CUTEHMI_API int intFromUint16(uint16_t value);
+CUTEHMI_MODBUS_API int intFromUint16(uint16_t value);
 
 }
 
-#endif // FUNCTIONS_HPP
+#endif
 

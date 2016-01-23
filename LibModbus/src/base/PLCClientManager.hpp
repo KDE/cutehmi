@@ -1,17 +1,21 @@
-#ifndef CUTEHMI_LIBBASE_SRC_BASE_PLCCLIENTMANAGER_HPP
-#define CUTEHMI_LIBBASE_SRC_BASE_PLCCLIENTMANAGER_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_BASE_PLCCLIENTMANAGER_HPP
+#define CUTEHMI_LIBMODBUS_SRC_BASE_PLCCLIENTMANAGER_HPP
 
 #include "../modbus/Client.hpp"
 //#include "modbus/ClientControlWidget.hpp"
-#include "../modbus/ClientPlugin.hpp"	/// @todo remove from here if real plugin
-#include "../utils/Singleton.hpp"
+#include "../modbus/ClientPlugin.hpp"
+#include "../platform.hpp"
+
+#include <utils/Singleton.hpp>
 
 namespace base {
 
 /**
  * Programable logic controler client manager.
+ *
+ * @deprecated this is temporary here unless plugin interface is implemented.
  */
-class CUTEHMI_API PLCClientManager:
+class CUTEHMI_MODBUS_API PLCClientManager:
 	public utils::Singleton<PLCClientManager>
 {
 	friend class utils::Singleton<PLCClientManager>;

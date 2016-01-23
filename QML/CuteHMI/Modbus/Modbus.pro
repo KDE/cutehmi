@@ -1,31 +1,26 @@
+include(../../../common.pri)
+
 TEMPLATE = lib
-CONFIG += plugin
-CONFIG += object_parallel_to_source
+TARGET = $$qtLibraryTarget(cutehmi_qmlplugin_modbus)
+DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
+
 QT += qml quick
 
-UI_DIR = $$PWD/uic
-MOC_DIR = $$PWD/moc
-RCC_DIR = $$PWD/rcc
+CONFIG += plugin
 
-TARGET = $$qtLibraryTarget(cutehmi_qmlplugin_modbus)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file
-
-#translations
+# Translations.
 TRANSLATIONS = locale/cutehmi_qmlplugin_modbus_pl.ts
 
-QMAKE_CXXFLAGS += -std=c++11
+# cutehmi_base
+include(../../../base.pri)
 
-#cutehmi_base
-CUTEHMI_BASE_MAJOR = 0
-DEFINES += CUTEHMI_DYNAMIC
-INCLUDEPATH += ../../../LibBase/src
-DEPENDPATH += ../../../LibBase/src
-LIBS += -L$$PWD/../../../../bin -l$$qtLibraryTarget(cutehmi_base)$$CUTEHMI_BASE_MAJOR
+# cutehmi_modbus
+include(../../../modbus.pri)
 
-HEADERS += \ 
+HEADERS += \
     src/CuteHMIModbusQMLPlugin.hpp
 
-SOURCES += \ 
+SOURCES += \
     src/CuteHMIModbusQMLPlugin.cpp
 
 DISTFILES += \ 

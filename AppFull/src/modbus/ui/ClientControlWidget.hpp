@@ -1,15 +1,15 @@
-#ifndef CUTEHMI_APPFULL_SRC_MODBUS_WIDGETS_CLIENTCONTROLWIDGET_HPP
-#define CUTEHMI_APPFULL_SRC_MODBUS_WIDGETS_CLIENTCONTROLWIDGET_HPP
+#ifndef CUTEHMI_PLUGINMODBUSUI_SRC_MODBUS_UI_CLIENTCONTROLWIDGET_HPP
+#define CUTEHMI_PLUGINMODBUSUI_SRC_MODBUS_UI_CLIENTCONTROLWIDGET_HPP
 
 #include <QWidget>
 
-#include "../uic/ui_ClientControlWidget.h"
+#include "../../../uic/ui_ClientControlWidget.h"
 
 namespace modbus {
 
 class Client;
 
-namespace widgets {
+namespace ui {
 
 class ClientControlWidget:
 	public QWidget

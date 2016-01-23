@@ -1,5 +1,5 @@
-#ifndef PLUGIN_H
-#define PLUGIN_H
+#ifndef CUTEHMI_QML_CUTEHMI_MODBUS_SRC_CUTEHMIMODBUSQMLPLUGIN_HPP
+#define CUTEHMI_QML_CUTEHMI_MODBUS_SRC_CUTEHMIMODBUSQMLPLUGIN_HPP
 
 #include <QQmlExtensionPlugin>
 
@@ -13,4 +13,4 @@ class CuteHMIModbusQMLPlugin:
 		void registerTypes(const char * uri);
 };
 
-#endif // PLUGIN_H
+#endif

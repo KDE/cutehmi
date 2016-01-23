@@ -1,5 +1,5 @@
 #include "PLCWidgetFactory.hpp"
-#include "modbus/widgets/ClientControlWidget.hpp"
+#include "modbus/ui/ClientControlWidget.hpp"
 
 #include <base/PLCClientManager.hpp>
 
@@ -15,5 +15,5 @@ PLCWidgetFactory::~PLCWidgetFactory()
 
 QWidget * PLCWidgetFactory::createClientControlWidget(modbus::Client * client) const
 {
-	return new modbus::widgets::ClientControlWidget(client, 0);
+	return new modbus::ui::ClientControlWidget(client, 0);
 }

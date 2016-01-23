@@ -4,7 +4,4 @@ CONFIG += ordered
 SUBDIRS += \
     LibBase \
     LibModbus \
-    PluginModbus \
-    PluginModbusUI \
-    QML \
-    AppFull \
+    QML/CuteHMI/Modbus

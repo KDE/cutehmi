@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_MODBUS_EXCEPTION_HPP
-#define CUTEHMI_LIBBASE_SRC_MODBUS_EXCEPTION_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_EXCEPTION_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_EXCEPTION_HPP
 
 #include "../platform.hpp"
 
@@ -7,7 +7,7 @@
 
 namespace modbus {
 
-class CUTEHMI_API Exception:
+class CUTEHMI_MODBUS_API Exception:
 	public QException
 {
 	public:

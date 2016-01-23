@@ -3,7 +3,7 @@
 #include <modbus/Client.hpp>
 
 namespace modbus {
-namespace widgets {
+namespace ui {
 
 ClientControlWidget::ClientControlWidget(modbus::Client * client, QWidget * parent):
 	QWidget(parent),

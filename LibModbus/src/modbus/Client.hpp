@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_MODBUS_CLIENT_HPP
-#define CUTEHMI_LIBBASE_SRC_MODBUS_CLIENT_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENT_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENT_HPP
 
 #include "RegisterTraits.hpp"
 
@@ -17,7 +17,7 @@ class AbstractConnection;
 /**
  * Modbus client.
  */
-class CUTEHMI_API Client:
+class CUTEHMI_MODBUS_API Client:
 	public QObject
 {
 	Q_OBJECT

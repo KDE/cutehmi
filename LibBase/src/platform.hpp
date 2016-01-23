@@ -3,16 +3,16 @@
 
 #include <QtGlobal>
 
-#ifdef CUTEHMI_DYNAMIC
-	#ifdef CUTEHMI_BUILD
+#ifdef CUTEHMI_BASE_DYNAMIC
+	#ifdef CUTEHMI_BASE_BUILD
 		//export symbols to dll
-		#define CUTEHMI_API Q_DECL_EXPORT
+		#define CUTEHMI_BASE_API Q_DECL_EXPORT
 	#else
 		//using functions from dll
-		#define CUTEHMI_API Q_DECL_IMPORT
+		#define CUTEHMI_BASE_API Q_DECL_IMPORT
 	#endif
 #else
-	#define CUTEHMI_API
+	#define CUTEHMI_BASE_API
 #endif
 
 #endif

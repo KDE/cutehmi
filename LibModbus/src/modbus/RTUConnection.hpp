@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_MODBUS_RTUCONNECTION_HPP
-#define CUTEHMI_LIBBASE_SRC_MODBUS_RTUCONNECTION_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_RTUCONNECTION_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_RTUCONNECTION_HPP
 
 #include "AbstractConnection.hpp"
 
@@ -13,7 +13,7 @@ namespace modbus {
  * RTU connection base-from-member. So called base-from-member idiom is used to initialize
  * members before calling real parent class constructor.
  */
-class CUTEHMI_API RTUConnection_baseFromMember
+class CUTEHMI_MODBUS_API RTUConnection_baseFromMember
 {
 	protected:
 		enum class Parity : int
@@ -49,7 +49,7 @@ class CUTEHMI_API RTUConnection_baseFromMember
 /**
  * RTU connection.
  */
-class CUTEHMI_API RTUConnection:
+class CUTEHMI_MODBUS_API RTUConnection:
 	private RTUConnection_baseFromMember,
 	public AbstractConnection
 {

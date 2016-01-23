@@ -1,37 +1,28 @@
-TEMPLATE = app
+include(../common.pri)
 
-DESTDIR = $$PWD/../../bin
+TEMPLATE = app
 CONFIG(debug, debug|release) {
     TARGET = AppFull-Debug
 }
 
 QT += qml quick widgets quickwidgets
 
-CONFIG += object_parallel_to_source
-
-UI_DIR = $$PWD/uic
-MOC_DIR = $$PWD/moc
-RCC_DIR = $$PWD/rcc
-
-QMAKE_CXXFLAGS += -std=c++11
-
-#cutehmi_base
-CUTEHMI_BASE_MAJOR = 0
-DEFINES += CUTEHMI_DYNAMIC
-INCLUDEPATH += ../LibBase/src
-DEPENDPATH += ../LibBase/src
-LIBS += -L$$PWD/../../bin -l$$qtLibraryTarget(cutehmi_base)$$CUTEHMI_BASE_MAJOR
-
-#translations
+# Translations.
 TRANSLATIONS = locale/appfull_pl.ts
 
-#resources
+# Resources.
 RESOURCES += AppFull.qrc
 RC_FILE = AppFull.rc
 
-
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = ../QML
+
+# cutehmi_base
+include (../base.pri)
+
+# @todo remove after modbus plugins are ready, for now temporary link with the cutehmi_modbus library.
+# cutehmi_modbus
+include (../modbus.pri)
 
 # Default rules for deployment.
 include(deployment.pri)
@@ -44,9 +35,9 @@ SOURCES += \
     src/MessageHandler.cpp \
     src/SmartStatusBar.cpp \
     src/Settings.cpp \
-    src/modbus/widgets/ClientControlWidget.cpp \
     src/PLCWidgetFactory.cpp \
-    src/RecentFiles.cpp
+    src/RecentFiles.cpp \
+    src/modbus/ui/ClientControlWidget.cpp
 
 HEADERS += \ 
     src/version.hpp \
@@ -56,13 +47,13 @@ HEADERS += \
     src/MessageHandler.hpp \
     src/SmartStatusBar.hpp \
     src/Settings.hpp \
-    src/modbus/widgets/ClientControlWidget.hpp \
     src/PLCWidgetFactory.hpp \
-    src/RecentFiles.hpp
+    src/RecentFiles.hpp \
+    src/modbus/ui/ClientControlWidget.hpp
 
 FORMS += \ 
     ui/MainWindow.ui \
-    src/modbus/widgets/ClientControlWidget.ui
+    src/modbus/ui/ClientControlWidget.ui
 
 DISTFILES += \ 
     deployment.pri \

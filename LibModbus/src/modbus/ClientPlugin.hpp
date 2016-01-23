@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_MODBUS_CLIENTPLUGIN_HPP
-#define CUTEHMI_LIBBASE_SRC_MODBUS_CLIENTPLUGIN_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENTPLUGIN_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENTPLUGIN_HPP
 
 #include "../platform.hpp"
 
@@ -14,7 +14,7 @@ namespace modbus {
  * @internal PLCClientManager will load this and call initialize() method as a part of
  * PLCClientPlugin interface.
  */
-class CUTEHMI_API ClientPlugin
+class CUTEHMI_MODBUS_API ClientPlugin
 {
 	public:
 		ClientPlugin();

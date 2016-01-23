@@ -2,5 +2,5 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += \
-    LibBase \
-    QML/CuteHMI/Modbus
+    CuteHMI/Modbus \
+    CuteHMI/Base \

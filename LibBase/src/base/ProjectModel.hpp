@@ -1,5 +1,5 @@
-#ifndef PROJECTMODEL_H
-#define PROJECTMODEL_H
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_PROJECTMODEL_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_PROJECTMODEL_HPP
 
 #include "../platform.hpp"
 
@@ -10,7 +10,7 @@ namespace base {
 /**
  * Project model.
  */
-class CUTEHMI_API ProjectModel:
+class CUTEHMI_BASE_API ProjectModel:
 	public QAbstractItemModel
 {
 	public:
@@ -216,4 +216,4 @@ class CUTEHMI_API ProjectModel:
 
 }
 
-#endif // PROJECTMODEL_H
+#endif
