@@ -11,11 +11,8 @@ CONFIG += plugin
 # Translations.
 TRANSLATIONS = locale/cutehmi_qmlplugin_modbus_pl.ts
 
-# cutehmi_base
-include(../../../base.pri)
-
-# cutehmi_modbus
-include(../../../modbus.pri)
+include(../../../cutehmi_base.pri)
+include(../../../cutehmi_modbus.pri)
 
 HEADERS += \
     src/CuteHMIModbusQMLPlugin.hpp

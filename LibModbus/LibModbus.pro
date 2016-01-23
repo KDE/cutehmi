@@ -17,8 +17,7 @@ DEFINES += CUTEHMI_MODBUS_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_base_pl.ts
 
-# cutehmi_base.
-include(../base.pri)
+include(../cutehmi_base.pri)
 
 # libmodbus.
 DEFINES += DLLBUILD
