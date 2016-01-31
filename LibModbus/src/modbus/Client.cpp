@@ -57,7 +57,7 @@ void Client::readIr(int addr)
 	uint16_t val;
 	qDebug() << "Reading value from input register " << addr << ".";
 	if (m_connection->readIr(addr, NUM_READ, val) != NUM_READ)
-		qInfo() << "Failed reading input register value from a device.";
+		qWarning() << tr("Failed reading input register value from a device.");
 	else
 		it.value()->updateValue(val);
 //	it.value()->updateValue(fromClientEndian(val));
@@ -72,7 +72,7 @@ void Client::readR(int addr)
 	uint16_t val;
 	qDebug() << "Reading value from holding register " << addr << ".";
 	if (m_connection->readR(addr, NUM_READ, val) != NUM_READ)
-		qInfo() << "Failed reading register value from a device.";
+		qWarning() << tr("Failed reading register value from a device.");
 	else
 		it.value()->updateValue(val);
 //		it.value()->updateValue(fromClientEndian(val));
@@ -85,7 +85,7 @@ void Client::writeR(int addr)
 	uint16_t val = it.value()->requestedValue();
 	qDebug() << "Writing requested value (" << val << ") to holding register " << addr << ".";
 	if (m_connection->writeR(addr, val) != 1)
-		qInfo() << "Failed writing register value to a device.";
+		qWarning() << tr("Failed writing register value to a device.");
 }
 
 void Client::connect()

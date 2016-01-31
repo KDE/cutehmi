@@ -15,7 +15,7 @@ Attribute "cause" indicates a cause of a problem. Typical causes include:
 		should be provided (i.e. cause="QTBUG-47987").
 	missing - missing functionality in external software.
 
-Additionaly create workaround.id.target.cause.txt file in relevant "dev" directory and describe the workaround.
+Additionaly create id.workaround.target.cause.txt file in relevant "dev" directory and describe the workaround.
 
 After the issue has been resolved in target software, it should be easier to find affected code and improve it.
 

@@ -5,6 +5,8 @@
 #include "RecentFiles.hpp"
 
 #include <base/ProjectModel.hpp>
+#include <base/XMLProjectBackend.hpp>
+#include <base/PluginLoader.hpp>
 
 #include <QMainWindow>
 #include <QFileInfo>
@@ -22,6 +24,7 @@ class MainWindow:
 
 	public:
 		static constexpr const char * INITIAL_ICON_THEME = "oxygen";
+		static constexpr const char * PLUGINS_SUBDIR = "plugins";
 
 		MainWindow(QWidget * parent = 0, Qt::WindowFlags flags = 0);
 
@@ -34,6 +37,8 @@ class MainWindow:
 		 * Show error dialog.
 		 * @param msg brief error message.
 		 * @param details detailed information.
+		 *
+		 * @todo pass by value or replace this slot with better error message facility.
 		 */
 		void showErrorDialog(const QString & msg, const QString & details = QString()) const;
 
@@ -161,6 +166,10 @@ class MainWindow:
 
 		void resetFile();
 
+		void setNewModel(base::ProjectModel * newModel);
+
+		void visitModel(base::ProjectModel & model);
+
 		void storeSettings() const;
 
 		void restoreSettings();
@@ -168,6 +177,7 @@ class MainWindow:
 		bool askSaveDialog();
 
 		Ui::MainWindow ui;
+		base::PluginLoader m_pluginLoader;
 		QMLWidgetWrapper m_qmlWidgetWrapper;
 		PLCDockWidgetsContainer m_plcDockWidgets;
 		QFileInfo m_file;

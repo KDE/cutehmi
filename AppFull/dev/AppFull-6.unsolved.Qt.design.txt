@@ -1,0 +1,15 @@
+Problem:
+
+QMessageBox can not be made resizeable in a normal way. 
+It would be desirable to resize QMessageBox sometimes.
+
+Investigation:
+
+QMessageBox::updateSize() is called in many places, including QMessageBox::event() and QMessageBox::showEvent(). Function updateSize() seems to enforce fixed size.
+
+QMessageBox::updateSize()
+{
+...
+q->setFixedSize(width, height);
+...
+}

@@ -4,6 +4,7 @@
 #include "MainWindow.hpp"
 #include "Settings.hpp"
 #include "MessageHandler.hpp"
+#include "ErrorHandler.hpp"
 #include "version.hpp"
 #include "PLCWidgetFactory.hpp"
 
@@ -20,6 +21,7 @@
 #include <QFileDialog>
 
 constexpr const char * MainWindow::INITIAL_ICON_THEME;
+constexpr const char * MainWindow::PLUGINS_SUBDIR;
 
 MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	QMainWindow(parent, flags),
@@ -38,6 +40,10 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	setWindowTitle(QCoreApplication::applicationName());
 
 	// Need to set context properties before loading qml file and create dock widgets before restoreSettings().
+	QDir dir(qApp->applicationDirPath());
+	dir.cd(PLUGINS_SUBDIR);
+	m_pluginLoader.setPluginsDir(dir.canonicalPath());
+	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
 	attachPLCClients();
 
 	// Set up view menu.
@@ -54,6 +60,7 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	connect(m_recentFiles, SIGNAL(actionTriggered(const QString &)), this, SLOT(loadRecentFile(const QString &)));
 
 	// Set up project view.
+	ui.projectView->setHeaderHidden(true);
 	m_projectModel->tmpSetup();
 	ui.projectView->setModel(m_projectModel);
 
@@ -340,39 +347,36 @@ bool MainWindow::saveFile(const QString & filePath)
 
 bool MainWindow::loadFile(const QString & filePath)
 {
-	qWarning("loadFile() not implemented yet.");
-
 	QFile file(filePath);
-	if (!file.open(QIODevice::ReadOnly)) {
-		if (!filePath.isEmpty()) {
-			qWarning() << "Could not load file " << filePath;
-			QMessageBox msgBox;
-			msgBox.setText(tr("Could not open file."));
-			if (!QFileInfo(filePath).exists())
-				msgBox.setInformativeText(tr("File does not exist"));
-			msgBox.setIcon(QMessageBox::Information);
-			msgBox.exec();
+	if (file.open(QIODevice::ReadOnly)) {
+		base::ProjectModel * newModel = new base::ProjectModel(this);
+		{
+			base::XMLProjectBackend xmlBackend(newModel, & m_pluginLoader);
+			if (!ErrorHandler::Instance().failBox(xmlBackend.load(file), tr("Could not load project file."), filePath)) {
+				file.close();
+				setNewModel(newModel);
+				qDebug() << "Loaded project file " << filePath << ".";
+				m_recentFiles->put(filePath);
+				m_recentFiles->updateMenu(*m_recentFilesMenu);
+				return true;	// Won't reach delete newModel line.
+			}
 		}
-		m_recentFiles->remove(filePath);
-		m_recentFiles->updateMenu(*m_recentFilesMenu);
-		return false;
+		delete newModel;	// This line won't be reached if xmlBackend.load() succeeds.
+		file.close();
+	} else if (!filePath.isEmpty()) {
+		qWarning() << "Could not open file " << filePath;
+		// @todo use custom MessageBox or ExtMessageBox.
+		QMessageBox msgBox;
+		msgBox.setText(tr("Could not open file."));
+		if (!QFileInfo(filePath).exists())
+			msgBox.setInformativeText(tr("File does not exist"));
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.exec();
 	}
-
-	return false;	///< @todo remove this return and implement loading below.
-
-//	QDataStream in(& file);
-//	int ledFileVersion;
-//	in >> ledFileVersion;
-
-//	if (ui.fxView->loadable(ledFileVersion)) {
-//		resetFile();
-//		ui.fxView->load(in, ledFileVersion);
-//		file.close();
-//		SmartStatusBar::ShowAutoMessage(tr("Loaded file ") + filePath);
-//		m_recentFiles->put(filePath);
-//		m_recentFiles->updateMenu(m_recentFilesMenu);
-//		return true;
-//	}
+	qDebug() << "Failed to load project file " << filePath << ".";
+	m_recentFiles->remove(filePath);
+	m_recentFiles->updateMenu(*m_recentFilesMenu);
+	return false;
 }
 
 void MainWindow::resetFile()
@@ -383,6 +387,23 @@ void MainWindow::resetFile()
 //	ui.fxView->removeAll(false);
 //	m_file.setFile("");
 //	setWindowTitle("");
+}
+
+void MainWindow::setNewModel(base::ProjectModel * newModel)
+{
+	// Set new model and delete old selection model as docs suggest.
+	QItemSelectionModel * oldSelectionModel = ui.projectView->selectionModel();
+	ui.projectView->setModel(newModel);
+	delete oldSelectionModel;
+	delete m_projectModel;
+	m_projectModel = newModel;
+	visitModel(*m_projectModel);
+}
+
+void MainWindow::visitModel(base::ProjectModel & model)
+{
+	for (auto it = model.begin(); it != model.end(); ++it)
+		it->acceptDelegate()->accept(*(m_qmlWidgetWrapper.rootContext()));
 }
 
 void MainWindow::storeSettings() const

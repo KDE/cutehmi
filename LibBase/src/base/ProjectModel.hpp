@@ -2,8 +2,12 @@
 #define CUTEHMI_LIBBASE_SRC_BASE_PROJECTMODEL_HPP
 
 #include "../platform.hpp"
+#include "../utils/NonCopyable.hpp"
 
 #include <QAbstractItemModel>
+#include <QQmlContext>
+
+#include <iterator>
 
 namespace base {
 
@@ -13,163 +17,178 @@ namespace base {
 class CUTEHMI_BASE_API ProjectModel:
 	public QAbstractItemModel
 {
+	template <typename NODE>
+	struct Iterator;
+
 	public:
-		explicit ProjectModel(QObject * parent = 0);
-
-		// QAbstractItemModel read access, basic function.
-		QModelIndex index(int row, int column, const QModelIndex & parent) const override;
-
-		// QAbstractItemModel read access, basic function.
-		QModelIndex parent(const QModelIndex & child) const override;
-
-		// QAbstractItemModel read access, basic function.
-		int rowCount(const QModelIndex & parent) const override;
-
-		// QAbstractItemModel read access, basic function.
-		int columnCount(const QModelIndex & parent) const override;
-
-		// QAbstractItemModel read access, basic function.
-		QVariant data(const QModelIndex & index, int role) const override;
-
-		// QAbstractItemModel read access.
-		QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-
-		// QAbstractItemModel read access.
-		Qt::ItemFlags flags(const QModelIndex & index) const override;
-
-		/**
-		 * Temporary model setup.
-		 *
-		 * @todo remove this function when proper model loading function is implemented.
-		 */
-		void tmpSetup();
-
-	protected:
 		/**
 		 * Project model node. Represents a node of tree-like structure.
 		 */
-		struct Node
+		struct CUTEHMI_BASE_API Node:
+			public utils::NonCopyable
 		{
 			friend class ProjectModel;
 
-			public:
-				/**
-				 *	Node data.
-				 */
-				struct Data
-				{
-					friend class ProjectModel;
-					friend class Node;
+			/**
+			 * Accept delegate.
+			 */
+			class CUTEHMI_BASE_API AcceptDelegate
+			{
+				public:
+					virtual ~AcceptDelegate() = default;
 
-					public:
-						/**
-						 * Constructor.
-						 * @param name name of the item. It will be used to display item in the view.
-						 * @param object internal data object. Can be @p null. If provided, instance of this class will
-						 * reset parent and take over ownership of object.
-						 */
-						explicit Data(const QString & name, QObject * object = nullptr);
+					virtual void accept(QQmlContext & context);
+			};
 
-						/**
-						 * Set object.
-						 * @param object internal object. Can be @p null. If provided, instance of this class will
-						 * reset parent and take over ownership of object.
-						 */
-						void setObject(QObject * object);
-
-						/**
-						 * Get internal data object.
-						 * @return internal data object or @p null.
-						 */
-						QObject * object() const;
-
-						/**
-						 * Get name.
-						 * @return name.
-						 */
-						QString name() const;
-
-					protected:
-						/**
-						 * Destructor. Non-virtual destructor protected to prevent blind subclassing.
-						 */
-						~Data();
-
-					private:
-						QString m_name;
-						QObject * m_object;
-				};
-
-				typedef QList<Node *> ChildrenContainer;
-
+			/**
+			 *	Node data.
+			 */
+			struct CUTEHMI_BASE_API Data final:
+				public utils::NonCopyable
+			{
 				/**
 				 * Constructor.
-				 * @param data node data.
+				 * @param name name of the item. It will be used to display item in the view.
+				 * @param object internal data object. Can be @p nullptr. If provided, instance of this class will
+				 * reset parent and take over ownership of object.
 				 */
-				explicit Node(const Data & data);
+				explicit Data(const QString & name, QObject * object = nullptr);
 
 				/**
-				 * Access node data (const version).
-				 * @return node data.
+				 * Move constructor. Object being constructed will take over ownership of internal @a object
+				 * provided in constructor or set using resetObject() function.
+				 * @param other other data.
 				 */
-				const Data & data() const;
+				Data(Data && other) noexcept;
 
 				/**
-				 * Access node data.
-				 * @return node data.
+				 * Destructor.
 				 */
-				Data & data();
+				~Data();
 
 				/**
-				 * Get parent of this node (const version).
-				 * @return parent node. For root node @p null is returned.
+				 * Move assignment. Object being assigned will take over ownership of internal @a object
+				 * provided in constructor or set using resetObject() function.
+				 * @param other moved object.
+				 * @return self-reference to object being move-assigned.
 				 */
-				const Node * parent() const;
+				Data & operator =(Data && other) noexcept;
 
 				/**
-				 * Get parent of this node.
-				 * @return parent node. For root node @p null is returned.
+				 * Reset object.
+				 * @param object internal object. Can be @p nullptr. If provided, instance of this class will
+				 * reset parent and take over ownership of object. Any previously set object will be deleted.
 				 */
-				Node * parent();
+				void resetObject(QObject * object);
 
 				/**
-				 * Add child node.
-				 * @param child child node. Must not be @p null. Instance of this class will take over ownership
-				 * of object.
+				 * Get internal data object.
+				 * @return internal data object or @p nullptr.
 				 */
-				void addChild(Node * child);
+				QObject * object() const;
 
 				/**
-				 * Get child at specified index (const version).
-				 * @param index child index.
-				 * @return child at specified index or @p null if child does not exist.
+				 * Get name.
+				 * @return name.
 				 */
-				const Node * child(int index) const;
+				QString name() const;
 
-				/**
-				 * Get child at specified index.
-				 * @param index child index.
-				 * @return child at specified index or @p null if child does not exist.
-				 */
-				Node * child(int index);
+				private:
+					QString m_name;
+					QObject * m_object;
+			};
 
-				/**
-				 * Get child index.
-				 * @param child node to get index for.
-				 * @return child node index or @p -1 if child was not found.
-				 */
-				int childIndex(Node * const & child) const;
+			typedef QList<Node *> ChildrenContainer;
 
-				/**
-				 * Count children.
-				 * @return number of children.
-				 */
-				int countChildren() const;
+			/**
+			 * Access node data (const version).
+			 * @return node data.
+			 */
+			const Data & data() const;
+
+			/**
+			 * Access node data.
+			 * @return node data.
+			 */
+			Data & data();
+
+			/**
+			 * Get parent of this node (const version).
+			 * @return parent node. For root node @p nullptr is returned.
+			 */
+			const Node * parent() const;
+
+			/**
+			 * Get parent of this node.
+			 * @return parent node. For root node @p nullptr is returned.
+			 */
+			Node * parent();
+
+			/**
+			 * Set accept delegate.
+			 * @param delegate accept delegate.
+			 */
+			void setAcceptDelegate(AcceptDelegate * delegate);
+
+			/**
+			 * Get accept delegate (const version).
+			 * @return accept delegate.
+			 */
+			const AcceptDelegate * acceptDelegate() const;
+
+			/**
+			 * Get accept delegate.
+			 * @return accept delegate.
+			 */
+			AcceptDelegate * acceptDelegate();
+
+			/**
+			 * Create child node.
+			 * @param data node data.
+			 * @param leaf indicates that created node is a leaf. Leaf is a node that do not have
+			 * any children.
+			 * @return pointer to newly created child. Child is owned by instance of this class.
+			 */
+			Node * createChild(Data && data, bool leaf = true);
+
+			/**
+			 * Get child at specified index (const version).
+			 * @param index child index.
+			 * @return child at specified index or @p nullptr if child does not exist.
+			 */
+			const Node * child(int index) const;
+
+			/**
+			 * Get child at specified index.
+			 * @param index child index.
+			 * @return child at specified index or @p nullptr if child does not exist.
+			 */
+			Node * child(int index);
+
+			/**
+			 * Get child index.
+			 * @param child node to get index for.
+			 * @return child node index or @p -1 if child was not found.
+			 */
+			int childIndex(const Node * child) const;
+
+			/**
+			 * Count children.
+			 * @return number of children.
+			 */
+			int countChildren() const;
 
 			protected:
 				/**
+				 * Constructor.
+				 * @param data node data.
+				 * @param children children container. Setting this to @p nullptr indicates that node is a leaf.
+				 */
+				explicit Node(Data && data, ChildrenContainer * children = nullptr);
+
+				/**
 				 * Set parent.
-				 * @param parent parent node. Must not be @p null as only root node can have @p null parent.
+				 * @param parent parent node. Must not be @p nullptr as only root node can have @p nullptr parent.
 				 */
 				void setParent(Node * parent);
 
@@ -208,11 +227,194 @@ class CUTEHMI_BASE_API ProjectModel:
 				Data m_data;
 				Node * m_parent;
 				ChildrenContainer * m_children;	///< Children nodes. It's more safe to access this member via children() function.
+				AcceptDelegate * m_acceptDelegate;
 		};
 
+		typedef Iterator<Node> iterator;
+		typedef Iterator<const Node> const_iterator;
+
+		explicit ProjectModel(QObject * parent = 0);
+
+		// QAbstractItemModel read access, basic function.
+		QModelIndex index(int row, int column, const QModelIndex & parent) const override;
+
+		// QAbstractItemModel read access, basic function.
+		QModelIndex parent(const QModelIndex & child) const override;
+
+		// QAbstractItemModel read access, basic function.
+		int rowCount(const QModelIndex & parent) const override;
+
+		// QAbstractItemModel read access, basic function.
+		int columnCount(const QModelIndex & parent) const override;
+
+		// QAbstractItemModel read access, basic function.
+		QVariant data(const QModelIndex & index, int role) const override;
+
+		// QAbstractItemModel read access.
+		QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+
+		// QAbstractItemModel read access.
+		Qt::ItemFlags flags(const QModelIndex & index) const override;
+
+		iterator begin();
+
+		const_iterator begin() const;
+
+		iterator end();
+
+		const_iterator end() const;
+
+		/**
+		 * Temporary model setup.
+		 *
+		 * @todo remove this function when proper model loading function is implemented.
+		 */
+		void tmpSetup();
+
+		/**
+		 * Get root node (const version).
+		 * @return root node.
+		 */
+		const Node & root() const;
+
+		/**
+		 * Get root node.
+		 * @return root node.
+		 */
+		Node & root();
+
 	private:
+		template <typename NODE>
+		struct Iterator :
+			public std::iterator<std::forward_iterator_tag, NODE, std::ptrdiff_t>
+		{
+			typedef std::iterator<std::forward_iterator_tag, NODE, std::ptrdiff_t> Parent;
+
+			typedef typename Parent::value_type value_type;
+			typedef typename Parent::reference reference;
+			typedef typename Parent::difference_type difference_type;
+			typedef typename Parent::pointer pointer;
+			typedef typename Parent::iterator_category iterator_category;
+
+			// std::forward_iterator_tag
+			Iterator();
+
+			/**
+			 * Constructor.
+			 * @param node node.
+			 */
+			Iterator(NODE * node);
+
+			// std::forward_iterator_tag
+			reference operator *() const;
+
+			// std::forward_iterator_tag
+			pointer operator ->() const;
+
+			// std::forward_iterator_tag
+			Iterator & operator ++();
+
+			// std::forward_iterator_tag
+			Iterator operator ++(int);
+
+			// std::forward_iterator_tag
+			bool operator ==(const Iterator & other) const;
+
+			// std::forward_iterator_tag
+			bool operator !=(const Iterator & other) const;
+
+			private:
+				/**
+				 * Get next sibling.
+				 * @param node node, sibling of which should be returned.
+				 * @param parent parent of @a node.
+				 * @return sibling of @a node or @p nullptr if there is no child next to @a node.
+				 */
+				NODE * nextSibling(NODE * node, NODE * parent) const;
+
+				NODE * m_me;
+		};
+
 		Node m_root;
 };
+
+template <typename NODE>
+ProjectModel::Iterator<NODE>::Iterator():
+	m_me(nullptr)
+{
+}
+
+template <typename NODE>
+ProjectModel::Iterator<NODE>::Iterator(NODE * node):
+	m_me(node)
+{
+}
+
+template <typename NODE>
+typename ProjectModel::Iterator<NODE>::reference ProjectModel::Iterator<NODE>::operator *() const
+{
+	Q_ASSERT(m_me != nullptr);
+
+	return *m_me;
+}
+
+template <typename NODE>
+typename ProjectModel::Iterator<NODE>::pointer ProjectModel::Iterator<NODE>::operator ->() const
+{
+	Q_ASSERT(m_me != nullptr);
+
+	return m_me;
+}
+
+template <typename NODE>
+ProjectModel::Iterator<NODE> & ProjectModel::Iterator<NODE>::operator ++()
+{
+	Q_ASSERT(m_me != nullptr);
+
+	if (m_me->countChildren() != 0)
+		m_me = *(m_me->children()->begin());
+	else if (m_me->parent() != nullptr) {
+		NODE * sibling;
+		while ((sibling = nextSibling(m_me, m_me->parent())) == nullptr) {
+			m_me = m_me->parent();
+			if (m_me->parent() == nullptr) {
+				// Root node reached.
+				m_me = nullptr;
+				return *this;
+			}
+		}
+		m_me = sibling;
+	} else
+		m_me = nullptr;
+	return *this;
+}
+
+template <typename NODE>
+ProjectModel::Iterator<NODE> ProjectModel::Iterator<NODE>::operator ++(int)
+{
+	Iterator<NODE> copy(*this);
+	++(*this);
+	return copy;
+}
+
+template <typename NODE>
+bool ProjectModel::Iterator<NODE>::operator ==(const Iterator & other) const
+{
+	return other.m_me == m_me;
+}
+
+template <typename NODE>
+bool ProjectModel::Iterator<NODE>::operator !=(const Iterator & other) const
+{
+	return other.m_me != m_me;
+}
+
+template <typename NODE>
+NODE * ProjectModel::Iterator<NODE>::nextSibling(NODE * node, NODE * parent) const
+{
+	// This may require some optimization for large trees.
+	return parent->child(parent->childIndex(node) + 1);
+}
 
 }
 

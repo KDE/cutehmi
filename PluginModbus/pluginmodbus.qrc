@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/json">
+        <file>PluginModbus.json</file>
+    </qresource>
+</RCC>

@@ -5,7 +5,7 @@
 
 namespace modbus {
 
-RTUConnection_baseFromMember::RTUConnection_baseFromMember(const QString &port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits):
+RTUConnection_baseFromMember::RTUConnection_baseFromMember(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits):
 	m_port(port),
 	m_baudRate(baudRate),
 	m_parity(parity),
@@ -29,6 +29,7 @@ RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, 
 				throw Exception(title, QObject::tr("Unable to create a connection for the port: %1.").arg(m_port));
 		}
 	}
+	connect();
 	if (modbus_rtu_set_serial_mode(context(), static_cast<int>(mode)) == -1) {
 		try {
 			QString title = QObject::tr("Failed to set serial port mode.");

@@ -4,9 +4,183 @@
 
 namespace base {
 
+void ProjectModel::Node::AcceptDelegate::accept(QQmlContext & context)
+{
+	Q_UNUSED(context);
+}
+
+ProjectModel::Node::Data::Data(const QString & name, QObject * object):
+	m_name(name),
+	m_object(object)
+{
+	if (object != nullptr)
+		object->setParent(0);	// Delete object in dtor.
+}
+
+ProjectModel::Node::Data::Data(Data && other) noexcept:
+	m_name(std::move(other.m_name)),
+	m_object(std::move(other.m_object))
+{
+	other.m_object = nullptr;
+}
+
+ProjectModel::Node::Data::~Data()
+{
+	if (m_object != nullptr)
+		delete m_object;
+}
+
+ProjectModel::Node::Data & ProjectModel::Node::Data::operator =(ProjectModel::Node::Data && other) noexcept
+{
+	// Handle self-assignment.
+	if (this == & other)
+		return *this;
+
+	m_object = std::move(other.m_object);
+	m_name = std::move(other.m_name);
+	other.m_object = nullptr;
+	return *this;
+}
+
+void ProjectModel::Node::Data::resetObject(QObject * object)
+{
+	if (m_object != nullptr)
+		delete m_object;
+	if (object != nullptr)
+		object->setParent(0);	// Delete object in dtor.
+	m_object = object;
+}
+
+QObject * ProjectModel::Node::Data::object() const
+{
+	return m_object;
+}
+
+QString ProjectModel::Node::Data::name() const
+{
+	return m_name;
+}
+
+const ProjectModel::Node::Data & ProjectModel::Node::data() const
+{
+	return m_data;
+}
+
+ProjectModel::Node::Data & ProjectModel::Node::data()
+{
+	return m_data;
+}
+
+const ProjectModel::Node * ProjectModel::Node::parent() const
+{
+	return m_parent;
+}
+
+ProjectModel::Node * ProjectModel::Node::parent()
+{
+	return m_parent;
+}
+
+void ProjectModel::Node::setAcceptDelegate(AcceptDelegate * delegate)
+{
+	m_acceptDelegate = delegate;
+}
+
+const ProjectModel::Node::AcceptDelegate * ProjectModel::Node::acceptDelegate() const
+{
+	return m_acceptDelegate;
+}
+
+ProjectModel::Node::AcceptDelegate * ProjectModel::Node::acceptDelegate()
+{
+	return m_acceptDelegate;
+}
+
+ProjectModel::Node * ProjectModel::Node::createChild(Data && data, bool leaf)
+{
+	ProjectModel::Node * child = leaf ? new ProjectModel::Node(std::move(data), nullptr) : new ProjectModel::Node(std::move(data), new ChildrenContainer);
+	children()->append(child);
+	child->setParent(this);
+	return child;
+}
+
+const ProjectModel::Node * ProjectModel::Node::child(int index) const
+{
+	if (isLeaf())
+		return nullptr;
+	return children()->value(index, nullptr);
+}
+
+ProjectModel::Node * ProjectModel::Node::child(int index)
+{
+	return const_cast<Node *>(const_cast<const Node *>(this)->child(index));
+}
+
+int ProjectModel::Node::childIndex(const Node * child) const
+{
+	if (isLeaf())
+		return -1;
+	return children()->indexOf(const_cast<Node *>(child));
+}
+
+int ProjectModel::Node::countChildren() const
+{
+	if (isLeaf())
+		return 0;
+	return children()->count();
+}
+
+ProjectModel::Node::Node(Data && data, ChildrenContainer * children):
+	m_data(std::move(data)),
+	m_parent(nullptr),
+	m_children(children),
+	m_acceptDelegate(new AcceptDelegate)
+{
+}
+
+void ProjectModel::Node::setParent(Node * parent)
+{
+	m_parent = parent;
+}
+
+bool ProjectModel::Node::isLeaf() const
+{
+	return m_children == nullptr;
+}
+
+const ProjectModel::Node::ChildrenContainer * ProjectModel::Node::children() const
+{
+	if (m_children == nullptr) {
+		qWarning() << "Implicitly promoting leaf " << data().name() << " to a child.";
+		const_cast<Node *>(this)->allocateChildren();
+	}
+	return m_children;
+}
+
+ProjectModel::Node::ChildrenContainer * ProjectModel::Node::children()
+{
+	return const_cast<ChildrenContainer *>(const_cast<const Node *>(this)->children());
+}
+
+ProjectModel::Node::~Node()
+{
+	delete m_acceptDelegate;
+	if (m_children != nullptr) {
+		while (!m_children->isEmpty())
+			delete m_children->takeFirst();
+		delete m_children;
+	}
+}
+
+void ProjectModel::Node::allocateChildren()
+{
+	m_children = new ChildrenContainer;
+}
+
+
 ProjectModel::ProjectModel(QObject * parent):
 	QAbstractItemModel(parent),
-	m_root(Node::Data("Root node"))
+	m_root(Node::Data("Root node"), new Node::ChildrenContainer)
 {
 }
 
@@ -180,150 +354,52 @@ Qt::ItemFlags ProjectModel::flags(const QModelIndex & index) const
 
 	Qt::ItemFlags flags = Qt::ItemIsSelectable	| Qt::ItemIsEnabled;
 
-	/// @todo Need to mark item as permanent leaf somehow.
-//	Node * node = static_cast<Node *>(index.internalPointer());
-//	if (node->isPermanentLeaf())
-//		flags |= Qt::ItemNeverHasChildren;
+	Node * node = static_cast<Node *>(index.internalPointer());
+	if (node->isLeaf())
+		flags |= Qt::ItemNeverHasChildren;
 
 	return flags;
 }
 
+ProjectModel::iterator ProjectModel::begin()
+{
+	return iterator(& m_root);
+}
+
+ProjectModel::const_iterator ProjectModel::begin() const
+{
+	return const_iterator(& m_root);
+}
+
+ProjectModel::iterator ProjectModel::end()
+{
+	return iterator();
+}
+
+ProjectModel::const_iterator ProjectModel::end() const
+{
+	return const_iterator();
+}
+
 void ProjectModel::tmpSetup()
 {
-	m_root.addChild(new Node(Node::Data("Test")));
-	m_root.addChild(new Node(Node::Data("Test 2 very very very very very long name test")));
-	m_root.addChild(new Node(Node::Data("Test 3")));
-	m_root.addChild(new Node(Node::Data("Test 4")));
-	m_root.addChild(new Node(Node::Data("Test 5")));
-	m_root.child(2)->addChild(new Node(Node::Data("Sub test 1")));
-	m_root.child(2)->addChild(new Node(Node::Data("Sub test 2")));
+	m_root.createChild(Node::Data("Test"));
+	m_root.createChild(Node::Data("Test2"));
+	m_root.createChild(Node::Data("Test3"))->createChild(Node::Data("Test3 child"));
+	m_root.createChild(Node::Data("Test4"));
+	m_root.child(2)->createChild(Node::Data("Sub"));
+	m_root.child(2)->createChild(Node::Data("Sub2"));
+	m_root.child(2)->createChild(Node::Data("Sub3"))->createChild(Node::Data("Sub sub 3"));
 }
 
-ProjectModel::Node::Data::Data(const QString & name, QObject * object):
-	m_name(name),
-	m_object(object)
+ProjectModel::Node & ProjectModel::root()
 {
-	if (object != nullptr)
-		object->setParent(0);	// Delete object in dtor.
+	return m_root;
 }
 
-void ProjectModel::Node::Data::setObject(QObject * object)
+const ProjectModel::Node & ProjectModel::root() const
 {
-	if (object != nullptr)
-		object->setParent(0);	// Delete object in dtor.
-	m_object = object;
-}
-
-QObject * ProjectModel::Node::Data::object() const
-{
-	return m_object;
-}
-
-QString ProjectModel::Node::Data::name() const
-{
-	return m_name;
-}
-
-ProjectModel::Node::Data::~Data()
-{
-	if (m_object != nullptr)
-		delete m_object;
-}
-
-
-ProjectModel::Node::Node(const Data & data):
-	m_data(data),
-	m_parent(nullptr),
-	m_children(nullptr)
-{
-}
-
-const ProjectModel::Node::Data & ProjectModel::Node::data() const
-{
-	return m_data;
-}
-
-ProjectModel::Node::Data & ProjectModel::Node::data()
-{
-	return m_data;
-}
-
-const ProjectModel::Node * ProjectModel::Node::parent() const
-{
-	return m_parent;
-}
-
-ProjectModel::Node * ProjectModel::Node::parent()
-{
-	return m_parent;
-}
-
-void ProjectModel::Node::addChild(Node * child)
-{
-	children()->append(child);
-	child->setParent(this);
-}
-
-const ProjectModel::Node * ProjectModel::Node::child(int index) const
-{
-	if (isLeaf())
-		return nullptr;
-	return children()->value(index, nullptr);
-}
-
-ProjectModel::Node * ProjectModel::Node::child(int index)
-{
-	return const_cast<Node *>(const_cast<const Node *>(this)->child(index));
-}
-
-int ProjectModel::Node::childIndex(Node * const & child) const
-{
-	if (isLeaf())
-		return -1;
-	return children()->indexOf(child);
-}
-
-int ProjectModel::Node::countChildren() const
-{
-	if (isLeaf())
-		return 0;
-	return children()->count();
-}
-
-void ProjectModel::Node::setParent(Node * parent)
-{
-	m_parent = parent;
-}
-
-bool ProjectModel::Node::isLeaf() const
-{
-	return m_children == nullptr;
-}
-
-const ProjectModel::Node::ChildrenContainer * ProjectModel::Node::children() const
-{
-	if (m_children == nullptr)
-		const_cast<Node *>(this)->allocateChildren();
-	return m_children;
-}
-
-ProjectModel::Node::ChildrenContainer * ProjectModel::Node::children()
-{
-	return const_cast<ChildrenContainer *>(const_cast<const Node *>(this)->children());
-}
-
-ProjectModel::Node::~Node()
-{
-	if (m_children != nullptr) {
-		while (!m_children->isEmpty())
-			delete m_children->takeFirst();
-		delete m_children;
-	}
-}
-
-void ProjectModel::Node::allocateChildren()
-{
-	m_children = new ChildrenContainer;
+	return m_root;
 }
 
 }

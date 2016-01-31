@@ -23,7 +23,7 @@ class CUTEHMI_MODBUS_API TCPConnection:
 		 * @param node network node IP address (e.g. "127.0.0.1").
 		 * @param service service name or port number.
 		 */
-		TCPConnection(const QString & node, const QString & service = "502");
+		TCPConnection(const QString & node = "127.0.0.1", const QString & service = "502");
 
 		virtual ~TCPConnection();
 

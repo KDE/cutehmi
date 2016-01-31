@@ -33,7 +33,8 @@ SOURCES += \
     src/Settings.cpp \
     src/PLCWidgetFactory.cpp \
     src/RecentFiles.cpp \
-    src/modbus/ui/ClientControlWidget.cpp
+    src/modbus/ui/ClientControlWidget.cpp \
+    src/ErrorHandler.cpp
 
 HEADERS += \ 
     src/version.hpp \
@@ -45,7 +46,8 @@ HEADERS += \
     src/Settings.hpp \
     src/PLCWidgetFactory.hpp \
     src/RecentFiles.hpp \
-    src/modbus/ui/ClientControlWidget.hpp
+    src/modbus/ui/ClientControlWidget.hpp \
+    src/ErrorHandler.hpp
 
 FORMS += \ 
     ui/MainWindow.ui \

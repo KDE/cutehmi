@@ -18,12 +18,7 @@ DEFINES += CUTEHMI_MODBUS_DYNAMIC
 TRANSLATIONS = locale/cutehmi_base_pl.ts
 
 include(../cutehmi_base.pri)
-
-# libmodbus.
-DEFINES += DLLBUILD
-INCLUDEPATH += $$PWD/../../libmodbus-3.1.2/src
-DEPENDPATH += $$PWD/../../libmodbus-3.1.2/src
-LIBS += -L$$PWD/../../libmodbus-3.1.2/src/.libs -llibmodbus-5
+include(../libmodbus.pri)
 
 unix {
     target.path = /usr/lib

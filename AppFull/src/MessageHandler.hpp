@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_APPFULL_SRC_MESSAGEHANDLER_HPP
 #define CUTEHMI_APPFULL_SRC_MESSAGEHANDLER_HPP
 
-#include "utils/Singleton.hpp"
+#include <utils/Singleton.hpp>
 
 #include <QtGlobal>
 
