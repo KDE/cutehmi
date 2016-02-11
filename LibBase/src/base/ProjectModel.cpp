@@ -4,30 +4,47 @@
 
 namespace base {
 
-void ProjectModel::Node::AcceptDelegate::accept(QQmlContext & context)
+void ProjectModel::Node::VisitorDelegate::visit(QQmlContext & context)
 {
 	Q_UNUSED(context);
 }
 
-ProjectModel::Node::Data::Data(const QString & name, QObject * object):
-	m_name(name),
-	m_object(object)
+void ProjectModel::Node::VisitorDelegate::visit(QQmlComponent & component)
 {
-	if (object != nullptr)
-		object->setParent(0);	// Delete object in dtor.
+	Q_UNUSED(component);
+}
+
+ProjectModel::Node::GUIVisitorDelegate::ContextMenuProxy::ContextMenuProxy(QMenu * & menu):
+	m_menu(menu)
+{
+}
+
+void ProjectModel::Node::GUIVisitorDelegate::ContextMenuProxy::move(QMenu * menu)
+{
+	m_menu = menu;
+}
+
+void ProjectModel::Node::GUIVisitorDelegate::visit(ContextMenuProxy & menuProxy)
+{
+	Q_UNUSED(menuProxy);
+}
+
+ProjectModel::Node::Data::Data(const QString & name, std::unique_ptr<QObject> object):
+	m_name(name),
+	m_object(std::move(object))
+{
+	if (m_object != nullptr)
+		m_object->setParent(0);
 }
 
 ProjectModel::Node::Data::Data(Data && other) noexcept:
 	m_name(std::move(other.m_name)),
 	m_object(std::move(other.m_object))
 {
-	other.m_object = nullptr;
 }
 
 ProjectModel::Node::Data::~Data()
 {
-	if (m_object != nullptr)
-		delete m_object;
 }
 
 ProjectModel::Node::Data & ProjectModel::Node::Data::operator =(ProjectModel::Node::Data && other) noexcept
@@ -38,27 +55,29 @@ ProjectModel::Node::Data & ProjectModel::Node::Data::operator =(ProjectModel::No
 
 	m_object = std::move(other.m_object);
 	m_name = std::move(other.m_name);
-	other.m_object = nullptr;
 	return *this;
 }
 
-void ProjectModel::Node::Data::resetObject(QObject * object)
+void ProjectModel::Node::Data::setObject(std::unique_ptr<QObject> object)
 {
+	m_object = std::move(object);
 	if (m_object != nullptr)
-		delete m_object;
-	if (object != nullptr)
-		object->setParent(0);	// Delete object in dtor.
-	m_object = object;
+		m_object->setParent(0);
 }
 
 QObject * ProjectModel::Node::Data::object() const
 {
-	return m_object;
+	return m_object.get();
 }
 
 QString ProjectModel::Node::Data::name() const
 {
 	return m_name;
+}
+
+void ProjectModel::Node::Data::setName(const QString & name)
+{
+	m_name = name;
 }
 
 const ProjectModel::Node::Data & ProjectModel::Node::data() const
@@ -81,24 +100,39 @@ ProjectModel::Node * ProjectModel::Node::parent()
 	return m_parent;
 }
 
-void ProjectModel::Node::setAcceptDelegate(AcceptDelegate * delegate)
+void ProjectModel::Node::setVisitorDelegate(std::unique_ptr<VisitorDelegate> delegate)
 {
-	m_acceptDelegate = delegate;
+	m_visitorDelegate = std::move(delegate);
 }
 
-const ProjectModel::Node::AcceptDelegate * ProjectModel::Node::acceptDelegate() const
+const ProjectModel::Node::VisitorDelegate * ProjectModel::Node::visitorDelegate() const
 {
-	return m_acceptDelegate;
+	return m_visitorDelegate.get();
 }
 
-ProjectModel::Node::AcceptDelegate * ProjectModel::Node::acceptDelegate()
+ProjectModel::Node::VisitorDelegate * ProjectModel::Node::visitorDelegate()
 {
-	return m_acceptDelegate;
+	return m_visitorDelegate.get();
 }
 
-ProjectModel::Node * ProjectModel::Node::createChild(Data && data, bool leaf)
+void ProjectModel::Node::setGUIVisitorDelegate(std::unique_ptr<GUIVisitorDelegate> delegate)
 {
-	ProjectModel::Node * child = leaf ? new ProjectModel::Node(std::move(data), nullptr) : new ProjectModel::Node(std::move(data), new ChildrenContainer);
+	m_guiVisitorDelegate = std::move(delegate);
+}
+
+const ProjectModel::Node::GUIVisitorDelegate * ProjectModel::Node::guiVisitorDelegate() const
+{
+	return m_guiVisitorDelegate.get();
+}
+
+ProjectModel::Node::GUIVisitorDelegate * ProjectModel::Node::guiVisitorDelegate()
+{
+	return m_guiVisitorDelegate.get();
+}
+
+ProjectModel::Node * ProjectModel::Node::addChild(Data && data, bool leaf)
+{
+	ProjectModel::Node * child = leaf ? new ProjectModel::Node(std::move(data), nullptr) : new ProjectModel::Node(std::move(data), std::unique_ptr<ChildrenContainer>(new ChildrenContainer));
 	children()->append(child);
 	child->setParent(this);
 	return child;
@@ -130,11 +164,12 @@ int ProjectModel::Node::countChildren() const
 	return children()->count();
 }
 
-ProjectModel::Node::Node(Data && data, ChildrenContainer * children):
-	m_data(std::move(data)),
+ProjectModel::Node::Node(Data && data, std::unique_ptr<ChildrenContainer> children):
 	m_parent(nullptr),
-	m_children(children),
-	m_acceptDelegate(new AcceptDelegate)
+	m_data(std::move(data)),
+	m_visitorDelegate(new VisitorDelegate),
+	m_guiVisitorDelegate(new GUIVisitorDelegate),
+	m_children(std::move(children))
 {
 }
 
@@ -154,7 +189,7 @@ const ProjectModel::Node::ChildrenContainer * ProjectModel::Node::children() con
 		qWarning() << "Implicitly promoting leaf " << data().name() << " to a child.";
 		const_cast<Node *>(this)->allocateChildren();
 	}
-	return m_children;
+	return m_children.get();
 }
 
 ProjectModel::Node::ChildrenContainer * ProjectModel::Node::children()
@@ -164,23 +199,20 @@ ProjectModel::Node::ChildrenContainer * ProjectModel::Node::children()
 
 ProjectModel::Node::~Node()
 {
-	delete m_acceptDelegate;
-	if (m_children != nullptr) {
+	if (m_children != nullptr)
 		while (!m_children->isEmpty())
 			delete m_children->takeFirst();
-		delete m_children;
-	}
 }
 
 void ProjectModel::Node::allocateChildren()
 {
-	m_children = new ChildrenContainer;
+	m_children.reset(new ChildrenContainer);
 }
 
 
 ProjectModel::ProjectModel(QObject * parent):
 	QAbstractItemModel(parent),
-	m_root(Node::Data("Root node"), new Node::ChildrenContainer)
+	m_root(Node::Data("Root node"), std::unique_ptr<Node::ChildrenContainer>(new Node::ChildrenContainer))
 {
 }
 
@@ -381,20 +413,14 @@ ProjectModel::const_iterator ProjectModel::end() const
 	return const_iterator();
 }
 
-void ProjectModel::tmpSetup()
-{
-	m_root.createChild(Node::Data("Test"));
-	m_root.createChild(Node::Data("Test2"));
-	m_root.createChild(Node::Data("Test3"))->createChild(Node::Data("Test3 child"));
-	m_root.createChild(Node::Data("Test4"));
-	m_root.child(2)->createChild(Node::Data("Sub"));
-	m_root.child(2)->createChild(Node::Data("Sub2"));
-	m_root.child(2)->createChild(Node::Data("Sub3"))->createChild(Node::Data("Sub sub 3"));
-}
-
 ProjectModel::Node & ProjectModel::root()
 {
 	return m_root;
+}
+
+QModelIndex ProjectModel::createIndex(int row, int column, Node * ptr) const
+{
+	return QAbstractItemModel::createIndex(row, column, ptr);
 }
 
 const ProjectModel::Node & ProjectModel::root() const

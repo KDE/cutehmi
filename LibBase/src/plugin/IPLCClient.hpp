@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_PLUGIN_IPLCCLIENTPLUGIN_HPP
-#define CUTEHMI_LIBBASE_SRC_PLUGIN_IPLCCLIENTPLUGIN_HPP
+#ifndef CUTEHMI_LIBBASE_SRC_PLUGIN_IPLCCLIENT_HPP
+#define CUTEHMI_LIBBASE_SRC_PLUGIN_IPLCCLIENT_HPP
 
 #include "../platform.hpp"
 
@@ -7,6 +7,9 @@
 
 namespace plugin {
 
+/**
+ * @todo gather all PLC plugin interfaces into IPLCPlugin.
+ */
 class IPLCClient
 {
 	public:

@@ -31,20 +31,24 @@ struct CUTEHMI_BASE_API Error
 
 		/**
 		 * Conversion constructor.
-		 * @param p_code error code.
+		 * @param code error code.
 		 */
-		Error(int p_code);
+		Error(int code);
+
+		bool operator ==(const Error & other) const;
+
+		bool operator !=(const Error & other) const;
 
 		/**
-		 * Conversion to @p int.
+		 * Conversion to @p bool. Evaluates to @p true if error code is @p Error::OK, @p false otherwise.
 		 */
-		operator int() const;
+		operator bool() const;
 
 		/**
-		 * Check if error code is @p Error::OK.
-		 * @return @p true when error code is @p Error::OK, @p false otherwise.
+		 * Get error code.
+		 * @return error code.
 		 */
-		bool success() const;
+		int code() const;
 
 		/**
 		 * Get error string. A subclass may reimplement this method to provide
@@ -58,9 +62,20 @@ struct CUTEHMI_BASE_API Error
 		QString str() const;
 
 	protected:
-		int code;
+		void setCode(int code);
+
+	private:
+		int m_code;
 };
 
 }
+
+CUTEHMI_BASE_API bool operator ==(const base::Error & error, int code);
+
+CUTEHMI_BASE_API bool operator ==(int code, const base::Error & error);
+
+CUTEHMI_BASE_API bool operator !=(const base::Error & error, int code);
+
+CUTEHMI_BASE_API bool operator !=(int code, const base::Error & error);
 
 #endif

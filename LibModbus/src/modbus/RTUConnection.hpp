@@ -60,11 +60,19 @@ class CUTEHMI_MODBUS_API RTUConnection:
 		typedef RTUConnection_baseFromMember::DataBits DataBits;
 		typedef RTUConnection_baseFromMember::StopBits StopBits;
 
+//<workaround id="LibModbus-1" target="libmodbus" cause="bug">
+//		enum class Mode : int
+//		{
+//			RS232 = MODBUS_RTU_RS232,
+//			RS485 = MODBUS_RTU_RS485
+//		};
+//</workaround>
+//<workaround id="LibModbus-2" target="LibModbus" cause="LibModbus-1">
 		enum class Mode : int
 		{
-			RS232 = MODBUS_RTU_RS232,
-			RS485 = MODBUS_RTU_RS485
+			RS232 = MODBUS_RTU_RS232
 		};
+//</workaround>
 
 		RTUConnection(const QString & port, int baudRate = 19200, Parity parity = Parity::NONE, DataBits dataBits = DataBits::BITS_8, StopBits stopBits = StopBits::BITS_1, Mode mode = Mode::RS232);
 

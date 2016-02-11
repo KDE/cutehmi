@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_PLUGINLOADER_H
-#define CUTEHMI_PLUGINLOADER_H
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_PLUGINLOADER_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_PLUGINLOADER_HPP
 
 #include "../platform.hpp"
 #include "Error.hpp"
@@ -45,11 +45,31 @@ class CUTEHMI_BASE_API PluginLoader
 
 		void loadPlugins();
 
+		const QStringList & loadedPlugins() const;
+
+		/**
+		 * Load plugin.
+		 * @param name plugin name.
+		 * @param reqVersion required version. Version should be provided in "[major[.minor[.micro]]]" format.
+		 * In most cases "micro" numbers can be omitted, because they have no semantics. Omitting a field
+		 * is equivalent to setting its value to @p 0.
+		 * @return error code.
+		 */
 		Error loadPlugin(const QString & name, const QString & reqVersion = QString("0.0.0"));
 
 		void unloadPlugins();
 
 		QString pluginVersion(const QString & name);
+
+		/**
+		 * Get UI plugin name and version for a specific plugin.
+		 * @param name plugin to check.
+		 * @param uiName UI plugin name.
+		 * @param uiVersion UI plugin version.
+		 * @return @p true if UI plugin is specified, @p false otherwise. Additionaly
+		 * @a uiName and @a uiVersion are set if function returns @p true.
+		 */
+		bool uiPlugin(const QString & name, QString & uiName, QString & uiVersion);
 
 		/**
 		 * Get root component of a plugin. Plugin should be loaded before calling this function.
@@ -71,4 +91,4 @@ class CUTEHMI_BASE_API PluginLoader
 
 }
 
-#endif // PLUGINLOADER_H
+#endif

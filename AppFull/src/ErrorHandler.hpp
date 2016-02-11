@@ -62,7 +62,7 @@ bool ErrorHandler::failBox(ERROR error, const QString & failText, const QString 
 	} else
 		msgBox.setText(error.str());
 
-	QString detailedText(QObject::tr("Error class: %1, code: %2.").arg(typeid(ERROR).name()).arg(error));
+	QString detailedText(QObject::tr("Error class: %1, code: %2.").arg(typeid(ERROR).name()).arg(error.code()));
 	if (!details.isEmpty())
 		detailedText.append("\n").append(details);
 	msgBox.setDetailedText(detailedText);

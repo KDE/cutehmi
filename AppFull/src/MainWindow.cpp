@@ -9,16 +9,12 @@
 #include "PLCWidgetFactory.hpp"
 
 #include <base/ProjectModel.hpp>
+#include <plugin/IProjectModelVisitor.hpp>
 
 #include <QMessageBox>
-#include <QQmlContext>
-#include <QQmlComponent>
 #include <QDebug>
-#include <QQmlProperty>
-#include <QQuickWidget>
-#include <QQuickView>
-#include <QQmlEngine>
 #include <QFileDialog>
+#include <QCloseEvent>
 
 constexpr const char * MainWindow::INITIAL_ICON_THEME;
 constexpr const char * MainWindow::PLUGINS_SUBDIR;
@@ -37,14 +33,14 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	ui.setupUi(this);
 	ui.centralFrameLayout->addWidget(m_qmlWidgetWrapper.widget());
 	MessageHandler::Instance().setMessageArea(ui.messageArea);
-	setWindowTitle(QCoreApplication::applicationName());
+	makeWindowTitle();
 
 	// Need to set context properties before loading qml file and create dock widgets before restoreSettings().
 	QDir dir(qApp->applicationDirPath());
 	dir.cd(PLUGINS_SUBDIR);
-	m_pluginLoader.setPluginsDir(dir.canonicalPath());
+	m_projectPluginLoader.setPluginsDir(dir.canonicalPath());
 	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
-	attachPLCClients();
+//	attachPLCClients();
 
 	// Set up view menu.
 	QMenu * menuView = createPopupMenu();
@@ -61,16 +57,18 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 
 	// Set up project view.
 	ui.projectView->setHeaderHidden(true);
-	m_projectModel->tmpSetup();
 	ui.projectView->setModel(m_projectModel);
+	connect(ui.projectView, & QTreeView::activated, this, & MainWindow::activateVisualComponent);
 
 	//<workaround id="AppFull-1" target="Qt" cause="bug">
 	// Some bug causes restoreState() to fail in some circustamces, if it's called before show() (Qt bug).
 	// Need to put restoreSettings() after show().
 	show();
 
-	/// @bug [Qt bug] dock widgets are not properly restored if one of them is shrinked to the minimum and they are both docked at the bottom.
+	//<unsolved id="AppFull-7" target="Qt" cause="bug">
+	// Dock widgets are not properly restored if one of them is shrinked to the minimum and they are both docked at the bottom.
 	restoreSettings();
+	//</unsolved>
 	//</workaround>
 
 	qDebug() << "Icon theme search paths: " << QIcon::themeSearchPaths();
@@ -79,7 +77,7 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	m_qmlWidgetWrapper.addImportPath("../CuteHMI/QML");
 	m_qmlWidgetWrapper.addImportPath("../QML");
 	qDebug() << "QML import paths: " << m_qmlWidgetWrapper.importPathList();
-	m_qmlWidgetWrapper.setSource(QUrl(QStringLiteral("../QML/Screens/Test/Main.ui.qml")));
+//	m_qmlWidgetWrapper.setSource(QUrl(QStringLiteral("../QML/Screens/Test/Main.ui.qml")));
 }
 
 MainWindow::~MainWindow()
@@ -99,6 +97,17 @@ void MainWindow::closeEvent(QCloseEvent * event)
 		storeSettings();
 		event->accept();
 	}
+}
+
+void MainWindow::activateVisualComponent(const QModelIndex & index)
+{
+	if (!m_qmlWidgetWrapper.protoVisualComponent()->isNull())
+		return;
+	static_cast<base::ProjectModel::Node *>(index.internalPointer())->visitorDelegate()->visit(*m_qmlWidgetWrapper.protoVisualComponent());
+	if (m_qmlWidgetWrapper.protoVisualComponent()->isLoading())
+		connect(m_qmlWidgetWrapper.protoVisualComponent(), & QQmlComponent::statusChanged, & m_qmlWidgetWrapper, & QMLWidgetWrapper::showVisualComponent);
+	else
+		m_qmlWidgetWrapper.showVisualComponent();
 }
 
 void MainWindow::showErrorDialog(const QString & msg, const QString & details) const
@@ -158,7 +167,9 @@ void MainWindow::newFile()
 	if (ui.actionSave->isEnabled())
 		if (!askSaveDialog())
 			return;
-	resetFile();
+	resetModel(nullptr);
+	m_file.setFile("");
+	makeWindowTitle();
 	ui.actionSave->setEnabled(false);
 }
 
@@ -183,7 +194,7 @@ bool MainWindow::saveFileAs()
 
 	if (saveFile(filePath)) {
 		m_file.setFile(filePath);
-		setWindowTitle(m_file.fileName());
+		makeWindowTitle();
 		ui.actionSave->setEnabled(false);
 		return true;
 	} else
@@ -203,7 +214,7 @@ bool MainWindow::loadFile()
 
 	if (loadFile(fileName)) {
 		m_file.setFile(fileName);
-		setWindowTitle(m_file.fileName());
+		makeWindowTitle();
 		ui.actionSave->setEnabled(false);
 		return true;
 	} else
@@ -220,87 +231,13 @@ bool MainWindow::loadRecentFile(const QString & filePath)
 
 	if (loadFile(filePath)) {
 		m_file.setFile(filePath);
-		setWindowTitle(m_file.fileName());
+		makeWindowTitle();
 		ui.actionSave->setEnabled(false);
 		return true;
 	} else
 		return false;
 }
 
-MainWindow::IQMLWidgetWrapper::~IQMLWidgetWrapper()
-{
-}
-
-MainWindow::QuickWidgetWrapper::QuickWidgetWrapper(QWidget * parent):
-	m_qmlEngine(new QQmlEngine),
-	m_quickWidget(new QQuickWidget(m_qmlEngine, parent)) // Note: QQuickWidget won't take ownership of m_qmlEngine.
-{
-	m_quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
-	m_qmlEngine->setParent(m_quickWidget);	// Reparent m_qmlEngine so that proper destruction order is quaranteed.
-}
-
-QWidget * MainWindow::QuickWidgetWrapper::widget()
-{
-	return m_quickWidget;
-}
-
-QQmlContext * MainWindow::QuickWidgetWrapper::rootContext() const
-{
-	return m_quickWidget->rootContext();
-}
-
-void MainWindow::QuickWidgetWrapper::setSource(const QUrl & url)
-{
-	qDebug() << "Loading QML file: " << url;
-	m_quickWidget->setSource(url);
-}
-
-QStringList MainWindow::QuickWidgetWrapper::importPathList() const
-{
-	return m_qmlEngine->importPathList();
-}
-
-void MainWindow::QuickWidgetWrapper::addImportPath(const QString & dir)
-{
-	qDebug() << "Adding QML import path: " << dir;
-	m_qmlEngine->addImportPath(dir);
-}
-
-MainWindow::QuickViewWrapper::QuickViewWrapper(QWidget * parent):
-	m_qmlEngine(new QQmlEngine),
-	m_quickView(new QQuickView(m_qmlEngine, 0)) // Note: QQuickView won't take ownership of m_qmlEngine.
-{
-	m_quickView->setResizeMode(QQuickView::SizeRootObjectToView);
-	m_qmlEngine->setParent(m_quickView);	// Reparent m_qmlEngine so that proper destruction order is quaranteed.
-	m_widget = QWidget::createWindowContainer(m_quickView, parent);	// Note: m_widget (window container) should take ownership of m_quickView.
-}
-
-QWidget * MainWindow::QuickViewWrapper::widget()
-{
-	return m_widget;
-}
-
-QQmlContext * MainWindow::QuickViewWrapper::rootContext() const
-{
-	return m_quickView->rootContext();
-}
-
-void MainWindow::QuickViewWrapper::setSource(const QUrl & url)
-{
-	qDebug() << "Loading QML file: " << url;
-	m_quickView->setSource(url);
-}
-
-QStringList MainWindow::QuickViewWrapper::importPathList() const
-{
-	return m_qmlEngine->importPathList();
-}
-
-void MainWindow::QuickViewWrapper::addImportPath(const QString & dir)
-{
-	qDebug() << "Adding QML import path: " << dir;
-	m_qmlEngine->addImportPath(dir);
-}
 
 void MainWindow::attachPLCClients()
 {
@@ -313,7 +250,7 @@ void MainWindow::attachPLCClients()
 	connect(modbusClient, & modbus::Client::disconnected, this, & MainWindow::clientDisconnected);
 
 //	modbusClient.connect();
-	m_qmlWidgetWrapper.rootContext()->setContextProperty(clientId, modbusClient);
+	m_qmlWidgetWrapper.projectContext()->setContextProperty(clientId, modbusClient);
 	QDockWidget * clientControlDockWidget = createDockWidget(QString("Modbus - ") + clientId, PLCWidgetFactory::Instance().createClientControlWidget(modbusClient));
 	// Object name must be set for the dock widget to make it work with storeSetting() and restoreSettings().
 	clientControlDockWidget->setObjectName(clientId + QStringLiteral("_clientControlDockWidget"));
@@ -351,10 +288,10 @@ bool MainWindow::loadFile(const QString & filePath)
 	if (file.open(QIODevice::ReadOnly)) {
 		base::ProjectModel * newModel = new base::ProjectModel(this);
 		{
-			base::XMLProjectBackend xmlBackend(newModel, & m_pluginLoader);
+			base::XMLProjectBackend xmlBackend(newModel, & m_projectPluginLoader);
 			if (!ErrorHandler::Instance().failBox(xmlBackend.load(file), tr("Could not load project file."), filePath)) {
 				file.close();
-				setNewModel(newModel);
+				resetModel(newModel);
 				qDebug() << "Loaded project file " << filePath << ".";
 				m_recentFiles->put(filePath);
 				m_recentFiles->updateMenu(*m_recentFilesMenu);
@@ -365,7 +302,7 @@ bool MainWindow::loadFile(const QString & filePath)
 		file.close();
 	} else if (!filePath.isEmpty()) {
 		qWarning() << "Could not open file " << filePath;
-		// @todo use custom MessageBox or ExtMessageBox.
+// @todo use custom MessageBox or ExtMessageBox.
 		QMessageBox msgBox;
 		msgBox.setText(tr("Could not open file."));
 		if (!QFileInfo(filePath).exists())
@@ -379,31 +316,52 @@ bool MainWindow::loadFile(const QString & filePath)
 	return false;
 }
 
-void MainWindow::resetFile()
+void MainWindow::resetModel(base::ProjectModel * newModel)
 {
-	qWarning("resetFile() not implemented yet.");
+	// Reset QML view.
+	m_qmlWidgetWrapper.resetVisualComponent();
 
-//	AbstractFx::ResetCloneCtr();
-//	ui.fxView->removeAll(false);
-//	m_file.setFile("");
-//	setWindowTitle("");
-}
-
-void MainWindow::setNewModel(base::ProjectModel * newModel)
-{
 	// Set new model and delete old selection model as docs suggest.
 	QItemSelectionModel * oldSelectionModel = ui.projectView->selectionModel();
 	ui.projectView->setModel(newModel);
-	delete oldSelectionModel;
-	delete m_projectModel;
+	if (oldSelectionModel)
+		oldSelectionModel->deleteLater();
+	if (m_projectModel)
+		m_projectModel->deleteLater();
 	m_projectModel = newModel;
-	visitModel(*m_projectModel);
+	if (m_projectModel) {
+		visitProjectContext(*m_projectModel);
+		attachUIPlugins(*m_projectModel);
+	}
 }
 
-void MainWindow::visitModel(base::ProjectModel & model)
+void MainWindow::attachUIPlugins(base::ProjectModel & model)
 {
+	QStringList plugins = m_projectPluginLoader.loadedPlugins();
+	QString uiPluginName;
+	QString uiPluginVersion;
+	for (QString plugin : plugins)
+		if (m_projectPluginLoader.uiPlugin(plugin, uiPluginName, uiPluginVersion)) {
+			base::PluginLoader::Error err;
+			if ((err = m_projectPluginLoader.loadPlugin(uiPluginName, uiPluginVersion)) == base::PluginLoader::Error::OK) {
+				plugin::IProjectModelVisitor * uiPlugin;
+				if ((uiPlugin = qobject_cast<plugin::IProjectModelVisitor *>(m_projectPluginLoader.instance(uiPluginName))) != 0) {
+					for (auto it = model.begin(); it != model.end(); ++it)
+						uiPlugin->visit(*it);
+				} else
+					qWarning() << "UI plugin does not implement required interface";
+			} else {
+				qWarning() << "Could not load UI plugin " << uiPluginName << " version: " << uiPluginVersion;
+				qWarning() << err.str();
+			}
+		}
+}
+
+void MainWindow::visitProjectContext(base::ProjectModel & model)
+{
+	m_qmlWidgetWrapper.renewProjectContext();
 	for (auto it = model.begin(); it != model.end(); ++it)
-		it->acceptDelegate()->accept(*(m_qmlWidgetWrapper.rootContext()));
+		it->visitorDelegate()->visit(*(m_qmlWidgetWrapper.projectContext()));
 }
 
 void MainWindow::storeSettings() const
@@ -440,4 +398,12 @@ bool MainWindow::askSaveDialog()
 		default:
 			return false;
 	}
+}
+
+void MainWindow::makeWindowTitle()
+{
+	QString title = QCoreApplication::applicationName();
+	if (!m_file.fileName().isEmpty())
+		title += QString(" - ") + m_file.fileName();
+	setWindowTitle(title);
 }

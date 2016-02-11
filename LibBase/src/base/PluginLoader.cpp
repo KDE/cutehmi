@@ -3,12 +3,13 @@
 #include <QDir>
 #include <QtDebug>
 #include <QCoreApplication>
+#include <QLibraryInfo>
 
 namespace base {
 
 QString PluginLoader::Error::str() const
 {
-	switch (code) {
+	switch (code()) {
 		case FAIL_LOAD:
 			return tr("Failed to load plugin.");
 		case WRONG_VERSION:
@@ -39,6 +40,11 @@ void PluginLoader::setPluginsDir(const QString & pluginsDir)
 	QCoreApplication::addLibraryPath(pluginsDir);
 }
 
+const QStringList & PluginLoader::loadedPlugins() const
+{
+	return m_loadedPlugins;
+}
+
 void PluginLoader::loadPlugins()
 {
 	QDir dir(m_pluginsDir);
@@ -63,6 +69,10 @@ PluginLoader::Error PluginLoader::loadPlugin(const QString & name, const QString
 			return Error::WRONG_VERSION;
 
 	m_loader.setFileName(name);
+	if (m_loader.isLoaded()) {
+		qDebug() << "Plugin: " << name << " version: " << version << " already loaded.";
+		return Error::OK;
+	}
 	QObject * plugin = m_loader.instance();
 	if (plugin) {
 		qDebug() << "Loaded plugin: " << name << " version: " << version << ".";
@@ -79,12 +89,26 @@ void PluginLoader::unloadPlugins()
 		if (m_loader.unload())
 			qDebug() << "Unloaded plugin: " << name << ".";
 	}
+	m_loadedPlugins.clear();
 }
 
 QString PluginLoader::pluginVersion(const QString & name)
 {
 	m_loader.setFileName(name);
 	return m_loader.metaData().value("MetaData").toObject().value("Version").toString();
+}
+
+bool PluginLoader::uiPlugin(const QString & name, QString & uiName, QString & uiVersion)
+{
+	m_loader.setFileName(name);
+	QJsonValue uiPlugin = m_loader.metaData().value("MetaData").toObject().value("UIPlugin");
+	if (uiPlugin == QJsonValue::Undefined)
+		return false;
+	uiName = uiPlugin.toObject().value("Name").toString();
+	if (QLibraryInfo::isDebugBuild())
+		uiName.append('d');
+	uiVersion = uiPlugin.toObject().value("Version").toString();
+	return true;
 }
 
 QObject * PluginLoader::instance(const QString & name)

@@ -5,14 +5,37 @@
 #include "../utils/NonCopyable.hpp"
 
 #include <QAbstractItemModel>
+#include <QQmlComponent>
 #include <QQmlContext>
 
 #include <iterator>
+#include <memory>
+
+class QMenu;
 
 namespace base {
 
 /**
  * Project model.
+ *
+ * @principles
+ *
+ * <principle id="base.ProjectModel-internalPoiner">
+ * For all valid items in the model, QModelIndex::internalPointer() is always associated with pointer
+ * to object of type @p ProjectModel::Node, so that neither @p nullptr nor a pointer to any other object
+ * type can be returned.
+ * </principle>
+ *
+ * <principle id="base.ProjectModel-determinedDestructionOrder">
+ * Destruction order of exposed data members is determined. The order is as following:
+ *		- child nodes (children()). Each child follows the order.
+ *		- UI visitor delegate (setUIVisitorDelegate()).
+ *		- visitor delegate (visitorDelegate()).
+ *		- node data (data()).
+ *		.
+ * </principle>
+ *
+ * @endprinciples
  */
 class CUTEHMI_BASE_API ProjectModel:
 	public QAbstractItemModel
@@ -32,13 +55,66 @@ class CUTEHMI_BASE_API ProjectModel:
 			/**
 			 * Accept delegate.
 			 */
-			class CUTEHMI_BASE_API AcceptDelegate
+			class CUTEHMI_BASE_API VisitorDelegate
 			{
 				public:
-					virtual ~AcceptDelegate() = default;
+					virtual ~VisitorDelegate() = default;
 
-					virtual void accept(QQmlContext & context);
+					/**
+					 * Visit QML context. Can be overriden to set context properties.
+					 * @param context QML context.
+					 */
+					virtual void visit(QQmlContext & context);
+
+					/**
+					 * Visit QML component. Can be overriden to associate particular QML component with a node.
+					 * @param component QML component.
+					 */
+					virtual void visit(QQmlComponent & component);
 			};
+
+			/**
+			 * Accept delegate.
+			 */
+			class CUTEHMI_BASE_API GUIVisitorDelegate
+			{
+				public:
+					/**
+					 * Context menu proxy. Forms a contract between visitor and visited object.
+					 */
+					class CUTEHMI_BASE_API ContextMenuProxy {
+						public:
+							/**
+							 * Constructor.
+							 * @param menu reference to menu pointer. Pointer should point to @p nullptr.
+							 * Caller owns pointed object if it's being set by a visitor.
+							 */
+							ContextMenuProxy(QMenu * & menu);
+
+							/**
+							 * Pass the menu from the caller to the visited object.
+							 * @param menu menu to be passed. Caller passes ownership of the @a menu object.
+							 *
+							 * @internal can't use std::unique_ptr, because it bitches about incomplete type.
+							 * Could use reference to std::shared_ptr, but I think it would be misuse, so let's go
+							 * with raw pointers and remember about undefined behaviour if delete is called
+							 * on incomplete type (gcc warns about it anyways).
+							 */
+							void move(QMenu * menu);
+
+						private:
+							QMenu * & m_menu;
+					};
+
+					/**
+					 * Visit context menu proxy.
+					 * @param menuProxy context menu proxy.
+					 */
+					virtual void visit(ContextMenuProxy & menuProxy);
+
+					virtual ~GUIVisitorDelegate() = default;
+			};
+
 
 			/**
 			 *	Node data.
@@ -49,10 +125,9 @@ class CUTEHMI_BASE_API ProjectModel:
 				/**
 				 * Constructor.
 				 * @param name name of the item. It will be used to display item in the view.
-				 * @param object internal data object. Can be @p nullptr. If provided, instance of this class will
-				 * reset parent and take over ownership of object.
+				 * @param object internal data object. Can be @p nullptr.
 				 */
-				explicit Data(const QString & name, QObject * object = nullptr);
+				explicit Data(const QString & name, std::unique_ptr<QObject> object = nullptr);
 
 				/**
 				 * Move constructor. Object being constructed will take over ownership of internal @a object
@@ -75,11 +150,10 @@ class CUTEHMI_BASE_API ProjectModel:
 				Data & operator =(Data && other) noexcept;
 
 				/**
-				 * Reset object.
-				 * @param object internal object. Can be @p nullptr. If provided, instance of this class will
-				 * reset parent and take over ownership of object. Any previously set object will be deleted.
+				 * Set object. Can be @p nullptr.
+				 * @param object internal object.
 				 */
-				void resetObject(QObject * object);
+				void setObject(std::unique_ptr<QObject> object);
 
 				/**
 				 * Get internal data object.
@@ -93,9 +167,15 @@ class CUTEHMI_BASE_API ProjectModel:
 				 */
 				QString name() const;
 
+				/**
+				 * Set name.
+				 * @param name node name.
+				 */
+				void setName(const QString & name);
+
 				private:
 					QString m_name;
-					QObject * m_object;
+					std::unique_ptr<QObject> m_object;
 			};
 
 			typedef QList<Node *> ChildrenContainer;
@@ -125,31 +205,49 @@ class CUTEHMI_BASE_API ProjectModel:
 			Node * parent();
 
 			/**
-			 * Set accept delegate.
-			 * @param delegate accept delegate.
+			 * Set visitor delegate.
+			 * @param delegate visitor delegate. Can not be @p nullptr.
 			 */
-			void setAcceptDelegate(AcceptDelegate * delegate);
+			void setVisitorDelegate(std::unique_ptr<VisitorDelegate> delegate);
 
 			/**
-			 * Get accept delegate (const version).
-			 * @return accept delegate.
+			 * Get visitor delegate (const version).
+			 * @return visitor delegate.
 			 */
-			const AcceptDelegate * acceptDelegate() const;
+			const VisitorDelegate * visitorDelegate() const;
 
 			/**
-			 * Get accept delegate.
-			 * @return accept delegate.
+			 * Get visitor delegate.
+			 * @return visitor delegate.
 			 */
-			AcceptDelegate * acceptDelegate();
+			VisitorDelegate * visitorDelegate();
 
 			/**
-			 * Create child node.
+			 * Set UI visitor delegate.
+			 * @param delegate UI visitor delegate. Can not be @p nullptr.
+			 */
+			void setGUIVisitorDelegate(std::unique_ptr<GUIVisitorDelegate> delegate);
+
+			/**
+			 * Get UI visitor delegate (const version).
+			 * @return UI visitor delegate.
+			 */
+			const GUIVisitorDelegate * guiVisitorDelegate() const;
+
+			/**
+			 * Get UI visitor delegate.
+			 * @return UI visitor delegate.
+			 */
+			GUIVisitorDelegate * guiVisitorDelegate();
+
+			/**
+			 * Add child node.
 			 * @param data node data.
-			 * @param leaf indicates that created node is a leaf. Leaf is a node that do not have
+			 * @param leaf indicates if child node is a leaf. Leaf is a node that do not have
 			 * any children.
 			 * @return pointer to newly created child. Child is owned by instance of this class.
 			 */
-			Node * createChild(Data && data, bool leaf = true);
+			Node * addChild(Data && data, bool leaf = true);
 
 			/**
 			 * Get child at specified index (const version).
@@ -184,7 +282,7 @@ class CUTEHMI_BASE_API ProjectModel:
 				 * @param data node data.
 				 * @param children children container. Setting this to @p nullptr indicates that node is a leaf.
 				 */
-				explicit Node(Data && data, ChildrenContainer * children = nullptr);
+				explicit Node(Data && data, std::unique_ptr<ChildrenContainer> children = nullptr);
 
 				/**
 				 * Set parent.
@@ -224,10 +322,13 @@ class CUTEHMI_BASE_API ProjectModel:
 			private:
 				void allocateChildren();
 
-				Data m_data;
+				//<principle ref="base.ProjectModel-determinedDestructionOrder">
 				Node * m_parent;
-				ChildrenContainer * m_children;	///< Children nodes. It's more safe to access this member via children() function.
-				AcceptDelegate * m_acceptDelegate;
+				Data m_data;
+				std::unique_ptr<VisitorDelegate> m_visitorDelegate;
+				std::unique_ptr<GUIVisitorDelegate> m_guiVisitorDelegate;
+				std::unique_ptr<ChildrenContainer> m_children;	///< Children nodes. It's more safe to access this member via children() function.
+				//</principle>
 		};
 
 		typedef Iterator<Node> iterator;
@@ -265,13 +366,6 @@ class CUTEHMI_BASE_API ProjectModel:
 		const_iterator end() const;
 
 		/**
-		 * Temporary model setup.
-		 *
-		 * @todo remove this function when proper model loading function is implemented.
-		 */
-		void tmpSetup();
-
-		/**
 		 * Get root node (const version).
 		 * @return root node.
 		 */
@@ -282,6 +376,10 @@ class CUTEHMI_BASE_API ProjectModel:
 		 * @return root node.
 		 */
 		Node & root();
+
+	protected:
+		// QAbstractItemModel
+		QModelIndex createIndex(int row, int column, Node * ptr) const;	// shadow
 
 	private:
 		template <typename NODE>
@@ -412,7 +510,7 @@ bool ProjectModel::Iterator<NODE>::operator !=(const Iterator & other) const
 template <typename NODE>
 NODE * ProjectModel::Iterator<NODE>::nextSibling(NODE * node, NODE * parent) const
 {
-	// This may require some optimization for large trees.
+	/// @todo this may require some optimization for large trees.
 	return parent->child(parent->childIndex(node) + 1);
 }
 

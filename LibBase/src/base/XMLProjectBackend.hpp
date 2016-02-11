@@ -1,5 +1,5 @@
-#ifndef XMLPROJECTBACKEND_H
-#define XMLPROJECTBACKEND_H
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_XMLPROJECTBACKEND_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_XMLPROJECTBACKEND_HPP
 
 #include "../platform.hpp"
 #include "Error.hpp"
@@ -67,4 +67,4 @@ class CUTEHMI_BASE_API XMLProjectBackend
 
 }
 
-#endif // XMLPROJECTBACKEND_H
+#endif

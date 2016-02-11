@@ -116,7 +116,7 @@
    <widget class="QWidget" name="projectViewDockWidgetContents">
     <layout class="QVBoxLayout" name="projectDockLayout">
      <item>
-      <widget class="QTreeView" name="projectView"/>
+      <widget class="ProjectView" name="projectView"/>
      </item>
     </layout>
    </widget>
@@ -222,6 +222,11 @@
    <class>MessageArea</class>
    <extends>QTextEdit</extends>
    <header>../src/MessageArea.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>ProjectView</class>
+   <extends>QTreeView</extends>
+   <header>../src/ProjectView.hpp</header>
   </customwidget>
  </customwidgets>
  <resources>

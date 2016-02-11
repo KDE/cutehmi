@@ -3,8 +3,9 @@ CONFIG += ordered
 
 SUBDIRS += \
     LibBase \
+    LibGUI \
     LibModbus \
     PluginModbus \
-    PluginModbusUI \
+    PluginModbusGUI \
     QML \
     AppFull \

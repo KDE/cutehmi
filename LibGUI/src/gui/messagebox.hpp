@@ -1,0 +1,5 @@
+#ifndef MESSAGEBOX_HPP
+#define MESSAGEBOX_HPP
+
+#endif // MESSAGEBOX_HPP
+

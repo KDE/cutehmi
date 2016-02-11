@@ -3,6 +3,7 @@
 
 #include "../uic/ui_MainWindow.h"
 #include "RecentFiles.hpp"
+#include "QuickViewWrapper.hpp"
 
 #include <base/ProjectModel.hpp>
 #include <base/XMLProjectBackend.hpp>
@@ -10,11 +11,6 @@
 
 #include <QMainWindow>
 #include <QFileInfo>
-
-class QQmlEngine;
-class QQmlContext;
-class QQuickWidget;
-class QQuickView;
 
 class MainWindow:
 	public QMainWindow
@@ -33,6 +29,8 @@ class MainWindow:
 		void closeEvent(QCloseEvent * event) override;
 
 	private slots:
+		void activateVisualComponent(const QModelIndex & index);
+
 		/**
 		 * Show error dialog.
 		 * @param msg brief error message.
@@ -87,72 +85,6 @@ class MainWindow:
 		bool loadRecentFile(const QString & filePath);
 
 	private:
-		class IQMLWidgetWrapper
-		{
-			public:
-				virtual QWidget * widget() = 0;
-
-				virtual QQmlContext * rootContext() const = 0;
-
-				virtual void setSource(const QUrl & url) = 0;
-
-				virtual QStringList importPathList() const = 0;
-
-				virtual void addImportPath(const QString & dir) = 0;
-
-			protected:
-				~IQMLWidgetWrapper();
-		};
-
-		/**
-		 * QQuickWidget wrapper. Provides QQuickWidget based rendering for QML.
-		 */
-		class QuickWidgetWrapper:
-			public virtual IQMLWidgetWrapper
-		{
-			public:
-				QuickWidgetWrapper(QWidget * parent);
-
-				QWidget * widget() override;
-
-				QQmlContext * rootContext() const override;
-
-				void setSource(const QUrl & url) override;
-
-				QStringList importPathList() const override;
-
-				void addImportPath(const QString & dir) override;
-
-			private:
-				QQmlEngine * m_qmlEngine;
-				QQuickWidget * m_quickWidget;
-		};
-
-		/**
-		 * QQuickView wrapper. Provides QQuickView based rendering for QML.
-		 */
-		class QuickViewWrapper:
-			public virtual IQMLWidgetWrapper
-		{
-			public:
-				QuickViewWrapper(QWidget * parent);
-
-				QWidget * widget() override;
-
-				QQmlContext * rootContext() const override;
-
-				void setSource(const QUrl & url) override;
-
-				QStringList importPathList() const override;
-
-				void addImportPath(const QString & dir) override;
-
-			private:
-				QQmlEngine * m_qmlEngine;
-				QQuickView * m_quickView;
-				QWidget * m_widget;
-		};
-
 		typedef QuickViewWrapper QMLWidgetWrapper;	///< QML widget wrapper. Either QuickViewWrapper or QuickWidgetWrapper can be used.
 		typedef QList<QDockWidget *> PLCDockWidgetsContainer;
 
@@ -164,11 +96,11 @@ class MainWindow:
 
 		bool loadFile(const QString & filePath);
 
-		void resetFile();
+		void resetModel(base::ProjectModel * newModel);
 
-		void setNewModel(base::ProjectModel * newModel);
+		void attachUIPlugins(base::ProjectModel & model);
 
-		void visitModel(base::ProjectModel & model);
+		void visitProjectContext(base::ProjectModel & model);
 
 		void storeSettings() const;
 
@@ -176,8 +108,10 @@ class MainWindow:
 
 		bool askSaveDialog();
 
+		void makeWindowTitle();
+
 		Ui::MainWindow ui;
-		base::PluginLoader m_pluginLoader;
+		base::PluginLoader m_projectPluginLoader;
 		QMLWidgetWrapper m_qmlWidgetWrapper;
 		PLCDockWidgetsContainer m_plcDockWidgets;
 		QFileInfo m_file;

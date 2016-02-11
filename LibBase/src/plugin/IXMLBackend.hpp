@@ -11,6 +11,9 @@
 
 namespace plugin {
 
+/**
+ * @todo gather all PLC plugin interfaces into IPLCPlugin.
+ */
 class IXMLBackend
 {
 	public:

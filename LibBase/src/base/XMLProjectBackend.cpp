@@ -1,5 +1,7 @@
 #include "XMLProjectBackend.hpp"
 #include "Error.hpp"
+#include "ScreenObject.hpp"
+#include "ScreenVisitorDelegate.hpp"
 #include "../plugin/IXMLBackend.hpp"
 
 #include <QtDebug>
@@ -9,7 +11,7 @@ namespace base {
 
 QString XMLProjectBackend::Error::str() const
 {
-	switch (code) {
+	switch (code()) {
 		case NOT_CUTEHMI_PROJECT_FILE:
 			return tr("Not a CuteHMI project file.");
 		case UNSUPPORTED_VERSION:
@@ -77,6 +79,8 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::parse(int versionMinor)
 	if (versionMinor > 0)
 		return Error::UNSUPPORTED_VERSION;
 
+	m_root->data().setName(m_xml->attributes().value("name").toString());
+
 	Error result = Error::OK;
 	while (m_xml->readNextStartElement()) {
 		if (m_xml->namespaceUri() != "http://cutehmi") {
@@ -89,13 +93,15 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::parse(int versionMinor)
 			result = screens();
 		else
 			m_xml->skipCurrentElement();
-		if (!result.success())
+		if (!result)
 			return result;
 	}
 	if (m_xml->hasError())
 		return Error::INVALID_FORMAT;
-	if (!m_xml->readNextStartElement() && m_xml->atEnd())
+	if (!m_xml->readNextStartElement() && m_xml->atEnd()) {
+		qDebug() << "Finished parsing document.";
 		return Error::OK;
+	}
 	return Error::INVALID_FORMAT;
 }
 
@@ -103,7 +109,7 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::plcClients()
 {
 	qDebug() << "Entered <plc_clients> section";
 
-	ProjectModel::Node * plcClientsNode = m_root->createChild(ProjectModel::Node::Data("PLC Clients"), false);
+	ProjectModel::Node * plcClientsNode = m_root->addChild(ProjectModel::Node::Data("PLC Clients"), false);
 	while (m_xml->readNextStartElement()) {
 		if (m_xml->namespaceUri() != "http://cutehmi") {
 			m_xml->skipCurrentElement();
@@ -113,12 +119,12 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::plcClients()
 			QString pluginName(m_xml->attributes().value("name").toString());
 			if (QLibraryInfo::isDebugBuild())
 				pluginName.append('d');
-			if (!m_pluginLoader->loadPlugin(pluginName, m_xml->attributes().value("version").toString()).success())
+			if (!m_pluginLoader->loadPlugin(pluginName, m_xml->attributes().value("version").toString()))
 				return Error::PLUGIN_NOT_LOADED;
 			plugin::IXMLBackend * plugin = qobject_cast<plugin::IXMLBackend *>(m_pluginLoader->instance(pluginName));
 			if (plugin == 0)
 				return Error::PLUGIN_WRONG_INTERFACE;
-			if (!plugin->readXML(*m_xml, *plcClientsNode).success())
+			if (!plugin->readXML(*m_xml, *plcClientsNode))
 				return Error::PLUGIN_PARSE_PROBLEM;
 		} else
 			m_xml->skipCurrentElement();
@@ -132,9 +138,18 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::screens()
 {
 	qDebug() << "Entered <screens> section";
 
-	m_root->createChild(ProjectModel::Node::Data("Screens"), false);
+	ProjectModel::Node * screensNode = m_root->addChild(ProjectModel::Node::Data("Screens"), false);
 	while (m_xml->readNextStartElement()) {
-		m_xml->skipCurrentElement();
+		if (m_xml->namespaceUri() != "http://cutehmi") {
+			m_xml->skipCurrentElement();
+			continue;
+		}
+		if (m_xml->name() == "screen") {
+			QString source = m_xml->attributes().value("source").toString();
+			ProjectModel::Node * screenNode = screensNode->addChild(ProjectModel::Node::Data(source, std::unique_ptr<QObject>(new ScreenObject(source))));
+			screenNode->setVisitorDelegate(std::unique_ptr<ProjectModel::Node::VisitorDelegate>(new ScreenVisitorDelegate(screenNode)));
+		}
+		m_xml->skipCurrentElement(); // None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 	}
 	if (m_xml->hasError())
 		return Error::INVALID_FORMAT;

@@ -34,7 +34,10 @@ SOURCES += \
     src/PLCWidgetFactory.cpp \
     src/RecentFiles.cpp \
     src/modbus/ui/ClientControlWidget.cpp \
-    src/ErrorHandler.cpp
+    src/AbstractQMLWidgetWrapper.cpp \
+    src/QuickWidgetWrapper.cpp \
+    src/QuickViewWrapper.cpp \
+    src/ProjectView.cpp
 
 HEADERS += \ 
     src/version.hpp \
@@ -47,7 +50,11 @@ HEADERS += \
     src/PLCWidgetFactory.hpp \
     src/RecentFiles.hpp \
     src/modbus/ui/ClientControlWidget.hpp \
-    src/ErrorHandler.hpp
+    src/ErrorHandler.hpp \
+    src/AbstractQMLWidgetWrapper.hpp \
+    src/QuickWidgetWrapper.hpp \
+    src/QuickViewWrapper.hpp \
+    src/ProjectView.hpp
 
 FORMS += \ 
     ui/MainWindow.ui \

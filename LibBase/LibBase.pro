@@ -26,7 +26,9 @@ SOURCES += \
     src/base/ProjectModel.cpp \
     src/base/XMLProjectBackend.cpp \
     src/base/Error.cpp \
-    src/base/PluginLoader.cpp
+    src/base/PluginLoader.cpp \
+    src/base/ScreenObject.cpp \
+    src/base/ScreenVisitorDelegate.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -38,7 +40,10 @@ HEADERS += \
     src/base/Error.hpp \
     src/base/PluginLoader.hpp \
     src/plugin/IXMLBackend.hpp \
-    src/plugin/IPLCClient.hpp
+    src/plugin/IPLCClient.hpp \
+    src/base/ScreenObject.hpp \
+    src/base/ScreenVisitorDelegate.hpp \
+    src/plugin/IProjectModelVisitor.hpp
     src/debug/DestructorTest.hpp
 
 DISTFILES +=
