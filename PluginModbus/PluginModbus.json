@@ -2,7 +2,7 @@
 	"Keys" : [ ],
 	"Version" : "0.0.0",
 	"UIPlugin" : {
-		"Name" : "cutehmi_plugin_modbus_gui",
+		"Name" : "cutehmi_plugin_modbus_ui",
 		"Version" : "0.0"
 	}
 }

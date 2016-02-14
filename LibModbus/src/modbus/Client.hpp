@@ -3,6 +3,8 @@
 
 #include "RegisterTraits.hpp"
 
+#include <base/ErrorInfo.hpp>
+
 #include <QObject>
 #include <QQmlListProperty>
 #include <QHash>
@@ -10,6 +12,7 @@
 
 #include <memory>
 
+namespace cutehmi {
 namespace modbus {
 
 class AbstractConnection;
@@ -21,16 +24,28 @@ class CUTEHMI_MODBUS_API Client:
 	public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(QQmlListProperty<modbus::InputRegister> ir READ ir NOTIFY irChanged)
-	Q_PROPERTY(QQmlListProperty<modbus::HoldingRegister> r READ r NOTIFY rChanged)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> ir READ ir NOTIFY irChanged)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> r READ r NOTIFY rChanged)
 //remember to delete container elements!!!
-//	Q_PROPERTY(QQmlListProperty<modbus::ModbusDiscreteInput> ib READ ib NOTIFY ibChanged)
-//	Q_PROPERTY(QQmlListProperty<modbus::ModbusCoil> b READ b NOTIFY bChanged)
+//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::ModbusDiscreteInput> ib READ ib NOTIFY ibChanged)
+//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::ModbusCoil> b READ b NOTIFY bChanged)
 //32 bit registers/16 bit addressing	(alternatively idr/dr (double register, then could be qr - quad for 64 bit)
-//	Q_PROPERTY(QQmlListProperty<modbus::InputRegister> irr READ irr NOTIFY irChanged)
-//	Q_PROPERTY(QQmlListProperty<modbus::HoldingRegister> rr READ rr NOTIFY rChanged)
+//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> irr READ irr NOTIFY irChanged)
+//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> rr READ rr NOTIFY rChanged)
 
 	public:
+		struct CUTEHMI_MODBUS_API Error:
+			public base::Error
+		{
+			enum : int {
+				UNABLE_TO_CONNECT = base::Error::SUBCLASS_BEGIN
+			};
+
+			using base::Error::Error;
+
+			QString str() const;
+		};
+
 		enum endianness_t {
 			ENDIAN_BIG,
 			ENDIAN_LITTLE
@@ -97,7 +112,7 @@ class CUTEHMI_MODBUS_API Client:
 		void readAll();
 
 	signals:
-		void error(const QString & message, const QString & details = QString());
+		void error(base::ErrorInfo errInfo);
 
 		void connected();
 
@@ -184,6 +199,7 @@ int Client::Count(QQmlListProperty<T> * property)
 	return std::numeric_limits<int>::max();
 }
 
+}
 }
 
 #endif

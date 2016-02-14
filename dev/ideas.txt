@@ -13,6 +13,6 @@ example error is triggered, because user has not configured device properly). Se
 base::Error class partially implements the idea.
 
 
-2.0 Extended error.
+2.0 Extended error [implemented]
 
 Provide base::ExtError class with details() method for detailed error messages.

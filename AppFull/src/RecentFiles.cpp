@@ -1,5 +1,7 @@
 #include "RecentFiles.hpp"
 
+namespace cutehmi {
+
 RecentFiles::RecentFiles(const QString & id, QObject * parent, int filesNum):
 	QObject(parent),
 	m_id(id),
@@ -62,4 +64,6 @@ void RecentFiles::actionTrigger()
 	QAction * act = qobject_cast<QAction *>(sender());
 	if (act)
 		emit actionTriggered(act->data().toString());
+}
+
 }

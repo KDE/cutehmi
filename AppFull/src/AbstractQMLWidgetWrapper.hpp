@@ -11,6 +11,8 @@ class QQuickItem;
 class QQmlComponent;
 class QWidget;
 
+namespace cutehmi {
+
 class AbstractQMLWidgetWrapper:
 	public QObject
 {
@@ -105,5 +107,7 @@ class AbstractQMLWidgetWrapper:
 		QQuickItem * m_visualComponent;
 		QQmlContext * m_projectContext;
 };
+
+}
 
 #endif

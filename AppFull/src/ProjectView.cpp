@@ -2,8 +2,12 @@
 
 #include <base/ProjectModel.hpp>
 
+#include <widgets/UIVisitorDelegate.hpp>
+
 #include <QMenu>
 #include <QContextMenuEvent>
+
+namespace cutehmi {
 
 ProjectView::ProjectView(QWidget * parent):
 	QTreeView(parent)
@@ -18,10 +22,11 @@ void ProjectView::contextMenuEvent(QContextMenuEvent * event)
 		return;
 
 	QMenu menu;
+	std::unique_ptr<QMenu> visitorMenu;
+	widgets::UIVisitorDelegate::ContextMenuProxy menuProxy(visitorMenu);
 	base::ProjectModel::Node * currentNode = static_cast<base::ProjectModel::Node *>(currentIndex().internalPointer());
-	QMenu * visitorMenu = nullptr;
-	base::ProjectModel::Node::GUIVisitorDelegate::ContextMenuProxy menuProxy(visitorMenu);
-	currentNode->guiVisitorDelegate()->visit(menuProxy);
+	if (currentNode->visitorDelegate()->ui())
+		currentNode->visitorDelegate()->ui()->visit(menuProxy);
 	if (visitorMenu) {
 		if (!visitorMenu->actions().isEmpty()) {
 			menu.addSeparator();
@@ -30,8 +35,6 @@ void ProjectView::contextMenuEvent(QContextMenuEvent * event)
 	}
 
 	menu.exec(event->globalPos());
-
-	if (visitorMenu)
-		delete visitorMenu;
 }
 
+}

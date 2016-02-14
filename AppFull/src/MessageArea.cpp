@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+namespace cutehmi {
+
 //static
 //void MessageArea::Append(const char * msg)
 //{
@@ -70,4 +72,6 @@ void MessageArea::customEvent(QEvent * event)
 {
 	if (event->type() == MessageEvent::EventType())
 		append(dynamic_cast<MessageEvent * >(event)->msg);
+}
+
 }

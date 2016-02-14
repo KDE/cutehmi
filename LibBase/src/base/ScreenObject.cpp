@@ -1,5 +1,6 @@
 #include "ScreenObject.hpp"
 
+namespace cutehmi {
 namespace base {
 
 ScreenObject::ScreenObject(const QString & source, QObject * parent):
@@ -13,4 +14,5 @@ QString ScreenObject::source() const
 	return m_source;
 }
 
+}
 }

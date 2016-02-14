@@ -1,11 +1,13 @@
 #include "Plugin.hpp"
+#include "VisitorDelegate.hpp"
 
+#include <modbus/Client.hpp>
 #include <modbus/TCPConnection.hpp>
 #include <modbus/RTUConnection.hpp>
-#include <modbus/Client.hpp>
 
 #include <QtDebug>
 
+namespace cutehmi {
 namespace pluginModbus {
 
 base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::Node & node)
@@ -48,17 +50,6 @@ base::Error Plugin::writeXML(QXmlStreamWriter & xmlWriter) const
 	return base::Error::FAIL;
 }
 
-Plugin::VisitorDelegate::VisitorDelegate(const base::ProjectModel::Node * node):
-	m_node(node)
-{
-}
-
-void Plugin::VisitorDelegate::visit(QQmlContext & context)
-{
-	modbus::Client * client = qobject_cast<modbus::Client *>(m_node->data().object());
-	context.setContextProperty(m_node->data().name(), client);
-}
-
 base::Error Plugin::tcpConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection)
 {
 	QString name;
@@ -79,7 +70,12 @@ base::Error Plugin::tcpConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 			return base::Error::FAIL;
 		xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 	}
-	connection.reset(new modbus::TCPConnection(name, service));
+	try {
+		connection.reset(new modbus::TCPConnection(name, service));
+	} catch (modbus::Exception & e) {
+		qDebug(e.what());
+		return base::Error::FAIL;
+	}
 	connection->setByteTimeout(byteTimeout);
 	connection->setResponseTimeout(responseTimeout);
 	return base::Error::OK;
@@ -148,7 +144,12 @@ base::Error Plugin::rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 			return base::Error::FAIL;
 		xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 	}
-	connection.reset(new modbus::RTUConnection(port, baudRate, parity, dataBits, stopBits, mode));
+	try {
+		connection.reset(new modbus::RTUConnection(port, baudRate, parity, dataBits, stopBits, mode));
+	} catch (modbus::Exception & e) {
+		qDebug(e.what());
+		return base::Error::FAIL;
+	}
 	connection->setByteTimeout(byteTimeout);
 	connection->setResponseTimeout(responseTimeout);
 	return base::Error::OK;
@@ -179,4 +180,5 @@ base::Error Plugin::timeoutFromString(const QString & timeoutString, modbus::Abs
 	return base::Error::OK;
 }
 
+}
 }

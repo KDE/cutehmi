@@ -4,6 +4,7 @@
 
 #include <limits>
 
+namespace cutehmi {
 namespace modbus {
 
 uint16_t intToUint16(int value)
@@ -49,4 +50,5 @@ int intFromUint16(uint16_t value)
 		return value;
 }
 
+}
 }

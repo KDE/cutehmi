@@ -3,11 +3,15 @@
 
 #include <QSettings>
 
+namespace cutehmi {
+
 class Settings:
 	public QSettings
 {
 	public:
 		Settings();
 };
+
+}
 
 #endif

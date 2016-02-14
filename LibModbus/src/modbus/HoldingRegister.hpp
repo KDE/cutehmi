@@ -8,6 +8,7 @@
 #include <QReadWriteLock>
 #include <QVariant>
 
+namespace cutehmi {
 namespace modbus {
 
 /**
@@ -72,6 +73,7 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		mutable QMutex m_reqValueMutex;
 };
 
+}
 }
 
 #endif

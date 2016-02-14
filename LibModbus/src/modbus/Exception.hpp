@@ -5,13 +5,14 @@
 
 #include <QException>
 
+namespace cutehmi {
 namespace modbus {
 
 class CUTEHMI_MODBUS_API Exception:
 	public QException
 {
 	public:
-		Exception(const QString & what, const QString & details = QString());
+		Exception(const QString & what);
 
 		void raise() const override;
 
@@ -19,15 +20,11 @@ class CUTEHMI_MODBUS_API Exception:
 
 		const char * what() const noexcept override;
 
-		const char * details() const noexcept;
-
-		bool hasDetails() const;
-
 	private:
 		const QByteArray m_what;
-		const QByteArray m_details;
 };
 
+}
 }
 
 #endif

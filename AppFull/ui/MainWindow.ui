@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>cutehmi::MainWindow</class>
+ <widget class="QMainWindow" name="cutehmi::MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -236,7 +236,7 @@
   <connection>
    <sender>actionAbout</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>cutehmi::MainWindow</receiver>
    <slot>about()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -252,7 +252,7 @@
   <connection>
    <sender>actionAbout_Qt</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>cutehmi::MainWindow</receiver>
    <slot>aboutQt()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -268,7 +268,7 @@
   <connection>
    <sender>actionExit</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>cutehmi::MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -284,7 +284,7 @@
   <connection>
    <sender>actionNew</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>cutehmi::MainWindow</receiver>
    <slot>newFile()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -300,7 +300,7 @@
   <connection>
    <sender>actionOpen</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>cutehmi::MainWindow</receiver>
    <slot>loadFile()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -316,7 +316,7 @@
   <connection>
    <sender>actionSave</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>cutehmi::MainWindow</receiver>
    <slot>saveFile()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -332,7 +332,7 @@
   <connection>
    <sender>actionSaveAs</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>cutehmi::MainWindow</receiver>
    <slot>saveFileAs()</slot>
    <hints>
     <hint type="sourcelabel">

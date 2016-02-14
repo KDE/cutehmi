@@ -4,6 +4,7 @@
 #include "InputRegister.hpp"
 #include "HoldingRegister.hpp"
 
+namespace cutehmi {
 namespace modbus {
 
 template <typename R>
@@ -24,6 +25,7 @@ struct RegisterTraits<HoldingRegister>
 	typedef QHash<int, HoldingRegister *> Container;
 };
 
+}
 }
 
 #endif

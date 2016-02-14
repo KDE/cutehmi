@@ -4,6 +4,7 @@
 #include "NonCopyable.hpp"
 #include "NonMovable.hpp"
 
+namespace cutehmi {
 namespace utils {
 
 /**
@@ -46,6 +47,7 @@ class Singleton:
 		virtual ~Singleton() = default;
 };
 
+}
 }
 
 #endif

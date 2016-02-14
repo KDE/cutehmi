@@ -2,31 +2,52 @@
 
 #include <QtDebug>
 
+namespace cutehmi {
 namespace base {
 
-void ProjectModel::Node::VisitorDelegate::visit(QQmlContext & context)
-{
-	Q_UNUSED(context);
-}
-
-void ProjectModel::Node::VisitorDelegate::visit(QQmlComponent & component)
-{
-	Q_UNUSED(component);
-}
-
-ProjectModel::Node::GUIVisitorDelegate::ContextMenuProxy::ContextMenuProxy(QMenu * & menu):
-	m_menu(menu)
+ProjectModel::Node::VisitorDelegate::QMLContextPropertyProxy::QMLContextPropertyProxy(QQmlContext * context):
+	m_context(context)
 {
 }
 
-void ProjectModel::Node::GUIVisitorDelegate::ContextMenuProxy::move(QMenu * menu)
+void ProjectModel::Node::VisitorDelegate::QMLContextPropertyProxy::setContextProperty(const QString & name, QObject * value)
 {
-	m_menu = menu;
+	m_context->setContextProperty(name, value);
 }
 
-void ProjectModel::Node::GUIVisitorDelegate::visit(ContextMenuProxy & menuProxy)
+ProjectModel::Node::VisitorDelegate::QMLVisualComponentProxy::QMLVisualComponentProxy(QQmlComponent * component):
+	m_component(component)
 {
-	Q_UNUSED(menuProxy);
+}
+
+void ProjectModel::Node::VisitorDelegate::QMLVisualComponentProxy::loadUrl(const QUrl & url)
+{
+	m_component->loadUrl(url);
+}
+
+void ProjectModel::Node::VisitorDelegate::QMLVisualComponentProxy::loadUrl(const QUrl & url, QQmlComponent::CompilationMode mode)
+{
+	m_component->loadUrl(url, mode);
+}
+
+void ProjectModel::Node::VisitorDelegate::QMLVisualComponentProxy::setData(const QByteArray & data, const QUrl & url)
+{
+	m_component->setData(data, url);
+}
+
+void ProjectModel::Node::VisitorDelegate::visit(QMLContextPropertyProxy & proxy)
+{
+	Q_UNUSED(proxy);
+}
+
+void ProjectModel::Node::VisitorDelegate::visit(QMLVisualComponentProxy & proxy)
+{
+	Q_UNUSED(proxy);
+}
+
+widgets::UIVisitorDelegate * ProjectModel::Node::VisitorDelegate::ui()
+{
+	return nullptr;
 }
 
 ProjectModel::Node::Data::Data(const QString & name, std::unique_ptr<QObject> object):
@@ -115,21 +136,6 @@ ProjectModel::Node::VisitorDelegate * ProjectModel::Node::visitorDelegate()
 	return m_visitorDelegate.get();
 }
 
-void ProjectModel::Node::setGUIVisitorDelegate(std::unique_ptr<GUIVisitorDelegate> delegate)
-{
-	m_guiVisitorDelegate = std::move(delegate);
-}
-
-const ProjectModel::Node::GUIVisitorDelegate * ProjectModel::Node::guiVisitorDelegate() const
-{
-	return m_guiVisitorDelegate.get();
-}
-
-ProjectModel::Node::GUIVisitorDelegate * ProjectModel::Node::guiVisitorDelegate()
-{
-	return m_guiVisitorDelegate.get();
-}
-
 ProjectModel::Node * ProjectModel::Node::addChild(Data && data, bool leaf)
 {
 	ProjectModel::Node * child = leaf ? new ProjectModel::Node(std::move(data), nullptr) : new ProjectModel::Node(std::move(data), std::unique_ptr<ChildrenContainer>(new ChildrenContainer));
@@ -168,7 +174,6 @@ ProjectModel::Node::Node(Data && data, std::unique_ptr<ChildrenContainer> childr
 	m_parent(nullptr),
 	m_data(std::move(data)),
 	m_visitorDelegate(new VisitorDelegate),
-	m_guiVisitorDelegate(new GUIVisitorDelegate),
 	m_children(std::move(children))
 {
 }
@@ -428,4 +433,5 @@ const ProjectModel::Node & ProjectModel::root() const
 	return m_root;
 }
 
+}
 }

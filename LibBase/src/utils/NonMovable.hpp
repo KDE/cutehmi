@@ -1,6 +1,7 @@
 #ifndef CUTEHMI_LIBBASE_SRC_UTILS_NONMOVABLE_HPP
 #define CUTEHMI_LIBBASE_SRC_UTILS_NONMOVABLE_HPP
 
+namespace cutehmi {
 namespace utils {
 
 /**
@@ -18,6 +19,7 @@ class NonMovable
 		NonMovable & operator =(NonMovable && other) = delete;
 };
 
+}
 }
 
 #endif

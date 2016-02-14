@@ -8,6 +8,7 @@
 
 #include <modbus.h>
 
+namespace cutehmi {
 namespace modbus {
 
 /**
@@ -78,6 +79,7 @@ class CUTEHMI_MODBUS_API AbstractConnection:
 		bool m_connected;
 };
 
+}
 }
 
 #endif

@@ -9,6 +9,7 @@
 
 #include <memory>
 
+namespace cutehmi {
 namespace pluginModbus {
 
 class Plugin:
@@ -18,7 +19,7 @@ class Plugin:
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID "CuteHMI.PluginModbus" FILE "PluginModbus.json")
-	Q_INTERFACES(plugin::IPLCClient plugin::IXMLBackend)
+	Q_INTERFACES(cutehmi::plugin::IPLCClient cutehmi::plugin::IXMLBackend)
 
 	public:
 		base::Error readXML(QXmlStreamReader & xmlReader, base::ProjectModel::Node & node) override;
@@ -26,18 +27,6 @@ class Plugin:
 		base::Error writeXML(QXmlStreamWriter & xmlWriter) const override;
 
 	private:
-		class VisitorDelegate:
-			public base::ProjectModel::Node::VisitorDelegate
-		{
-			public:
-				VisitorDelegate(const base::ProjectModel::Node * node);
-
-				void visit(QQmlContext & context) override;
-
-			private:
-				const base::ProjectModel::Node * m_node;
-		};
-
 		base::Error tcpConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
 
 		base::Error rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
@@ -49,6 +38,7 @@ class Plugin:
 //		metaData() const;
 };
 
+}
 }
 
 #endif

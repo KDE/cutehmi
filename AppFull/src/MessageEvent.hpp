@@ -4,6 +4,8 @@
 #include <QEvent>
 #include <QString>
 
+namespace cutehmi {
+
 class MessageEvent:
 	public QEvent
 {
@@ -18,5 +20,7 @@ class MessageEvent:
 		 */
 		MessageEvent(const QString & msg);
 };
+
+}
 
 #endif

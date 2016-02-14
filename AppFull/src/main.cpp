@@ -8,7 +8,7 @@
 
 void qtMessageHandler(QtMsgType type, const QMessageLogContext & context, const QString & msg)
 {
-	MessageHandler::Instance().qtMessageHandler(type, context, msg);
+	cutehmi::MessageHandler::Instance().qtMessageHandler(type, context, msg);
 }
 
 int main(int argc, char *argv[])
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 //	translator.load(":/locale/cutyhmi_pl");
 //	app.installTranslator(& translator);
 
-	std::unique_ptr<MainWindow> win(new MainWindow);
+	std::unique_ptr<cutehmi::MainWindow> win(new cutehmi::MainWindow);
 
 	return app.exec();
 }

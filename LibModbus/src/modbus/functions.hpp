@@ -7,6 +7,7 @@
 
 #include <QtEndian>
 
+namespace cutehmi {
 namespace modbus {
 
 template <typename T>
@@ -67,6 +68,7 @@ CUTEHMI_MODBUS_API uint16_t intToUint16(int value);
  */
 CUTEHMI_MODBUS_API int intFromUint16(uint16_t value);
 
+}
 }
 
 #endif

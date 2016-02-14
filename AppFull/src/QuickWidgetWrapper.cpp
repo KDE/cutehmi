@@ -3,6 +3,8 @@
 #include <QQuickWidget>
 #include <QQmlEngine>
 
+namespace cutehmi {
+
 QuickWidgetWrapper::QuickWidgetWrapper(QWidget * parent):
 	Parent(new QQmlEngine),
 	m_quickWidget(new QQuickWidget(engine(), parent)) // Note: QQuickWidget won't take ownership of m_qmlEngine.
@@ -19,4 +21,6 @@ QWidget * QuickWidgetWrapper::widget() const
 QQuickItem * QuickWidgetWrapper::contentItem() const
 {
 	return m_quickWidget->quickWindow()->contentItem();
+}
+
 }

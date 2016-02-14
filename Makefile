@@ -13,17 +13,17 @@ LIC_HASH = LICENSE.MP.hash.inc
 INCLUDE_GUARD_PREFIX = "CUTEHMI_"
 SOURCE_DIRS = AppFull/src \
 			  LibBase/src \
-			  LibGUI/src \
+			  LibWidgets/src \
 			  LibModbus/src \
 			  PluginModbus/src \
-			  PluginModbusGUI/src \
+			  PluginModbusUI/src \
 			  QML/CuteHMI/Modbus/src
 INCLUDE_DIRS = AppFull/src \
 			   LibBase/src \
-			   LibGUI/src \
+			   LibWidgets/src \
 			   LibModbus/src \
 			   PluginModbus/src \
-			   PluginModbusGUI/src \
+			   PluginModbusUI/src \
 			   QML/CuteHMI/Modbus/src
 CMAKE_DIRS =
 ORS = "\r\n"

@@ -5,10 +5,13 @@
 
 #include <QtPlugin>
 
+namespace cutehmi {
 namespace plugin {
 
 /**
  * @todo gather all PLC plugin interfaces into IPLCPlugin.
+ *
+ * @todo move it to some different namespace.
  */
 class IPLCClient
 {
@@ -21,7 +24,8 @@ class IPLCClient
 };
 
 }
+}
 
-Q_DECLARE_INTERFACE(plugin::IPLCClient, "CuteHMI.Plugin.IPLCClient")
+Q_DECLARE_INTERFACE(cutehmi::plugin::IPLCClient, "CuteHMI.Plugin.IPLCClient")
 
 #endif

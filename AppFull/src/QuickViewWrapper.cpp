@@ -4,6 +4,8 @@
 #include <QQuickView>
 #include <QWidget>
 
+namespace cutehmi {
+
 QuickViewWrapper::QuickViewWrapper(QWidget * parent):
 	Parent(new QQmlEngine),
 	m_quickView(new QQuickView(engine(), 0)) // Note: QQuickView won't take ownership of m_qmlEngine.
@@ -21,4 +23,6 @@ QWidget * QuickViewWrapper::widget() const
 QQuickItem * QuickViewWrapper::contentItem() const
 {
 	return m_quickView->contentItem();
+}
+
 }

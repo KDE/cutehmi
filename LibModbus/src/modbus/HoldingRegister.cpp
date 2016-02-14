@@ -4,6 +4,7 @@
 #include <QtDebug>
 #include <QMutexLocker>
 
+namespace cutehmi {
 namespace modbus {
 
 HoldingRegister::HoldingRegister(uint16_t value, QObject * parent):
@@ -67,4 +68,5 @@ void HoldingRegister::updateValue(uint16_t value)
 	emit valueUpdated();
 }
 
+}
 }

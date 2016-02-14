@@ -1,6 +1,7 @@
 #ifndef CUTEHMI_LIBBASE_SRC_UTILS_NONCOPYABLE_HPP
 #define CUTEHMI_LIBBASE_SRC_UTILS_NONCOPYABLE_HPP
 
+namespace cutehmi {
 namespace utils {
 
 /**
@@ -18,6 +19,7 @@ class NonCopyable
 		NonCopyable & operator =(const NonCopyable & other) = delete;
 };
 
+}
 }
 
 #endif

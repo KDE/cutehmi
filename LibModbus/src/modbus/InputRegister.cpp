@@ -1,5 +1,6 @@
 #include "InputRegister.hpp"
 
+namespace cutehmi {
 namespace modbus {
 
 InputRegister::InputRegister(uint16_t value, QObject * parent):
@@ -30,4 +31,5 @@ void InputRegister::updateValue(uint16_t value)
 	emit valueUpdated();
 }
 
+}
 }

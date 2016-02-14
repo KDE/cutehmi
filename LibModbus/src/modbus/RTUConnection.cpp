@@ -3,30 +3,24 @@
 
 #include <QObject>
 
+namespace cutehmi {
 namespace modbus {
 
-RTUConnection_baseFromMember::RTUConnection_baseFromMember(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits):
+RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode):
+	Parent(modbus_new_rtu(port.toLocal8Bit().data(), baudRate, ToLibmodbusParity(parity), static_cast<int>(dataBits), static_cast<int>(stopBits))),
 	m_port(port),
 	m_baudRate(baudRate),
 	m_parity(parity),
 	m_dataBits(dataBits),
-	m_stopBits(stopBits)
-{
-}
-
-
-RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode):
-	RTUConnection_baseFromMember(port, baudRate, parity, dataBits, stopBits),
-	Parent(modbus_new_rtu(port.toLocal8Bit().data(), baudRate, ToLibmodbusParity(parity), static_cast<int>(dataBits), static_cast<int>(stopBits))),
+	m_stopBits(stopBits),
 	m_mode(mode)
 {
 	if (context() == NULL) {
-		QString title = QObject::tr("Unable to create connection.");
 		switch (errno) {
 			case EINVAL:
-				throw Exception(title, QObject::tr("Unable to create a connection for the port: %1. One of the parameters is incorrect.").arg(m_port));
+				throw Exception(QObject::tr("Unable to create a connection for the port: %1. One of the parameters is incorrect.").arg(m_port));
 			default:
-				throw Exception(title, QObject::tr("Unable to create a connection for the port: %1.").arg(m_port));
+				throw Exception(QObject::tr("Unable to create a connection for the port: %1.").arg(m_port));
 		}
 	}
 //<workaround id="LibModbus-1" target="libmodbus" cause="bug">
@@ -52,8 +46,7 @@ RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, 
 
 RTUConnection::~RTUConnection()
 {
-	if (context() != NULL)
-		modbus_free(context());
+	modbus_free(context());
 }
 
 char RTUConnection::ToLibmodbusParity(Parity parity)
@@ -72,4 +65,4 @@ char RTUConnection::ToLibmodbusParity(Parity parity)
 }
 
 }
-
+}

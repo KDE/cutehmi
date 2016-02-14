@@ -5,7 +5,18 @@
 
 #include <QtDebug>
 
+namespace cutehmi {
 namespace modbus {
+
+QString Client::Error::str() const
+{
+	switch (code()) {
+		case Error::UNABLE_TO_CONNECT:
+			return tr("Unable to connect.");
+		default:
+			return base::Error::str();
+	}
+}
 
 Client::Client(std::unique_ptr<AbstractConnection> connection, QObject * parent):
 	QObject(parent),
@@ -90,27 +101,28 @@ void Client::writeR(int addr)
 
 void Client::connect()
 {
-	try {
-		m_connection->connect();
-	} catch (Exception & e) {
-		emit error(QString::fromLocal8Bit(e.what()), QString::fromLocal8Bit(e.details()));
-	}
-	if (m_connection->connected())
+	m_connection->connect();
+	if (m_connection->connected()) {
+		qDebug("Modbus client connected to the device.");
 		emit connected();
+	} else
+		emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 }
 
 void Client::disconnect()
 {
 	if (m_connection->connected()) {
 		m_connection->disconnect();
+		qDebug("Modbus client disconnected from the device.");
 		emit disconnected();
-	}
+	} else
+		qDebug("Already disconnected.");
 }
 
 void Client::readAll()
 {
 	if (!m_connection->connected()) {
-		qDebug("not connected.");
+		qDebug("Attempting to read while not connected.");
 		return;
 	}
 	for (IrDataContainer::iterator it = m_irData.begin(); it != m_irData.end(); ++it)
@@ -174,4 +186,5 @@ uint16_t Client::toClientEndian(uint16_t val) const
 	}
 }
 
+}
 }

@@ -3,6 +3,8 @@
 
 #include <QTextEdit>
 
+namespace cutehmi {
+
 class MessageArea:
 	public QTextEdit
 {
@@ -37,5 +39,7 @@ class MessageArea:
 //	private:
 //		static MessageArea * MsgHandler;	///< Set in constructor.
 };
+
+}
 
 #endif

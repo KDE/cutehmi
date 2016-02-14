@@ -9,7 +9,7 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: []
     Component {
-        name: "modbus::HoldingRegister"
+		name: "cutehmi::modbus::HoldingRegister"
         prototype: "QObject"
         exports: ["ModbusHoldingRegister 1.0"]
         exportMetaObjectRevisions: [0]
@@ -38,7 +38,7 @@ Module {
         }
     }
     Component {
-        name: "modbus::InputRegister"
+		name: "cutehmi::modbus::InputRegister"
         prototype: "QObject"
         exports: ["ModbusInputRegister 1.0"]
         exportMetaObjectRevisions: [0]

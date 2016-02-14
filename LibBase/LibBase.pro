@@ -28,7 +28,8 @@ SOURCES += \
     src/base/Error.cpp \
     src/base/PluginLoader.cpp \
     src/base/ScreenObject.cpp \
-    src/base/ScreenVisitorDelegate.cpp
+    src/base/ScreenVisitorDelegate.cpp \
+    src/base/ExtError.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -43,7 +44,10 @@ HEADERS += \
     src/plugin/IPLCClient.hpp \
     src/base/ScreenObject.hpp \
     src/base/ScreenVisitorDelegate.hpp \
-    src/plugin/IProjectModelVisitor.hpp
+    src/base/ErrorInfo.hpp \
+    src/base/ExtError.hpp \
+    src/base/ExtErrorInfo.hpp \
+    src/base/IProjectModelVisitor.hpp
     src/debug/DestructorTest.hpp
 
 DISTFILES +=

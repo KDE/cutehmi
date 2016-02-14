@@ -6,6 +6,8 @@
 #include <QQuickItem>
 #include <QQmlContext>
 
+namespace cutehmi {
+
 QQmlContext * AbstractQMLWidgetWrapper::rootContext() const
 {
 	return engine()->rootContext();
@@ -103,4 +105,6 @@ void AbstractQMLWidgetWrapper::renewProtoVisualComponent()
 {
 	delete m_protoVisualComponent;
 	m_protoVisualComponent = new QQmlComponent(engine());
+}
+
 }

@@ -5,6 +5,7 @@
 #include <QCoreApplication>
 #include <QLibraryInfo>
 
+namespace cutehmi {
 namespace base {
 
 QString PluginLoader::Error::str() const
@@ -149,4 +150,5 @@ void PluginLoader::parseVersion(const QString & version, int & major, int & mino
 	micro = mmm.value(2).toInt();
 }
 
+}
 }

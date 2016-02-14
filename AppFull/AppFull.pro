@@ -18,6 +18,7 @@ RC_FILE = AppFull.rc
 QML_IMPORT_PATH = ../QML
 
 include (../cutehmi_base.pri)
+include (../cutehmi_widgets.pri)
 include (../cutehmi_modbus.pri) # @todo remove after modbus plugins are ready, for now temporary link with the cutehmi_modbus library.
 
 # Default rules for deployment.
@@ -31,9 +32,7 @@ SOURCES += \
     src/MessageHandler.cpp \
     src/SmartStatusBar.cpp \
     src/Settings.cpp \
-    src/PLCWidgetFactory.cpp \
     src/RecentFiles.cpp \
-    src/modbus/ui/ClientControlWidget.cpp \
     src/AbstractQMLWidgetWrapper.cpp \
     src/QuickWidgetWrapper.cpp \
     src/QuickViewWrapper.cpp \
@@ -47,18 +46,14 @@ HEADERS += \
     src/MessageHandler.hpp \
     src/SmartStatusBar.hpp \
     src/Settings.hpp \
-    src/PLCWidgetFactory.hpp \
     src/RecentFiles.hpp \
-    src/modbus/ui/ClientControlWidget.hpp \
-    src/ErrorHandler.hpp \
     src/AbstractQMLWidgetWrapper.hpp \
     src/QuickWidgetWrapper.hpp \
     src/QuickViewWrapper.hpp \
     src/ProjectView.hpp
 
 FORMS += \ 
-    ui/MainWindow.ui \
-    src/modbus/ui/ClientControlWidget.ui
+    ui/MainWindow.ui
 
 DISTFILES += \ 
     deployment.pri \

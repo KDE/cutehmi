@@ -6,6 +6,7 @@
 #include <QString>
 #include <QCoreApplication>
 
+namespace cutehmi {
 namespace base {
 
 /**
@@ -69,13 +70,14 @@ struct CUTEHMI_BASE_API Error
 };
 
 }
+}
 
-CUTEHMI_BASE_API bool operator ==(const base::Error & error, int code);
+CUTEHMI_BASE_API bool operator ==(const cutehmi::base::Error & error, int code);
 
-CUTEHMI_BASE_API bool operator ==(int code, const base::Error & error);
+CUTEHMI_BASE_API bool operator ==(int code, const cutehmi::base::Error & error);
 
-CUTEHMI_BASE_API bool operator !=(const base::Error & error, int code);
+CUTEHMI_BASE_API bool operator !=(const cutehmi::base::Error & error, int code);
 
-CUTEHMI_BASE_API bool operator !=(int code, const base::Error & error);
+CUTEHMI_BASE_API bool operator !=(int code, const cutehmi::base::Error & error);
 
 #endif

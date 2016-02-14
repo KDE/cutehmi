@@ -28,30 +28,24 @@ unix {
 SOURCES += \
     src/modbus/AbstractConnection.cpp \
     src/modbus/Client.cpp \
-    src/modbus/ClientPlugin.cpp \
-    src/modbus/ConnectionFactory.cpp \
     src/modbus/Exception.cpp \
     src/modbus/functions.cpp \
     src/modbus/HoldingRegister.cpp \
     src/modbus/InputRegister.cpp \
     src/modbus/RTUConnection.cpp \
-    src/modbus/TCPConnection.cpp \
-    src/base/PLCClientManager.cpp
+    src/modbus/TCPConnection.cpp
 
 HEADERS += \
     src/platform.hpp \
     src/modbus/AbstractConnection.hpp \
     src/modbus/Client.hpp \
-    src/modbus/ClientPlugin.hpp \
-    src/modbus/ConnectionFactory.hpp \
     src/modbus/Exception.hpp \
     src/modbus/functions.hpp \
     src/modbus/HoldingRegister.hpp \
     src/modbus/InputRegister.hpp \
     src/modbus/RegisterTraits.hpp \
     src/modbus/RTUConnection.hpp \
-    src/modbus/TCPConnection.hpp \
-    src/base/PLCClientManager.hpp
+    src/modbus/TCPConnection.hpp
 
 DISTFILES +=
 

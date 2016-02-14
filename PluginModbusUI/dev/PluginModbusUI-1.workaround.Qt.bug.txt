@@ -1,0 +1,10 @@
+Problem:
+
+QDialog for some reason is not becoming active: neither by calling raise() 
+nor setFocus(), even if it has been shown first using show() function (Qt bug?).
+
+Workaround:
+
+Call hide() and then immediately show() to make window active.
+
+Snippet:

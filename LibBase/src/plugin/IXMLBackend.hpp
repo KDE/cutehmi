@@ -9,10 +9,13 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+namespace cutehmi {
 namespace plugin {
 
 /**
  * @todo gather all PLC plugin interfaces into IPLCPlugin.
+ *
+ * @todo move it to some different namespace.
  */
 class IXMLBackend
 {
@@ -28,7 +31,8 @@ class IXMLBackend
 };
 
 }
+}
 
-Q_DECLARE_INTERFACE(plugin::IXMLBackend, "CuteHMI.Plugin.IXMLBackend")
+Q_DECLARE_INTERFACE(cutehmi::plugin::IXMLBackend, "CuteHMI.Plugin.IXMLBackend")
 
 #endif

@@ -12,6 +12,8 @@
 #include <QMainWindow>
 #include <QFileInfo>
 
+namespace cutehmi {
+
 class MainWindow:
 	public QMainWindow
 {
@@ -30,19 +32,6 @@ class MainWindow:
 
 	private slots:
 		void activateVisualComponent(const QModelIndex & index);
-
-		/**
-		 * Show error dialog.
-		 * @param msg brief error message.
-		 * @param details detailed information.
-		 *
-		 * @todo pass by value or replace this slot with better error message facility.
-		 */
-		void showErrorDialog(const QString & msg, const QString & details = QString()) const;
-
-		void clientConnected();
-
-		void clientDisconnected();
 
 		/**
 		 * Show about dialog.
@@ -86,11 +75,6 @@ class MainWindow:
 
 	private:
 		typedef QuickViewWrapper QMLWidgetWrapper;	///< QML widget wrapper. Either QuickViewWrapper or QuickWidgetWrapper can be used.
-		typedef QList<QDockWidget *> PLCDockWidgetsContainer;
-
-		void attachPLCClients();
-
-		QDockWidget * createDockWidget(const QString & title, QWidget * widget);
 
 		bool saveFile(const QString & filePath);
 
@@ -113,12 +97,12 @@ class MainWindow:
 		Ui::MainWindow ui;
 		base::PluginLoader m_projectPluginLoader;
 		QMLWidgetWrapper m_qmlWidgetWrapper;
-		PLCDockWidgetsContainer m_plcDockWidgets;
 		QFileInfo m_file;
 		RecentFiles * m_recentFiles;
 		QMenu * m_recentFilesMenu;
 		base::ProjectModel * m_projectModel;
 };
 
+}
 
 #endif

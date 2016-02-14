@@ -1,5 +1,7 @@
 #include "SmartStatusBar.hpp"
 
+namespace cutehmi {
+
 SmartStatusBar::SmartStatusBar(QWidget * parent):
 	QStatusBar(parent),
 	m_timeoutPerChar(INITIAL_TIMEOUT_PER_CHAR)
@@ -32,4 +34,6 @@ void SmartStatusBar::setIdleForEmpty(const QString & message)
 {
 	if (message.isEmpty())
 		showIdleMessage();
+}
+
 }

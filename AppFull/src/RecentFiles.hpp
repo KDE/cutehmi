@@ -7,6 +7,8 @@
 #include <QDir>
 #include <QMenu>
 
+namespace cutehmi {
+
 class RecentFiles:
 	public QObject
 {
@@ -43,5 +45,7 @@ class RecentFiles:
 		Settings m_settings;
 		QStringList m_files;
 };
+
+}
 
 #endif

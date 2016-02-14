@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+namespace cutehmi {
 namespace modbus {
 
 TCPConnection::TCPConnection(const QString & node, const QString & service):
@@ -12,13 +13,13 @@ TCPConnection::TCPConnection(const QString & node, const QString & service):
 {
 	if (context() == NULL)
 		// %1 network node, %2 service (port).
-		throw Exception(QObject::tr("Unable to create modbus connection."), QObject::tr("Unable to create connection for node: %1, service: %2.").arg(m_node).arg(m_service));
+		throw Exception(QObject::tr("Unable to create connection for node: %1, service: %2.").arg(m_node).arg(m_service));
 }
 
 TCPConnection::~TCPConnection()
 {
-	if (context() != NULL)
-		modbus_free(context());
+	modbus_free(context());
 }
 
+}
 }

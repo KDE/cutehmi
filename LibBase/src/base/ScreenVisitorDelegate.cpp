@@ -1,6 +1,7 @@
 #include "ScreenVisitorDelegate.hpp"
 #include "ScreenObject.hpp"
 
+namespace cutehmi {
 namespace base {
 
 ScreenVisitorDelegate::ScreenVisitorDelegate(const base::ProjectModel::Node * node):
@@ -8,11 +9,11 @@ ScreenVisitorDelegate::ScreenVisitorDelegate(const base::ProjectModel::Node * no
 {
 }
 
-void ScreenVisitorDelegate::visit(QQmlComponent & component)
+void ScreenVisitorDelegate::visit(QMLVisualComponentProxy & proxy)
 {
 	ScreenObject * screenObject = qobject_cast<ScreenObject *>(m_node->data().object());
-	component.loadUrl(QUrl::fromLocalFile(screenObject->source()));
+	proxy.loadUrl(QUrl::fromLocalFile(screenObject->source()));
 }
 
 }
-
+}

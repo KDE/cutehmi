@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+namespace cutehmi {
+
 void MessageHandler::qtMessageHandler(QtMsgType type, const QMessageLogContext & context, const QString & msg)
 {
 	Q_UNUSED(context);
@@ -47,4 +49,6 @@ QString MessageHandler::QtMsgToString(QtMsgType type, const QString & msg)
 MessageHandler::MessageHandler():
 	m_messageArea(nullptr)
 {
+}
+
 }

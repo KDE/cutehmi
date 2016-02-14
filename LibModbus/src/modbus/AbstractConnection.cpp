@@ -3,6 +3,7 @@
 
 #include <QtDebug>
 
+namespace cutehmi {
 namespace modbus {
 
 void AbstractConnection::setByteTimeout(Timeout timeout)
@@ -44,18 +45,15 @@ void AbstractConnection::connect()
 {
 	if (connected())
 		return;
-	if (context() == NULL)
-		throw Exception(QObject::tr("Unable to connect."), QObject::tr("Connection has not been properly configured."));
 	if (modbus_connect(context()) == 0)
 		setConnected(true);
 	else
-		throw Exception(QObject::tr("Unable to connect."));
+		qDebug("Unable to connect.");
 }
 
 void AbstractConnection::disconnect()
 {
-	if (context() != NULL)
-		modbus_close(context());
+	modbus_close(context());
 	setConnected(false);
 }
 
@@ -111,4 +109,5 @@ void AbstractConnection::setConnected(bool connected)
 }
 
 
+}
 }

@@ -1,20 +1,19 @@
-#include <base/PLCClientManager.hpp>	//this is on top to avoid "Please include winsock2.h befor windows.h" warning
-#include "modbus/ui/ClientControlWidget.hpp"	// temp
-
 #include "MainWindow.hpp"
 #include "Settings.hpp"
 #include "MessageHandler.hpp"
-#include "ErrorHandler.hpp"
 #include "version.hpp"
-#include "PLCWidgetFactory.hpp"
 
 #include <base/ProjectModel.hpp>
-#include <plugin/IProjectModelVisitor.hpp>
+#include <widgets/IUIPlugin.hpp>
+#include <widgets/UIVisitorDelegate.hpp>
+#include <widgets/ErrorBox.hpp>
 
 #include <QMessageBox>
 #include <QDebug>
 #include <QFileDialog>
 #include <QCloseEvent>
+
+namespace cutehmi {
 
 constexpr const char * MainWindow::INITIAL_ICON_THEME;
 constexpr const char * MainWindow::PLUGINS_SUBDIR;
@@ -40,7 +39,6 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	dir.cd(PLUGINS_SUBDIR);
 	m_projectPluginLoader.setPluginsDir(dir.canonicalPath());
 	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
-//	attachPLCClients();
 
 	// Set up view menu.
 	QMenu * menuView = createPopupMenu();
@@ -77,7 +75,6 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	m_qmlWidgetWrapper.addImportPath("../CuteHMI/QML");
 	m_qmlWidgetWrapper.addImportPath("../QML");
 	qDebug() << "QML import paths: " << m_qmlWidgetWrapper.importPathList();
-//	m_qmlWidgetWrapper.setSource(QUrl(QStringLiteral("../QML/Screens/Test/Main.ui.qml")));
 }
 
 MainWindow::~MainWindow()
@@ -103,31 +100,12 @@ void MainWindow::activateVisualComponent(const QModelIndex & index)
 {
 	if (!m_qmlWidgetWrapper.protoVisualComponent()->isNull())
 		return;
-	static_cast<base::ProjectModel::Node *>(index.internalPointer())->visitorDelegate()->visit(*m_qmlWidgetWrapper.protoVisualComponent());
+	base::ProjectModel::Node::VisitorDelegate::QMLVisualComponentProxy proxy(m_qmlWidgetWrapper.protoVisualComponent());
+	static_cast<base::ProjectModel::Node *>(index.internalPointer())->visitorDelegate()->visit(proxy);
 	if (m_qmlWidgetWrapper.protoVisualComponent()->isLoading())
 		connect(m_qmlWidgetWrapper.protoVisualComponent(), & QQmlComponent::statusChanged, & m_qmlWidgetWrapper, & QMLWidgetWrapper::showVisualComponent);
 	else
 		m_qmlWidgetWrapper.showVisualComponent();
-}
-
-void MainWindow::showErrorDialog(const QString & msg, const QString & details) const
-{
-	QMessageBox msgBox;
-	msgBox.setIcon(QMessageBox::Warning);
-	msgBox.setText(msg);
-	if (!details.isEmpty())
-		msgBox.setDetailedText(details);
-	msgBox.exec();
-}
-
-void MainWindow::clientConnected()
-{
-	qInfo("Connected");
-}
-
-void MainWindow::clientDisconnected()
-{
-	qInfo("Disconnected");
 }
 
 void MainWindow::about()
@@ -238,34 +216,6 @@ bool MainWindow::loadRecentFile(const QString & filePath)
 		return false;
 }
 
-
-void MainWindow::attachPLCClients()
-{
-	QString clientId = "mb";
-
-	modbus::Client * modbusClient = base::PLCClientManager::Instance().m_modbusClient;
-	connect(modbusClient, & modbus::Client::error, this, & MainWindow::showErrorDialog);
-	// QSignalMapper may be helpful with more clients to send client id for more verbose info.
-	connect(modbusClient, & modbus::Client::connected, this, & MainWindow::clientConnected);
-	connect(modbusClient, & modbus::Client::disconnected, this, & MainWindow::clientDisconnected);
-
-//	modbusClient.connect();
-	m_qmlWidgetWrapper.projectContext()->setContextProperty(clientId, modbusClient);
-	QDockWidget * clientControlDockWidget = createDockWidget(QString("Modbus - ") + clientId, PLCWidgetFactory::Instance().createClientControlWidget(modbusClient));
-	// Object name must be set for the dock widget to make it work with storeSetting() and restoreSettings().
-	clientControlDockWidget->setObjectName(clientId + QStringLiteral("_clientControlDockWidget"));
-	addDockWidget(Qt::LeftDockWidgetArea, clientControlDockWidget);
-}
-
-QDockWidget * MainWindow::createDockWidget(const QString & title, QWidget * widget)
-{
-	QDockWidget * plcDockWidget = new QDockWidget(title, this);
-	plcDockWidget->setWidget(widget);
-	m_plcDockWidgets.append(plcDockWidget);
-	return plcDockWidget;
-}
-
-
 bool MainWindow::saveFile(const QString & filePath)
 {
 	qWarning("saveFile() not implemented yet.");
@@ -289,7 +239,8 @@ bool MainWindow::loadFile(const QString & filePath)
 		base::ProjectModel * newModel = new base::ProjectModel(this);
 		{
 			base::XMLProjectBackend xmlBackend(newModel, & m_projectPluginLoader);
-			if (!ErrorHandler::Instance().failBox(xmlBackend.load(file), tr("Could not load project file."), filePath)) {
+			widgets::ErrorBox errorBox(tr("Could not load file %1.").arg(filePath));
+			if (errorBox.exec(xmlBackend.load(file))) {
 				file.close();
 				resetModel(newModel);
 				qDebug() << "Loaded project file " << filePath << ".";
@@ -340,12 +291,16 @@ void MainWindow::attachUIPlugins(base::ProjectModel & model)
 	QStringList plugins = m_projectPluginLoader.loadedPlugins();
 	QString uiPluginName;
 	QString uiPluginVersion;
+
+	// Load UI plugins and let them visit all nodes. In the first pass they will make an attempt to recognize
+	// internal data objects. If succesful they will set up visitors for the relevant nodes.
 	for (QString plugin : plugins)
 		if (m_projectPluginLoader.uiPlugin(plugin, uiPluginName, uiPluginVersion)) {
 			base::PluginLoader::Error err;
 			if ((err = m_projectPluginLoader.loadPlugin(uiPluginName, uiPluginVersion)) == base::PluginLoader::Error::OK) {
-				plugin::IProjectModelVisitor * uiPlugin;
-				if ((uiPlugin = qobject_cast<plugin::IProjectModelVisitor *>(m_projectPluginLoader.instance(uiPluginName))) != 0) {
+				widgets::IUIPlugin * uiPlugin;
+				if ((uiPlugin = qobject_cast<widgets::IUIPlugin *>(m_projectPluginLoader.instance(uiPluginName))) != 0) {
+					uiPlugin->setParentWidget(this);
 					for (auto it = model.begin(); it != model.end(); ++it)
 						uiPlugin->visit(*it);
 				} else
@@ -360,8 +315,9 @@ void MainWindow::attachUIPlugins(base::ProjectModel & model)
 void MainWindow::visitProjectContext(base::ProjectModel & model)
 {
 	m_qmlWidgetWrapper.renewProjectContext();
+	base::ProjectModel::Node::VisitorDelegate::QMLContextPropertyProxy proxy(m_qmlWidgetWrapper.projectContext());
 	for (auto it = model.begin(); it != model.end(); ++it)
-		it->visitorDelegate()->visit(*(m_qmlWidgetWrapper.projectContext()));
+		it->visitorDelegate()->visit(proxy);
 }
 
 void MainWindow::storeSettings() const
@@ -406,4 +362,6 @@ void MainWindow::makeWindowTitle()
 	if (!m_file.fileName().isEmpty())
 		title += QString(" - ") + m_file.fileName();
 	setWindowTitle(title);
+}
+
 }

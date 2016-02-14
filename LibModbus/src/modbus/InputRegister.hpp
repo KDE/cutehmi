@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QMutex>
 
+namespace cutehmi {
 namespace modbus {
 
 /**
@@ -53,6 +54,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 		uint16_t m_reqValue;
 };
 
+}
 }
 
 #endif

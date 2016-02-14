@@ -3,6 +3,8 @@
 
 #include <QTreeView>
 
+namespace cutehmi {
+
 class ProjectView:
 	public QTreeView
 {
@@ -11,5 +13,7 @@ class ProjectView:
 
 		void contextMenuEvent(QContextMenuEvent * event) override;
 };
+
+}
 
 #endif

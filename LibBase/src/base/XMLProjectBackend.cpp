@@ -7,6 +7,7 @@
 #include <QtDebug>
 #include <QLibraryInfo>
 
+namespace cutehmi {
 namespace base {
 
 QString XMLProjectBackend::Error::str() const
@@ -156,4 +157,5 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::screens()
 	return Error::OK;
 }
 
+}
 }

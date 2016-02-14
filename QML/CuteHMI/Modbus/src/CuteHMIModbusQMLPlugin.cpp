@@ -8,6 +8,6 @@
 void CuteHMIModbusQMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Modbus"));
-	qmlRegisterType<modbus::InputRegister>(uri, 1, 0, "ModbusInputRegister");
-	qmlRegisterType<modbus::HoldingRegister>(uri, 1, 0, "ModbusHoldingRegister");
+	qmlRegisterType<cutehmi::modbus::InputRegister>(uri, 1, 0, "ModbusInputRegister");
+	qmlRegisterType<cutehmi::modbus::HoldingRegister>(uri, 1, 0, "ModbusHoldingRegister");
 }

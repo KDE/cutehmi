@@ -5,6 +5,8 @@
 
 class QQuickWidget;
 
+namespace cutehmi {
+
 /**
  * QQuickWidget wrapper. Provides QQuickWidget based rendering for QML.
  */
@@ -23,5 +25,7 @@ class QuickWidgetWrapper:
 	private:
 		QQuickWidget * m_quickWidget;
 };
+
+}
 
 #endif

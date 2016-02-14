@@ -7,15 +7,18 @@
 
 #include <QString>
 
+namespace cutehmi {
 namespace modbus {
 
 /**
- * RTU connection base-from-member. So called base-from-member idiom is used to initialize
- * members before calling real parent class constructor.
+ * RTU connection.
  */
-class CUTEHMI_MODBUS_API RTUConnection_baseFromMember
+class CUTEHMI_MODBUS_API RTUConnection:
+	public AbstractConnection
 {
-	protected:
+	typedef AbstractConnection Parent;
+
+	public:
 		enum class Parity : int
 		{
 			NONE,
@@ -37,29 +40,6 @@ class CUTEHMI_MODBUS_API RTUConnection_baseFromMember
 			BITS_2 = 2
 		};
 
-		RTUConnection_baseFromMember(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits);
-
-		QString m_port;
-		int m_baudRate;
-		Parity m_parity;
-		DataBits m_dataBits;
-		StopBits m_stopBits;
-};
-
-/**
- * RTU connection.
- */
-class CUTEHMI_MODBUS_API RTUConnection:
-	private RTUConnection_baseFromMember,
-	public AbstractConnection
-{
-	typedef AbstractConnection Parent;
-
-	public:
-		typedef RTUConnection_baseFromMember::Parity Parity;
-		typedef RTUConnection_baseFromMember::DataBits DataBits;
-		typedef RTUConnection_baseFromMember::StopBits StopBits;
-
 //<workaround id="LibModbus-1" target="libmodbus" cause="bug">
 //		enum class Mode : int
 //		{
@@ -74,6 +54,17 @@ class CUTEHMI_MODBUS_API RTUConnection:
 		};
 //</workaround>
 
+		/**
+		 * Constructor.
+		 * @param port port.
+		 * @param baudRate baud rate.
+		 * @param parity parity.
+		 * @param dataBits data bits.
+		 * @param stopBits stop bits.
+		 * @param mode serial mode.
+		 *
+		 * @throw Exception.
+		 */
 		RTUConnection(const QString & port, int baudRate = 19200, Parity parity = Parity::NONE, DataBits dataBits = DataBits::BITS_8, StopBits stopBits = StopBits::BITS_1, Mode mode = Mode::RS232);
 
 		virtual ~RTUConnection();
@@ -81,9 +72,15 @@ class CUTEHMI_MODBUS_API RTUConnection:
 	private:
 		static char ToLibmodbusParity(Parity parity);
 
+		QString m_port;
+		int m_baudRate;
+		Parity m_parity;
+		DataBits m_dataBits;
+		StopBits m_stopBits;
 		Mode m_mode;
 };
 
+}
 }
 
 #endif

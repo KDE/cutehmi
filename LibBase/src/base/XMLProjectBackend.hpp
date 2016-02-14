@@ -8,6 +8,7 @@
 
 #include <QXmlStreamReader>
 
+namespace cutehmi {
 namespace base {
 
 class CUTEHMI_BASE_API XMLProjectBackend
@@ -65,6 +66,7 @@ class CUTEHMI_BASE_API XMLProjectBackend
 		QXmlStreamReader m_xmlReader;
 };
 
+}
 }
 
 #endif

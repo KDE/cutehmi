@@ -13,6 +13,10 @@
 
 class QMenu;
 
+namespace cutehmi {
+
+namespace widgets { class UIVisitorDelegate; }
+
 namespace base {
 
 /**
@@ -29,7 +33,6 @@ namespace base {
  * <principle id="base.ProjectModel-determinedDestructionOrder">
  * Destruction order of exposed data members is determined. The order is as following:
  *		- child nodes (children()). Each child follows the order.
- *		- UI visitor delegate (setUIVisitorDelegate()).
  *		- visitor delegate (visitorDelegate()).
  *		- node data (data()).
  *		.
@@ -53,68 +56,64 @@ class CUTEHMI_BASE_API ProjectModel:
 			friend class ProjectModel;
 
 			/**
-			 * Accept delegate.
+			 * Visitor delegate.
 			 */
 			class CUTEHMI_BASE_API VisitorDelegate
 			{
 				public:
-					virtual ~VisitorDelegate() = default;
-
 					/**
-					 * Visit QML context. Can be overriden to set context properties.
-					 * @param context QML context.
+					 * QML context property proxy.
 					 */
-					virtual void visit(QQmlContext & context);
-
-					/**
-					 * Visit QML component. Can be overriden to associate particular QML component with a node.
-					 * @param component QML component.
-					 */
-					virtual void visit(QQmlComponent & component);
-			};
-
-			/**
-			 * Accept delegate.
-			 */
-			class CUTEHMI_BASE_API GUIVisitorDelegate
-			{
-				public:
-					/**
-					 * Context menu proxy. Forms a contract between visitor and visited object.
-					 */
-					class CUTEHMI_BASE_API ContextMenuProxy {
+					class CUTEHMI_BASE_API QMLContextPropertyProxy
+					{
 						public:
-							/**
-							 * Constructor.
-							 * @param menu reference to menu pointer. Pointer should point to @p nullptr.
-							 * Caller owns pointed object if it's being set by a visitor.
-							 */
-							ContextMenuProxy(QMenu * & menu);
+							QMLContextPropertyProxy(QQmlContext * context);
 
-							/**
-							 * Pass the menu from the caller to the visited object.
-							 * @param menu menu to be passed. Caller passes ownership of the @a menu object.
-							 *
-							 * @internal can't use std::unique_ptr, because it bitches about incomplete type.
-							 * Could use reference to std::shared_ptr, but I think it would be misuse, so let's go
-							 * with raw pointers and remember about undefined behaviour if delete is called
-							 * on incomplete type (gcc warns about it anyways).
-							 */
-							void move(QMenu * menu);
+							void setContextProperty(const QString & name, QObject * value);
 
 						private:
-							QMenu * & m_menu;
+							QQmlContext * m_context;
 					};
 
 					/**
-					 * Visit context menu proxy.
-					 * @param menuProxy context menu proxy.
+					 * QML visual component proxy. This can be used to associate particular node with a QML
+					 * component, which can be displayed in a QML view.
 					 */
-					virtual void visit(ContextMenuProxy & menuProxy);
+					class CUTEHMI_BASE_API QMLVisualComponentProxy
+					{
+						public:
+							QMLVisualComponentProxy(QQmlComponent * component);
 
-					virtual ~GUIVisitorDelegate() = default;
+							void loadUrl(const QUrl & url);
+
+							void loadUrl(const QUrl & url, QQmlComponent::CompilationMode mode);
+
+							void setData(const QByteArray & data, const QUrl & url);
+
+						private:
+							QQmlComponent * m_component;
+					};
+
+					virtual ~VisitorDelegate() = default;
+
+					/**
+					 * Visit QML context property proxy. Default implementation does nothing.
+					 * @param proxy QML context property proxy.
+					 */
+					virtual void visit(QMLContextPropertyProxy & proxy);
+
+					/**
+					 * Visit QML visual component proxy. Default implementation does nothing.
+					 * @param proxy QML visual component proxy.
+					 */
+					virtual void visit(QMLVisualComponentProxy & proxy);
+
+					/**
+					 * Get UI visitor delegate.
+					 * @return UI visitor delegate or @p nullptr.
+					 */
+					virtual widgets::UIVisitorDelegate * ui();
 			};
-
 
 			/**
 			 *	Node data.
@@ -223,24 +222,6 @@ class CUTEHMI_BASE_API ProjectModel:
 			VisitorDelegate * visitorDelegate();
 
 			/**
-			 * Set UI visitor delegate.
-			 * @param delegate UI visitor delegate. Can not be @p nullptr.
-			 */
-			void setGUIVisitorDelegate(std::unique_ptr<GUIVisitorDelegate> delegate);
-
-			/**
-			 * Get UI visitor delegate (const version).
-			 * @return UI visitor delegate.
-			 */
-			const GUIVisitorDelegate * guiVisitorDelegate() const;
-
-			/**
-			 * Get UI visitor delegate.
-			 * @return UI visitor delegate.
-			 */
-			GUIVisitorDelegate * guiVisitorDelegate();
-
-			/**
 			 * Add child node.
 			 * @param data node data.
 			 * @param leaf indicates if child node is a leaf. Leaf is a node that do not have
@@ -326,7 +307,6 @@ class CUTEHMI_BASE_API ProjectModel:
 				Node * m_parent;
 				Data m_data;
 				std::unique_ptr<VisitorDelegate> m_visitorDelegate;
-				std::unique_ptr<GUIVisitorDelegate> m_guiVisitorDelegate;
 				std::unique_ptr<ChildrenContainer> m_children;	///< Children nodes. It's more safe to access this member via children() function.
 				//</principle>
 		};
@@ -514,6 +494,7 @@ NODE * ProjectModel::Iterator<NODE>::nextSibling(NODE * node, NODE * parent) con
 	return parent->child(parent->childIndex(node) + 1);
 }
 
+}
 }
 
 #endif

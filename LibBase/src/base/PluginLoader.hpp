@@ -6,6 +6,7 @@
 
 #include <QPluginLoader>
 
+namespace cutehmi {
 namespace base {
 
 /**
@@ -89,6 +90,7 @@ class CUTEHMI_BASE_API PluginLoader
 		QString m_pluginsDir;
 };
 
+}
 }
 
 #endif

@@ -3,6 +3,8 @@
 
 #include <QStatusBar>
 
+namespace cutehmi {
+
 class SmartStatusBar:
 	public QStatusBar
 {
@@ -28,5 +30,7 @@ class SmartStatusBar:
 	private:
 		int m_timeoutPerChar;
 };
+
+}
 
 #endif

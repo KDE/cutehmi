@@ -5,6 +5,8 @@
 
 #include <QtGlobal>
 
+namespace cutehmi {
+
 class MessageArea;
 
 class MessageHandler:
@@ -28,5 +30,7 @@ class MessageHandler:
 
 		MessageArea * m_messageArea;
 };
+
+}
 
 #endif

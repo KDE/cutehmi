@@ -5,6 +5,7 @@
 
 #include <QObject>
 
+namespace cutehmi {
 namespace base {
 
 class CUTEHMI_BASE_API ScreenObject:
@@ -23,6 +24,7 @@ class CUTEHMI_BASE_API ScreenObject:
 		QString m_source;
 };
 
+}
 }
 
 #endif
