@@ -1,5 +1,5 @@
-#ifndef ERRORINFO_HPP
-#define ERRORINFO_HPP
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_ERRORINFO_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_ERRORINFO_HPP
 
 #include <QString>
 
@@ -31,5 +31,5 @@ ErrorInfo errorInfo(ERR err)
 }
 }
 
-#endif // ERRORINFO_HPP
+#endif
 

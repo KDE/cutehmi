@@ -6,18 +6,21 @@
 
 #include <QAbstractItemModel>
 #include <QQmlComponent>
-#include <QQmlContext>
 
 #include <iterator>
 #include <memory>
 
 class QMenu;
+class QQmlContext;
 
 namespace cutehmi {
 
 namespace widgets { class UIVisitorDelegate; }
 
 namespace base {
+
+class IRunner;
+class RunnersRegister;
 
 /**
  * Project model.
@@ -62,6 +65,20 @@ class CUTEHMI_BASE_API ProjectModel:
 			{
 				public:
 					/**
+					 * Runners register proxy.
+					 */
+					class CUTEHMI_BASE_API RunnersRegisterProxy
+					{
+						public:
+							RunnersRegisterProxy(RunnersRegister * runners);
+
+							void add(IRunner * runner);
+
+						private:
+							RunnersRegister * m_runners;
+					};
+
+					/**
 					 * QML context property proxy.
 					 */
 					class CUTEHMI_BASE_API QMLContextPropertyProxy
@@ -95,6 +112,12 @@ class CUTEHMI_BASE_API ProjectModel:
 					};
 
 					virtual ~VisitorDelegate() = default;
+
+					/**
+					 * Visit runners register proxy. Default implementation does nothing.
+					 * @param proxy runners register proxy.
+					 */
+					virtual void visit(RunnersRegisterProxy & proxy);
 
 					/**
 					 * Visit QML context property proxy. Default implementation does nothing.

@@ -3,12 +3,15 @@
 
 #include "ClientControlWidget.hpp"
 
+#include <base/ProjectModel.hpp>
+
 #include <widgets/ErrorBox.hpp>
 #include <widgets/UIVisitorDelegate.hpp>
 
 #include <QCoreApplication>
 
 namespace cutehmi {
+
 namespace pluginModbusUI {
 
 class UIVisitorDelegate:
@@ -17,12 +20,11 @@ class UIVisitorDelegate:
 	Q_DECLARE_TR_FUNCTIONS(pluginModbusUI::UIVisitorDelegate)
 
 	public:
-		UIVisitorDelegate(QWidget * parentWidget, modbus::Client * client, const QString & clientName);
+		UIVisitorDelegate(base::ProjectModel::Node & node, QWidget * parentWidget);
 
 		void visit(widgets::UIVisitorDelegate::ContextMenuProxy & proxy) override;
 
 	private:
-		modbus::Client * m_client;
 		ClientControlWidget * m_clientControlWidget;
 		std::unique_ptr<widgets::ErrorBox> m_errorBox;
 };

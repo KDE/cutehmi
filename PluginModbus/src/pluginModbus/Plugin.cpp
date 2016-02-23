@@ -1,9 +1,9 @@
 #include "Plugin.hpp"
-#include "VisitorDelegate.hpp"
 
-#include <modbus/Client.hpp>
+#include <modbus/NodeDataObject.hpp>
 #include <modbus/TCPConnection.hpp>
 #include <modbus/RTUConnection.hpp>
+#include <modbus/VisitorDelegate.hpp>
 
 #include <QtDebug>
 
@@ -33,8 +33,10 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 							xmlReader.skipCurrentElement();
 					}
 					std::unique_ptr<modbus::Client> client(new modbus::Client(std::move(connection)));
-					base::ProjectModel::Node * clientNode = modbusNode->addChild(base::ProjectModel::Node::Data(id, std::move(client)));
-					clientNode->setVisitorDelegate(std::unique_ptr<base::ProjectModel::Node::VisitorDelegate>(new VisitorDelegate(clientNode)));
+					std::unique_ptr<modbus::ClientRunner> clientRunner(new modbus::ClientRunner(client.get()));
+					std::unique_ptr<modbus::NodeDataObject> dataObject(new modbus::NodeDataObject(std::move(client), std::move(clientRunner)));
+					base::ProjectModel::Node * clientNode = modbusNode->addChild(base::ProjectModel::Node::Data(id, std::move(dataObject)));
+					clientNode->setVisitorDelegate(std::unique_ptr<base::ProjectModel::Node::VisitorDelegate>(new modbus::VisitorDelegate(clientNode)));
 				} else
 					xmlReader.skipCurrentElement();
 			}

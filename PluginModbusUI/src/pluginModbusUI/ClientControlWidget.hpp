@@ -17,9 +17,7 @@ class ClientControlWidget:
 	Q_OBJECT
 
 	public:
-		explicit ClientControlWidget(modbus::Client * client, const QString & clientName, QWidget * parent = 0);
-
-		modbus::Client * client() const;
+		ClientControlWidget(modbus::Client * client, const QString & clientName, QWidget * parent = 0);
 
 	signals:
 

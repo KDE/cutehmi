@@ -29,7 +29,8 @@ SOURCES += \
     src/base/PluginLoader.cpp \
     src/base/ScreenObject.cpp \
     src/base/ScreenVisitorDelegate.cpp \
-    src/base/ExtError.cpp
+    src/base/ExtError.cpp \
+    src/base/RunnersRegister.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -47,7 +48,9 @@ HEADERS += \
     src/base/ErrorInfo.hpp \
     src/base/ExtError.hpp \
     src/base/ExtErrorInfo.hpp \
-    src/base/IProjectModelVisitor.hpp
+    src/base/IProjectModelVisitor.hpp \
+    src/base/RunnersRegister.hpp \
+    src/base/IRunner.hpp
     src/debug/DestructorTest.hpp
 
 DISTFILES +=

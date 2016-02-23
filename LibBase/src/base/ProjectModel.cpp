@@ -1,9 +1,21 @@
 #include "ProjectModel.hpp"
+#include "RunnersRegister.hpp"
 
 #include <QtDebug>
+#include <QQmlContext>
 
 namespace cutehmi {
 namespace base {
+
+ProjectModel::Node::VisitorDelegate::RunnersRegisterProxy::RunnersRegisterProxy(RunnersRegister * runners):
+	m_runners(runners)
+{
+}
+
+void ProjectModel::Node::VisitorDelegate::RunnersRegisterProxy::add(IRunner * runner)
+{
+	m_runners->add(runner);
+}
 
 ProjectModel::Node::VisitorDelegate::QMLContextPropertyProxy::QMLContextPropertyProxy(QQmlContext * context):
 	m_context(context)
@@ -33,6 +45,11 @@ void ProjectModel::Node::VisitorDelegate::QMLVisualComponentProxy::loadUrl(const
 void ProjectModel::Node::VisitorDelegate::QMLVisualComponentProxy::setData(const QByteArray & data, const QUrl & url)
 {
 	m_component->setData(data, url);
+}
+
+void ProjectModel::Node::VisitorDelegate::visit(RunnersRegisterProxy & proxy)
+{
+	Q_UNUSED(proxy);
 }
 
 void ProjectModel::Node::VisitorDelegate::visit(QMLContextPropertyProxy & proxy)

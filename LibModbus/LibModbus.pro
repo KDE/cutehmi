@@ -33,7 +33,12 @@ SOURCES += \
     src/modbus/HoldingRegister.cpp \
     src/modbus/InputRegister.cpp \
     src/modbus/RTUConnection.cpp \
-    src/modbus/TCPConnection.cpp
+    src/modbus/TCPConnection.cpp \
+    src/modbus/CommunicationThread.cpp \
+    src/modbus/ClientRunner.cpp \
+    src/modbus/NodeDataObject.cpp \
+    src/modbus/VisitorDelegate.cpp \
+    src/modbus/UIVisitorDelegateHolder.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -45,7 +50,12 @@ HEADERS += \
     src/modbus/InputRegister.hpp \
     src/modbus/RegisterTraits.hpp \
     src/modbus/RTUConnection.hpp \
-    src/modbus/TCPConnection.hpp
+    src/modbus/TCPConnection.hpp \
+    src/modbus/CommunicationThread.hpp \
+    src/modbus/ClientRunner.hpp \
+    src/modbus/NodeDataObject.hpp \
+    src/modbus/VisitorDelegate.hpp \
+    src/modbus/UIVisitorDelegateHolder.hpp
 
 DISTFILES +=
 

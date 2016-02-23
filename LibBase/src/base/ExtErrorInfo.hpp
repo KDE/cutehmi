@@ -1,5 +1,5 @@
-#ifndef EXTERRORINFO_HPP
-#define EXTERRORINFO_HPP
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_EXTERRORINFO_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_EXTERRORINFO_HPP
 
 #include "ErrorInfo.hpp"
 #include "ExtError.hpp"
@@ -27,5 +27,5 @@ ExtErrorInfo extErrorInfo(EXTERR err)
 }
 }
 
-#endif // EXTERRORINFO_HPP
+#endif
 

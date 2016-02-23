@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_MESSAGEBOX_HPP
-#define CUTEHMI_MESSAGEBOX_HPP
+#ifndef CUTEHMI_LIBWIDGETS_SRC_WIDGETS_ERRORBOX_HPP
+#define CUTEHMI_LIBWIDGETS_SRC_WIDGETS_ERRORBOX_HPP
 
 #include "../platform.hpp"
 
@@ -92,5 +92,5 @@ EXTERROR ErrorBox::execExt(EXTERROR extError)
 }
 }
 
-#endif // MESSAGEBOX_HPP
+#endif
 

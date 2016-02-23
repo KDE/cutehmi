@@ -5,5 +5,7 @@
         <file>icons/ic_create_black_48dp.png</file>
         <file>icons/ic_add_box_black_48dp.png</file>
         <file>icons/ic_save_black_48dp.png</file>
+        <file>icons/ic_play_arrow_black_48dp.png</file>
+        <file>icons/ic_stop_black_48dp.png</file>
     </qresource>
 </RCC>

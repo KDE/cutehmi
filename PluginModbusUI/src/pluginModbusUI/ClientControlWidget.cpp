@@ -17,11 +17,6 @@ ClientControlWidget::ClientControlWidget(modbus::Client * client, const QString 
 	connect(ui.pollButton, & QPushButton::clicked, client, & modbus::Client::readAll);
 }
 
-modbus::Client * ClientControlWidget::client() const
-{
-	return m_client;
-}
-
 void ClientControlWidget::showAndActivate()
 {
 	//<workaround id="PluginModbusUI-1" target="Qt" cause="bug">

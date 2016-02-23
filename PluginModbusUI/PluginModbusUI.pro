@@ -21,13 +21,13 @@ SOURCES += \
     src/pluginModbusUI/Plugin.cpp \
     src/pluginModbusUI/ClientControlWidget.cpp \
     src/pluginModbusUI/UIVisitorDelegate.cpp \
-    src/pluginModbusUI/VisitorDelegate.cpp
+    src/pluginModbusUI/UIVisitorDelegateHolder.cpp
 
 HEADERS += \
     src/pluginModbusUI/Plugin.hpp \
     src/pluginModbusUI/ClientControlWidget.hpp \
     src/pluginModbusUI/UIVisitorDelegate.hpp \
-    src/pluginModbusUI/VisitorDelegate.hpp
+    src/pluginModbusUI/UIVisitorDelegateHolder.hpp
 
 DISTFILES += PluginModbusUI.json
 

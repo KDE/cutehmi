@@ -1,5 +1,5 @@
-#ifndef UIDELEGATE_H
-#define UIDELEGATE_H
+#ifndef CUTEHMI_LIBWIDGETS_SRC_WIDGETS_UIVISITORDELEGATE_HPP
+#define CUTEHMI_LIBWIDGETS_SRC_WIDGETS_UIVISITORDELEGATE_HPP
 
 #include "../platform.hpp"
 
@@ -51,4 +51,4 @@ class CUTEHMI_WIDGETS_API UIVisitorDelegate
 }
 }
 
-#endif // UIDELEGATE_H
+#endif

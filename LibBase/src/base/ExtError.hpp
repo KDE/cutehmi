@@ -1,5 +1,5 @@
-#ifndef EXTERROR_H
-#define EXTERROR_H
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_EXTERROR_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_EXTERROR_HPP
 
 #include "Error.hpp"
 
@@ -32,4 +32,4 @@ struct CUTEHMI_BASE_API ExtError:
 }
 }
 
-#endif // EXTERROR_H
+#endif

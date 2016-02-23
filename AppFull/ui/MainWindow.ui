@@ -61,7 +61,15 @@
      <string>A&amp;pplication</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuControl">
+    <property name="title">
+     <string>&amp;Control</string>
+    </property>
+    <addaction name="actionStop"/>
+    <addaction name="actionStart"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuControl"/>
    <addaction name="menuApplication"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -120,6 +128,19 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QToolBar" name="controlBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionStop"/>
+   <addaction name="actionStart"/>
   </widget>
   <action name="actionAbout">
    <property name="text">
@@ -209,6 +230,30 @@
    </property>
    <property name="statusTip">
     <string>Save project to the selected  file</string>
+   </property>
+  </action>
+  <action name="actionStart">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="player_play" resource="../AppFull.qrc">
+     <normaloff>:/icons/ic_play_arrow_black_48dp.png</normaloff>:/icons/ic_play_arrow_black_48dp.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Start</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="player_stop" resource="../AppFull.qrc">
+     <normaloff>:/icons/ic_stop_black_48dp.png</normaloff>:/icons/ic_stop_black_48dp.png</iconset>
+   </property>
+   <property name="text">
+    <string>S&amp;top</string>
    </property>
   </action>
  </widget>
@@ -342,6 +387,70 @@
     <hint type="destinationlabel">
      <x>399</x>
      <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionStart</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>actionStop</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionStop</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>actionStart</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionStop</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>actionStart</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionStart</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>actionStart</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

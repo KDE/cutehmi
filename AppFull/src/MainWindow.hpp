@@ -8,6 +8,7 @@
 #include <base/ProjectModel.hpp>
 #include <base/XMLProjectBackend.hpp>
 #include <base/PluginLoader.hpp>
+#include <base/RunnersRegister.hpp>
 
 #include <QMainWindow>
 #include <QFileInfo>
@@ -86,6 +87,8 @@ class MainWindow:
 
 		void visitProjectContext(base::ProjectModel & model);
 
+		void visitRunnersRegister(base::ProjectModel & model);
+
 		void storeSettings() const;
 
 		void restoreSettings();
@@ -101,6 +104,7 @@ class MainWindow:
 		RecentFiles * m_recentFiles;
 		QMenu * m_recentFilesMenu;
 		base::ProjectModel * m_projectModel;
+		base::RunnersRegister m_runners;
 };
 
 }

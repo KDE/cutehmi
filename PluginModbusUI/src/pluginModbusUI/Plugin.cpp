@@ -1,7 +1,8 @@
 #include "Plugin.hpp"
-#include "VisitorDelegate.hpp"
+#include "UIVisitorDelegateHolder.hpp"
 
-#include <modbus/Client.hpp>
+#include <modbus/NodeDataObject.hpp>
+#include <modbus/VisitorDelegate.hpp>
 
 #include <QtDebug>
 
@@ -32,9 +33,12 @@ void Plugin::visit(base::ProjectModel::Node & node)
 	if (node.parent() == nullptr)
 		M_ProjectName = node.data().name();
 
-	modbus::Client * client = qobject_cast<modbus::Client *>(node.data().object());
-	if (client != nullptr)
-		node.setVisitorDelegate(std::unique_ptr<VisitorDelegate>(new VisitorDelegate(m_parentWidget, client, node.data().name())));
+	modbus::NodeDataObject * dataObject = qobject_cast<modbus::NodeDataObject *>(node.data().object());
+	if (dataObject != nullptr) {
+		modbus::VisitorDelegate * delegate = dynamic_cast<modbus::VisitorDelegate *>(node.visitorDelegate());
+		Q_ASSERT(delegate != nullptr);
+		delegate->setUIVisitorDelegateHolder(std::unique_ptr<modbus::UIVisitorDelegateHolder>(new UIVisitorDelegateHolder(node, m_parentWidget)));
+	}
 }
 
 }

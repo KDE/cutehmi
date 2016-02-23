@@ -1,19 +1,24 @@
 #include "UIVisitorDelegate.hpp"
 
 #include <modbus/Client.hpp>
+#include <modbus/NodeDataObject.hpp>
 
 #include <QMenu>
 
 namespace cutehmi {
 namespace pluginModbusUI {
 
-UIVisitorDelegate::UIVisitorDelegate(QWidget * parentWidget, modbus::Client * client, const QString & clientName):
-	m_clientControlWidget(new ClientControlWidget(client, clientName, parentWidget)),
+UIVisitorDelegate::UIVisitorDelegate(base::ProjectModel::Node & node, QWidget * parentWidget):
 	m_errorBox(new widgets::ErrorBox)
 {
+	modbus::NodeDataObject * dataObject = qobject_cast<modbus::NodeDataObject *>(node.data().object());
+	Q_ASSERT(dataObject != nullptr);
+
+	m_clientControlWidget = new ClientControlWidget(dataObject->client(), node.data().name(), parentWidget);
+	QObject::connect(dataObject->client(), & modbus::Client::destroyed, m_clientControlWidget, & ClientControlWidget::deleteLater);
+
 	m_errorBox->setTitle(m_clientControlWidget->windowTitle());
-	QObject::connect(client, & modbus::Client::error, m_errorBox.get(), & widgets::ErrorBox::execInfo);
-	QObject::connect(client, & modbus::Client::destroyed, m_clientControlWidget, & ClientControlWidget::deleteLater);
+	QObject::connect(dataObject->client(), & modbus::Client::error, m_errorBox.get(), & widgets::ErrorBox::execInfo);
 }
 
 void UIVisitorDelegate::visit(widgets::UIVisitorDelegate::ContextMenuProxy & proxy)

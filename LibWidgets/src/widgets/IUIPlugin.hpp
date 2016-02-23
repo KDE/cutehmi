@@ -1,5 +1,5 @@
-#ifndef IUIPLUGIN_H
-#define IUIPLUGIN_H
+#ifndef CUTEHMI_LIBWIDGETS_SRC_WIDGETS_IUIPLUGIN_HPP
+#define CUTEHMI_LIBWIDGETS_SRC_WIDGETS_IUIPLUGIN_HPP
 
 #include <base/IProjectModelVisitor.hpp>
 
@@ -42,4 +42,4 @@ class IUIPlugin:
 Q_DECLARE_INTERFACE(cutehmi::widgets::IUIPlugin, "CuteHMI.Widgets.IUIPlugin")
 
 
-#endif // IUIPLUGIN_H
+#endif

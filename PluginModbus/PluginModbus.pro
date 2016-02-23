@@ -18,12 +18,10 @@ include(../cutehmi_modbus.pri)
 include(../libmodbus.pri)
 
 SOURCES += \
-    src/pluginModbus/Plugin.cpp \
-    src/pluginModbus/VisitorDelegate.cpp
+    src/pluginModbus/Plugin.cpp
 
 HEADERS += \
-    src/pluginModbus/Plugin.hpp \
-    src/pluginModbus/VisitorDelegate.hpp
+    src/pluginModbus/Plugin.hpp
 
 DISTFILES += PluginModbus.json
 

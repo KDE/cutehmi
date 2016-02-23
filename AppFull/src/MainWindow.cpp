@@ -33,8 +33,14 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	ui.centralFrameLayout->addWidget(m_qmlWidgetWrapper.widget());
 	MessageHandler::Instance().setMessageArea(ui.messageArea);
 	makeWindowTitle();
+/// @todo remove line below if model saving is implemented.
+	ui.actionSaveAs->setEnabled(false);	// Temp until saving model is done.
 
-	// Need to set context properties before loading qml file and create dock widgets before restoreSettings().
+	// Set up control buttons.
+	connect(ui.actionStart, & QAction::triggered, & m_runners, & base::RunnersRegister::start);
+	connect(ui.actionStop, & QAction::triggered, & m_runners, & base::RunnersRegister::stop);
+
+	// Set up plugins.
 	QDir dir(qApp->applicationDirPath());
 	dir.cd(PLUGINS_SUBDIR);
 	m_projectPluginLoader.setPluginsDir(dir.canonicalPath());
@@ -116,10 +122,17 @@ void MainWindow::about()
 			tr("<b>%1</b> version %2").arg(QCoreApplication::applicationName()).arg(CUTYHMI_VERSION)
 			+ "<hr />"
 
-			+ tr("Material design icons are the official <a href=\"https://design.google.com/icons/\">icon set</a> from Google.") + "<br />"
+			+ tr("<a href=\"http://libmodbus.org/\">libmodbus</a> - a Modbus library for Linux, Mac OS X, FreeBSD, QNX and Win32.") + "<br />"
+			+ tr("Free use of this software is granted under the terms of the GNU Lesser General Public License (LGPL v2.1+)") + "<br />"
+			+ tr("For details see the file COPYING.LESSER included with the libmodbus distribution.") + "<br />"
 			// %1 copyright symbol
+			+ tr("Copyright %1 2015, Stéphane Raimbault.").arg("\u00A9")
+			+ "<hr />"
+
+			+ tr("Material design icons are the official <a href=\"https://design.google.com/icons/\">icon set</a> from Google.") + "<br />"
 			+ tr("Material design icons are distributed under the terms of:") + "<br />"
 			+ "<a href=\"https://creativecommons.org/licenses/by/4.0/\">Creative Common Attribution 4.0 International License (CC-BY 4.0)</a>." + "<br />"
+			// %1 copyright symbol
 			+ tr("Copyright %1 2016, Google.").arg("\u00A9")
 			+ "<hr />"
 
@@ -145,7 +158,7 @@ void MainWindow::newFile()
 	if (ui.actionSave->isEnabled())
 		if (!askSaveDialog())
 			return;
-	resetModel(nullptr);
+	resetModel(new base::ProjectModel(this));
 	m_file.setFile("");
 	makeWindowTitle();
 	ui.actionSave->setEnabled(false);
@@ -269,6 +282,9 @@ bool MainWindow::loadFile(const QString & filePath)
 
 void MainWindow::resetModel(base::ProjectModel * newModel)
 {
+	// Reset runners register.
+	m_runners.clear();
+
 	// Reset QML view.
 	m_qmlWidgetWrapper.resetVisualComponent();
 
@@ -281,6 +297,7 @@ void MainWindow::resetModel(base::ProjectModel * newModel)
 		m_projectModel->deleteLater();
 	m_projectModel = newModel;
 	if (m_projectModel) {
+		visitRunnersRegister(*m_projectModel);
 		visitProjectContext(*m_projectModel);
 		attachUIPlugins(*m_projectModel);
 	}
@@ -316,6 +333,13 @@ void MainWindow::visitProjectContext(base::ProjectModel & model)
 {
 	m_qmlWidgetWrapper.renewProjectContext();
 	base::ProjectModel::Node::VisitorDelegate::QMLContextPropertyProxy proxy(m_qmlWidgetWrapper.projectContext());
+	for (auto it = model.begin(); it != model.end(); ++it)
+		it->visitorDelegate()->visit(proxy);
+}
+
+void MainWindow::visitRunnersRegister(base::ProjectModel & model)
+{
+	base::ProjectModel::Node::VisitorDelegate::RunnersRegisterProxy proxy(& m_runners);
 	for (auto it = model.begin(); it != model.end(); ++it)
 		it->visitorDelegate()->visit(proxy);
 }
