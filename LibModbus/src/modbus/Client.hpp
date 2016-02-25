@@ -9,6 +9,7 @@
 #include <QQmlListProperty>
 #include <QHash>
 #include <QSignalMapper>
+#include <QMutex>
 
 #include <memory>
 
@@ -175,6 +176,8 @@ class CUTEHMI_MODBUS_API Client:
 		std::unique_ptr<AbstractConnection> m_connection;
 		endianness_t m_endianness;
 		QSignalMapper * m_rValueRequestMapper;
+		QMutex m_rMutex;
+		QMutex m_irMutex;
 };
 
 template <typename T>

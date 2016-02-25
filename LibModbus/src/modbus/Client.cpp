@@ -4,6 +4,7 @@
 #include "functions.hpp"
 
 #include <QtDebug>
+#include <QMutexLocker>
 
 namespace cutehmi {
 namespace modbus {
@@ -63,6 +64,7 @@ void Client::readIr(int addr)
 {
 	const int NUM_READ = 1;
 
+	QMutexLocker locker(& m_irMutex);
 	IrDataContainer::iterator it = m_irData.find(addr);
 	Q_ASSERT_X(it != m_irData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
@@ -70,14 +72,14 @@ void Client::readIr(int addr)
 	if (m_connection->readIr(addr, NUM_READ, val) != NUM_READ)
 		qWarning() << tr("Failed reading input register value from a device.");
 	else
-		it.value()->updateValue(val);
-//	it.value()->updateValue(fromClientEndian(val));
+		it.value()->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
 }
 
 void Client::readR(int addr)
 {
-	const int NUM_READ = 1;
+	static const int NUM_READ = 1;
 
+	QMutexLocker locker(& m_rMutex);
 	RDataContainer::iterator it = m_rData.find(addr);
 	Q_ASSERT_X(it != m_rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
@@ -85,12 +87,12 @@ void Client::readR(int addr)
 	if (m_connection->readR(addr, NUM_READ, val) != NUM_READ)
 		qWarning() << tr("Failed reading register value from a device.");
 	else
-		it.value()->updateValue(val);
-//		it.value()->updateValue(fromClientEndian(val));
+		it.value()->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
 }
 
 void Client::writeR(int addr)
 {
+	QMutexLocker locker(& m_rMutex);
 	RDataContainer::iterator it = m_rData.find(addr);
 	Q_ASSERT_X(it != m_rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val = it.value()->requestedValue();

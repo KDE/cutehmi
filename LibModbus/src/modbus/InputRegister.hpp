@@ -19,7 +19,6 @@ class CUTEHMI_MODBUS_API InputRegister:
 	public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(qint16 int16 READ int16 NOTIFY valueChanged)
 
 	public:
 		/**
@@ -28,10 +27,6 @@ class CUTEHMI_MODBUS_API InputRegister:
 		 * @param parent parent object.
 		 */
 		explicit InputRegister(uint16_t value = 0, QObject * parent = 0);
-
-		qint16 int16() const;
-
-		void setInt16(qint16 value);
 
 	public slots:
 		/**
@@ -43,8 +38,6 @@ class CUTEHMI_MODBUS_API InputRegister:
 		void updateValue(uint16_t value);
 
 	signals:
-		void valueChanged();
-
 		void valueUpdated();
 
 	private:

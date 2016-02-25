@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_COMMUNICATIONTHREAD_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_COMMUNICATIONTHREAD_HPP
+#ifndef COMMUNICATIONTHREAD_H
+#define COMMUNICATIONTHREAD_H
 
 #include <QThread>
 
@@ -12,18 +12,25 @@ class CommunicationThread:
 	public QThread
 {
 	Q_OBJECT
+	typedef QThread Parent;
 
 	public:
-		CommunicationThread(Client * client);
+		explicit CommunicationThread(Client * client);
 
 	public:
 		void run() override;
 
+	public slots:
+		void start();
+
+		void stop();
+
 	private:
+		bool m_run;
 		Client * m_client;
 };
 
 }
 }
 
-#endif
+#endif // COMMUNICATIONTHREAD_H

@@ -93,10 +93,12 @@ void MainWindow::closeEvent(QCloseEvent * event)
 		if (!askSaveDialog()) {
 			event->ignore();
 		} else {
+			m_runners.stop();
 			storeSettings();
 			event->accept();
 		}
 	else {
+		m_runners.stop();
 		storeSettings();
 		event->accept();
 	}

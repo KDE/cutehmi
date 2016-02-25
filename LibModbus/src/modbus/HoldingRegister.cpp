@@ -14,21 +14,6 @@ HoldingRegister::HoldingRegister(uint16_t value, QObject * parent):
 {
 }
 
-qint16 HoldingRegister::int16() const
-{
-	qDebug("deprecated don't use this function, int16 property will be removed.");
-	return m_value;
-}
-
-void HoldingRegister::setInt16(qint16 value)
-{
-	qDebug("deprecated don't use this function, int16 property will be removed.");
-	if (value != m_value) {
-		m_value = value;
-//		emit valueChanged();
-	}
-}
-
 QVariant HoldingRegister::value(encoding_t encoding) const
 {
 	QReadLocker locker(& m_valueLock);

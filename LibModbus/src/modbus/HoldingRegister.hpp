@@ -16,16 +16,11 @@ namespace modbus {
  *
  * @note to make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
- *
- * @todo remove int16 property and planned uint16, bcd.
  */
 class CUTEHMI_MODBUS_API HoldingRegister:
 	public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(qint16 int16 READ int16 WRITE setInt16 NOTIFY valueChanged)
-//	Q_PROPERTY(quint16 uint16 READ uint16 WRITE setUint16 NOTIFY valueChanged STORED false)
-//	Q_PROPERTY(qint16 bcd READ bcd NOTIFY valueChanged STORED false)
 
 	public:
 		enum encoding_t {
@@ -39,10 +34,6 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		 * @param parent parent object.
 		 */
 		explicit HoldingRegister(uint16_t int16 = 0, QObject * parent = 0);
-
-		qint16 int16() const;
-
-		void setInt16(qint16 int16);
 
 		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const;
 
@@ -60,8 +51,6 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		void updateValue(uint16_t value);
 
 	signals:
-		void valueChanged();	///< @todo remove.
-
 		void valueRequested();
 
 		void valueUpdated();
