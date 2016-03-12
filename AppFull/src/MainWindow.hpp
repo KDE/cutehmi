@@ -3,7 +3,8 @@
 
 #include "../uic/ui_MainWindow.h"
 #include "RecentFiles.hpp"
-#include "QuickViewWrapper.hpp"
+
+#include <widgets/QuickViewWrapper.hpp>
 
 #include <base/ProjectModel.hpp>
 #include <base/XMLProjectBackend.hpp>
@@ -75,7 +76,7 @@ class MainWindow:
 		bool loadRecentFile(const QString & filePath);
 
 	private:
-		typedef QuickViewWrapper QMLWidgetWrapper;	///< QML widget wrapper. Either QuickViewWrapper or QuickWidgetWrapper can be used.
+		typedef widgets::QuickViewWrapper QMLWidgetWrapper;	///< QML widget wrapper. Either QuickViewWrapper or QuickWidgetWrapper can be used.
 
 		bool saveFile(const QString & filePath);
 

@@ -14,7 +14,10 @@ TRANSLATIONS = locale/cutehmi_qmlplugin_base_pl.ts
 DISTFILES += \
     qmldir \
     TextDisplay.qml \
-    designer/Base.metainfo
+    designer/Base.metainfo \
+    Pipe.qml \
+    PipeEmitterSettings.qml \
+    PipePoint.qml
 
 RESOURCES +=
 

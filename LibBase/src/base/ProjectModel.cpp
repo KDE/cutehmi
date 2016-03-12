@@ -24,6 +24,8 @@ ProjectModel::Node::VisitorDelegate::QMLContextPropertyProxy::QMLContextProperty
 
 void ProjectModel::Node::VisitorDelegate::QMLContextPropertyProxy::setContextProperty(const QString & name, QObject * value)
 {
+	if (m_context->contextProperty(name).isValid())
+		qWarning() << "Context property" << name << "has been already set.";
 	m_context->setContextProperty(name, value);
 }
 

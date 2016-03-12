@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	app.setWindowIcon(QIcon(":/img/icon.png"));
 
 //	QTranslator translator;
-//	translator.load(":/locale/cutyhmi_pl");
+//	translator.load(":/locale/appfull_pl");
 //	app.installTranslator(& translator);
 
 	std::unique_ptr<cutehmi::MainWindow> win(new cutehmi::MainWindow);

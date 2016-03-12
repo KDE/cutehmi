@@ -121,9 +121,7 @@ void MainWindow::about()
 	// %1 application name.
 	QMessageBox::about(this, tr("About %1").arg(QCoreApplication::applicationName()),
 			// %1 application_name, %2 version number.
-			tr("<b>%1</b> version %2").arg(QCoreApplication::applicationName()).arg(CUTYHMI_VERSION)
-			+ "<hr />"
-
+			tr("<b>%1</b> version %2").arg(QCoreApplication::applicationName()).arg(CUTEHMI_APPFULL_VERSION)
 			+ tr("<a href=\"http://libmodbus.org/\">libmodbus</a> - a Modbus library for Linux, Mac OS X, FreeBSD, QNX and Win32.") + "<br />"
 			+ tr("Free use of this software is granted under the terms of the GNU Lesser General Public License (LGPL v2.1+)") + "<br />"
 			+ tr("For details see the file COPYING.LESSER included with the libmodbus distribution.") + "<br />"
@@ -140,7 +138,7 @@ void MainWindow::about()
 
 			+ tr("Visualization software.") + "<br />"
 			// %1 copyright symbol, %2 copyright year.
-			+ tr("Copyright %1 %2, EKTERM. All rights reserved.").arg("\u00A9").arg(CUTYHMI_COPYRIGHT_YEAR));
+			+ tr("Copyright %1 %2, EKTERM. All rights reserved.").arg("\u00A9").arg(CUTEHMI_APPFULL_COPYRIGHT_YEAR));
 }
 
 void MainWindow::aboutQt()

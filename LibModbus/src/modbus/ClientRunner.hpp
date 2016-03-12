@@ -1,5 +1,5 @@
-#ifndef CLIENTRUNNER_H
-#define CLIENTRUNNER_H
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENTRUNNER_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENTRUNNER_HPP
 
 #include "../platform.hpp"
 #include "CommunicationThread.hpp"
@@ -33,4 +33,4 @@ class CUTEHMI_MODBUS_API ClientRunner:
 }
 }
 
-#endif // CLIENTRUNNER_H
+#endif

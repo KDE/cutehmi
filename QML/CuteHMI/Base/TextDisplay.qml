@@ -15,9 +15,6 @@ Item {
 	property int integralWidth: 3
 	property font font: Qt.font({family: "Lucida Console", pointSize: 20})
 	property string unit: "°C"
-//	property real source : aaa.x(integralWidth)
-//	property int address
-//	property TestItem
 
 	width: background.width
 	height: background.height
@@ -55,9 +52,4 @@ Item {
 			text: root.unit
 		}
 	}
-
-//	DevicePoint {
-//		id: devicePoint
-//		source: root.source
-//	}
 }

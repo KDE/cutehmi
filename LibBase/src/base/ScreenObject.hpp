@@ -14,14 +14,21 @@ class CUTEHMI_BASE_API ScreenObject:
 	Q_OBJECT
 
 	public:
-		ScreenObject(const QString & source, QObject * parent = 0);
+		ScreenObject(const QString & source, bool def = false, QObject * parent = 0);
 
 		virtual ~ScreenObject() = default;
 
 		QString source() const;
 
+		void setSource(const QString & source);
+
+		bool isDefault() const;
+
+		void setDefault(bool def);
+
 	private:
 		QString m_source;
+		bool m_default;
 };
 
 }

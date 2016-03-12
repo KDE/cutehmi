@@ -1,5 +1,5 @@
-#ifndef THREADREGISTER_H
-#define THREADREGISTER_H
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_RUNNERSREGISTER_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_RUNNERSREGISTER_HPP
 
 #include "../platform.hpp"
 
@@ -35,4 +35,4 @@ class CUTEHMI_BASE_API RunnersRegister:
 }
 }
 
-#endif // THREADREGISTER_H
+#endif

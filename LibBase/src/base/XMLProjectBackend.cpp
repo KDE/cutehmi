@@ -77,7 +77,7 @@ XMLProjectBackend::Loader0::Loader0(QXmlStreamReader * xmlReader, ProjectModel::
 XMLProjectBackend::Error XMLProjectBackend::Loader0::parse(int versionMinor)
 {
 	qDebug() << "Loader starts parsing document...";
-	if (versionMinor > 0)
+	if (versionMinor > 1)
 		return Error::UNSUPPORTED_VERSION;
 
 	m_root->data().setName(m_xml->attributes().value("name").toString());
@@ -147,7 +147,11 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::screens()
 		}
 		if (m_xml->name() == "screen") {
 			QString source = m_xml->attributes().value("source").toString();
-			ProjectModel::Node * screenNode = screensNode->addChild(ProjectModel::Node::Data(source, std::unique_ptr<QObject>(new ScreenObject(source))));
+			bool main = false;
+			if (m_xml->attributes().hasAttribute("default"))
+				if ((m_xml->attributes().value("default") == "true") || (m_xml->attributes().value("default") == "1"))
+					main = true;
+			ProjectModel::Node * screenNode = screensNode->addChild(ProjectModel::Node::Data(source, std::unique_ptr<QObject>(new ScreenObject(source, main))));
 			screenNode->setVisitorDelegate(std::unique_ptr<ProjectModel::Node::VisitorDelegate>(new ScreenVisitorDelegate(screenNode)));
 		}
 		m_xml->skipCurrentElement(); // None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.

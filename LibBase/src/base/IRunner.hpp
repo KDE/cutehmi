@@ -1,5 +1,5 @@
-#ifndef IRUNNER
-#define IRUNNER
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_IRUNNER_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_IRUNNER_HPP
 
 #include "../platform.hpp"
 
@@ -22,5 +22,5 @@ class IRunner
 }
 }
 
-#endif // IRUNNER
+#endif
 

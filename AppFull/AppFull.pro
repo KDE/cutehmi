@@ -19,7 +19,6 @@ QML_IMPORT_PATH = ../QML
 
 include (../cutehmi_base.pri)
 include (../cutehmi_widgets.pri)
-include (../cutehmi_modbus.pri) # @todo remove after modbus plugins are ready, for now temporary link with the cutehmi_modbus library.
 
 # Default rules for deployment.
 include(deployment.pri)

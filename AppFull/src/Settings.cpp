@@ -3,7 +3,7 @@
 namespace cutehmi {
 
 Settings::Settings():
-	QSettings(QSettings::IniFormat, QSettings::UserScope, "EKTERM", "CuteHMI")
+	QSettings(QSettings::IniFormat, QSettings::UserScope, "EKTERM", "CuteHMI_AppFull")
 {
 }
 

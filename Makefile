@@ -12,6 +12,7 @@ LIC_DSLASH = LICENSE.MP.dslash.inc
 LIC_HASH = LICENSE.MP.hash.inc
 INCLUDE_GUARD_PREFIX = "CUTEHMI_"
 SOURCE_DIRS = AppFull/src \
+			  AppLite/src \
 			  LibBase/src \
 			  LibWidgets/src \
 			  LibModbus/src \
@@ -19,6 +20,7 @@ SOURCE_DIRS = AppFull/src \
 			  PluginModbusUI/src \
 			  QML/CuteHMI/Modbus/src
 INCLUDE_DIRS = AppFull/src \
+			   AppLite/src \
 			   LibBase/src \
 			   LibWidgets/src \
 			   LibModbus/src \

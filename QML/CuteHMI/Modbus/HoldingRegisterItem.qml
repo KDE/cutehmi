@@ -18,6 +18,10 @@ Item {
 		parent.enabled = false
 	}
 
+	Component.onDestruction: {
+		device.r[address].valueUpdated.disconnect(updateValue)
+	}
+
 	function requestValue()
 	{
 		parent.enabled = false
@@ -26,7 +30,7 @@ Item {
 
 	function updateValue()
 	{
-		// Value may get updated right after doing request to a different value or it may get updated by different controller.
+		// Value may get updated right after doing request to a different value or it may get updated by a different controller.
 		// This may cause subsequent emission of valueChanged signal, so disconnect it temporarily.
 		parent.valueChanged.disconnect(requestValue)
 		parent.value = device.r[address].value(encoding)
