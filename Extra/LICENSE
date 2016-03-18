@@ -3,14 +3,23 @@ and they are a subject of different licenses. They should be
 considered as independent parts, distributed separately 
 whether they come with CuteHMI distribution or not.
 
+
 QtCreator is licensed under GNU Lesser General Public License (LGPL).
 Any work derived from it is licensed under LGPL.
 
+
 SimpleModbusServer is a work derived from libmodbus library.
 It is a subject of BSD license.
+  
+This Source Code Form is "Incompatible With Secondary Licenses", as
+defined by the Mozilla Public License, v. 2.0.
+
 
 Material Design Icons are icons designed by Google and distributed
 under Creative Common Attribution 4.0 International License (CC-BY 4.0) 
 without a requirement of giving an attribution (check 
 "./material-design-icons/index.html" for details).
  
+This Source Code Form is "Incompatible With Secondary Licenses", as
+defined by the Mozilla Public License, v. 2.0.
+

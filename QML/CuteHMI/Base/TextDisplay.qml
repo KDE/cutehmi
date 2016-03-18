@@ -1,55 +1,138 @@
 import QtQuick 2.5
 
-// <workaround id="QML_Base-1" target="Qt" cause="bug">
-// After setting environmental variable QT_QUICK_CONTROLS_STYLE=Flat as documentation suggests Qt desktop application does not use flat style properly,
-// although no warnings are printed to the output (as they normally should, if style can not be loaded). It seems that explicit import overcomes this bug.
-// [It may be that QT_QUICK_CONTROLS_STYLE is not doing regular import and it's not dealing with plugin library correctly.]
-import QtQuick.Controls.Styles.Flat 1.0
-import QtQuick.Extras 1.0	// To surpass "QtQuick.Extras.Private is not installed" ComboBox error, when using Flat style.
-// </workaround>
-
-Item {
+Item
+{
 	id: root
+
 	property real value: 0.0
 	property int fractionalWidth: 1
 	property int integralWidth: 3
-	property font font: Qt.font({family: "Lucida Console", pointSize: 20})
+	property alias font: unitDisplay.font
 	property string unit: "°C"
 
-	width: background.width
-	height: background.height
+	property alias border: background.border
+	property alias color: background.color
+	property alias stateColor: stateColor
+	property alias radius: background.radius
 
-	QtObject {
+	implicitWidth: background.width
+	implicitHeight: background.height
+	state: "normal"
+
+	states: [
+		State {
+			name: "normal"
+
+			// Scale is set explicitly, because even tho' "zoomed" state has "restoreEntryValues" set to true,
+			// TextDisplay may not return to normal scale, when using animation. If TextDisplay is zoomed and rapid
+			// click occurs, then if TextDisplay has not finished its zoomout animation yet, PropertyChanges will assume that
+			// scale in the middle of animation is the one that should be restored. In short, rapid clicks on TextDisplay
+			// might leave it permanently zoomed.
+			// This may be a Qt bug, but not marking it as workaround for now as this may be correct "restoreEntryValues"
+			// semantics as well (it restores properties to the actual values existing at the time of state change
+			// rather than values from the previous state).
+			PropertyChanges { target: root; scale: 1.0; color: stateColor.normal}
+		},
+		State {
+			name: "zoomed"
+
+			PropertyChanges { target: root; scale: 3.0}
+		},
+		State {
+			name: "dirty"
+			extend: "zoomed"
+
+			StateChangeScript { script: dirtyTimeout.start() }
+		},
+		State {
+			name: "disabled"
+
+			PropertyChanges { target: root; color: stateColor.disabled}
+		},
+		State {
+			name: "alert"
+
+			PropertyChanges { target: root; color: stateColor.alert}
+		}
+	]
+
+	Behavior on scale
+	{
+		NumberAnimation { duration: 100 }
+	}
+
+	Timer
+	{
+		id: dirtyTimeout
+
+		interval: 800;
+		onTriggered: root.state = "normal"
+	}
+
+	QtObject
+	{
+		id: stateColor
+
+		property color normal: "#CCF4CC"
+		property color disabled: "#E3E3E3"
+		property color alert: "#FF3300"
+	}
+
+	QtObject
+	{
 		id: textFormatter
+
 		property string textValue: root.value.toFixed(root.fractionalWidth)
 	}
 
-	Rectangle {
+	Rectangle
+	{
 		id: background
-		color: "lightgreen"
-		border.width: 2
-		radius: 10
+
+		color: stateColor.normal
+		border.width: height / 25.0
+		radius: height / 5.0
 		anchors.fill: textLayout
-		anchors.margins: -10
+		anchors.margins: - root.font.pixelSize / 3
 	}
 
-	Row {
+	Row
+	{
 		id: textLayout
-		spacing: 5
+
+		spacing: root.font.pixelSize / 5
 		anchors.centerIn: parent
 
-		Text {
+		Text
+		{
 			id: valueDisplay
-			font: root.font
+
+			font: unitDisplay.font
 			text: textFormatter.textValue
 			horizontalAlignment: Text.AlignRight
 			width: Math.max(contentWidth, contentWidth / textFormatter.textValue.length * (root.fractionalWidth + root.integralWidth + 1))
 		}
 
-		Text {
+		Text
+		{
 			id: unitDisplay
-			font: root.font
+
+			font.family: "Liberation Mono"
+			font.pixelSize: 30
 			text: root.unit
 		}
 	}
+
+	MouseArea
+	{
+		id: rootArea
+
+		anchors.fill: parent
+
+		onPressed: root.state = "zoomed"
+		onReleased: root.state = "dirty"
+		onCanceled: root.state = "dirty"
+	}
+
+	onEnabledChanged: enabled ? root.state = "normal" : root.state = "disabled"
 }

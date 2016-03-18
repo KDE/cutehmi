@@ -1,13 +1,17 @@
 import QtQuick 2.0
 import QtQuick.Particles 2.0
 
+/**
+  Pipe. By default pipe does not clip its contents.
+  */
 Item {
 	id: container
 
-	width: size.width
-	height: size.height
+	implicitWidth: size.width
+	implicitHeight: size.height
 
-	property size size: findSize()
+	readonly property size size: findSize()	///< @todo recalculate when points are changed.
+
 	property list<PipePoint> points	///< List of joint points (list<PipePoint>).
 	property var paths	///< List of lists of paths (list<list<int>>). Each path refers to points in the @a points list and contains a list of indices to connect.
 	property real velocityMagnitude: 0.0	///< Velocity of particles [pixels/s].
@@ -56,9 +60,14 @@ Item {
 
 	Canvas {
 		id: canvas
-		width: container.width
-		height: container.height
+
+		x: boundingRect.x
+		y: boundingRect.y
+		width: boundingRect.width
+		height: boundingRect.height
 		antialiasing: true
+
+		readonly property rect boundingRect: findBoundingRect() ///< @todo recalculate when points are changed.
 
 		property real thickness: 5.0
 		property real diameter: 40.0
@@ -79,9 +88,9 @@ Item {
 			for (var pathNum = 0; pathNum < paths.length; pathNum++) {
 				var path = paths[pathNum]
 				ctx.beginPath();
-				ctx.moveTo(points[path[0]].x, points[path[0]].y)
+				ctx.moveTo(points[path[0]].x - canvas.x, points[path[0]].y - canvas.y)
 				for (var i = 1; i < path.length; i++)
-					ctx.lineTo(points[path[i]].x, points[path[i]].y)
+					ctx.lineTo(points[path[i]].x - canvas.x, points[path[i]].y - canvas.y)
 				ctx.stroke();
 			}
 
@@ -91,13 +100,31 @@ Item {
 			for (pathNum = 0; pathNum < paths.length; pathNum++) {
 				path = paths[pathNum];
 				ctx.beginPath();
-				ctx.moveTo(points[path[0]].x, points[path[0]].y)
+				ctx.moveTo(points[path[0]].x - canvas.x, points[path[0]].y - canvas.y)
 				for (i = 1; i < path.length; i++)
-					ctx.lineTo(points[path[i]].x, points[path[i]].y)
+					ctx.lineTo(points[path[i]].x - canvas.x, points[path[i]].y - canvas.y)
 				ctx.stroke();
 			}
 
 			ctx.restore();
+		}
+
+		function findBoundingRect()
+		{
+			if (points.length === 0)
+				return Qt.rect(0.0, 0.0, 0.0, 0.0)
+			var minX = points[0].x
+			var minY = points[0].y
+			var maxX = points[0].x
+			var maxY = points[0].y
+			for (var i = 1; i < points.length; i++) {
+				minX = Math.min(points[i].x, minX)
+				minY = Math.min(points[i].y, minY)
+				maxX = Math.max(points[i].x, maxX)
+				maxY = Math.max(points[i].y, maxY)
+			}
+			var margin = diameter / 2.0
+			return Qt.rect(Math.floor(minX - margin), Math.floor(minY - margin), Math.ceil(maxX - minX + diameter), Math.ceil(maxY - minY + diameter))
 		}
 	}
 
@@ -111,6 +138,7 @@ Item {
 			maxX = Math.max(points[i].x, maxX)
 			maxY = Math.max(points[i].y, maxY)
 		}
-		return Qt.size(Math.ceil(maxX + diameter / 2.0), Math.ceil(maxY + diameter / 2.0))
+		var margin = diameter / 2.0
+		return Qt.size(Math.ceil(maxX + margin), Math.ceil(maxY + margin))
 	}
 }

@@ -55,17 +55,17 @@ qmltypes:
 #		$(AWK) -v src_dirs="$(SOURCE_DIRS)" -v src_files="*.cpp;*.c" -f cmakesrcs.awk CMakeLists.txt > CMakeLists.txt.new
 #		mv CMakeLists.txt.new CMakeLists.txt
 
-#license:
-#		@echo "Putting license..."
-#		@find $(INCLUDE_DIRS) \
-#		\( -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in' \) \
-#		-exec putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) \;
-#		@find $(SOURCE_DIRS) \
-#		\( -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in' \) \
-#		-exec putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) \;
-#		@find $(CMAKE_DIRS) \
-#		\( -name '*.cmake' -o -name 'CMakeLists.txt' \) \
-#		-exec putlic.sh {} $(LIC_HASH) hash $(LIC_QUALIFIER) $(ORS) \;
+license:
+		@echo "Putting license..."
+		@find $(INCLUDE_DIRS) \
+		\( -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in' \) \
+		-exec putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) \;
+		@find $(SOURCE_DIRS) \
+		\( -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in' \) \
+		-exec putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) \;
+		@find $(CMAKE_DIRS) \
+		\( -name '*.cmake' -o -name 'CMakeLists.txt' \) \
+		-exec putlic.sh {} $(LIC_HASH) hash $(LIC_QUALIFIER) $(ORS) \;
 
 guards:
 	    @echo "Updating include guards..."

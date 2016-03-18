@@ -106,17 +106,17 @@ int main(int argc, char * argv[])
 	QGuiApplication app(argc, argv);
 	app.setWindowIcon(QIcon(":/img/icon.png"));
 
-	QQmlApplicationEngine engine;
-
-	QCommandLineParser parser;
-	parser.setApplicationDescription("CuteHMI Lite");
-	parser.addHelpOption();
-	parser.addVersionOption();
+	QCommandLineParser cmd;
+	cmd.setApplicationDescription("CuteHMI Lite");
+	cmd.addHelpOption();
+	cmd.addVersionOption();
 	QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
-	parser.addOption(fullScreenOption);
+	cmd.addOption(fullScreenOption);
 	QCommandLineOption projectOption({"p", "project"}, QCoreApplication::translate("main", "Load CuteHMI project <file>."), QCoreApplication::translate("main", "file"));
-	parser.addOption(projectOption);
-	parser.process(app);
+	cmd.addOption(projectOption);
+	QCommandLineOption stoppedOption({"s", "stopped"}, QCoreApplication::translate("main", "Do not start project."));
+	cmd.addOption(stoppedOption);
+	cmd.process(app);
 
 	cutehmi::base::PluginLoader pluginLoader;
 	QDir dir(qApp->applicationDirPath());
@@ -124,13 +124,15 @@ int main(int argc, char * argv[])
 	pluginLoader.setPluginsDir(dir.canonicalPath());
 	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
 
+	// It's quite important to destroy "engine" before "projectModel", because ProjectModel contains context properties, which may still be in use by some QML components (for example in "Component.onDestroyed" handlers).
+	cutehmi::base::ProjectModel projectModel; // Keep order (see above).
+	QQmlApplicationEngine engine;	// Keep order (see above).
 	engine.addImportPath("../CuteHMI/QML");
 	engine.addImportPath("../QML");
 	qDebug() << "QML import paths: " << engine.importPathList();
 
-	cutehmi::base::ProjectModel projectModel;
 	cutehmi::base::RunnersRegister runners;
-	cutehmi::base::ErrorInfo errorInfo = cutehmi::loadFile(parser.value(projectOption), pluginLoader, projectModel);
+	cutehmi::base::ErrorInfo errorInfo = cutehmi::loadFile(cmd.value(projectOption), pluginLoader, projectModel);
 	if (errorInfo.code == cutehmi::base::Error::OK) {
 		cutehmi::visitRunnersRegister(projectModel, runners);
 		cutehmi::visitProjectContext(projectModel, *engine.rootContext());
@@ -146,6 +148,13 @@ int main(int argc, char * argv[])
 	}
 
 	engine.load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
+	if (!cmd.isSet(stoppedOption))
+		runners.start();
+	else
+		qWarning() << stoppedOption.description();
 
 	return app.exec();
 }
+
+//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

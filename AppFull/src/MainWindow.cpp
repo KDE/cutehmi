@@ -138,7 +138,7 @@ void MainWindow::about()
 
 			+ tr("Visualization software.") + "<br />"
 			// %1 copyright symbol, %2 copyright year.
-			+ tr("Copyright %1 %2, EKTERM. All rights reserved.").arg("\u00A9").arg(CUTEHMI_APPFULL_COPYRIGHT_YEAR));
+			+ tr("Copyright %1 %2, Michal Policht. All rights reserved.").arg("\u00A9").arg(CUTEHMI_APPFULL_COPYRIGHT_YEAR));
 }
 
 void MainWindow::aboutQt()
@@ -389,3 +389,6 @@ void MainWindow::makeWindowTitle()
 }
 
 }
+
+//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
