@@ -13,11 +13,14 @@ Item
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
+	property string _oldState
+
 	Component.onCompleted : {
 		if (parent.valueChanged !== undefined)
 			parent.valueChanged.connect(requestValue)
 		device.r[address].valueUpdated.connect(updateValue)
-		parent.enabled = false
+//		_oldState = parent.state
+		parent.state = "busy"
 	}
 
 	Component.onDestruction: {
@@ -26,7 +29,8 @@ Item
 
 	function requestValue()
 	{
-		parent.enabled = false
+		_oldState = parent.state
+		parent.state = "busy"
 		device.r[address].requestValue(parent.value, encoding)
 	}
 
@@ -39,7 +43,9 @@ Item
 		parent.value = device.r[address].value(encoding)
 		if (parent.valueChanged !== undefined)
 			parent.valueChanged.connect(requestValue)
-		parent.enabled = true
+		// Restore the old state if it has not changed in a meanwhile.
+		if (parent.state === "busy")
+			parent.state = _oldState
 	}
 }
 

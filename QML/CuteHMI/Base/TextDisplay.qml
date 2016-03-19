@@ -12,6 +12,8 @@ Item
 
 	property alias border: background.border
 	property alias color: background.color
+	property alias valueColor: valueDisplay.color
+	property alias unitColor: unitDisplay.color
 	property alias stateColor: stateColor
 	property alias radius: background.radius
 
@@ -31,12 +33,17 @@ Item
 			// This may be a Qt bug, but not marking it as workaround for now as this may be correct "restoreEntryValues"
 			// semantics as well (it restores properties to the actual values existing at the time of state change
 			// rather than values from the previous state).
-			PropertyChanges { target: root; scale: 1.0; color: stateColor.normal}
+			PropertyChanges { target: root; scale: 1.0; color: stateColor.normal; valueColor: stateColor.normalText}
+		},
+		State {
+			name: "busy"
+
+			PropertyChanges { target: root; color: root.color; valueColor: stateColor.busyText; unitColor: stateColor.normalText}
 		},
 		State {
 			name: "zoomed"
 
-			PropertyChanges { target: root; scale: 3.0}
+			PropertyChanges { target: root; scale: 3.0; color: root.color; valueColor: root.valueColor; unitColor: root.unitColor}
 		},
 		State {
 			name: "dirty"
@@ -47,14 +54,21 @@ Item
 		State {
 			name: "disabled"
 
-			PropertyChanges { target: root; color: stateColor.disabled}
+			PropertyChanges { target: root; color: stateColor.disabled; valueColor: stateColor.disabledText; unitColor: stateColor.disabledText}
 		},
 		State {
 			name: "alert"
 
-			PropertyChanges { target: root; color: stateColor.alert}
+			PropertyChanges { target: root; color: stateColor.alert; valueColor: stateColor.alertText; unitColor: stateColor.normalText}
 		}
 	]
+
+	property string _preZoomedState
+
+	onStateChanged: {
+		if ((state !== "zoomed") && (state !== "dirty"))
+			_preZoomedState = state
+	}
 
 	Behavior on scale
 	{
@@ -66,7 +80,7 @@ Item
 		id: dirtyTimeout
 
 		interval: 800;
-		onTriggered: root.state = "normal"
+		onTriggered: root.state = _preZoomedState
 	}
 
 	QtObject
@@ -76,6 +90,10 @@ Item
 		property color normal: "#CCF4CC"
 		property color disabled: "#E3E3E3"
 		property color alert: "#FF3300"
+		property color normalText: "#000000"
+		property color busyText: "#CCCCCC"
+		property color disabledText: "#8E8E8E"
+		property color alertText: "#000000"
 	}
 
 	QtObject
