@@ -1,5 +1,10 @@
 import QtQuick 2.5
 
+/**
+  @todo blinking text instead of washed out colour on "busy" state.
+
+  @todo decrement z when display is really zoomed out (after scale animation finishes; currently z is decremented when state changes).
+  */
 Item
 {
 	id: root
@@ -9,12 +14,14 @@ Item
 	property int integralWidth: 3
 	property alias font: unitDisplay.font
 	property string unit: "°C"
+	property bool zoom: false
+	property int zZoomInc: 1	///< Denotes how much to increment z value on zoom in.
 
 	property alias border: background.border
 	property alias color: background.color
+	property alias stateColor: stateColor
 	property alias valueColor: valueDisplay.color
 	property alias unitColor: unitDisplay.color
-	property alias stateColor: stateColor
 	property alias radius: background.radius
 
 	implicitWidth: background.width
@@ -25,15 +32,7 @@ Item
 		State {
 			name: "normal"
 
-			// Scale is set explicitly, because even tho' "zoomed" state has "restoreEntryValues" set to true,
-			// TextDisplay may not return to normal scale, when using animation. If TextDisplay is zoomed and rapid
-			// click occurs, then if TextDisplay has not finished its zoomout animation yet, PropertyChanges will assume that
-			// scale in the middle of animation is the one that should be restored. In short, rapid clicks on TextDisplay
-			// might leave it permanently zoomed.
-			// This may be a Qt bug, but not marking it as workaround for now as this may be correct "restoreEntryValues"
-			// semantics as well (it restores properties to the actual values existing at the time of state change
-			// rather than values from the previous state).
-			PropertyChanges { target: root; scale: 1.0; color: stateColor.normal; valueColor: stateColor.normalText}
+			PropertyChanges { target: root; color: stateColor.normal; valueColor: stateColor.normalText}
 		},
 		State {
 			name: "busy"
@@ -43,7 +42,7 @@ Item
 		State {
 			name: "zoomed"
 
-			PropertyChanges { target: root; scale: 3.0; color: root.color; valueColor: root.valueColor; unitColor: root.unitColor}
+			PropertyChanges { target: root; zoom: true; color: root.color; valueColor: root.valueColor; unitColor: root.unitColor}
 		},
 		State {
 			name: "dirty"
@@ -70,9 +69,19 @@ Item
 			_preZoomedState = state
 	}
 
+	onZoomChanged: {
+		if (zoom) {
+			scale = 3.0
+			z += zZoomInc
+		} else {
+			scale = 1.0
+			z -= zZoomInc
+		}
+	}
+
 	Behavior on scale
 	{
-		NumberAnimation { duration: 100 }
+		NumberAnimation	{ duration: 100 }
 	}
 
 	Timer
