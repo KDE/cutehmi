@@ -6,18 +6,28 @@ namespace modbus {
 
 CommunicationThread::CommunicationThread(Client * client):
 	m_run(false),
+	m_sleep(0),
 	m_client(client)
 {
+}
+
+unsigned long CommunicationThread::sleep() const
+{
+	return m_sleep;
+}
+
+void CommunicationThread::setSleep(unsigned long sleep)
+{
+	m_sleep = sleep;
 }
 
 void CommunicationThread::run()
 {
 	while (m_run) {
 		m_client->readAll();	// @todo synchronization
-		sleep(5);	// @todo temp hard coded.
+		msleep(m_sleep);
 	}
 }
-
 
 void CommunicationThread::start()
 {

@@ -16,6 +16,16 @@ ClientRunner::~ClientRunner()
 		stop();
 }
 
+unsigned long ClientRunner::sleep() const
+{
+	return m_thread->sleep();
+}
+
+void ClientRunner::setSleep(unsigned long sleep)
+{
+	m_thread->setSleep(sleep);
+}
+
 void ClientRunner::start()
 {
 	m_client->connect();

@@ -5,6 +5,7 @@
 
 #include <QtDebug>
 #include <QMutexLocker>
+#include <QtConcurrent>
 
 namespace cutehmi {
 namespace modbus {
@@ -32,6 +33,8 @@ Client::Client(std::unique_ptr<AbstractConnection> connection, QObject * parent)
 
 Client::~Client()
 {
+	QThreadPool::globalInstance()->waitForDone();
+
 	for (IrDataContainer::iterator it = m_irData.begin(); it != m_irData.end(); ++it)
 		delete it.value();
 	m_irData.clear();
@@ -62,7 +65,7 @@ const QQmlListProperty<HoldingRegister> & Client::r() const
 
 void Client::readIr(int addr)
 {
-	const int NUM_READ = 1;
+	static const int NUM_READ = 1;
 
 	QMutexLocker locker(& m_irMutex);
 	IrDataContainer::iterator it = m_irData.find(addr);
@@ -99,34 +102,26 @@ void Client::writeR(int addr)
 	qDebug() << "Writing requested value (" << val << ") to holding register " << addr << ".";
 	if (m_connection->writeR(addr, val) != 1)
 		qWarning() << tr("Failed writing register value to a device.");
+	else
+		emit it.value()->valueWritten();
 }
 
 void Client::connect()
 {
-	m_connection->connect();
-	if (m_connection->connected()) {
-		qDebug("Modbus client connected to the device.");
+	if (m_connection->connect())
 		emit connected();
-	} else
+	else
 		emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 }
 
 void Client::disconnect()
 {
-	if (m_connection->connected()) {
-		m_connection->disconnect();
-		qDebug("Modbus client disconnected from the device.");
-		emit disconnected();
-	} else
-		qDebug("Already disconnected.");
+	m_connection->disconnect();
+	emit disconnected();
 }
 
 void Client::readAll()
 {
-	if (!m_connection->connected()) {
-		qDebug("Attempting to read while not connected.");
-		return;
-	}
 	for (IrDataContainer::iterator it = m_irData.begin(); it != m_irData.end(); ++it)
 		readIr(it.key());
 	for (RDataContainer::iterator it = m_rData.begin(); it != m_rData.end(); ++it)
@@ -135,8 +130,9 @@ void Client::readAll()
 
 void Client::valueRequest(int index)
 {
-	writeR(index);
-	readR(index);
+	QtConcurrent::run([](Client * me, int index) {me->writeR(index); me->readR(index);}, this, index);
+//	writeR(index);
+//	readR(index);
 }
 
 HoldingRegister * Client::RAt(QQmlListProperty<HoldingRegister> * property, int index)

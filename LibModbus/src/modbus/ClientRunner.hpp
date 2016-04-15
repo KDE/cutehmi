@@ -21,6 +21,10 @@ class CUTEHMI_MODBUS_API ClientRunner:
 
 		virtual ~ClientRunner();
 
+		unsigned long sleep() const;
+
+		void setSleep(unsigned long sleep);
+
 		void start() override;
 
 		void stop() override;

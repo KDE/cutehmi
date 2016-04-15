@@ -18,7 +18,7 @@ class IPLCClient
 	public:
 
 	protected:
-		virtual ~IPLCClient() = default;
+		virtual ~IPLCClient() = default; // Making dtor virtual for plugin interface as in Qt docs.
 
 		IPLCClient() = default;
 };

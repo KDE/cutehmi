@@ -4,7 +4,7 @@ TEMPLATE = lib
 TARGET = $$qtLibraryTarget(cutehmi_modbus)
 
 QT -= gui
-QT += qml
+QT += qml concurrent
 
 # Configure the library for building
 VER_MAJ = $$CUTEHMI_MODBUS_MAJOR
@@ -26,7 +26,6 @@ unix {
 }
 
 SOURCES += \
-    src/modbus/AbstractConnection.cpp \
     src/modbus/Client.cpp \
     src/modbus/Exception.cpp \
     src/modbus/functions.cpp \
@@ -38,11 +37,12 @@ SOURCES += \
     src/modbus/ClientRunner.cpp \
     src/modbus/NodeDataObject.cpp \
     src/modbus/VisitorDelegate.cpp \
-    src/modbus/UIVisitorDelegateHolder.cpp
+    src/modbus/UIVisitorDelegateHolder.cpp \
+    src/modbus/DummyConnection.cpp \
+    src/modbus/LibmodbusConnection.cpp
 
 HEADERS += \
     src/platform.hpp \
-    src/modbus/AbstractConnection.hpp \
     src/modbus/Client.hpp \
     src/modbus/Exception.hpp \
     src/modbus/functions.hpp \
@@ -55,7 +55,10 @@ HEADERS += \
     src/modbus/ClientRunner.hpp \
     src/modbus/NodeDataObject.hpp \
     src/modbus/VisitorDelegate.hpp \
-    src/modbus/UIVisitorDelegateHolder.hpp
+    src/modbus/UIVisitorDelegateHolder.hpp \
+    src/modbus/DummyConnection.hpp \
+    src/modbus/LibmodbusConnection.hpp \
+    src/modbus/AbstractConnection.hpp
 
 DISTFILES +=
 

@@ -3,6 +3,7 @@
 #include <modbus/NodeDataObject.hpp>
 #include <modbus/TCPConnection.hpp>
 #include <modbus/RTUConnection.hpp>
+#include <modbus/DummyConnection.hpp>
 #include <modbus/VisitorDelegate.hpp>
 
 #include <QtDebug>
@@ -12,6 +13,8 @@ namespace pluginModbus {
 
 base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::Node & node)
 {
+	unsigned long clientRunnerSleep = 0;
+
 	qDebug("CuteHMI.PluginModbus starts parsing own portion of document...");
 	base::ProjectModel::Node * modbusNode = node.addChild(base::ProjectModel::Node::Data("Modbus"), false);
 	while (xmlReader.readNextStartElement()) {
@@ -28,12 +31,29 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 							} else if (xmlReader.attributes().value("type") == "RTU") {
 								if (!rtuConnectionFromXML(xmlReader, connection))
 									return base::Error::FAIL;
+							} else if (xmlReader.attributes().value("type") == "dummy") {
+								if (!dummyConnectionFromXML(xmlReader, connection))
+									return base::Error::FAIL;
+							} else
+								return base::Error::FAIL;
+						} else if (xmlReader.name() == "runner") {
+							while (xmlReader.readNextStartElement()) {
+								if (xmlReader.name() == "sleep") {
+									if (xmlReader.readNext() != QXmlStreamReader::Characters)
+										return base::Error::FAIL;
+									bool ok;
+									clientRunnerSleep = xmlReader.text().toULong(& ok);
+									if (!ok)
+										return base::Error::FAIL;
+								}
+								xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 							}
 						} else
 							xmlReader.skipCurrentElement();
 					}
 					std::unique_ptr<modbus::Client> client(new modbus::Client(std::move(connection)));
 					std::unique_ptr<modbus::ClientRunner> clientRunner(new modbus::ClientRunner(client.get()));
+					clientRunner->setSleep(clientRunnerSleep);
 					std::unique_ptr<modbus::NodeDataObject> dataObject(new modbus::NodeDataObject(std::move(client), std::move(clientRunner)));
 					base::ProjectModel::Node * clientNode = modbusNode->addChild(base::ProjectModel::Node::Data(id, std::move(dataObject)));
 					clientNode->setVisitorDelegate(std::unique_ptr<base::ProjectModel::Node::VisitorDelegate>(new modbus::VisitorDelegate(clientNode)));
@@ -52,12 +72,35 @@ base::Error Plugin::writeXML(QXmlStreamWriter & xmlWriter) const
 	return base::Error::FAIL;
 }
 
+base::Error Plugin::dummyConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection)
+{
+	unsigned long latency = 0;
+	modbus::DummyConnection * dummyConnection;
+
+	while (xmlReader.readNextStartElement()) {
+		if (xmlReader.name() == "latency") {
+			if (xmlReader.readNext() != QXmlStreamReader::Characters)
+				return base::Error::FAIL;
+			bool ok;
+			latency = xmlReader.text().toULong(& ok);
+			if (!ok)
+				return base::Error::FAIL;
+		}
+		xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
+	}
+	dummyConnection = new modbus::DummyConnection;
+	dummyConnection->setLatency(latency);
+	connection.reset(dummyConnection);
+	return base::Error::OK;
+}
+
 base::Error Plugin::tcpConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection)
 {
 	QString name;
 	QString service;
-	modbus::AbstractConnection::Timeout byteTimeout;
-	modbus::AbstractConnection::Timeout responseTimeout;
+	modbus::LibmodbusConnection::Timeout byteTimeout;
+	modbus::LibmodbusConnection::Timeout responseTimeout;
+	modbus::TCPConnection * tcpConnection;
 
 	while (xmlReader.readNextStartElement()) {
 		if (xmlReader.name() == "node") {
@@ -73,13 +116,14 @@ base::Error Plugin::tcpConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 		xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 	}
 	try {
-		connection.reset(new modbus::TCPConnection(name, service));
+		tcpConnection = new modbus::TCPConnection(name, service);
 	} catch (modbus::Exception & e) {
 		qDebug(e.what());
 		return base::Error::FAIL;
 	}
-	connection->setByteTimeout(byteTimeout);
-	connection->setResponseTimeout(responseTimeout);
+	tcpConnection->setByteTimeout(byteTimeout);
+	tcpConnection->setResponseTimeout(responseTimeout);
+	connection.reset(tcpConnection);
 	return base::Error::OK;
 }
 
@@ -91,8 +135,9 @@ base::Error Plugin::rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 	modbus::RTUConnection::DataBits dataBits = modbus::RTUConnection::DataBits::BITS_8;
 	modbus::RTUConnection::StopBits stopBits = modbus::RTUConnection::StopBits::BITS_1;
 	modbus::RTUConnection::Mode mode = modbus::RTUConnection::Mode::RS232;
-	modbus::AbstractConnection::Timeout byteTimeout;
-	modbus::AbstractConnection::Timeout responseTimeout;
+	modbus::LibmodbusConnection::Timeout byteTimeout;
+	modbus::LibmodbusConnection::Timeout responseTimeout;
+	modbus::RTUConnection * rtuConnection;
 
 	while (xmlReader.readNextStartElement()) {
 		if (xmlReader.name() == "port") {
@@ -147,17 +192,18 @@ base::Error Plugin::rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 		xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 	}
 	try {
-		connection.reset(new modbus::RTUConnection(port, baudRate, parity, dataBits, stopBits, mode));
+		rtuConnection = new modbus::RTUConnection(port, baudRate, parity, dataBits, stopBits, mode);
 	} catch (modbus::Exception & e) {
 		qDebug(e.what());
 		return base::Error::FAIL;
 	}
-	connection->setByteTimeout(byteTimeout);
-	connection->setResponseTimeout(responseTimeout);
+	rtuConnection->setByteTimeout(byteTimeout);
+	rtuConnection->setResponseTimeout(responseTimeout);
+	connection.reset(rtuConnection);
 	return base::Error::OK;
 }
 
-base::Error Plugin::connectionTimeoutsFromXML(QXmlStreamReader & xmlReader, modbus::AbstractConnection::Timeout & byteTimeout, modbus::AbstractConnection::Timeout & responseTimeout)
+base::Error Plugin::connectionTimeoutsFromXML(QXmlStreamReader & xmlReader, modbus::LibmodbusConnection::Timeout & byteTimeout, modbus::LibmodbusConnection::Timeout & responseTimeout)
 {
 	if (xmlReader.name() == "byte_timeout") {
 		if (xmlReader.readNext() != QXmlStreamReader::Characters)
@@ -171,12 +217,29 @@ base::Error Plugin::connectionTimeoutsFromXML(QXmlStreamReader & xmlReader, modb
 	return base::Error::OK;
 }
 
-base::Error Plugin::timeoutFromString(const QString & timeoutString, modbus::AbstractConnection::Timeout & timeout)
+base::Error Plugin::timeoutFromString(const QString & timeoutString, modbus::LibmodbusConnection::Timeout & timeout)
+{
+	unsigned long sec, usec;
+	base::Error result = secUsecFromString(timeoutString, sec, usec);
+	// unsigned long is guaranteed to be at least 32 bit.
+	timeout.sec = sec;
+	timeout.usec = usec;
+	return result;
+}
+
+base::Error Plugin::secUsecFromString(const QString & timeoutString, unsigned long & sec, unsigned long & usec)
 {
 	bool okSec, okUsec;
+
 	QStringList secUsec = timeoutString.split(".");
-	timeout.sec = secUsec.value(0).toULong(& okSec);	// unsigned long is guaranteed to be at least 32 bit.
-	timeout.usec = secUsec.value(1).toULong(& okUsec); // unsigned long is guaranteed to be at least 32 bit.
+	if (secUsec.length() != 2)
+		return base::Error::FAIL;
+	if (secUsec.value(1).count() > 6)
+		qDebug("Values smaller than a microsecond will be ignored.");
+
+	sec = secUsec.value(0).toULong(& okSec);
+	usec = secUsec.value(1).leftJustified(6, '0', true).toULong(& okUsec); // unsigned long is guaranteed to be at least 32 bit.
+
 	if (!okSec || !okUsec)
 		return base::Error::FAIL;
 	return base::Error::OK;

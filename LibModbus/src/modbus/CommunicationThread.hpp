@@ -18,6 +18,10 @@ class CommunicationThread:
 		explicit CommunicationThread(Client * client);
 
 	public:
+		unsigned long sleep() const;
+
+		void setSleep(unsigned long sleep);
+
 		void run() override;
 
 	public slots:
@@ -27,6 +31,7 @@ class CommunicationThread:
 
 	private:
 		bool m_run;
+		unsigned long m_sleep;
 		Client * m_client;
 };
 

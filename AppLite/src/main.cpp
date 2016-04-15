@@ -116,7 +116,14 @@ int main(int argc, char * argv[])
 	cmd.addOption(projectOption);
 	QCommandLineOption stoppedOption({"s", "stopped"}, QCoreApplication::translate("main", "Do not start project."));
 	cmd.addOption(stoppedOption);
+	QCommandLineOption styleOption("style", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
+	cmd.addOption(styleOption);
 	cmd.process(app);
+
+	if (cmd.isSet(styleOption)) {
+		qputenv("QT_QUICK_CONTROLS_STYLE", cmd.value(styleOption).toLocal8Bit());
+		qDebug() << "Qt Quick style: " << cmd.value(styleOption);
+	}
 
 	cutehmi::base::PluginLoader pluginLoader;
 	QDir dir(qApp->applicationDirPath());

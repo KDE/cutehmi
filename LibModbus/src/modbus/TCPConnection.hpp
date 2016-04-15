@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_TCPCONNECTION_HPP
 #define CUTEHMI_LIBMODBUS_SRC_MODBUS_TCPCONNECTION_HPP
 
-#include "AbstractConnection.hpp"
+#include "LibmodbusConnection.hpp"
 
 #include <modbus.h>
 
@@ -14,9 +14,9 @@ namespace modbus {
  * TCP connection.
  */
 class CUTEHMI_MODBUS_API TCPConnection:
-	public AbstractConnection
+	public LibmodbusConnection
 {
-	typedef AbstractConnection Parent;
+	typedef LibmodbusConnection Parent;
 
 	public:
 		/**

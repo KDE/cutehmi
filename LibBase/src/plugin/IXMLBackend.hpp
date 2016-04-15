@@ -25,7 +25,7 @@ class IXMLBackend
 		virtual base::Error writeXML(QXmlStreamWriter & xmlWriter) const = 0;
 
 	protected:
-		virtual ~IXMLBackend() = default;
+		virtual ~IXMLBackend() = default;	// Making dtor virtual for plugin interface as in Qt docs.
 
 		IXMLBackend() = default;
 };

@@ -3,7 +3,7 @@
 
 #include <plugin/IPLCClient.hpp>
 #include <plugin/IXMLBackend.hpp>
-#include <modbus/AbstractConnection.hpp>
+#include <modbus/LibmodbusConnection.hpp>
 
 #include <QObject>
 
@@ -21,19 +21,25 @@ class Plugin:
 	Q_PLUGIN_METADATA(IID "CuteHMI.PluginModbus" FILE "PluginModbus.json")
 	Q_INTERFACES(cutehmi::plugin::IPLCClient cutehmi::plugin::IXMLBackend)
 
+	friend class PluginTest;
+
 	public:
 		base::Error readXML(QXmlStreamReader & xmlReader, base::ProjectModel::Node & node) override;
 
 		base::Error writeXML(QXmlStreamWriter & xmlWriter) const override;
 
 	private:
+		base::Error dummyConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
+
 		base::Error tcpConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
 
 		base::Error rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
 
-		base::Error connectionTimeoutsFromXML(QXmlStreamReader & xmlReader, modbus::AbstractConnection::Timeout & byteTimeout, modbus::AbstractConnection::Timeout & responseTimeout);
+		base::Error connectionTimeoutsFromXML(QXmlStreamReader & xmlReader, modbus::LibmodbusConnection::Timeout & byteTimeout, modbus::LibmodbusConnection::Timeout & responseTimeout);
 
-		base::Error timeoutFromString(const QString & timeoutString, modbus::AbstractConnection::Timeout & timeout);
+		base::Error timeoutFromString(const QString & timeoutString, modbus::LibmodbusConnection::Timeout & timeout);
+
+		base::Error secUsecFromString(const QString & timeoutString, unsigned long & sec, unsigned long & usec);
 
 //		metaData() const;
 };

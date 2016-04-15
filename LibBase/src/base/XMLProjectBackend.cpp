@@ -24,7 +24,7 @@ QString XMLProjectBackend::Error::str() const
 		case PLUGIN_WRONG_INTERFACE:
 			return tr("Plugin does not implement required interface.");
 		case PLUGIN_PARSE_PROBLEM:
-			return tr("Plugin was not able to read data properly.");
+			return tr("Plugin was not able to parse its portion of project file.");
 		default:
 			return base::Error::str();
 	}

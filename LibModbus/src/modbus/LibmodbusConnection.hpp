@@ -1,7 +1,8 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_ABSTRACTCONNECTION_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_ABSTRACTCONNECTION_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_LIBMODBUSCONNECTION_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_LIBMODBUSCONNECTION_HPP
 
 #include "Exception.hpp"
+#include "AbstractConnection.hpp"
 
 #include <utils/NonCopyable.hpp>
 #include <utils/NonMovable.hpp>
@@ -14,7 +15,8 @@ namespace modbus {
 /**
  * Abstract connection.
  */
-class CUTEHMI_MODBUS_API AbstractConnection:
+class CUTEHMI_MODBUS_API LibmodbusConnection:
+	public AbstractConnection,
 	public utils::NonCopyable,
 	public utils::NonMovable
 {
@@ -24,7 +26,7 @@ class CUTEHMI_MODBUS_API AbstractConnection:
 			uint32_t usec;
 		};
 
-		virtual ~AbstractConnection() = default;
+		virtual ~LibmodbusConnection() = default;
 
 		/**
 		 * Set byte timeout.
@@ -50,21 +52,18 @@ class CUTEHMI_MODBUS_API AbstractConnection:
 		 */
 		Timeout responseTimeout() const;
 
-		bool connected() const;
+		bool connect() override;
 
-		virtual void connect();
+		void disconnect() override;
 
-		virtual void disconnect();
+		int readIr(int addr, int num, uint16_t & dest) override;
 
-		virtual int readIr(int addr, int num, uint16_t & dest);
+		int readR(int addr, int num, uint16_t & dest) override;
 
-		virtual int readR(int addr, int num, uint16_t & dest);
-
-		virtual int writeR(int addr, uint16_t value);
-
+		int writeR(int addr, uint16_t value) override;
 
 	protected:
-		AbstractConnection(modbus_t * context);
+		LibmodbusConnection(modbus_t * context);
 
 		const modbus_t * context() const;
 
@@ -72,11 +71,8 @@ class CUTEHMI_MODBUS_API AbstractConnection:
 
 		void setContext(modbus_t * context);
 
-		void setConnected(bool connected);
-
 	private:
 		modbus_t * m_context;
-		bool m_connected;
 };
 
 }
