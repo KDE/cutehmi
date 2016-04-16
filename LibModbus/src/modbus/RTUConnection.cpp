@@ -6,14 +6,15 @@
 namespace cutehmi {
 namespace modbus {
 
-RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode):
+RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode, int slaveId):
 	Parent(modbus_new_rtu(port.toLocal8Bit().data(), baudRate, ToLibmodbusParity(parity), static_cast<int>(dataBits), static_cast<int>(stopBits))),
 	m_port(port),
 	m_baudRate(baudRate),
 	m_parity(parity),
 	m_dataBits(dataBits),
 	m_stopBits(stopBits),
-	m_mode(mode)
+	m_mode(mode),
+	m_slaveId(slaveId)
 {
 	if (context() == NULL) {
 		switch (errno) {
@@ -23,6 +24,9 @@ RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, 
 				throw Exception(QObject::tr("Unable to create a connection for the port: %1.").arg(m_port));
 		}
 	}
+
+	modbus_set_slave(context(), m_slaveId);
+
 //<workaround id="LibModbus-1" target="libmodbus" cause="bug">
 //	if (modbus_rtu_set_serial_mode(context(), static_cast<int>(mode)) == -1) {
 //		try {
@@ -47,6 +51,41 @@ RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, 
 RTUConnection::~RTUConnection()
 {
 	modbus_free(context());
+}
+
+const QString & RTUConnection::port() const
+{
+	return m_port;
+}
+
+int RTUConnection::baudRate() const
+{
+	return m_baudRate;
+}
+
+RTUConnection::Parity RTUConnection::parity() const
+{
+	return m_parity;
+}
+
+RTUConnection::DataBits RTUConnection::dataBits() const
+{
+	return m_dataBits;
+}
+
+RTUConnection::StopBits RTUConnection::stopBits() const
+{
+	return m_stopBits;
+}
+
+RTUConnection::Mode RTUConnection::mode() const
+{
+	return m_mode;
+}
+
+int RTUConnection::slaveId() const
+{
+	return m_slaveId;
 }
 
 char RTUConnection::ToLibmodbusParity(Parity parity)

@@ -21,6 +21,16 @@ TCPConnection::~TCPConnection()
 	modbus_free(context());
 }
 
+const QString & TCPConnection::node() const
+{
+	return m_node;
+}
+
+const QString & TCPConnection::service() const
+{
+	return m_service;
+}
+
 }
 }
 

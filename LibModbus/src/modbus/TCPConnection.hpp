@@ -30,6 +30,10 @@ class CUTEHMI_MODBUS_API TCPConnection:
 
 		virtual ~TCPConnection();
 
+		const QString & node() const;
+
+		const QString & service() const;
+
 	private:
 		QString m_node;
 		QString m_service;

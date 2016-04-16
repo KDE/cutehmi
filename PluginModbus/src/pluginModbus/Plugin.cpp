@@ -135,6 +135,7 @@ base::Error Plugin::rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 	modbus::RTUConnection::DataBits dataBits = modbus::RTUConnection::DataBits::BITS_8;
 	modbus::RTUConnection::StopBits stopBits = modbus::RTUConnection::StopBits::BITS_1;
 	modbus::RTUConnection::Mode mode = modbus::RTUConnection::Mode::RS232;
+	int slaveId = 0;
 	modbus::LibmodbusConnection::Timeout byteTimeout;
 	modbus::LibmodbusConnection::Timeout responseTimeout;
 	modbus::RTUConnection * rtuConnection;
@@ -187,12 +188,19 @@ base::Error Plugin::rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 //</workaround>
 			else
 				return base::Error::FAIL;
+		} else if (xmlReader.name() == "slave_id") {
+				if (xmlReader.readNext() != QXmlStreamReader::Characters)
+					return base::Error::FAIL;
+				bool ok;
+				slaveId = xmlReader.text().toInt(& ok);
+				if (!ok)
+					return base::Error::FAIL;
 		} else if (!connectionTimeoutsFromXML(xmlReader, byteTimeout, responseTimeout))
 			return base::Error::FAIL;
 		xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 	}
 	try {
-		rtuConnection = new modbus::RTUConnection(port, baudRate, parity, dataBits, stopBits, mode);
+		rtuConnection = new modbus::RTUConnection(port, baudRate, parity, dataBits, stopBits, mode, slaveId);
 	} catch (modbus::Exception & e) {
 		qDebug(e.what());
 		return base::Error::FAIL;

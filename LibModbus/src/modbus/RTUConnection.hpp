@@ -62,12 +62,27 @@ class CUTEHMI_MODBUS_API RTUConnection:
 		 * @param dataBits data bits.
 		 * @param stopBits stop bits.
 		 * @param mode serial mode.
+		 * @param slaveId slave id or slave number. Sometimes also called station address.
 		 *
 		 * @throw Exception.
 		 */
-		RTUConnection(const QString & port, int baudRate = 19200, Parity parity = Parity::NONE, DataBits dataBits = DataBits::BITS_8, StopBits stopBits = StopBits::BITS_1, Mode mode = Mode::RS232);
+		RTUConnection(const QString & port, int baudRate = 19200, Parity parity = Parity::NONE, DataBits dataBits = DataBits::BITS_8, StopBits stopBits = StopBits::BITS_1, Mode mode = Mode::RS232, int slaveId = 0);
 
 		virtual ~RTUConnection();
+
+		const QString & port() const;
+
+		int baudRate() const;
+
+		Parity parity() const;
+
+		DataBits dataBits() const;
+
+		StopBits stopBits() const;
+
+		Mode mode() const;
+
+		int slaveId() const;
 
 	private:
 		static char ToLibmodbusParity(Parity parity);
@@ -78,6 +93,7 @@ class CUTEHMI_MODBUS_API RTUConnection:
 		DataBits m_dataBits;
 		StopBits m_stopBits;
 		Mode m_mode;
+		int m_slaveId;
 };
 
 }
