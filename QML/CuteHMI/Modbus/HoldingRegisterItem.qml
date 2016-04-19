@@ -4,14 +4,15 @@ import QtQuick.Controls 1.3
 
 Item
 {
-	property var device
-	property int address
-	property int encoding: ModbusHoldingRegister.INT16
-
 //	implicitWidth: 50
 //	implicitHeight: 50
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
+
+	property var device
+	property int address
+	property int encoding: ModbusHoldingRegister.INT16
+	property real valueScale: 1.0
 
 	property string _oldState
 	property int _writeCtr: 0
@@ -43,7 +44,7 @@ Item
 
 	function changeValue()
 	{
-		device.r[address].requestValue(parent.value, encoding)
+		device.r[address].requestValue(parent.value / valueScale, encoding)
 	}
 
 	function requestValue()
@@ -78,7 +79,7 @@ Item
 		if (parent.valueChanged !== undefined)	// Some parents may not have valueChanged signal.
 //			parent.valueChanged.disconnect(requestValue)
 			parent.valueChanged.disconnect(changeValue)
-		parent.value = device.r[address].value(encoding)
+		parent.value = valueScale * device.r[address].value(encoding)
 		if (parent.valueChanged !== undefined)	// Some parents may not have valueChanged signal.
 //			parent.valueChanged.connect(requestValue)
 			parent.valueChanged.connect(changeValue)
