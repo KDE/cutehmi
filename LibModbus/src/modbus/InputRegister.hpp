@@ -4,7 +4,8 @@
 #include "../platform.hpp"
 
 #include <QObject>
-#include <QMutex>
+#include <QReadWriteLock>
+#include <QVariant>
 
 namespace cutehmi {
 namespace modbus {
@@ -21,12 +22,19 @@ class CUTEHMI_MODBUS_API InputRegister:
 	Q_OBJECT
 
 	public:
+		enum encoding_t {
+			INT16
+		};
+		Q_ENUM(encoding_t)
+
 		/**
 		 * Constructor.
 		 * @param value initial value.
 		 * @param parent parent object.
 		 */
 		explicit InputRegister(uint16_t value = 0, QObject * parent = 0);
+
+		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const;
 
 	public slots:
 		/**
@@ -41,10 +49,8 @@ class CUTEHMI_MODBUS_API InputRegister:
 		void valueUpdated();
 
 	private:
-		int m_address; ///< @note @p int type is enforced by Qt, which uses it for sizes and indices. This limits addressing to std::numeric_limits<int>::max().
 		uint16_t m_value;
-		QMutex m_valueMutex;
-		uint16_t m_reqValue;
+		mutable QReadWriteLock m_valueLock;
 };
 
 }

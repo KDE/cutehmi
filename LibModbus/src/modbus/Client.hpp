@@ -27,9 +27,9 @@ class CUTEHMI_MODBUS_API Client:
 	Q_OBJECT
 	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> ir READ ir NOTIFY irChanged)
 	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> r READ r NOTIFY rChanged)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::DiscreteInput> ib READ ib NOTIFY ibChanged)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::Coil> b READ b NOTIFY bChanged)
 //remember to delete container elements!!!
-//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::ModbusDiscreteInput> ib READ ib NOTIFY ibChanged)
-//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::ModbusCoil> b READ b NOTIFY bChanged)
 //32 bit registers/16 bit addressing	(alternatively idr/dr (double register, then could be qr - quad for 64 bit)
 //	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> irr READ irr NOTIFY irChanged)
 //	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> rr READ rr NOTIFY rChanged)
@@ -66,6 +66,10 @@ class CUTEHMI_MODBUS_API Client:
 
 		const QQmlListProperty<HoldingRegister> & r() const;
 
+		const QQmlListProperty<DiscreteInput> & ib() const;
+
+		const QQmlListProperty<Coil> & b() const;
+
 //		void setConnection(std::unique_ptr<AbstractConnection> connection);
 
 		/**
@@ -85,12 +89,36 @@ class CUTEHMI_MODBUS_API Client:
 		void readR(int addr);
 
 		/**
-		 * Write value requested by HoldingRegister object. Object will not be updated after writing a value.
+		 * Write value requested by HoldingRegister object.
 		 * @param addr register address.
 		 *
 		 * @note appropriate HoldingRegister object must be referenced using @a r list before using this function.
 		 */
 		void writeR(int addr);
+
+		/**
+		 * Read discrete input value and update associated DiscreteInput object.
+		 * @param addr discrete input address.
+		 *
+		 * @note appropriate DiscreteInput object must be referenced using @a ib list before using this function.
+		 */
+		void readIb(int addr);
+
+		/**
+		 * Read coil value and update associated Coil object.
+		 * @param addr register address.
+		 *
+		 * @note appropriate Coil object must be referenced using @a b list before using this function.
+		 */
+		void readB(int addr);
+
+		/**
+		 * Write value requested by Coil object.
+		 * @param addr register address.
+		 *
+		 * @note appropriate Coil object must be referenced using @a b list before using this function.
+		 */
+		void writeB(int addr);
 
 	public slots:
 		/**
@@ -128,11 +156,15 @@ class CUTEHMI_MODBUS_API Client:
 		void bChanged();
 
 	protected slots:
-		void valueRequest(int index);
+		void rValueRequest(int index);
+
+		void bValueRequest(int index);
 
 	private:
 		typedef typename RegisterTraits<InputRegister>::Container IrDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
 		typedef typename RegisterTraits<HoldingRegister>::Container RDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
+		typedef typename RegisterTraits<DiscreteInput>::Container IbDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
+		typedef typename RegisterTraits<Coil>::Container BDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
 
 		/**
 		 * Get element at specified index of property list. If element does not exist function creates it.
@@ -165,6 +197,18 @@ class CUTEHMI_MODBUS_API Client:
 		 */
 		static InputRegister * IrAt(QQmlListProperty<InputRegister> * property, int index);
 
+		/**
+		 * Get Coil element at specified index of property list. Callback function for QQmlListProperty.
+		 * @return element at index.
+		 */
+		static Coil * BAt(QQmlListProperty<Coil> * property, int index);
+
+		/**
+		 * Get DiscreteInput element at specified index of property list. Callback function for QQmlListProperty.
+		 * @return element at index.
+		 */
+		static DiscreteInput * IbAt(QQmlListProperty<DiscreteInput> * property, int index);
+
 		uint16_t fromClientEndian(uint16_t val) const;
 
 		uint16_t toClientEndian(uint16_t val) const;
@@ -173,11 +217,18 @@ class CUTEHMI_MODBUS_API Client:
 		QQmlListProperty<InputRegister> m_ir;
 		RDataContainer m_rData;
 		QQmlListProperty<HoldingRegister> m_r;
+		IbDataContainer m_ibData;
+		QQmlListProperty<DiscreteInput> m_ib;
+		BDataContainer m_bData;
+		QQmlListProperty<Coil> m_b;
 		std::unique_ptr<AbstractConnection> m_connection;
 		endianness_t m_endianness;
 		QSignalMapper * m_rValueRequestMapper;
+		QSignalMapper * m_bValueRequestMapper;
 		QMutex m_rMutex;
 		QMutex m_irMutex;
+		QMutex m_bMutex;
+		QMutex m_ibMutex;
 };
 
 template <typename T>

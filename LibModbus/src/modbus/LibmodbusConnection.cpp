@@ -46,18 +46,18 @@ void LibmodbusConnection::disconnect()
 	modbus_close(context());
 }
 
-int LibmodbusConnection::readIr(int addr, int num, uint16_t & dest)
+int LibmodbusConnection::readIr(int addr, int num, uint16_t * dst)
 {
-	int result = modbus_read_input_registers(context(), addr, num, & dest);
-	if (result != num)
+	int result = modbus_read_input_registers(context(), addr, num, dst);
+	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
 	return result;
 }
 
-int LibmodbusConnection::readR(int addr, int num, uint16_t & dest)
+int LibmodbusConnection::readR(int addr, int num, uint16_t * dst)
 {
-	int result = modbus_read_registers(context(), addr, num, & dest);
-	if (result != num)
+	int result = modbus_read_registers(context(), addr, num, dst);
+	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
 	return result;
 }
@@ -67,6 +67,32 @@ int LibmodbusConnection::writeR(int addr, uint16_t value)
 	// For some reason libmodbus uses int as a value parameter, so we need to convert it back.
 	int result = modbus_write_register(context(), addr, intFromUint16(value));
 	if (result != 1)
+		qDebug() << "libmodbus error: " << modbus_strerror(errno);
+	return result;
+}
+
+int LibmodbusConnection::readIb(int addr, int num, uint8_t * dst)
+{
+	int result = modbus_read_input_bits(context(), addr, num, dst);
+	if (result == -1)
+		qDebug() << "libmodbus error: " << modbus_strerror(errno);
+	return result;
+}
+
+int LibmodbusConnection::readB(int addr, int num, uint8_t * dst)
+{
+	int result = modbus_read_bits(context(), addr, num, dst);
+	if (result == -1)
+		qDebug() << "libmodbus error: " << modbus_strerror(errno);
+	return result;
+}
+
+int LibmodbusConnection::writeB(int addr, bool value)
+{
+	// "If the source type is bool, the value false is converted to zero and the value true is converted to one."
+	//		-- §4.7/4 C++ Standard via StackOverflow.
+	int result = modbus_write_bit(context(), addr, value);
+	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
 	return result;
 }

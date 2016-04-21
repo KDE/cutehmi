@@ -56,11 +56,17 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 
 		void disconnect() override;
 
-		int readIr(int addr, int num, uint16_t & dest) override;
+		int readIr(int addr, int num, uint16_t * dst) override;
 
-		int readR(int addr, int num, uint16_t & dest) override;
+		int readR(int addr, int num, uint16_t * dst) override;
 
 		int writeR(int addr, uint16_t value) override;
+
+		int readIb(int addr, int num, uint8_t * dst) override;
+
+		int readB(int addr, int num, uint8_t * dst) override;
+
+		int writeB(int addr, bool value) override;
 
 	protected:
 		LibmodbusConnection(modbus_t * context);

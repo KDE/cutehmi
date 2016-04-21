@@ -1,4 +1,8 @@
 #include "InputRegister.hpp"
+#include "functions.hpp"
+
+#include <QtDebug>
+#include <QReadLocker>
 
 namespace cutehmi {
 namespace modbus {
@@ -9,10 +13,22 @@ InputRegister::InputRegister(uint16_t value, QObject * parent):
 {
 }
 
+QVariant InputRegister::value(encoding_t encoding) const
+{
+	QReadLocker locker(& m_valueLock);
+	switch (encoding) {
+		case INT16:
+			return intFromUint16(m_value);
+		default:
+			qFatal("Unrecognized code (%d) of target encoding.", encoding);
+	}
+}
+
 void InputRegister::updateValue(uint16_t value)
 {
-	QMutexLocker locker(& m_valueMutex);
+	m_valueLock.lockForWrite();
 	m_value = value;
+	m_valueLock.unlock();
 	emit valueUpdated();
 }
 

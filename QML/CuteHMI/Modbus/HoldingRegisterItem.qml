@@ -13,8 +13,9 @@ Item
 	property int address
 	property int encoding: ModbusHoldingRegister.INT16
 	property real valueScale: 1.0
+	property bool busy: false
 
-	property string _oldState
+//	property string _oldState
 	property int _writeCtr: 0
 
 	BusyIndicator
@@ -22,6 +23,7 @@ Item
 		id: busyIndicator
 
 		anchors.centerIn: parent
+		running: parent.busy
 	}
 
 	Component.onCompleted : {
@@ -31,9 +33,10 @@ Item
 		device.r[address].valueWritten.connect(writtenValue)
 		device.r[address].valueUpdated.connect(updateValue)
 		device.r[address].valueRequested.connect(requestValue)
-		_oldState = parent.state
-		parent.state = "busy"
-		busyIndicator.running = true
+//		_oldState = parent.state
+		busy = true
+//		parent.state = "busy"
+//		busyIndicator.running = true
 	}
 
 	Component.onDestruction: {
@@ -51,11 +54,14 @@ Item
 	{
 		console.log("requestValue()")
 
-		if (parent.state !== "busy") {
-			_oldState = parent.state
-			parent.state = "busy"
-			busyIndicator.running = true
-		}
+//		if (parent.state !== "busy") {
+//		if (!busy) {
+//			_oldState = parent.state
+//			parent.state = "busy"
+//			busy = true
+//			busyIndicator.running = true
+//		}
+		busy = true
 		_writeCtr++
 //		device.r[address].requestValue(parent.value, encoding)
 	}
@@ -84,9 +90,10 @@ Item
 //			parent.valueChanged.connect(requestValue)
 			parent.valueChanged.connect(changeValue)
 		// Restore the old state if it has not changed in a meanwhile.
-		if (parent.state === "busy")
-			parent.state = _oldState
-		busyIndicator.running = false
+//		if (parent.state === "busy")
+//			parent.state = _oldState
+//		busyIndicator.running = false
+		busy = false
 	}
 }
 

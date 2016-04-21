@@ -24,11 +24,15 @@ Client::Client(std::unique_ptr<AbstractConnection> connection, QObject * parent)
 	QObject(parent),
 	m_ir(this, & m_irData, Client::Count<InputRegister>, Client::IrAt),
 	m_r(this, & m_rData, Client::Count<HoldingRegister>, Client::RAt),
+	m_ib(this, & m_ibData, Client::Count<DiscreteInput>, Client::IbAt),
+	m_b(this, & m_bData, Client::Count<Coil>, Client::BAt),
 	m_connection(std::move(connection)),
 	m_endianness(INITIAL_ENDIANNESS),
-	m_rValueRequestMapper(new QSignalMapper(this))
+	m_rValueRequestMapper(new QSignalMapper(this)),
+	m_bValueRequestMapper(new QSignalMapper(this))
 {
-	QObject::connect(m_rValueRequestMapper, SIGNAL(mapped(int)), this, SLOT(valueRequest(int)));
+	QObject::connect(m_rValueRequestMapper, SIGNAL(mapped(int)), this, SLOT(rValueRequest(int)));
+	QObject::connect(m_bValueRequestMapper, SIGNAL(mapped(int)), this, SLOT(bValueRequest(int)));
 }
 
 Client::~Client()
@@ -41,6 +45,12 @@ Client::~Client()
 	for (RDataContainer::iterator it = m_rData.begin(); it != m_rData.end(); ++it)
 		delete it.value();
 	m_rData.clear();
+	for (IbDataContainer::iterator it = m_ibData.begin(); it != m_ibData.end(); ++it)
+		delete it.value();
+	m_ibData.clear();
+	for (BDataContainer::iterator it = m_bData.begin(); it != m_bData.end(); ++it)
+		delete it.value();
+	m_bData.clear();
 }
 
 void Client::setEndianness(endianness_t endianness)
@@ -63,6 +73,16 @@ const QQmlListProperty<HoldingRegister> & Client::r() const
 	return m_r;
 }
 
+const QQmlListProperty<DiscreteInput> & Client::ib() const
+{
+	return m_ib;
+}
+
+const QQmlListProperty<Coil> & Client::b() const
+{
+	return m_b;
+}
+
 void Client::readIr(int addr)
 {
 	static const int NUM_READ = 1;
@@ -72,8 +92,8 @@ void Client::readIr(int addr)
 	Q_ASSERT_X(it != m_irData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
 	qDebug() << "Reading value from input register " << addr << ".";
-	if (m_connection->readIr(addr, NUM_READ, val) != NUM_READ)
-		qWarning() << tr("Failed reading input register value from a device.");
+	if (m_connection->readIr(addr, NUM_READ, & val) != NUM_READ)
+		qWarning() << tr("Failed reading input register value from the device.");
 	else
 		it.value()->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
 }
@@ -87,8 +107,8 @@ void Client::readR(int addr)
 	Q_ASSERT_X(it != m_rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
 	qDebug() << "Reading value from holding register " << addr << ".";
-	if (m_connection->readR(addr, NUM_READ, val) != NUM_READ)
-		qWarning() << tr("Failed reading register value from a device.");
+	if (m_connection->readR(addr, NUM_READ, & val) != NUM_READ)
+		qWarning() << tr("Failed reading register value from the device.");
 	else
 		it.value()->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
 }
@@ -101,7 +121,50 @@ void Client::writeR(int addr)
 	uint16_t val = it.value()->requestedValue();
 	qDebug() << "Writing requested value (" << val << ") to holding register " << addr << ".";
 	if (m_connection->writeR(addr, val) != 1)
-		qWarning() << tr("Failed writing register value to a device.");
+		qWarning() << tr("Failed to write register value to the device.");
+	else
+		emit it.value()->valueWritten();
+}
+
+void Client::readIb(int addr)
+{
+	static const int NUM_READ = 1;
+
+	QMutexLocker locker(& m_ibMutex);
+	IbDataContainer::iterator it = m_ibData.find(addr);
+	Q_ASSERT_X(it != m_ibData.end(), __func__, "discrete input has not been referenced yet");
+	uint8_t val;
+	qDebug() << "Reading value from discrete input " << addr << ".";
+	if (m_connection->readIb(addr, NUM_READ, & val) != NUM_READ)
+		qWarning() << tr("Failed reading discrete input value from the device.");
+	else
+		it.value()->updateValue(val);
+}
+
+void Client::readB(int addr)
+{
+	static const int NUM_READ = 1;
+
+	QMutexLocker locker(& m_bMutex);
+	BDataContainer::iterator it = m_bData.find(addr);
+	Q_ASSERT_X(it != m_bData.end(), __func__, "coil has not been referenced yet");
+	uint8_t val;
+	qDebug() << "Reading value from coil " << addr << ".";
+	if (m_connection->readB(addr, NUM_READ, & val) != NUM_READ)
+		qWarning() << tr("Failed reading coil value from the device.");
+	else
+		it.value()->updateValue(val);
+}
+
+void Client::writeB(int addr)
+{
+	QMutexLocker locker(& m_bMutex);
+	BDataContainer::iterator it = m_bData.find(addr);
+	Q_ASSERT_X(it != m_bData.end(), __func__, "coil has not been referenced yet");
+	bool val = it.value()->requestedValue();
+	qDebug() << "Writing requested value (" << val << ") to coil " << addr << ".";
+	if (m_connection->writeB(addr, val) != 1)
+		qWarning() << tr("Failed to write coil value to the device.");
 	else
 		emit it.value()->valueWritten();
 }
@@ -126,13 +189,20 @@ void Client::readAll()
 		readIr(it.key());
 	for (RDataContainer::iterator it = m_rData.begin(); it != m_rData.end(); ++it)
 		readR(it.key());
+	for (IbDataContainer::iterator it = m_ibData.begin(); it != m_ibData.end(); ++it)
+		readIb(it.key());
+	for (BDataContainer::iterator it = m_bData.begin(); it != m_bData.end(); ++it)
+		readB(it.key());
 }
 
-void Client::valueRequest(int index)
+void Client::rValueRequest(int index)
 {
 	QtConcurrent::run([](Client * me, int index) {me->writeR(index); me->readR(index);}, this, index);
-//	writeR(index);
-//	readR(index);
+}
+
+void Client::bValueRequest(int index)
+{
+	QtConcurrent::run([](Client * me, int index) {me->writeB(index); me->readB(index);}, this, index);
 }
 
 HoldingRegister * Client::RAt(QQmlListProperty<HoldingRegister> * property, int index)
@@ -157,6 +227,31 @@ HoldingRegister * Client::RAt(QQmlListProperty<HoldingRegister> * property, int 
 InputRegister * Client::IrAt(QQmlListProperty<InputRegister> * property, int index)
 {
 	InputRegister * reg = At<InputRegister>(property, index);
+	return reg;
+}
+
+Coil * Client::BAt(QQmlListProperty<Coil> * property, int index)
+{
+	// Can convert lambda to function pointer if lambda captures nothing according to standard
+	// (via stackoverflow -> http://stackoverflow.com/questions/28746744/passing-lambda-as-function-pointer).
+	// "The closure type for a lambda-expression with no lambda-capture has a public non-virtual non-explicit const conversion function
+	//  to pointer to function having the same parameter and return types as the closure type’s function call operator. The value
+	//  returned by this conversion function shall be the address of a function that, when invoked, has the same effect as invoking the
+	//  closure type’s function call operator." -- draft C++11 standard section 5.1.2 [expr.prim.lambda]
+	auto onCreate = [](QQmlListProperty<Coil> * property, int index, Coil * reg) {
+		Client * client = static_cast<Client *>(property->object);
+		QSignalMapper * mapper = client->m_bValueRequestMapper;
+		mapper->setMapping(reg, index);
+		QObject::connect(reg, SIGNAL(valueRequested()), mapper, SLOT(map()));
+	};
+	Coil * reg = At<Coil>(property, index, onCreate);
+
+	return reg;
+}
+
+DiscreteInput * Client::IbAt(QQmlListProperty<DiscreteInput> * property, int index)
+{
+	DiscreteInput * reg = At<DiscreteInput>(property, index);
 	return reg;
 }
 

@@ -39,7 +39,9 @@ SOURCES += \
     src/modbus/VisitorDelegate.cpp \
     src/modbus/UIVisitorDelegateHolder.cpp \
     src/modbus/DummyConnection.cpp \
-    src/modbus/LibmodbusConnection.cpp
+    src/modbus/LibmodbusConnection.cpp \
+    src/modbus/Coil.cpp \
+    src/modbus/DiscreteInput.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -58,7 +60,9 @@ HEADERS += \
     src/modbus/UIVisitorDelegateHolder.hpp \
     src/modbus/DummyConnection.hpp \
     src/modbus/LibmodbusConnection.hpp \
-    src/modbus/AbstractConnection.hpp
+    src/modbus/AbstractConnection.hpp \
+    src/modbus/Coil.hpp \
+    src/modbus/DiscreteInput.hpp
 
 DISTFILES +=
 

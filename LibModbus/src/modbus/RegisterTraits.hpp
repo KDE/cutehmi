@@ -3,6 +3,8 @@
 
 #include "InputRegister.hpp"
 #include "HoldingRegister.hpp"
+#include "DiscreteInput.hpp"
+#include "Coil.hpp"
 
 namespace cutehmi {
 namespace modbus {
@@ -23,6 +25,18 @@ template <>
 struct RegisterTraits<HoldingRegister>
 {
 	typedef QHash<int, HoldingRegister *> Container;
+};
+
+template <>
+struct RegisterTraits<DiscreteInput>
+{
+	typedef QHash<int, DiscreteInput *> Container;
+};
+
+template <>
+struct RegisterTraits<Coil>
+{
+	typedef QHash<int, Coil *> Container;
 };
 
 }
