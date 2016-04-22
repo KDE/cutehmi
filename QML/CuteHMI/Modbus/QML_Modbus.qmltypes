@@ -9,20 +9,50 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: []
     Component {
-		name: "cutehmi::modbus::HoldingRegister"
+        name: "cutehmi::modbus::Coil"
+        prototype: "QObject"
+        exports: ["ModbusCoil 1.0"]
+        exportMetaObjectRevisions: [0]
+        Signal { name: "valueRequested" }
+        Signal { name: "valueUpdated" }
+        Signal { name: "valueWritten" }
+        Method {
+            name: "requestValue"
+            Parameter { name: "value"; type: "bool" }
+        }
+        Method {
+            name: "updateValue"
+            Parameter { name: "value"; type: "bool" }
+        }
+        Method { name: "value"; type: "bool" }
+        Method { name: "requestedValue"; type: "bool" }
+    }
+    Component {
+        name: "cutehmi::modbus::DiscreteInput"
+        prototype: "QObject"
+        exports: ["ModbusDiscreteInput 1.0"]
+        exportMetaObjectRevisions: [0]
+        Signal { name: "valueUpdated" }
+        Method {
+            name: "updateValue"
+            Parameter { name: "value"; type: "bool" }
+        }
+        Method { name: "value"; type: "bool" }
+    }
+    Component {
+        name: "cutehmi::modbus::HoldingRegister"
         prototype: "QObject"
         exports: ["ModbusHoldingRegister 1.0"]
         exportMetaObjectRevisions: [0]
         Enum {
             name: "encoding_t"
             values: {
-				"INT16": 0
+                "INT16": 0
             }
         }
-        Property { name: "int16"; type: "short" }
-        Signal { name: "valueChanged" }
         Signal { name: "valueRequested" }
         Signal { name: "valueUpdated" }
+        Signal { name: "valueWritten" }
         Method {
             name: "requestValue"
             Parameter { name: "value"; type: "QVariant" }
@@ -36,13 +66,35 @@ Module {
             name: "updateValue"
             Parameter { name: "value"; type: "uint16_t" }
         }
+        Method {
+            name: "value"
+            type: "QVariant"
+            Parameter { name: "encoding"; type: "encoding_t" }
+        }
+        Method { name: "value"; type: "QVariant" }
+        Method { name: "requestedValue"; type: "uint16_t" }
     }
     Component {
-		name: "cutehmi::modbus::InputRegister"
+        name: "cutehmi::modbus::InputRegister"
         prototype: "QObject"
         exports: ["ModbusInputRegister 1.0"]
         exportMetaObjectRevisions: [0]
-        Property { name: "int16"; type: "short"; isReadonly: true }
-        Signal { name: "valueChanged" }
+        Enum {
+            name: "encoding_t"
+            values: {
+                "INT16": 0
+            }
+        }
+        Signal { name: "valueUpdated" }
+        Method {
+            name: "updateValue"
+            Parameter { name: "value"; type: "uint16_t" }
+        }
+        Method {
+            name: "value"
+            type: "QVariant"
+            Parameter { name: "encoding"; type: "encoding_t" }
+        }
+        Method { name: "value"; type: "QVariant" }
     }
 }

@@ -25,6 +25,12 @@ DISTFILES += \
     HoldingRegisterItem.qml \
     designer/Modbus.metainfo \
     QML_Modbus.qmltypes \
-    designer/HoldingRegisterItemSpecifics.qml
+    designer/HoldingRegisterItemSpecifics.qml \
+    InputRegisterItem.qml \
+    CoilItem.qml \
+    DiscreteInputItem.qml \
+    designer/InputRegisterItemSpecifics.qml \
+    designer/CoilItemSpecifics.qml \
+    designer/DiscreteInputItemSpecifics.qml
 
 RESOURCES +=

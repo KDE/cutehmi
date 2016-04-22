@@ -27,10 +27,12 @@ INCLUDE_DIRS = AppFull/src \
 			   PluginModbus/src \
 			   PluginModbusUI/src \
 			   QML/CuteHMI/Modbus/src
+QML_DIRS = QML/CuteHMI/Base \
+		   QML/CuteHMI/Modbus
 CMAKE_DIRS =
 ORS = "\r\n"
 PWD = pwd
-QMLTYPES_EXTRAPATH = $$(PWD)/../binary-CuteHMI:$$(PWD)/../libmodbus-3.1.2/src/.libs
+QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../libmodbus-3.1.2/src/.libs
 
 .PHONY: help qmltypes sources license guards newlines
 
@@ -62,6 +64,9 @@ license:
 		-exec putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) \;
 		@find $(SOURCE_DIRS) \
 		\( -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in' \) \
+		-exec putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) \;
+		@find $(QML_DIRS) \
+		\( -name '*.qml' \) \
 		-exec putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) \;
 		@find $(CMAKE_DIRS) \
 		\( -name '*.cmake' -o -name 'CMakeLists.txt' \) \

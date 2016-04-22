@@ -4,8 +4,6 @@ import QtQuick.Controls 1.3
 
 Item
 {
-//	implicitWidth: 50
-//	implicitHeight: 50
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
@@ -13,9 +11,8 @@ Item
 	property int address
 	property int encoding: ModbusHoldingRegister.INT16
 	property real valueScale: 1.0
-	property bool busy: false
+	property bool busy: true
 
-//	property string _oldState
 	property int _writeCtr: 0
 
 	BusyIndicator
@@ -28,71 +25,56 @@ Item
 
 	Component.onCompleted : {
 		if (parent.valueChanged !== undefined)
-//			parent.valueChanged.connect(requestValue)
 			parent.valueChanged.connect(changeValue)
 		device.r[address].valueWritten.connect(writtenValue)
-		device.r[address].valueUpdated.connect(updateValue)
-		device.r[address].valueRequested.connect(requestValue)
-//		_oldState = parent.state
-		busy = true
-//		parent.state = "busy"
-//		busyIndicator.running = true
+		device.r[address].valueUpdated.connect(updatedValue)
+		device.r[address].valueRequested.connect(requestedValue)
 	}
 
 	Component.onDestruction: {
-		device.r[address].valueRequested.disconnect(requestValue)
-		device.r[address].valueUpdated.disconnect(updateValue)
+		if (parent.valueChanged !== undefined)
+			parent.valueChanged.disconnect(changeValue)
+		device.r[address].valueRequested.disconnect(requestedValue)
+		device.r[address].valueUpdated.disconnect(updatedValue)
 		device.r[address].valueWritten.disconnect(writtenValue)
 	}
 
 	function changeValue()
 	{
+		console.log("HoldingRegisterItem::changeValue()")
+
 		device.r[address].requestValue(parent.value / valueScale, encoding)
 	}
 
-	function requestValue()
+	function requestedValue()
 	{
-		console.log("requestValue()")
+		console.log("HoldingRegisterItem::requestedValue()")
 
-//		if (parent.state !== "busy") {
-//		if (!busy) {
-//			_oldState = parent.state
-//			parent.state = "busy"
-//			busy = true
-//			busyIndicator.running = true
-//		}
 		busy = true
 		_writeCtr++
-//		device.r[address].requestValue(parent.value, encoding)
 	}
 
 	function writtenValue()
 	{
-		console.log("writtenValue()")
+		console.log("HoldingRegisterItem::writtenValue()")
 
 		_writeCtr--
 	}
 
-	function updateValue()
+	function updatedValue()
 	{
-		console.log("updateValue()")
+		console.log("HoldingRegisterItem::updatedValue()")
 
 		if (_writeCtr > 0)
 			return;
 
-		// Value may get updated right after doing request to a different value or it may get updated by a different controller.
+		// Value may get updated to a different value than requested or it may get updated by a different controller.
 		// This may cause subsequent emission of valueChanged signal, so disconnect it temporarily.
 		if (parent.valueChanged !== undefined)	// Some parents may not have valueChanged signal.
-//			parent.valueChanged.disconnect(requestValue)
 			parent.valueChanged.disconnect(changeValue)
 		parent.value = valueScale * device.r[address].value(encoding)
 		if (parent.valueChanged !== undefined)	// Some parents may not have valueChanged signal.
-//			parent.valueChanged.connect(requestValue)
 			parent.valueChanged.connect(changeValue)
-		// Restore the old state if it has not changed in a meanwhile.
-//		if (parent.state === "busy")
-//			parent.state = _oldState
-//		busyIndicator.running = false
 		busy = false
 	}
 }

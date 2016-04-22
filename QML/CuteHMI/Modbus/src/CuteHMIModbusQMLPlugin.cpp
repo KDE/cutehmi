@@ -2,6 +2,8 @@
 
 #include <modbus/HoldingRegister.hpp>
 #include <modbus/InputRegister.hpp>
+#include <modbus/DiscreteInput.hpp>
+#include <modbus/Coil.hpp>
 
 #include <QtQml>
 
@@ -10,6 +12,8 @@ void CuteHMIModbusQMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Modbus"));
 	qmlRegisterType<cutehmi::modbus::InputRegister>(uri, 1, 0, "ModbusInputRegister");
 	qmlRegisterType<cutehmi::modbus::HoldingRegister>(uri, 1, 0, "ModbusHoldingRegister");
+	qmlRegisterType<cutehmi::modbus::DiscreteInput>(uri, 1, 0, "ModbusDiscreteInput");
+	qmlRegisterType<cutehmi::modbus::Coil>(uri, 1, 0, "ModbusCoil");
 }
 
 //(c)MP: Copyright © 2016, Michal Policht. All rights reserved.

@@ -11,4 +11,40 @@ MetaInfo {
 	    requiredImport: "CuteHMI.Modbus"
 	}
     }
+    Type {
+	name: "CuteHMI.Modbus.CuteHMI_Modbus_InputRegisterItem"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+	    name: "Input Register Item"
+	    category: "CuteHMI Modbus"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+	    version: "1.0"
+	    requiredImport: "CuteHMI.Modbus"
+	}
+    }
+    Type {
+	name: "CuteHMI.Modbus.CuteHMI_Modbus_DiscreteInputItem"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+	    name: "Discrete Input Item"
+	    category: "CuteHMI Modbus"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+	    version: "1.0"
+	    requiredImport: "CuteHMI.Modbus"
+	}
+    }
+    Type {
+	name: "CuteHMI.Modbus.CuteHMI_Modbus_CoilItem"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+	    name: "Coil Item"
+	    category: "CuteHMI Modbus"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+	    version: "1.0"
+	    requiredImport: "CuteHMI.Modbus"
+	}
+    }
 }

@@ -45,8 +45,8 @@ class CUTEHMI_MODBUS_API DummyConnection:
 		unsigned long m_latency;
 		uint16_t m_rArr[ADDR_SPACE_SIZE];
 		uint16_t m_irArr[ADDR_SPACE_SIZE];
-		uint8_t m_bArr[ADDR_SPACE_SIZE];
-		uint8_t m_ibArr[ADDR_SPACE_SIZE];
+		uint8_t m_bArr[ADDR_SPACE_SIZE / 8 + ((ADDR_SPACE_SIZE % 8) > 0)];
+		uint8_t m_ibArr[ADDR_SPACE_SIZE / 8 + ((ADDR_SPACE_SIZE % 8) > 0)];
 };
 
 }
