@@ -4,4 +4,6 @@
 DEFINES += CUTEHMI_WIDGETS_DYNAMIC
 INCLUDEPATH += $$PWD/LibWidgets/src
 DEPENDPATH += $$PWD/LibWidgets/src
-LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_widgets)$$CUTEHMI_WIDGETS_MAJOR
+win32:LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_widgets)$$CUTEHMI_WIDGETS_MAJOR
+unix:LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_widgets)
+

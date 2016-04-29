@@ -4,4 +4,6 @@
 DEFINES += CUTEHMI_BASE_DYNAMIC
 INCLUDEPATH += $$PWD/LibBase/src
 DEPENDPATH += $$PWD/LibBase/src
-LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_base)$$CUTEHMI_BASE_MAJOR
+win32:LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_base)$$CUTEHMI_BASE_MAJOR
+unix:LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_base)
+
