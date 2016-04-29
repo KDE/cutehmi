@@ -15,7 +15,6 @@ Item
 	property alias font: unitDisplay.font
 	property string unit: "°C"
 	property bool zoom: false
-	property int zZoomInc: 1	///< Denotes how much to increment z value on zoom in.
 
 	property alias border: background.border
 	property alias color: background.color
@@ -72,10 +71,10 @@ Item
 	onZoomChanged: {
 		if (zoom) {
 			scale = 3.0
-			z += zZoomInc
+			z++
 		} else {
 			scale = 1.0
-			z -= zZoomInc
+			z--
 		}
 	}
 
