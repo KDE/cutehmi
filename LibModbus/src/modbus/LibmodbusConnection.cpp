@@ -46,17 +46,17 @@ void LibmodbusConnection::disconnect()
 	modbus_close(context());
 }
 
-int LibmodbusConnection::readIr(int addr, int num, uint16_t * dst)
+int LibmodbusConnection::readIr(int addr, int num, uint16_t * dest)
 {
-	int result = modbus_read_input_registers(context(), addr, num, dst);
+	int result = modbus_read_input_registers(context(), addr, num, dest);
 	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
 	return result;
 }
 
-int LibmodbusConnection::readR(int addr, int num, uint16_t * dst)
+int LibmodbusConnection::readR(int addr, int num, uint16_t * dest)
 {
-	int result = modbus_read_registers(context(), addr, num, dst);
+	int result = modbus_read_registers(context(), addr, num, dest);
 	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
 	return result;
@@ -71,19 +71,25 @@ int LibmodbusConnection::writeR(int addr, uint16_t value)
 	return result;
 }
 
-int LibmodbusConnection::readIb(int addr, int num, uint8_t * dst)
+int LibmodbusConnection::readIb(int addr, int num, bool * dest)
 {
-	int result = modbus_read_input_bits(context(), addr, num, dst);
+	m_bIbBuffer.reserve(num);
+	int result = modbus_read_input_bits(context(), addr, num, & m_bIbBuffer[0]);
 	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
+	for (int i = 0; i < result; i++)
+		dest[i] = m_bIbBuffer[i];
 	return result;
 }
 
-int LibmodbusConnection::readB(int addr, int num, uint8_t * dst)
+int LibmodbusConnection::readB(int addr, int num, bool * dest)
 {
-	int result = modbus_read_bits(context(), addr, num, dst);
+	m_bIbBuffer.reserve(num);
+	int result = modbus_read_bits(context(), addr, num, & m_bIbBuffer[0]);
 	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
+	for (int i = 0; i < result; i++)
+		dest[i] = m_bIbBuffer[i];
 	return result;
 }
 

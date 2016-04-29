@@ -28,15 +28,15 @@ class CUTEHMI_MODBUS_API DummyConnection:
 
 		void disconnect() override;
 
-		int readIr(int addr, int num, uint16_t * dst) override;
+		int readIr(int addr, int num, uint16_t * dest) override;
 
-		int readR(int addr, int num, uint16_t * dst) override;
+		int readR(int addr, int num, uint16_t * dest) override;
 
 		int writeR(int addr, uint16_t value) override;
 
-		int readIb(int addr, int num, uint8_t * dst) override;
+		int readIb(int addr, int num, bool * dest) override;
 
-		int readB(int addr, int num, uint8_t * dst) override;
+		int readB(int addr, int num, bool * dest) override;
 
 		int writeB(int addr, bool value) override;
 
@@ -45,8 +45,8 @@ class CUTEHMI_MODBUS_API DummyConnection:
 		unsigned long m_latency;
 		uint16_t m_rArr[ADDR_SPACE_SIZE];
 		uint16_t m_irArr[ADDR_SPACE_SIZE];
-		uint8_t m_bArr[ADDR_SPACE_SIZE / 8 + ((ADDR_SPACE_SIZE % 8) > 0)];
-		uint8_t m_ibArr[ADDR_SPACE_SIZE / 8 + ((ADDR_SPACE_SIZE % 8) > 0)];
+		bool m_bArr[ADDR_SPACE_SIZE];
+		bool m_ibArr[ADDR_SPACE_SIZE];
 };
 
 }

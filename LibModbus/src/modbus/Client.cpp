@@ -133,7 +133,7 @@ void Client::readIb(int addr)
 	QMutexLocker locker(& m_ibMutex);
 	IbDataContainer::iterator it = m_ibData.find(addr);
 	Q_ASSERT_X(it != m_ibData.end(), __func__, "discrete input has not been referenced yet");
-	uint8_t val = 0;
+	bool val = 0;
 	qDebug() << "Reading value from discrete input " << addr << ".";
 	if (m_connection->readIb(addr, NUM_READ, & val) != NUM_READ)
 		qWarning() << tr("Failed reading discrete input value from the device.");
@@ -148,7 +148,7 @@ void Client::readB(int addr)
 	QMutexLocker locker(& m_bMutex);
 	BDataContainer::iterator it = m_bData.find(addr);
 	Q_ASSERT_X(it != m_bData.end(), __func__, "coil has not been referenced yet");
-	uint8_t val = 0;
+	bool val = 0;
 	qDebug() << "Reading value from coil " << addr << ".";
 	if (m_connection->readB(addr, NUM_READ, & val) != NUM_READ)
 		qWarning() << tr("Failed reading coil value from the device.");

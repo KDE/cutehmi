@@ -13,7 +13,7 @@ namespace cutehmi {
 namespace modbus {
 
 /**
- * Abstract connection.
+ * Libmodbus connection.
  */
 class CUTEHMI_MODBUS_API LibmodbusConnection:
 	public AbstractConnection,
@@ -56,15 +56,15 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 
 		void disconnect() override;
 
-		int readIr(int addr, int num, uint16_t * dst) override;
+		int readIr(int addr, int num, uint16_t * dest) override;
 
-		int readR(int addr, int num, uint16_t * dst) override;
+		int readR(int addr, int num, uint16_t * dest) override;
 
 		int writeR(int addr, uint16_t value) override;
 
-		int readIb(int addr, int num, uint8_t * dst) override;
+		int readIb(int addr, int num, bool * dest) override;
 
-		int readB(int addr, int num, uint8_t * dst) override;
+		int readB(int addr, int num, bool * dest) override;
 
 		int writeB(int addr, bool value) override;
 
@@ -79,6 +79,7 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 
 	private:
 		modbus_t * m_context;
+		std::vector<uint8_t> m_bIbBuffer;
 };
 
 }
