@@ -22,6 +22,7 @@ Item
 	}
 
 	Component.onCompleted : {
+		parent.value = valueScale * device.ir[address].value(encoding)
 		device.ir[address].valueUpdated.connect(updatedValue)
 	}
 

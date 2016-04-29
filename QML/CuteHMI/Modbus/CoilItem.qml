@@ -1,6 +1,7 @@
 import QtQuick 2.0
-import CuteHMI.Modbus 1.0
 import QtQuick.Controls 1.3
+
+import CuteHMI.Modbus 1.0
 
 /**
   Modbus coil item. This item is intended to interact with parent item in which it can be placed.
@@ -24,8 +25,6 @@ Item
 
 	BusyIndicator
 	{
-		id: busyIndicator
-
 		anchors.centerIn: parent
 		running: parent.busy
 	}
@@ -33,6 +32,7 @@ Item
 	Component.onCompleted : {
 		if (parent.checkedChanged !== undefined)
 			parent.checkedChanged.connect(changeValue)
+		parent.checked = device.b[address].value()
 		device.b[address].valueWritten.connect(writtenValue)
 		device.b[address].valueUpdated.connect(updatedValue)
 		device.b[address].valueRequested.connect(requestedValue)
@@ -48,30 +48,22 @@ Item
 
 	function changeValue()
 	{
-		console.log("CoilItem::changeValue()")
-
 		device.b[address].requestValue(parent.checked)
 	}
 
 	function requestedValue()
 	{
-		console.log("CoilItem::requestValue()")
-
 		busy = true
 		_writeCtr++
 	}
 
 	function writtenValue()
 	{
-		console.log("CoilItem::writtenValue()")
-
 		_writeCtr--
 	}
 
 	function updatedValue()
 	{
-		console.log("CoilItem::updatedValue()")
-
 		if (_writeCtr > 0)
 			return;
 

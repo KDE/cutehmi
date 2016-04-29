@@ -26,6 +26,7 @@ Item
 	Component.onCompleted : {
 		if (parent.valueChanged !== undefined)
 			parent.valueChanged.connect(changeValue)
+		parent.value = valueScale * device.r[address].value(encoding)
 		device.r[address].valueWritten.connect(writtenValue)
 		device.r[address].valueUpdated.connect(updatedValue)
 		device.r[address].valueRequested.connect(requestedValue)
@@ -41,30 +42,22 @@ Item
 
 	function changeValue()
 	{
-		console.log("HoldingRegisterItem::changeValue()")
-
 		device.r[address].requestValue(parent.value / valueScale, encoding)
 	}
 
 	function requestedValue()
 	{
-		console.log("HoldingRegisterItem::requestedValue()")
-
 		busy = true
 		_writeCtr++
 	}
 
 	function writtenValue()
 	{
-		console.log("HoldingRegisterItem::writtenValue()")
-
 		_writeCtr--
 	}
 
 	function updatedValue()
 	{
-		console.log("HoldingRegisterItem::updatedValue()")
-
 		if (_writeCtr > 0)
 			return;
 

@@ -20,6 +20,7 @@ Item
 	}
 
 	Component.onCompleted : {
+		parent.checked = device.ib[address].value()
 		device.ib[address].valueUpdated.connect(updatedValue)
 	}
 
