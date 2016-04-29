@@ -14,3 +14,10 @@ RCC_DIR = $$_PRO_FILE_PWD_/rcc
 CUTEHMI_BASE_MAJOR = 0
 CUTEHMI_WIDGETS_MAJOR = 0
 CUTEHMI_MODBUS_MAJOR = 0
+
+CONFIG(debug, debug|release) {
+    DEFINES += CUTEHMI_DEBUG
+}
+CONFIG(release, debug|release) {
+    DEFINES += CUTEHMI_RELEASE
+}

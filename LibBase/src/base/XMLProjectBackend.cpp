@@ -118,8 +118,9 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::plcClients()
 		}
 		if (m_xml->name() == "plc_client_plugin") {
 			QString pluginName(m_xml->attributes().value("name").toString());
-			if (QLibraryInfo::isDebugBuild())
-				pluginName.append('d');
+#ifdef CUTEHMI_DEBUG
+			pluginName.append('d');
+#endif
 			if (!m_pluginLoader->loadPlugin(pluginName, m_xml->attributes().value("version").toString()))
 				return Error::PLUGIN_NOT_LOADED;
 			plugin::IXMLBackend * plugin = qobject_cast<plugin::IXMLBackend *>(m_pluginLoader->instance(pluginName));
