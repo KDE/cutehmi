@@ -1,0 +1,18 @@
+Problem:
+
+Particles in a Pipe component are normally relying on "autoRotate" property. However particles emitted 
+from the past (Emitter has startTime parameter set to positive value) are not rotated correctly.
+
+Investigation:
+
+Weirdly this does not happen when previously loaded screen does not contain a Pipe with particle system.
+It's worth to note that new Emitters are being created before the old ones are destroyed.
+Maybe it's possible to get rid of this bug, by fine-tuning destruction of objects. For now particles are
+rotated manually (see workaround below).
+
+Workaround:
+
+Rotate "past" particles manually. It is possible to achieve by catching Emitter::emitParticles() signal
+and then disconnecting from it.
+
+Snippet:

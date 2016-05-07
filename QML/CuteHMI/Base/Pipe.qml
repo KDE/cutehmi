@@ -29,11 +29,42 @@ Item {
 		id: emitterComponent
 
 		Emitter {
+			id: emitterInstance
+
 			width: emitter.width
 			height: emitter.height
 			emitRate: emitter.emitRate
 			size: emitter.size
 			velocity: PointDirection { x: 0; y: 0 }
+
+			//<workaround id="QML_Base-2" target="Qt" cause="bug">
+			// Particles emitted from the past are not rotated correctly with "autoRotate", so we will rotate them manually.
+
+			//<workaround id="QML_Base-3" target="Qt" cause="bug">
+			// Need to use Connections, because emitParticles.connect(onEmitParticlesOnce) sends QVariant(QQmlV4Handle) instead of
+			// Array to the onEmitParticlesOnce(). Setting "target" here has a weird property (bug? Sth related to Javascript prototyping?)
+			// that old emitters, which already have "target" set to null and are going to die, will be reconnected to onEmitParticlesOnce().
+			Connections
+			{
+				id: onEmitParticlesWorkaround
+
+				target: emitterInstance
+				onEmitParticles: onEmitParticlesOnce(particles)
+			}
+			//</workaround>
+
+			function onEmitParticlesOnce(particles)
+			{
+				// Rotate each particle according to its velocity vector.
+				for (var i = 0; i < particles.length; i++) {
+					particles[i].autoRotate = false
+					particles[i].rotation = Math.atan2(particles[i].vy, particles[i].vx)
+				}
+				//<workaround id="QML_Base-3" target="Qt" cause="bug">
+				onEmitParticlesWorkaround.target = null	// Disconnect from signal to not affect performance any more.
+				//</workaround>
+			}
+			// </workaround>
 		}
 	}
 
