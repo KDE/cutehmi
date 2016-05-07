@@ -1,0 +1,11 @@
+Problem:
+
+Compilation fails with error "cannot find -lGL".
+
+Explanation:
+
+OpenGL libraries are either not installed or they are not in the system "lib" directory.
+
+Solution:
+
+Install libgl1-mesa-dev package.
