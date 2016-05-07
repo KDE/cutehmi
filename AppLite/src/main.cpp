@@ -15,6 +15,7 @@
 #include <QCommandLineParser>
 #include <QQmlContext>
 #include <QUrl>
+#include <QCursor>
 
 namespace cutehmi {
 
@@ -116,6 +117,8 @@ int main(int argc, char * argv[])
 	cmd.addOption(projectOption);
 	QCommandLineOption stoppedOption({"s", "stopped"}, QCoreApplication::translate("main", "Do not start project."));
 	cmd.addOption(stoppedOption);
+	QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
+	cmd.addOption(hideCursorOption);
 	QCommandLineOption styleOption("style", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
 	cmd.addOption(styleOption);
 	cmd.process(app);
@@ -124,6 +127,9 @@ int main(int argc, char * argv[])
 		qputenv("QT_QUICK_CONTROLS_STYLE", cmd.value(styleOption).toLocal8Bit());
 		qDebug() << "Qt Quick style: " << cmd.value(styleOption);
 	}
+
+	if (cmd.isSet(hideCursorOption))
+		QGuiApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
 
 	cutehmi::base::PluginLoader pluginLoader;
 	QDir dir(qApp->applicationDirPath());
