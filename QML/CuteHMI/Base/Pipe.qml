@@ -3,6 +3,8 @@ import QtQuick.Particles 2.0
 
 /**
   Pipe. By default pipe does not clip its contents.
+
+  @todo use affectors to control velocity of particles.
   */
 Item {
 	id: container
@@ -15,6 +17,7 @@ Item {
 	property list<PipePoint> points	///< List of joint points (list<PipePoint>).
 	property var paths	///< List of lists of paths (list<list<int>>). Each path refers to points in the @a points list and contains a list of indices to connect.
 	property real velocityMagnitude: 0.0	///< Velocity of particles [pixels/s].
+	property real velocityFactor: 1.0
 	property PipeEmitterSettings emitter: PipeEmitterSettings {}
 	property ParticleSystem particleSystem
 
@@ -35,7 +38,10 @@ Item {
 			height: emitter.height
 			emitRate: emitter.emitRate
 			size: emitter.size
+			enabled: emitter.enabled
 			velocity: PointDirection { x: 0; y: 0 }
+			property real velocityFactor: container.velocityFactor
+			property vector2d emissionVector;
 
 			//<workaround id="QML_Base-2" target="Qt" cause="bug">
 			// Particles emitted from the past are not rotated correctly with "autoRotate", so we will rotate them manually.
@@ -53,6 +59,8 @@ Item {
 			}
 			//</workaround>
 
+			onVelocityFactorChanged: recalculateEmission()
+
 			function onEmitParticlesOnce(particles)
 			{
 				// Rotate each particle according to its velocity vector.
@@ -65,6 +73,19 @@ Item {
 				//</workaround>
 			}
 			// </workaround>
+
+			function recalculateEmission()
+			{
+				var resultingVelocity = velocityMagnitude * velocityFactor
+				var velocityVector = emissionVector.normalized().times(resultingVelocity)
+				velocity.x = velocityVector.x
+				velocity.y = velocityVector.y
+				if (velocityFactor > 0.01) {
+					lifeSpan = emissionVector.length() / resultingVelocity * 1000.0	// length [pixels] / velocity [pixels/s] * 1000 [ms]
+					emitRate = emitter.emitRate * velocityFactor
+				} else
+					emitRate = 0
+			}
 		}
 	}
 
@@ -77,13 +98,9 @@ Item {
 				var e = emitterComponent.createObject(container)
 				e.x = points[path[i]].x - e.width / 2;
 				e.y = points[path[i]].y - e.height / 2;
-				var segmentVector = Qt.vector2d(points[path[i + 1]].x - points[path[i]].x, points[path[i + 1]].y - points[path[i]].y);
-				var segmentVelocity = segmentVector.normalized().times(velocityMagnitude)
-				e.velocity.x = segmentVelocity.x
-				e.velocity.y = segmentVelocity.y
-				var timeSpan = segmentVector.length() / velocityMagnitude * 1000.0	// length [pixels] / velocity [pixels/s] * 1000 [ms]
-				e.lifeSpan = timeSpan
-				e.startTime = timeSpan
+				e.emissionVector = Qt.vector2d(points[path[i + 1]].x - points[path[i]].x, points[path[i + 1]].y - points[path[i]].y);
+				e.recalculateEmission()
+				e.startTime = e.lifeSpan
 				e.system =  particleSystem
 			}
 		}
