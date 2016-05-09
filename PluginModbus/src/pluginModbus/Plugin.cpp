@@ -145,7 +145,7 @@ base::Error Plugin::rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::uniq
 			if (xmlReader.readNext() != QXmlStreamReader::Characters)
 				return base::Error::FAIL;
 			port = xmlReader.text().toString();
-		} else if (xmlReader.name() == "baudRate") {
+		} else if (xmlReader.name() == "baud_rate") {
 			if (xmlReader.readNext() != QXmlStreamReader::Characters)
 				return base::Error::FAIL;
 			bool ok;
