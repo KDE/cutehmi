@@ -9,6 +9,8 @@
 
 #include <modbus.h>
 
+#include <QMutex>
+
 namespace cutehmi {
 namespace modbus {
 
@@ -78,6 +80,8 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 		void setContext(modbus_t * context);
 
 	private:
+		static QMutex & Mutex(); // libmodbus functions are neither thread-safe nor re-entrant. A shared mutex is required to protect the data from corruption.
+
 		modbus_t * m_context;
 		std::vector<uint8_t> m_bIbBuffer;
 };

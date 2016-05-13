@@ -48,6 +48,7 @@ void LibmodbusConnection::disconnect()
 
 int LibmodbusConnection::readIr(int addr, int num, uint16_t * dest)
 {
+	QMutexLocker locker(& LibmodbusConnection::Mutex());
 	int result = modbus_read_input_registers(context(), addr, num, dest);
 	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
@@ -56,6 +57,7 @@ int LibmodbusConnection::readIr(int addr, int num, uint16_t * dest)
 
 int LibmodbusConnection::readR(int addr, int num, uint16_t * dest)
 {
+	QMutexLocker locker(& LibmodbusConnection::Mutex());
 	int result = modbus_read_registers(context(), addr, num, dest);
 	if (result == -1)
 		qDebug() << "libmodbus error: " << modbus_strerror(errno);
@@ -64,6 +66,7 @@ int LibmodbusConnection::readR(int addr, int num, uint16_t * dest)
 
 int LibmodbusConnection::writeR(int addr, uint16_t value)
 {
+	QMutexLocker locker(& LibmodbusConnection::Mutex());
 	// For some reason libmodbus uses int as a value parameter, so we need to convert it back.
 	int result = modbus_write_register(context(), addr, intFromUint16(value));
 	if (result != 1)
@@ -73,6 +76,7 @@ int LibmodbusConnection::writeR(int addr, uint16_t value)
 
 int LibmodbusConnection::readIb(int addr, int num, bool * dest)
 {
+	QMutexLocker locker(& LibmodbusConnection::Mutex());
 	m_bIbBuffer.reserve(num);
 	int result = modbus_read_input_bits(context(), addr, num, & m_bIbBuffer[0]);
 	if (result == -1)
@@ -84,6 +88,7 @@ int LibmodbusConnection::readIb(int addr, int num, bool * dest)
 
 int LibmodbusConnection::readB(int addr, int num, bool * dest)
 {
+	QMutexLocker locker(& LibmodbusConnection::Mutex());
 	m_bIbBuffer.reserve(num);
 	int result = modbus_read_bits(context(), addr, num, & m_bIbBuffer[0]);
 	if (result == -1)
@@ -95,6 +100,7 @@ int LibmodbusConnection::readB(int addr, int num, bool * dest)
 
 int LibmodbusConnection::writeB(int addr, bool value)
 {
+	QMutexLocker locker(& LibmodbusConnection::Mutex());
 	// "If the source type is bool, the value false is converted to zero and the value true is converted to one."
 	//		-- §4.7/4 C++ Standard via StackOverflow.
 	int result = modbus_write_bit(context(), addr, value);
@@ -123,6 +129,11 @@ void LibmodbusConnection::setContext(modbus_t * context)
 	m_context = context;
 }
 
+QMutex & LibmodbusConnection::Mutex()
+{
+	static QMutex mutex;
+	return mutex;
+}
 
 }
 }
