@@ -14,25 +14,30 @@ import CuteHMI.Modbus 1.0
   */
 Item
 {
+	id: root
+
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
 	property var device
 	property int address
 	property bool busy: true
+	property alias busyIndicator: busyIndicator
 
 	property int _writeCtr: 0
 
-	BusyIndicator
+	ExtBusyIndicator
 	{
-		anchors.centerIn: parent
-		running: parent.busy
+		id: busyIndicator
+
+		running: root.busy
+		centerIn: parent
 	}
 
 	Component.onCompleted : {
+		parent.checked = device.b[address].value()
 		if (parent.checkedChanged !== undefined)
 			parent.checkedChanged.connect(changeValue)
-		parent.checked = device.b[address].value()
 		device.b[address].valueWritten.connect(writtenValue)
 		device.b[address].valueUpdated.connect(updatedValue)
 		device.b[address].valueRequested.connect(requestedValue)

@@ -1,9 +1,12 @@
 import QtQuick 2.0
-import CuteHMI.Modbus 1.0
 import QtQuick.Controls 1.3
+
+import CuteHMI.Modbus 1.0
 
 Item
 {
+	id: root
+
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
@@ -12,13 +15,14 @@ Item
 	property int encoding: ModbusHoldingRegister.INT16
 	property real valueScale: 1.0
 	property bool busy: true
+	property alias busyIndicator: busyIndicator
 
-	BusyIndicator
+	ExtBusyIndicator
 	{
 		id: busyIndicator
 
 		anchors.centerIn: parent
-		running: parent.busy
+		running: root.busy
 	}
 
 	Component.onCompleted : {

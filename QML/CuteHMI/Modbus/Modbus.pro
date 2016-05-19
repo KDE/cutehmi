@@ -31,6 +31,7 @@ DISTFILES += \
     DiscreteInputItem.qml \
     designer/InputRegisterItemSpecifics.qml \
     designer/CoilItemSpecifics.qml \
-    designer/DiscreteInputItemSpecifics.qml
+    designer/DiscreteInputItemSpecifics.qml \
+    ExtBusyIndicator.qml
 
 RESOURCES +=

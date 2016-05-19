@@ -1,9 +1,12 @@
 import QtQuick 2.0
-import CuteHMI.Modbus 1.0
 import QtQuick.Controls 1.3
+
+import CuteHMI.Modbus 1.0
 
 Item
 {
+	id: root
+
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
@@ -12,21 +15,22 @@ Item
 	property int encoding: ModbusHoldingRegister.INT16
 	property real valueScale: 1.0
 	property bool busy: true
+	property alias busyIndicator: busyIndicator
 
 	property int _writeCtr: 0
 
-	BusyIndicator
+	ExtBusyIndicator
 	{
 		id: busyIndicator
 
-		anchors.centerIn: parent
-		running: parent.busy
+		running: root.busy
+		centerIn: parent
 	}
 
 	Component.onCompleted : {
+		parent.value = valueScale * device.r[address].value(encoding)
 		if (parent.valueChanged !== undefined)
 			parent.valueChanged.connect(changeValue)
-		parent.value = valueScale * device.r[address].value(encoding)
 		device.r[address].valueWritten.connect(writtenValue)
 		device.r[address].valueUpdated.connect(updatedValue)
 		device.r[address].valueRequested.connect(requestedValue)

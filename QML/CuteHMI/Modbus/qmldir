@@ -3,10 +3,12 @@ HoldingRegisterItem 1.0 HoldingRegisterItem.qml
 InputRegisterItem 1.0 InputRegisterItem.qml
 DiscreteInputItem 1.0 DiscreteInputItem.qml
 CoilItem 1.0 CoilItem.qml
+ExtBusyIndicator 1.0 ExtBusyIndicator.qml
 CuteHMI_Modbus_HoldingRegisterItem 1.0 HoldingRegisterItem.qml
 CuteHMI_Modbus_InputRegisterItem 1.0 InputRegisterItem.qml
 CuteHMI_Modbus_DiscreteInputItem 1.0 DiscreteInputItem.qml
 CuteHMI_Modbus_CoilItem 1.0 CoilItem.qml
+CuteHMI_Modbus_ExtBusyIndicator 1.0 ExtBusyIndicator.qml
 plugin cutehmi_qmlplugin_modbus plugins
 classname CuteHMIModbusQMLPlugin
 typeinfo QML_Modbus.qmltypes
