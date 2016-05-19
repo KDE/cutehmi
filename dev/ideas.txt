@@ -1,14 +1,19 @@
 0.0 Ideas file [implemented]
 
-This file contains description of loose ideas for further implementation or abandonment. A status
-may be provided in square brackets after idea number and title.
+This file contains description of loose ideas for further implementation or 
+abandonment. A status may be provided in square brackets after idea number 
+and title.
 
 
 1.0 Error codes [partially implemented]
 
-It would be nice to use dictionary method for error messages. Less mess and each error could have a code, which makes user support easier. Errors should be deivided in two cathegories: userspace errors and 
-system errors. Userspace errors are errors that are part of normal functioning of an application (for
-example error is triggered, because user has not configured device properly). Second type is to provide debugging info when something fails in a bit surprising way.
+It would be nice to use dictionary method for error messages. Less mess and
+each error could have a code, which makes user support easier. Errors should
+be deivided in two cathegories: userspace errors and system errors. Userspace
+errors are errors that are part of normal functioning of an application (for
+example error is triggered, because user has not configured device properly).
+Second type is to provide debugging info when something fails in a bit
+surprising way.
 
 base::Error class partially implements the idea.
 
@@ -16,3 +21,13 @@ base::Error class partially implements the idea.
 2.0 Extended error [implemented]
 
 Provide base::ExtError class with details() method for detailed error messages.
+
+
+3.0 Overlay or decoration layer [not implemented]
+
+Sometimes an item has to be placed on top of other items, while retaining its
+position. Moving up in the hierarchy of parents can be cumbersome. It would be
+nice to have a QML component, which would make all the necessary work for us.
+Such component would track position of item taking into account all its parents
+up to the overlay itself. To mark item for tracking and reparent it to the
+overlay an attached property could be used (for example "Overlay.attach: true").
