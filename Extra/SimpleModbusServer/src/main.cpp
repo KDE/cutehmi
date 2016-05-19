@@ -16,8 +16,11 @@
 #endif
 #include <stdlib.h>
 #include <errno.h>
+#include <time.h>
 
 #include <modbus.h>
+
+#define NB 65536
 
 int main(void)
 {
@@ -28,11 +31,11 @@ int main(void)
 	modbus_mapping_t *mb_mapping;
 
 	printf("Creating new context\n");
-	ctx = modbus_new_tcp("127.0.0.1", 1502);
+	ctx = modbus_new_tcp("127.0.0.1", 502);
 	/* modbus_set_debug(ctx, TRUE); */
 
 	printf("Setting new mapping\n");
-	mb_mapping = modbus_mapping_new(500, 500, 500, 500);
+	mb_mapping = modbus_mapping_new(NB, NB, NB, NB);
 	if (mb_mapping == NULL) {
 		fprintf(stderr, "Failed to allocate the mapping: %s\n",
 				modbus_strerror(errno));
@@ -51,6 +54,15 @@ int main(void)
 
 		rc = modbus_receive(ctx, query);
 		if (rc > 0) {
+			/* Add some randomness for registers above address 100 */
+			srand(time(NULL));
+			for (int i = 100; i < NB; i++) {
+				mb_mapping->tab_registers[i] = rand();
+				mb_mapping->tab_input_registers[i] = rand();
+				mb_mapping->tab_bits[i] = rand() % 2;
+				mb_mapping->tab_input_bits[i] = rand() % 2;
+			}
+
 			/* rc is the query size */
 			printf("Query received...\n");
 			int delay = 1;
