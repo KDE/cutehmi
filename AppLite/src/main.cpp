@@ -119,7 +119,7 @@ int main(int argc, char * argv[])
 	cmd.addOption(stoppedOption);
 	QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
 	cmd.addOption(hideCursorOption);
-	QCommandLineOption styleOption("style", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
+	QCommandLineOption styleOption("qstyle", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
 	cmd.addOption(styleOption);
 	cmd.process(app);
 
