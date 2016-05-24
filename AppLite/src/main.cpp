@@ -16,6 +16,8 @@
 #include <QQmlContext>
 #include <QUrl>
 #include <QCursor>
+#include <QTranslator>
+#include <QLibraryInfo>
 
 namespace cutehmi {
 
@@ -121,7 +123,16 @@ int main(int argc, char * argv[])
 	cmd.addOption(hideCursorOption);
 	QCommandLineOption styleOption("qstyle", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
 	cmd.addOption(styleOption);
+	QCommandLineOption langOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language"));
+	cmd.addOption(langOption);
 	cmd.process(app);
+
+	QTranslator qtTranslator;
+	if (cmd.isSet(langOption))
+		qtTranslator.load("qt_" + cmd.value(langOption), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+	else
+		qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+	app.installTranslator(& qtTranslator);
 
 	if (cmd.isSet(styleOption)) {
 		qputenv("QT_QUICK_CONTROLS_STYLE", cmd.value(styleOption).toLocal8Bit());
