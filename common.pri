@@ -20,4 +20,5 @@ CONFIG(debug, debug|release) {
 }
 CONFIG(release, debug|release) {
     DEFINES += CUTEHMI_RELEASE
+    DEFINES += QT_NO_DEBUG_OUTPUT
 }
