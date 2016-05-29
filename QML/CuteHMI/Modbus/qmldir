@@ -4,6 +4,10 @@ InputRegisterItem 1.0 InputRegisterItem.qml
 DiscreteInputItem 1.0 DiscreteInputItem.qml
 CoilItem 1.0 CoilItem.qml
 ExtBusyIndicator 1.0 ExtBusyIndicator.qml
+HoldingRegisterController 1.0 HoldingRegisterController.qml
+InputRegisterController 1.0 InputRegisterController.qml
+DiscreteInputController 1.0 DiscreteInputController.qml
+CoilController 1.0 CoilController.qml
 CuteHMI_Modbus_HoldingRegisterItem 1.0 HoldingRegisterItem.qml
 CuteHMI_Modbus_InputRegisterItem 1.0 InputRegisterItem.qml
 CuteHMI_Modbus_DiscreteInputItem 1.0 DiscreteInputItem.qml
