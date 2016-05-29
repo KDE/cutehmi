@@ -17,7 +17,8 @@ DISTFILES += \
     designer/Base.metainfo \
     Pipe.qml \
     PipeEmitterSettings.qml \
-    PipePoint.qml
+    PipePoint.qml \
+    NumberDisplay.qml
 
 RESOURCES +=
 

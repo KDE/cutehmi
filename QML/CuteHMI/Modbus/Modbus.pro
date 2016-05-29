@@ -32,6 +32,11 @@ DISTFILES += \
     designer/InputRegisterItemSpecifics.qml \
     designer/CoilItemSpecifics.qml \
     designer/DiscreteInputItemSpecifics.qml \
-    ExtBusyIndicator.qml
+    ExtBusyIndicator.qml \
+    HoldingRegisterController.qml \
+    CoilController.qml \
+    DiscreteInputController.qml \
+    HoldingRegisterController.qml \
+    InputRegisterController.qml
 
 RESOURCES +=
