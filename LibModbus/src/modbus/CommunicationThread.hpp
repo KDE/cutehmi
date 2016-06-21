@@ -2,6 +2,7 @@
 #define CUTEHMI_LIBMODBUS_SRC_MODBUS_COMMUNICATIONTHREAD_HPP
 
 #include <QThread>
+#include <QAtomicInt>
 
 namespace cutehmi {
 namespace modbus {
@@ -30,7 +31,7 @@ class CommunicationThread:
 		void stop();
 
 	private:
-		bool m_run;
+		QAtomicInt m_run;
 		unsigned long m_sleep;
 		Client * m_client;
 };

@@ -10,7 +10,8 @@ namespace modbus {
 HoldingRegister::HoldingRegister(uint16_t value, QObject * parent):
 	QObject(parent),
 	m_value(value),
-	m_reqValue(value)
+	m_reqValue(value),
+	m_awaken(0)
 {
 }
 
@@ -29,6 +30,21 @@ uint16_t HoldingRegister::requestedValue() const
 {
 	QMutexLocker locker(& m_reqValueMutex);
 	return m_reqValue;
+}
+
+void HoldingRegister::rest()
+{
+	m_awaken.fetchAndSubRelaxed(1);
+}
+
+void HoldingRegister::awake()
+{
+	m_awaken.fetchAndAddRelaxed(1);
+}
+
+bool HoldingRegister::wakeful() const
+{
+	return m_awaken.load();
 }
 
 void HoldingRegister::requestValue(QVariant value, encoding_t encoding)

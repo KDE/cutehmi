@@ -12,24 +12,29 @@ QtObject
 	property int encoding: ModbusHoldingRegister.INT16
 	property real valueScale: 1.0
 	property bool busy: true
+	property bool readOnly: false
 
 	property int _writeCtr: 0
 
+	onReadOnlyChanged: readOnly ? delegate.valueChanged.disconnect(changeValue) : delegate.valueChanged.connect(changeValue)
+
 	Component.onCompleted : {
 		delegate.value = valueScale * device.r[address].value(encoding)
-		if (delegate.valueChanged !== undefined)
+		if (!readOnly)
 			delegate.valueChanged.connect(changeValue)
 		device.r[address].valueWritten.connect(writtenValue)
 		device.r[address].valueUpdated.connect(updatedValue)
 		device.r[address].valueRequested.connect(requestedValue)
+		device.r[address].awake()
 	}
 
 	Component.onDestruction: {
-		if (delegate.valueChanged !== undefined)
+		if (!readOnly)
 			delegate.valueChanged.disconnect(changeValue)
 		device.r[address].valueRequested.disconnect(requestedValue)
 		device.r[address].valueUpdated.disconnect(updatedValue)
 		device.r[address].valueWritten.disconnect(writtenValue)
+		device.r[address].rest()
 	}
 
 	function changeValue()
@@ -55,10 +60,10 @@ QtObject
 
 		// Value may get updated to a different value than requested or it may get updated by a different controller.
 		// This may cause subsequent emission of valueChanged signal, so disconnect it temporarily.
-		if (delegate.valueChanged !== undefined)	// Some delegates may not have valueChanged signal.
+		if (!readOnly)
 			delegate.valueChanged.disconnect(changeValue)
 		delegate.value = valueScale * device.r[address].value(encoding)
-		if (delegate.valueChanged !== undefined)	// Some delegates may not have valueChanged signal.
+		if (!readOnly)
 			delegate.valueChanged.connect(changeValue)
 		busy = false
 	}

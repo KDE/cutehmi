@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QReadWriteLock>
 #include <QVariant>
+#include <QAtomicInt>
 
 namespace cutehmi {
 namespace modbus {
@@ -36,6 +37,12 @@ class CUTEHMI_MODBUS_API InputRegister:
 
 		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const;
 
+		Q_INVOKABLE void rest();
+
+		Q_INVOKABLE void awake();
+
+		Q_INVOKABLE bool wakeful() const;
+
 	public slots:
 		/**
 		 * Update value.
@@ -51,6 +58,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 	private:
 		uint16_t m_value;
 		mutable QReadWriteLock m_valueLock;
+		QAtomicInt m_awaken;
 };
 
 }

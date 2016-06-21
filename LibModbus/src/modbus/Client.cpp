@@ -39,17 +39,17 @@ Client::~Client()
 {
 	QThreadPool::globalInstance()->waitForDone();
 
-	for (IrDataContainer::iterator it = m_irData.begin(); it != m_irData.end(); ++it)
-		delete it.value();
+	for (IrDataContainer::KeysContainer::const_iterator it = m_irData.keys().begin(); it != m_irData.keys().end(); ++it)
+		delete m_irData.at(*it);
 	m_irData.clear();
-	for (RDataContainer::iterator it = m_rData.begin(); it != m_rData.end(); ++it)
-		delete it.value();
+	for (RDataContainer::KeysContainer::const_iterator it = m_rData.keys().begin(); it != m_rData.keys().end(); ++it)
+		delete m_rData.at(*it);
 	m_rData.clear();
-	for (IbDataContainer::iterator it = m_ibData.begin(); it != m_ibData.end(); ++it)
-		delete it.value();
+	for (IbDataContainer::KeysContainer::const_iterator it = m_ibData.keys().begin(); it != m_ibData.keys().end(); ++it)
+		delete m_ibData.at(*it);
 	m_ibData.clear();
-	for (BDataContainer::iterator it = m_bData.begin(); it != m_bData.end(); ++it)
-		delete it.value();
+	for (BDataContainer::KeysContainer::const_iterator it = m_bData.keys().begin(); it != m_bData.keys().end(); ++it)
+		delete m_bData.at(*it);
 	m_bData.clear();
 }
 
@@ -95,7 +95,7 @@ void Client::readIr(int addr)
 	if (m_connection->readIr(addr, NUM_READ, & val) != NUM_READ)
 		qWarning() << tr("Failed reading input register value from the device.");
 	else
-		it.value()->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
+		(*it)->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
 }
 
 void Client::readR(int addr)
@@ -110,7 +110,7 @@ void Client::readR(int addr)
 	if (m_connection->readR(addr, NUM_READ, & val) != NUM_READ)
 		qWarning() << tr("Failed reading register value from the device.");
 	else
-		it.value()->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
+		(*it)->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
 }
 
 void Client::writeR(int addr)
@@ -118,12 +118,12 @@ void Client::writeR(int addr)
 	QMutexLocker locker(& m_rMutex);
 	RDataContainer::iterator it = m_rData.find(addr);
 	Q_ASSERT_X(it != m_rData.end(), __func__, "register has not been referenced yet");
-	uint16_t val = it.value()->requestedValue();
+	uint16_t val = (*it)->requestedValue();
 	qDebug() << "Writing requested value (" << val << ") to holding register " << addr << ".";
 	if (m_connection->writeR(addr, val) != 1)
 		qWarning() << tr("Failed to write register value to the device.");
 	else
-		emit it.value()->valueWritten();
+		emit (*it)->valueWritten();
 }
 
 void Client::readIb(int addr)
@@ -138,7 +138,7 @@ void Client::readIb(int addr)
 	if (m_connection->readIb(addr, NUM_READ, & val) != NUM_READ)
 		qWarning() << tr("Failed reading discrete input value from the device.");
 	else
-		it.value()->updateValue(val);
+		(*it)->updateValue(val);
 }
 
 void Client::readB(int addr)
@@ -153,7 +153,7 @@ void Client::readB(int addr)
 	if (m_connection->readB(addr, NUM_READ, & val) != NUM_READ)
 		qWarning() << tr("Failed reading coil value from the device.");
 	else
-		it.value()->updateValue(val);
+		(*it)->updateValue(val);
 }
 
 void Client::writeB(int addr)
@@ -161,12 +161,12 @@ void Client::writeB(int addr)
 	QMutexLocker locker(& m_bMutex);
 	BDataContainer::iterator it = m_bData.find(addr);
 	Q_ASSERT_X(it != m_bData.end(), __func__, "coil has not been referenced yet");
-	bool val = it.value()->requestedValue();
+	bool val = (*it)->requestedValue();
 	qDebug() << "Writing requested value (" << val << ") to coil " << addr << ".";
 	if (m_connection->writeB(addr, val) != 1)
 		qWarning() << tr("Failed to write coil value to the device.");
 	else
-		emit it.value()->valueWritten();
+		emit (*it)->valueWritten();
 }
 
 void Client::connect()
@@ -183,16 +183,12 @@ void Client::disconnect()
 	emit disconnected();
 }
 
-void Client::readAll()
+void Client::readAll(const QAtomicInt & run)
 {
-	for (IrDataContainer::iterator it = m_irData.begin(); it != m_irData.end(); ++it)
-		readIr(it.key());
-	for (RDataContainer::iterator it = m_rData.begin(); it != m_rData.end(); ++it)
-		readR(it.key());
-	for (IbDataContainer::iterator it = m_ibData.begin(); it != m_ibData.end(); ++it)
-		readIb(it.key());
-	for (BDataContainer::iterator it = m_bData.begin(); it != m_bData.end(); ++it)
-		readB(it.key());
+	readRegisters<IrDataContainer>(m_irData, & Client::readIr, run);
+	readRegisters<RDataContainer>(m_rData, & Client::readR, run);
+	readRegisters<IbDataContainer>(m_ibData, & Client::readIb, run);
+	readRegisters<BDataContainer>(m_bData, & Client::readB, run);
 }
 
 void Client::rValueRequest(int index)

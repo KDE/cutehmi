@@ -19,65 +19,27 @@ Item
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
-	property var device
-	property int address
-	property bool busy: true
+	property alias device: coilController.device
+	property alias address: coilController.address
+	property alias busy: coilController.busy
 	property alias busyIndicator: busyIndicator
-
-	property int _writeCtr: 0
+	property alias controller: coilController
 
 	ExtBusyIndicator
 	{
 		id: busyIndicator
 
-		running: root.busy
+		running: coilController.busy
 		centerIn: parent
 	}
 
-	Component.onCompleted : {
-		parent.checked = device.b[address].value()
-		if (parent.checkedChanged !== undefined)
-			parent.checkedChanged.connect(changeValue)
-		device.b[address].valueWritten.connect(writtenValue)
-		device.b[address].valueUpdated.connect(updatedValue)
-		device.b[address].valueRequested.connect(requestedValue)
-	}
-
-	Component.onDestruction: {
-		if (parent.checkedChanged !== undefined)
-			parent.checkedChanged.disconnect(changeValue)
-		device.b[address].valueRequested.disconnect(requestedValue)
-		device.b[address].valueUpdated.disconnect(updatedValue)
-		device.b[address].valueWritten.disconnect(writtenValue)
-	}
-
-	function changeValue()
+	CoilController
 	{
-		device.b[address].requestValue(parent.checked)
-	}
+		id: coilController
 
-	function requestedValue()
-	{
-		busy = true
-		_writeCtr++
-	}
-
-	function writtenValue()
-	{
-		_writeCtr--
-	}
-
-	function updatedValue()
-	{
-		if (_writeCtr > 0)
-			return;
-
-		if (parent.checkedChanged !== undefined)	// Some parents may not have clicked signal.
-			parent.checkedChanged.disconnect(changeValue)
-		parent.checked = device.b[address].value()
-		if (parent.checkedChanged !== undefined)	// Some parents may not have clicked signal.
-			parent.checkedChanged.connect(changeValue)
-		busy = false
+		delegate: root.parent
+		device: root.device
+		address: root.address
 	}
 }
 

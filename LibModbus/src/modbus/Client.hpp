@@ -134,11 +134,10 @@ class CUTEHMI_MODBUS_API Client:
 		/**
 		 * Read all values of registers and coils.
 		 *
-		 * @internal It may be desirable to provide "sleeping registers" optimization in future. Sleeping registers
-		 * would be excluded from update of their values. For example, when indicator is not visible it does not
-		 * make sense to read its value.
+		 * @param run indicates whether to interrupt read. Function interrupts reading and returns, if @p 0 is being set. If @p 1 is set
+		 * function will return only after reading all values of coils and registers.
 		 */
-		void readAll();
+		void readAll(const QAtomicInt & run = 1);
 
 	signals:
 		void error(base::ErrorInfo errInfo);
@@ -161,10 +160,10 @@ class CUTEHMI_MODBUS_API Client:
 		void bValueRequest(int index);
 
 	private:
-		typedef typename RegisterTraits<InputRegister>::Container IrDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
-		typedef typename RegisterTraits<HoldingRegister>::Container RDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
-		typedef typename RegisterTraits<DiscreteInput>::Container IbDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
-		typedef typename RegisterTraits<Coil>::Container BDataContainer; ///< Holds (address, register) pairs. @note Qt uses int type for sizes and indices.
+		typedef typename RegisterTraits<InputRegister>::Container IrDataContainer;
+		typedef typename RegisterTraits<HoldingRegister>::Container RDataContainer;
+		typedef typename RegisterTraits<DiscreteInput>::Container IbDataContainer;
+		typedef typename RegisterTraits<Coil>::Container BDataContainer;
 
 		/**
 		 * Get element at specified index of property list. If element does not exist function creates it.
@@ -209,6 +208,9 @@ class CUTEHMI_MODBUS_API Client:
 		 */
 		static DiscreteInput * IbAt(QQmlListProperty<DiscreteInput> * property, int index);
 
+		template <typename CONTAINER>
+		void readRegisters(CONTAINER & container, void (Client:: * readFn)(int), const QAtomicInt & run);
+
 		uint16_t fromClientEndian(uint16_t val) const;
 
 		uint16_t toClientEndian(uint16_t val) const;
@@ -240,9 +242,9 @@ T * Client::At(QQmlListProperty<T> * property, int index, void (*onCreate)(QQmlL
 	if (it == propertyData->end()) {
 		it = propertyData->insert(index, new T);
 		if (onCreate != nullptr)
-			onCreate(property, index, it.value());
+			onCreate(property, index, *it);
 	}
-	return it.value();
+	return *it;
 }
 
 template <typename T>
@@ -251,6 +253,19 @@ int Client::Count(QQmlListProperty<T> * property)
 	Q_UNUSED(property);
 
 	return std::numeric_limits<int>::max();
+}
+
+template <typename CONTAINER>
+void Client::readRegisters(CONTAINER & container, void (Client:: * readFn)(int), const QAtomicInt & run)
+{
+	typename CONTAINER::KeysIterator keysIt(container);
+	while (keysIt.hasNext()) {
+		if (!run.load())
+			return;
+		typename CONTAINER::KeysContainer::value_type addr = keysIt.next();
+		if (container.at(addr)->wakeful())
+			(this->*readFn)(addr);
+	}
 }
 
 }

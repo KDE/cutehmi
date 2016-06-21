@@ -7,6 +7,7 @@
 #include <QMutex>
 #include <QReadWriteLock>
 #include <QVariant>
+#include <QAtomicInt>
 
 namespace cutehmi {
 namespace modbus {
@@ -15,6 +16,7 @@ namespace modbus {
  * Modbus holding register. This class represents Modbus holding registers.
  * According to Modbus specification each holding register holds 16 bit data.
  * Objects of this class act as a convenient proxy between instances of QML HoldingRegisterItem and Client.
+ * Methods of this class are thread-safe.
  *
  * @note to make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
@@ -41,6 +43,12 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 
 		Q_INVOKABLE uint16_t requestedValue() const;
 
+		Q_INVOKABLE void rest();
+
+		Q_INVOKABLE void awake();
+
+		Q_INVOKABLE bool wakeful() const;
+
 	public slots:
 		void requestValue(QVariant value, encoding_t encoding = INT16);
 
@@ -58,7 +66,7 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		void valueUpdated();
 
 		/**
-		 * Request value written. This signal is emitted when requested value has been written to the client device.
+		 * Value written. This signal is emitted when requested value has been written to the client device.
 		 */
 		void valueWritten();
 
@@ -67,6 +75,7 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		mutable QReadWriteLock m_valueLock;
 		uint16_t m_reqValue;
 		mutable QMutex m_reqValueMutex;
+		QAtomicInt m_awaken;
 };
 
 }

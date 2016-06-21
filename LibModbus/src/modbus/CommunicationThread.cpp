@@ -5,7 +5,7 @@ namespace cutehmi {
 namespace modbus {
 
 CommunicationThread::CommunicationThread(Client * client):
-	m_run(false),
+	m_run(0),
 	m_sleep(0),
 	m_client(client)
 {
@@ -23,21 +23,21 @@ void CommunicationThread::setSleep(unsigned long sleep)
 
 void CommunicationThread::run()
 {
-	while (m_run) {
-		m_client->readAll();	// @todo synchronization
+	while (m_run.load()) {
+		m_client->readAll(m_run);	// Because of relaxed model readAll() may teoretically skip first reads.
 		msleep(m_sleep);
 	}
 }
 
 void CommunicationThread::start()
 {
-	m_run = true;
+	m_run.store(1);
 	Parent::start();
 }
 
 void CommunicationThread::stop()
 {
-	m_run = false;
+	m_run.store(0);
 }
 
 

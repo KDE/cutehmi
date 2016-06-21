@@ -33,6 +33,7 @@ QtObject
 		device.b[address].valueWritten.connect(writtenValue)
 		device.b[address].valueUpdated.connect(updatedValue)
 		device.b[address].valueRequested.connect(requestedValue)
+		device.b[address].awake()
 	}
 
 	Component.onDestruction: {
@@ -41,6 +42,7 @@ QtObject
 		device.b[address].valueRequested.disconnect(requestedValue)
 		device.b[address].valueUpdated.disconnect(updatedValue)
 		device.b[address].valueWritten.disconnect(writtenValue)
+		device.b[address].rest()
 	}
 
 	function changeValue()

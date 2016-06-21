@@ -10,12 +10,13 @@ Item
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
-	property var device
-	property int address
-	property int encoding: ModbusHoldingRegister.INT16
-	property real valueScale: 1.0
-	property bool busy: true
+	property alias device: inputRegisterController.device
+	property alias address: inputRegisterController.address
+	property alias encoding: inputRegisterController.encoding
+	property alias valueScale: inputRegisterController.valueScale
+	property alias busy: inputRegisterController.busy
 	property alias busyIndicator: busyIndicator
+	property alias controller: inputRegisterController
 
 	ExtBusyIndicator
 	{
@@ -25,18 +26,13 @@ Item
 		running: root.busy
 	}
 
-	Component.onCompleted : {
-		parent.value = valueScale * device.ir[address].value(encoding)
-		device.ir[address].valueUpdated.connect(updatedValue)
-	}
-
-	Component.onDestruction: {
-		device.ir[address].valueUpdated.disconnect(updatedValue)
-	}
-
-	function updatedValue()
+	InputRegisterController
 	{
-		parent.value = valueScale * device.ir[address].value(encoding)
-		busy = false
+		id: inputRegisterController
+
+		device: root.device
+		address: root.device
+		encoding: root.encoding
+		valueScale: root.valueScale
 	}
 }

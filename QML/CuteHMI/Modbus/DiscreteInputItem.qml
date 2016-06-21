@@ -10,10 +10,11 @@ Item
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
-	property var device
-	property int address
-	property bool busy: true
+	property alias device: discreteInputController.device
+	property alias address: discreteInputController.address
+	property alias busy: discreteInputController.busy
 	property alias busyIndicator: busyIndicator
+	property alias controller: discreteInputController
 
 	ExtBusyIndicator
 	{
@@ -23,19 +24,12 @@ Item
 		centerIn: parent
 	}
 
-	Component.onCompleted : {
-		parent.checked = device.ib[address].value()
-		device.ib[address].valueUpdated.connect(updatedValue)
-	}
-
-	Component.onDestruction: {
-		device.ib[address].valueUpdated.disconnect(updatedValue)
-	}
-
-	function updatedValue()
+	DiscreteInputController
 	{
-		parent.checked = device.ib[address].value()
-		busy = false
+		id: discreteInputController
+
+		delegate: root.parent
+		device: root.device
+		address: root.address
 	}
 }
-

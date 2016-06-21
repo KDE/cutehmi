@@ -9,7 +9,8 @@ namespace modbus {
 
 InputRegister::InputRegister(uint16_t value, QObject * parent):
 	QObject(parent),
-	m_value(value)
+	m_value(value),
+	m_awaken(0)
 {
 }
 
@@ -22,6 +23,21 @@ QVariant InputRegister::value(encoding_t encoding) const
 		default:
 			qFatal("Unrecognized code (%d) of target encoding.", encoding);
 	}
+}
+
+void InputRegister::rest()
+{
+	m_awaken.fetchAndSubRelaxed(1);
+}
+
+void InputRegister::awake()
+{
+	m_awaken.fetchAndAddRelaxed(1);
+}
+
+bool InputRegister::wakeful() const
+{
+	return m_awaken.load();
 }
 
 void InputRegister::updateValue(uint16_t value)

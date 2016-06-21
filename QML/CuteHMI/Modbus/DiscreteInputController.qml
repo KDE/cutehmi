@@ -14,10 +14,12 @@ QtObject
 	Component.onCompleted : {
 		delegate.checked = device.ib[address].value()
 		device.ib[address].valueUpdated.connect(updatedValue)
+		device.ib[address].awake()
 	}
 
 	Component.onDestruction: {
 		device.ib[address].valueUpdated.disconnect(updatedValue)
+		device.ib[address].rest()
 	}
 
 	function updatedValue()

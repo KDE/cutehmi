@@ -62,7 +62,8 @@ HEADERS += \
     src/modbus/LibmodbusConnection.hpp \
     src/modbus/AbstractConnection.hpp \
     src/modbus/Coil.hpp \
-    src/modbus/DiscreteInput.hpp
+    src/modbus/DiscreteInput.hpp \
+    src/modbus/DataContainer.hpp
 
 DISTFILES +=
 
