@@ -3,10 +3,12 @@
 # LICENSE by googling, binging, yahooing or downloading it from pirate bay.
 # NO WARRANTY.
 #
-# Unsupported features has been commmented out.
+# Unsupported features have been commmented out.
 
 AWK = gawk
 SH = sh
+QDOC = qdoc
+DOXYGEN = doxygen
 LIC_QUALIFIER = MP
 LIC_DSLASH = LICENSE.MP.dslash.inc
 LIC_HASH = LICENSE.MP.hash.inc
@@ -34,7 +36,7 @@ ORS = "\r\n"
 PWD = pwd
 QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../libmodbus-3.1.2/src/.libs
 
-.PHONY: help qmltypes sources license guards newlines
+.PHONY: help qmltypes sources license guards doc newlines
 
 help:
 		@echo "This Makefile is responsible for code maintenance, \
@@ -45,8 +47,9 @@ not building."
 		@echo "qmltypes - generate QML typeinfo files."
 		@echo "help - displays this info."
 #		@echo "sources - generate list of sources and put them into CMakeLists.txt."
-#		@echo "license - append license footer to source and header files."
+		@echo "license - append license footer to source and header files."
 		@echo "guards - update include guards."
+		@echo "doc - generate documentation."
 #		@echo "newlines - remove carriage return characters."
 
 qmltypes:
@@ -75,6 +78,11 @@ license:
 guards:
 	    @echo "Updating include guards..."
 		@find $(INCLUDE_DIRS) -name "*.hpp" -exec $(SH) awkgward.sh $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(ORS) \;
+
+doc:
+		$(DOXYGEN) LibBase/Doxyfile
+		$(QDOC) QML/CuteHMI/Modbus/Modbus.qdocconf
+		$(QDOC) QML/CuteHMI/Base/Base.qdocconf
 
 #newlines:
 #		@echo "Removing carriage return..."
