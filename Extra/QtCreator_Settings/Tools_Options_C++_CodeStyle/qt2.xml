@@ -34,6 +34,6 @@
  </data>
  <data>
   <variable>DisplayName</variable>
-  <value type="QString">EKTERM</value>
+  <value type="QString">CuteHMI</value>
  </data>
 </qtcreator>
