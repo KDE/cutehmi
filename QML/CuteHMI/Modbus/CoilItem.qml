@@ -3,14 +3,15 @@ import QtQuick.Controls 1.3
 
 import CuteHMI.Modbus 1.0
 
-/**
-  Modbus coil item. This item is intended to interact with parent item in which it can be placed.
-  Parent item must provide following properties:
-		- bool checked - this property will be set to @p true or @p false, depending on coil status.
-		.
-  In addition parent item may provide:
-		- signal checkedChanged() - when this signal is emitted a request will be made to update the coil with actual @a parent.checked value.
-		.
+/*!
+  \qmltype CoilItem
+  \inqmlmodule CuteHMI.Modbus
+  \since CuteHMI.Modbus 1.0
+  \brief Modbus coil item.
+
+  Coil item is intended to interact with \a parent item in which it can be placed. It is provided as a supplement to CoilController to bypass
+  limitations of QML Designer and make it possible to work in QML "design" mode directly. In addition it provides its own visuals to show
+  \a controller.busy status.
   */
 Item
 {
