@@ -52,7 +52,10 @@ ApplicationWindow
 
 		function storeMainWindow()
 		{
-			settings.visibility = mainWindow.visibility
+			if (mainWindow.visibility === Window.Hidden)
+				settings.visibility = Window.AutomaticVisibility
+			else
+				settings.visibility = mainWindow.visibility
 			if (mainWindow.visibility == Window.Windowed) {
 				settings.x = mainWindow.x
 				settings.y = mainWindow.y
