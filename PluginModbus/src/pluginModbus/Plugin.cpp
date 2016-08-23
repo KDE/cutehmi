@@ -52,9 +52,9 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 							xmlReader.skipCurrentElement();
 					}
 					std::unique_ptr<modbus::Client> client(new modbus::Client(std::move(connection)));
-					std::unique_ptr<modbus::ClientRunner> clientRunner(new modbus::ClientRunner(client.get()));
-					clientRunner->setSleep(clientRunnerSleep);
-					std::unique_ptr<modbus::NodeDataObject> dataObject(new modbus::NodeDataObject(std::move(client), std::move(clientRunner)));
+					std::unique_ptr<modbus::Service> service(new modbus::Service(client.get()));
+					service->setSleep(clientRunnerSleep);
+					std::unique_ptr<modbus::NodeDataObject> dataObject(new modbus::NodeDataObject(std::move(client), std::move(service)));
 					base::ProjectModel::Node * clientNode = modbusNode->addChild(base::ProjectModel::Node::Data(id, std::move(dataObject)));
 					clientNode->setVisitorDelegate(std::unique_ptr<base::ProjectModel::Node::VisitorDelegate>(new modbus::VisitorDelegate(clientNode)));
 				} else

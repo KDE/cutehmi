@@ -15,10 +15,10 @@ void VisitorDelegate::visit(QMLContextPropertyProxy & proxy)
 	proxy.setContextProperty(m_node->data().name(), dataObject->client());
 }
 
-void VisitorDelegate::visit(RunnersRegisterProxy & proxy)
+void VisitorDelegate::visit(ServicesProxy & proxy)
 {
 	NodeDataObject * dataObject = qobject_cast<NodeDataObject *>(m_node->data().object());
-	proxy.add(dataObject->clientRunner());
+	proxy.add(dataObject->service());
 }
 
 widgets::UIVisitorDelegate * VisitorDelegate::ui()

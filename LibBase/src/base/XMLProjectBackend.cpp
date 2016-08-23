@@ -2,7 +2,7 @@
 #include "Error.hpp"
 #include "ScreenObject.hpp"
 #include "ScreenVisitorDelegate.hpp"
-#include "../plugin/IXMLBackend.hpp"
+#include "IPLCPlugin.hpp"
 
 #include <QtDebug>
 #include <QLibraryInfo>
@@ -123,7 +123,7 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::plcClients()
 #endif
 			if (!m_pluginLoader->loadPlugin(pluginName, m_xml->attributes().value("version").toString()))
 				return Error::PLUGIN_NOT_LOADED;
-			plugin::IXMLBackend * plugin = qobject_cast<plugin::IXMLBackend *>(m_pluginLoader->instance(pluginName));
+			IPLCPlugin * plugin = qobject_cast<IPLCPlugin *>(m_pluginLoader->instance(pluginName));
 			if (plugin == 0)
 				return Error::PLUGIN_WRONG_INTERFACE;
 			if (!plugin->readXML(*m_xml, *plcClientsNode))
@@ -155,7 +155,7 @@ XMLProjectBackend::Error XMLProjectBackend::Loader0::screens()
 			ProjectModel::Node * screenNode = screensNode->addChild(ProjectModel::Node::Data(source, std::unique_ptr<QObject>(new ScreenObject(source, main))));
 			screenNode->setVisitorDelegate(std::unique_ptr<ProjectModel::Node::VisitorDelegate>(new ScreenVisitorDelegate(screenNode)));
 		}
-		m_xml->skipCurrentElement(); // None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
+		m_xml->skipCurrentElement(); // None of the child elements use readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 	}
 	if (m_xml->hasError())
 		return Error::INVALID_FORMAT;

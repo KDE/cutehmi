@@ -1,12 +1,12 @@
-#ifndef CUTEHMI_LIBBASE_SRC_BASE_IRUNNER_HPP
-#define CUTEHMI_LIBBASE_SRC_BASE_IRUNNER_HPP
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_ISERVICE_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_ISERVICE_HPP
 
 #include "../platform.hpp"
 
 namespace cutehmi {
 namespace base {
 
-class IRunner
+class IService
 {
 	public:
 		virtual void start() = 0;
@@ -14,9 +14,9 @@ class IRunner
 		virtual void stop() = 0;
 
 	protected:
-		virtual ~IRunner() = default;
+		virtual ~IService() = default;
 
-		IRunner() = default;
+		IService() = default;
 };
 
 }

@@ -1,10 +1,10 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENTRUNNER_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENTRUNNER_HPP
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_SERVICE_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_SERVICE_HPP
 
 #include "../platform.hpp"
 #include "CommunicationThread.hpp"
 
-#include <base/IRunner.hpp>
+#include <base/IService.hpp>
 
 #include <memory>
 
@@ -13,13 +13,13 @@ namespace modbus {
 
 class Client;
 
-class CUTEHMI_MODBUS_API ClientRunner:
-	public base::IRunner
+class CUTEHMI_MODBUS_API Service:
+	public base::IService
 {
 	public:
-		ClientRunner(Client * client);
+		Service(Client * client);
 
-		virtual ~ClientRunner();
+		virtual ~Service();
 
 		unsigned long sleep() const;
 

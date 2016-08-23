@@ -3,10 +3,10 @@
 namespace cutehmi {
 namespace modbus {
 
-NodeDataObject::NodeDataObject(std::unique_ptr<Client> client, std::unique_ptr<ClientRunner> clientRunner, QObject * parent):
+NodeDataObject::NodeDataObject(std::unique_ptr<Client> client, std::unique_ptr<Service> service, QObject * parent):
 	QObject(parent),
 	m_client(std::move(client)),
-	m_clientRunner(std::move(clientRunner))
+	m_service(std::move(service))
 {
 }
 
@@ -15,9 +15,9 @@ Client * NodeDataObject::client() const
 	return m_client.get();
 }
 
-ClientRunner * NodeDataObject::clientRunner() const
+Service * NodeDataObject::service() const
 {
-	return m_clientRunner.get();
+	return m_service.get();
 }
 
 }

@@ -17,7 +17,7 @@ class CUTEHMI_MODBUS_API VisitorDelegate:
 
 		void visit(QMLContextPropertyProxy & proxy) override;
 
-		void visit(RunnersRegisterProxy & proxy) override;
+		void visit(ServicesProxy & proxy) override;
 
 		widgets::UIVisitorDelegate * ui() override;
 

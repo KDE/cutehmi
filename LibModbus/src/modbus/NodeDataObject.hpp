@@ -2,7 +2,7 @@
 #define CUTEHMI_LIBMODBUS_SRC_MODBUS_NODEDATAOBJECT_HPP
 
 #include "Client.hpp"
-#include "ClientRunner.hpp"
+#include "Service.hpp"
 
 #include <QObject>
 
@@ -17,17 +17,17 @@ class CUTEHMI_MODBUS_API NodeDataObject:
 	Q_OBJECT
 
 	public:
-		NodeDataObject(std::unique_ptr<Client> client, std::unique_ptr<ClientRunner> clientRunner, QObject * parent = nullptr);
+		NodeDataObject(std::unique_ptr<Client> client, std::unique_ptr<Service> service, QObject * parent = nullptr);
 
 		~NodeDataObject() override = default;
 
 		Client * client() const;
 
-		ClientRunner * clientRunner() const;
+		Service * service() const;
 
 	private:
 		std::unique_ptr<Client> m_client;
-		std::unique_ptr<ClientRunner> m_clientRunner;
+		std::unique_ptr<Service> m_service;
 };
 
 }

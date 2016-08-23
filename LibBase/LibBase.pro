@@ -12,7 +12,7 @@ VER_MIN = 0
 VER_PAT = 0
 DEFINES += CUTEHMI_BASE_BUILD
 DEFINES += CUTEHMI_BASE_DYNAMIC
-#CONFIG += dynamic
+#CONFIG += shared
 
 # Translations.
 TRANSLATIONS = locale/cutehmi_base_pl.ts
@@ -30,7 +30,7 @@ SOURCES += \
     src/base/ScreenObject.cpp \
     src/base/ScreenVisitorDelegate.cpp \
     src/base/ExtError.cpp \
-    src/base/RunnersRegister.cpp
+    src/base/Services.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -41,16 +41,15 @@ HEADERS += \
     src/base/XMLProjectBackend.hpp \
     src/base/Error.hpp \
     src/base/PluginLoader.hpp \
-    src/plugin/IXMLBackend.hpp \
-    src/plugin/IPLCClient.hpp \
     src/base/ScreenObject.hpp \
     src/base/ScreenVisitorDelegate.hpp \
     src/base/ErrorInfo.hpp \
     src/base/ExtError.hpp \
     src/base/ExtErrorInfo.hpp \
     src/base/IProjectModelVisitor.hpp \
-    src/base/RunnersRegister.hpp \
-    src/base/IRunner.hpp
+    src/base/IPLCPlugin.hpp \
+    src/base/IService.hpp \
+    src/base/Services.hpp
     src/debug/DestructorTest.hpp
 
 DISTFILES +=

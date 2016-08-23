@@ -19,8 +19,8 @@ namespace widgets { class UIVisitorDelegate; }
 
 namespace base {
 
-class IRunner;
-class RunnersRegister;
+class IService;
+class Services;
 
 /**
  * Project model.
@@ -65,21 +65,21 @@ class CUTEHMI_BASE_API ProjectModel:
 			{
 				public:
 					/**
-					 * Runners register proxy.
+					 * Services protection proxy.
 					 */
-					class CUTEHMI_BASE_API RunnersRegisterProxy
+					class CUTEHMI_BASE_API ServicesProxy
 					{
 						public:
-							RunnersRegisterProxy(RunnersRegister * runners);
+							ServicesProxy(Services * services);
 
-							void add(IRunner * runner);
+							void add(IService * service);
 
 						private:
-							RunnersRegister * m_runners;
+							Services * m_services;
 					};
 
 					/**
-					 * QML context property proxy.
+					 * QML context property protection proxy.
 					 */
 					class CUTEHMI_BASE_API QMLContextPropertyProxy
 					{
@@ -93,7 +93,7 @@ class CUTEHMI_BASE_API ProjectModel:
 					};
 
 					/**
-					 * QML visual component proxy. This can be used to associate particular node with a QML
+					 * QML visual component protection proxy. This can be used to associate particular node with a QML
 					 * component, which can be displayed in a QML view.
 					 */
 					class CUTEHMI_BASE_API QMLVisualComponentProxy
@@ -117,7 +117,7 @@ class CUTEHMI_BASE_API ProjectModel:
 					 * Visit runners register proxy. Default implementation does nothing.
 					 * @param proxy runners register proxy.
 					 */
-					virtual void visit(RunnersRegisterProxy & proxy);
+					virtual void visit(ServicesProxy & proxy);
 
 					/**
 					 * Visit QML context property proxy. Default implementation does nothing.

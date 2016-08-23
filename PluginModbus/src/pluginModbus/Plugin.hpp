@@ -1,8 +1,7 @@
 #ifndef CUTEHMI_PLUGINMODBUS_SRC_PLUGINMODBUS_PLUGIN_HPP
 #define CUTEHMI_PLUGINMODBUS_SRC_PLUGINMODBUS_PLUGIN_HPP
 
-#include <plugin/IPLCClient.hpp>
-#include <plugin/IXMLBackend.hpp>
+#include <base/IPLCPlugin.hpp>
 #include <modbus/LibmodbusConnection.hpp>
 
 #include <QObject>
@@ -14,12 +13,11 @@ namespace pluginModbus {
 
 class Plugin:
 	public QObject,
-	public plugin::IPLCClient,
-	public plugin::IXMLBackend
+	public base::IPLCPlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID "CuteHMI.PluginModbus" FILE "PluginModbus.json")
-	Q_INTERFACES(cutehmi::plugin::IPLCClient cutehmi::plugin::IXMLBackend)
+	Q_INTERFACES(cutehmi::base::IPLCPlugin)
 
 	friend class PluginTest;
 

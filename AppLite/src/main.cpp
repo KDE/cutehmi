@@ -1,7 +1,7 @@
 #include "version.hpp"
 
 #include <base/ProjectModel.hpp>
-#include <base/RunnersRegister.hpp>
+#include <base/Services.hpp>
 #include <base/ErrorInfo.hpp>
 #include <base/PluginLoader.hpp>
 #include <base/XMLProjectBackend.hpp>
@@ -80,9 +80,9 @@ void visitProjectContext(base::ProjectModel & model, QQmlContext & context)
 		it->visitorDelegate()->visit(proxy);
 }
 
-void visitRunnersRegister(base::ProjectModel & model, base::RunnersRegister & runners)
+void visitRunnersRegister(base::ProjectModel & model, base::Services & runners)
 {
-	base::ProjectModel::Node::VisitorDelegate::RunnersRegisterProxy proxy(& runners);
+	base::ProjectModel::Node::VisitorDelegate::ServicesProxy proxy(& runners);
 	for (auto it = model.begin(); it != model.end(); ++it)
 		it->visitorDelegate()->visit(proxy);
 }
@@ -155,7 +155,7 @@ int main(int argc, char * argv[])
 	engine.addImportPath("../QML");
 	qDebug() << "QML import paths: " << engine.importPathList();
 
-	cutehmi::base::RunnersRegister runners;
+	cutehmi::base::Services runners;
 	cutehmi::base::ErrorInfo errorInfo = cutehmi::loadFile(cmd.value(projectOption), pluginLoader, projectModel);
 	if (errorInfo.code == cutehmi::base::Error::OK) {
 		cutehmi::visitRunnersRegister(projectModel, runners);

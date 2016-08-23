@@ -1,39 +1,39 @@
-#include "ClientRunner.hpp"
+#include "Service.hpp"
 #include "Client.hpp"
 
 namespace cutehmi {
 namespace modbus {
 
-ClientRunner::ClientRunner(Client * client):
+Service::Service(Client * client):
 	m_thread(new CommunicationThread(client)),
 	m_client(client)
 {
 }
 
-ClientRunner::~ClientRunner()
+Service::~Service()
 {
 	if (m_thread->isRunning())
 		stop();
 }
 
-unsigned long ClientRunner::sleep() const
+unsigned long Service::sleep() const
 {
 	return m_thread->sleep();
 }
 
-void ClientRunner::setSleep(unsigned long sleep)
+void Service::setSleep(unsigned long sleep)
 {
 	m_thread->setSleep(sleep);
 }
 
-void ClientRunner::start()
+void Service::start()
 {
 	m_client->connect();
 	qDebug("Starting client thread...");
 	m_thread->start();
 }
 
-void ClientRunner::stop()
+void Service::stop()
 {
 	qDebug("Stopping client thread...");
 	m_thread->stop();

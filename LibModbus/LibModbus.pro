@@ -12,10 +12,10 @@ VER_MIN = 0
 VER_PAT = 0
 DEFINES += CUTEHMI_MODBUS_BUILD
 DEFINES += CUTEHMI_MODBUS_DYNAMIC
-#CONFIG += dynamic
+#CONFIG += shared
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_base_pl.ts
+TRANSLATIONS = locale/cutehmi_modbus_pl.ts
 
 include(../cutehmi_base.pri)
 include(../libmodbus.pri)
@@ -34,14 +34,14 @@ SOURCES += \
     src/modbus/RTUConnection.cpp \
     src/modbus/TCPConnection.cpp \
     src/modbus/CommunicationThread.cpp \
-    src/modbus/ClientRunner.cpp \
     src/modbus/NodeDataObject.cpp \
     src/modbus/VisitorDelegate.cpp \
     src/modbus/UIVisitorDelegateHolder.cpp \
     src/modbus/DummyConnection.cpp \
     src/modbus/LibmodbusConnection.cpp \
     src/modbus/Coil.cpp \
-    src/modbus/DiscreteInput.cpp
+    src/modbus/DiscreteInput.cpp \
+    src/modbus/Service.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -54,7 +54,6 @@ HEADERS += \
     src/modbus/RTUConnection.hpp \
     src/modbus/TCPConnection.hpp \
     src/modbus/CommunicationThread.hpp \
-    src/modbus/ClientRunner.hpp \
     src/modbus/NodeDataObject.hpp \
     src/modbus/VisitorDelegate.hpp \
     src/modbus/UIVisitorDelegateHolder.hpp \
@@ -63,7 +62,8 @@ HEADERS += \
     src/modbus/AbstractConnection.hpp \
     src/modbus/Coil.hpp \
     src/modbus/DiscreteInput.hpp \
-    src/modbus/DataContainer.hpp
+    src/modbus/DataContainer.hpp \
+    src/modbus/Service.hpp
 
 DISTFILES +=
 

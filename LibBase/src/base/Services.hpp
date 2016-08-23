@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_BASE_RUNNERSREGISTER_HPP
-#define CUTEHMI_LIBBASE_SRC_BASE_RUNNERSREGISTER_HPP
+#ifndef CUTEHMI_LIBBASE_SRC_BASE_SERVICES_HPP
+#define CUTEHMI_LIBBASE_SRC_BASE_SERVICES_HPP
 
 #include "../platform.hpp"
 
@@ -9,15 +9,15 @@
 namespace cutehmi {
 namespace base {
 
-class IRunner;
+class IService;
 
-class CUTEHMI_BASE_API RunnersRegister:
+class CUTEHMI_BASE_API Services:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		void add(IRunner * runner);
+		void add(IService * runner);
 
 		void clear();
 
@@ -27,9 +27,9 @@ class CUTEHMI_BASE_API RunnersRegister:
 		void stop();
 
 	private:
-		typedef QList<IRunner *> RunnersContainer;
+		typedef QList<IService *> ServicesContainer;
 
-		RunnersContainer m_runners;
+		ServicesContainer m_services;
 };
 
 }

@@ -37,8 +37,8 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	ui.actionSaveAs->setEnabled(false);	// Temp until saving model is done.
 
 	// Set up control buttons.
-	connect(ui.actionStart, & QAction::triggered, & m_runners, & base::RunnersRegister::start);
-	connect(ui.actionStop, & QAction::triggered, & m_runners, & base::RunnersRegister::stop);
+	connect(ui.actionStart, & QAction::triggered, & m_services, & base::Services::start);
+	connect(ui.actionStop, & QAction::triggered, & m_services, & base::Services::stop);
 
 	// Set up plugins.
 	QDir dir(qApp->applicationDirPath());
@@ -93,12 +93,12 @@ void MainWindow::closeEvent(QCloseEvent * event)
 		if (!askSaveDialog()) {
 			event->ignore();
 		} else {
-			m_runners.stop();
+			m_services.stop();
 			storeSettings();
 			event->accept();
 		}
 	else {
-		m_runners.stop();
+		m_services.stop();
 		storeSettings();
 		event->accept();
 	}
@@ -266,7 +266,7 @@ bool MainWindow::loadFile(const QString & filePath)
 		file.close();
 	} else if (!filePath.isEmpty()) {
 		qWarning() << "Could not open file " << filePath;
-// @todo use custom MessageBox or ExtMessageBox.
+		/// @todo use custom MessageBox or ExtMessageBox.
 		QMessageBox msgBox;
 		msgBox.setText(tr("Could not open file."));
 		if (!QFileInfo(filePath).exists())
@@ -283,7 +283,7 @@ bool MainWindow::loadFile(const QString & filePath)
 void MainWindow::resetModel(base::ProjectModel * newModel)
 {
 	// Reset runners register.
-	m_runners.clear();
+	m_services.clear();
 
 	// Reset QML view.
 	m_qmlWidgetWrapper.resetVisualComponent();
@@ -297,7 +297,7 @@ void MainWindow::resetModel(base::ProjectModel * newModel)
 		m_projectModel->deleteLater();
 	m_projectModel = newModel;
 	if (m_projectModel) {
-		visitRunnersRegister(*m_projectModel);
+		visitServices(*m_projectModel);
 		visitProjectContext(*m_projectModel);
 		attachUIPlugins(*m_projectModel);
 	}
@@ -337,9 +337,9 @@ void MainWindow::visitProjectContext(base::ProjectModel & model)
 		it->visitorDelegate()->visit(proxy);
 }
 
-void MainWindow::visitRunnersRegister(base::ProjectModel & model)
+void MainWindow::visitServices(base::ProjectModel & model)
 {
-	base::ProjectModel::Node::VisitorDelegate::RunnersRegisterProxy proxy(& m_runners);
+	base::ProjectModel::Node::VisitorDelegate::ServicesProxy proxy(& m_services);
 	for (auto it = model.begin(); it != model.end(); ++it)
 		it->visitorDelegate()->visit(proxy);
 }
