@@ -1,0 +1,8 @@
+{
+	"Keys" : [ ],
+	"Version" : "0.0.0",
+	"UIPlugin" : {
+		"Name" : "cutehmi_plugin_pid_ui",
+		"Version" : "0.0"
+	}
+}

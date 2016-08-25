@@ -15,7 +15,7 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 {
 	unsigned long clientRunnerSleep = 0;
 
-	qDebug("CuteHMI.PluginModbus starts parsing own portion of document...");
+	qDebug("CuteHMI.PluginModbus starts parsing its own portion of document...");
 	base::ProjectModel::Node * modbusNode = node.addChild(base::ProjectModel::Node::Data("Modbus"), false);
 	while (xmlReader.readNextStartElement()) {
 		if (xmlReader.name() == "plugin_modbus_data") {
