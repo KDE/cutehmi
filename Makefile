@@ -25,6 +25,10 @@ DOXYGEN = doxygen
 QMLPLUGINDUMP = qmlplugindump
 
 
+# [help] Help message to be printed.
+
+HELP_MESSAGE =
+
 # [license, sources, guards] Output Record Separator as used in AWK.
 ifeq "$(OS)" "Windows_NT"
   ORS = "\r\n"
@@ -78,7 +82,7 @@ QMLTYPES_DUMPS =
 
 help:
 		@echo "This Makefile is responsible for code maintenance, not building."
-		@echo "Use CMake if you wish to build the software."
+		@echo $(HELP_MESSAGE)
 		@echo ""
 		@echo "Make targets are:"
 		@echo "help - displays this info."
