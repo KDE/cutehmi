@@ -1,0 +1,48 @@
+LIC_QUALIFIER = MP
+
+LIC_DSLASH = LICENSE.MP.dslash.inc
+
+LIC_HASH = LICENSE.MP.hash.inc
+
+INCLUDE_GUARD_PREFIX = "CUTEHMI_"
+
+SOURCE_DIRS = AppFull/src \
+			  AppLite/src \
+			  LibBase/src \
+			  LibWidgets/src \
+			  LibModbus/src \
+			  PluginModbus/src \
+			  PluginModbusUI/src \
+			  LibStupid/src \
+			  PluginStupid/src \
+			  PluginStupidUI/src \
+			  QML/CuteHMI/Modbus/src \
+			  QML/CuteHMI/Stupid/src
+
+INCLUDE_DIRS = AppFull/src \
+			   AppLite/src \
+			   LibBase/src \
+			   LibWidgets/src \
+			   LibModbus/src \
+			   PluginModbus/src \
+			   PluginModbusUI/src \
+			   LibStupid/src \
+			   PluginStupid/src \
+			   PluginStupidUI/src \
+			   QML/CuteHMI/Modbus/src \
+			   QML/CuteHMI/Stupid/src
+
+QML_DIRS = QML/CuteHMI/Base \
+		   QML/CuteHMI/Modbus \
+		   QML/CuteHMI/Stupid
+
+DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
+				 QML/CuteHMI/Base/Base.qdocconf
+
+DOC_DOXYGEN_FILES = LibBase/Doxyfile
+
+QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../lib
+
+QMLTYPES_DUMPS = "CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
+				 CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
+				 CuteHMI.Stupid 1.0 QML > QML/CuteHMI/Stupid/plugins.qmltypes " 

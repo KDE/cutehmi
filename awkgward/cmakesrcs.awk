@@ -1,6 +1,6 @@
 #!/bin/awk
 #
-# Copyright (c) 2010, Michal Policht. This file is dually licensed under terms of 
+# Copyright (c) 2016, Michal Policht. This file is dually licensed under terms of 
 # either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or BEER-WARE
 # LICENSE by googling it.
 #
@@ -30,6 +30,7 @@
 # example: awk -v src_dirs="src/dir1 src/dir2" -v src_files="*.cxx;*.c" -v cmake_var="SOURCES" -f cmakesrcs.awk CMakeList.txt
 #
 # parameters: 
+# find - find program.
 # src_dirs - where to look for sources (default: "*").
 # cmake_var - cmake sources variable name (default: "SRCS").
 # src_files - list of source file patterns separated by a semicolon (default: "*.cpp;*.c").
@@ -38,10 +39,13 @@
 #
 # Note on MS Windows: find shipped with findutils may be shadowed by Windows' find.exe,  
 # residing in Windows/system32 folder. Windows find.exe is a different tool and it has to
-# be moved behind findutils find in script search path.
+# be moved behind findutils find in script search path. Alternatively you can pass find 
+# parameter to the script pointing to findutils find binary.
 
 
 BEGIN {
+    if (!find)
+        find = "find"
 	if (!src_dirs)
 		src_dirs = "*";
 	if (!cmake_var)
@@ -55,10 +59,13 @@ BEGIN {
 
 /^#sources_begin/ {
 	sources_section = 1; 
+    ors_str = ORS
+    gsub(/\n/, "\\\\n", ors_str)
+    gsub(/\r/, "\\\\r", ors_str)
 	print $0;
 	print "SET(" cmake_var;
 	for (src_file_index in src_files_arr)
-		system("find " src_dirs " -name '" src_files_arr[src_file_index] "' -print");
+		system(find " " src_dirs " -name '" src_files_arr[src_file_index] "' -printf %p" ors_str);
 	print ")";
 }
 

@@ -12,7 +12,7 @@
 # parameters:
 # file - file.
 #
-# required tools: sh, tr, mv.
+# required tools: sh, tr, mv, stat, grep, cut, touch.
 
 
 function usage()
@@ -33,6 +33,9 @@ if [ $# -lt 1 ]; then
     exit 0
 fi
 
+echo $file
+timestamp=`stat $file | grep 'Modify: ' | cut -d ' ' -f 2,3,4`
 <$file tr -d '\r' > $file.tr
 mv $file.tr $file
+touch -md "$timestamp" $file
 

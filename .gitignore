@@ -1,3 +1,6 @@
 *.pro.user.*
 *.pro.user
 *.autosave
+Makefile.user
+make.exe
+awkgward/find.exe
