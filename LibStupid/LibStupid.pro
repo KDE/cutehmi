@@ -25,11 +25,21 @@ unix {
 }
 
 SOURCES += \
-    src/stupid/Client.cpp
+    src/stupid/Client.cpp \
+    src/stupid/NodeDataObject.cpp \
+    src/stupid/Service.cpp \
+    src/stupid/CommunicationThread.cpp \
+    src/stupid/VisitorDelegate.cpp \
+    src/stupid/DS18B20.cpp
 
 HEADERS += \
     src/platform.hpp \
-    src/stupid/Client.hpp
+    src/stupid/Client.hpp \
+    src/stupid/NodeDataObject.hpp \
+    src/stupid/Service.hpp \
+    src/stupid/CommunicationThread.hpp \
+    src/stupid/VisitorDelegate.hpp \
+    src/stupid/DS18B20.hpp
 
 DISTFILES +=
 

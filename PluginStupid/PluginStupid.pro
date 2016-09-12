@@ -9,7 +9,7 @@ CONFIG(debug, debug|release) {
 DESTDIR = $$DESTDIR/plugins
 
 QT -= gui
-QT += qml
+QT += qml sql
 
 CONFIG += plugin
 

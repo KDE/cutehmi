@@ -3,7 +3,10 @@
 
 #include <base/IPLCPlugin.hpp>
 
+#include <stupid/Client.hpp>
+
 #include <QObject>
+#include <QSqlDatabase>
 
 #include <memory>
 
@@ -24,9 +27,7 @@ class Plugin:
 		base::Error writeXML(QXmlStreamWriter & xmlWriter) const override;
 
 	private:
-		base::Error postgreSQLFromXML(QXmlStreamReader & xmlReader); //, std::unique_ptr<stupid::AbstractDB> & connection);
-
-//		metaData() const;
+		base::Error postgreSQLFromXML(QXmlStreamReader & xmlReader, const QString & connectionName);
 };
 
 }

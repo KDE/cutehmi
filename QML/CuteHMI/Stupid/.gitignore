@@ -1,0 +1,6 @@
+*.user
+*.autosave
+uic/*
+moc/*
+rcc/*
+plugins/*

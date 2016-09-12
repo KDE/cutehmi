@@ -2,9 +2,13 @@
 #define CUTEHMI_LIBSTUPID_SRC_STUPID_CLIENT_HPP
 
 #include "../platform.hpp"
+#include "DS18B20.hpp"
+
+#include <base/ErrorInfo.hpp>
 
 #include <QObject>
-#include <QSqlDatabase>
+//#include <QQmlListProperty>
+#include <QQmlPropertyMap>
 
 #include <memory>
 
@@ -18,24 +22,49 @@ class CUTEHMI_STUPID_API Client:
 	public QObject
 {
 	Q_OBJECT
-//	Q_PROPERTY(QQmlListProperty<cutehmi::stupid::DS18B20> ds18b20 READ ds18b20 NOTIFY ds18b20Changed)
+
+	// Alternatively ds18b20 could be QQmlPropertyMap *, but QQmlPropertyMap can be modified from QML.
+	// Const variant is not recognized, so QQmlPropertyMap would need to be extended to provide read-only access.
+	Q_PROPERTY(const QVariantMap & ds18b20 READ ds18b20)
 
 	public:
-		explicit Client(std::unique_ptr<QSqlDatabase> db, QObject * parent = 0);
+		struct CUTEHMI_STUPID_API Error:
+			public base::Error
+		{
+			enum : int {
+				UNABLE_TO_CONNECT = base::Error::SUBCLASS_BEGIN
+			};
+
+			using base::Error::Error;
+
+			QString str() const;
+		};
+
+		typedef QList<QString> DS18B20IdsContainer;
+
+		explicit Client(const QString & connectionName, QObject * parent = 0);
+
+		~Client() override;
 
 //		const QQmlListProperty<DS18B20> & ds18b20() const;
 
-//		void setConnection(std::unique_ptr<AbstractConnection> connection);
+//		QQmlPropertyMap * ds18b20();
 
-		/**
-		 * Read input register value and update associated InputRegister object.
-		 * @param addr register address.
-		 *
-		 * @note appropriate InputRegister object must be referenced using @a ir list before using this function.
-		 */
+		const QVariantMap & ds18b20() const;
+
+//		/**
+//		 * Read input register value and update associated InputRegister object.
+//		 * @param addr register address.
+//		 *
+//		 * @note appropriate InputRegister object must be referenced using @a ir list before using this function.
+//		 */
 //		void readDS18B20(const QString & id);
 
+		DS18B20IdsContainer ds18b20Ids() const;
+
 	public slots:
+		void init();
+
 		/**
 		 * Connect client to the STUPiD database.
 		 */
@@ -52,35 +81,32 @@ class CUTEHMI_STUPID_API Client:
 		 * @param run indicates whether to interrupt read. Function interrupts reading and returns, if @p 0 is being set. If @p 1 is set
 		 * function will return only after reading all values of coils and registers.
 		 */
-//		void readAll(const QAtomicInt & run = 1);
+		void readAll(const QAtomicInt & run = 1);
+
+	signals:
+		void error(base::ErrorInfo errInfo);
+
+		void connected();
+
+		void disconnected();
+
+	protected:
+		// If there's no update for more than EXPIRE_MIN_INTERVAL + m_daemonSleep * EXPIRE_DAEMON_CYCLES, data should be marked as stalled.
+		static constexpr int EXPIRE_DAEMON_CYCLES = 1;
+		static constexpr int EXPIRE_MIN_INTERVAL = 30000;
+
+		void enumerateDevices();
+
+		void loadDaemonSleep();
 
 	private:
-//		typedef typename RegisterTraits<DS18B20>::Container DS18B20DataContainer;
+//		typedef QMap<QString, DS18B20 *> DS18B20DevicesContainer;
 
-//		/**
-//		 * Get element at specified index of property list. If element does not exist function creates it.
-//		 * Generic helper for QQmlListProperty.
-//		 * @param property property list.
-//		 * @param index element index.
-//		 * @param onCreate callback function called (if not @p nullptr) if element has been created. Parameters passed to a callback function are
-//		 * (@a property, @a index, newly created element).
-//		 * @return element at index.
-//		 */
-//		template <typename T>
-//		static T * At(QQmlListProperty<T> * property, int index, void (*onCreate)(QQmlListProperty<T> *, int, T *) = nullptr);
+//		static int Count(QQmlListProperty<DS18B20> * property);
 
-//		/**
-//		 * Return number of property list elements. Callback function for QQmlListProperty.
-//		 * @return number of property list elements.
-//		 */
-//		template <typename T>
-//		static int Count(QQmlListProperty<T> * property);
+//		static DS18B20 * At(QQmlListProperty<DS18B20> * property, int index);
 
-//		/**
-//		 * Get HoldingRegister element at specified index of property list. Callback function for QQmlListProperty.
-//		 * @return element at index.
-//		 */
-//		static HoldingRegister * RAt(QQmlListProperty<HoldingRegister> * property, int index);
+		void clearDevices();
 
 //		/**
 //		 * Get InputRegister element at specified index of property list. Callback function for QQmlListProperty.
@@ -107,7 +133,9 @@ class CUTEHMI_STUPID_API Client:
 
 //		uint16_t toClientEndian(uint16_t val) const;
 
-		std::unique_ptr<QSqlDatabase> m_db;
+		QString m_connectionName;
+		unsigned long m_daemonSleep;
+		QVariantMap m_ds18b20;
 
 //		IrDataContainer m_irData;
 //		QQmlListProperty<InputRegister> m_ir;
