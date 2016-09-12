@@ -1,5 +1,5 @@
-#ifndef MODBUSCONTAINER_H
-#define MODBUSCONTAINER_H
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_DATACONTAINER_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_DATACONTAINER_HPP
 
 #include <QLinkedList>
 #include <QReadWriteLock>
@@ -211,4 +211,4 @@ QReadWriteLock & DataContainer<T, N>::keysLock()
 }
 }
 
-#endif // MODBUSCONTAINER_H
+#endif

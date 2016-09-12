@@ -25,10 +25,10 @@ class CUTEHMI_MODBUS_API Client:
 	public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> ir READ ir NOTIFY irChanged)
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> r READ r NOTIFY rChanged)
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::DiscreteInput> ib READ ib NOTIFY ibChanged)
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::Coil> b READ b NOTIFY bChanged)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> ir READ ir)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> r READ r)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::DiscreteInput> ib READ ib)
+	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::Coil> b READ b)
 //remember to delete container elements!!!
 //32 bit registers/16 bit addressing	(alternatively idr/dr (double register, then could be qr - quad for 64 bit)
 //	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> irr READ irr NOTIFY irChanged)
@@ -145,14 +145,6 @@ class CUTEHMI_MODBUS_API Client:
 		void connected();
 
 		void disconnected();
-
-		void irChanged();
-
-		void rChanged();
-
-		void ibChanged();
-
-		void bChanged();
 
 	protected slots:
 		void rValueRequest(int index);

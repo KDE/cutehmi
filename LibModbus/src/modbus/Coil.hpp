@@ -1,5 +1,5 @@
-#ifndef COIL_H
-#define COIL_H
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_COIL_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_COIL_HPP
 
 #include "../platform.hpp"
 
@@ -66,4 +66,4 @@ class CUTEHMI_MODBUS_API Coil:
 }
 }
 
-#endif // COIL_H
+#endif

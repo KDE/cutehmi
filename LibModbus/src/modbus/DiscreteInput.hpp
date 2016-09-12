@@ -1,5 +1,5 @@
-#ifndef DISCRETEINPUT_H
-#define DISCRETEINPUT_H
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_DISCRETEINPUT_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_DISCRETEINPUT_HPP
 
 #include "../platform.hpp"
 
@@ -52,4 +52,4 @@ class CUTEHMI_MODBUS_API DiscreteInput:
 }
 }
 
-#endif // DISCRETEINPUT_H
+#endif

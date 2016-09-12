@@ -24,7 +24,7 @@ void CommunicationThread::setSleep(unsigned long sleep)
 void CommunicationThread::run()
 {
 	while (m_run.load()) {
-		m_client->readAll(m_run);	// Because of relaxed model readAll() may teoretically skip first reads.
+		m_client->readAll(m_run);	// Note: Because of relaxed model readAll() may theoretically skip first reads by calling readAll(0).
 		msleep(m_sleep);
 	}
 }

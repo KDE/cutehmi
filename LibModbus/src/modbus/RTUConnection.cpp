@@ -99,7 +99,7 @@ char RTUConnection::ToLibmodbusParity(Parity parity)
 		case Parity::NONE:
 			return 'N';
 		default:
-			qFatal("Unrecognized parity code: %d.", parity);
+			qFatal("Unrecognized parity code: %d.", static_cast<int>(parity));
 	}
 }
 

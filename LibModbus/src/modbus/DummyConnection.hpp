@@ -1,5 +1,5 @@
-#ifndef DUMMYCONNECTION_H
-#define DUMMYCONNECTION_H
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_DUMMYCONNECTION_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_DUMMYCONNECTION_HPP
 
 #include "../platform.hpp"
 #include "AbstractConnection.hpp"
@@ -52,4 +52,4 @@ class CUTEHMI_MODBUS_API DummyConnection:
 }
 }
 
-#endif // DUMMYCONNECTION_H
+#endif

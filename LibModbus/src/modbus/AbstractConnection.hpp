@@ -1,5 +1,5 @@
-#ifndef ICONNECTION_H
-#define ICONNECTION_H
+#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_ABSTRACTCONNECTION_HPP
+#define CUTEHMI_LIBMODBUS_SRC_MODBUS_ABSTRACTCONNECTION_HPP
 
 #include <cstdint>
 
@@ -44,4 +44,4 @@ class AbstractConnection
 }
 }
 
-#endif // ICONNECTION_H
+#endif
