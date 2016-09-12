@@ -25,6 +25,8 @@ class CUTEHMI_MODBUS_API Service:
 
 		void setSleep(unsigned long sleep);
 
+		void init() override;
+
 		void start() override;
 
 		void stop() override;

@@ -26,6 +26,10 @@ void Service::setSleep(unsigned long sleep)
 	m_thread->setSleep(sleep);
 }
 
+void Service::init()
+{
+}
+
 void Service::start()
 {
 	m_client->connect();
