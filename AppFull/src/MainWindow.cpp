@@ -251,7 +251,7 @@ bool MainWindow::loadFile(const QString & filePath)
 	if (file.open(QIODevice::ReadOnly)) {
 		base::ProjectModel * newModel = new base::ProjectModel(this);
 		{
-			base::XMLProjectBackend xmlBackend(newModel, & m_projectPluginLoader);
+			base::ProjectXMLBackend xmlBackend(newModel, & m_projectPluginLoader);
 			widgets::ErrorBox errorBox(tr("Could not load file %1.").arg(filePath));
 			if (errorBox.exec(xmlBackend.load(file))) {
 				file.close();
@@ -282,7 +282,7 @@ bool MainWindow::loadFile(const QString & filePath)
 
 void MainWindow::resetModel(base::ProjectModel * newModel)
 {
-	// Reset runners register.
+	// Reset services.
 	m_services.clear();
 
 	// Reset QML view.
@@ -300,6 +300,7 @@ void MainWindow::resetModel(base::ProjectModel * newModel)
 		visitServices(*m_projectModel);
 		visitProjectContext(*m_projectModel);
 		attachUIPlugins(*m_projectModel);
+		m_services.init();
 	}
 }
 

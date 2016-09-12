@@ -11,7 +11,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API XMLProjectBackend
+class CUTEHMI_BASE_API ProjectXMLBackend
 {
 	public:
 		struct CUTEHMI_BASE_API Error:
@@ -36,7 +36,7 @@ class CUTEHMI_BASE_API XMLProjectBackend
 		 * @param model project model.
 		 * @param pluginLoader properly configured plugin loader.
 		 */
-		XMLProjectBackend(ProjectModel * model, PluginLoader * pluginLoader);
+		ProjectXMLBackend(ProjectModel * model, PluginLoader * pluginLoader);
 
 		Error load(QIODevice & device);
 

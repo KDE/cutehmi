@@ -7,7 +7,7 @@
 #include <widgets/QuickViewWrapper.hpp>
 
 #include <base/ProjectModel.hpp>
-#include <base/XMLProjectBackend.hpp>
+#include <base/PojectXMLBackend.hpp>
 #include <base/PluginLoader.hpp>
 #include <base/Services.hpp>
 
