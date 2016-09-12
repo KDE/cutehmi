@@ -9,7 +9,7 @@ QtObject
 	default property var delegate
 	property var device
 	property int address
-	property int encoding: ModbusHoldingRegister.INT16
+	property int encoding: ModbusInputRegister.INT16
 	property real valueScale: 1.0
 	property bool busy: true
 

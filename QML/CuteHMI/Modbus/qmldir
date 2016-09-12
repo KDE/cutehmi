@@ -15,5 +15,5 @@ CuteHMI_Modbus_CoilItem 1.0 CoilItem.qml
 CuteHMI_Modbus_ExtBusyIndicator 1.0 ExtBusyIndicator.qml
 plugin cutehmi_qmlplugin_modbus plugins
 classname CuteHMIModbusQMLPlugin
-typeinfo QML_Modbus.qmltypes
+typeinfo plugins.qmltypes
 designersupported

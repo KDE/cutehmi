@@ -9,8 +9,11 @@ import CuteHMI.Modbus 1.0
   \since CuteHMI.Modbus 1.0
   \brief Modbus coil item.
 
-  Coil item is intended to interact with \a parent item in which it can be placed. It is provided as a supplement to CoilController to bypass
-  limitations of QML Designer and make it possible to work in QML "design" mode directly. In addition it provides its own visuals to show
+  Coil item is intended to interact with \a parent item in which it can be placed. By default \a parent item is
+  set as a delegate of \a controller.
+
+  This class is provided as a supplement to CoilController to bypass limitations of QML Designer and make it
+  possible to work in QML "design" mode directly. In addition it provides its own visuals to show
   \a controller.busy status.
   */
 Item
