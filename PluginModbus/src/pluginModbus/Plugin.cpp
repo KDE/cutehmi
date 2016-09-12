@@ -13,7 +13,7 @@ namespace pluginModbus {
 
 base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::Node & node)
 {
-	unsigned long clientRunnerSleep = 0;
+	unsigned long serviceSleep = 0;
 
 	qDebug("CuteHMI.PluginModbus starts parsing its own portion of document...");
 	base::ProjectModel::Node * modbusNode = node.addChild(base::ProjectModel::Node::Data("Modbus"), false);
@@ -42,7 +42,7 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 									if (xmlReader.readNext() != QXmlStreamReader::Characters)
 										return base::Error::FAIL;
 									bool ok;
-									clientRunnerSleep = xmlReader.text().toULong(& ok);
+									serviceSleep = xmlReader.text().toULong(& ok);
 									if (!ok)
 										return base::Error::FAIL;
 								}
@@ -53,7 +53,7 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 					}
 					std::unique_ptr<modbus::Client> client(new modbus::Client(std::move(connection)));
 					std::unique_ptr<modbus::Service> service(new modbus::Service(client.get()));
-					service->setSleep(clientRunnerSleep);
+					service->setSleep(serviceSleep);
 					std::unique_ptr<modbus::NodeDataObject> dataObject(new modbus::NodeDataObject(std::move(client), std::move(service)));
 					base::ProjectModel::Node * clientNode = modbusNode->addChild(base::ProjectModel::Node::Data(id, std::move(dataObject)));
 					clientNode->setVisitorDelegate(std::unique_ptr<base::ProjectModel::Node::VisitorDelegate>(new modbus::VisitorDelegate(clientNode)));

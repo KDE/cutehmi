@@ -27,13 +27,13 @@ class Services;
  *
  * @principles
  *
- * <principle id="base.ProjectModel-internalPoiner">
+ * <principle id="cutehmi.base.ProjectModel-internalPoiner">
  * For all valid items in the model, QModelIndex::internalPointer() is always associated with pointer
  * to object of type @p ProjectModel::Node, so that neither @p nullptr nor a pointer to any other object
  * type can be returned.
  * </principle>
  *
- * <principle id="base.ProjectModel-determinedDestructionOrder">
+ * <principle id="cutehmi.base.ProjectModel-determinedDestructionOrder">
  * Destruction order of exposed data members is determined. The order is as following:
  *		- child nodes (children()). Each child follows the order.
  *		- visitor delegate (visitorDelegate()).
@@ -326,7 +326,7 @@ class CUTEHMI_BASE_API ProjectModel:
 			private:
 				void allocateChildren();
 
-				//<principle ref="base.ProjectModel-determinedDestructionOrder">
+				//<principle ref="cutehmi.base.ProjectModel-determinedDestructionOrder">
 				Node * m_parent;
 				Data m_data;
 				std::unique_ptr<VisitorDelegate> m_visitorDelegate;

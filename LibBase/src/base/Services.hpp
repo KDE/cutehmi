@@ -22,6 +22,8 @@ class CUTEHMI_BASE_API Services:
 		void clear();
 
 	public slots:
+		void init();
+
 		void start();
 
 		void stop();

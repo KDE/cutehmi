@@ -14,6 +14,12 @@ void Services::clear()
 	m_services.clear();
 }
 
+void Services::init()
+{
+	for (IService * service : m_services)
+		service->init();
+}
+
 void Services::start()
 {
 	for (IService * service : m_services)

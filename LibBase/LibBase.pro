@@ -24,13 +24,14 @@ unix {
 
 SOURCES += \
     src/base/ProjectModel.cpp \
-    src/base/XMLProjectBackend.cpp \
     src/base/Error.cpp \
     src/base/PluginLoader.cpp \
     src/base/ScreenObject.cpp \
     src/base/ScreenVisitorDelegate.cpp \
     src/base/ExtError.cpp \
-    src/base/Services.cpp
+    src/base/Services.cpp \
+    src/base/Project.cpp \
+    src/base/ProjectXMLBackend.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -38,7 +39,6 @@ HEADERS += \
     src/utils/NonMovable.hpp \
     src/utils/Singleton.hpp \
     src/base/ProjectModel.hpp \
-    src/base/XMLProjectBackend.hpp \
     src/base/Error.hpp \
     src/base/PluginLoader.hpp \
     src/base/ScreenObject.hpp \
@@ -49,7 +49,9 @@ HEADERS += \
     src/base/IProjectModelVisitor.hpp \
     src/base/IPLCPlugin.hpp \
     src/base/IService.hpp \
-    src/base/Services.hpp
+    src/base/Services.hpp \
+    src/base/Project.hpp \
+    src/base/PojectXMLBackend.hpp
     src/debug/DestructorTest.hpp
 
 DISTFILES +=
