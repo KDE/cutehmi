@@ -4,7 +4,7 @@
 #include <base/Services.hpp>
 #include <base/ErrorInfo.hpp>
 #include <base/PluginLoader.hpp>
-#include <base/XMLProjectBackend.hpp>
+#include <base/PojectXMLBackend.hpp>
 #include <base/ScreenObject.hpp>
 
 #include <QGuiApplication>
@@ -58,7 +58,7 @@ base::ErrorInfo loadFile(const QString & filePath, base::PluginLoader & pluginLo
 
 	QFile file(filePath);
 	if (file.open(QIODevice::ReadOnly)) {
-		base::XMLProjectBackend xmlBackend(& projectModel, & pluginLoader);
+		base::ProjectXMLBackend xmlBackend(& projectModel, & pluginLoader);
 		result = base::errorInfo(xmlBackend.load(file));
 		if (result.code == base::Error::OK)
 			qDebug() << "Loaded project file " << filePath << ".";
@@ -80,7 +80,7 @@ void visitProjectContext(base::ProjectModel & model, QQmlContext & context)
 		it->visitorDelegate()->visit(proxy);
 }
 
-void visitRunnersRegister(base::ProjectModel & model, base::Services & runners)
+void visitServices(base::ProjectModel & model, base::Services & runners)
 {
 	base::ProjectModel::Node::VisitorDelegate::ServicesProxy proxy(& runners);
 	for (auto it = model.begin(); it != model.end(); ++it)
@@ -155,13 +155,14 @@ int main(int argc, char * argv[])
 	engine.addImportPath("../QML");
 	qDebug() << "QML import paths: " << engine.importPathList();
 
-	cutehmi::base::Services runners;
+	cutehmi::base::Services services;
 	cutehmi::base::ErrorInfo errorInfo = cutehmi::loadFile(cmd.value(projectOption), pluginLoader, projectModel);
 	if (errorInfo.code == cutehmi::base::Error::OK) {
-		cutehmi::visitRunnersRegister(projectModel, runners);
+		cutehmi::visitServices(projectModel, services);
 		cutehmi::visitProjectContext(projectModel, *engine.rootContext());
 	} else
 		qWarning() << "Following error occured while loading project file: " << errorInfo.str;
+	services.init();
 
 	QString defaultScreenPath = cutehmi::findDefaultScreen(projectModel);
 	if (!defaultScreenPath.isEmpty()) {
@@ -173,7 +174,7 @@ int main(int argc, char * argv[])
 
 	engine.load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 	if (!cmd.isSet(stoppedOption))
-		runners.start();
+		services.start();
 	else
 		qWarning() << stoppedOption.description();
 
