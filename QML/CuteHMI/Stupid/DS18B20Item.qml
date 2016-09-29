@@ -10,13 +10,8 @@ Item
 	anchors.verticalCenter: parent.verticalCenter
 	anchors.horizontalCenter: parent.horizontalCenter
 
-//	property alias device: inputRegisterController.device
-//	property alias w1Id: inputRegisterController.w1Id
-//	property alias encoding: inputRegisterController.encoding
-//	property alias valueScale: inputRegisterController.valueScale
-//	property alias busy: inputRegisterController.busy
 	property alias busyIndicator: busyIndicator
-	property alias controller: ds18b20Controller
+	property alias controller: controller
 
 	BusyIndicator
 	{
@@ -28,11 +23,6 @@ Item
 
 	DS18B20Controller
 	{
-		id: ds18b20Controller
-
-//		device: root.device
-//		address: root.device
-//		encoding: root.encoding
-//		valueScale: root.valueScale
+		id: controller
 	}
 }

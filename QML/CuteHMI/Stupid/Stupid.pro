@@ -23,6 +23,7 @@ SOURCES += \
 DISTFILES += \ 
     qmldir \
     DS18B20Controller.qml \
-    DS18B20Item.qml
+    DS18B20Item.qml \
+    DS18B20Controller.js
 
 RESOURCES +=
