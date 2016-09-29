@@ -4,6 +4,8 @@ import QtQuick 2.5
   @todo blinking text instead of washed out colour on "busy" state.
 
   @todo decrement z when display is really zoomed out (after scale animation finishes; currently z is decremented when state changes).
+
+  @deprecated this componenet is replaced by NumberDisplay.
   */
 Item
 {
