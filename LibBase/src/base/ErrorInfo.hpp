@@ -31,6 +31,8 @@ ErrorInfo errorInfo(ERR err)
 }
 }
 
+Q_DECLARE_METATYPE(cutehmi::base::ErrorInfo)
+
 #endif
 
 //(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
