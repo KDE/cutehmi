@@ -7,7 +7,7 @@
 #include <base/PojectXMLBackend.hpp>
 #include <base/ScreenObject.hpp>
 
-#include <QApplication>
+#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QIcon>
 #include <QDir>
@@ -112,7 +112,7 @@ int main(int argc, char * argv[])
 //	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
 //	should make the QApplication be the first created, and last destroyed QObject."
 
-	QApplication app(argc, argv);	// Qt charts demand QApplication
+	QGuiApplication app(argc, argv);
 	app.setWindowIcon(QIcon(":/img/icon.png"));
 
 	qRegisterMetaType<cutehmi::base::ErrorInfo>();

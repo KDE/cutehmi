@@ -5,7 +5,7 @@ CONFIG(debug, debug|release) {
     TARGET = AppLite-Debug
 }
 
-QT += qml quick widgets charts
+QT += qml quick
 
 # Translations.
 TRANSLATIONS = locale/applite_pl.ts
