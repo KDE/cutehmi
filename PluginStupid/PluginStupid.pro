@@ -14,6 +14,7 @@ QT += qml sql
 CONFIG += plugin
 
 include(../cutehmi_base.pri)
+include(../cutehmi_charts.pri)
 include(../cutehmi_stupid.pri)
 
 SOURCES += \

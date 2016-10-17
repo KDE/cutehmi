@@ -7,5 +7,6 @@ SUBDIRS += \
     PluginModbus \
     LibStupid \
     PluginStupid \
+    LibCharts \
     QML \
     AppLite \

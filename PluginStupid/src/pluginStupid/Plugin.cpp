@@ -12,25 +12,26 @@ namespace pluginStupid {
 
 base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::Node & node)
 {
-	unsigned long serviceSleep = 0;
-
 	qDebug("CuteHMI.PluginStupid starts parsing its own portion of document...");
 	base::ProjectModel::Node * stupidNode = node.addChild(base::ProjectModel::Node::Data("STUPiD"), false);
 	while (xmlReader.readNextStartElement()) {
 		if (xmlReader.name() == "cutehmi_plugin_stupid") {
 			while (xmlReader.readNextStartElement()) {
 				if (xmlReader.name() == "client") {
+					std::unique_ptr<stupid::Client> client(new stupid::Client);
 					QString id = xmlReader.attributes().value("id").toString();
-					QString connectionName = id;
+					unsigned long serviceSleep = 0;
 					while (xmlReader.readNextStartElement()) {
 						if (xmlReader.name() == "session") {
 							if (xmlReader.attributes().value("type") == "SQL") {
 								while (xmlReader.readNextStartElement()) {
 									if (xmlReader.name() == "dbms") {
+										std::unique_ptr<stupid::DatabaseConnectionData> dbData(new stupid::DatabaseConnectionData);
 										if (xmlReader.attributes().value("name") == "PostgreSQL")
-											postgreSQLFromXML(xmlReader, connectionName);
+											postgreSQLFromXML(xmlReader, *dbData, id);
 										else
 											return base::Error::FAIL;	// Unrecognized DBMS.
+										client->moveDatabaseConnectionData(std::move(dbData));
 									} else
 										xmlReader.skipCurrentElement();
 								}
@@ -51,7 +52,6 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 						} else
 							xmlReader.skipCurrentElement();
 					}
-					std::unique_ptr<stupid::Client> client(new stupid::Client(connectionName));
 					std::unique_ptr<stupid::Service> service(new stupid::Service(client.get()));
 					service->setSleep(serviceSleep);
 					std::unique_ptr<stupid::NodeDataObject> dataObject(new stupid::NodeDataObject(std::move(client), std::move(service)));
@@ -72,16 +72,19 @@ base::Error Plugin::writeXML(QXmlStreamWriter & xmlWriter) const
 	return base::Error::FAIL;
 }
 
-base::Error Plugin::postgreSQLFromXML(QXmlStreamReader & xmlReader, const QString & connectionName)
+base::Error Plugin::postgreSQLFromXML(QXmlStreamReader & xmlReader, stupid::DatabaseConnectionData & dbData, const QString & connectionName)
 {
-	QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL", connectionName);
+	dbData.type = "QPSQL";
+	dbData.connectionName = connectionName;
+//	QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL", connectionName);
 	while (xmlReader.readNextStartElement()) {
 		if (xmlReader.name() == "postgresql") {
 			while (xmlReader.readNextStartElement()) {
 				if (xmlReader.name() == "host") {
 					if (xmlReader.readNext() != QXmlStreamReader::Characters)
 						return base::Error::FAIL;
-					db.setHostName(xmlReader.text().toString());
+					dbData.hostName = xmlReader.text().toString();
+//					db.setHostName(xmlReader.text().toString());
 				} else if (xmlReader.name() == "port") {
 					if (xmlReader.readNext() != QXmlStreamReader::Characters)
 						return base::Error::FAIL;
@@ -89,19 +92,23 @@ base::Error Plugin::postgreSQLFromXML(QXmlStreamReader & xmlReader, const QStrin
 					int port = xmlReader.text().toInt(& ok);
 					if (!ok)
 						return base::Error::FAIL;
-					db.setPort(port);
+					dbData.port = port;
+//					db.setPort(port);
 				} else if (xmlReader.name() == "name") {
 					if (xmlReader.readNext() != QXmlStreamReader::Characters)
 						return base::Error::FAIL;
-					db.setDatabaseName(xmlReader.text().toString());
+					dbData.databaseName = xmlReader.text().toString();
+//					db.setDatabaseName(xmlReader.text().toString());
 				} else if (xmlReader.name() == "user") {
 					if (xmlReader.readNext() != QXmlStreamReader::Characters)
 						return base::Error::FAIL;
-					db.setUserName(xmlReader.text().toString());
+					dbData.userName = xmlReader.text().toString();
+//					db.setUserName(xmlReader.text().toString());
 				} else if (xmlReader.name() == "password") {
 					if (xmlReader.readNext() != QXmlStreamReader::Characters)
 						return base::Error::FAIL;
-					db.setPassword(xmlReader.text().toString());
+					dbData.password = xmlReader.text().toString();
+//					db.setPassword(xmlReader.text().toString());
 				} else
 					return base::Error::FAIL;
 				xmlReader.skipCurrentElement();

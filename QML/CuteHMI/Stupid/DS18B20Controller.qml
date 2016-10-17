@@ -18,7 +18,7 @@ QtObject
 	property bool plugged
 	property int crc
 	property date timestamp
-onErrorChanged: console.log(w1Id + " error: " + error)
+
 	Component.onCompleted: {
 		Private.loadData()
 		Private.updateError()

@@ -18,6 +18,7 @@ DEFINES += CUTEHMI_STUPID_DYNAMIC
 TRANSLATIONS = locale/cutehmi_stupid_pl.ts
 
 include(../cutehmi_base.pri)
+include(../cutehmi_charts.pri)
 
 unix {
     target.path = /usr/lib
@@ -30,7 +31,11 @@ SOURCES += \
     src/stupid/Service.cpp \
     src/stupid/CommunicationThread.cpp \
     src/stupid/VisitorDelegate.cpp \
-    src/stupid/DS18B20.cpp
+    src/stupid/DS18B20.cpp \
+    src/stupid/DS18B20History.cpp \
+    src/stupid/DS18B20HistoryModel.cpp \
+    src/stupid/DatabaseThread.cpp \
+    src/stupid/Worker.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -39,7 +44,12 @@ HEADERS += \
     src/stupid/Service.hpp \
     src/stupid/CommunicationThread.hpp \
     src/stupid/VisitorDelegate.hpp \
-    src/stupid/DS18B20.hpp
+    src/stupid/DS18B20.hpp \
+    src/stupid/DS18B20History.hpp \
+    src/stupid/DS18B20HistoryModel.hpp \
+    src/stupid/DatabaseThread.hpp \
+    src/stupid/DatabaseConnectionData.hpp \
+    src/stupid/Worker.hpp
 
 DISTFILES +=
 

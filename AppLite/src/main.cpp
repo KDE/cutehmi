@@ -7,7 +7,7 @@
 #include <base/PojectXMLBackend.hpp>
 #include <base/ScreenObject.hpp>
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QIcon>
 #include <QDir>
@@ -98,6 +98,7 @@ QString findDefaultScreen(base::ProjectModel & model)
 
 }
 
+
 int main(int argc, char * argv[])
 {
 	static const char * PLUGINS_SUBDIR = "plugins";
@@ -106,8 +107,15 @@ int main(int argc, char * argv[])
 	QCoreApplication::setApplicationName("CuteHMI Lite");
 	QCoreApplication::setApplicationVersion(CUTEHMI_APPLITE_VERSION);
 
-	QGuiApplication app(argc, argv);
+//<principle id="Qt.Qt_5_7_0_Reference_Documentation.Threads_and_QObjects.QObject_Reentrancy-CreatingQObjectsBeforeQApplication">
+// "In general, creating QObjects before the QApplication is not supported and can lead to weird crashes on exit, depending on the
+//	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
+//	should make the QApplication be the first created, and last destroyed QObject."
+
+	QApplication app(argc, argv);	// Qt charts demand QApplication
 	app.setWindowIcon(QIcon(":/img/icon.png"));
+
+	qRegisterMetaType<cutehmi::base::ErrorInfo>();
 
 	QCommandLineParser cmd;
 	cmd.setApplicationDescription("CuteHMI Lite");
@@ -179,6 +187,7 @@ int main(int argc, char * argv[])
 		qWarning() << stoppedOption.description();
 
 	return app.exec();
+//</principle>
 }
 
 //(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
