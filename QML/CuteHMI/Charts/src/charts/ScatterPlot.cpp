@@ -12,9 +12,15 @@ ScatterPlot::ScatterPlot(QQuickItem * parent):
 	QQuickPaintedItem(parent),
 	m_color(INITIAL_COLOR),
 	m_pointSize(INITIAL_POINT_SIZE),
-	m_series(nullptr)
-//	m_series(this, & m_seriesData, ScatterPlot::Append, ScatterPlot::Count, ScatterPlot::At, ScatterPlot::Clear)
+	m_series(nullptr),
+	m_xAxis(nullptr),
+	m_yAxis(nullptr)
 {
+	connect(this, & ScatterPlot::colorChanged, this, & QQuickItem::update);
+	connect(this, & ScatterPlot::pointSizeChanged, this, & QQuickItem::update);
+	connect(this, & ScatterPlot::seriesChanged, this, & QQuickItem::update);
+	connect(this, & ScatterPlot::xAxisChanged, this, & QQuickItem::update);
+	connect(this, & ScatterPlot::yAxisChanged, this, & QQuickItem::update);
 }
 
 QColor ScatterPlot::color() const
@@ -51,8 +57,38 @@ PointSeries * ScatterPlot::series() const
 void ScatterPlot::setSeries(PointSeries * series)
 {
 	if (m_series != series) {
+		if (m_series != nullptr)
+			m_series->disconnect(this);
 		m_series = series;
+		connect(m_series, & PointSeries::dataChanged, this, & QQuickItem::update);
+//		connect(m_series, & PointSeries::dataChanged, this, & ScatterPlot::updatePoints);	//call update from updatePoints
 		emit seriesChanged();
+	}
+}
+
+ValueAxis * ScatterPlot::xAxis() const
+{
+	return m_xAxis;
+}
+
+void ScatterPlot::setXAxis(ValueAxis * axis)
+{
+	if (m_xAxis != axis) {
+		m_xAxis = axis;
+		emit xAxisChanged();
+	}
+}
+
+ValueAxis * ScatterPlot::yAxis() const
+{
+	return m_yAxis;
+}
+
+void ScatterPlot::setYAxis(ValueAxis * axis)
+{
+	if (m_yAxis != axis) {
+		m_yAxis = axis;
+		emit yAxisChanged();
 	}
 }
 
@@ -63,20 +99,28 @@ void ScatterPlot::setSeries(PointSeries * series)
 
 void ScatterPlot::paint(QPainter * painter)
 {
-//	painter->drawPie(boundingRect().adjusted(1, 1, -1, -1), 90 * 16, 290 * 16);
-//	QPen pen;(Qt::green, 3, Qt::DashDotLine, Qt::RoundCap, Qt::RoundJoin);
 	QPen pen(m_color, m_pointSize);
 	painter->setPen(pen);
-
-//	/ @todo - type safety!!!!!!!!!!!!!! QVector<QPoint> could be enforced by some header in LibCharts for example.
-//	SeriesDataContainer * seriesData = static_cast<SeriesDataContainer *>(m_series.data);
-//	painter->drawPoints(seriesData->constData(), seriesData->count());
 
 	if (m_series != nullptr) {
 //		painter->drawPoints(m_series->rawData(), m_series->count());
 		for (PointSeries::DataContainer::const_iterator it = m_series->data().begin(); it != m_series->data().end(); ++it) {
 //			qDebug() << "drawing point " << it->x() << " " << it->y();
-			painter->drawPoint(*it);
+			QPointF p(*it);
+			if (m_xAxis != nullptr)
+				p.setX(m_xAxis->mapToPlotArea(p.x()));
+			if (m_yAxis != nullptr)
+				p.setY(m_yAxis->mapToPlotArea(p.y()));
+//			qDebug() << "point: " << p;
+//			if (m_xAxis->contentContains(p.x()) && m_yAxis->contentContains(p.y()))
+			if (qIsFinite(p.x()) && qIsFinite(p.y())) {
+				if (p.y() < 0.0)
+					painter->drawLine(p.x() - m_pointSize, m_pointSize / 2.0, p.x() + m_pointSize, m_pointSize / 2.0);
+				else if (p.y() > height())
+					painter->drawLine(p.x() - m_pointSize, height() - m_pointSize / 2.0, p.x() + m_pointSize, height() - m_pointSize / 2.0);
+				else
+					painter->drawPoint(p);
+			}
 		}
 	}
 
@@ -91,29 +135,6 @@ void ScatterPlot::paint(QPainter * painter)
 	painter->drawPoints(points, pointNum);
 	delete[] points;
 	*/
-}
-
-void ScatterPlot::Append(QQmlListProperty<QPoint> * property, QPoint * value)
-{
-	SeriesDataContainer * seriesData = static_cast<SeriesDataContainer *>(property->data);
-	seriesData->append(*value);
-}
-
-int ScatterPlot::Count(QQmlListProperty<QPoint> * property)
-{
-	SeriesDataContainer * seriesData = static_cast<SeriesDataContainer *>(property->data);
-	return seriesData->count();
-}
-
-QPoint * ScatterPlot::At(QQmlListProperty<QPoint> * property, int index)
-{
-	SeriesDataContainer * seriesData = static_cast<SeriesDataContainer *>(property->data);
-	return & (*seriesData)[index];
-}
-
-void ScatterPlot::Clear(QQmlListProperty<QPoint> * property)
-{
-	static_cast<SeriesDataContainer *>(property->data)->clear();
 }
 
 }

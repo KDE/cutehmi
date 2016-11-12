@@ -1,5 +1,8 @@
 #include "CuteHMIChartsQMLPlugin.hpp"
 #include "charts/ScatterPlot.hpp"
+#include "charts/LinearAxis.hpp"
+#include "charts/DateTimeAxis.hpp"
+#include "charts/PlotArea.hpp"
 
 #include <charts/PointSeries.hpp>
 
@@ -10,6 +13,12 @@ void CuteHMIChartsQMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Charts"));
 	qmlRegisterType<cutehmi::charts::ScatterPlot>(uri, 1, 0, "PointSeries");
 	qmlRegisterType<cutehmi::charts::ScatterPlot>(uri, 1, 0, "ScatterPlot");
+	qmlRegisterType<cutehmi::charts::ValueAxis>();
+	qmlRegisterType<cutehmi::charts::CartesianAxis>();
+	qmlRegisterType<cutehmi::charts::LabeledAxis>();
+	qmlRegisterType<cutehmi::charts::LinearAxis>(uri, 1, 0, "LinearAxis");
+	qmlRegisterType<cutehmi::charts::DateTimeAxis>(uri, 1, 0, "DateTimeAxis");
+	qmlRegisterType<cutehmi::charts::PlotArea>(uri, 1, 0, "PlotArea");
 }
 
 //(c)MP: Copyright © 2016, Michal Policht. All rights reserved.

@@ -3,10 +3,10 @@ CONFIG += ordered
 
 SUBDIRS += \
     LibBase \
+    LibCharts \
     LibModbus \
     PluginModbus \
     LibStupid \
     PluginStupid \
-    LibCharts \
     QML \
     AppLite \

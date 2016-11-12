@@ -1,5 +1,5 @@
-#ifndef SCATTERPLOT_H
-#define SCATTERPLOT_H
+#ifndef CUTEHMI_QML_CUTEHMI_CHARTS_SRC_CHARTS_SCATTERPLOT_HPP
+#define CUTEHMI_QML_CUTEHMI_CHARTS_SRC_CHARTS_SCATTERPLOT_HPP
 
 #include <QQuickPaintedItem>
 #include <QColor>
@@ -9,9 +9,16 @@
 
 #include <charts/PointSeries.hpp>
 
+#include "ValueAxis.hpp"
+
 namespace cutehmi {
 namespace charts {
 
+/**
+ * Scatter plot.
+ *
+ * @todo use QSG* and subclass QQuickItem instead of QQuickPaintedItem.
+ */
 class ScatterPlot:
 		public QQuickPaintedItem
 {
@@ -20,7 +27,8 @@ class ScatterPlot:
 	Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
 	Q_PROPERTY(qreal pointSize READ pointSize WRITE setPointSize NOTIFY pointSizeChanged)
 	Q_PROPERTY(PointSeries * series READ series WRITE setSeries NOTIFY seriesChanged)
-//	Q_PROPERTY(QQmlListProperty<QPoint> series READ series)
+	Q_PROPERTY(ValueAxis * xAxis READ xAxis WRITE setXAxis NOTIFY xAxisChanged)
+	Q_PROPERTY(ValueAxis * yAxis READ yAxis WRITE setYAxis NOTIFY yAxisChanged)
 
 	public:
 		static const QColor INITIAL_COLOR;
@@ -42,6 +50,14 @@ class ScatterPlot:
 
 		void setSeries(PointSeries * series);
 
+		ValueAxis * xAxis() const;
+
+		void setXAxis(ValueAxis * axis);
+
+		ValueAxis * yAxis() const;
+
+		void setYAxis(ValueAxis * axis);
+
 		void paint(QPainter * painter);
 
 	signals:
@@ -51,22 +67,19 @@ class ScatterPlot:
 
 		void seriesChanged();
 
+		void xAxisChanged();
+
+		void yAxisChanged();
+
 	private:
-		typedef QVector<QPoint> SeriesDataContainer;
-
-		static void Append(QQmlListProperty<QPoint> * property, QPoint * value);
-
-		static int Count(QQmlListProperty<QPoint> * property);
-
-		static QPoint * At(QQmlListProperty<QPoint> * property, int index);
-
-		static void Clear(QQmlListProperty<QPoint> * property);
+		typedef QVector<QPointF> PointsContainer;
 
 		QColor m_color;
 		qreal m_pointSize;
-//		SeriesDataContainer m_seriesData;
-//		QQmlListProperty<QPoint> m_series;
 		PointSeries * m_series;
+		ValueAxis * m_xAxis;
+		ValueAxis * m_yAxis;
+//		PointsContainer m_points;	// Points cache.
 };
 
 }
