@@ -127,15 +127,6 @@ void DateTimeAxis::walkTickLabels(std::function<void(qreal labelPos)> callback) 
 QString DateTimeAxis::tickToString(qreal tick) const
 {
 	QDateTime tickDT = QDateTime::fromMSecsSinceEpoch(tick);
-	// Restore original tick position of the labels in between ticks.
-	if ((m_tickInterval == DAYS) ||
-		(m_tickInterval == WEEKS) ||
-		(m_tickInterval == MONTHS) ||
-		(m_tickInterval == YEARS)) {
-		QDateTime nextTickDT = tickDT;
-		advanceTickDateTime(nextTickDT, m_tickInterval);
-		tickDT = tickDT.addMSecs(-((nextTickDT.toMSecsSinceEpoch() - tickDT.toMSecsSinceEpoch()) / 2.0));
-	}
 
 	switch (m_tickInterval) {
 		case MILLISECONDS:
