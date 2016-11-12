@@ -2,8 +2,8 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += \
-    CuteHMI/Stupid \
-    CuteHMI/Modbus \
     CuteHMI/Base \
-    CuteHMI/Charts
+    CuteHMI/Charts \
+    CuteHMI/Stupid \
+    CuteHMI/Modbus
 

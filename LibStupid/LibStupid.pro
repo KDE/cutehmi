@@ -33,9 +33,9 @@ SOURCES += \
     src/stupid/VisitorDelegate.cpp \
     src/stupid/DS18B20.cpp \
     src/stupid/DS18B20History.cpp \
-    src/stupid/DS18B20HistoryModel.cpp \
     src/stupid/DatabaseThread.cpp \
-    src/stupid/Worker.cpp
+    src/stupid/Worker.cpp \
+    src/stupid/DS18B20HistoryWorker.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -46,10 +46,10 @@ HEADERS += \
     src/stupid/VisitorDelegate.hpp \
     src/stupid/DS18B20.hpp \
     src/stupid/DS18B20History.hpp \
-    src/stupid/DS18B20HistoryModel.hpp \
     src/stupid/DatabaseThread.hpp \
     src/stupid/DatabaseConnectionData.hpp \
-    src/stupid/Worker.hpp
+    src/stupid/Worker.hpp \
+    src/stupid/DS18B20HistoryWorker.hpp
 
 DISTFILES +=
 
