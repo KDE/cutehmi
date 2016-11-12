@@ -2,6 +2,7 @@ import QtQuick 2.5
 import QtQuick.Templates 2.0 as Templates
 
 //<workaround id="QML_Base-4" target="Qt" cause="QTBUG-34418">
+// Palette is a singleton.
 // Singletons require explicit import to load qmldir file.
 import "."
 //</workaround>
