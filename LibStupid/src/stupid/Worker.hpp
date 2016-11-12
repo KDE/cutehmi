@@ -1,5 +1,5 @@
-#ifndef WORKER_H
-#define WORKER_H
+#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_WORKER_HPP
+#define CUTEHMI_LIBSTUPID_SRC_STUPID_WORKER_HPP
 
 #include "../platform.hpp"
 
@@ -26,13 +26,14 @@ class CUTEHMI_STUPID_API Worker:
 
 	public:
 		/**
-		 * Constructor.
+		 * Default constructor.
 		 * @param task task function. See job().
 		 */
 		Worker(std::function<void()> task = nullptr);
 
 		/**
-		 * Constructor.
+		 * Constructor. This constructors acts as if employ(@a thread, false) was called immediately after
+		 * constructing default worker object.
 		 * @param thread thread in which worker's job should be run.
 		 */
 		Worker(QThread & thread);
@@ -53,7 +54,8 @@ class CUTEHMI_STUPID_API Worker:
 		virtual void job();
 
 		/**
-		 * Wait for the worker. Causes calling thread to wait until worker finishes its job.
+		 * Wait for the worker. Causes calling thread to wait until worker finishes its job. Function
+		 * does not block until work() has been called and after worker has finished its job.
 		 *
 		 * @threadsafe
 		 */
@@ -68,8 +70,16 @@ class CUTEHMI_STUPID_API Worker:
 		bool isReady() const;
 
 		/**
+		 * Check if worker is working.
+		 * @return @p true if worker is processing its job, @p false otherwise.
+		 *
+		 * @threadsafe
+		 */
+		bool isWorking() const;
+
+		/**
 		 * Employ worker. Employs worker in another thread. Internally this function moves worker object
-		 * to the specified thread.
+		 * to the specified thread. This function imposes same restrictions as QObject::moveToThread().
 		 * @param thread thread in which worker's job should be run.
 		 * @param if start is set to @p true, then work() is called immediately.
 		 */
@@ -83,6 +93,13 @@ class CUTEHMI_STUPID_API Worker:
 		void work();
 
 	protected:
+		enum class State {
+			UNEMPLOYED,
+			EMPLOYED,
+			WORKING,
+			READY
+		};
+
 		/**
 		 * Work event. This class is provided to interact with AbstractWorker through Qt event system.
 		 */
@@ -112,9 +129,9 @@ class CUTEHMI_STUPID_API Worker:
 		void ready();
 
 	private:
-		bool m_ready;
+		State m_state;
 		std::function<void()> m_task;
-		mutable QMutex m_readyMutex;
+		mutable QMutex m_stateMutex;
 		mutable QWaitCondition m_waitCondition;
 		mutable QMutex m_workMutex;
 };

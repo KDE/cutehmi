@@ -111,7 +111,8 @@ void Client::enumerateDevices()
 	dbWorker.wait();
 	for (QStringList::const_iterator w1Id = w1Ids.begin(); w1Id != w1Ids.end(); ++w1Id) {
 		m_ds18b20.insert(*w1Id, QVariant::fromValue(new DS18B20));
-		m_ds18b20History.insert(*w1Id, QVariant::fromValue(new DS18B20History(& m_dbThread)));
+		std::unique_ptr<DS18B20HistoryWorker> worker(new DS18B20HistoryWorker(m_dbThread, *w1Id));
+		m_ds18b20History.insert(*w1Id, QVariant::fromValue(new DS18B20History(std::move(worker))));
 	}
 }
 

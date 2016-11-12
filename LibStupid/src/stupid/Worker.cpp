@@ -6,7 +6,7 @@ namespace cutehmi {
 namespace stupid {
 
 Worker::Worker(std::function<void()> task):
-	m_ready(false),
+	m_state(State::UNEMPLOYED),
 	m_task(task)
 {
 }
@@ -19,9 +19,9 @@ Worker::Worker(QThread & thread):
 
 Worker::~Worker()
 {
-	// This acts as a foolproof synchronization mechanism that prevents deletion before object finishes processing WorkEvent.
+	// This acts as a failproof synchronization mechanism that prevents deletion before object finishes processing WorkEvent.
 	m_workMutex.lock();
-	m_workMutex.unlock();	// Mutex should be unlocked before it is deleted.
+	m_workMutex.unlock();	// Mutex should be unlocked before it gets deleted.
 }
 
 void Worker::setTask(std::function<void()> task)
@@ -37,22 +37,29 @@ void Worker::job()
 
 void Worker::wait() const
 {
-	m_readyMutex.lock();
-	if (!m_ready)
-		// wait() uses internal mechanisms to prevent wakeAll() from waking up threads after m_waitMutex is locked.
-		m_waitCondition.wait(& m_readyMutex);
-	m_readyMutex.unlock();
+	m_stateMutex.lock();
+	if (m_state == State::WORKING)
+		// wait() uses internal mechanisms to prevent wakeAll() from waking up threads after m_stateMutex is locked.
+		m_waitCondition.wait(& m_stateMutex);
+	m_stateMutex.unlock();
 }
 
 bool Worker::isReady() const
 {
-	QMutexLocker m_locker(& m_readyMutex);
-	return m_ready;
+	QMutexLocker locker(& m_stateMutex);
+	return m_state == State::READY;
+}
+
+bool Worker::isWorking() const
+{
+	QMutexLocker locker(& m_stateMutex);
+	return m_state == State::WORKING;
 }
 
 void Worker::employ(QThread & thread, bool start)
 {
 	moveToThread(& thread);
+	m_state = State::EMPLOYED;
 	if (start)
 		work();
 }
@@ -60,6 +67,9 @@ void Worker::employ(QThread & thread, bool start)
 void Worker::work()
 {
 	m_workMutex.lock();
+	m_stateMutex.lock();
+	m_state = State::WORKING;
+	m_stateMutex.unlock();
 	QCoreApplication::postEvent(this, new WorkEvent);
 }
 
@@ -67,11 +77,11 @@ bool Worker::event(QEvent * event)
 {
 	if (event->type() == WorkEvent::RegisteredType()) {
 		job();
-		m_readyMutex.lock();
-		m_ready = true;
+		m_stateMutex.lock();
+		m_state = State::READY;
 		emit ready();
 		m_waitCondition.wakeAll();
-		m_readyMutex.unlock();
+		m_stateMutex.unlock();
 
 //<principle id="cutehmi.stupid.AbstractWorker.event-memberAccessForbidden">
 // After unlocking m_workMutex object may be deleted from its former thread.

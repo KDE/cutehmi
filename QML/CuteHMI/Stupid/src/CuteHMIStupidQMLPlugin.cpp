@@ -2,7 +2,6 @@
 
 #include <stupid/DS18B20.hpp>
 #include <stupid/DS18B20History.hpp>
-#include <stupid/DS18B20HistoryModel.hpp>
 
 #include <QtQml>
 
@@ -11,7 +10,6 @@ void CuteHMIStupidQMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Stupid"));
 	qmlRegisterType<cutehmi::stupid::DS18B20>(uri, 1, 0, "DS18B20");
 	qmlRegisterType<cutehmi::stupid::DS18B20History>(uri, 1, 0, "DS18B20History");
-	qmlRegisterType<cutehmi::stupid::DS18B20HistoryModel>(uri, 1, 0, "DS18B20HistoryModel");
 }
 
 //(c)MP: Copyright © 2016, Michal Policht. All rights reserved.

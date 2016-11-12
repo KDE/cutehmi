@@ -7,3 +7,7 @@ Workaround:
 Use standalone class with prefixed name.
 
 Snippet:
+
+Solution:
+
+After moving worker to a Client a separate class made more sense, prefix was taken away.
