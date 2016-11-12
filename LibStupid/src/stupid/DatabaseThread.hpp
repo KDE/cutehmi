@@ -1,5 +1,5 @@
-#ifndef DATABASETHREAD_H
-#define DATABASETHREAD_H
+#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_DATABASETHREAD_HPP
+#define CUTEHMI_LIBSTUPID_SRC_STUPID_DATABASETHREAD_HPP
 
 #include "../platform.hpp"
 #include "Worker.hpp"
@@ -57,4 +57,4 @@ class CUTEHMI_STUPID_API DatabaseThread:
 }
 }
 
-#endif // DATABASETHREAD_H
+#endif
