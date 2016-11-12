@@ -1,5 +1,5 @@
-#ifndef POINTSERIES_H
-#define POINTSERIES_H
+#ifndef CUTEHMI_LIBCHARTS_SRC_CHARTS_POINTSERIES_HPP
+#define CUTEHMI_LIBCHARTS_SRC_CHARTS_POINTSERIES_HPP
 
 #include "../platform.hpp"
 
@@ -36,6 +36,9 @@ class CUTEHMI_CHARTS_API PointSeries:
 
 		const QPointF * rawData() const;
 
+	signals:
+		void dataChanged();
+
 	private:
 		DataContainer m_data;
 };
@@ -43,4 +46,4 @@ class CUTEHMI_CHARTS_API PointSeries:
 }
 }
 
-#endif // POINTSERIES_H
+#endif

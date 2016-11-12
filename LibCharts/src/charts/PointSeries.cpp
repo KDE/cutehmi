@@ -30,6 +30,7 @@ const PointSeries::DataContainer & PointSeries::data() const
 void PointSeries::setData(const DataContainer & data)
 {
 	m_data = data;
+	emit dataChanged();
 }
 
 void PointSeries::clear()
