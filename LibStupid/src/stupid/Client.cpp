@@ -27,7 +27,6 @@ Client::Client(QObject * parent):
 Client::~Client()
 {
 	QThreadPool::globalInstance()->waitForDone();
-	clearDevices();
 }
 
 const QVariantMap & Client::ds18b20() const
@@ -52,19 +51,18 @@ void Client::moveDatabaseConnectionData(std::unique_ptr<stupid::DatabaseConnecti
 
 void Client::init()
 {
-	connect();
-	enumerateDevices();
-	loadDaemonSleep();
-	disconnect();
 }
 
 void Client::connect()
 {
 	m_dbThread.start();
+	enumerateDevices();
+	loadDaemonSleep();
 }
 
 void Client::disconnect()
 {
+	clearDevices();
 	m_dbThread.quit();
 	m_dbThread.wait();
 }

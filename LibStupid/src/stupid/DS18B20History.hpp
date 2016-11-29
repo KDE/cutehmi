@@ -25,6 +25,7 @@ class CUTEHMI_STUPID_API DS18B20History:
 		Q_PROPERTY(qint64 to READ to WRITE setTo NOTIFY toChanged)
 		Q_PROPERTY(qint64 minimum READ minimum NOTIFY minimumChanged)
 		Q_PROPERTY(qint64 maximum READ maximum NOTIFY maximumChanged)
+		Q_PROPERTY(bool updating READ updating NOTIFY updatingChanged)
 
 		DS18B20History(std::unique_ptr<DS18B20HistoryWorker> worker = nullptr, QObject * parent = 0);
 
@@ -56,10 +57,14 @@ class CUTEHMI_STUPID_API DS18B20History:
 		 */
 		qint64 maximum() const;
 
-	public slots:
-		void requestUpdate();
+		bool updating() const;
 
-		void update();
+	public slots:
+		/**
+		 * Request update.
+		 * @return @p true when request was accepted. If previous request has not finished yet, @p false is returned and request is rejected.
+		 */
+		bool requestUpdate();
 
 	signals:
 		void fromChanged();
@@ -72,13 +77,21 @@ class CUTEHMI_STUPID_API DS18B20History:
 
 		void maximumChanged();
 
+		void updatingChanged();
+
+	protected slots:
+		void update();
+
 	private:
+		void setUpdating(bool updating);
+
 		std::unique_ptr<DS18B20HistoryWorker> m_worker;
 		charts::PointSeries * m_series;
 		qint64 m_minimum;
 		qint64 m_maximum;
 		qint64 m_from;
 		qint64 m_to;
+		bool m_updating;
 };
 
 }

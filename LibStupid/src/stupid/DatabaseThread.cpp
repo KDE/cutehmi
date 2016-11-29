@@ -2,6 +2,7 @@
 
 #include <QSqlDatabase>
 #include <QCoreApplication>
+#include <QAbstractEventDispatcher>
 
 namespace cutehmi {
 namespace stupid {

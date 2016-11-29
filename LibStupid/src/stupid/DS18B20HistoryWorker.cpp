@@ -33,10 +33,7 @@ const DS18B20HistoryWorker::Results & DS18B20HistoryWorker::results() const
 
 void DS18B20HistoryWorker::job()
 {
-	qWarning("TODO create indexes on timestamp in STUPiD");	//temp
-
 	QSqlQuery query(QSqlDatabase::database(m_connectionName, false));
-//	query.exec("SELECT min(timestamp), max(timestamp) FROM ds18b20_history WHERE w1_device_id = (SELECT id FROM w1_device WHERE w1_id = '28-000007ee1488' LIMIT 1)");
 	query.prepare("SELECT min(timestamp), max(timestamp) FROM ds18b20_history WHERE w1_device_id = (SELECT id FROM w1_device WHERE w1_id = :w1Id LIMIT 1)");
 	query.bindValue(":w1Id", m_w1Id);
 	query.exec();
@@ -46,14 +43,12 @@ void DS18B20HistoryWorker::job()
 	}
 
 	m_results.data.clear();
-//	query.exec("SELECT timestamp, temperature FROM ds18b20_history WHERE w1_device_id = (SELECT id FROM w1_device WHERE w1_id = '28-000007ee1488' LIMIT 1)");
 	query.prepare("SELECT timestamp, temperature FROM ds18b20_history WHERE "
 				  "w1_device_id = (SELECT id FROM w1_device WHERE w1_id = :w1Id LIMIT 1)"
 				  "AND timestamp >= :from AND timestamp <= :to");
 	query.bindValue(":w1Id", m_w1Id);
 	query.bindValue(":from", QDateTime::fromMSecsSinceEpoch(m_results.from));
 	query.bindValue(":to", QDateTime::fromMSecsSinceEpoch(m_results.to));
-//	qDebug() << m_results.from << " to " << m_results.to;
 	query.exec();
 	while (query.next())
 		m_results.data.append(QPointF(query.value(0).toDateTime().toMSecsSinceEpoch(), static_cast<int32_t>(query.value(1).toLongLong())));

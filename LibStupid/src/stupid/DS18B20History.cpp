@@ -12,7 +12,8 @@ DS18B20History::DS18B20History(std::unique_ptr<DS18B20HistoryWorker> worker, QOb
 	m_minimum(0),
 	m_maximum(0),
 	m_from(0),
-	m_to(0)
+	m_to(0),
+	m_updating(false)
 {
 	if (m_worker != nullptr) {
 		m_worker->work();
@@ -27,11 +28,6 @@ DS18B20History::~DS18B20History()
 {
 	m_worker->wait();
 }
-
-//const QQmlListProperty<QPoint> & DS18B20History::series() const
-//{
-//	return m_dataSeries.series();
-//}
 
 charts::PointSeries * DS18B20History::series() const
 {
@@ -74,23 +70,32 @@ qint64 DS18B20History::maximum() const
 	return m_maximum;
 }
 
-void DS18B20History::requestUpdate()
+bool DS18B20History::updating() const
+{
+	return m_updating;
+}
+
+bool DS18B20History::requestUpdate()
 {
 	if (m_worker != nullptr) {
-		if (m_worker->isWorking())
+		if (m_worker->isWorking()) {
 			qDebug("Update request rejected - worker has not finished its previous job yet.");
-		else {
+			return false;
+		} else {
+			setUpdating(true);
 			m_worker->setFrom(from());
 			m_worker->setTo(to());
 			m_worker->work();
+			return true;
 		}
-	} else
+	} else {
 		qDebug("Worker has not been set.");
+		return false;
+	}
 }
 
 void DS18B20History::update()
 {
-	qDebug("updating");
 	const DS18B20HistoryWorker::Results & results = m_worker->results();
 	if (m_minimum != results.minimum) {
 		m_minimum = results.minimum;
@@ -100,9 +105,16 @@ void DS18B20History::update()
 		m_maximum = results.maximum;
 		emit maximumChanged();
 	}
-//	m_model->setData(results.data);
-	qDebug("data size %d", results.data.count());
 	m_series->setData(results.data);
+	setUpdating(false);
+}
+
+void DS18B20History::setUpdating(bool updating)
+{
+	if (m_updating != updating) {
+		m_updating = updating;
+		emit updatingChanged();
+	}
 }
 
 }
