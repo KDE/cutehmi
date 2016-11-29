@@ -20,19 +20,18 @@ HEADERS += \
     src/charts/ValueAxis.hpp \
     src/charts/DateTimeAxis.hpp \
     src/charts/PlotArea.hpp \
-    src/charts/LabeledAxisTrait.hpp \
-    src/charts/LabeledAxis.hpp \
-    src/charts/CartesianAxis.hpp
+    src/charts/CartesianAxis.hpp \
+    src/charts/TickedAxis.hpp
 
 SOURCES += \
     src/CuteHMIChartsQMLPlugin.cpp \
     src/charts/ScatterPlot.cpp \
-    src/charts/LinearAxis.cpp \
     src/charts/ValueAxis.cpp \
     src/charts/DateTimeAxis.cpp \
     src/charts/PlotArea.cpp \
-    src/charts/LabeledAxis.cpp \
-    src/charts/CartesianAxis.cpp
+    src/charts/CartesianAxis.cpp \
+    src/charts/LinearAxis.cpp \
+    src/charts/TickedAxis.cpp
 
 DISTFILES += \ 
     qmldir \

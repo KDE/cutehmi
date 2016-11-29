@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_QML_CUTEHMI_CHARTS_SRC_CHARTS_LINEARAXIS_HPP
 #define CUTEHMI_QML_CUTEHMI_CHARTS_SRC_CHARTS_LINEARAXIS_HPP
 
-#include "LabeledAxis.hpp"
+#include "TickedAxis.hpp"
 
 #include <QColor>
 
@@ -19,7 +19,7 @@ namespace charts {
  * @todo use QSG*.
  */
 class LinearAxis:
-		public LabeledAxis
+		public TickedAxis
 {
 	Q_OBJECT
 

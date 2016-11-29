@@ -12,7 +12,7 @@ constexpr qreal LinearAxis::INITIAL_AXIS_SCALE;
 constexpr char LinearAxis::TICK_LABEL_FORMAT;
 
 LinearAxis::LinearAxis(QQuickItem * parent):
-	LabeledAxis(parent),
+	TickedAxis(parent),
 	m_tickInterval(INITIAL_TICK_INTERVAL),
 	m_minorTickInterval(INITIAL_MINOR_TICK_INTERVAL),
 	m_tickLabelPrecision(INITIAL_TICK_LABEL_PRECISION),

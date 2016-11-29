@@ -15,7 +15,7 @@ void CuteHMIChartsQMLPlugin::registerTypes(const char * uri)
 	qmlRegisterType<cutehmi::charts::ScatterPlot>(uri, 1, 0, "ScatterPlot");
 	qmlRegisterType<cutehmi::charts::ValueAxis>();
 	qmlRegisterType<cutehmi::charts::CartesianAxis>();
-	qmlRegisterType<cutehmi::charts::LabeledAxis>();
+	qmlRegisterType<cutehmi::charts::TickedAxis>();
 	qmlRegisterType<cutehmi::charts::LinearAxis>(uri, 1, 0, "LinearAxis");
 	qmlRegisterType<cutehmi::charts::DateTimeAxis>(uri, 1, 0, "DateTimeAxis");
 	qmlRegisterType<cutehmi::charts::PlotArea>(uri, 1, 0, "PlotArea");

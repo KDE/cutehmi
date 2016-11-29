@@ -10,7 +10,7 @@ constexpr DateTimeAxis::interval_t DateTimeAxis::INITIAL_TICK_INTERVAL;
 constexpr DateTimeAxis::interval_t DateTimeAxis::INITIAL_MINOR_TICK_INTERVAL;
 
 DateTimeAxis::DateTimeAxis(QQuickItem * parent):
-	LabeledAxis(parent),
+	TickedAxis(parent),
 	m_tickInterval(INITIAL_TICK_INTERVAL),
 	m_minorTickInterval(INITIAL_MINOR_TICK_INTERVAL)
 {

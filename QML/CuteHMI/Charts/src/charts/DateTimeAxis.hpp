@@ -1,13 +1,13 @@
 #ifndef CUTEHMI_QML_CUTEHMI_CHARTS_SRC_CHARTS_DATETIMEAXIS_HPP
 #define CUTEHMI_QML_CUTEHMI_CHARTS_SRC_CHARTS_DATETIMEAXIS_HPP
 
-#include "LabeledAxis.hpp"
+#include "TickedAxis.hpp"
 
 namespace cutehmi {
 namespace charts {
 
 class DateTimeAxis:
-		public LabeledAxis
+		public TickedAxis
 {
 	Q_OBJECT
 
