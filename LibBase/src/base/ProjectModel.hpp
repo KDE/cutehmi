@@ -34,7 +34,7 @@ class Services;
  * </principle>
  *
  * <principle id="cutehmi.base.ProjectModel-determinedDestructionOrder">
- * Destruction order of exposed data members is determined. The order is as following:
+ * Destruction order of exposed data members is determined. The order is as follows:
  *		- child nodes (children()). Each child follows the order.
  *		- visitor delegate (visitorDelegate()).
  *		- node data (data()).
@@ -153,7 +153,7 @@ class CUTEHMI_BASE_API ProjectModel:
 
 				/**
 				 * Move constructor. Object being constructed will take over ownership of internal @a object
-				 * provided in constructor or set using resetObject() function.
+				 * provided in the constructor or set by setObject() function.
 				 * @param other other data.
 				 */
 				Data(Data && other) noexcept;
@@ -165,7 +165,7 @@ class CUTEHMI_BASE_API ProjectModel:
 
 				/**
 				 * Move assignment. Object being assigned will take over ownership of internal @a object
-				 * provided in constructor or set using resetObject() function.
+				 * provided in the constructor or set by setObject() function.
 				 * @param other moved object.
 				 * @return self-reference to object being move-assigned.
 				 */
