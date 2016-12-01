@@ -20,11 +20,8 @@ Templates.Control
 	property int integralWidth: 3
 	property string unit: "°C"
 
-	property var textFormatter: QtObject {
-		function valueToText(value)
-		{
+	property var textFormatter: function(value) {
 			return value.toFixed(root.fractionalWidth)
-		}
 	}
 
 	background: Rectangle {
@@ -45,7 +42,7 @@ Templates.Control
 			id: valueDisplay
 
 			font: root.font
-			text: textFormatter.valueToText(root.value)
+			text: textFormatter(root.value)
 			horizontalAlignment: Text.AlignRight
 			width: Math.max(contentWidth, contentWidth / text.length * (root.fractionalWidth + root.integralWidth + 1))
 		}
