@@ -52,7 +52,7 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 						} else
 							xmlReader.skipCurrentElement();
 					}
-					std::unique_ptr<stupid::Service> service(new stupid::Service(client.get()));
+					std::unique_ptr<stupid::Service> service(new stupid::Service(QStringLiteral("CuteHMI STUPiD (") + id + ")", client.get()));
 					service->setSleep(serviceSleep);
 					std::unique_ptr<stupid::NodeDataObject> dataObject(new stupid::NodeDataObject(std::move(client), std::move(service)));
 					base::ProjectModel::Node * clientNode = stupidNode->addChild(base::ProjectModel::Node::Data(id, std::move(dataObject)));

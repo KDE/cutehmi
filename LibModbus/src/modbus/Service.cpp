@@ -4,7 +4,8 @@
 namespace cutehmi {
 namespace modbus {
 
-Service::Service(Client * client):
+Service::Service(const QString & name, Client * client, QObject * parent):
+	base::Service(name, parent),
 	m_thread(new CommunicationThread(client)),
 	m_client(client)
 {
@@ -26,18 +27,15 @@ void Service::setSleep(unsigned long sleep)
 	m_thread->setSleep(sleep);
 }
 
-void Service::init()
-{
-}
-
-void Service::start()
+Service::state_t Service::customStart()
 {
 	m_client->connect();
 	qDebug("Starting client thread...");
 	m_thread->start();
+	return STARTED;
 }
 
-void Service::stop()
+Service::state_t Service::customStop()
 {
 	qDebug("Stopping client thread...");
 	m_thread->stop();
@@ -45,6 +43,7 @@ void Service::stop()
 	m_thread->wait();
 	qDebug("Client thread finished.");
 	m_client->disconnect();
+	return STOPPED;
 }
 
 }

@@ -4,7 +4,7 @@
 #include "../platform.hpp"
 #include "PluginLoader.hpp"
 #include "ProjectModel.hpp"
-#include "Services.hpp"
+#include "ServiceRegistry.hpp"
 
 #include <QQmlEngine>
 
@@ -36,13 +36,12 @@ class CUTEHMI_BASE_API Project
 		Project();
 
 	private:
-		//<assumption id="cutehmi.base.Project-projectModel_engine-destructionOrder">
+		//<principle id="cutehmi.base.Project#projectModel_engine_destructionOrder">
 		// It's quite important to destroy "engine" before "projectModel", because ProjectModel contains context properties,
 		// which may still be in use by some QML components (for example in "Component.onDestroyed" handlers).
 		ProjectModel m_projectModel;
 		QQmlEngine m_engine;
-		//</assumption>
-		Services m_services;
+		//</principle>
 		PluginLoader m_pluginLoader;
 };
 

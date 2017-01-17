@@ -2,7 +2,8 @@
 #define CUTEHMI_LIBBASE_SRC_BASE_PROJECTMODEL_HPP
 
 #include "../platform.hpp"
-#include "../utils/NonCopyable.hpp"
+
+#include <utils/NonCopyable.hpp>
 
 #include <QAbstractItemModel>
 #include <QQmlComponent>
@@ -19,8 +20,8 @@ namespace widgets { class UIVisitorDelegate; }
 
 namespace base {
 
-class IService;
-class Services;
+class Service;
+class ServiceRegistry;
 
 /**
  * Project model.
@@ -70,12 +71,12 @@ class CUTEHMI_BASE_API ProjectModel:
 					class CUTEHMI_BASE_API ServicesProxy
 					{
 						public:
-							ServicesProxy(Services * services);
+							ServicesProxy(ServiceRegistry * services);
 
-							void add(IService * service);
+							void add(cutehmi::base::Service * service);
 
 						private:
-							Services * m_services;
+							ServiceRegistry * m_services;
 					};
 
 					/**

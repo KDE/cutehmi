@@ -17,6 +17,8 @@ DEFINES += CUTEHMI_BASE_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_base_pl.ts
 
+include(../cutehmi_utils.pri)
+
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -29,15 +31,13 @@ SOURCES += \
     src/base/ScreenObject.cpp \
     src/base/ScreenVisitorDelegate.cpp \
     src/base/ExtError.cpp \
-    src/base/Services.cpp \
     src/base/Project.cpp \
-    src/base/ProjectXMLBackend.cpp
+    src/base/ProjectXMLBackend.cpp \
+    src/base/Service.cpp \
+    src/base/ServiceRegistry.cpp
 
 HEADERS += \
     src/platform.hpp \
-    src/utils/NonCopyable.hpp \
-    src/utils/NonMovable.hpp \
-    src/utils/Singleton.hpp \
     src/base/ProjectModel.hpp \
     src/base/Error.hpp \
     src/base/PluginLoader.hpp \
@@ -48,11 +48,10 @@ HEADERS += \
     src/base/ExtErrorInfo.hpp \
     src/base/IProjectModelVisitor.hpp \
     src/base/IPLCPlugin.hpp \
-    src/base/IService.hpp \
-    src/base/Services.hpp \
     src/base/Project.hpp \
-    src/base/PojectXMLBackend.hpp
-    src/debug/DestructorTest.hpp
+    src/base/Service.hpp \
+    src/base/ServiceRegistry.hpp \
+    src/base/ProjectXMLBackend.hpp
 
 DISTFILES +=
 

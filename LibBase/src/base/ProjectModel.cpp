@@ -1,5 +1,5 @@
 #include "ProjectModel.hpp"
-#include "Services.hpp"
+#include "ServiceRegistry.hpp"
 
 #include <QtDebug>
 #include <QQmlContext>
@@ -7,12 +7,12 @@
 namespace cutehmi {
 namespace base {
 
-ProjectModel::Node::VisitorDelegate::ServicesProxy::ServicesProxy(Services * services):
+ProjectModel::Node::VisitorDelegate::ServicesProxy::ServicesProxy(ServiceRegistry * services):
 	m_services(services)
 {
 }
 
-void ProjectModel::Node::VisitorDelegate::ServicesProxy::add(IService * service)
+void ProjectModel::Node::VisitorDelegate::ServicesProxy::add(Service * service)
 {
 	m_services->add(service);
 }

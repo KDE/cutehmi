@@ -49,10 +49,6 @@ void Client::moveDatabaseConnectionData(std::unique_ptr<stupid::DatabaseConnecti
 	m_dbThread.moveDatabaseConnectionData(std::move(dbData));
 }
 
-void Client::init()
-{
-}
-
 void Client::connect()
 {
 	m_dbThread.start();
@@ -93,6 +89,9 @@ void Client::readAll(const QAtomicInt & run)
 	dbWorker.employ(m_dbThread);
 	dbWorker.wait();
 }
+
+constexpr int Client::EXPIRE_DAEMON_CYCLES;
+constexpr int Client::EXPIRE_MIN_INTERVAL;
 
 void Client::enumerateDevices()
 {

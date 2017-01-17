@@ -5,7 +5,8 @@
 namespace cutehmi {
 namespace stupid {
 
-Service::Service(Client * client):
+Service::Service(const QString & name, Client * client, QObject * parent):
+	base::Service(name, parent),
 	m_thread(new CommunicationThread(client)),
 	m_client(client)
 {
@@ -27,19 +28,15 @@ void Service::setSleep(unsigned long sleep)
 	m_thread->setSleep(sleep);
 }
 
-void Service::init()
-{
-	m_client->init();
-}
-
-void Service::start()
+Service::state_t Service::customStart()
 {
 	m_client->connect();
 	qDebug("Starting STUPiD client thread...");
 	m_thread->start();
+	return STARTED;
 }
 
-void Service::stop()
+Service::state_t Service::customStop()
 {
 	qDebug("Stopping STUPiD client thread...");
 	m_thread->stop();
@@ -47,6 +44,7 @@ void Service::stop()
 	m_thread->wait();
 	qDebug("STUPiD client thread finished.");
 	m_client->disconnect();
+	return STOPPED;
 }
 
 }

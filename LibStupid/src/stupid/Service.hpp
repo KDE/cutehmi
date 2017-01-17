@@ -5,7 +5,7 @@
 #include "../platform.hpp"
 #include "CommunicationThread.hpp"
 
-#include <base/IService.hpp>
+#include <base/Service.hpp>
 
 #include <memory>
 
@@ -15,10 +15,10 @@ namespace stupid {
 class Client;
 
 class CUTEHMI_STUPID_API Service:
-	public base::IService
+	public base::Service
 {
 	public:
-		Service(Client * client);
+		Service(const QString & name, Client * client, QObject * parent = 0);
 
 		virtual ~Service();
 
@@ -26,11 +26,10 @@ class CUTEHMI_STUPID_API Service:
 
 		void setSleep(unsigned long sleep);
 
-		void init() override;
+	protected:
+		state_t customStart() override;
 
-		void start() override;
-
-		void stop() override;
+		state_t customStop() override;
 
 	private:
 		std::unique_ptr<CommunicationThread> m_thread;

@@ -1,39 +1,133 @@
-#include "Services.hpp"
-#include "IService.hpp"
+#include "ServiceRegistry.hpp"
+
+#include <QThread>
 
 namespace cutehmi {
 namespace base {
 
-void Services::add(IService * service)
+ServiceRegistry & ServiceRegistry::Instance()
 {
-	m_services.append(service);
+	static ServiceRegistry instance;
+	return instance;
 }
 
-void Services::clear()
+const QQmlListProperty<Service> & ServiceRegistry::serviceList() const
 {
-	m_services.clear();
+	return m->serviceList;
 }
 
-void Services::init()
+int ServiceRegistry::started() const
 {
-	for (IService * service : m_services)
-		service->init();
+	return m->started;
 }
 
-void Services::start()
+int ServiceRegistry::stopped() const
 {
-	for (IService * service : m_services)
+	return m->stopped;
+}
+
+void ServiceRegistry::add(Service * service)
+{
+	m->services.append(service);
+	if (service->state() == Service::STARTED)
+		incStarted();
+	else if (service->state() == Service::STOPPED)
+		incStopped();
+	emit serviceListChanged();
+}
+
+void ServiceRegistry::clear()
+{
+//	for (Service * service : m->services)
+//		service->disconnect()
+	m->services.clear();
+	m->stopped = 0;
+	m->started = 0;
+	emit stoppedChanged();
+	emit startedChanged();
+	emit serviceListChanged();
+}
+
+void ServiceRegistry::start()
+{
+	for (Service * service : m->services)
 		service->start();
 }
 
-void Services::stop()
+void ServiceRegistry::stop()
 {
-	for (IService * service : m_services)
+	for (Service * service : m->services)
 		service->stop();
 }
 
+ServiceRegistry::ServiceRegistry(QObject * parent):
+	QObject(parent),
+	m(new Members(this))
+{
+}
+
+ServiceRegistry::~ServiceRegistry()
+{
+	if (stopped() > 0)
+		qWarning("Destroying ServiceRegistry instance while not all registered services have been stopped.");
+	clear();
+}
+
+void ServiceRegistry::stateChangeHandler(Service::state_t oldState, Service::state_t newState)
+{
+	if (oldState == Service::STARTED)
+		decStarted();
+	if (newState == Service::STARTED)
+		incStarted();
+	if (oldState == Service::STOPPED)
+		decStopped();
+	if (newState == Service::STOPPED)
+		incStopped();
+}
+
+ServiceRegistry::Members::Members(QObject * obj):
+	serviceList(obj, & services, ServiceRegistry::Count, ServiceRegistry::At),
+	started(0),
+	stopped(0)
+{
+}
+
+void ServiceRegistry::incStarted()
+{
+	m->started++;
+	emit startedChanged();
+}
+
+void ServiceRegistry::decStarted()
+{
+	m->started--;
+	emit startedChanged();
+}
+
+void ServiceRegistry::incStopped()
+{
+	m->stopped++;
+	emit stoppedChanged();
+}
+
+void ServiceRegistry::decStopped()
+{
+	m->stopped--;
+	emit stoppedChanged();
+}
+
+int ServiceRegistry::Count(QQmlListProperty<Service> * property)
+{
+	return static_cast<ServicesContainer *>(property->data)->count();
+}
+
+Service * ServiceRegistry::At(QQmlListProperty<Service> * property, int index)
+{
+	return static_cast<ServicesContainer *>(property->data)->at(index);
+}
+
 }
 }
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

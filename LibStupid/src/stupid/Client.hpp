@@ -69,8 +69,6 @@ class CUTEHMI_STUPID_API Client:
 		void moveDatabaseConnectionData(std::unique_ptr<stupid::DatabaseConnectionData> dbData);
 
 	public slots:
-		void init();
-
 		/**
 		 * Connect client to the STUPiD database.
 		 */
