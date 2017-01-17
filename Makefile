@@ -24,7 +24,6 @@ DOXYGEN = doxygen
 # [qmltypes] Qt's qmlplugindump program.
 QMLPLUGINDUMP = qmlplugindump
 
-
 # [help] Help message to be printed.
 
 HELP_MESSAGE =

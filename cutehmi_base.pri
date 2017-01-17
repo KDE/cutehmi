@@ -1,6 +1,8 @@
 # This file sets qmake variables for linkage against cutehmi_base library.
 # Note: common.pri must be included before this file.
 
+include(cutehmi_utils.pri)
+
 DEFINES += CUTEHMI_BASE_DYNAMIC
 INCLUDEPATH += $$PWD/LibBase/src
 DEPENDPATH += $$PWD/LibBase/src

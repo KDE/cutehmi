@@ -1,16 +1,17 @@
-#ifndef CUTEHMI_LIBBASE_SRC_DEBUG_DESTRUCTORTEST_HPP
-#define CUTEHMI_LIBBASE_SRC_DEBUG_DESTRUCTORTEST_HPP
+#ifndef CUTEHMI_LIBBASE_SRC_UTILS_DESTRUCTORTEST_HPP
+#define CUTEHMI_LIBBASE_SRC_UTILS_DESTRUCTORTEST_HPP
 
 #include <iostream>
 
 #include <typeinfo>
 
-namespace debug {
+namespace cutehmi {
+namespace utils {
 
 /**
  * Destructor test. Maintaining object lifetime in Qt can be tricky. Object trees not always make life
  * easier and documentation of functions, which may reparent objects, can be enigmatic. This class
- * is provide for easier testing of object destruction order. It simply prints debug message
+ * is provided for simple testing of object destruction order. It simply prints debug message
  * to the standard error.
  */
 template <class DERIVED>
@@ -31,6 +32,7 @@ DestructorTest<DERIVED>::~DestructorTest()
 	std::cerr << typeid(DERIVED).name() << "@" << this << " destructor has been called\n";
 }
 
+}
 }
 
 #endif

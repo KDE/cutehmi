@@ -25,6 +25,7 @@ SOURCE_DIRS = AppFull/src \
 
 INCLUDE_DIRS = AppFull/src \
 			   AppLite/src \
+			   LibUtils/src \
 			   LibBase/src \
 			   LibWidgets/src \
 			   LibModbus/src \
