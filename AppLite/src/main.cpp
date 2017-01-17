@@ -1,10 +1,10 @@
 #include "version.hpp"
 
 #include <base/ProjectModel.hpp>
-#include <base/Services.hpp>
+#include <base/ServiceRegistry.hpp>
 #include <base/ErrorInfo.hpp>
 #include <base/PluginLoader.hpp>
-#include <base/PojectXMLBackend.hpp>
+#include <base/ProjectXMLBackend.hpp>
 #include <base/ScreenObject.hpp>
 
 #include <QGuiApplication>
@@ -80,7 +80,7 @@ void visitProjectContext(base::ProjectModel & model, QQmlContext & context)
 		it->visitorDelegate()->visit(proxy);
 }
 
-void visitServices(base::ProjectModel & model, base::Services & runners)
+void visitServices(base::ProjectModel & model, base::ServiceRegistry & runners)
 {
 	base::ProjectModel::Node::VisitorDelegate::ServicesProxy proxy(& runners);
 	for (auto it = model.begin(); it != model.end(); ++it)
@@ -163,14 +163,13 @@ int main(int argc, char * argv[])
 	engine.addImportPath("../QML");
 	qDebug() << "QML import paths: " << engine.importPathList();
 
-	cutehmi::base::Services services;
+	cutehmi::base::ServiceRegistry & services = cutehmi::base::ServiceRegistry::Instance();
 	cutehmi::base::ErrorInfo errorInfo = cutehmi::loadFile(cmd.value(projectOption), pluginLoader, projectModel);
 	if (errorInfo.code == cutehmi::base::Error::OK) {
 		cutehmi::visitServices(projectModel, services);
 		cutehmi::visitProjectContext(projectModel, *engine.rootContext());
 	} else
 		qWarning() << "Following error occured while loading project file: " << errorInfo.str;
-	services.init();
 
 	QString defaultScreenPath = cutehmi::findDefaultScreen(projectModel);
 	if (!defaultScreenPath.isEmpty()) {
