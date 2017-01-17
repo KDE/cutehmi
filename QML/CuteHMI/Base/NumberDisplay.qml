@@ -20,9 +20,7 @@ Templates.Control
 	property int integralWidth: 3
 	property string unit: "°C"
 
-	property var textFormatter: function(value) {
-			return value.toFixed(root.fractionalWidth)
-	}
+	property var textFormatter: function(value) { return value.toFixed(root.fractionalWidth) }
 
 	background: Rectangle {
 		color: Palette.background.normal

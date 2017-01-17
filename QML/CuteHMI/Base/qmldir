@@ -8,4 +8,6 @@ NumberDisplay 1.0 NumberDisplay.qml
 ValueColor 1.0 ValueColor.qml
 ValueRangeColor 1.0 ValueRangeColor.qml
 singleton Palette 1.0 Palette.qml
+plugin cutehmi_qmlplugin_base plugins
+classname CuteHMIBaseQMLPlugin
 designersupported

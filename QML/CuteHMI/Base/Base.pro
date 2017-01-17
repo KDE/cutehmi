@@ -1,15 +1,17 @@
 include(../../../common.pri)
 
-TEMPLATE = aux	# Setting this to aux to avoid creation of empty binary. Change to lib if some CPP code becomes available.
+TEMPLATE = lib
 TARGET = $$qtLibraryTarget(cutehmi_qmlplugin_base)
 DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
-CONFIG += plugin
-
 QT += qml quick
+
+CONFIG += plugin
 
 # Translations.
 TRANSLATIONS = locale/cutehmi_qmlplugin_base_pl.ts
+
+include(../../../cutehmi_base.pri)
 
 DISTFILES += \
     qmldir \
@@ -25,4 +27,10 @@ DISTFILES += \
     ValueRangeColor.js
 
 RESOURCES +=
+
+HEADERS += \
+    src/CuteHMIBaseQMLPlugin.hpp
+
+SOURCES += \
+    src/CuteHMIBaseQMLPlugin.cpp
 
