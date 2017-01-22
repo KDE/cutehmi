@@ -7,9 +7,9 @@
 #include <widgets/QuickViewWrapper.hpp>
 
 #include <base/ProjectModel.hpp>
-#include <base/PojectXMLBackend.hpp>
+#include <base/ProjectXMLBackend.hpp>
 #include <base/PluginLoader.hpp>
-#include <base/Services.hpp>
+#include <base/ServiceRegistry.hpp>
 
 #include <QMainWindow>
 #include <QFileInfo>
@@ -105,7 +105,7 @@ class MainWindow:
 		RecentFiles * m_recentFiles;
 		QMenu * m_recentFilesMenu;
 		base::ProjectModel * m_projectModel;
-		base::Services m_services;
+		base::ServiceRegistry m_services;
 };
 
 }

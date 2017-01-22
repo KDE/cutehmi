@@ -37,8 +37,8 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags flags):
 	ui.actionSaveAs->setEnabled(false);	// Temp until saving model is done.
 
 	// Set up control buttons.
-	connect(ui.actionStart, & QAction::triggered, & m_services, & base::Services::start);
-	connect(ui.actionStop, & QAction::triggered, & m_services, & base::Services::stop);
+	connect(ui.actionStart, & QAction::triggered, & m_services, & base::ServiceRegistry::start);
+	connect(ui.actionStop, & QAction::triggered, & m_services, & base::ServiceRegistry::stop);
 
 	// Set up plugins.
 	QDir dir(qApp->applicationDirPath());

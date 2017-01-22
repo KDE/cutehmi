@@ -34,7 +34,8 @@ SOURCES += \
     src/base/Project.cpp \
     src/base/ProjectXMLBackend.cpp \
     src/base/Service.cpp \
-    src/base/ServiceRegistry.cpp
+    src/base/ServiceRegistry.cpp \
+    src/base/XMLStreamReader.cpp
 
 HEADERS += \
     src/platform.hpp \
@@ -51,7 +52,8 @@ HEADERS += \
     src/base/Project.hpp \
     src/base/Service.hpp \
     src/base/ServiceRegistry.hpp \
-    src/base/ProjectXMLBackend.hpp
+    src/base/ProjectXMLBackend.hpp \
+    src/base/XMLStreamReader.hpp
 
 DISTFILES +=
 
