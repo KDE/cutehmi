@@ -39,10 +39,15 @@ class CUTEHMI_BASE_API Project
 		//<principle id="cutehmi.base.Project#projectModel_engine_destructionOrder">
 		// It's quite important to destroy "engine" before "projectModel", because ProjectModel contains context properties,
 		// which may still be in use by some QML components (for example in "Component.onDestroyed" handlers).
-		ProjectModel m_projectModel;
-		QQmlEngine m_engine;
-		//</principle>
-		PluginLoader m_pluginLoader;
+		class Members
+		{
+			ProjectModel projectModel;
+			QQmlEngine engine;
+			//</principle>
+			PluginLoader pluginLoader;
+		};
+
+		std::unique_ptr<Members> m;
 };
 
 }

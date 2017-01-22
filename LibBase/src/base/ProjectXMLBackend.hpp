@@ -6,10 +6,10 @@
 #include "PluginLoader.hpp"
 #include "ProjectModel.hpp"
 
-#include <QXmlStreamReader>
-
 namespace cutehmi {
 namespace base {
+
+class XMLStreamReader;
 
 class CUTEHMI_BASE_API ProjectXMLBackend
 {
@@ -54,6 +54,22 @@ class CUTEHMI_BASE_API ProjectXMLBackend
 
 			private:
 				QXmlStreamReader * m_xml;
+				ProjectModel::Node * m_root;
+				PluginLoader * m_pluginLoader;
+		};
+
+		struct Loader1
+		{
+			Loader1(XMLStreamReader * xmlReader, ProjectModel::Node * root, PluginLoader * pluginLoader);
+
+			Error parse(int versionMinor);
+
+			Error plugins();
+
+			Error screens();
+
+			private:
+				XMLStreamReader * m_xml;
 				ProjectModel::Node * m_root;
 				PluginLoader * m_pluginLoader;
 		};

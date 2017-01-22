@@ -36,7 +36,7 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 									return base::Error::FAIL;
 							} else
 								return base::Error::FAIL;
-						} else if (xmlReader.name() == "runner") {
+						} else if (xmlReader.name() == "service") {
 							while (xmlReader.readNextStartElement()) {
 								if (xmlReader.name() == "sleep") {
 									if (xmlReader.readNext() != QXmlStreamReader::Characters)
@@ -48,8 +48,10 @@ base::Error Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectModel::No
 								}
 								xmlReader.skipCurrentElement();	// None of the child elements uses readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
 							}
-						} else
+						} else {
+							qWarning() << "Unrecognized token: " << xmlReader.tokenString();
 							xmlReader.skipCurrentElement();
+						}
 					}
 					std::unique_ptr<modbus::Client> client(new modbus::Client(std::move(connection)));
 					std::unique_ptr<modbus::Service> service(new modbus::Service(QStringLiteral("CuteHMI Modbus (") + id + ")", client.get()));

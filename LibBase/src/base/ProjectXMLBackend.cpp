@@ -3,6 +3,7 @@
 #include "ScreenObject.hpp"
 #include "ScreenVisitorDelegate.hpp"
 #include "IPLCPlugin.hpp"
+#include "XMLStreamReader.hpp"
 
 #include <QtDebug>
 #include <QLibraryInfo>
@@ -56,6 +57,9 @@ ProjectXMLBackend::Error ProjectXMLBackend::load(QIODevice & device)
 		if (versionMajor == 0) {
 			Loader0 loader(& m_xmlReader, & m_model->root(), m_pluginLoader);
 			return loader.parse(versionMinor);
+		} else if (versionMajor == 1) {
+				Loader1 loader(& m_xmlReader, & m_model->root(), m_pluginLoader);
+				return loader.parse(versionMinor);
 		} else
 			return Error::UNSUPPORTED_VERSION;
 	}
@@ -137,6 +141,101 @@ ProjectXMLBackend::Error ProjectXMLBackend::Loader0::plcClients()
 }
 
 ProjectXMLBackend::Error ProjectXMLBackend::Loader0::screens()
+{
+	qDebug() << "Entered <screens> section";
+
+	ProjectModel::Node * screensNode = m_root->addChild(ProjectModel::Node::Data("Screens"), false);
+	while (m_xml->readNextStartElement()) {
+		if (m_xml->namespaceUri() != "http://cutehmi") {
+			m_xml->skipCurrentElement();
+			continue;
+		}
+		if (m_xml->name() == "screen") {
+			QString source = m_xml->attributes().value("source").toString();
+			bool main = false;
+			if (m_xml->attributes().hasAttribute("default"))
+				if ((m_xml->attributes().value("default") == "true") || (m_xml->attributes().value("default") == "1"))
+					main = true;
+			ProjectModel::Node * screenNode = screensNode->addChild(ProjectModel::Node::Data(source, std::unique_ptr<QObject>(new ScreenObject(source, main))));
+			screenNode->setVisitorDelegate(std::unique_ptr<ProjectModel::Node::VisitorDelegate>(new ScreenVisitorDelegate(screenNode)));
+		}
+		m_xml->skipCurrentElement(); // None of the child elements use readNextStartElement(). Either readNextStartElement() or skipCurrentElement() must be called for each tag.
+	}
+	if (m_xml->hasError())
+		return Error::INVALID_FORMAT;
+	return Error::OK;
+}
+
+ProjectXMLBackend::Loader1::Loader1(XMLStreamReader * xmlReader, ProjectModel::Node * root, PluginLoader * pluginLoader):
+	m_xml(xmlReader),
+	m_root(root),
+	m_pluginLoader(pluginLoader)
+{
+}
+
+ProjectXMLBackend::Error ProjectXMLBackend::Loader1::parse(int versionMinor)
+{
+	qDebug() << "Loader starts parsing document...";
+	if (versionMinor > 1)
+		return Error::UNSUPPORTED_VERSION;
+
+	m_root->data().setName(m_xml->attributes().value("name").toString());
+
+	Error result = Error::OK;
+	while (m_xml->readNextStartElement()) {
+		if (m_xml->namespaceUri() != "http://cutehmi") {
+			m_xml->skipCurrentElement();
+			continue;
+		}
+		if (m_xml->name() == "plc_clients")
+			result = plugins();
+		else if (m_xml->name() == "screens")
+			result = screens();
+		else
+			m_xml->skipCurrentElement();
+		if (!result)
+			return result;
+	}
+	if (m_xml->hasError())
+		return Error::INVALID_FORMAT;
+	if (!m_xml->readNextStartElement() && m_xml->atEnd()) {
+		qDebug() << "Finished parsing document.";
+		return Error::OK;
+	}
+	return Error::INVALID_FORMAT;
+}
+
+ProjectXMLBackend::Error ProjectXMLBackend::Loader1::plugins()
+{
+	qDebug() << "Entered <plc_clients> section";
+
+	ProjectModel::Node * plcClientsNode = m_root->addChild(ProjectModel::Node::Data("PLC Clients"), false);
+	while (m_xml->readNextStartElement()) {
+		if (m_xml->namespaceUri() != "http://cutehmi") {
+			m_xml->skipCurrentElement();
+			continue;
+		}
+		if (m_xml->name() == "plc_client_plugin") {
+			QString pluginName(m_xml->attributes().value("name").toString());
+#ifdef CUTEHMI_DEBUG
+			pluginName.append('d');
+#endif
+			if (!m_pluginLoader->loadPlugin(pluginName, m_xml->attributes().value("version").toString()))
+				return Error::PLUGIN_NOT_LOADED;
+			IPLCPlugin * plugin = qobject_cast<IPLCPlugin *>(m_pluginLoader->instance(pluginName));
+			if (plugin == 0)
+				return Error::PLUGIN_WRONG_INTERFACE;
+			if (!plugin->readXML(*m_xml, *plcClientsNode))
+				return Error::PLUGIN_PARSE_PROBLEM;
+		} else
+			m_xml->skipCurrentElement();
+	}
+	if (m_xml->hasError())
+		return Error::INVALID_FORMAT;
+	return Error::OK;
+}
+
+ProjectXMLBackend::Error ProjectXMLBackend::Loader1::screens()
 {
 	qDebug() << "Entered <screens> section";
 
