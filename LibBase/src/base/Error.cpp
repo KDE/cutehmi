@@ -1,4 +1,4 @@
-#include "Error.hpp"
+#include "../../include/base/Error.hpp"
 
 namespace cutehmi {
 namespace base {
@@ -8,7 +8,7 @@ Error::Error():
 {
 }
 
-  Error::Error(int code):
+Error::Error(int code):
 	m_code(code)
 {
 }
@@ -43,7 +43,7 @@ QString Error::str() const
 		case Error::UNINITIALIZED:
 			return tr("Uninitialized error code.");
 		default:
-			return tr("Unrecognized error code.");
+			return tr("Unrecognized error code: %1.").arg(code());
 	}
 }
 

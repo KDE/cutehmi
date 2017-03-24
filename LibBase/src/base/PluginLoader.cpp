@@ -1,4 +1,4 @@
-#include "PluginLoader.hpp"
+#include "../../include/base/PluginLoader.hpp"
 
 #include <QDir>
 #include <QtDebug>
@@ -8,24 +8,13 @@
 namespace cutehmi {
 namespace base {
 
-QString PluginLoader::Error::str() const
-{
-	switch (code()) {
-		case FAIL_LOAD:
-			return tr("Failed to load plugin.");
-		case WRONG_VERSION:
-			return tr("Wrong plugin version.");
-		default:
-			return base::Error::str();
-	}
-}
-
 PluginLoader::PluginLoader():
-	m_pluginsDir(QCoreApplication::libraryPaths().first())
+	m(new Members(QCoreApplication::libraryPaths().first()))
 {
 }
 
-PluginLoader::PluginLoader(const QString & pluginsDir)
+PluginLoader::PluginLoader(const QString & pluginsDir):
+	m(new Members)
 {
 	setPluginsDir(pluginsDir);
 }
@@ -37,87 +26,79 @@ PluginLoader::~PluginLoader()
 
 void PluginLoader::setPluginsDir(const QString & pluginsDir)
 {
-	m_pluginsDir = pluginsDir;
+	m->pluginsDir = pluginsDir;
 	QCoreApplication::addLibraryPath(pluginsDir);
 }
 
-const QStringList & PluginLoader::loadedPlugins() const
+Plugin * PluginLoader::loadPlugin(const QString & binary, const QString & reqVersion)
 {
-	return m_loadedPlugins;
-}
+	Plugin::MetaData meta = metaData(binary);
 
-void PluginLoader::loadPlugins()
-{
-	QDir dir(m_pluginsDir);
-	qDebug() << "Looking for plugins in " << dir.canonicalPath() << " directory.";
-
-	for (auto name : dir.entryList(QDir::Files)) {
-		m_loader.setFileName(dir.absoluteFilePath(name));
-		QObject * plugin = m_loader.instance();
-		if (plugin) {
-			qDebug() << "Loaded plugin: " << name << ".";
-			m_loadedPlugins += name;
-		}
-	}
-}
-
-PluginLoader::Error PluginLoader::loadPlugin(const QString & name, const QString & reqVersion)
-{
 	// Make an attempt to obtain version information from meta data.
-	QString version = pluginVersion(name);
-	if (!version.isEmpty())
-		if (!checkVersion(version, reqVersion))
-			return Error::WRONG_VERSION;
+	if (!meta.version.isEmpty()) {
+		if (!checkVersion(meta.version, reqVersion))
+			throw WrongVersionException(binary, reqVersion, meta.version);
+	} else
+		CUTEHMI_BASE_QWARNING("Loading plugin '" << binary <<"', which has no version information available. Required version is '" << reqVersion << "'.");
 
-	m_loader.setFileName(name);
-	if (m_loader.isLoaded()) {
-		qDebug() << "Plugin: " << name << " version: " << version << " already loaded.";
-		return Error::OK;
+	m->loader.setFileName(binary);
+	if (!m->loader.isLoaded()) {
+		QObject * instance = m->loader.instance();
+		if (instance) {
+			Plugin * plugin = new Plugin(binary, instance, meta);
+			CUTEHMI_BASE_QDEBUG("Loaded plugin '" << binary << "' version '" << meta.version << "'.");
+			m->loadedPlugins.append(plugin);
+		} else
+			throw FailedLoadException(binary);
+	} else {
+		CUTEHMI_BASE_QDEBUG("Plugin '" << binary << "' version '" << meta.version << "' already loaded.");
+		if (!plugin(binary))
+			m->loadedPlugins.append(new Plugin(binary, m->loader.instance(), meta));
 	}
-	QObject * plugin = m_loader.instance();
-	if (plugin) {
-		qDebug() << "Loaded plugin: " << name << " version: " << version << ".";
-		m_loadedPlugins += name;
-		return Error::OK;
-	}
-	return Error::FAIL_LOAD;
+	return plugin(binary);
 }
 
 void PluginLoader::unloadPlugins()
 {
-	for (auto name : m_loadedPlugins) {
-		m_loader.setFileName(name);
-		if (m_loader.unload())
-			qDebug() << "Unloaded plugin: " << name << ".";
+	while (!m->loadedPlugins.isEmpty()) {
+		Plugin * plugin = m->loadedPlugins.last();
+		m->loader.setFileName(plugin->binary());
+		if (m->loader.unload())
+			CUTEHMI_BASE_QDEBUG("Unloaded plugin '" << plugin->binary() << "'.");
+		else
+			CUTEHMI_BASE_QDEBUG("Could not unload plugin '" << plugin->binary() << "'.");
+		m->loadedPlugins.removeLast();
+		plugin->deleteLater();
 	}
-	m_loadedPlugins.clear();
 }
 
-QString PluginLoader::pluginVersion(const QString & name)
+Plugin * PluginLoader::plugin(const QString & binary)
 {
-	m_loader.setFileName(name);
-	return m_loader.metaData().value("MetaData").toObject().value("Version").toString();
+	for (auto && plugin : m->loadedPlugins)
+		if (plugin->binary() == binary)
+			return plugin;
+	return nullptr;
 }
 
-bool PluginLoader::uiPlugin(const QString & name, QString & uiName, QString & uiVersion)
+Plugin::MetaData PluginLoader::metaData(const QString & binary) const
 {
-	m_loader.setFileName(name);
-	QJsonValue uiPlugin = m_loader.metaData().value("MetaData").toObject().value("UIPlugin");
-	if (uiPlugin == QJsonValue::Undefined)
-		return false;
-	uiName = uiPlugin.toObject().value("Name").toString();
-	if (QLibraryInfo::isDebugBuild())
-		uiName.append('d');
-	uiVersion = uiPlugin.toObject().value("Version").toString();
-	return true;
-}
+	m->loader.setFileName(binary);
+	Plugin::MetaData metaData;
+	metaData.id = m->loader.metaData().value("MetaData").toObject().value("id").toString();
+	metaData.name = m->loader.metaData().value("MetaData").toObject().value("name").toString();
+	metaData.version = m->loader.metaData().value("MetaData").toObject().value("version").toString();
 
-QObject * PluginLoader::instance(const QString & name)
-{
-	m_loader.setFileName(name);
-	if (!m_loader.isLoaded())
-		return nullptr;
-	return m_loader.instance();
+	QStringList unavailableMetaData;
+	if (metaData.id.isEmpty())
+		unavailableMetaData << "'id'";
+	if (metaData.name.isEmpty())
+		unavailableMetaData << "'name'";
+	if (metaData.version.isEmpty())
+		unavailableMetaData << "'version'";
+	if (!unavailableMetaData.isEmpty())
+		CUTEHMI_BASE_QWARNING("Plugin '" << binary <<"' is missing " << unavailableMetaData.join(", ") << " meta-data information.");
+
+	return metaData;
 }
 
 bool PluginLoader::checkVersion(const QString & pluginVersion, const QString & reqVersion)
@@ -148,6 +129,11 @@ void PluginLoader::parseVersion(const QString & version, int & major, int & mino
 	major = mmm.value(0).toInt();
 	minor = mmm.value(1).toInt();
 	micro = mmm.value(2).toInt();
+}
+
+PluginLoader::Members::Members(const QString & p_pluginsDir):
+	pluginsDir(p_pluginsDir)
+{
 }
 
 }
