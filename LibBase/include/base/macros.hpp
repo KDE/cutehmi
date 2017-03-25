@@ -31,14 +31,8 @@
 	#define CUTEHMI_BASE_QCCRITICAL(CATEGORY, EXPR) (void)0
 #endif
 
-#ifndef CUTEHMI_NO_BASE_FATAL
-	#define CUTEHMI_BASE_FATAL(EXPR) qCritical().nospace().noquote() << "Fatal error: " << EXPR << CUTEHMI_BASE_FLF, throw std::runtime_error("Fatal error.")
-#else
-	#define CUTEHMI_BASE_FATAL(EXPR) (void)0
-#endif
-
 #ifdef CUTEHMI_DEBUG
-	#define CUTEHMI_BASE_ASSERT(EXPR, MSG) ((EXPR) ? (void)0 : (CUTEHMI_BASE_FATAL("Assertion failed ("#EXPR"). " MSG)))
+	#define CUTEHMI_BASE_ASSERT(EXPR, MSG) Q_ASSERT_X(EXPR, __FILE__, MSG)
 #else
 	#define CUTEHMI_BASE_ASSERT(EXPR, MSG) (void)0
 #endif

@@ -12,19 +12,19 @@ ParseAttribute::ParseAttribute(const QString & key, bool required):
 ParseAttribute::ParseAttribute(const QString & key, const char * valuesPattern, bool required):
 	m(new Members{key, QRegExp(valuesPattern), required})
 {
-	CUTEHMI_BASE_ASSERT(m->valuesRegExp.isValid(), "Invalid regular expression pattern.");
+	CUTEHMI_BASE_ASSERT(m->valuesRegExp.isValid(), "invalid regular expression pattern.");
 }
 
 ParseAttribute::ParseAttribute(const QString & key, const QString & valuesPattern, bool required):
 	m(new Members{key, QRegExp(valuesPattern), required})
 {
-	CUTEHMI_BASE_ASSERT(m->valuesRegExp.isValid(), "Invalid regular expression pattern.");
+	CUTEHMI_BASE_ASSERT(m->valuesRegExp.isValid(), "invalid regular expression pattern.");
 }
 
 ParseAttribute::ParseAttribute(const QString & key, const QRegExp & valuesRegExp, bool required):
 	m(new Members{key, valuesRegExp, required})
 {
-	CUTEHMI_BASE_ASSERT(m->valuesRegExp.isValid(), "Invalid regular expression pattern.");
+	CUTEHMI_BASE_ASSERT(m->valuesRegExp.isValid(), "invalid regular expression pattern.");
 }
 
 ParseAttribute::ParseAttribute(const ParseAttribute & other):

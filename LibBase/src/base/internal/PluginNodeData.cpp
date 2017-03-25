@@ -21,7 +21,7 @@ QString PluginNodeData::minVersion() const
 
 IPlugin * PluginNodeData::pluginInstance() const
 {
-	CUTEHMI_BASE_ASSERT(qobject_cast<IPlugin *>(m->plugin->instance()), "Plugin instance does not implement IPlugin interface.");
+	CUTEHMI_BASE_ASSERT(qobject_cast<IPlugin *>(m->plugin->instance()), "plugin instance does not implement IPlugin interface");
 
 	return qobject_cast<IPlugin *>(m->plugin->instance());
 }

@@ -111,7 +111,7 @@ void ProjectXMLBackend::Loader1::parse(QXmlStreamReader & reader, int versionMin
 void ProjectXMLBackend::Loader1::parsePlugin(QXmlStreamReader & reader, ProjectNode & node)
 {
 	Plugin * plugin = qobject_cast<Plugin *>(node.extension(Plugin::staticMetaObject.className()));
-	CUTEHMI_BASE_ASSERT(plugin != nullptr, "Pointer must be not nullptr.");
+	CUTEHMI_BASE_ASSERT(plugin != nullptr, "pointer must be not nullptr");
 
 	xml::ParseHelper helper(& reader, ProjectXMLBackend::NAMESPACE_URI);
 	helper << xml::ParseElement("extension", {xml::ParseAttribute("object", XMLBackendPlugin::staticMetaObject.className())}, 0);
