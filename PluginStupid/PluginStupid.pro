@@ -14,14 +14,21 @@ QT += qml sql
 CONFIG += plugin
 
 include(../cutehmi_base.pri)
+include(../cutehmi_services.pri)
 include(../cutehmi_charts.pri)
 include(../cutehmi_stupid.pri)
 
 SOURCES += \
-    src/pluginStupid/Plugin.cpp
+    src/stupid/plugin/Plugin.cpp \
+    src/stupid/plugin/StupidNodeData.cpp \
+    src/stupid/plugin/PluginNodeData.cpp \
+    src/stupid/plugin/macros.cpp
 
 HEADERS += \
-    src/pluginStupid/Plugin.hpp
+    src/stupid/plugin/Plugin.hpp \
+    src/stupid/plugin/StupidNodeData.hpp \
+    src/stupid/plugin/PluginNodeData.hpp \
+    src/stupid/plugin/macros.hpp
 
 DISTFILES += PluginStupid.json
 

@@ -1,8 +1,5 @@
 {
-	"Keys" : [ ],
-	"Version" : "0.0.0",
-	"UIPlugin" : {
-		"Name" : "cutehmi_plugin_pid_ui",
-		"Version" : "0.0"
-	}
+	"id": "cutehmi.stupid",
+	"version": "0.0.0",
+	"name": "STUPiD Client"
 }
