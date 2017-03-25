@@ -14,11 +14,10 @@ VER_PAT = 0
 TRANSLATIONS = locale/cutehmi_utils_pl.ts
 
 HEADERS += \
-    src/platform.hpp \
-    src/utils/NonCopyable.hpp \
-    src/utils/NonMovable.hpp \
-    src/utils/Singleton.hpp \
-    src/utils/DestructorTest.hpp
+    include/utils/DestructorTest.hpp \
+    include/utils/NonCopyable.hpp \
+    include/utils/NonMovable.hpp \
+    include/utils/Singleton.hpp
 
 DISTFILES +=
 

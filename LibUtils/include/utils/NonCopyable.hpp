@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBBASE_SRC_UTILS_NONCOPYABLE_HPP
-#define CUTEHMI_LIBBASE_SRC_UTILS_NONCOPYABLE_HPP
+#ifndef CUTEHMI_LIBUTILS_INCLUDE_UTILS_NONCOPYABLE_HPP
+#define CUTEHMI_LIBUTILS_INCLUDE_UTILS_NONCOPYABLE_HPP
 
 namespace cutehmi {
 namespace utils {
@@ -12,6 +12,12 @@ class NonCopyable
 {
 	protected:
 		NonCopyable() = default;
+
+		NonCopyable(NonCopyable && other) = default;
+
+		~NonCopyable() = default;
+
+		NonCopyable & operator =(NonCopyable && other) = default;
 
 	private:
 		NonCopyable(const NonCopyable & other) = delete;
