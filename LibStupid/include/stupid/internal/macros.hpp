@@ -1,0 +1,13 @@
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_SERVICES_INTERNAL_MACROS_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_SERVICES_INTERNAL_MACROS_HPP
+
+#include <base/macros.hpp>
+
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_stupid_loggingCategory)
+
+#define CUTEHMI_STUPID_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_stupid_loggingCategory, EXPR)
+#define CUTEHMI_STUPID_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_stupid_loggingCategory, EXPR)
+#define CUTEHMI_STUPID_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_stupid_loggingCategory, EXPR)
+#define CUTEHMI_STUPID_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_stupid_loggingCategory, EXPR)
+
+#endif

@@ -1,5 +1,5 @@
-#include "CommunicationThread.hpp"
-#include "Client.hpp"
+#include "../../include/stupid/CommunicationThread.hpp"
+#include "../../include/stupid/Client.hpp"
 
 namespace cutehmi {
 namespace stupid {

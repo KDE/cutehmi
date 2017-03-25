@@ -1,4 +1,4 @@
-#include "Client.hpp"
+#include "../../include/stupid/Client.hpp"
 
 #include <QtConcurrent>
 #include <QSqlQuery>

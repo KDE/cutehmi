@@ -1,4 +1,4 @@
-#include "DatabaseThread.hpp"
+#include "../../include/stupid/DatabaseThread.hpp"
 
 #include <QSqlDatabase>
 #include <QCoreApplication>
@@ -46,10 +46,10 @@ void DatabaseThread::run()
 		db.setUserName(m_dbData->userName);
 		db.setPassword(m_dbData->password);
 		if (db.open()) {
-			qDebug("[TODO provide AppLite with a UI for signaling errors] Connected with database.");
+			CUTEHMI_STUPID_QDEBUG("[TODO provide AppLite with a UI for signaling errors] Connected with database.");
 			emit connected();
 		} else {
-			qDebug("[TODO provide AppLite with a UI for signaling errors] Could not connect with database.");
+			CUTEHMI_STUPID_QDEBUG("[TODO provide AppLite with a UI for signaling errors] Could not connect with database.");
 			emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 		}
 		exec();

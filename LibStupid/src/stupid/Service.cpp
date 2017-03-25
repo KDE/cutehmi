@@ -1,12 +1,12 @@
-#include "Service.hpp"
-#include "Client.hpp"
-#include "CommunicationThread.hpp"
+#include "../../include/stupid/Service.hpp"
+#include "../../include/stupid/Client.hpp"
+#include "../../include/stupid/CommunicationThread.hpp"
 
 namespace cutehmi {
 namespace stupid {
 
 Service::Service(const QString & name, Client * client, QObject * parent):
-	base::Service(name, parent),
+	services::Service(name, parent),
 	m_thread(new CommunicationThread(client)),
 	m_client(client)
 {
@@ -31,18 +31,18 @@ void Service::setSleep(unsigned long sleep)
 Service::state_t Service::customStart()
 {
 	m_client->connect();
-	qDebug("Starting STUPiD client thread...");
+	CUTEHMI_STUPID_QDEBUG("Starting STUPiD client thread...");
 	m_thread->start();
 	return STARTED;
 }
 
 Service::state_t Service::customStop()
 {
-	qDebug("Stopping STUPiD client thread...");
+	CUTEHMI_STUPID_QDEBUG("Stopping STUPiD client thread...");
 	m_thread->stop();
 	m_thread->quit();
 	m_thread->wait();
-	qDebug("STUPiD client thread finished.");
+	CUTEHMI_STUPID_QDEBUG("STUPiD client thread finished.");
 	m_client->disconnect();
 	return STOPPED;
 }

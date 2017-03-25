@@ -1,4 +1,4 @@
-#include "DS18B20.hpp"
+#include "../../include/stupid/DS18B20.hpp"
 
 namespace cutehmi {
 namespace stupid {

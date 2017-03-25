@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_WORKER_HPP
-#define CUTEHMI_LIBSTUPID_SRC_STUPID_WORKER_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_WORKER_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_WORKER_HPP
 
-#include "../platform.hpp"
+#include "internal/platform.hpp"
 
 #include <QObject>
 #include <QEvent>

@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_NODEDATAOBJECT_HPP
-#define CUTEHMI_LIBSTUPID_SRC_STUPID_NODEDATAOBJECT_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_STUPIDNODEDATA_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_STUPIDNODEDATA_HPP
 
-#include "../platform.hpp"
+#include "internal/platform.hpp"
 #include "Client.hpp"
 #include "Service.hpp"
 
@@ -13,15 +13,15 @@
 namespace cutehmi {
 namespace stupid {
 
-class CUTEHMI_STUPID_API NodeDataObject:
+class CUTEHMI_STUPID_API StupidNodeData:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		NodeDataObject(std::unique_ptr<Client> client, std::unique_ptr<Service> service, QObject * parent = nullptr);
+		StupidNodeData(std::unique_ptr<Client> client, std::unique_ptr<Service> service, QObject * parent = nullptr);
 
-		~NodeDataObject() override = default;
+		~StupidNodeData() override = default;
 
 		Client * client() const;
 

@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_DS18B20_HPP
-#define CUTEHMI_LIBSTUPID_SRC_STUPID_DS18B20_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DS18B20_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DS18B20_HPP
 
-#include "../platform.hpp"
+#include "internal/platform.hpp"
 
 #include <QReadWriteLock>
 #include <QVariant>

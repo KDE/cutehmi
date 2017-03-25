@@ -1,25 +1,25 @@
-#include "VisitorDelegate.hpp"
-#include "NodeDataObject.hpp"
+#include "../../include/stupid/VisitorDelegate.hpp"
+#include "../../include/stupid/StupidNodeData.hpp"
 
 namespace cutehmi {
 namespace stupid {
 
-VisitorDelegate::VisitorDelegate(const base::ProjectModel::Node * node):
-	m_node(node)
-{
-}
+//VisitorDelegate::VisitorDelegate(const base::ProjectNode * node):
+//	m_node(node)
+//{
+//}
 
-void VisitorDelegate::visit(QMLContextPropertyProxy & proxy)
-{
-	NodeDataObject * dataObject = qobject_cast<NodeDataObject *>(m_node->data().object());
-	proxy.setContextProperty(m_node->data().name(), dataObject->client());
-}
+//void VisitorDelegate::visit(QMLContextPropertyProxy & proxy)
+//{
+//	StupidNodeData * dataObject = qobject_cast<StupidNodeData *>(m_node->data().object());
+//	proxy.setContextProperty(m_node->data().name(), dataObject->client());
+//}
 
-void VisitorDelegate::visit(ServicesProxy & proxy)
-{
-	NodeDataObject * dataObject = qobject_cast<NodeDataObject *>(m_node->data().object());
-	proxy.add(dataObject->service());
-}
+//void VisitorDelegate::visit(ServicesProxy & proxy)
+//{
+//	StupidNodeData * dataObject = qobject_cast<StupidNodeData *>(m_node->data().object());
+//	proxy.add(dataObject->service());
+//}
 
 //widgets::UIVisitorDelegate * VisitorDelegate::ui()
 //{

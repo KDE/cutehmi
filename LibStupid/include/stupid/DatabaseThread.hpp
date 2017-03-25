@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_DATABASETHREAD_HPP
-#define CUTEHMI_LIBSTUPID_SRC_STUPID_DATABASETHREAD_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DATABASETHREAD_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DATABASETHREAD_HPP
 
-#include "../platform.hpp"
+#include "internal/common.hpp"
 #include "Worker.hpp"
 #include "DatabaseConnectionData.hpp"
 

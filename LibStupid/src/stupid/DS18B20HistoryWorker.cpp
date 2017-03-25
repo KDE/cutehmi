@@ -1,4 +1,4 @@
-#include "DS18B20HistoryWorker.hpp"
+#include "../../include/stupid/DS18B20HistoryWorker.hpp"
 
 #include <QSqlQuery>
 #include <QVariant>

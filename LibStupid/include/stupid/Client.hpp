@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_CLIENT_HPP
-#define CUTEHMI_LIBSTUPID_SRC_STUPID_CLIENT_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_CLIENT_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_CLIENT_HPP
 
-#include "../platform.hpp"
+#include "internal/platform.hpp"
 #include "DS18B20.hpp"
 #include "DS18B20History.hpp"
 #include "DatabaseConnectionData.hpp"

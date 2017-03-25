@@ -18,6 +18,7 @@ DEFINES += CUTEHMI_STUPID_DYNAMIC
 TRANSLATIONS = locale/cutehmi_stupid_pl.ts
 
 include(../cutehmi_base.pri)
+include(../cutehmi_services.pri)
 include(../cutehmi_charts.pri)
 
 unix {
@@ -27,7 +28,6 @@ unix {
 
 SOURCES += \
     src/stupid/Client.cpp \
-    src/stupid/NodeDataObject.cpp \
     src/stupid/Service.cpp \
     src/stupid/CommunicationThread.cpp \
     src/stupid/VisitorDelegate.cpp \
@@ -35,21 +35,25 @@ SOURCES += \
     src/stupid/DS18B20History.cpp \
     src/stupid/DatabaseThread.cpp \
     src/stupid/Worker.cpp \
-    src/stupid/DS18B20HistoryWorker.cpp
+    src/stupid/DS18B20HistoryWorker.cpp \
+    src/stupid/StupidNodeData.cpp \
+    src/stupid/internal/macros.cpp
 
 HEADERS += \
-    src/platform.hpp \
-    src/stupid/Client.hpp \
-    src/stupid/NodeDataObject.hpp \
-    src/stupid/Service.hpp \
-    src/stupid/CommunicationThread.hpp \
-    src/stupid/VisitorDelegate.hpp \
-    src/stupid/DS18B20.hpp \
-    src/stupid/DS18B20History.hpp \
-    src/stupid/DatabaseThread.hpp \
-    src/stupid/DatabaseConnectionData.hpp \
-    src/stupid/Worker.hpp \
-    src/stupid/DS18B20HistoryWorker.hpp
+    include/stupid/internal/platform.hpp \
+    include/stupid/Client.hpp \
+    include/stupid/CommunicationThread.hpp \
+    include/stupid/DatabaseConnectionData.hpp \
+    include/stupid/DatabaseThread.hpp \
+    include/stupid/DS18B20.hpp \
+    include/stupid/DS18B20History.hpp \
+    include/stupid/DS18B20HistoryWorker.hpp \
+    include/stupid/Service.hpp \
+    include/stupid/StupidNodeData.hpp \
+    include/stupid/VisitorDelegate.hpp \
+    include/stupid/Worker.hpp \
+    include/stupid/internal/common.hpp \
+    include/stupid/internal/macros.hpp
 
 DISTFILES +=
 

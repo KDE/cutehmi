@@ -1,11 +1,11 @@
-#ifndef CUTEHMI_LIBSTUPID_SRC_STUPID_SERVICE_HPP
-#define CUTEHMI_LIBSTUPID_SRC_STUPID_SERVICE_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_SERVICE_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_SERVICE_HPP
 
 
-#include "../platform.hpp"
+#include "internal/common.hpp"
 #include "CommunicationThread.hpp"
 
-#include <base/Service.hpp>
+#include <services/Service.hpp>
 
 #include <memory>
 
@@ -15,12 +15,12 @@ namespace stupid {
 class Client;
 
 class CUTEHMI_STUPID_API Service:
-	public base::Service
+	public services::Service
 {
 	public:
 		Service(const QString & name, Client * client, QObject * parent = 0);
 
-		virtual ~Service();
+		~Service() override;
 
 		unsigned long sleep() const;
 

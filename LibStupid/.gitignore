@@ -4,3 +4,8 @@ uic/*
 moc/*
 rcc/*
 dev/*.dia~
+Makefile
+Makefile.*
+object_script.*
+debug/*
+release/*

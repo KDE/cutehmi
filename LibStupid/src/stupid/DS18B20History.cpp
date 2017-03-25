@@ -1,4 +1,4 @@
-#include "DS18B20History.hpp"
+#include "../../include/stupid/DS18B20History.hpp"
 
 #include <QtDebug>
 
@@ -79,7 +79,7 @@ bool DS18B20History::requestUpdate()
 {
 	if (m_worker != nullptr) {
 		if (m_worker->isWorking()) {
-			qDebug("Update request rejected - worker has not finished its previous job yet.");
+			CUTEHMI_STUPID_QDEBUG("Update request rejected - worker has not finished its previous job yet.");
 			return false;
 		} else {
 			setUpdating(true);
@@ -89,7 +89,7 @@ bool DS18B20History::requestUpdate()
 			return true;
 		}
 	} else {
-		qDebug("Worker has not been set.");
+		CUTEHMI_STUPID_QDEBUG("Worker has not been set.");
 		return false;
 	}
 }
