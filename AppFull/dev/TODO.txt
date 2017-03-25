@@ -1,3 +1,0 @@
-- Provide icon theme selection UI.
-
-- Provide resizeable QMessageBox equivalent.

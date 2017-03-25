@@ -1,9 +1,0 @@
-Problem:
-
-QMessageBox does not make beep sound (at least on Windows) (Qt bug?).
-
-Workaround:
-
-Call QApplication::beep() before calling QMessageBox::exec().
-
-Snippet:

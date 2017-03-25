@@ -1,6 +1,0 @@
-Problem:
-
-Dock widgets are not properly restored if one of them is shrinked to the minimum and they are both docked at the bottom.
-
-Investigation:
-

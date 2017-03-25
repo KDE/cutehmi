@@ -1,9 +1,0 @@
-Problem:
-
-There's no "New file" icon in the Material Design Icons set.
-
-Workaround:
-
-Using "Add box" icon instead (ic_add_box_black_48dp.png).
-
-Snippet:
