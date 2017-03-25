@@ -228,6 +228,37 @@ class CUTEHMI_BASE_API ProjectNode:
 		 */
 		int countChildren() const;
 
+		/**
+		 * Invoke method. Convenient function for invoking extension's method using Qt meta-object system.
+		 * Usage of this funciton is analogous to QMetaMethod::invoke().
+		 */
+		bool invoke(const QString & extensionId, const char * method, QGenericReturnArgument returnValue,
+					QGenericArgument val0 = QGenericArgument(),
+					QGenericArgument val1 = QGenericArgument(),
+					QGenericArgument val2 = QGenericArgument(),
+					QGenericArgument val3 = QGenericArgument(),
+					QGenericArgument val4 = QGenericArgument(),
+					QGenericArgument val5 = QGenericArgument(),
+					QGenericArgument val6 = QGenericArgument(),
+					QGenericArgument val7 = QGenericArgument(),
+					QGenericArgument val8 = QGenericArgument(),
+					QGenericArgument val9 = QGenericArgument());
+
+		/**
+		 * Invoke method. Overloaded member without return value.
+		 */
+		bool invoke(const QString & extensionId, const char * method,
+					QGenericArgument val0 = QGenericArgument(),
+					QGenericArgument val1 = QGenericArgument(),
+					QGenericArgument val2 = QGenericArgument(),
+					QGenericArgument val3 = QGenericArgument(),
+					QGenericArgument val4 = QGenericArgument(),
+					QGenericArgument val5 = QGenericArgument(),
+					QGenericArgument val6 = QGenericArgument(),
+					QGenericArgument val7 = QGenericArgument(),
+					QGenericArgument val8 = QGenericArgument(),
+					QGenericArgument val9 = QGenericArgument());
+
 	protected:
 		/**
 		 * Constructor.
