@@ -1,5 +1,7 @@
 *.user
 *.autosave
+*.qmlc
+*.jsc
 uic/*
 moc/*
 rcc/*
