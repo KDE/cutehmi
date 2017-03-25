@@ -33,5 +33,6 @@ FORMS +=
 DISTFILES += \ 
     deployment.pri \
     AppLite.rc \
-    qml/MainWindow.qml
+    qml/MainWindow.qml \
+    qml/DefaultScreen.qml
 

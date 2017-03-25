@@ -68,7 +68,7 @@ ApplicationWindow
 	Loader
 	{
 		anchors.fill: parent
-		source: defaultScreenUrl
+		source: cutehmi_app_mainScreenURL
 	}
 
 	Component.onCompleted: {

@@ -4,7 +4,7 @@
 //1 for development version, 0 for release
 #define CUTEHMI_VERSION_IS_DEV 1
 #define CUTEHMI_VERSION_BRANCH "master"
-#define CUTEHMI_APPLITE_COPYRIGHT_YEAR "2015-2016"
+#define CUTEHMI_APPLITE_COPYRIGHT_YEAR "2015-2017"
 
 #ifndef NDEBUG
 	#define CUTEHMI_VERSION_DEBUG_QUALIFIER ".debug"
