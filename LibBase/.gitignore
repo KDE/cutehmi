@@ -1,3 +1,4 @@
+.qmake.stash
 *.user
 *.autosave
 uic/*
