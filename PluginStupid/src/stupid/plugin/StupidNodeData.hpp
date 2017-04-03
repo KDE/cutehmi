@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBSTUPID_INCLUDE_PLUGIN_STUPID_STUPIDNODEDATA_HPP
-#define CUTEHMI_LIBSTUPID_INCLUDE_PLUGIN_STUPID_STUPIDNODEDATA_HPP
+#ifndef CUTEHMI_PLUGINSTUPID_SRC_STUPID_PLUGIN_STUPIDNODEDATA_HPP
+#define CUTEHMI_PLUGINSTUPID_SRC_STUPID_PLUGIN_STUPIDNODEDATA_HPP
 
 #include <stupid/Client.hpp>
 #include <stupid/Service.hpp>
@@ -37,5 +37,5 @@ class StupidNodeData:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -5,7 +5,7 @@
 #include <base/IXMLBackendPlugin.hpp>
 
 #include <stupid/Client.hpp>
-#include <stupid/DatabaseConnectionData.hpp>
+#include <stupid/internal/DatabaseConnectionData.hpp>
 
 #include <QObject>
 #include <QSqlDatabase>

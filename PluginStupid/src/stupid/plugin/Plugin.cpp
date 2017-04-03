@@ -4,7 +4,6 @@
 #include "PluginNodeData.hpp"
 
 #include <stupid/Service.hpp>
-#include <stupid/VisitorDelegate.hpp>
 
 #include <services/ServiceRegistry.hpp>
 
