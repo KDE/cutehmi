@@ -3,6 +3,5 @@ CONFIG += ordered
 
 SUBDIRS += \
     LibBase \
-    LibCharts \
-    LibStupid \
-    QML/CuteHMI/Stupid
+    LibServices \
+    QML/CuteHMI/Services

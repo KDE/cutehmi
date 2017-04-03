@@ -5,5 +5,6 @@ SUBDIRS += \
     CuteHMI/Base \
     CuteHMI/Charts \
     CuteHMI/Stupid \
-    CuteHMI/Modbus
+    CuteHMI/Modbus \
+    CuteHMI/Services
 
