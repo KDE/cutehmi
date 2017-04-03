@@ -126,7 +126,7 @@ class ProjectXMLBackend
 			QQmlContext * qmlContext;
 		};
 
-		std::unique_ptr<Members> m;
+		utils::MPtr<Members> m;
 };
 
 }

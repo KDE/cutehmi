@@ -59,7 +59,7 @@ class CUTEHMI_BASE_API ParseHelper:
 			int level;
 		};
 
-		std::unique_ptr<Members> m;
+		utils::MPtr<Members> m;
 };
 
 }

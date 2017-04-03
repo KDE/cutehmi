@@ -49,7 +49,7 @@ class CUTEHMI_BASE_API ParseAttribute
 			bool required;
 		};
 
-		std::unique_ptr<Members> m;
+		utils::MPtr<Members> m;
 };
 
 }

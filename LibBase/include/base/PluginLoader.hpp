@@ -97,13 +97,16 @@ class CUTEHMI_BASE_API PluginLoader:
 		struct Members
 		{
 			QString pluginsDir;
-			QPluginLoader loader;
+			mutable QPluginLoader loader;
 			LoadedPluginsContainer loadedPlugins;
 
-			Members(const QString & p_pluginsDir = QString());
+			Members(const QString & p_pluginsDir = QString()):
+				pluginsDir(p_pluginsDir)
+			{
+			}
 		};
 
-		std::unique_ptr<Members> m;
+		utils::MPtr<Members> m;
 };
 
 }
@@ -111,5 +114,5 @@ class CUTEHMI_BASE_API PluginLoader:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

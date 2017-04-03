@@ -1,5 +1,5 @@
-#ifndef DATABLOCK_HPP
-#define DATABLOCK_HPP
+#ifndef CUTEHMI_LIBBASE_INCLUDE_BASE_DATABLOCK_HPP
+#define CUTEHMI_LIBBASE_INCLUDE_BASE_DATABLOCK_HPP
 
 #include "internal/common.hpp"
 
@@ -70,13 +70,6 @@ class CUTEHMI_BASE_API DataBlock:
 		DataBlock & operator =(DataBlock && other) = default;
 
 	private:
-		struct Members
-		{
-			//<principle_ref id="cutehmi.base.DataBlock.determined_destruction_order">
-			std::unique_ptr<DataBlock> child;
-			//</principle_ref>
-		};
-
 		template <typename BLOCK>
 		struct Iterator :
 			public std::iterator<std::forward_iterator_tag, BLOCK, std::ptrdiff_t>
@@ -120,7 +113,14 @@ class CUTEHMI_BASE_API DataBlock:
 				BLOCK * m_me;
 		};
 
-		std::unique_ptr<Members> m;
+		struct Members
+		{
+			//<principle_ref id="cutehmi.base.DataBlock.determined_destruction_order">
+			std::unique_ptr<DataBlock> child;
+			//</principle_ref>
+		};
+
+		utils::MPtr<Members> m;
 };
 
 template <typename BLOCK>
@@ -184,4 +184,7 @@ bool DataBlock::Iterator<BLOCK>::operator !=(const Iterator & other) const
 }
 }
 
-#endif // DATABLOCK_HPP
+#endif
+
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

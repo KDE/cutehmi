@@ -44,12 +44,12 @@ class CUTEHMI_BASE_API Project:
 		{
 			//<principle id="cutehmi.base.Project.Members.determined_destruction_order">
 			// Plugins may be used by model.
-			PluginLoader pluginLoader;
-			ProjectModel model;
+			std::unique_ptr<PluginLoader> pluginLoader{new PluginLoader};
+			std::unique_ptr<ProjectModel> model{new ProjectModel};
 			//</principle>
 		};
 
-		std::unique_ptr<Members> m;
+		utils::MPtr<Members> m;
 };
 
 }

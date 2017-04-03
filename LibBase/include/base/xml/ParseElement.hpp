@@ -96,7 +96,7 @@ class CUTEHMI_BASE_API ParseElement
 			AttributesContainer attributes;
 		};
 
-		std::unique_ptr<Members> m;
+		utils::MPtr<Members> m;
 };
 
 }

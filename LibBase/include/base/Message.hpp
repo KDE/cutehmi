@@ -2,6 +2,7 @@
 #define CUTEHMI_LIBBASE_INCLUDE_BASE_MESSAGE_HPP
 
 #include "internal/common.hpp"
+#include "ErrorInfo.hpp"
 
 #include <memory>
 
@@ -57,6 +58,8 @@ class CUTEHMI_BASE_API Message:
 
 		static button_t Error(const QString & text, button_t buttons = OK);
 
+		static button_t Error(const base::ErrorInfo & errorInfo, button_t buttons = OK);
+
 		type_t type() const;
 
 		void setType(type_t type);
@@ -77,10 +80,13 @@ class CUTEHMI_BASE_API Message:
 			button_t buttons;
 		};
 
-		std::unique_ptr<Members> m;
+		utils::MPtr<Members> m;
 };
 
 }
 }
 
 #endif
+
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -21,12 +21,12 @@ Project::~Project()
 
 PluginLoader * Project::pluginLoader() const
 {
-	return & m->pluginLoader;
+	return m->pluginLoader.get();
 }
 
 ProjectModel * Project::model() const
 {
-	return & m->model;
+	return m->model.get();
 }
 
 void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
@@ -40,8 +40,8 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 
 	QFile file(filePath);
 	if (file.open(QIODevice::ReadOnly)) {
-		std::unique_ptr<Members> newM(new Members);
-		internal::ProjectXMLBackend xmlBackend(& newM->model, & newM->pluginLoader, qmlContext);
+		utils::MPtr<Members> newM(new Members);
+		internal::ProjectXMLBackend xmlBackend(newM->model.get(), newM->pluginLoader.get(), qmlContext);
 		try {
 			xmlBackend.load(file);
 			m.swap(newM);
