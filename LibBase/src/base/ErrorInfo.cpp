@@ -9,7 +9,7 @@ QString ErrorInfo::toString() const
 	result += "\n[error class: ";
 	result += errClass;
 	result += " code: ";
-	result += code;
+	result += QString::number(code);
 	result += "]";
 	return result;
 }
