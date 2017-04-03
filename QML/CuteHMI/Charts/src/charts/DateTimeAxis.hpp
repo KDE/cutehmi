@@ -13,11 +13,12 @@ class DateTimeAxis:
 
 	public:
 		/**
-		 * <principle id="cutehmi.charts.DateTimeAxis-orderedIntervalEnum">
+		 * <principle id="cutehmi.charts.DateTimeAxis.ordered_interval_enum">
 		 * Enum values are stored from smallest to largest intervals and are guaranteed to be contiguous.
 		 * </principle>
 		 */
 		enum interval_t {
+			//<principle_ref id="cutehmi.charts.DateTimeAxis.ordered_interval_enum">
 			MILLISECONDS,
 			SECONDS,
 			MINUTES,
@@ -26,6 +27,7 @@ class DateTimeAxis:
 			WEEKS,
 			MONTHS,
 			YEARS
+			//</prinicple_ref>
 		};
 		Q_ENUM(interval_t)
 
@@ -89,5 +91,5 @@ class DateTimeAxis:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

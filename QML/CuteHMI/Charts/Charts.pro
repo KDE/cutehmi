@@ -11,6 +11,7 @@ CONFIG += plugin
 # Translations.
 TRANSLATIONS = locale/cutehmi_qmlplugin_charts_pl.ts
 
+include(../../../cutehmi_base.pri)
 include(../../../cutehmi_charts.pri)
 
 HEADERS += \
