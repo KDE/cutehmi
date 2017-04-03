@@ -63,6 +63,6 @@ done
 echo ""
 echo "In case qmlplugindump fails:"
 echo "- Ensure that PATH environmental variable is being set correctly."
-echo "- All depenDent libraries are visible (extrapath parameter may be handy)."
+echo "- All dependent libraries are visible (extrapath parameter may be handy)."
 echo "- Release versions of libraries are available (including QML plugin)."
 
