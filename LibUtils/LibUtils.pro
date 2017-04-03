@@ -17,7 +17,8 @@ HEADERS += \
     include/utils/DestructorTest.hpp \
     include/utils/NonCopyable.hpp \
     include/utils/NonMovable.hpp \
-    include/utils/Singleton.hpp
+    include/utils/Singleton.hpp \
+    include/utils/MPtr.hpp
 
 DISTFILES +=
 
