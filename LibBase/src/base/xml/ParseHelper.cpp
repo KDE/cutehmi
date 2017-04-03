@@ -57,7 +57,7 @@ bool ParseHelper::readNextRecognizedElement()
 	if (!xmlReader()->hasError())
 		for (const ParseElement & element: m->elements) {
 			if (element.occurrences() < element.minOccurrences()) {
-				xmlReader()->raiseError(QObject::tr("Element requires %n occurrence(s) of '<%1>' element (encountered %2).", "", element.minOccurrences())
+				xmlReader()->raiseError(QObject::tr("Parent element requires %n occurrence(s) of '<%1>' element (encountered %2).", "", element.minOccurrences())
 										.arg(element.name())
 										.arg(element.occurrences()));
 				return false;
