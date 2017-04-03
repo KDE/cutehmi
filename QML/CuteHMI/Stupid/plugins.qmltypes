@@ -13,25 +13,59 @@ Module {
         prototype: "QObject"
         exports: ["DS18B20 1.0"]
         exportMetaObjectRevisions: [0]
-        Signal { name: "pluggedUpdated" }
-        Signal { name: "crcUpdated" }
-        Signal { name: "temperatureUpdated" }
-        Method {
-            name: "updatePlugged"
-            Parameter { name: "temperature"; type: "bool" }
+        Enum {
+            name: "valueType_t"
+            values: {
+                "PLUGGED": 1,
+                "TEMPERATURE": 2,
+                "CRC": 4,
+                "CRC_OK": 8,
+                "TIMESTAMP": 16,
+                "EXPIRE": 32
+            }
+        }
+        Enum {
+            name: "error_t"
+            values: {
+                "ERROR_OK": 0,
+                "ERROR_UNPLUGGED": 1,
+                "ERROR_WRONG_CRC": 2,
+                "ERROR_DATA_STALL": 4
+            }
+        }
+        Property { name: "error"; type: "int"; isReadonly: true }
+        Signal {
+            name: "valueUpdated"
+            Parameter { name: "valueTypes"; type: "int" }
         }
         Method {
-            name: "updateTemperature"
-            Parameter { name: "temperature"; type: "int" }
-            Parameter { name: "crc"; type: "int" }
-            Parameter { name: "crcOK"; type: "bool" }
+            name: "updateData"
+            Parameter { name: "data"; type: "Data" }
         }
-        Method { name: "plugged"; type: "bool" }
         Method { name: "temperature"; type: "int" }
+        Method { name: "plugged"; type: "bool" }
         Method { name: "crc"; type: "int" }
-        Method { name: "crcOK"; type: "bool" }
+        Method { name: "timestamp"; type: "QDateTime" }
         Method { name: "rest" }
         Method { name: "awake" }
         Method { name: "wakeful"; type: "bool" }
+    }
+    Component {
+        name: "cutehmi::stupid::DS18B20History"
+        prototype: "QObject"
+        exports: ["DS18B20History 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property {
+            name: "series"
+            type: "cutehmi::charts::PointSeries"
+            isReadonly: true
+            isPointer: true
+        }
+        Property { name: "from"; type: "qlonglong" }
+        Property { name: "to"; type: "qlonglong" }
+        Property { name: "minimum"; type: "qlonglong"; isReadonly: true }
+        Property { name: "maximum"; type: "qlonglong"; isReadonly: true }
+        Property { name: "updating"; type: "bool"; isReadonly: true }
+        Method { name: "requestUpdate"; type: "bool" }
     }
 }
