@@ -27,6 +27,11 @@ Message::button_t Message::Error(const QString & text, button_t buttons)
 	return NO_BUTTON;
 }
 
+Message::button_t Message::Error(const base::ErrorInfo & errorInfo, button_t buttons)
+{
+	return Error(errorInfo.toString());
+}
+
 Message::type_t Message::type() const
 {
 	return m->type;
@@ -59,3 +64,6 @@ void Message::setButtons(button_t buttons)
 
 }
 }
+
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
