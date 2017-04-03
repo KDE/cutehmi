@@ -144,11 +144,12 @@ void ProjectXMLBackend::Loader1::parseNodeRef(QXmlStreamReader & reader, Project
 			if (contextProperty.startsWith("cutehmi_"))
 				reader.raiseError(QObject::tr("Context properties starting with 'cutehmi_' string are reserved by CuteHMI."));
 			else {
-				QString object = reader.attributes().value("object").toString();
+				QString objectName = reader.attributes().value("object").toString();
 				if (m_qmlContext->contextProperty(contextProperty).isValid())
 					CUTEHMI_BASE_QWARNING("Context property '"<< contextProperty << "' has been already set. Redefined at: " << xml::internal::readerPositionString(reader) << ".");
-				if (!currentNode.extension(object))
-					CUTEHMI_BASE_QWARNING("Could not find extension object '"<< object << "' referenced at: " << xml::internal::readerPositionString(reader) << ".");
+				QObject * object = currentNode.extension(objectName);
+				if (object == nullptr)
+					CUTEHMI_BASE_QWARNING("Could not find extension object '"<< objectName << "' referenced at: " << xml::internal::readerPositionString(reader) << ".");
 				else
 					m_qmlContext->setContextProperty(contextProperty, object);
 			}
