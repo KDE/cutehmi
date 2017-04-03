@@ -16,17 +16,22 @@ DEFINES += CUTEHMI_CHARTS_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_charts_pl.ts
 
+include(../cutehmi_base.pri)
+
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
 SOURCES += \
-    src/charts/PointSeries.cpp
+    src/charts/PointSeries.cpp \
+    src/charts/internal/macros.cpp
 
 HEADERS += \
-    src/platform.hpp \
-    src/charts/PointSeries.hpp
+    include/charts/PointSeries.hpp \
+    include/charts/internal/platform.hpp \
+    include/charts/internal/common.hpp \
+    include/charts/internal/macros.hpp
 
 DISTFILES +=
 
