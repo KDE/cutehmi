@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DS18B20HISTORYWORKER_HPP
-#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DS18B20HISTORYWORKER_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_INTERNAL_DS18B20HISTORYWORKER_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_INTERNAL_DS18B20HISTORYWORKER_HPP
 
-#include "internal/platform.hpp"
+#include "common.hpp"
 #include "Worker.hpp"
 #include "DatabaseThread.hpp"
 
@@ -9,12 +9,13 @@
 
 namespace cutehmi {
 namespace stupid {
+namespace internal {
 
 /**
  * DS18B20History update worker.
  */
-class CUTEHMI_STUPID_API DS18B20HistoryWorker:
-		public Worker
+class DS18B20HistoryWorker:
+	public Worker
 {
 	public:
 		struct Results
@@ -37,15 +38,21 @@ class CUTEHMI_STUPID_API DS18B20HistoryWorker:
 		void job() override;
 
 	private:
-		QString m_connectionName;
-		QString m_w1Id;
-		Results m_results;
+		struct Members
+		{
+			QString connectionName;
+			QString w1Id;
+			Results results;
+		};
+
+		utils::MPtr<Members> m;
 };
 
+}
 }
 }
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

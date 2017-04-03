@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_WORKER_HPP
-#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_WORKER_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_INTERNAL_WORKER_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_INTERNAL_WORKER_HPP
 
-#include "internal/platform.hpp"
+#include "common.hpp"
 
 #include <QObject>
 #include <QEvent>
@@ -13,12 +13,13 @@
 
 namespace cutehmi {
 namespace stupid {
+namespace internal {
 
 /**
  * Worker. This class acts as a container that allows specified code to be run in a specified thread.
  */
-class CUTEHMI_STUPID_API Worker:
-		public QObject
+class Worker:
+	public QObject
 {
 	typedef QObject Parent;
 
@@ -49,13 +50,15 @@ class CUTEHMI_STUPID_API Worker:
 		/**
 		 * Worker's job. This function is called when worker receives WorkEvent. Use employ() function to
 		 * run job in a specified thread. This function can be reimplemented. Default implementation calls
-		 * task function (it can be passed to the constructor or set via setTask()) if it has been set.
+		 * @a task function (it can be passed to the constructor or set via setTask()), if it has been set.
+		 * Default implementation does nothing if @a task has not been set (i.e. @a task = @p nullptr).
 		 */
 		virtual void job();
 
 		/**
 		 * Wait for the worker. Causes calling thread to wait until worker finishes its job. Function
-		 * does not block until work() has been called and after worker has finished its job.
+		 * does not block until work() has been called. It also won't block if worker has already
+		 * finished its job.
 		 *
 		 * @threadsafe
 		 */
@@ -129,17 +132,29 @@ class CUTEHMI_STUPID_API Worker:
 		void ready();
 
 	private:
-		State m_state;
-		std::function<void()> m_task;
-		mutable QMutex m_stateMutex;
-		mutable QWaitCondition m_waitCondition;
-		mutable QMutex m_workMutex;
+		struct Members
+		{
+			State state;
+			std::function<void()> task;
+			mutable QMutex stateMutex;
+			mutable QWaitCondition waitCondition;
+			mutable QMutex workMutex;
+
+			Members(std::function<void()> p_task):
+				state(State::UNEMPLOYED),
+				task(p_task)
+			{
+			}
+		};
+
+		utils::MPtr<Members> m;
 };
 
+}
 }
 }
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

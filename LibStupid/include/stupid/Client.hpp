@@ -1,17 +1,17 @@
 #ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_CLIENT_HPP
 #define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_CLIENT_HPP
 
-#include "internal/platform.hpp"
+#include "internal/common.hpp"
+#include "internal/DatabaseConnectionData.hpp"
+#include "internal/DatabaseThread.hpp"
+#include "internal/AsyncConnector.hpp"
 #include "DS18B20.hpp"
 #include "DS18B20History.hpp"
-#include "DatabaseConnectionData.hpp"
-#include "DatabaseThread.hpp"
 
 #include <base/ErrorInfo.hpp>
 
 #include <QObject>
-
-#include <memory>
+#include <QSqlError>
 
 namespace cutehmi {
 namespace stupid {
@@ -31,42 +31,36 @@ class CUTEHMI_STUPID_API Client:
 
 		Q_PROPERTY(const QVariantMap & ds18b20History READ ds18b20History NOTIFY ds18b20HistoryChanged)
 
-//		struct CUTEHMI_STUPID_API Error:
-//			public base::Error
-//		{
-//			enum : int {
-//			};
-
-//			using base::Error::Error;
-
-//			QString str() const;
-//		};
-
 		typedef QList<QString> DS18B20IdsContainer;
 
 		explicit Client(QObject * parent = 0);
 
 		~Client() override;
 
-//		const QQmlListProperty<DS18B20> & ds18b20() const;
-
-//		QQmlPropertyMap * ds18b20();
-
 		const QVariantMap & ds18b20() const;
 
 		const QVariantMap & ds18b20History() const;
 
-//		/**
-//		 * Read input register value and update associated InputRegister object.
-//		 * @param addr register address.
-//		 *
-//		 * @note appropriate InputRegister object must be referenced using @a ir list before using this function.
-//		 */
-//		void readDS18B20(const QString & id);
-
 		DS18B20IdsContainer ds18b20Ids() const;
 
+		/**
+		 * Check if client is connected.
+		 * @return @p true when client is connected. @p false otherwise.
+		 *
+		 * @note because connection is established in asynchronous way, client can be in a sloppy state before it gets connected, thus
+		 * this function and disconnected() may both return @p false at the same time.
+		 */
+		bool isConnected() const;
+
+		/**
+		 * Check if client is disconnected.
+		 * @return @p true when client is disconnected. @p false otherwise.
+		 */
+		bool isDisconnected() const;
+
 		void moveDatabaseConnectionData(std::unique_ptr<stupid::DatabaseConnectionData> dbData);
+
+		void checkDatabaseConnectionStatus();
 
 	public slots:
 		/**
@@ -103,17 +97,27 @@ class CUTEHMI_STUPID_API Client:
 		static constexpr int EXPIRE_DAEMON_CYCLES = 1;
 		static constexpr int EXPIRE_MIN_INTERVAL = 30000;
 
-		void enumerateDevices();
+		void asyncConnect(QObject * connector);
 
-		void loadDaemonSleep();
+		void processSQLErrors();
 
-	private:
 		void clearDevices();
 
-		DatabaseThread m_dbThread;
-		unsigned long m_daemonSleep;
-		QVariantMap m_ds18b20;
-		QVariantMap m_ds18b20History;
+	private:
+		typedef QVector<QSqlError> SQLErrorsContainer;
+
+		struct Members
+		{
+			unsigned long daemonSleep = 0;
+			bool connected = false;
+			internal::AsyncConnector * asyncConnector = nullptr;
+			internal::DatabaseThread dbThread;
+			SQLErrorsContainer sqlErrors;
+			QVariantMap ds18b20;
+			QVariantMap ds18b20History;
+		};
+
+		utils::MPtr<Members> m;
 };
 
 }
@@ -121,5 +125,5 @@ class CUTEHMI_STUPID_API Client:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -1,4 +1,4 @@
-#include "../../include/stupid/DS18B20HistoryWorker.hpp"
+#include "../../../include/stupid/internal/DS18B20HistoryWorker.hpp"
 
 #include <QSqlQuery>
 #include <QVariant>
@@ -7,55 +7,55 @@
 
 namespace cutehmi {
 namespace stupid {
+namespace internal {
 
 DS18B20HistoryWorker::DS18B20HistoryWorker(DatabaseThread & thread, const QString & w1Id):
 	Worker(thread),
-	m_connectionName(thread.dbData()->connectionName),
-	m_w1Id(w1Id),
-	m_results{0, 0, 0, 0, charts::PointSeries::DataContainer()}
+	m(new Members{thread.dbData()->connectionName, w1Id, {0, 0, 0, 0, {}}})
 {
 }
 
 void DS18B20HistoryWorker::setFrom(qint64 from)
 {
-	m_results.from = from;
+	m->results.from = from;
 }
 
 void DS18B20HistoryWorker::setTo(qint64 to)
 {
-	m_results.to = to;
+	m->results.to = to;
 }
 
 const DS18B20HistoryWorker::Results & DS18B20HistoryWorker::results() const
 {
-	return m_results;
+	return m->results;
 }
 
 void DS18B20HistoryWorker::job()
 {
-	QSqlQuery query(QSqlDatabase::database(m_connectionName, false));
+	QSqlQuery query(QSqlDatabase::database(m->connectionName, false));
 	query.prepare("SELECT min(timestamp), max(timestamp) FROM ds18b20_history WHERE w1_device_id = (SELECT id FROM w1_device WHERE w1_id = :w1Id LIMIT 1)");
-	query.bindValue(":w1Id", m_w1Id);
+	query.bindValue(":w1Id", m->w1Id);
 	query.exec();
 	if (query.first()) {
-		m_results.minimum = query.value(0).toDateTime().toMSecsSinceEpoch();
-		m_results.maximum = query.value(1).toDateTime().toMSecsSinceEpoch();
+		m->results.minimum = query.value(0).toDateTime().toMSecsSinceEpoch();
+		m->results.maximum = query.value(1).toDateTime().toMSecsSinceEpoch();
 	}
 
-	m_results.data.clear();
+	m->results.data.clear();
 	query.prepare("SELECT timestamp, temperature FROM ds18b20_history WHERE "
 				  "w1_device_id = (SELECT id FROM w1_device WHERE w1_id = :w1Id LIMIT 1)"
 				  "AND timestamp >= :from AND timestamp <= :to");
-	query.bindValue(":w1Id", m_w1Id);
-	query.bindValue(":from", QDateTime::fromMSecsSinceEpoch(m_results.from));
-	query.bindValue(":to", QDateTime::fromMSecsSinceEpoch(m_results.to));
+	query.bindValue(":w1Id", m->w1Id);
+	query.bindValue(":from", QDateTime::fromMSecsSinceEpoch(m->results.from));
+	query.bindValue(":to", QDateTime::fromMSecsSinceEpoch(m->results.to));
 	query.exec();
 	while (query.next())
-		m_results.data.append(QPointF(query.value(0).toDateTime().toMSecsSinceEpoch(), static_cast<int32_t>(query.value(1).toLongLong())));
+		m->results.data.append(QPointF(query.value(0).toDateTime().toMSecsSinceEpoch(), static_cast<int32_t>(query.value(1).toLongLong())));
 }
 
 }
 }
+}
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

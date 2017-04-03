@@ -2,8 +2,7 @@
 #define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DS18B20HISTORY_HPP
 
 #include "internal/common.hpp"
-
-#include "DS18B20HistoryWorker.hpp"
+#include "internal/DS18B20HistoryWorker.hpp"
 
 #include <charts/PointSeries.hpp>
 
@@ -15,7 +14,7 @@ namespace cutehmi {
 namespace stupid {
 
 class CUTEHMI_STUPID_API DS18B20History:
-		public QObject
+	public QObject
 {
 	Q_OBJECT
 
@@ -27,7 +26,7 @@ class CUTEHMI_STUPID_API DS18B20History:
 		Q_PROPERTY(qint64 maximum READ maximum NOTIFY maximumChanged)
 		Q_PROPERTY(bool updating READ updating NOTIFY updatingChanged)
 
-		DS18B20History(std::unique_ptr<DS18B20HistoryWorker> worker = nullptr, QObject * parent = 0);
+		DS18B20History(std::unique_ptr<internal::DS18B20HistoryWorker> worker = nullptr, QObject * parent = 0);
 
 		~DS18B20History() override;
 
@@ -85,13 +84,18 @@ class CUTEHMI_STUPID_API DS18B20History:
 	private:
 		void setUpdating(bool updating);
 
-		std::unique_ptr<DS18B20HistoryWorker> m_worker;
-		charts::PointSeries * m_series;
-		qint64 m_minimum;
-		qint64 m_maximum;
-		qint64 m_from;
-		qint64 m_to;
-		bool m_updating;
+		struct Members
+		{
+			std::unique_ptr<internal::DS18B20HistoryWorker> worker;
+			charts::PointSeries * series;
+			qint64 minimum;
+			qint64 maximum;
+			qint64 from;
+			qint64 to;
+			bool updating;
+		};
+
+		utils::MPtr<Members> m;
 };
 
 }
@@ -99,5 +103,5 @@ class CUTEHMI_STUPID_API DS18B20History:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

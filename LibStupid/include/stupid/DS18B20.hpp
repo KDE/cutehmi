@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DS18B20_HPP
 #define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DS18B20_HPP
 
-#include "internal/platform.hpp"
+#include "internal/common.hpp"
 
 #include <QReadWriteLock>
 #include <QVariant>
@@ -94,10 +94,15 @@ class CUTEHMI_STUPID_API DS18B20:
 		void errorChanged();
 
 	private:
-		Data m_data;
-		mutable QReadWriteLock m_dataLock;
-		QAtomicInt m_awaken;
-		QAtomicInt m_error;
+		struct Members
+		{
+			Data data;
+			mutable QReadWriteLock dataLock;
+			QAtomicInt awaken = 0;
+			QAtomicInt error = ERROR_OK;
+		};
+
+		utils::MPtr<Members> m;
 };
 
 }
@@ -105,5 +110,5 @@ class CUTEHMI_STUPID_API DS18B20:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

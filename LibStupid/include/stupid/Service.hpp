@@ -1,9 +1,10 @@
 #ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_SERVICE_HPP
 #define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_SERVICE_HPP
 
-
 #include "internal/common.hpp"
-#include "CommunicationThread.hpp"
+#include "internal/CommunicationThread.hpp"
+
+#include <base/ErrorInfo.hpp>
 
 #include <services/Service.hpp>
 
@@ -31,9 +32,21 @@ class CUTEHMI_STUPID_API Service:
 
 		state_t customStop() override;
 
+	private slots:
+		void onClientConnected();
+
+		void onClientDisconnected();
+
+		void handleError(cutehmi::base::ErrorInfo errorInfo);
+
 	private:
-		std::unique_ptr<CommunicationThread> m_thread;
-		Client * m_client;
+		struct Members
+		{
+			std::unique_ptr<internal::CommunicationThread> thread;
+			Client * client;
+		};
+
+		utils::MPtr<Members> m;
 };
 
 }
@@ -41,5 +54,5 @@ class CUTEHMI_STUPID_API Service:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

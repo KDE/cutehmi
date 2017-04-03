@@ -27,33 +27,33 @@ unix {
 }
 
 SOURCES += \
-    src/stupid/Client.cpp \
-    src/stupid/Service.cpp \
-    src/stupid/CommunicationThread.cpp \
-    src/stupid/VisitorDelegate.cpp \
     src/stupid/DS18B20.cpp \
     src/stupid/DS18B20History.cpp \
-    src/stupid/DatabaseThread.cpp \
-    src/stupid/Worker.cpp \
-    src/stupid/DS18B20HistoryWorker.cpp \
-    src/stupid/StupidNodeData.cpp \
-    src/stupid/internal/macros.cpp
+    src/stupid/internal/macros.cpp \
+    src/stupid/internal/CommunicationThread.cpp \
+    src/stupid/internal/DatabaseThread.cpp \
+    src/stupid/internal/DS18B20HistoryWorker.cpp \
+    src/stupid/internal/Worker.cpp \
+    src/stupid/Client.cpp \
+    src/stupid/Service.cpp \
+    src/stupid/internal/AsyncConnector.cpp \
+    src/stupid/internal/functions.cpp
 
 HEADERS += \
     include/stupid/internal/platform.hpp \
-    include/stupid/Client.hpp \
-    include/stupid/CommunicationThread.hpp \
-    include/stupid/DatabaseConnectionData.hpp \
-    include/stupid/DatabaseThread.hpp \
+    include/stupid/internal/common.hpp \
+    include/stupid/internal/macros.hpp \
+    include/stupid/internal/CommunicationThread.hpp \
+    include/stupid/internal/DatabaseConnectionData.hpp \
+    include/stupid/internal/DatabaseThread.hpp \
+    include/stupid/internal/DS18B20HistoryWorker.hpp \
+    include/stupid/internal/Worker.hpp \
     include/stupid/DS18B20.hpp \
     include/stupid/DS18B20History.hpp \
-    include/stupid/DS18B20HistoryWorker.hpp \
+    include/stupid/Client.hpp \
     include/stupid/Service.hpp \
-    include/stupid/StupidNodeData.hpp \
-    include/stupid/VisitorDelegate.hpp \
-    include/stupid/Worker.hpp \
-    include/stupid/internal/common.hpp \
-    include/stupid/internal/macros.hpp
+    include/stupid/internal/AsyncConnector.hpp \
+    include/stupid/internal/functions.hpp
 
 DISTFILES +=
 

@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DATABASETHREAD_HPP
-#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_DATABASETHREAD_HPP
+#ifndef CUTEHMI_LIBSTUPID_INCLUDE_STUPID_INTERNAL_DATABASETHREAD_HPP
+#define CUTEHMI_LIBSTUPID_INCLUDE_STUPID_INTERNAL_DATABASETHREAD_HPP
 
-#include "internal/common.hpp"
+#include "common.hpp"
 #include "Worker.hpp"
 #include "DatabaseConnectionData.hpp"
 
@@ -13,8 +13,9 @@
 
 namespace cutehmi {
 namespace stupid {
+namespace internal {
 
-class CUTEHMI_STUPID_API DatabaseThread:
+class DatabaseThread:
 		public QThread
 {
 	Q_OBJECT
@@ -50,14 +51,20 @@ class CUTEHMI_STUPID_API DatabaseThread:
 		void run() override;
 
 	private:
-		std::unique_ptr<DatabaseConnectionData> m_dbData;
-		QMutex m_runLock;
+		struct Members
+		{
+			std::unique_ptr<DatabaseConnectionData> dbData;
+			QMutex runLock;
+		};
+
+		utils::MPtr<Members> m;
 };
 
+}
 }
 }
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
