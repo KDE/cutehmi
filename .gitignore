@@ -1,6 +1,7 @@
 *.pro.user.*
 *.pro.user
 *.autosave
+*.swp
 Makefile.user
 make.exe
 awkgward/find.exe
