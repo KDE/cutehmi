@@ -13,3 +13,6 @@ are disconnected altogether by onEmitParticlesOnce() again.
 
 Snippet:
 
+Solution:
+
+Pipe componenent is abandoned.

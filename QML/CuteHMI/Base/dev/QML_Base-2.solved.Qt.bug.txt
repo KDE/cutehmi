@@ -16,3 +16,7 @@ Rotate "past" particles manually. It is possible to achieve by catching Emitter:
 and then disconnecting from it.
 
 Snippet:
+
+Solution:
+
+Pipe componenent is abandoned.
