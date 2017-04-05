@@ -3,7 +3,7 @@ function updateError()
 	error = device.ds18b20[w1Id].error
 }
 
-function updatedValue(valueTypes)
+function onValueUpdated(valueTypes)
 {
 	// Currently valueTypes flags are ignored as DS18B20 always updates all the values.
 	loadData()
