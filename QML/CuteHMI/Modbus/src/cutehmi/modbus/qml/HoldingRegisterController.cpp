@@ -139,16 +139,16 @@ void HoldingRegisterController::updateValue()
 void HoldingRegisterController::setupRegister(HoldingRegister * reg)
 {
 	if (m_register != nullptr) {
-		disconnect(m_register, & HoldingRegister::valueWritten, this, HoldingRegisterController::onValueWritten);
-		disconnect(m_register, & HoldingRegister::valueUpdated, this, HoldingRegisterController::onValueUpdated);
-		disconnect(m_register, & HoldingRegister::valueRequested, this, HoldingRegisterController::onValueRequested);
+		disconnect(m_register, & HoldingRegister::valueWritten, this, & HoldingRegisterController::onValueWritten);
+		disconnect(m_register, & HoldingRegister::valueUpdated, this, & HoldingRegisterController::onValueUpdated);
+		disconnect(m_register, & HoldingRegister::valueRequested, this, & HoldingRegisterController::onValueRequested);
 		m_register->rest();
 	}
 	m_register = reg;
 	if (m_register != nullptr) {
-		connect(m_register, & HoldingRegister::valueWritten, this, HoldingRegisterController::onValueWritten);
-		connect(m_register, & HoldingRegister::valueUpdated, this, HoldingRegisterController::onValueUpdated);
-		connect(m_register, & HoldingRegister::valueRequested, this, HoldingRegisterController::onValueRequested);
+		connect(m_register, & HoldingRegister::valueWritten, this, & HoldingRegisterController::onValueWritten);
+		connect(m_register, & HoldingRegister::valueUpdated, this, & HoldingRegisterController::onValueUpdated);
+		connect(m_register, & HoldingRegister::valueRequested, this, & HoldingRegisterController::onValueRequested);
 		m_register->awake();
 	}
 }

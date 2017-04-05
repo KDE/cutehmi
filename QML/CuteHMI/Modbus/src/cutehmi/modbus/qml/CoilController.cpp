@@ -110,16 +110,16 @@ void CoilController::updateValue()
 void CoilController::setupCoil(Coil * reg)
 {
 	if (m_coil != nullptr) {
-		disconnect(m_coil, & Coil::valueWritten, this, CoilController::onValueWritten);
-		disconnect(m_coil, & Coil::valueUpdated, this, CoilController::onValueUpdated);
-		disconnect(m_coil, & Coil::valueRequested, this, CoilController::onValueRequested);
+		disconnect(m_coil, & Coil::valueWritten, this, & CoilController::onValueWritten);
+		disconnect(m_coil, & Coil::valueUpdated, this, & CoilController::onValueUpdated);
+		disconnect(m_coil, & Coil::valueRequested, this, & CoilController::onValueRequested);
 		m_coil->rest();
 	}
 	m_coil = reg;
 	if (m_coil != nullptr) {
-		connect(m_coil, & Coil::valueWritten, this, CoilController::onValueWritten);
-		connect(m_coil, & Coil::valueUpdated, this, CoilController::onValueUpdated);
-		connect(m_coil, & Coil::valueRequested, this, CoilController::onValueRequested);
+		connect(m_coil, & Coil::valueWritten, this, & CoilController::onValueWritten);
+		connect(m_coil, & Coil::valueUpdated, this, & CoilController::onValueUpdated);
+		connect(m_coil, & Coil::valueRequested, this, & CoilController::onValueRequested);
 		m_coil->awake();
 	}
 }

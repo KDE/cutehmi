@@ -118,12 +118,12 @@ void InputRegisterController::updateValue()
 void InputRegisterController::setupRegister(cutehmi::modbus::InputRegister * reg)
 {
 	if (m_register != nullptr) {
-		disconnect(m_register, & InputRegister::valueUpdated, this, InputRegisterController::onValueUpdated);
+		disconnect(m_register, & InputRegister::valueUpdated, this, & InputRegisterController::onValueUpdated);
 		m_register->rest();
 	}
 	m_register = reg;
 	if (m_register != nullptr) {
-		connect(m_register, & InputRegister::valueUpdated, this, InputRegisterController::onValueUpdated);
+		connect(m_register, & InputRegister::valueUpdated, this, & InputRegisterController::onValueUpdated);
 		m_register->awake();
 	}
 }

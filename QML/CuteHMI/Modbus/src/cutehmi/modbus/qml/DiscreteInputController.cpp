@@ -89,12 +89,12 @@ void DiscreteInputController::updateValue()
 void DiscreteInputController::setupInput(DiscreteInput * input)
 {
 	if (m_input != nullptr) {
-		disconnect(m_input, & DiscreteInput::valueUpdated, this, DiscreteInputController::onValueUpdated);
+		disconnect(m_input, & DiscreteInput::valueUpdated, this, & DiscreteInputController::onValueUpdated);
 		m_input->rest();
 	}
 	m_input = input;
 	if (m_input != nullptr) {
-		connect(m_input, & DiscreteInput::valueUpdated, this, DiscreteInputController::onValueUpdated);
+		connect(m_input, & DiscreteInput::valueUpdated, this, & DiscreteInputController::onValueUpdated);
 		m_input->awake();
 	}
 }
