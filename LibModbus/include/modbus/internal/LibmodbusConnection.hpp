@@ -8,7 +8,7 @@
 #include <utils/NonCopyable.hpp>
 #include <utils/NonMovable.hpp>
 
-#include <modbus.h>
+#include <modbus/modbus.h>
 
 #include <QMutex>
 

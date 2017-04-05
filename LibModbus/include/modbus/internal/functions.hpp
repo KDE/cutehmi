@@ -3,7 +3,7 @@
 
 #include "common.hpp"
 
-#include <modbus.h>
+#include <modbus/modbus.h>
 
 #include <QtEndian>
 

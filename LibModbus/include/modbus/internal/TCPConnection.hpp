@@ -4,7 +4,7 @@
 #include "common.hpp"
 #include "LibmodbusConnection.hpp"
 
-#include <modbus.h>
+#include <modbus/modbus.h>
 
 #include <QString>
 
