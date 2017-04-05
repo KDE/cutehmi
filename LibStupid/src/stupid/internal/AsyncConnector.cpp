@@ -13,8 +13,8 @@ AsyncConnector::AsyncConnector(DatabaseThread * dbThread, QObject * parent):
 	m_status(INIT)
 {
 	m_dbWorker.employ(*m_dbThread, false);
-	QObject::connect(m_dbThread, & DatabaseThread::connected, this, & connect);
-	QObject::connect(& m_dbWorker, & Worker::ready, this, & connect);
+	QObject::connect(m_dbThread, & DatabaseThread::connected, this, & AsyncConnector::connect);
+	QObject::connect(& m_dbWorker, & Worker::ready, this, & AsyncConnector::connect);
 }
 
 const QStringList & AsyncConnector::w1Ids() const
