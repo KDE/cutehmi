@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_HOLDINGREGISTER_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_HOLDINGREGISTER_HPP
+#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_HOLDINGREGISTER_HPP
+#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_HOLDINGREGISTER_HPP
 
-#include "../platform.hpp"
+#include "internal/common.hpp"
 
 #include <QObject>
 #include <QMutex>
@@ -71,11 +71,23 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		void valueWritten();
 
 	private:
-		uint16_t m_value;
-		mutable QReadWriteLock m_valueLock;
-		uint16_t m_reqValue;
-		mutable QMutex m_reqValueMutex;
-		QAtomicInt m_awaken;
+		struct Members
+		{
+			uint16_t value;
+			mutable QReadWriteLock valueLock;
+			uint16_t reqValue;
+			mutable QMutex reqValueMutex;
+			QAtomicInt awaken;
+
+			Members(uint16_t p_value):
+				value(p_value),
+				reqValue(p_value),
+				awaken(0)
+			{
+			}
+		};
+
+		utils::MPtr<Members> m;
 };
 
 }
@@ -83,5 +95,5 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

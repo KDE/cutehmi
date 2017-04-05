@@ -1,8 +1,9 @@
-#include "CommunicationThread.hpp"
-#include "Client.hpp"
+#include "../../../include/modbus/internal/CommunicationThread.hpp"
+#include "../../../include/modbus/Client.hpp"
 
 namespace cutehmi {
 namespace modbus {
+namespace internal {
 
 CommunicationThread::CommunicationThread(Client * client):
 	m_run(0),
@@ -24,7 +25,7 @@ void CommunicationThread::setSleep(unsigned long sleep)
 void CommunicationThread::run()
 {
 	while (m_run.load()) {
-		m_client->readAll(m_run);	// Note: Because of relaxed model readAll() may theoretically skip first reads by calling readAll(0).
+		m_client->readAll(m_run);
 		msleep(m_sleep);
 	}
 }
@@ -40,9 +41,9 @@ void CommunicationThread::stop()
 	m_run.store(0);
 }
 
-
 }
 }
+}
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

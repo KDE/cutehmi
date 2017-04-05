@@ -1,5 +1,7 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_DATACONTAINER_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_DATACONTAINER_HPP
+#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_DATACONTAINER_HPP
+#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_DATACONTAINER_HPP
+
+#include "common.hpp"
 
 #include <QLinkedList>
 #include <QReadWriteLock>
@@ -9,6 +11,7 @@
 
 namespace cutehmi {
 namespace modbus {
+namespace internal {
 
 template <typename T, std::size_t N = 65536>
 class DataContainer
@@ -210,8 +213,9 @@ QReadWriteLock & DataContainer<T, N>::keysLock()
 
 }
 }
+}
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

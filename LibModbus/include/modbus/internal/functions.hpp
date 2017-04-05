@@ -1,7 +1,7 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_FUNCTIONS_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_FUNCTIONS_HPP
+#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_FUNCTIONS_HPP
+#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_FUNCTIONS_HPP
 
-#include "../platform.hpp"
+#include "common.hpp"
 
 #include <modbus.h>
 
@@ -9,6 +9,7 @@
 
 namespace cutehmi {
 namespace modbus {
+namespace internal {
 
 template <typename T>
 T toBigEndian(T src)
@@ -70,8 +71,9 @@ CUTEHMI_MODBUS_API int intFromUint16(uint16_t value);
 
 }
 }
+}
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

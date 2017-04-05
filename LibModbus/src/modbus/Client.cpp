@@ -1,7 +1,6 @@
-#include "Client.hpp"
-#include "AbstractConnection.hpp"
-#include "Exception.hpp"
-#include "functions.hpp"
+#include "../../include/modbus/internal/functions.hpp"
+#include "../../include/modbus/Client.hpp"
+#include "../../include/modbus/Exception.hpp"
 
 #include <QtDebug>
 #include <QMutexLocker>
@@ -20,108 +19,111 @@ QString Client::Error::str() const
 	}
 }
 
-Client::Client(std::unique_ptr<AbstractConnection> connection, QObject * parent):
-	QObject(parent),
-	m_ir(this, & m_irData, Client::Count<InputRegister>, Client::IrAt),
-	m_r(this, & m_rData, Client::Count<HoldingRegister>, Client::RAt),
-	m_ib(this, & m_ibData, Client::Count<DiscreteInput>, Client::IbAt),
-	m_b(this, & m_bData, Client::Count<Coil>, Client::BAt),
-	m_connection(std::move(connection)),
-	m_endianness(INITIAL_ENDIANNESS),
-	m_rValueRequestMapper(new QSignalMapper(this)),
-	m_bValueRequestMapper(new QSignalMapper(this))
+Client::Client(std::unique_ptr<internal::AbstractConnection> connection, QObject * parent):
+	AbstractDevice(parent),
+	m(new Members(this, std::move(connection)))
 {
-	QObject::connect(m_rValueRequestMapper, SIGNAL(mapped(int)), this, SLOT(rValueRequest(int)));
-	QObject::connect(m_bValueRequestMapper, SIGNAL(mapped(int)), this, SLOT(bValueRequest(int)));
+	QObject::connect(m->rValueRequestMapper, SIGNAL(mapped(int)), this, SLOT(rValueRequest(int)));
+	QObject::connect(m->bValueRequestMapper, SIGNAL(mapped(int)), this, SLOT(bValueRequest(int)));
 }
 
 Client::~Client()
 {
 	QThreadPool::globalInstance()->waitForDone();
 
-	for (IrDataContainer::KeysContainer::const_iterator it = m_irData.keys().begin(); it != m_irData.keys().end(); ++it)
-		delete m_irData.at(*it);
-	m_irData.clear();
-	for (RDataContainer::KeysContainer::const_iterator it = m_rData.keys().begin(); it != m_rData.keys().end(); ++it)
-		delete m_rData.at(*it);
-	m_rData.clear();
-	for (IbDataContainer::KeysContainer::const_iterator it = m_ibData.keys().begin(); it != m_ibData.keys().end(); ++it)
-		delete m_ibData.at(*it);
-	m_ibData.clear();
-	for (BDataContainer::KeysContainer::const_iterator it = m_bData.keys().begin(); it != m_bData.keys().end(); ++it)
-		delete m_bData.at(*it);
-	m_bData.clear();
+	for (IrDataContainer::KeysContainer::const_iterator it = m->irData.keys().begin(); it != m->irData.keys().end(); ++it)
+		delete m->irData.at(*it);
+	m->irData.clear();
+	for (RDataContainer::KeysContainer::const_iterator it = m->rData.keys().begin(); it != m->rData.keys().end(); ++it)
+		delete m->rData.at(*it);
+	m->rData.clear();
+	for (IbDataContainer::KeysContainer::const_iterator it = m->ibData.keys().begin(); it != m->ibData.keys().end(); ++it)
+		delete m->ibData.at(*it);
+	m->ibData.clear();
+	for (BDataContainer::KeysContainer::const_iterator it = m->bData.keys().begin(); it != m->bData.keys().end(); ++it)
+		delete m->bData.at(*it);
+	m->bData.clear();
 }
 
-void Client::setEndianness(endianness_t endianness)
+const QQmlListProperty<InputRegister> & Client::ir()
 {
-	m_endianness = endianness;
+	return m->ir;
 }
 
-Client::endianness_t Client::endianness() const
+const QQmlListProperty<HoldingRegister> & Client::r()
 {
-	return m_endianness;
+	return m->r;
 }
 
-const QQmlListProperty<InputRegister> & Client::ir() const
+const QQmlListProperty<DiscreteInput> & Client::ib()
 {
-	return m_ir;
+	return m->ib;
 }
 
-const QQmlListProperty<HoldingRegister> & Client::r() const
+const QQmlListProperty<Coil> & Client::b()
 {
-	return m_r;
+	return m->b;
 }
 
-const QQmlListProperty<DiscreteInput> & Client::ib() const
+InputRegister * Client::irAt(int index)
 {
-	return m_ib;
+	return IrAt(& m->ir, index);
 }
 
-const QQmlListProperty<Coil> & Client::b() const
+HoldingRegister * Client::rAt(int index)
 {
-	return m_b;
+	return RAt(& m->r, index);
+}
+
+DiscreteInput * Client::ibAt(int index)
+{
+	return IbAt(& m->ib, index);
+}
+
+Coil * Client::bAt(int index)
+{
+	return BAt(& m->b, index);
 }
 
 void Client::readIr(int addr)
 {
 	static const int NUM_READ = 1;
 
-	QMutexLocker locker(& m_irMutex);
-	IrDataContainer::iterator it = m_irData.find(addr);
-	Q_ASSERT_X(it != m_irData.end(), __func__, "register has not been referenced yet");
+	QMutexLocker locker(& m->irMutex);
+	IrDataContainer::iterator it = m->irData.find(addr);
+	Q_ASSERT_X(it != m->irData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
-	qDebug() << "Reading value from input register " << addr << ".";
-	if (m_connection->readIr(addr, NUM_READ, & val) != NUM_READ)
-		qWarning() << tr("Failed reading input register value from the device.");
+	CUTEHMI_MODBUS_QDEBUG("Reading value from input register '" << addr << "'.");
+	if (m->connection->readIr(addr, NUM_READ, & val) != NUM_READ)
+		CUTEHMI_MODBUS_QWARNING("Failed reading input register value from the device.");
 	else
-		(*it)->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
+		(*it)->updateValue(val);
 }
 
 void Client::readR(int addr)
 {
 	static const int NUM_READ = 1;
 
-	QMutexLocker locker(& m_rMutex);
-	RDataContainer::iterator it = m_rData.find(addr);
-	Q_ASSERT_X(it != m_rData.end(), __func__, "register has not been referenced yet");
+	QMutexLocker locker(& m->rMutex);
+	RDataContainer::iterator it = m->rData.find(addr);
+	Q_ASSERT_X(it != m->rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
-	qDebug() << "Reading value from holding register " << addr << ".";
-	if (m_connection->readR(addr, NUM_READ, & val) != NUM_READ)
-		qWarning() << tr("Failed reading register value from the device.");
+	CUTEHMI_MODBUS_QDEBUG("Reading value from holding register '" << addr << "'.");
+	if (m->connection->readR(addr, NUM_READ, & val) != NUM_READ)
+		CUTEHMI_MODBUS_QWARNING("Failed reading register value from the device.");
 	else
-		(*it)->updateValue(val); // libmodbus seems to take care about endianness, so fromClientEndian(val) is not necessary.
+		(*it)->updateValue(val);
 }
 
 void Client::writeR(int addr)
 {
-	QMutexLocker locker(& m_rMutex);
-	RDataContainer::iterator it = m_rData.find(addr);
-	Q_ASSERT_X(it != m_rData.end(), __func__, "register has not been referenced yet");
+	QMutexLocker locker(& m->rMutex);
+	RDataContainer::iterator it = m->rData.find(addr);
+	Q_ASSERT_X(it != m->rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val = (*it)->requestedValue();
-	qDebug() << "Writing requested value (" << val << ") to holding register " << addr << ".";
-	if (m_connection->writeR(addr, val) != 1)
-		qWarning() << tr("Failed to write register value to the device.");
+	CUTEHMI_MODBUS_QDEBUG("Writing requested value '" << val << "' to holding register '" << addr << "'.");
+	if (m->connection->writeR(addr, val) != 1)
+		CUTEHMI_MODBUS_QWARNING("Failed to write register value to the device.");
 	else
 		emit (*it)->valueWritten();
 }
@@ -130,13 +132,13 @@ void Client::readIb(int addr)
 {
 	static const int NUM_READ = 1;
 
-	QMutexLocker locker(& m_ibMutex);
-	IbDataContainer::iterator it = m_ibData.find(addr);
-	Q_ASSERT_X(it != m_ibData.end(), __func__, "discrete input has not been referenced yet");
+	QMutexLocker locker(& m->ibMutex);
+	IbDataContainer::iterator it = m->ibData.find(addr);
+	Q_ASSERT_X(it != m->ibData.end(), __func__, "discrete input has not been referenced yet");
 	bool val = 0;
-	qDebug() << "Reading value from discrete input " << addr << ".";
-	if (m_connection->readIb(addr, NUM_READ, & val) != NUM_READ)
-		qWarning() << tr("Failed reading discrete input value from the device.");
+	CUTEHMI_MODBUS_QDEBUG("Reading value from discrete input '" << addr << "'.");
+	if (m->connection->readIb(addr, NUM_READ, & val) != NUM_READ)
+		CUTEHMI_MODBUS_QWARNING("Failed reading discrete input value from the device.");
 	else
 		(*it)->updateValue(val);
 }
@@ -145,33 +147,33 @@ void Client::readB(int addr)
 {
 	static const int NUM_READ = 1;
 
-	QMutexLocker locker(& m_bMutex);
-	BDataContainer::iterator it = m_bData.find(addr);
-	Q_ASSERT_X(it != m_bData.end(), __func__, "coil has not been referenced yet");
+	QMutexLocker locker(& m->bMutex);
+	BDataContainer::iterator it = m->bData.find(addr);
+	Q_ASSERT_X(it != m->bData.end(), __func__, "coil has not been referenced yet");
 	bool val = 0;
-	qDebug() << "Reading value from coil " << addr << ".";
-	if (m_connection->readB(addr, NUM_READ, & val) != NUM_READ)
-		qWarning() << tr("Failed reading coil value from the device.");
+	CUTEHMI_MODBUS_QDEBUG("Reading value from coil '" << addr << "'.");
+	if (m->connection->readB(addr, NUM_READ, & val) != NUM_READ)
+		CUTEHMI_MODBUS_QWARNING("Failed reading coil value from the device.");
 	else
 		(*it)->updateValue(val);
 }
 
 void Client::writeB(int addr)
 {
-	QMutexLocker locker(& m_bMutex);
-	BDataContainer::iterator it = m_bData.find(addr);
-	Q_ASSERT_X(it != m_bData.end(), __func__, "coil has not been referenced yet");
+	QMutexLocker locker(& m->bMutex);
+	BDataContainer::iterator it = m->bData.find(addr);
+	Q_ASSERT_X(it != m->bData.end(), __func__, "coil has not been referenced yet");
 	bool val = (*it)->requestedValue();
-	qDebug() << "Writing requested value (" << val << ") to coil " << addr << ".";
-	if (m_connection->writeB(addr, val) != 1)
-		qWarning() << tr("Failed to write coil value to the device.");
+	CUTEHMI_MODBUS_QDEBUG("Writing requested value '" << val << "' to coil '" << addr << "'.");
+	if (m->connection->writeB(addr, val) != 1)
+		CUTEHMI_MODBUS_QWARNING("Failed to write coil value to the device.");
 	else
 		emit (*it)->valueWritten();
 }
 
 void Client::connect()
 {
-	if (m_connection->connect())
+	if (m->connection->connect())
 		emit connected();
 	else
 		emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
@@ -179,16 +181,16 @@ void Client::connect()
 
 void Client::disconnect()
 {
-	m_connection->disconnect();
+	m->connection->disconnect();
 	emit disconnected();
 }
 
 void Client::readAll(const QAtomicInt & run)
 {
-	readRegisters<IrDataContainer>(m_irData, & Client::readIr, run);
-	readRegisters<RDataContainer>(m_rData, & Client::readR, run);
-	readRegisters<IbDataContainer>(m_ibData, & Client::readIb, run);
-	readRegisters<BDataContainer>(m_bData, & Client::readB, run);
+	readRegisters<IrDataContainer>(m->irData, & Client::readIr, run);
+	readRegisters<RDataContainer>(m->rData, & Client::readR, run);
+	readRegisters<IbDataContainer>(m->ibData, & Client::readIb, run);
+	readRegisters<BDataContainer>(m->bData, & Client::readB, run);
 }
 
 void Client::rValueRequest(int index)
@@ -211,7 +213,7 @@ HoldingRegister * Client::RAt(QQmlListProperty<HoldingRegister> * property, int 
 	//  closure type’s function call operator." -- draft C++11 standard section 5.1.2 [expr.prim.lambda]
 	auto onCreate = [](QQmlListProperty<HoldingRegister> * property, int index, HoldingRegister * reg) {
 		Client * client = static_cast<Client *>(property->object);
-		QSignalMapper * mapper = client->m_rValueRequestMapper;
+		QSignalMapper * mapper = client->m->rValueRequestMapper;
 		mapper->setMapping(reg, index);
 		QObject::connect(reg, SIGNAL(valueRequested()), mapper, SLOT(map()));
 	};
@@ -236,7 +238,7 @@ Coil * Client::BAt(QQmlListProperty<Coil> * property, int index)
 	//  closure type’s function call operator." -- draft C++11 standard section 5.1.2 [expr.prim.lambda]
 	auto onCreate = [](QQmlListProperty<Coil> * property, int index, Coil * reg) {
 		Client * client = static_cast<Client *>(property->object);
-		QSignalMapper * mapper = client->m_bValueRequestMapper;
+		QSignalMapper * mapper = client->m->bValueRequestMapper;
 		mapper->setMapping(reg, index);
 		QObject::connect(reg, SIGNAL(valueRequested()), mapper, SLOT(map()));
 	};
@@ -251,32 +253,8 @@ DiscreteInput * Client::IbAt(QQmlListProperty<DiscreteInput> * property, int ind
 	return reg;
 }
 
-uint16_t Client::fromClientEndian(uint16_t val) const
-{
-	switch (endianness()) {
-		case ENDIAN_BIG:
-			return fromBigEndian(val);
-		case ENDIAN_LITTLE:
-			return fromLittleEndian(val);
-		default:
-			qFatal("Unrecognized endiannes code: %d.", endianness());
-	}
-}
-
-uint16_t Client::toClientEndian(uint16_t val) const
-{
-	switch (endianness()) {
-		case ENDIAN_BIG:
-			return toBigEndian(val);
-		case ENDIAN_LITTLE:
-			return toLittleEndian(val);
-		default:
-			qFatal("Unrecognized endiannes code: %d.", endianness());
-	}
-}
-
 }
 }
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

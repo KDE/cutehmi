@@ -1,7 +1,10 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENT_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_CLIENT_HPP
+#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_CLIENT_HPP
+#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_CLIENT_HPP
 
-#include "RegisterTraits.hpp"
+#include "internal/common.hpp"
+#include "internal/AbstractConnection.hpp"
+#include "internal/RegisterTraits.hpp"
+#include "AbstractDevice.hpp"
 
 #include <base/ErrorInfo.hpp>
 
@@ -16,23 +19,17 @@
 namespace cutehmi {
 namespace modbus {
 
-class AbstractConnection;
-
 /**
  * Modbus client.
+ *
+ * @todo raise alerts on failed writes/reads.
+ *
+ * @todo support for 32 bit values.
  */
 class CUTEHMI_MODBUS_API Client:
-	public QObject
+	public AbstractDevice
 {
 	Q_OBJECT
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> ir READ ir)
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> r READ r)
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::DiscreteInput> ib READ ib)
-	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::Coil> b READ b)
-//remember to delete container elements!!!
-//32 bit registers/16 bit addressing	(alternatively idr/dr (double register, then could be qr - quad for 64 bit)
-//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::InputRegister> irr READ irr NOTIFY irChanged)
-//	Q_PROPERTY(QQmlListProperty<cutehmi::modbus::HoldingRegister> rr READ rr NOTIFY rChanged)
 
 	public:
 		struct CUTEHMI_MODBUS_API Error:
@@ -47,30 +44,27 @@ class CUTEHMI_MODBUS_API Client:
 			QString str() const;
 		};
 
-		enum endianness_t {
-			ENDIAN_BIG,
-			ENDIAN_LITTLE
-		};
-
-		static const endianness_t INITIAL_ENDIANNESS = ENDIAN_BIG;
-
-		explicit Client(std::unique_ptr<AbstractConnection> connection, QObject * parent = 0);
+		explicit Client(std::unique_ptr<internal::AbstractConnection> connection, QObject * parent = 0);
 
 		~Client() override;
 
-		void setEndianness(endianness_t endianness);
+		const QQmlListProperty<InputRegister> & ir() override;
 
-		endianness_t endianness() const;
+		const QQmlListProperty<HoldingRegister> & r() override;
 
-		const QQmlListProperty<InputRegister> & ir() const;
+		const QQmlListProperty<DiscreteInput> & ib() override;
 
-		const QQmlListProperty<HoldingRegister> & r() const;
+		const QQmlListProperty<Coil> & b() override;
 
-		const QQmlListProperty<DiscreteInput> & ib() const;
+		InputRegister * irAt(int index) override;
 
-		const QQmlListProperty<Coil> & b() const;
+		HoldingRegister * rAt(int index) override;
 
-//		void setConnection(std::unique_ptr<AbstractConnection> connection);
+		DiscreteInput * ibAt(int index) override;
+
+		Coil * bAt(int index) override;
+
+//		void setConnection(std::unique_ptr<internal::AbstractConnection> connection);
 
 		/**
 		 * Read input register value and update associated InputRegister object.
@@ -134,8 +128,8 @@ class CUTEHMI_MODBUS_API Client:
 		/**
 		 * Read all values of registers and coils.
 		 *
-		 * @param run indicates whether to interrupt read. Function interrupts reading and returns, if @p 0 is being set. If @p 1 is set
-		 * function will return only after reading all values of coils and registers.
+		 * @param run indicates whether to interrupt read. Function interrupts reading and returns, when value of @p 0 is being set by another thread.
+		 * If @p 1 is set, then function will return only after reading all values of coils and registers.
 		 */
 		void readAll(const QAtomicInt & run = 1);
 
@@ -152,10 +146,10 @@ class CUTEHMI_MODBUS_API Client:
 		void bValueRequest(int index);
 
 	private:
-		typedef typename RegisterTraits<InputRegister>::Container IrDataContainer;
-		typedef typename RegisterTraits<HoldingRegister>::Container RDataContainer;
-		typedef typename RegisterTraits<DiscreteInput>::Container IbDataContainer;
-		typedef typename RegisterTraits<Coil>::Container BDataContainer;
+		typedef typename internal::RegisterTraits<InputRegister>::Container IrDataContainer;
+		typedef typename internal::RegisterTraits<HoldingRegister>::Container RDataContainer;
+		typedef typename internal::RegisterTraits<DiscreteInput>::Container IbDataContainer;
+		typedef typename internal::RegisterTraits<Coil>::Container BDataContainer;
 
 		/**
 		 * Get element at specified index of property list. If element does not exist function creates it.
@@ -200,35 +194,54 @@ class CUTEHMI_MODBUS_API Client:
 		 */
 		static DiscreteInput * IbAt(QQmlListProperty<DiscreteInput> * property, int index);
 
+		/**
+		 * Read all values for the given container.
+		 * @param container container to process.
+		 * @param readFn. Function to be used to read the value. Function accepts address as a parameter.
+		 * @param run allows to interrupt the read if set to @p 0. Normally @p 1.
+		 *
+		 * @todo optimize reads.
+		 */
 		template <typename CONTAINER>
 		void readRegisters(CONTAINER & container, void (Client:: * readFn)(int), const QAtomicInt & run);
 
-		uint16_t fromClientEndian(uint16_t val) const;
+		struct Members
+		{
+			IrDataContainer irData;
+			QQmlListProperty<InputRegister> ir;
+			RDataContainer rData;
+			QQmlListProperty<HoldingRegister> r;
+			IbDataContainer ibData;
+			QQmlListProperty<DiscreteInput> ib;
+			BDataContainer bData;
+			QQmlListProperty<Coil> b;
+			std::unique_ptr<internal::AbstractConnection> connection;
+			QSignalMapper * rValueRequestMapper;
+			QSignalMapper * bValueRequestMapper;
+			QMutex rMutex;
+			QMutex irMutex;
+			QMutex bMutex;
+			QMutex ibMutex;
 
-		uint16_t toClientEndian(uint16_t val) const;
+			Members(Client * p_client, std::unique_ptr<internal::AbstractConnection> p_connection):
+				ir(p_client, & irData, Client::Count<InputRegister>, Client::IrAt),
+				r(p_client, & rData, Client::Count<HoldingRegister>, Client::RAt),
+				ib(p_client, & ibData, Client::Count<DiscreteInput>, Client::IbAt),
+				b(p_client, & bData, Client::Count<Coil>, Client::BAt),
+				connection(std::move(p_connection)),
+				rValueRequestMapper(new QSignalMapper(p_client)),
+				bValueRequestMapper(new QSignalMapper(p_client))
+			{
+			}
+		};
 
-		IrDataContainer m_irData;
-		QQmlListProperty<InputRegister> m_ir;
-		RDataContainer m_rData;
-		QQmlListProperty<HoldingRegister> m_r;
-		IbDataContainer m_ibData;
-		QQmlListProperty<DiscreteInput> m_ib;
-		BDataContainer m_bData;
-		QQmlListProperty<Coil> m_b;
-		std::unique_ptr<AbstractConnection> m_connection;
-		endianness_t m_endianness;
-		QSignalMapper * m_rValueRequestMapper;
-		QSignalMapper * m_bValueRequestMapper;
-		QMutex m_rMutex;
-		QMutex m_irMutex;
-		QMutex m_bMutex;
-		QMutex m_ibMutex;
+		utils::MPtr<Members> m;
 };
 
 template <typename T>
 T * Client::At(QQmlListProperty<T> * property, int index, void (*onCreate)(QQmlListProperty<T> *, int, T *))
 {
-	typedef typename RegisterTraits<T>::Container Container;
+	typedef typename internal::RegisterTraits<T>::Container Container;
 	Container * propertyData = static_cast<Container *>(property->data);
 	typename Container::iterator it = propertyData->find(index);
 	if (it == propertyData->end()) {
@@ -265,5 +278,5 @@ void Client::readRegisters(CONTAINER & container, void (Client:: * readFn)(int),
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

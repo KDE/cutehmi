@@ -1,5 +1,6 @@
-#include "HoldingRegister.hpp"
-#include "functions.hpp"
+#include "../../include/modbus/internal/functions.hpp"
+#include "../../include/modbus/HoldingRegister.hpp"
+#include "../../include/modbus/Exception.hpp"
 
 #include <QtDebug>
 #include <QMutexLocker>
@@ -9,68 +10,66 @@ namespace modbus {
 
 HoldingRegister::HoldingRegister(uint16_t value, QObject * parent):
 	QObject(parent),
-	m_value(value),
-	m_reqValue(value),
-	m_awaken(0)
+	m(new Members(value))
 {
 }
 
 QVariant HoldingRegister::value(encoding_t encoding) const
 {
-	QReadLocker locker(& m_valueLock);
+	QReadLocker locker(& m->valueLock);
 	switch (encoding) {
 		case INT16:
-			return intFromUint16(m_value);
+			return internal::intFromUint16(m->value);
 		default:
-			qFatal("Unrecognized code (%d) of target encoding.", encoding);
+			throw Exception(QObject::tr("Unrecognized encoding code ('%1').").arg(encoding));
 	}
 }
 
 uint16_t HoldingRegister::requestedValue() const
 {
-	QMutexLocker locker(& m_reqValueMutex);
-	return m_reqValue;
+	QMutexLocker locker(& m->reqValueMutex);
+	return m->reqValue;
 }
 
 void HoldingRegister::rest()
 {
-	m_awaken.fetchAndSubRelaxed(1);
+	m->awaken.fetchAndSubRelaxed(1);
 }
 
 void HoldingRegister::awake()
 {
-	m_awaken.fetchAndAddRelaxed(1);
+	m->awaken.fetchAndAddRelaxed(1);
 }
 
 bool HoldingRegister::wakeful() const
 {
-	return m_awaken.load();
+	return m->awaken.load();
 }
 
 void HoldingRegister::requestValue(QVariant value, encoding_t encoding)
 {
 	switch (encoding) {
 		case INT16:
-			m_reqValueMutex.lock();
-			m_reqValue = intToUint16(value.toInt());
-			m_reqValueMutex.unlock();
+			m->reqValueMutex.lock();
+			m->reqValue = internal::intToUint16(value.toInt());
+			m->reqValueMutex.unlock();
 			emit valueRequested();
 			break;
 		default:
-			qFatal("Unrecognized code (%d) of target encoding.", encoding);
+			throw Exception(QObject::tr("Unrecognized encoding code ('%1').").arg(encoding));
 	}
 }
 
 void HoldingRegister::updateValue(uint16_t value)
 {
-	m_valueLock.lockForWrite();
-	m_value = value;
-	m_valueLock.unlock();
+	m->valueLock.lockForWrite();
+	m->value = value;
+	m->valueLock.unlock();
 	emit valueUpdated();
 }
 
 }
 }
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -1,53 +1,52 @@
-#include "Service.hpp"
-#include "Client.hpp"
+#include "../../include/modbus/Service.hpp"
+#include "../../include/modbus/Client.hpp"
 
 namespace cutehmi {
 namespace modbus {
 
 Service::Service(const QString & name, Client * client, QObject * parent):
-	base::Service(name, parent),
-	m_thread(new CommunicationThread(client)),
-	m_client(client)
+	services::Service(name, parent),
+	m(new Members(client))
 {
 }
 
 Service::~Service()
 {
-	if (m_thread->isRunning())
+	if (m->thread->isRunning())
 		stop();
 }
 
 unsigned long Service::sleep() const
 {
-	return m_thread->sleep();
+	return m->thread->sleep();
 }
 
 void Service::setSleep(unsigned long sleep)
 {
-	m_thread->setSleep(sleep);
+	m->thread->setSleep(sleep);
 }
 
 Service::state_t Service::customStart()
 {
-	m_client->connect();
-	qDebug("Starting client thread...");
-	m_thread->start();
+	m->client->connect();
+	CUTEHMI_MODBUS_QDEBUG("Starting Modbus client thread...");
+	m->thread->start();
 	return STARTED;
 }
 
 Service::state_t Service::customStop()
 {
-	qDebug("Stopping client thread...");
-	m_thread->stop();
-	m_thread->quit();
-	m_thread->wait();
-	qDebug("Client thread finished.");
-	m_client->disconnect();
+	CUTEHMI_MODBUS_QDEBUG("Stopping Modbus client thread...");
+	m->thread->stop();
+	m->thread->quit();
+	m->thread->wait();
+	CUTEHMI_MODBUS_QDEBUG("Modbus client thread finished.");
+	m->client->disconnect();
 	return STOPPED;
 }
 
 }
 }
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

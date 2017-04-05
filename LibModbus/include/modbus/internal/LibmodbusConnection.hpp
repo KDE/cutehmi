@@ -1,8 +1,9 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_LIBMODBUSCONNECTION_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_LIBMODBUSCONNECTION_HPP
+#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_LIBMODBUSCONNECTION_HPP
+#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_LIBMODBUSCONNECTION_HPP
 
-#include "Exception.hpp"
+#include "common.hpp"
 #include "AbstractConnection.hpp"
+#include "../Exception.hpp"
 
 #include <utils/NonCopyable.hpp>
 #include <utils/NonMovable.hpp>
@@ -13,6 +14,7 @@
 
 namespace cutehmi {
 namespace modbus {
+namespace internal {
 
 /**
  * Libmodbus connection.
@@ -82,14 +84,25 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 	private:
 		static QMutex & Mutex(); // libmodbus functions are neither thread-safe nor re-entrant. A shared mutex is required to protect the data from corruption.
 
-		modbus_t * m_context;
-		std::vector<uint8_t> m_bIbBuffer;
+		struct Members
+		{
+			modbus_t * context;
+			std::vector<uint8_t> bIbBuffer;
+
+			Members(modbus_t * p_context):
+				context(p_context)
+			{
+			}
+		};
+
+		utils::MPtr<Members> m;
 };
 
+}
 }
 }
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

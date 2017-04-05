@@ -1,6 +1,7 @@
-#ifndef CUTEHMI_LIBMODBUS_SRC_MODBUS_RTUCONNECTION_HPP
-#define CUTEHMI_LIBMODBUS_SRC_MODBUS_RTUCONNECTION_HPP
+#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_RTUCONNECTION_HPP
+#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_RTUCONNECTION_HPP
 
+#include "common.hpp"
 #include "LibmodbusConnection.hpp"
 
 #include <modbus.h>
@@ -9,6 +10,7 @@
 
 namespace cutehmi {
 namespace modbus {
+namespace internal {
 
 /**
  * RTU connection.
@@ -87,19 +89,25 @@ class CUTEHMI_MODBUS_API RTUConnection:
 	private:
 		static char ToLibmodbusParity(Parity parity);
 
-		QString m_port;
-		int m_baudRate;
-		Parity m_parity;
-		DataBits m_dataBits;
-		StopBits m_stopBits;
-		Mode m_mode;
-		int m_slaveId;
+		struct Members
+		{
+			QString port;
+			int baudRate;
+			Parity parity;
+			DataBits dataBits;
+			StopBits stopBits;
+			Mode mode;
+			int slaveId;
+		};
+
+		utils::MPtr<Members> m;
 };
 
+}
 }
 }
 
 #endif
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

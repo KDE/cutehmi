@@ -1,31 +1,26 @@
-#include "RTUConnection.hpp"
-#include "Exception.hpp"
+#include "../../../include/modbus/internal/RTUConnection.hpp"
+#include "../../../include/modbus/Exception.hpp"
 
 #include <QObject>
 
 namespace cutehmi {
 namespace modbus {
+namespace internal {
 
 RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode, int slaveId):
 	Parent(modbus_new_rtu(port.toLocal8Bit().data(), baudRate, ToLibmodbusParity(parity), static_cast<int>(dataBits), static_cast<int>(stopBits))),
-	m_port(port),
-	m_baudRate(baudRate),
-	m_parity(parity),
-	m_dataBits(dataBits),
-	m_stopBits(stopBits),
-	m_mode(mode),
-	m_slaveId(slaveId)
+	m(new Members{port, baudRate, parity, dataBits, stopBits, mode, slaveId})
 {
 	if (context() == NULL) {
 		switch (errno) {
 			case EINVAL:
-				throw Exception(QObject::tr("Unable to create a connection for the port: %1. One of the parameters is incorrect.").arg(m_port));
+				throw Exception(QObject::tr("Unable to create a connection for the port '%1'. One of the parameters is incorrect.").arg(m->port));
 			default:
-				throw Exception(QObject::tr("Unable to create a connection for the port: %1.").arg(m_port));
+				throw Exception(QObject::tr("Unable to create a connection for the port '%1'.").arg(m->port));
 		}
 	}
 
-	modbus_set_slave(context(), m_slaveId);
+	modbus_set_slave(context(), m->slaveId);
 
 //<workaround id="LibModbus-1" target="libmodbus" cause="bug">
 //	if (modbus_rtu_set_serial_mode(context(), static_cast<int>(mode)) == -1) {
@@ -55,37 +50,37 @@ RTUConnection::~RTUConnection()
 
 const QString & RTUConnection::port() const
 {
-	return m_port;
+	return m->port;
 }
 
 int RTUConnection::baudRate() const
 {
-	return m_baudRate;
+	return m->baudRate;
 }
 
 RTUConnection::Parity RTUConnection::parity() const
 {
-	return m_parity;
+	return m->parity;
 }
 
 RTUConnection::DataBits RTUConnection::dataBits() const
 {
-	return m_dataBits;
+	return m->dataBits;
 }
 
 RTUConnection::StopBits RTUConnection::stopBits() const
 {
-	return m_stopBits;
+	return m->stopBits;
 }
 
 RTUConnection::Mode RTUConnection::mode() const
 {
-	return m_mode;
+	return m->mode;
 }
 
 int RTUConnection::slaveId() const
 {
-	return m_slaveId;
+	return m->slaveId;
 }
 
 char RTUConnection::ToLibmodbusParity(Parity parity)
@@ -99,12 +94,13 @@ char RTUConnection::ToLibmodbusParity(Parity parity)
 		case Parity::NONE:
 			return 'N';
 		default:
-			qFatal("Unrecognized parity code: %d.", static_cast<int>(parity));
+			throw Exception(QObject::tr("Unrecognized parity code ('%1').").arg(static_cast<int>(parity)));
 	}
 }
 
 }
 }
+}
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

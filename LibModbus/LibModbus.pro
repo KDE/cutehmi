@@ -18,6 +18,7 @@ DEFINES += CUTEHMI_MODBUS_DYNAMIC
 TRANSLATIONS = locale/cutehmi_modbus_pl.ts
 
 include(../cutehmi_base.pri)
+include(../cutehmi_services.pri)
 include(../libmodbus.pri)
 
 unix {
@@ -28,42 +29,41 @@ unix {
 SOURCES += \
     src/modbus/Client.cpp \
     src/modbus/Exception.cpp \
-    src/modbus/functions.cpp \
     src/modbus/HoldingRegister.cpp \
     src/modbus/InputRegister.cpp \
-    src/modbus/RTUConnection.cpp \
-    src/modbus/TCPConnection.cpp \
-    src/modbus/CommunicationThread.cpp \
-    src/modbus/NodeDataObject.cpp \
-    src/modbus/VisitorDelegate.cpp \
-    src/modbus/UIVisitorDelegateHolder.cpp \
-    src/modbus/DummyConnection.cpp \
-    src/modbus/LibmodbusConnection.cpp \
     src/modbus/Coil.cpp \
     src/modbus/DiscreteInput.cpp \
-    src/modbus/Service.cpp
+    src/modbus/Service.cpp \
+    src/modbus/internal/macros.cpp \
+    src/modbus/internal/CommunicationThread.cpp \
+    src/modbus/internal/DummyConnection.cpp \
+    src/modbus/internal/LibmodbusConnection.cpp \
+    src/modbus/internal/RTUConnection.cpp \
+    src/modbus/internal/TCPConnection.cpp \
+    src/modbus/internal/functions.cpp \
+    src/modbus/AbstractDevice.cpp
 
 HEADERS += \
-    src/platform.hpp \
-    src/modbus/Client.hpp \
-    src/modbus/Exception.hpp \
-    src/modbus/functions.hpp \
-    src/modbus/HoldingRegister.hpp \
-    src/modbus/InputRegister.hpp \
-    src/modbus/RegisterTraits.hpp \
-    src/modbus/RTUConnection.hpp \
-    src/modbus/TCPConnection.hpp \
-    src/modbus/CommunicationThread.hpp \
-    src/modbus/NodeDataObject.hpp \
-    src/modbus/VisitorDelegate.hpp \
-    src/modbus/UIVisitorDelegateHolder.hpp \
-    src/modbus/DummyConnection.hpp \
-    src/modbus/LibmodbusConnection.hpp \
-    src/modbus/AbstractConnection.hpp \
-    src/modbus/Coil.hpp \
-    src/modbus/DiscreteInput.hpp \
-    src/modbus/DataContainer.hpp \
-    src/modbus/Service.hpp
+    include/modbus/Client.hpp \
+    include/modbus/Coil.hpp \
+    include/modbus/DiscreteInput.hpp \
+    include/modbus/Exception.hpp \
+    include/modbus/HoldingRegister.hpp \
+    include/modbus/InputRegister.hpp \
+    include/modbus/Service.hpp \
+    include/modbus/internal/platform.hpp \
+    include/modbus/internal/common.hpp \
+    include/modbus/internal/macros.hpp \
+    include/modbus/internal/AbstractConnection.hpp \
+    include/modbus/internal/CommunicationThread.hpp \
+    include/modbus/internal/DataContainer.hpp \
+    include/modbus/internal/RegisterTraits.hpp \
+    include/modbus/internal/DummyConnection.hpp \
+    include/modbus/internal/LibmodbusConnection.hpp \
+    include/modbus/internal/RTUConnection.hpp \
+    include/modbus/internal/TCPConnection.hpp \
+    include/modbus/internal/functions.hpp \
+    include/modbus/AbstractDevice.hpp
 
 DISTFILES +=
 
