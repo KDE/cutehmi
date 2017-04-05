@@ -1,0 +1,18 @@
+language: cpp
+sudo: required
+dist: trusty
+
+before_install:
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt58-trusty
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get -y install qt58[QTPACKAGE]
+  - sudo apt-get -y install qt58serialbus
+  - sudo apt-get -y install libmodbus-dev
+
+script:
+  - source /opt/qt58/bin/qt58-env.sh
+  - mkdir build && cd build
+  - /opt/qt58/bin/qmake ../All.pro
+  - make
