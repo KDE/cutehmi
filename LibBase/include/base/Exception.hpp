@@ -4,19 +4,22 @@
 #include "internal/common.hpp"
 
 #include <QCoreApplication>
-
-#include <exception>
+#include <QException>
 
 namespace cutehmi {
 namespace base {
 
 class CUTEHMI_BASE_API Exception:
-	public std::exception
+	public QException
 {
 	Q_DECLARE_TR_FUNCTIONS(cutehmi::base::Exception) // This macro ends with "private:" specifier :o !!!
 
 	public:
 		Exception(const QString & what);
+
+		void raise() const override;
+
+		Exception * clone() const override;
 
 		const char * what() const noexcept override;
 

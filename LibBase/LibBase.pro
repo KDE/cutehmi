@@ -73,7 +73,8 @@ HEADERS += \
     include/base/internal/PluginNodeData.hpp \
     include/base/XMLBackendPlugin.hpp \
     include/base/macros.hpp \
-    include/base/DataBlock.hpp
+    include/base/DataBlock.hpp \
+    include/base/ExceptionMixin.hpp
 
 DISTFILES +=
 

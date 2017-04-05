@@ -2,7 +2,7 @@
 #define CUTEHMI_LIBBASE_INCLUDE_BASE_INTERNAL_PROJECTXMLBACKEND_HPP
 
 #include "common.hpp"
-#include "../Exception.hpp"
+#include "../ExceptionMixin.hpp"
 #include "../ProjectModel.hpp"
 #include "../xml/internal/functions.hpp"
 
@@ -22,10 +22,12 @@ class ProjectXMLBackend
 {
 	public:
 		class Exception:
-			public base::Exception
+			public base::ExceptionMixin<Exception>
 		{
+			typedef base::ExceptionMixin<Exception> Parent;
+
 			public:
-				using base::Exception::Exception;
+				using Parent::Parent;
 		};
 
 		class UnsupportedDocumentVersionException:

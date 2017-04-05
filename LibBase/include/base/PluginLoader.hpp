@@ -3,7 +3,7 @@
 
 #include "internal/common.hpp"
 #include "Error.hpp"
-#include "Exception.hpp"
+#include "ExceptionMixin.hpp"
 #include "Plugin.hpp"
 
 #include <QPluginLoader>
@@ -23,10 +23,12 @@ class CUTEHMI_BASE_API PluginLoader:
 
 	public:
 		class CUTEHMI_BASE_API Exception:
-			public base::Exception
+			public base::ExceptionMixin<Exception>
 		{
+			typedef base::ExceptionMixin<Exception> Parent;
+
 			public:
-				using base::Exception::Exception;
+				using Parent::Parent;
 		};
 
 		class CUTEHMI_BASE_API WrongVersionException:

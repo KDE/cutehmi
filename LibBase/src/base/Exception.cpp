@@ -8,6 +8,16 @@ Exception::Exception(const QString & what):
 {
 }
 
+void Exception::raise() const
+{
+	throw *this;
+}
+
+Exception * Exception::clone() const
+{
+	return new Exception(*this);
+}
+
 const char * Exception::what() const noexcept
 {
 	return m_whatArr.constData();

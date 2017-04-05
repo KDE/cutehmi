@@ -1,15 +1,17 @@
 #ifndef CUTEHMI_LIBBASE_INCLUDE_BASE_ERROREXCEPTION_HPP
 #define CUTEHMI_LIBBASE_INCLUDE_BASE_ERROREXCEPTION_HPP
 
-#include "Exception.hpp"
+#include "ExceptionMixin.hpp"
 #include "ErrorInfo.hpp"
 
 namespace cutehmi {
 namespace base {
 
 class CUTEHMI_BASE_API ErrorException:
-	public Exception
+	public ExceptionMixin<ErrorException>
 {
+	typedef ExceptionMixin<ErrorException> Parent;
+
 	public:
 		template <class ERROR>
 		explicit ErrorException(ERROR error);
@@ -22,7 +24,7 @@ class CUTEHMI_BASE_API ErrorException:
 
 template <class ERROR>
 ErrorException::ErrorException(ERROR error):
-	Exception(error.str()),
+	Parent(error.str()),
 	m_errorInfo(::cutehmi::base::errorInfo<ERROR>(error))
 {
 }
