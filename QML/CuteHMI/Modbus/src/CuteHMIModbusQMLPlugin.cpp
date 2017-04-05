@@ -1,20 +1,33 @@
 #include "CuteHMIModbusQMLPlugin.hpp"
+#include "cutehmi/modbus/qml/CoilController.hpp"
+#include "cutehmi/modbus/qml/DiscreteInputController.hpp"
+#include "cutehmi/modbus/qml/HoldingRegisterController.hpp"
+#include "cutehmi/modbus/qml/InputRegisterController.hpp"
 
 #include <modbus/HoldingRegister.hpp>
 #include <modbus/InputRegister.hpp>
 #include <modbus/DiscreteInput.hpp>
 #include <modbus/Coil.hpp>
+#include <modbus/Client.hpp>
 
 #include <QtQml>
 
 void CuteHMIModbusQMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Modbus"));
-	qmlRegisterType<cutehmi::modbus::InputRegister>(uri, 1, 0, "ModbusInputRegister");
-	qmlRegisterType<cutehmi::modbus::HoldingRegister>(uri, 1, 0, "ModbusHoldingRegister");
-	qmlRegisterType<cutehmi::modbus::DiscreteInput>(uri, 1, 0, "ModbusDiscreteInput");
-	qmlRegisterType<cutehmi::modbus::Coil>(uri, 1, 0, "ModbusCoil");
+
+	qmlRegisterType<cutehmi::modbus::InputRegister>(uri, 1, 0, "InputRegister");
+	qmlRegisterType<cutehmi::modbus::HoldingRegister>(uri, 1, 0, "HoldingRegister");
+	qmlRegisterType<cutehmi::modbus::DiscreteInput>(uri, 1, 0, "DiscreteInput");
+	qmlRegisterType<cutehmi::modbus::Coil>(uri, 1, 0, "Coil");
+	qmlRegisterType<cutehmi::modbus::AbstractDevice>();
+	qmlRegisterType<cutehmi::modbus::Client>();
+
+	qmlRegisterType<cutehmi::modbus::qml::HoldingRegisterController>(uri, 1, 0, "HoldingRegisterController");
+	qmlRegisterType<cutehmi::modbus::qml::InputRegisterController>(uri, 1, 0, "InputRegisterController");
+	qmlRegisterType<cutehmi::modbus::qml::DiscreteInputController>(uri, 1, 0, "DiscreteInputController");
+	qmlRegisterType<cutehmi::modbus::qml::CoilController>(uri, 1, 0, "CoilController");
 }
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

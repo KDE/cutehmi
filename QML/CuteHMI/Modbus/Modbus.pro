@@ -15,28 +15,22 @@ include(../../../cutehmi_base.pri)
 include(../../../cutehmi_modbus.pri)
 
 HEADERS += \
-    src/CuteHMIModbusQMLPlugin.hpp
+    src/CuteHMIModbusQMLPlugin.hpp \
+    src/cutehmi/modbus/qml/HoldingRegisterController.hpp \
+    src/cutehmi/modbus/qml/CoilController.hpp \
+    src/cutehmi/modbus/qml/DiscreteInputController.hpp \
+    src/cutehmi/modbus/qml/InputRegisterController.hpp
 
 SOURCES += \
-    src/CuteHMIModbusQMLPlugin.cpp
+    src/CuteHMIModbusQMLPlugin.cpp \
+    src/cutehmi/modbus/qml/HoldingRegisterController.cpp \
+    src/cutehmi/modbus/qml/CoilController.cpp \
+    src/cutehmi/modbus/qml/DiscreteInputController.cpp \
+    src/cutehmi/modbus/qml/InputRegisterController.cpp
 
 DISTFILES += \ 
     qmldir \
-    HoldingRegisterItem.qml \
     designer/Modbus.metainfo \
     QML_Modbus.qmltypes \
-    designer/HoldingRegisterItemSpecifics.qml \
-    InputRegisterItem.qml \
-    CoilItem.qml \
-    DiscreteInputItem.qml \
-    designer/InputRegisterItemSpecifics.qml \
-    designer/CoilItemSpecifics.qml \
-    designer/DiscreteInputItemSpecifics.qml \
-    ExtBusyIndicator.qml \
-    HoldingRegisterController.qml \
-    CoilController.qml \
-    DiscreteInputController.qml \
-    HoldingRegisterController.qml \
-    InputRegisterController.qml
 
 RESOURCES +=

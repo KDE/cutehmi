@@ -1,9 +1,5 @@
 module CuteHMI.Base
 
-TextDisplay 1.0 TextDisplay.qml
-Pipe 1.0 Pipe.qml
-PipeEmitterSettings 1.0 PipeEmitterSettings.qml
-PipePoint 1.0 PipePoint.qml
 NumberDisplay 1.0 NumberDisplay.qml
 ValueColor 1.0 ValueColor.qml
 ValueRangeColor 1.0 ValueRangeColor.qml
