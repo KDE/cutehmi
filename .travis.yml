@@ -17,11 +17,12 @@ before_install:
 install:
   - sudo apt-get -y install qt58[QTPACKAGE]
   - sudo apt-get -y install qt58serialbus
-  - sudo git clone git://github.com/stephane/libmodbus.git
+  - git clone git://github.com/stephane/libmodbus.git
   - cd libmodbus
-  - sudo git checkout f9358460ee1f62bcac716ad0444b3bbe7628b204
-  - sudo ./autogen.sh
-  - sudo ./configure && sudo make install
+  - git checkout f9358460ee1f62bcac716ad0444b3bbe7628b204
+  - ./autogen.sh
+  - ./configure
+  - make && sudo make install
   - cd ..
 
 script:
