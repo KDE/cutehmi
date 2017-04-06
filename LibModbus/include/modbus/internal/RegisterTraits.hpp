@@ -14,7 +14,6 @@ namespace internal {
 template <typename R>
 struct RegisterTraits
 {
-	typedef typename RegisterTraits<R>::Container Container;
 };
 
 template <>
