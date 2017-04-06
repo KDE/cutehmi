@@ -2,6 +2,14 @@ language: cpp
 sudo: required
 dist: trusty
 
+compiler:
+  - clang
+  - gcc
+
+env:
+  - QMAKE_OPTIONS="CONFIG+=debug CONFIG+=qml_debug"
+  - QMAKE_OPTIONS="CONFIG+=release"
+
 before_install:
   - sudo add-apt-repository --yes ppa:beineri/opt-qt58-trusty
   - sudo apt-get update -qq
@@ -15,10 +23,6 @@ install:
   - sudo ./autogen.sh
   - sudo ./configure && sudo make install
   - cd ..
-
-env:
-  - QMAKE_OPTIONS="CONFIG+=debug CONFIG+=qml_debug"
-  - QMAKE_OPTIONS=
 
 script:
   - source /opt/qt58/bin/qt58-env.sh
