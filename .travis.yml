@@ -20,4 +20,4 @@ script:
   - source /opt/qt58/bin/qt58-env.sh
   - mkdir build && cd build
   - /opt/qt58/bin/qmake ../All.pro
-  - make
+  - make all
