@@ -18,9 +18,17 @@ Project * CuteHMI::project() const
 	return m->project.get();
 }
 
-CuteHMI::CuteHMI():
-	m(new Members{std::unique_ptr<Project>(new Project)})
+PopupBridge * CuteHMI::popupBridge() const
 {
+	return m->popupBridge.get();
+}
+
+CuteHMI::CuteHMI():
+	m(new Members{
+	  std::unique_ptr<Project>(new Project),
+	  std::unique_ptr<PopupBridge>(new PopupBridge)})
+{
+	qRegisterMetaType<cutehmi::base::ErrorInfo>();
 }
 
 std::unique_ptr<CuteHMI> & CuteHMI::InstancePtr()

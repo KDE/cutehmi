@@ -16,7 +16,7 @@ namespace base {
  * Project. Encapsulates objects related to a project and provides neat interface to deal with projects.
  */
 class CUTEHMI_BASE_API Project:
-	QObject
+	public QObject
 {
 	Q_OBJECT
 

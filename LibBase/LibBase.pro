@@ -32,8 +32,6 @@ SOURCES += \
     src/base/CuteHMI.cpp \
     src/base/internal/ProjectXMLBackend.cpp \
     src/base/Exception.cpp \
-    src/base/Message.cpp \
-    src/base/PopupManager.cpp \
     src/base/ErrorException.cpp \
     src/base/ErrorInfo.cpp \
     src/base/ProjectNode.cpp \
@@ -45,7 +43,11 @@ SOURCES += \
     src/base/internal/PluginNodeData.cpp \
     src/base/XMLBackendPlugin.cpp \
     src/base/internal/macros.cpp \
-    src/base/DataBlock.cpp
+    src/base/DataBlock.cpp \
+    src/base/PopupBridge.cpp \
+    src/base/Prompt.cpp \
+    src/base/functions.cpp \
+    src/base/Notification.cpp
 
 HEADERS += \
     include/base/ProjectModel.hpp \
@@ -58,8 +60,6 @@ HEADERS += \
     include/base/Exception.hpp \
     include/base/ErrorException.hpp \
     include/base/internal/common.hpp \
-    include/base/Message.hpp \
-    include/base/PopupManager.hpp \
     include/base/internal/platform.hpp \
     include/base/internal/macros.hpp \
     include/base/ProjectNode.hpp \
@@ -74,7 +74,11 @@ HEADERS += \
     include/base/XMLBackendPlugin.hpp \
     include/base/macros.hpp \
     include/base/DataBlock.hpp \
-    include/base/ExceptionMixin.hpp
+    include/base/ExceptionMixin.hpp \
+    include/base/PopupBridge.hpp \
+    include/base/Prompt.hpp \
+    include/base/functions.hpp \
+    include/base/Notification.hpp
 
 DISTFILES +=
 

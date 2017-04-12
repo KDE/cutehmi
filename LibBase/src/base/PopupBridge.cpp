@@ -1,0 +1,44 @@
+#include "../../include/base/PopupBridge.hpp"
+
+namespace cutehmi {
+namespace base {
+
+PopupBridge::PopupBridge(QObject * parent):
+	QObject(parent),
+	m(new Members)
+{
+}
+
+void PopupBridge::advertise(Prompt * prompt)
+{
+	QMutexLocker locker(& m->requestMutex);
+
+	if (m->advertiser == nullptr) {
+		CUTEHMI_BASE_QCRITICAL("No advertiser has been set. Forcing 'Prompt::NO_BUTTON' response.");
+		prompt->acceptResponse(Prompt::NO_BUTTON);
+		return;
+	}
+
+	Prompt * clone = prompt->clone().release();
+	clone->setParent(this);
+
+	// Forward response to the original prompt. Connection should be automatically broken if original prompt gets deleted.
+	connect(clone, & Prompt::responseArrived, prompt, & Prompt::acceptResponse);
+
+	// Set up clone for auto-destruction once response arrived.
+	connect(clone, & Prompt::responseArrived, clone, & Prompt::deleteLater);
+
+	emit promptRequested(QVariant::fromValue(clone));
+}
+
+void PopupBridge::resetAdvertiser(QObject * advertiser)
+{
+	m->advertiser = advertiser;
+	QObject::connect(this, SIGNAL(promptRequested(QVariant)), advertiser, SLOT(createPrompt(QVariant)));
+}
+
+}
+}
+
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

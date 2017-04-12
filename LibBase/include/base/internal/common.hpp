@@ -3,6 +3,9 @@
 
 #include "platform.hpp"
 #include "macros.hpp"
+#include "../ErrorInfo.hpp"
+#include "../Notification.hpp"
+#include "../Prompt.hpp"
 
 #include <utils/MPtr.hpp>
 

@@ -7,6 +7,10 @@ CONFIG(debug, debug|release) {
 
 QT += qml quick
 
+#<workaround id="AppLite-4" target="Qt" cause="bug">
+QT += widgets
+#</workaround>
+
 # Translations.
 TRANSLATIONS = locale/applite_pl.ts
 
@@ -34,5 +38,6 @@ DISTFILES += \
     deployment.pri \
     AppLite.rc \
     qml/MainWindow.qml \
-    qml/DefaultScreen.qml
+    qml/DefaultScreen.qml \
+    qml/PromptDialog.qml
 

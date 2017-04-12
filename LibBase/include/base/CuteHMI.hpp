@@ -3,6 +3,7 @@
 
 #include "internal/common.hpp"
 #include "Project.hpp"
+#include "PopupBridge.hpp"
 
 #include <QObject>
 
@@ -15,8 +16,16 @@ class CUTEHMI_BASE_API CuteHMI:
 	Q_OBJECT
 
 	public:
+		Q_PROPERTY(Project * project READ project NOTIFY projectChanged)
+		Q_PROPERTY(PopupBridge * popupBridge READ popupBridge NOTIFY popupBridgeChanged)
+
 		/**
 		 * Get instance. Gets a reference to the instance of the singleton class.
+		 * Calling this function for the first time will also result in registering
+		 * some types with qRegisterMetaType() function. Types that are registered:
+		 *	- cutehmi::base::ErrorInfo
+		 *  .
+		 *
 		 * @return a reference to the instance of the singleton class.
 		 *
 		 * @warning Typically Destroy() function should be used to satisfy the requirement
@@ -42,6 +51,13 @@ class CUTEHMI_BASE_API CuteHMI:
 
 		Project * project() const;
 
+		PopupBridge * popupBridge() const;
+
+	signals:
+		projectChanged();
+
+		popupBridgeChanged();
+
 	protected:
 		CuteHMI();
 
@@ -51,6 +67,7 @@ class CUTEHMI_BASE_API CuteHMI:
 		struct Members
 		{
 			std::unique_ptr<Project> project;
+			std::unique_ptr<PopupBridge> popupBridge;
 		};
 
 		utils::MPtr<Members> m;

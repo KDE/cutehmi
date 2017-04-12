@@ -7,7 +7,7 @@ namespace cutehmi {
 namespace utils {
 
 /**
- * Members pointer.
+ * Members pointer. This class wraps std::unique_ptr and provides opaque interface that forwards const to the member.
  */
 template<class T, class DELETER = std::default_delete<T>>
 class MPtr: private std::unique_ptr<T, DELETER>
@@ -72,10 +72,10 @@ class MPtr: private std::unique_ptr<T, DELETER>
 	friend void swap(MPtr<TS, DS> & x, MPtr<TS, DS> & y) noexcept;
 
 	public:
+		typedef T element_type;
 		typedef T * pointer;
 		typedef const T * const_pointer;
 		typedef typename Parent::deleter_type deleter_type;
-		typedef typename Parent::element_type element_type;
 		typedef typename std::add_lvalue_reference<element_type>::type reference;
 		typedef typename std::add_lvalue_reference<typename std::add_const<element_type>::type>::type const_reference;
 

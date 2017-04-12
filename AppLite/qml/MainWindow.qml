@@ -1,11 +1,15 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.4
 import QtQuick.Window 2.2
+import QtQuick.Dialogs 1.2
 import Qt.labs.settings 1.0
+
+import CuteHMI.Base 1.0
 
 ApplicationWindow
 {
 	id: mainWindow
+
 	x: settings.x
 	y: settings.y
 	width: settings.width
@@ -71,10 +75,20 @@ ApplicationWindow
 		source: cutehmi_app_mainScreenURL
 	}
 
+	function createPrompt(prompt)
+	{
+		var promptDialogComponent = Qt.createComponent("PromptDialog.qml")
+		var promptDialog = promptDialogComponent.createObject(mainWindow, {"prompt" : prompt})
+		promptDialog.promptChanged.connect(promptDialog.destroy)
+		promptDialog.open()
+	}
+
 	Component.onCompleted: {
 		for (var i = 1; i < Qt.application.arguments.length; i++)
 			if (Qt.application.arguments[i] === "--fullscreen")
 				mainWindow.visibility = Window.FullScreen
+
+		CuteHMI.popupBridge.resetAdvertiser(mainWindow)
 	}
 
 	onClosing: {

@@ -3,5 +3,6 @@
         <file>img/icon.png</file>
         <file>qml/MainWindow.qml</file>
         <file>qml/DefaultScreen.qml</file>
+        <file>qml/PromptDialog.qml</file>
     </qresource>
 </RCC>

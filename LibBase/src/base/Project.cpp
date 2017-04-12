@@ -1,7 +1,6 @@
 #include "../../include/base/Project.hpp"
 #include "../../include/base/Exception.hpp"
 #include "../../include/base/internal/ProjectXMLBackend.hpp"
-#include "../../include/base/Message.hpp"
 
 #include <QFile>
 #include <QFileInfo>
@@ -32,7 +31,7 @@ ProjectModel * Project::model() const
 void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 {
 	if (filePath.isEmpty()) {
-		Message::Error(tr("Empty filename."));
+		Prompt::Warning(tr("Empty filename."));
 		return;
 	}
 
@@ -47,16 +46,16 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 			m.swap(newM);
 			emit modelChanged();
 			emit pluginLoaderChanged();
-			Message::Note(tr("Succesfuly loaded project file %1.").arg(filePath));
+			Notification::Note(tr("Succesfuly loaded project file %1.").arg(filePath));
 		} catch (const Exception & e) {
-			Message::Error(e.what());
+			Prompt::Critical(e.what());
 		}
 		file.close();
 	} else {
 		if (!QFileInfo(filePath).exists())
-			Message::Error(tr("Could not load project file. File %1 does not exist.").arg(filePath));
+			Prompt::Warning(tr("Could not load project file. File %1 does not exist.").arg(filePath));
 		else
-			Message::Error(tr("Could not load project file. File %1 could not be opened.").arg(filePath));
+			Prompt::Warning(tr("Could not load project file. File %1 could not be opened.").arg(filePath));
 	}
 }
 

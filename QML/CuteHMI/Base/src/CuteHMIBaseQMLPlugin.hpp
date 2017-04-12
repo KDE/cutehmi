@@ -15,7 +15,7 @@ class CuteHMIBaseQMLPlugin:
 		void registerTypes(const char * uri) override;
 
 	private:
-//		static QObject * ServiceRegistryProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+		static QObject * CuteHMIProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 };
 
 #endif

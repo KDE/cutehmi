@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_LIBBASE_INCLUDE_BASE_ERROR_HPP
 #define CUTEHMI_LIBBASE_INCLUDE_BASE_ERROR_HPP
 
-#include "internal/common.hpp"
+#include "internal/platform.hpp"
 
 #include <QString>
 #include <QCoreApplication>

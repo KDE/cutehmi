@@ -5,7 +5,12 @@
 #include <base/ErrorInfo.hpp>
 #include <base/PluginLoader.hpp>
 
-#include <QGuiApplication>
+//<workaround id="AppLite-4" target="Qt" cause="bug">
+#include <QApplication>
+// Instead of:
+//#include <QGuiApplication>
+//</workaround>
+
 #include <QQmlApplicationEngine>
 #include <QIcon>
 #include <QDir>
@@ -30,10 +35,14 @@ int main(int argc, char * argv[])
 //	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
 //	should make the QApplication be the first created, and last destroyed QObject."
 
-	QGuiApplication app(argc, argv);
+	//<workaround id="AppLite-4" target="Qt" cause="bug">
+	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+	QApplication app(argc, argv);
+	// Instead of:
+//	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//	QGuiApplication app(argc, argv);
+	//<workaround>
 	app.setWindowIcon(QIcon(":/img/icon.png"));
-
-	qRegisterMetaType<cutehmi::base::ErrorInfo>();
 
 	QCommandLineParser cmd;
 	cmd.setApplicationDescription("CuteHMI Lite");
@@ -102,5 +111,5 @@ int main(int argc, char * argv[])
 //</principle>
 }
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
