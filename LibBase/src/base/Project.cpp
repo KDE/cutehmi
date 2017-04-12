@@ -35,7 +35,7 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 		return;
 	}
 
-	CUTEHMI_BASE_QDEBUG("Loading project file \"" << filePath << "\"...");
+	CUTEHMI_BASE_QDEBUG("Loading project file '" << filePath << "'...");
 
 	QFile file(filePath);
 	if (file.open(QIODevice::ReadOnly)) {
@@ -46,16 +46,16 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 			m.swap(newM);
 			emit modelChanged();
 			emit pluginLoaderChanged();
-			Notification::Note(tr("Succesfuly loaded project file %1.").arg(filePath));
+			Notification::Note(tr("Succesfuly loaded project file '%1'.").arg(filePath));
 		} catch (const Exception & e) {
 			Prompt::Critical(e.what());
 		}
 		file.close();
 	} else {
 		if (!QFileInfo(filePath).exists())
-			Prompt::Warning(tr("Could not load project file. File %1 does not exist.").arg(filePath));
+			Prompt::Warning(tr("Could not load project file. File '%1' does not exist.").arg(filePath));
 		else
-			Prompt::Warning(tr("Could not load project file. File %1 could not be opened.").arg(filePath));
+			Prompt::Warning(tr("Could not load project file. File '%1' could not be opened.").arg(filePath));
 	}
 }
 

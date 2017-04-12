@@ -23,10 +23,16 @@ PopupBridge * CuteHMI::popupBridge() const
 	return m->popupBridge.get();
 }
 
+NotificationManager * CuteHMI::notificationManager() const
+{
+	return m->notificationManager.get();
+}
+
 CuteHMI::CuteHMI():
 	m(new Members{
 	  std::unique_ptr<Project>(new Project),
-	  std::unique_ptr<PopupBridge>(new PopupBridge)})
+	  std::unique_ptr<PopupBridge>(new PopupBridge),
+	  std::unique_ptr<NotificationManager>(new NotificationManager)})
 {
 	qRegisterMetaType<cutehmi::base::ErrorInfo>();
 }

@@ -9,21 +9,21 @@ PopupBridge::PopupBridge(QObject * parent):
 {
 }
 
-void PopupBridge::advertise(Prompt * prompt)
+void PopupBridge::advertise(Prompt * prompt_l)
 {
 	QMutexLocker locker(& m->requestMutex);
 
 	if (m->advertiser == nullptr) {
 		CUTEHMI_BASE_QCRITICAL("No advertiser has been set. Forcing 'Prompt::NO_BUTTON' response.");
-		prompt->acceptResponse(Prompt::NO_BUTTON);
+		prompt_l->acceptResponse(Prompt::NO_BUTTON);
 		return;
 	}
 
-	Prompt * clone = prompt->clone().release();
+	Prompt * clone = prompt_l->clone().release();
 	clone->setParent(this);
 
 	// Forward response to the original prompt. Connection should be automatically broken if original prompt gets deleted.
-	connect(clone, & Prompt::responseArrived, prompt, & Prompt::acceptResponse);
+	connect(clone, & Prompt::responseArrived, prompt_l, & Prompt::acceptResponse);
 
 	// Set up clone for auto-destruction once response arrived.
 	connect(clone, & Prompt::responseArrived, clone, & Prompt::deleteLater);

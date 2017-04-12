@@ -18,9 +18,14 @@ class CUTEHMI_BASE_API PopupBridge:
 	public:
 		explicit PopupBridge(QObject * parent = 0);
 
-		~PopupBridge() override = default;
-
-		Q_INVOKABLE void advertise(Prompt * prompt);
+		/**
+		 * Advertise prompt.
+		 * @param prompt_l prompt to advertise. Parameter will be used locally by this function.
+		 * It's passed by a pointer instead of a reference for easier integration with QML.
+		 *
+		 * @note this function is thread-safe.
+		 */
+		Q_INVOKABLE void advertise(Prompt * prompt_l);
 
 		Q_INVOKABLE void resetAdvertiser(QObject * advertiser);
 

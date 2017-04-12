@@ -20,10 +20,10 @@ class CUTEHMI_BASE_API Prompt:
 	Q_OBJECT
 
 	public:
+		Q_PROPERTY(type_t type READ type WRITE setType NOTIFY typeChanged)
 		Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 		Q_PROPERTY(QString informativeText READ informativeText WRITE setInformativeText NOTIFY informativeTextChanged)
 		Q_PROPERTY(QString detailedText READ detailedText WRITE setDetailedText NOTIFY detailedTextChanged)
-		Q_PROPERTY(type_t type READ type WRITE setType NOTIFY typeChanged)
 		Q_PROPERTY(buttons_t buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
 
 		enum type_t {
@@ -32,7 +32,6 @@ class CUTEHMI_BASE_API Prompt:
 			CRITICAL = 3,
 			QUESTION = 4
 		};
-
 		Q_ENUM(type_t)
 
 		enum button_t : qint32 {
@@ -78,6 +77,10 @@ class CUTEHMI_BASE_API Prompt:
 
 		static std::unique_ptr<Prompt> Critical(const ErrorInfo & errorInfo, buttons_t buttons = BUTTON_OK);
 
+		type_t type() const;
+
+		void setType(type_t type);
+
 		QString text() const;
 
 		void setText(const QString & text);
@@ -89,10 +92,6 @@ class CUTEHMI_BASE_API Prompt:
 		QString detailedText() const;
 
 		void setDetailedText(const QString & detailedText);
-
-		type_t type() const;
-
-		void setType(type_t type);
 
 		buttons_t buttons() const;
 
@@ -113,13 +112,13 @@ class CUTEHMI_BASE_API Prompt:
 		void acceptResponse(button_t response);
 
 	signals:
+		void typeChanged();
+
 		void textChanged();
 
 		void informativeTextChanged();
 
 		void detailedTextChanged();
-
-		void typeChanged();
 
 		void buttonsChanged();
 

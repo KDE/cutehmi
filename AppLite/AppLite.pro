@@ -39,5 +39,6 @@ DISTFILES += \
     AppLite.rc \
     qml/MainWindow.qml \
     qml/DefaultScreen.qml \
-    qml/PromptDialog.qml
+    qml/PromptDialog.qml \
+    qml/NotificationListView.qml
 

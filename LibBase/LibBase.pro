@@ -47,7 +47,9 @@ SOURCES += \
     src/base/PopupBridge.cpp \
     src/base/Prompt.cpp \
     src/base/functions.cpp \
-    src/base/Notification.cpp
+    src/base/Notification.cpp \
+    src/base/NotificationManager.cpp \
+    src/base/NotificationListModel.cpp
 
 HEADERS += \
     include/base/ProjectModel.hpp \
@@ -78,7 +80,9 @@ HEADERS += \
     include/base/PopupBridge.hpp \
     include/base/Prompt.hpp \
     include/base/functions.hpp \
-    include/base/Notification.hpp
+    include/base/Notification.hpp \
+    include/base/NotificationManager.hpp \
+    include/base/NotificationListModel.hpp
 
 DISTFILES +=
 

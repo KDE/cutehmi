@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 #include "Project.hpp"
 #include "PopupBridge.hpp"
+#include "NotificationManager.hpp"
 
 #include <QObject>
 
@@ -18,6 +19,7 @@ class CUTEHMI_BASE_API CuteHMI:
 	public:
 		Q_PROPERTY(Project * project READ project NOTIFY projectChanged)
 		Q_PROPERTY(PopupBridge * popupBridge READ popupBridge NOTIFY popupBridgeChanged)
+		Q_PROPERTY(NotificationManager * notificationManager READ notificationManager NOTIFY notificationManagerChanged)
 
 		/**
 		 * Get instance. Gets a reference to the instance of the singleton class.
@@ -53,10 +55,14 @@ class CUTEHMI_BASE_API CuteHMI:
 
 		PopupBridge * popupBridge() const;
 
+		NotificationManager * notificationManager() const;
+
 	signals:
 		void projectChanged();
 
 		void popupBridgeChanged();
+
+		void notificationManagerChanged();
 
 	protected:
 		CuteHMI();
@@ -68,6 +74,7 @@ class CUTEHMI_BASE_API CuteHMI:
 		{
 			std::unique_ptr<Project> project;
 			std::unique_ptr<PopupBridge> popupBridge;
+			std::unique_ptr<NotificationManager> notificationManager;
 		};
 
 		utils::MPtr<Members> m;

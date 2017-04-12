@@ -2,6 +2,7 @@
 
 #include <base/CuteHMI.hpp>
 #include <base/Prompt.hpp>
+#include <base/Notification.hpp>
 
 #include <QtQml>
 
@@ -10,7 +11,9 @@ void CuteHMIBaseQMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Base"));
 
 	qmlRegisterType<cutehmi::base::Prompt>(uri, 1, 0, "Prompt");
+	qmlRegisterType<cutehmi::base::Notification>(uri, 1, 0, "Notification");
 	qmlRegisterUncreatableType<cutehmi::base::PopupBridge>(uri, 1, 0, "PopupBridge", QObject::tr("cutehmi::base::PopupBridge instances can not be created within QML."));
+	qmlRegisterUncreatableType<cutehmi::base::NotificationManager>(uri, 1, 0, "NotificationManager", QObject::tr("cutehmi::base::NotificationManager instances can not be created within QML."));
 	qmlRegisterUncreatableType<cutehmi::base::Project>(uri, 1, 0, "Project", QObject::tr("cutehmi::base::Project instances can not be created within QML."));
 	qmlRegisterSingletonType<cutehmi::base::CuteHMI>(uri, 1, 0, "CuteHMI", CuteHMIProvider);
 }
