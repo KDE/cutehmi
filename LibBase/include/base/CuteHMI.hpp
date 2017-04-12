@@ -54,9 +54,9 @@ class CUTEHMI_BASE_API CuteHMI:
 		PopupBridge * popupBridge() const;
 
 	signals:
-		projectChanged();
+		void projectChanged();
 
-		popupBridgeChanged();
+		void popupBridgeChanged();
 
 	protected:
 		CuteHMI();
