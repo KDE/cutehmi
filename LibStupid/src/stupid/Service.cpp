@@ -2,7 +2,7 @@
 #include "../../include/stupid/Client.hpp"
 #include "../../include/stupid/internal/CommunicationThread.hpp"
 
-#include <base/Message.hpp>
+#include <base/Prompt.hpp>
 
 namespace cutehmi {
 namespace stupid {
@@ -69,7 +69,7 @@ void Service::handleError(cutehmi::base::ErrorInfo errorInfo)
 {
 	Q_UNUSED(errorInfo);
 
-	base::Message::Error(errorInfo);
+	base::Prompt::Critical(errorInfo);
 	stop();
 }
 
