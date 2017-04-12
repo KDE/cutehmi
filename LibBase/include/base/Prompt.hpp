@@ -36,24 +36,24 @@ class CUTEHMI_BASE_API Prompt:
 		Q_ENUM(type_t)
 
 		enum button_t : qint32 {
-			OK = 0x00000400,
-			OPEN = 0x00002000,
-			SAVE = 0x00000800,
-			CANCEL = 0x00400000,
-			CLOSE = 0x00200000,
-			DISCARD = 0x00800000,
-			APPLY = 0x02000000,
-			RESET = 0x04000000,
-			RESTORE_DEFAULTS = 0x08000000,
-			HELP = 0x01000000,
-			SAVE_ALL = 0x00001000,
-			YES = 0x00004000,
-			YES_TO_ALL = 0x00008000,
-			NO = 0x00010000,
-			NO_TO_ALL = 0x00020000,
-			ABORT = 0x00040000,
-			RETRY = 0x00080000,
-			IGNORE = 0x00100000,
+			BUTTON_OK = 0x00000400,
+			BUTTON_OPEN = 0x00002000,
+			BUTTON_SAVE = 0x00000800,
+			BUTTON_CANCEL = 0x00400000,
+			BUTTON_CLOSE = 0x00200000,
+			BUTTON_DISCARD = 0x00800000,
+			BUTTON_APPLY = 0x02000000,
+			BUTTON_RESET = 0x04000000,
+			BUTTON_RESTORE_DEFAULTS = 0x08000000,
+			BUTTON_HELP = 0x01000000,
+			BUTTON_SAVE_ALL = 0x00001000,
+			BUTTON_YES = 0x00004000,
+			BUTTON_YES_TO_ALL = 0x00008000,
+			BUTTON_NO = 0x00010000,
+			BUTTON_NO_TO_ALL = 0x00020000,
+			BUTTON_ABORT = 0x00040000,
+			BUTTON_RETRY = 0x00080000,
+			BUTTON_IGNORE = 0x00100000,
 			NO_BUTTON = 0x00000000
 		};
 		Q_DECLARE_FLAGS(buttons_t, button_t)
@@ -68,15 +68,15 @@ class CUTEHMI_BASE_API Prompt:
 
 		~Prompt() override = default;
 
-		static std::unique_ptr<Prompt> Note(const QString & text, buttons_t buttons = OK);
+		static std::unique_ptr<Prompt> Note(const QString & text, buttons_t buttons = BUTTON_OK);
 
-		static std::unique_ptr<Prompt> Warning(const QString & text, buttons_t buttons = OK);
+		static std::unique_ptr<Prompt> Warning(const QString & text, buttons_t buttons = BUTTON_OK);
 
-		static std::unique_ptr<Prompt> Question(const QString & text, buttons_t buttons = buttons_t{YES, NO});
+		static std::unique_ptr<Prompt> Question(const QString & text, buttons_t buttons = buttons_t{BUTTON_YES, BUTTON_NO});
 
-		static std::unique_ptr<Prompt> Critical(const QString & text, buttons_t buttons = OK);
+		static std::unique_ptr<Prompt> Critical(const QString & text, buttons_t buttons = BUTTON_OK);
 
-		static std::unique_ptr<Prompt> Critical(const ErrorInfo & errorInfo, buttons_t buttons = OK);
+		static std::unique_ptr<Prompt> Critical(const ErrorInfo & errorInfo, buttons_t buttons = BUTTON_OK);
 
 		QString text() const;
 
