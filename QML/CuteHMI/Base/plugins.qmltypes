@@ -4811,6 +4811,157 @@ Module {
         Signal { name: "changed" }
     }
     Component {
+        name: "cutehmi::base::CuteHMI"
+        prototype: "QObject"
+        exports: ["CuteHMI 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "project"; type: "Project"; isReadonly: true; isPointer: true }
+        Property { name: "popupBridge"; type: "PopupBridge"; isReadonly: true; isPointer: true }
+        Property {
+            name: "notificationManager"
+            type: "NotificationManager"
+            isReadonly: true
+            isPointer: true
+        }
+    }
+    Component {
+        name: "cutehmi::base::Notification"
+        prototype: "QObject"
+        exports: ["Notification 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "type_t"
+            values: {
+                "NOTE": 1,
+                "WARNING": 2,
+                "CRITICAL": 3
+            }
+        }
+        Property { name: "type"; type: "type_t" }
+        Property { name: "text"; type: "string" }
+    }
+    Component {
+        name: "cutehmi::base::NotificationManager"
+        prototype: "QObject"
+        exports: ["NotificationManager 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "model"; type: "NotificationListModel"; isReadonly: true; isPointer: true }
+        Property { name: "maxNotifications"; type: "int" }
+        Method {
+            name: "add"
+            Parameter { name: "notification_l"; type: "Notification"; isPointer: true }
+        }
+        Method { name: "clear" }
+    }
+    Component {
+        name: "cutehmi::base::PopupBridge"
+        prototype: "QObject"
+        exports: ["PopupBridge 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Signal {
+            name: "promptRequested"
+            Parameter { type: "QVariant" }
+        }
+        Method {
+            name: "advertise"
+            Parameter { name: "prompt_l"; type: "Prompt"; isPointer: true }
+        }
+        Method {
+            name: "resetAdvertiser"
+            Parameter { name: "advertiser"; type: "QObject"; isPointer: true }
+        }
+    }
+    Component {
+        name: "cutehmi::base::Project"
+        prototype: "QObject"
+        exports: ["Project 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "pluginLoader"; type: "PluginLoader"; isReadonly: true; isPointer: true }
+        Property { name: "model"; type: "ProjectModel"; isReadonly: true; isPointer: true }
+    }
+    Component {
+        name: "cutehmi::base::Prompt"
+        prototype: "QObject"
+        exports: ["Prompt 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "type_t"
+            values: {
+                "NOTE": 1,
+                "WARNING": 2,
+                "CRITICAL": 3,
+                "QUESTION": 4
+            }
+        }
+        Enum {
+            name: "button_t"
+            values: {
+                "BUTTON_OK": 1024,
+                "BUTTON_OPEN": 8192,
+                "BUTTON_SAVE": 2048,
+                "BUTTON_CANCEL": 4194304,
+                "BUTTON_CLOSE": 2097152,
+                "BUTTON_DISCARD": 8388608,
+                "BUTTON_APPLY": 33554432,
+                "BUTTON_RESET": 67108864,
+                "BUTTON_RESTORE_DEFAULTS": 134217728,
+                "BUTTON_HELP": 16777216,
+                "BUTTON_SAVE_ALL": 4096,
+                "BUTTON_YES": 16384,
+                "BUTTON_YES_TO_ALL": 32768,
+                "BUTTON_NO": 65536,
+                "BUTTON_NO_TO_ALL": 131072,
+                "BUTTON_ABORT": 262144,
+                "BUTTON_RETRY": 524288,
+                "BUTTON_IGNORE": 1048576,
+                "NO_BUTTON": 0
+            }
+        }
+        Enum {
+            name: "buttons_t"
+            values: {
+                "BUTTON_OK": 1024,
+                "BUTTON_OPEN": 8192,
+                "BUTTON_SAVE": 2048,
+                "BUTTON_CANCEL": 4194304,
+                "BUTTON_CLOSE": 2097152,
+                "BUTTON_DISCARD": 8388608,
+                "BUTTON_APPLY": 33554432,
+                "BUTTON_RESET": 67108864,
+                "BUTTON_RESTORE_DEFAULTS": 134217728,
+                "BUTTON_HELP": 16777216,
+                "BUTTON_SAVE_ALL": 4096,
+                "BUTTON_YES": 16384,
+                "BUTTON_YES_TO_ALL": 32768,
+                "BUTTON_NO": 65536,
+                "BUTTON_NO_TO_ALL": 131072,
+                "BUTTON_ABORT": 262144,
+                "BUTTON_RETRY": 524288,
+                "BUTTON_IGNORE": 1048576,
+                "NO_BUTTON": 0
+            }
+        }
+        Property { name: "type"; type: "type_t" }
+        Property { name: "text"; type: "string" }
+        Property { name: "informativeText"; type: "string" }
+        Property { name: "detailedText"; type: "string" }
+        Property { name: "buttons"; type: "buttons_t" }
+        Signal {
+            name: "responseArrived"
+            Parameter { name: "response"; type: "button_t" }
+        }
+        Method {
+            name: "acceptResponse"
+            Parameter { name: "response"; type: "button_t" }
+        }
+        Method { name: "response"; type: "button_t" }
+    }
+    Component {
         prototype: "QObject"
         name: "Palette 1.0"
         exports: ["Palette 1.0"]
