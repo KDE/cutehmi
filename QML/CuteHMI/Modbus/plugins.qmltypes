@@ -9,9 +9,34 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: []
     Component {
+        name: "cutehmi::modbus::AbstractDevice"
+        prototype: "QObject"
+        Property { name: "ir"; type: "cutehmi::modbus::InputRegister"; isList: true; isReadonly: true }
+        Property { name: "r"; type: "cutehmi::modbus::HoldingRegister"; isList: true; isReadonly: true }
+        Property { name: "ib"; type: "cutehmi::modbus::DiscreteInput"; isList: true; isReadonly: true }
+        Property { name: "b"; type: "cutehmi::modbus::Coil"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "cutehmi::modbus::Client"
+        prototype: "cutehmi::modbus::AbstractDevice"
+        Signal {
+            name: "error"
+            Parameter { name: "errInfo"; type: "base::ErrorInfo" }
+        }
+        Signal { name: "connected" }
+        Signal { name: "disconnected" }
+        Method { name: "connect" }
+        Method { name: "disconnect" }
+        Method {
+            name: "readAll"
+            Parameter { name: "run"; type: "QAtomicInt" }
+        }
+        Method { name: "readAll" }
+    }
+    Component {
         name: "cutehmi::modbus::Coil"
         prototype: "QObject"
-        exports: ["ModbusCoil 1.0"]
+        exports: ["Coil 1.0"]
         exportMetaObjectRevisions: [0]
         Signal { name: "valueRequested" }
         Signal { name: "valueUpdated" }
@@ -33,7 +58,7 @@ Module {
     Component {
         name: "cutehmi::modbus::DiscreteInput"
         prototype: "QObject"
-        exports: ["ModbusDiscreteInput 1.0"]
+        exports: ["DiscreteInput 1.0"]
         exportMetaObjectRevisions: [0]
         Signal { name: "valueUpdated" }
         Method {
@@ -48,7 +73,7 @@ Module {
     Component {
         name: "cutehmi::modbus::HoldingRegister"
         prototype: "QObject"
-        exports: ["ModbusHoldingRegister 1.0"]
+        exports: ["HoldingRegister 1.0"]
         exportMetaObjectRevisions: [0]
         Enum {
             name: "encoding_t"
@@ -86,7 +111,7 @@ Module {
     Component {
         name: "cutehmi::modbus::InputRegister"
         prototype: "QObject"
-        exports: ["ModbusInputRegister 1.0"]
+        exports: ["InputRegister 1.0"]
         exportMetaObjectRevisions: [0]
         Enum {
             name: "encoding_t"
@@ -108,5 +133,49 @@ Module {
         Method { name: "rest" }
         Method { name: "awake" }
         Method { name: "wakeful"; type: "bool" }
+    }
+    Component {
+        name: "cutehmi::modbus::qml::CoilController"
+        prototype: "QObject"
+        exports: ["CoilController 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "device"; type: "AbstractDevice"; isPointer: true }
+        Property { name: "address"; type: "int" }
+        Property { name: "value"; type: "bool" }
+        Property { name: "busy"; type: "bool"; isReadonly: true }
+    }
+    Component {
+        name: "cutehmi::modbus::qml::DiscreteInputController"
+        prototype: "QObject"
+        exports: ["DiscreteInputController 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "device"; type: "AbstractDevice"; isPointer: true }
+        Property { name: "address"; type: "int" }
+        Property { name: "value"; type: "bool"; isReadonly: true }
+        Property { name: "busy"; type: "bool"; isReadonly: true }
+    }
+    Component {
+        name: "cutehmi::modbus::qml::HoldingRegisterController"
+        prototype: "QObject"
+        exports: ["HoldingRegisterController 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "device"; type: "AbstractDevice"; isPointer: true }
+        Property { name: "address"; type: "int" }
+        Property { name: "value"; type: "double" }
+        Property { name: "valueScale"; type: "double" }
+        Property { name: "encoding"; type: "HoldingRegister::encoding_t" }
+        Property { name: "busy"; type: "bool"; isReadonly: true }
+    }
+    Component {
+        name: "cutehmi::modbus::qml::InputRegisterController"
+        prototype: "QObject"
+        exports: ["InputRegisterController 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "device"; type: "AbstractDevice"; isPointer: true }
+        Property { name: "address"; type: "int" }
+        Property { name: "value"; type: "double"; isReadonly: true }
+        Property { name: "valueScale"; type: "double" }
+        Property { name: "encoding"; type: "InputRegister::encoding_t" }
+        Property { name: "busy"; type: "bool"; isReadonly: true }
     }
 }
