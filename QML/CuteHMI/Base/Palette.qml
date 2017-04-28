@@ -10,8 +10,8 @@ QtObject
 	property color disabled: "#CECECE"
 
 	property QtObject background: QtObject {
-		property color alert: "#FF3300"
-		property color warning: "#FF9933"
+		property color alert: "#FF4B1D"
+		property color warning: "#FFA64D"
 		property color normal: "#CCF4CC"
 		property color disabled: "#E3E3E3"
 	}
@@ -21,7 +21,7 @@ QtObject
 
 //	property color cold: "#0099FF"
 //	property color optimal: "#66CC33"
-//	property color hot: "#FF3300"
+//	property color hot: "#FF3300"	
 }
 
 //(c)MP: Copyright © 2016, Michal Policht. All rights reserved.

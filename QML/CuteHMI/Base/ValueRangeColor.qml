@@ -12,7 +12,7 @@ ValueColor
 {
 	property var ranges: [[-Infinity, Infinity]]
 	property var colors: [implicitColor]
-	property color nanColor: implicitColor
+	property color nanColor: Palette.alert
 
 	function setStandardRanges(obj, palette)
 	{
