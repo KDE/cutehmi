@@ -7,13 +7,14 @@ Item
 {
 	id: root
 
-	anchors.verticalCenter: parent.verticalCenter
-	anchors.horizontalCenter: parent.horizontalCenter
+	implicitWidth: 50.0
+	implicitHeight: 50.0
 
 	property var delegate: parent
 	property alias device: discreteInputController.device
 	property alias address: discreteInputController.address
 	property alias busy: discreteInputController.busy
+	property alias value: discreteInputController.value
 	property alias controller: discreteInputController
 
 	property var busyIndicator: BusyIndicator {
@@ -22,18 +23,9 @@ Item
 		running: discreteInputController.busy
 	}
 
-	Binding
-	{
-		target: delegate
-		property: "checked"
-		value: discreteInputController.value
-	}
-
 	DiscreteInputController {
 		id: discreteInputController
 	}
-
-	onDelegateChanged: delegate.checked = discreteInputController.value
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

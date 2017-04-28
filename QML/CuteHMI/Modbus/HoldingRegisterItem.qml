@@ -7,8 +7,8 @@ Item
 {
 	id: root
 
-	anchors.verticalCenter: parent.verticalCenter
-	anchors.horizontalCenter: parent.horizontalCenter
+	implicitWidth: 50.0
+	implicitHeight: 50.0
 
 	property var delegate: parent
 	property alias device: holdingRegisterController.device
@@ -17,6 +17,7 @@ Item
 	property alias valueScale: holdingRegisterController.valueScale
 	property alias busy: holdingRegisterController.busy
 	property alias controller: holdingRegisterController
+	property alias value: holdingRegisterController.value
 
 	property var busyIndicator: BusyIndicator {
 		parent: root
@@ -24,21 +25,10 @@ Item
 		running: holdingRegisterController.busy
 	}
 
-	Binding
-	{
-		target: delegate
-		property: "value"
-		value: holdingRegisterController.value
-	}
-
 	HoldingRegisterController
 	{
 		id: holdingRegisterController
-
-		value: delegate.value
 	}
-
-	onDelegateChanged: delegate.value = holdingRegisterController.value
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

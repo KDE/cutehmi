@@ -57,6 +57,19 @@ Column {
 					}
 				}
 			}
+
+            Label {
+                text: qsTr("Value")
+                tooltip: qsTr("Value")
+            }
+            SecondColumnLayout {
+                CheckBox {
+                    backendValue: backendValues.value
+                    implicitWidth: 180
+                }
+                ExpandingSpacer {
+                }
+            }
 		}
 	}
 }

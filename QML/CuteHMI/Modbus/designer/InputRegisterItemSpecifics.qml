@@ -82,6 +82,17 @@ Column {
 					Layout.fillWidth: true
 				}
 			}
+
+			Label {
+				text: qsTr("Value")
+			}
+			SecondColumnLayout {
+				SpinBox {
+					backendValue: backendValues.value
+					minimumValue: -32768
+					maximumValue: 65535
+				}
+			}
 		}
 	}
 }

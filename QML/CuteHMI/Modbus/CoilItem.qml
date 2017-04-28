@@ -15,13 +15,14 @@ Item
 {
 	id: root
 
-	anchors.verticalCenter: parent.verticalCenter
-	anchors.horizontalCenter: parent.horizontalCenter
+	implicitWidth: 50.0
+	implicitHeight: 50.0
 
 	property var delegate: parent
 	property alias device: coilController.device
 	property alias address: coilController.address
 	property alias busy: coilController.busy
+	property alias value: coilController.value
 	property alias controller: coilController
 
 	property var busyIndicator: BusyIndicator {
@@ -30,21 +31,10 @@ Item
 		running: coilController.busy
 	}
 
-	Binding
-	{
-		target: delegate
-		property: "checked"
-		value: coilController.value
-	}
-
 	CoilController
 	{
 		id: coilController
-
-		value: delegate.checked
 	}
-
-	onDelegateChanged: delegate.checked = coilController.value
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
