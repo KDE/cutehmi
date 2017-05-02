@@ -4,6 +4,7 @@
 
 #include <QtDebug>
 #include <QMutexLocker>
+#include <QReadLocker>
 
 namespace cutehmi {
 namespace modbus {
@@ -12,6 +13,7 @@ HoldingRegister::HoldingRegister(uint16_t value, QObject * parent):
 	QObject(parent),
 	m(new Members(value))
 {
+	connect(this, & HoldingRegister::valueWritten, this, & HoldingRegister::onValueWritten);
 }
 
 QVariant HoldingRegister::value(encoding_t encoding) const
@@ -46,8 +48,17 @@ bool HoldingRegister::wakeful() const
 	return m->awaken.load();
 }
 
+int HoldingRegister::pendingRequests() const
+{
+	QReadLocker locker(& m->writeCtrLock);
+	return m->writeCtr;
+}
+
 void HoldingRegister::requestValue(QVariant value, encoding_t encoding)
 {
+	m->writeCtrLock.lockForWrite();
+	m->writeCtr++;
+	m->writeCtrLock.unlock();
 	switch (encoding) {
 		case INT16:
 			m->reqValueMutex.lock();
@@ -56,6 +67,9 @@ void HoldingRegister::requestValue(QVariant value, encoding_t encoding)
 			emit valueRequested();
 			break;
 		default:
+			m->writeCtrLock.lockForWrite();
+			m->writeCtr--;
+			m->writeCtrLock.unlock();
 			throw Exception(QObject::tr("Unrecognized encoding code ('%1').").arg(encoding));
 	}
 }
@@ -66,6 +80,13 @@ void HoldingRegister::updateValue(uint16_t value)
 	m->value = value;
 	m->valueLock.unlock();
 	emit valueUpdated();
+}
+
+void HoldingRegister::onValueWritten()
+{
+	m->writeCtrLock.lockForWrite();
+	m->writeCtr--;
+	m->writeCtrLock.unlock();
 }
 
 }

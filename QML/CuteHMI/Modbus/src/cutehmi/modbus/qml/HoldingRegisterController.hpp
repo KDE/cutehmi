@@ -65,8 +65,6 @@ class HoldingRegisterController:
 	protected slots:
 		void onValueRequested();
 
-		void onValueWritten();
-
 		void onValueUpdated();
 
 	protected:
@@ -85,7 +83,6 @@ class HoldingRegisterController:
 		HoldingRegister::encoding_t m_encoding;
 		bool m_busy;
 		HoldingRegister * m_register;
-		int m_writeCtr;
 };
 
 }

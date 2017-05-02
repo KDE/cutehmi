@@ -2,6 +2,7 @@
 
 #include <QtDebug>
 #include <QMutexLocker>
+#include <QReadLocker>
 
 namespace cutehmi {
 namespace modbus {
@@ -10,6 +11,7 @@ Coil::Coil(bool value, QObject * parent):
 	QObject(parent),
 	m(new Members(value))
 {
+	connect(this, & Coil::valueWritten, this, & Coil::onValueWritten);
 }
 
 bool Coil::value() const
@@ -39,8 +41,18 @@ bool Coil::wakeful() const
 	return m->awaken.load();
 }
 
+int Coil::pendingRequests() const
+{
+	QReadLocker locker(& m->writeCtrLock);
+	return m->writeCtr;
+}
+
 void Coil::requestValue(bool value)
 {
+	m->writeCtrLock.lockForWrite();
+	m->writeCtr++;
+	m->writeCtrLock.unlock();
+
 	m->reqValueMutex.lock();
 	m->reqValue = value;
 	m->reqValueMutex.unlock();
@@ -53,6 +65,13 @@ void Coil::updateValue(bool value)
 	m->value = value;
 	m->valueLock.unlock();
 	emit valueUpdated();
+}
+
+void Coil::onValueWritten()
+{
+	m->writeCtrLock.lockForWrite();
+	m->writeCtr--;
+	m->writeCtrLock.unlock();
 }
 
 }

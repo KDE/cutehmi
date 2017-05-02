@@ -12,8 +12,7 @@ HoldingRegisterController::HoldingRegisterController(QObject * parent):
 	m_valueScale(1.0),
 	m_encoding(HoldingRegister::INT16),
 	m_busy(true),
-	m_register(nullptr),
-	m_writeCtr(0)
+	m_register(nullptr)
 {
 }
 
@@ -99,17 +98,11 @@ bool HoldingRegisterController::busy() const
 void HoldingRegisterController::onValueRequested()
 {
 	setBusy(true);
-	m_writeCtr++;
-}
-
-void HoldingRegisterController::onValueWritten()
-{
-	m_writeCtr--;
 }
 
 void HoldingRegisterController::onValueUpdated()
 {
-	if (m_writeCtr > 0)
+	if (m_register->pendingRequests() > 0)
 		return;
 
 	updateValue();
@@ -139,14 +132,12 @@ void HoldingRegisterController::updateValue()
 void HoldingRegisterController::setupRegister(HoldingRegister * reg)
 {
 	if (m_register != nullptr) {
-		disconnect(m_register, & HoldingRegister::valueWritten, this, & HoldingRegisterController::onValueWritten);
 		disconnect(m_register, & HoldingRegister::valueUpdated, this, & HoldingRegisterController::onValueUpdated);
 		disconnect(m_register, & HoldingRegister::valueRequested, this, & HoldingRegisterController::onValueRequested);
 		m_register->rest();
 	}
 	m_register = reg;
 	if (m_register != nullptr) {
-		connect(m_register, & HoldingRegister::valueWritten, this, & HoldingRegisterController::onValueWritten);
 		connect(m_register, & HoldingRegister::valueUpdated, this, & HoldingRegisterController::onValueUpdated);
 		connect(m_register, & HoldingRegister::valueRequested, this, & HoldingRegisterController::onValueRequested);
 		m_register->awake();

@@ -34,6 +34,8 @@ class CUTEHMI_MODBUS_API Coil:
 
 		Q_INVOKABLE bool wakeful() const;
 
+		Q_INVOKABLE int pendingRequests() const;
+
 	public slots:
 		void requestValue(bool value);
 
@@ -55,6 +57,9 @@ class CUTEHMI_MODBUS_API Coil:
 		 */
 		void valueWritten();
 
+	private slots:
+		void onValueWritten();
+
 	private:
 		struct Members
 		{
@@ -63,11 +68,14 @@ class CUTEHMI_MODBUS_API Coil:
 			bool reqValue;
 			mutable QMutex reqValueMutex;
 			QAtomicInt awaken;
+			int writeCtr;
+			mutable QReadWriteLock writeCtrLock;
 
 			Members(bool p_value):
 				value(p_value),
 				reqValue(p_value),
-				awaken(0)
+				awaken(0),
+				writeCtr(0)
 			{
 			}
 		};

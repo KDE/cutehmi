@@ -49,6 +49,8 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 
 		Q_INVOKABLE bool wakeful() const;
 
+		Q_INVOKABLE int pendingRequests() const;
+
 	public slots:
 		void requestValue(QVariant value, encoding_t encoding = INT16);
 
@@ -70,6 +72,9 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		 */
 		void valueWritten();
 
+	private slots:
+		void onValueWritten();
+
 	private:
 		struct Members
 		{
@@ -78,11 +83,14 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 			uint16_t reqValue;
 			mutable QMutex reqValueMutex;
 			QAtomicInt awaken;
+			int writeCtr;
+			mutable QReadWriteLock writeCtrLock;
 
 			Members(uint16_t p_value):
 				value(p_value),
 				reqValue(p_value),
-				awaken(0)
+				awaken(0),
+				writeCtr(0)
 			{
 			}
 		};

@@ -10,8 +10,7 @@ CoilController::CoilController(QObject * parent):
 	m_address(0),
 	m_value(false),
 	m_busy(true),
-	m_coil(nullptr),
-	m_writeCtr(0)
+	m_coil(nullptr)
 {
 }
 
@@ -71,17 +70,11 @@ bool CoilController::busy() const
 void CoilController::onValueRequested()
 {
 	setBusy(true);
-	m_writeCtr++;
-}
-
-void CoilController::onValueWritten()
-{
-	m_writeCtr--;
 }
 
 void CoilController::onValueUpdated()
 {
-	if (m_writeCtr > 0)
+	if (m_coil->pendingRequests() > 0)
 		return;
 
 	updateValue();
@@ -110,14 +103,12 @@ void CoilController::updateValue()
 void CoilController::setupCoil(Coil * reg)
 {
 	if (m_coil != nullptr) {
-		disconnect(m_coil, & Coil::valueWritten, this, & CoilController::onValueWritten);
 		disconnect(m_coil, & Coil::valueUpdated, this, & CoilController::onValueUpdated);
 		disconnect(m_coil, & Coil::valueRequested, this, & CoilController::onValueRequested);
 		m_coil->rest();
 	}
 	m_coil = reg;
 	if (m_coil != nullptr) {
-		connect(m_coil, & Coil::valueWritten, this, & CoilController::onValueWritten);
 		connect(m_coil, & Coil::valueUpdated, this, & CoilController::onValueUpdated);
 		connect(m_coil, & Coil::valueRequested, this, & CoilController::onValueRequested);
 		m_coil->awake();

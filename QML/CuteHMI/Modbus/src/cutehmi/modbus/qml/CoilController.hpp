@@ -51,8 +51,6 @@ class CoilController:
 	protected slots:
 		void onValueRequested();
 
-		void onValueWritten();
-
 		void onValueUpdated();
 
 	protected:
@@ -69,7 +67,6 @@ class CoilController:
 		qreal m_value;
 		bool m_busy;
 		Coil * m_coil;
-		int m_writeCtr;
 };
 
 }
