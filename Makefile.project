@@ -54,8 +54,8 @@ DOC_DOXYGEN_FILES = LibBase/Doxyfile
 
 QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../lib
 
-QMLTYPES_DUMPS = "CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
-				 CuteHMI.Charts 1.0 QML > QML/CuteHMI/Charts/plugins.qmltypes; \
-				 CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
-				 CuteHMI.Services 1.0 QML > QML/CuteHMI/Services/plugins.qmltypes; \
-				 CuteHMI.Stupid 1.0 QML > QML/CuteHMI/Stupid/plugins.qmltypes"
+QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.Charts 1.0 QML > QML/CuteHMI/Charts/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.Services 1.0 QML > QML/CuteHMI/Services/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.Stupid 1.0 QML > QML/CuteHMI/Stupid/plugins.qmltypes"
