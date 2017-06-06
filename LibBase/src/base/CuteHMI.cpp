@@ -35,6 +35,7 @@ CuteHMI::CuteHMI():
 	  std::unique_ptr<NotificationManager>(new NotificationManager)})
 {
 	qRegisterMetaType<cutehmi::base::ErrorInfo>();
+	qRegisterMetaType<cutehmi::base::Prompt::button_t>();
 }
 
 std::unique_ptr<CuteHMI> & CuteHMI::InstancePtr()
