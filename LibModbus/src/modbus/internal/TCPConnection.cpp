@@ -7,13 +7,14 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
-TCPConnection::TCPConnection(const QString & node, const QString & service):
+TCPConnection::TCPConnection(const QString & node, const QString & service, int unitId):
 	Parent(modbus_new_tcp_pi(node.toLocal8Bit().data(), service.toLocal8Bit().data())),
-	m(new Members{node, service})
+	m(new Members{node, service, unitId})
 {
 	if (context() == NULL)
 		// %1 network node, %2 service (port).
 		throw Exception(QObject::tr("Unable to create connection for the node '%1', service '%2'.").arg(m->node).arg(m->service));
+	modbus_set_slave(context(), m->unitId);
 }
 
 TCPConnection::~TCPConnection()
@@ -29,6 +30,11 @@ const QString & TCPConnection::node() const
 const QString & TCPConnection::service() const
 {
 	return m->service;
+}
+
+int TCPConnection::unitId() const
+{
+	return m->unitId;
 }
 
 }

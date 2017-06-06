@@ -120,12 +120,14 @@ void Plugin::parseTCP(QXmlStreamReader & xmlReader, std::unique_ptr<internal::Ab
 	internal::LibmodbusConnection::Timeout byteTimeout;
 	internal::LibmodbusConnection::Timeout responseTimeout;
 	std::unique_ptr<internal::TCPConnection> tcpConnection;
+	int unitId = MODBUS_TCP_SLAVE;
 
 	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
 	helper << base::xml::ParseElement("node", 1, 1)
 		   << base::xml::ParseElement("service", 1, 1)
 		   << base::xml::ParseElement("byte_timeout", 1, 1)
-		   << base::xml::ParseElement("response_timeout", 1, 1);
+		   << base::xml::ParseElement("response_timeout", 1, 1)
+		   << base::xml::ParseElement("unit_id", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "node")
@@ -138,9 +140,14 @@ void Plugin::parseTCP(QXmlStreamReader & xmlReader, std::unique_ptr<internal::Ab
 		} else if (xmlReader.name() == "response_timeout") {
 			if (!timeoutFromString(xmlReader.readElementText(), responseTimeout))
 				xmlReader.raiseError(QObject::tr("Could not parse 'response_timeout' element."));
+		} else if (xmlReader.name() == "unit_id") {
+			bool ok;
+			unitId = xmlReader.readElementText().toInt(& ok);
+			if (!ok)
+				xmlReader.raiseError(QObject::tr("Could not convert 'unit_id' element contents to integer."));
 		}
 	}
-	tcpConnection.reset(new internal::TCPConnection(name, service));
+	tcpConnection.reset(new internal::TCPConnection(name, service, unitId));
 	tcpConnection->setByteTimeout(byteTimeout);
 	tcpConnection->setResponseTimeout(responseTimeout);
 	connection.reset(tcpConnection.release());
@@ -154,7 +161,7 @@ void Plugin::parseRTU(QXmlStreamReader & xmlReader, std::unique_ptr<internal::Ab
 	internal::RTUConnection::DataBits dataBits = internal::RTUConnection::DataBits::BITS_8;
 	internal::RTUConnection::StopBits stopBits = internal::RTUConnection::StopBits::BITS_1;
 	internal::RTUConnection::Mode mode = internal::RTUConnection::Mode::RS232;
-	int slaveId = 0;
+	int slaveId = 1;
 	internal::LibmodbusConnection::Timeout byteTimeout;
 	internal::LibmodbusConnection::Timeout responseTimeout;
 	std::unique_ptr<internal::RTUConnection> rtuConnection;

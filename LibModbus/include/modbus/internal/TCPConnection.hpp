@@ -25,10 +25,13 @@ class CUTEHMI_MODBUS_API TCPConnection:
 		 * Constructor.
 		 * @param node network node IP address (e.g. "127.0.0.1").
 		 * @param service service name or port number.
+		 * @param unitId unit identifier. This is useful only in bridged sub-networks (like serial communication over TCP/IP).
+		 * Bridge device can use this identifier to route traffic to specific modbus device in a sub-network.
+		 * Value of "0xff" is recommended as non-significant value (as defined by MODBUS_TCP_SLAVE).
 		 *
 		 * @throw Exception.
 		 */
-		TCPConnection(const QString & node = "127.0.0.1", const QString & service = "502");
+		TCPConnection(const QString & node = "127.0.0.1", const QString & service = "502", int unitId =  MODBUS_TCP_SLAVE);
 
 		virtual ~TCPConnection();
 
@@ -36,11 +39,14 @@ class CUTEHMI_MODBUS_API TCPConnection:
 
 		const QString & service() const;
 
+		int unitId() const;
+
 	private:
 		struct Members
 		{
 			QString node;
 			QString service;
+			int unitId;
 		};
 
 		utils::MPtr<Members> m;
