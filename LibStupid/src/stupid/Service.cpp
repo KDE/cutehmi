@@ -67,8 +67,6 @@ void Service::onClientDisconnected()
 
 void Service::handleError(cutehmi::base::ErrorInfo errorInfo)
 {
-	Q_UNUSED(errorInfo);
-
 	base::Prompt::Critical(errorInfo);
 	stop();
 }
