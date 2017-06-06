@@ -20,4 +20,6 @@ MessageDialog
 	onClickedButtonChanged: if (prompt) { prompt.acceptResponse(clickedButton); prompt = null }
 
 	onRejected: if (prompt) { prompt.acceptResponse(clickedButton); prompt = null }
+
+	Component.onDestruction: if (prompt) prompt.deleteLater()
 }

@@ -20,7 +20,6 @@ void PopupBridge::advertise(Prompt * prompt_l)
 	}
 
 	Prompt * clone = prompt_l->clone().release();
-	clone->setParent(this);
 
 	// Forward response to the original prompt. Connection should be automatically broken if original prompt gets deleted.
 	connect(clone, & Prompt::responseArrived, prompt_l, & Prompt::acceptResponse);
