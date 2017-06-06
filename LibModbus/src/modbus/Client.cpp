@@ -85,6 +85,11 @@ Coil * Client::bAt(int index)
 	return BAt(& m->b, index);
 }
 
+bool Client::isConnected() const
+{
+	return m->connection->connected();
+}
+
 void Client::readIr(int addr)
 {
 	static const int NUM_READ = 1;
@@ -173,6 +178,7 @@ void Client::writeB(int addr)
 
 void Client::connect()
 {
+	QMutexLocker locker(& m->connectionMutex);
 	if (m->connection->connect())
 		emit connected();
 	else
@@ -181,6 +187,7 @@ void Client::connect()
 
 void Client::disconnect()
 {
+	QMutexLocker locker(& m->connectionMutex);
 	m->connection->disconnect();
 	emit disconnected();
 }

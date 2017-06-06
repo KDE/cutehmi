@@ -60,6 +60,8 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 
 		void disconnect() override;
 
+		bool connected() const override;
+
 		int readIr(int addr, int num, uint16_t * dest) override;
 
 		int readR(int addr, int num, uint16_t * dest) override;
@@ -87,10 +89,12 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 		struct Members
 		{
 			modbus_t * context;
+			bool connected;
 			std::vector<uint8_t> bIbBuffer;
 
 			Members(modbus_t * p_context):
-				context(p_context)
+				context(p_context),
+				connected(false)
 			{
 			}
 		};

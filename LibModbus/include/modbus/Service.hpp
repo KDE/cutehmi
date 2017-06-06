@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 #include "internal/CommunicationThread.hpp"
 
+#include <base/ErrorInfo.hpp>
 #include <services/Service.hpp>
 
 #include <memory>
@@ -29,6 +30,13 @@ class CUTEHMI_MODBUS_API Service:
 		state_t customStart() override;
 
 		state_t customStop() override;
+
+	private slots:
+		void onClientConnected();
+
+		void onClientDisconnected();
+
+		void handleError(cutehmi::base::ErrorInfo errorInfo);
 
 	private:
 		struct Members

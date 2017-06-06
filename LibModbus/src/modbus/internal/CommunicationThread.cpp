@@ -24,10 +24,13 @@ void CommunicationThread::setSleep(unsigned long sleep)
 
 void CommunicationThread::run()
 {
+	m_client->connect();
 	while (m_run.load()) {
+		//@todo check connection status.
 		m_client->readAll(m_run);
 		msleep(m_sleep);
 	}
+	m_client->disconnect();
 }
 
 void CommunicationThread::start()

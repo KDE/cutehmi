@@ -37,6 +37,11 @@ void DummyConnection::disconnect()
 	m->connected = false;
 }
 
+bool DummyConnection::connected() const
+{
+	return m->connected;
+}
+
 int DummyConnection::readIr(int addr, int num, uint16_t * dest)
 {
 	if (!m->connected) {

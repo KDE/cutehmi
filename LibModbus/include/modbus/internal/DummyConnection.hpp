@@ -29,6 +29,8 @@ class CUTEHMI_MODBUS_API DummyConnection:
 
 		void disconnect() override;
 
+		bool connected() const override;
+
 		int readIr(int addr, int num, uint16_t * dest) override;
 
 		int readR(int addr, int num, uint16_t * dest) override;

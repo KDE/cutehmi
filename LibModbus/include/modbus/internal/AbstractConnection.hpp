@@ -18,6 +18,8 @@ class CUTEHMI_MODBUS_API AbstractConnection
 
 		virtual void disconnect() = 0;
 
+		virtual bool connected() const = 0;
+
 		virtual int readIr(int addr, int num, uint16_t * dest) = 0;
 
 		virtual int readR(int addr, int num, uint16_t * dest) = 0;

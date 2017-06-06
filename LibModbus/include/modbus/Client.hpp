@@ -64,6 +64,8 @@ class CUTEHMI_MODBUS_API Client:
 
 		Coil * bAt(int index) override;
 
+		bool isConnected() const;
+
 //		void setConnection(std::unique_ptr<internal::AbstractConnection> connection);
 
 		/**
@@ -117,24 +119,36 @@ class CUTEHMI_MODBUS_API Client:
 	public slots:
 		/**
 		 * Connect client to the Modbus device.
+		 *
+		 * @note this function is thread-safe.
 		 */
 		void connect();
 
 		/**
 		 * Disconnect client from the Modbus device.
+		 *
+		 * @note this function is thread-safe.
 		 */
 		void disconnect();
 
 		/**
-		 * Read all values of registers and coils.
+		 * Read all values of awaken registers and coils.
 		 *
-		 * @param run indicates whether to interrupt read. Function interrupts reading and returns, when value of @p 0 is being set by another thread.
+		 * @param run indicates whether to interrupt read. Function interrupts reading and returns, if value of @p 0 is being set by another thread.
 		 * If @p 1 is set, then function will return only after reading all values of coils and registers.
+		 *
+		 * @warning this function should be thread-safe, although underlying implementation relies on std::array::at() function. Further investigation
+		 * is needed to check whether accessing elements via std::array::at() function is thread-safe.
+		 *
+		 * "The reference returned can be used to access or modify elements. Concurrently accessing or modifying
+		 * different elements is safe." -- http://www.cplusplus.com/reference/array/array/at/.
+		 *
+		 * What about concurrently accessing same elements? For now use this function with care.
 		 */
 		void readAll(const QAtomicInt & run = 1);
 
 	signals:
-		void error(base::ErrorInfo errInfo);
+		void error(cutehmi::base::ErrorInfo errInfo);
 
 		void connected();
 
@@ -203,7 +217,7 @@ class CUTEHMI_MODBUS_API Client:
 		 * @todo optimize reads.
 		 */
 		template <typename CONTAINER>
-		void readRegisters(CONTAINER & container, void (Client:: * readFn)(int), const QAtomicInt & run);
+		void readRegisters(const CONTAINER & container, void (Client:: * readFn)(int), const QAtomicInt & run);
 
 		struct Members
 		{
@@ -222,6 +236,7 @@ class CUTEHMI_MODBUS_API Client:
 			QMutex irMutex;
 			QMutex bMutex;
 			QMutex ibMutex;
+			QMutex connectionMutex;
 
 			Members(Client * p_client, std::unique_ptr<internal::AbstractConnection> p_connection):
 				ir(p_client, & irData, Client::Count<InputRegister>, Client::IrAt),
@@ -261,7 +276,7 @@ int Client::Count(QQmlListProperty<T> * property)
 }
 
 template <typename CONTAINER>
-void Client::readRegisters(CONTAINER & container, void (Client:: * readFn)(int), const QAtomicInt & run)
+void Client::readRegisters(const CONTAINER & container, void (Client:: * readFn)(int), const QAtomicInt & run)
 {
 	typename CONTAINER::KeysIterator keysIt(container);
 	while (keysIt.hasNext()) {

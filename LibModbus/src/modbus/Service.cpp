@@ -1,6 +1,8 @@
 #include "../../include/modbus/Service.hpp"
 #include "../../include/modbus/Client.hpp"
 
+#include <base/Prompt.hpp>
+
 namespace cutehmi {
 namespace modbus {
 
@@ -8,11 +10,14 @@ Service::Service(const QString & name, Client * client, QObject * parent):
 	services::Service(name, parent),
 	m(new Members(client))
 {
+	QObject::connect(m->client, & Client::error, this, & Service::handleError);
+	QObject::connect(m->client, & Client::connected, this, & Service::onClientConnected);
+	QObject::connect(m->client, & Client::disconnected, this, & Service::onClientDisconnected);
 }
 
 Service::~Service()
 {
-	if (m->thread->isRunning())
+	if (state() != STOPPED)
 		stop();
 }
 
@@ -28,21 +33,41 @@ void Service::setSleep(unsigned long sleep)
 
 Service::state_t Service::customStart()
 {
-	m->client->connect();
+	setState(STARTING);
 	CUTEHMI_MODBUS_QDEBUG("Starting Modbus client thread...");
 	m->thread->start();
-	return STARTED;
+	return state();
 }
 
 Service::state_t Service::customStop()
 {
+	setState(STOPPING);
 	CUTEHMI_MODBUS_QDEBUG("Stopping Modbus client thread...");
 	m->thread->stop();
 	m->thread->quit();
 	m->thread->wait();
 	CUTEHMI_MODBUS_QDEBUG("Modbus client thread finished.");
-	m->client->disconnect();
-	return STOPPED;
+	if (!m->client->isConnected())
+		setState(STOPPED);
+	return state();
+}
+
+void Service::onClientConnected()
+{
+	CUTEHMI_MODBUS_QDEBUG("Modbus client connected.");
+	setState(STARTED);
+}
+
+void Service::onClientDisconnected()
+{
+	CUTEHMI_MODBUS_QDEBUG("Modbus client disconnected.");
+	setState(STOPPED);
+}
+
+void Service::handleError(cutehmi::base::ErrorInfo errorInfo)
+{
+	base::Prompt::Critical(errorInfo);
+	stop();
 }
 
 }

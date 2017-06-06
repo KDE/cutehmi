@@ -39,12 +39,19 @@ LibmodbusConnection::Timeout LibmodbusConnection::responseTimeout() const
 
 bool LibmodbusConnection::connect()
 {
-	return modbus_connect(context()) == 0;
+	m->connected = modbus_connect(context()) == 0;
+	return m->connected;
 }
 
 void LibmodbusConnection::disconnect()
 {
 	modbus_close(context());
+	m->connected = false;
+}
+
+bool LibmodbusConnection::connected() const
+{
+	return m->connected;
 }
 
 int LibmodbusConnection::readIr(int addr, int num, uint16_t * dest)
