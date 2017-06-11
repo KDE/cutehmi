@@ -11,10 +11,11 @@ Item
 	implicitHeight: 50.0
 
 	property var delegate: parent
+	property string delegateProperty: "checked"
+
 	property alias device: discreteInputController.device
 	property alias address: discreteInputController.address
 	property alias busy: discreteInputController.busy
-	property alias value: discreteInputController.value
 	property alias controller: discreteInputController
 
 	property var busyIndicator: BusyIndicator {
@@ -25,7 +26,11 @@ Item
 
 	DiscreteInputController {
 		id: discreteInputController
+
+		onValueChanged: delegate[delegateProperty] = value
 	}
+
+	Component.onCompleted: delegate[delegateProperty] = controller.value
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

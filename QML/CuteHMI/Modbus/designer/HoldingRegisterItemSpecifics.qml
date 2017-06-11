@@ -84,13 +84,40 @@ Column {
 			}
 
 			Label {
-				text: qsTr("Value")
+				text: qsTr("Delegate")
 			}
 			SecondColumnLayout {
-				SpinBox {
-					backendValue: backendValues.value
-					minimumValue: -32768
-					maximumValue: 65535
+				LineEdit {
+					backendValue: backendValues.delegate
+					placeholderText: backendValue.expression
+					Layout.fillWidth: true
+					showExtendedFunctionButton: true
+					showTranslateCheckBox: false
+					readOnly: true
+				}
+			}
+
+			Label {
+				text: qsTr("Delegate property")
+			}
+			SecondColumnLayout {
+				LineEdit {
+					backendValue: backendValues.delegateProperty
+					Layout.fillWidth: true
+					showExtendedFunctionButton: true
+					showTranslateCheckBox: false
+				}
+			}
+
+			Label {
+				text: qsTr("Read only")
+			}
+			SecondColumnLayout {
+				CheckBox {
+					backendValue: backendValues.readOnly
+					implicitWidth: 180
+				}
+				ExpandingSpacer {
 				}
 			}
 		}

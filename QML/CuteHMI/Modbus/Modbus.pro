@@ -35,6 +35,8 @@ DISTFILES += \
     CoilItem.qml \
     DiscreteInputItem.qml \
     HoldingRegisterItem.qml \
-    InputRegisterItem.qml
+    InputRegisterItem.qml \
+    HoldingRegisterItem.js \
+    CoilItem.js
 
 RESOURCES +=

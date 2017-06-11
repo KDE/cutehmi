@@ -11,12 +11,13 @@ Item
 	implicitHeight: 50.0
 
 	property var delegate: parent
+	property string delegateProperty: "value"
+
 	property alias device: inputRegisterController.device
 	property alias address: inputRegisterController.address
 	property alias encoding: inputRegisterController.encoding
 	property alias valueScale: inputRegisterController.valueScale
 	property alias busy: inputRegisterController.busy
-	property alias value: inputRegisterController.value
 	property alias controller: inputRegisterController
 
 	property var busyIndicator: BusyIndicator {
@@ -28,7 +29,11 @@ Item
 	InputRegisterController
 	{
 		id: inputRegisterController
+
+		onValueChanged: delegate[delegateProperty] = value
 	}
+
+	Component.onCompleted: delegate[delegateProperty] = controller.value
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

@@ -57,19 +57,44 @@ Column {
 					}
 				}
 			}
-			
-            Label {
-                text: qsTr("Value")
-                tooltip: qsTr("Value")
-            }
-            SecondColumnLayout {
-                CheckBox {
-                    backendValue: backendValues.value
-                    implicitWidth: 180
-                }
-                ExpandingSpacer {
-                }
-            }
+
+			Label {
+				text: qsTr("Delegate")
+			}
+			SecondColumnLayout {
+				LineEdit {
+					backendValue: backendValues.delegate
+					placeholderText: backendValue.expression
+					Layout.fillWidth: true
+					showExtendedFunctionButton: true
+					showTranslateCheckBox: false
+					readOnly: true
+				}
+			}
+
+			Label {
+				text: qsTr("Delegate property")
+			}
+			SecondColumnLayout {
+				LineEdit {
+					backendValue: backendValues.delegateProperty
+					Layout.fillWidth: true
+					showExtendedFunctionButton: true
+					showTranslateCheckBox: false
+				}
+			}
+
+			Label {
+				text: qsTr("Read only")
+			}
+			SecondColumnLayout {
+				CheckBox {
+					backendValue: backendValues.readOnly
+					implicitWidth: 180
+				}
+				ExpandingSpacer {
+				}
+			}
 		}
 	}
 }
