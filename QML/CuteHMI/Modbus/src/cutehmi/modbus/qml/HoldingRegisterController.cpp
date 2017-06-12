@@ -106,6 +106,7 @@ void HoldingRegisterController::onValueUpdated()
 		return;
 
 	updateValue();
+	emit valueUpdated();
 	setBusy(false);
 }
 

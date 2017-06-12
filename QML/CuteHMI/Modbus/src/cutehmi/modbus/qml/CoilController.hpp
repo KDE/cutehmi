@@ -46,6 +46,8 @@ class CoilController:
 
 		void valueChanged();
 
+		void valueUpdated();
+
 		void busyChanged();
 
 	protected slots:

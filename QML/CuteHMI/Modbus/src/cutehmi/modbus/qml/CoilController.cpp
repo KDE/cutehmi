@@ -78,6 +78,7 @@ void CoilController::onValueUpdated()
 		return;
 
 	updateValue();
+	emit valueUpdated();
 	setBusy(false);
 }
 

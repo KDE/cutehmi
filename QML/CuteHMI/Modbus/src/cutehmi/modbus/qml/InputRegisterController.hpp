@@ -50,6 +50,8 @@ class InputRegisterController:
 	signals:
 		void valueChanged();
 
+		void valueUpdated();
+
 		void deviceChanged();
 
 		void valueScaleChanged();

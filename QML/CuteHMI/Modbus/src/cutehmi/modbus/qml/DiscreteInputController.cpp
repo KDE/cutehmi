@@ -64,6 +64,7 @@ bool DiscreteInputController::busy() const
 void DiscreteInputController::onValueUpdated()
 {
 	updateValue();
+	emit valueUpdated();
 	setBusy(false);
 }
 

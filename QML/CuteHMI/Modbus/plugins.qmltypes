@@ -21,7 +21,7 @@ Module {
         prototype: "cutehmi::modbus::AbstractDevice"
         Signal {
             name: "error"
-            Parameter { name: "errInfo"; type: "base::ErrorInfo" }
+            Parameter { name: "errInfo"; type: "cutehmi::base::ErrorInfo" }
         }
         Signal { name: "connected" }
         Signal { name: "disconnected" }
@@ -145,6 +145,7 @@ Module {
         Property { name: "address"; type: "int" }
         Property { name: "value"; type: "bool" }
         Property { name: "busy"; type: "bool"; isReadonly: true }
+        Signal { name: "valueUpdated" }
     }
     Component {
         name: "cutehmi::modbus::qml::DiscreteInputController"
@@ -155,6 +156,7 @@ Module {
         Property { name: "address"; type: "int" }
         Property { name: "value"; type: "bool"; isReadonly: true }
         Property { name: "busy"; type: "bool"; isReadonly: true }
+        Signal { name: "valueUpdated" }
     }
     Component {
         name: "cutehmi::modbus::qml::HoldingRegisterController"
@@ -167,6 +169,7 @@ Module {
         Property { name: "valueScale"; type: "double" }
         Property { name: "encoding"; type: "HoldingRegister::encoding_t" }
         Property { name: "busy"; type: "bool"; isReadonly: true }
+        Signal { name: "valueUpdated" }
     }
     Component {
         name: "cutehmi::modbus::qml::InputRegisterController"
@@ -179,5 +182,6 @@ Module {
         Property { name: "valueScale"; type: "double" }
         Property { name: "encoding"; type: "InputRegister::encoding_t" }
         Property { name: "busy"; type: "bool"; isReadonly: true }
+        Signal { name: "valueUpdated" }
     }
 }

@@ -44,6 +44,8 @@ class DiscreteInputController:
 
 		void valueChanged();
 
+		void valueUpdated();
+
 		void busyChanged();
 
 	protected slots:

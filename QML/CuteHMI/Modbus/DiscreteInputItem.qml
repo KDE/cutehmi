@@ -27,7 +27,7 @@ Item
 	DiscreteInputController {
 		id: discreteInputController
 
-		onValueChanged: delegate[delegateProperty] = value
+		onValueUpdated: delegate[delegateProperty] = value
 	}
 
 	Component.onCompleted: delegate[delegateProperty] = controller.value

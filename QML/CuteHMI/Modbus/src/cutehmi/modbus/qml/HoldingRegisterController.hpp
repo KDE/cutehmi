@@ -56,6 +56,8 @@ class HoldingRegisterController:
 
 		void valueChanged();
 
+		void valueUpdated();
+
 		void valueScaleChanged();
 
 		void encodingChanged();

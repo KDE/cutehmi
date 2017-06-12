@@ -92,6 +92,7 @@ bool InputRegisterController::busy() const
 void InputRegisterController::onValueUpdated()
 {
 	updateValue();
+	emit valueUpdated();
 	setBusy(false);
 }
 

@@ -30,7 +30,7 @@ Item
 	{
 		id: inputRegisterController
 
-		onValueChanged: delegate[delegateProperty] = value
+		onValueUpdated: delegate[delegateProperty] = value
 	}
 
 	Component.onCompleted: delegate[delegateProperty] = controller.value
