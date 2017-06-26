@@ -1,47 +1,51 @@
-#include "../../../include/modbus/internal/CommunicationThread.hpp"
+#include "../../../include/modbus/internal/ServiceThread.hpp"
 #include "../../../include/modbus/Client.hpp"
 
 namespace cutehmi {
 namespace modbus {
 namespace internal {
 
-CommunicationThread::CommunicationThread(Client * client):
+ServiceThread::ServiceThread(Client * client):
 	m_run(0),
 	m_sleep(0),
 	m_client(client)
 {
 }
 
-unsigned long CommunicationThread::sleep() const
+unsigned long ServiceThread::sleep() const
 {
 	return m_sleep;
 }
 
-void CommunicationThread::setSleep(unsigned long sleep)
+void ServiceThread::setSleep(unsigned long sleep)
 {
 	m_sleep = sleep;
 }
 
-void CommunicationThread::run()
+void ServiceThread::run()
 {
 	m_client->connect();
-	while (m_run.load()) {
-		//@todo check connection status.
+	if (m_client->isConnected())
+		emit ran();
+	else
+		return;	// Do not enter the loop and don't trigger additional errors unnecessarily.
+
+	while (m_run.loadAcquire()) {
 		m_client->readAll(m_run);
 		msleep(m_sleep);
 	}
 	m_client->disconnect();
 }
 
-void CommunicationThread::start()
+void ServiceThread::start()
 {
-	m_run.store(1);
+	m_run.storeRelease(1);
 	Parent::start();
 }
 
-void CommunicationThread::stop()
+void ServiceThread::stop()
 {
-	m_run.store(0);
+	m_run.storeRelease(0);
 }
 
 }

@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_COMMUNICATIONTHREAD_HPP
-#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_COMMUNICATIONTHREAD_HPP
+#ifndef CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_SERVICETHREAD_HPP
+#define CUTEHMI_LIBMODBUS_INCLUDE_MODBUS_INTERNAL_SERVICETHREAD_HPP
 
 #include "common.hpp"
 
@@ -13,14 +13,14 @@ class Client;
 
 namespace internal {
 
-class CommunicationThread:
+class ServiceThread:
 	public QThread
 {
 	Q_OBJECT
 	typedef QThread Parent;
 
 	public:
-		explicit CommunicationThread(Client * client);
+		explicit ServiceThread(Client * client);
 
 	public:
 		unsigned long sleep() const;
@@ -28,6 +28,9 @@ class CommunicationThread:
 		void setSleep(unsigned long sleep);
 
 		void run() override;
+
+	signals:
+		void ran();
 
 	public slots:
 		void start();
