@@ -152,8 +152,8 @@ void Service::handleError(cutehmi::base::ErrorInfo errorInfo)
 	base::Notification::Critical(errorInfo);
 }
 
-const long Service::MAX_BROKEN_SERVICE_WAIT;
-const int Service::INITIAL_BROKEN_SERVICE_WAIT;
+constexpr long Service::MAX_BROKEN_SERVICE_WAIT;
+constexpr int Service::INITIAL_BROKEN_SERVICE_WAIT;
 
 }
 }
