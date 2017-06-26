@@ -14,6 +14,7 @@ HoldingRegister::HoldingRegister(uint16_t value, QObject * parent):
 	m(new Members(value))
 {
 	connect(this, & HoldingRegister::valueWritten, this, & HoldingRegister::onValueWritten);
+	connect(this, & HoldingRegister::valueRejected, this, & HoldingRegister::onValueRejected);
 }
 
 QVariant HoldingRegister::value(encoding_t encoding) const
@@ -83,6 +84,13 @@ void HoldingRegister::updateValue(uint16_t value)
 }
 
 void HoldingRegister::onValueWritten()
+{
+	m->writeCtrLock.lockForWrite();
+	m->writeCtr--;
+	m->writeCtrLock.unlock();
+}
+
+void HoldingRegister::onValueRejected()
 {
 	m->writeCtrLock.lockForWrite();
 	m->writeCtr--;

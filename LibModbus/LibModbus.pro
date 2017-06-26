@@ -35,13 +35,13 @@ SOURCES += \
     src/modbus/DiscreteInput.cpp \
     src/modbus/Service.cpp \
     src/modbus/internal/macros.cpp \
-    src/modbus/internal/CommunicationThread.cpp \
     src/modbus/internal/DummyConnection.cpp \
     src/modbus/internal/LibmodbusConnection.cpp \
     src/modbus/internal/RTUConnection.cpp \
     src/modbus/internal/TCPConnection.cpp \
     src/modbus/internal/functions.cpp \
-    src/modbus/AbstractDevice.cpp
+    src/modbus/AbstractDevice.cpp \
+    src/modbus/internal/ServiceThread.cpp
 
 HEADERS += \
     include/modbus/Client.hpp \
@@ -55,7 +55,6 @@ HEADERS += \
     include/modbus/internal/common.hpp \
     include/modbus/internal/macros.hpp \
     include/modbus/internal/AbstractConnection.hpp \
-    include/modbus/internal/CommunicationThread.hpp \
     include/modbus/internal/DataContainer.hpp \
     include/modbus/internal/RegisterTraits.hpp \
     include/modbus/internal/DummyConnection.hpp \
@@ -63,8 +62,11 @@ HEADERS += \
     include/modbus/internal/RTUConnection.hpp \
     include/modbus/internal/TCPConnection.hpp \
     include/modbus/internal/functions.hpp \
-    include/modbus/AbstractDevice.hpp
+    include/modbus/AbstractDevice.hpp \
+    include/modbus/internal/ServiceThread.hpp
 
 DISTFILES +=
 
 RESOURCES +=
+
+STATECHARTS +=

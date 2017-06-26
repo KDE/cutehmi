@@ -57,8 +57,15 @@ class CUTEHMI_MODBUS_API Coil:
 		 */
 		void valueWritten();
 
+		/**
+		 * Value rejected. This signal is emitted when writing requested value has failed.
+		 */
+		void valueRejected();
+
 	private slots:
 		void onValueWritten();
+
+		void onValueRejected();
 
 	private:
 		struct Members

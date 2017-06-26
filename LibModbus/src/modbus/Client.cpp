@@ -14,6 +14,18 @@ QString Client::Error::str() const
 	switch (code()) {
 		case Error::UNABLE_TO_CONNECT:
 			return tr("Unable to connect.");
+		case Error::FAILED_TO_READ_INPUT_REGISTER:
+			return tr("Failed to read input register value from the device.");
+		case Error::FAILED_TO_READ_HOLDING_REGISTER:
+			return tr("Failed to read holding register value from the device.");
+		case Error::FAILED_TO_WRITE_HOLDING_REGISTER:
+			return tr("Failed to write holding register value to the device.");
+		case Error::FAILED_TO_READ_DISCRETE_INPUT:
+			return tr("Failed to read discrete input value from the device.");
+		case Error::FAILED_TO_READ_COIL:
+			return tr("Failed to read coil value from the device.");
+		case Error::FAILED_TO_WRITE_COIL:
+			return tr("Failed to write coil value to the device.");
 		default:
 			return base::Error::str();
 	}
@@ -30,7 +42,6 @@ Client::Client(std::unique_ptr<internal::AbstractConnection> connection, QObject
 Client::~Client()
 {
 	QThreadPool::globalInstance()->waitForDone();
-
 	for (IrDataContainer::KeysContainer::const_iterator it = m->irData.keys().begin(); it != m->irData.keys().end(); ++it)
 		delete m->irData.at(*it);
 	m->irData.clear();
@@ -100,7 +111,7 @@ void Client::readIr(int addr)
 	uint16_t val;
 	CUTEHMI_MODBUS_QDEBUG("Reading value from input register '" << addr << "'.");
 	if (m->connection->readIr(addr, NUM_READ, & val) != NUM_READ)
-		CUTEHMI_MODBUS_QWARNING("Failed reading input register value from the device.");
+		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_INPUT_REGISTER)));
 	else
 		(*it)->updateValue(val);
 }
@@ -115,7 +126,7 @@ void Client::readR(int addr)
 	uint16_t val;
 	CUTEHMI_MODBUS_QDEBUG("Reading value from holding register '" << addr << "'.");
 	if (m->connection->readR(addr, NUM_READ, & val) != NUM_READ)
-		CUTEHMI_MODBUS_QWARNING("Failed reading register value from the device.");
+		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_HOLDING_REGISTER)));
 	else
 		(*it)->updateValue(val);
 }
@@ -127,9 +138,10 @@ void Client::writeR(int addr)
 	Q_ASSERT_X(it != m->rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val = (*it)->requestedValue();
 	CUTEHMI_MODBUS_QDEBUG("Writing requested value '" << val << "' to holding register '" << addr << "'.");
-	if (m->connection->writeR(addr, val) != 1)
-		CUTEHMI_MODBUS_QWARNING("Failed to write register value to the device.");
-	else
+	if (m->connection->writeR(addr, val) != 1) {
+		emit error(base::errorInfo(Error(Error::FAILED_TO_WRITE_HOLDING_REGISTER)));
+		emit (*it)->valueRejected();
+	} else
 		emit (*it)->valueWritten();
 }
 
@@ -143,7 +155,7 @@ void Client::readIb(int addr)
 	bool val = 0;
 	CUTEHMI_MODBUS_QDEBUG("Reading value from discrete input '" << addr << "'.");
 	if (m->connection->readIb(addr, NUM_READ, & val) != NUM_READ)
-		CUTEHMI_MODBUS_QWARNING("Failed reading discrete input value from the device.");
+		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_DISCRETE_INPUT)));
 	else
 		(*it)->updateValue(val);
 }
@@ -158,7 +170,7 @@ void Client::readB(int addr)
 	bool val = 0;
 	CUTEHMI_MODBUS_QDEBUG("Reading value from coil '" << addr << "'.");
 	if (m->connection->readB(addr, NUM_READ, & val) != NUM_READ)
-		CUTEHMI_MODBUS_QWARNING("Failed reading coil value from the device.");
+		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_COIL)));
 	else
 		(*it)->updateValue(val);
 }
@@ -170,25 +182,37 @@ void Client::writeB(int addr)
 	Q_ASSERT_X(it != m->bData.end(), __func__, "coil has not been referenced yet");
 	bool val = (*it)->requestedValue();
 	CUTEHMI_MODBUS_QDEBUG("Writing requested value '" << val << "' to coil '" << addr << "'.");
-	if (m->connection->writeB(addr, val) != 1)
-		CUTEHMI_MODBUS_QWARNING("Failed to write coil value to the device.");
-	else
+	if (m->connection->writeB(addr, val) != 1) {
+		emit error(base::errorInfo(Error(Error::FAILED_TO_WRITE_COIL)));
+		emit (*it)->valueRejected();
+	} else
 		emit (*it)->valueWritten();
 }
 
 void Client::connect()
 {
-	QMutexLocker locker(& m->connectionMutex);
-	if (m->connection->connect())
+	// To avoid potential dead-locks lock mutex only to obtain the status, as error() signal may likely
+	// be connected to disconnect() slot, which uses same mutex.
+	m->connectionMutex.lock();
+	bool status = m->connection->connect();
+	m->connectionMutex.unlock();
+
+	if (status) {
+		CUTEHMI_MODBUS_QDEBUG("Modbus client connected.");
 		emit connected();
-	else
+	} else
 		emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 }
 
 void Client::disconnect()
 {
-	QMutexLocker locker(& m->connectionMutex);
+	// To avoid potential dead-locks unlock mutex before emitting signal.
+	m->connectionMutex.lock();
 	m->connection->disconnect();
+	m->connectionMutex.unlock();
+
+	CUTEHMI_MODBUS_QDEBUG("Modbus client disconnected.");
+
 	emit disconnected();
 }
 

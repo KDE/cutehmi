@@ -12,6 +12,7 @@ Coil::Coil(bool value, QObject * parent):
 	m(new Members(value))
 {
 	connect(this, & Coil::valueWritten, this, & Coil::onValueWritten);
+	connect(this, & Coil::valueRejected, this, & Coil::onValueRejected);
 }
 
 bool Coil::value() const
@@ -68,6 +69,13 @@ void Coil::updateValue(bool value)
 }
 
 void Coil::onValueWritten()
+{
+	m->writeCtrLock.lockForWrite();
+	m->writeCtr--;
+	m->writeCtrLock.unlock();
+}
+
+void Coil::onValueRejected()
 {
 	m->writeCtrLock.lockForWrite();
 	m->writeCtr--;
