@@ -13,7 +13,6 @@ DummyConnection::DummyConnection():
 {
 }
 
-
 void DummyConnection::setLatency(unsigned long latency)
 {
 	m->latency = latency;
@@ -24,16 +23,38 @@ unsigned long DummyConnection::latency() const
 	return m->latency;
 }
 
+void DummyConnection::setConnectLatency(unsigned long latency)
+{
+	m->connectLatency = latency;
+}
+
+unsigned long DummyConnection::connectLatency() const
+{
+	return m->connectLatency;
+}
+
+void DummyConnection::setDisconnectLatency(unsigned long latency)
+{
+	m->disconnectLatency = latency;
+}
+
+unsigned long DummyConnection::disconnectLatency() const
+{
+	return m->disconnectLatency;
+}
+
 bool DummyConnection::connect()
 {
 	if (m->connected)
 		return false;
+	QThread::msleep(connectLatency());
 	m->connected = true;
 	return true;
 }
 
 void DummyConnection::disconnect()
 {
+	QThread::msleep(disconnectLatency());
 	m->connected = false;
 }
 

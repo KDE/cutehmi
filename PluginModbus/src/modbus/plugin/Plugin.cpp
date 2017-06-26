@@ -236,10 +236,14 @@ void Plugin::parseRTU(QXmlStreamReader & xmlReader, std::unique_ptr<internal::Ab
 void Plugin::parseDummy(QXmlStreamReader & xmlReader, std::unique_ptr<internal::AbstractConnection> & connection)
 {
 	unsigned long latency = 0;
+	unsigned long connectLatency = 0;
+	unsigned long disconnectLatency = 0;
 	std::unique_ptr<internal::DummyConnection> dummyConnection;
 
 	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
-	helper << base::xml::ParseElement("latency", 1, 1);
+	helper << base::xml::ParseElement("latency", 1, 1)
+		   << base::xml::ParseElement("connect_latency", 1, 1)
+		   << base::xml::ParseElement("disconnect_latency", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "latency") {
@@ -247,10 +251,22 @@ void Plugin::parseDummy(QXmlStreamReader & xmlReader, std::unique_ptr<internal::
 			latency = xmlReader.readElementText().toULong(& ok);
 			if (!ok)
 				xmlReader.raiseError(QObject::tr("Could not convert 'latency' element data to long integer."));
+		} else if (xmlReader.name() == "connect_latency") {
+			bool ok;
+			connectLatency = xmlReader.readElementText().toULong(& ok);
+			if (!ok)
+				xmlReader.raiseError(QObject::tr("Could not convert 'connect_latency' element data to long integer."));
+		} else if (xmlReader.name() == "disconnect_latency") {
+			bool ok;
+			disconnectLatency = xmlReader.readElementText().toULong(& ok);
+			if (!ok)
+				xmlReader.raiseError(QObject::tr("Could not convert 'disconnect_latency' element data to long integer."));
 		}
 	}
 	dummyConnection.reset(new internal::DummyConnection);
 	dummyConnection->setLatency(latency);
+	dummyConnection->setConnectLatency(connectLatency);
+	dummyConnection->setDisconnectLatency(disconnectLatency);
 	connection.reset(dummyConnection.release());
 }
 

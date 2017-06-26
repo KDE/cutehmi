@@ -25,6 +25,14 @@ class CUTEHMI_MODBUS_API DummyConnection:
 
 		unsigned long latency() const;
 
+		void setConnectLatency(unsigned long latency);
+
+		unsigned long connectLatency() const;
+
+		void setDisconnectLatency(unsigned long latency);
+
+		unsigned long disconnectLatency() const;
+
 		bool connect() override;
 
 		void disconnect() override;
@@ -48,6 +56,8 @@ class CUTEHMI_MODBUS_API DummyConnection:
 		{
 			bool connected;
 			unsigned long latency;
+			unsigned long connectLatency;
+			unsigned long disconnectLatency;
 			uint16_t rArr[ADDR_SPACE_SIZE];
 			uint16_t irArr[ADDR_SPACE_SIZE];
 			bool bArr[ADDR_SPACE_SIZE];
@@ -56,6 +66,8 @@ class CUTEHMI_MODBUS_API DummyConnection:
 			Members():
 				connected(false),
 				latency(0),
+				connectLatency(0),
+				disconnectLatency(0),
 				rArr(),
 				irArr(),
 				bArr(),
