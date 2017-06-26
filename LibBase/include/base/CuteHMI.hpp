@@ -72,9 +72,9 @@ class CUTEHMI_BASE_API CuteHMI:
 	private:
 		struct Members
 		{
-			std::unique_ptr<Project> project;
 			std::unique_ptr<PopupBridge> popupBridge;
 			std::unique_ptr<NotificationManager> notificationManager;
+			std::unique_ptr<Project> project;
 		};
 
 		utils::MPtr<Members> m;
