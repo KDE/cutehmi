@@ -1,4 +1,4 @@
-#include "../../include/services/ServiceRegistry.hpp"
+ #include "../../include/services/ServiceRegistry.hpp"
 
 #include <QThread>
 

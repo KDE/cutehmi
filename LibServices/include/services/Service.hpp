@@ -23,7 +23,9 @@ class CUTEHMI_SERVICES_API Service:
 			STOPPED,
 			STOPPING,
 			STARTED,
-			STARTING
+			STARTING,
+			BROKEN,
+			REPAIRING
 		};
 		Q_ENUM(state_t)
 
@@ -38,6 +40,7 @@ class CUTEHMI_SERVICES_API Service:
 
 		state_t state() const;
 
+	public slots:
 		void start();
 
 		void stop();
