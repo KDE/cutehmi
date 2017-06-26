@@ -22,7 +22,7 @@ void CommunicationThread::setSleep(unsigned long sleep)
 
 void CommunicationThread::run()
 {
-	while (m->run.load()) {
+	while (m->run.loadAcquire()) {
 		m->client->checkDatabaseConnectionStatus();
 		m->client->readAll(m->run);
 		msleep(m->sleep);
@@ -31,13 +31,13 @@ void CommunicationThread::run()
 
 void CommunicationThread::start()
 {
-	m->run.store(1);
+	m->run.storeRelease(1);
 	Parent::start();
 }
 
 void CommunicationThread::stop()
 {
-	m->run.store(0);
+	m->run.storeRelease(0);
 }
 
 }
