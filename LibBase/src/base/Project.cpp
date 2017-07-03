@@ -48,7 +48,7 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 			emit pluginLoaderChanged();
 			Notification::Note(tr("Succesfuly loaded project file '%1'.").arg(filePath));
 		} catch (const Exception & e) {
-			Prompt::Critical(e.what());
+			Prompt::Critical(tr("Error while parsing '%1' document.").arg(filePath) + "\n\n" + e.what());
 		}
 		file.close();
 	} else {

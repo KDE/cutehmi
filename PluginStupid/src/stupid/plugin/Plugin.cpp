@@ -8,7 +8,6 @@
 #include <services/ServiceRegistry.hpp>
 
 #include <base/XMLBackendPlugin.hpp>
-#include <base/xml/ParseHelper.hpp>
 #include <base/Exception.hpp>
 
 #include <QtDebug>
@@ -37,12 +36,12 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "cutehmi_plugin_stupid") {
-			base::xml::ParseHelper nodeHelper(& xmlReader, NAMESPACE_URI);
+			base::xml::ParseHelper nodeHelper(& helper);
 			nodeHelper << base::xml::ParseElement("stupid", {base::xml::ParseAttribute("id"),
 															 base::xml::ParseAttribute("name")}, 0);
 			while (nodeHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "stupid")
-					parseStupid(xmlReader, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());
+					parseStupid(nodeHelper, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());
 			}
 		}
 	}
@@ -55,9 +54,9 @@ void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) co
 	throw base::Exception("cutehmi::stupid::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseStupid(QXmlStreamReader & xmlReader, base::ProjectNode & node, const QString & id, const QString & name)
+void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name)
 {
-	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
+	base::xml::ParseHelper helper(& parentHelper);
 	helper << base::xml::ParseElement("client", 1, 1)
 		   << base::xml::ParseElement("service", 1, 1);
 
@@ -66,14 +65,15 @@ void Plugin::parseStupid(QXmlStreamReader & xmlReader, base::ProjectNode & node,
 	std::unique_ptr<DatabaseConnectionData> dbData;
 	unsigned long serviceSleep = 0;
 
+	QXmlStreamReader & xmlReader = *helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "client") {
-			base::xml::ParseHelper clientHelper(& xmlReader, NAMESPACE_URI);
+			base::xml::ParseHelper clientHelper(& helper);
 			clientHelper << base::xml::ParseElement("session", {base::xml::ParseAttribute("type", "SQL")}, 1, 1);
 
 			while (clientHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "session") {
-					base::xml::ParseHelper sessionHelper(& xmlReader, NAMESPACE_URI);
+					base::xml::ParseHelper sessionHelper(& clientHelper);
 					sessionHelper << base::xml::ParseElement("dbms", {base::xml::ParseAttribute("name", "PostgreSQL")}, 1, 1);
 					while (sessionHelper.readNextRecognizedElement()) {
 						if (xmlReader.name() == "dbms") {
@@ -81,14 +81,14 @@ void Plugin::parseStupid(QXmlStreamReader & xmlReader, base::ProjectNode & node,
 							dbData->connectionName = id;
 							if (xmlReader.attributes().value("name") == "PostgreSQL") {
 								dbData->type = "QPSQL";
-								parsePostgreSQL(xmlReader, *dbData);
+								parsePostgreSQL(sessionHelper, *dbData);
 							}
 						}
 					}
 				}
 			}
 		} else if (xmlReader.name() == "service") {
-			base::xml::ParseHelper serviceHelper(& xmlReader, NAMESPACE_URI);
+			base::xml::ParseHelper serviceHelper(& helper);
 			serviceHelper << base::xml::ParseElement("sleep", 1, 1);
 
 			while (serviceHelper.readNextRecognizedElement()) {
@@ -122,14 +122,15 @@ void Plugin::parseStupid(QXmlStreamReader & xmlReader, base::ProjectNode & node,
 	stupidNode->data().append(std::unique_ptr<StupidNodeData>(new StupidNodeData(std::move(client), std::move(service))));
 }
 
-void Plugin::parsePostgreSQL(QXmlStreamReader & xmlReader, DatabaseConnectionData & dbData)
+void Plugin::parsePostgreSQL(const base::xml::ParseHelper & parentHelper, DatabaseConnectionData & dbData)
 {
-	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
+	base::xml::ParseHelper helper(& parentHelper);
 	helper << base::xml::ParseElement("postgresql", 1, 1);
 
+	QXmlStreamReader & xmlReader = *helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "postgresql") {
-			base::xml::ParseHelper postgresqlHelper(& xmlReader, NAMESPACE_URI);
+			base::xml::ParseHelper postgresqlHelper(& helper);
 			postgresqlHelper << base::xml::ParseElement("port", 1, 1)
 							 << base::xml::ParseElement("host", 1, 1)
 							 << base::xml::ParseElement("name", 1, 1)

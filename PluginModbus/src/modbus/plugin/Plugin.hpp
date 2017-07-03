@@ -3,6 +3,7 @@
 
 #include <base/IXMLBackendPlugin.hpp>
 #include <base/IPlugin.hpp>
+#include <base/xml/ParseHelper.hpp>
 
 #include <modbus/internal/LibmodbusConnection.hpp>
 
@@ -37,36 +38,18 @@ class Plugin:
 		// base::IXMLBackendPlugin
 		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
 
-//		base::Error readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node) override;
-
-//		base::Error writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
-
 	private:
-		void parseModbus(QXmlStreamReader & xmlReader, base::ProjectNode & node, const QString & id, const QString & name);
+		void parseModbus(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name);
 
-		void parseTCP(QXmlStreamReader & xmlReader, std::unique_ptr<internal::AbstractConnection> & connection);
+		void parseTCP(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
 
-		void parseRTU(QXmlStreamReader & xmlReader, std::unique_ptr<internal::AbstractConnection> & connection);
+		void parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
 
-		void parseDummy(QXmlStreamReader & xmlReader, std::unique_ptr<internal::AbstractConnection> & connection);
+		void parseDummy(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
 
 		bool timeoutFromString(const QString & timeoutString, internal::LibmodbusConnection::Timeout & timeout);
 
 		bool secUsecFromString(const QString & timeoutString, unsigned long & sec, unsigned long & usec);
-
-//		base::Error dummyConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
-
-//		base::Error tcpConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
-
-//		base::Error rtuConnectionFromXML(QXmlStreamReader & xmlReader, std::unique_ptr<modbus::AbstractConnection> & connection);
-
-//		base::Error connectionTimeoutsFromXML(QXmlStreamReader & xmlReader, modbus::LibmodbusConnection::Timeout & byteTimeout, modbus::LibmodbusConnection::Timeout & responseTimeout);
-
-//		base::Error timeoutFromString(const QString & timeoutString, modbus::LibmodbusConnection::Timeout & timeout);
-
-//		base::Error secUsecFromString(const QString & timeoutString, unsigned long & sec, unsigned long & usec);
-
-//		metaData() const;
 };
 
 }

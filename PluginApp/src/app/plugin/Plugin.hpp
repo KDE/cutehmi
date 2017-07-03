@@ -3,6 +3,7 @@
 
 #include <base/IPlugin.hpp>
 #include <base/IXMLBackendPlugin.hpp>
+#include <base/xml/ParseHelper.hpp>
 
 #include <QObject>
 
@@ -34,7 +35,7 @@ class Plugin:
 		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
 
 	private:
-		void parseScreens(QXmlStreamReader & xmlReader, base::ProjectNode & node);
+		void parseScreens(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node);
 };
 
 }

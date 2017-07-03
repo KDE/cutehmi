@@ -3,6 +3,7 @@
 
 #include <base/IPlugin.hpp>
 #include <base/IXMLBackendPlugin.hpp>
+#include <base/xml/ParseHelper.hpp>
 
 #include <stupid/Client.hpp>
 #include <stupid/internal/DatabaseConnectionData.hpp>
@@ -38,11 +39,9 @@ class Plugin:
 		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
 
 	private:
-		void parseStupid(QXmlStreamReader & xmlReader, base::ProjectNode & node, const QString & id, const QString & name);
+		void parseStupid(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name);
 
-		void parseNode(QXmlStreamReader & xmlReader, base::ProjectNode & node);
-
-		void parsePostgreSQL(QXmlStreamReader & xmlReader, stupid::DatabaseConnectionData & dbData);
+		void parsePostgreSQL(const base::xml::ParseHelper & parentHelper, stupid::DatabaseConnectionData & dbData);
 };
 
 }

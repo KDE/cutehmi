@@ -4,7 +4,6 @@
 #include "ScreensNodeData.hpp"
 
 #include <base/XMLBackendPlugin.hpp>
-#include <base/xml/ParseHelper.hpp>
 #include <base/Exception.hpp>
 
 #include <QtDebug>
@@ -31,11 +30,11 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "cutehmi_plugin_app") {
-			base::xml::ParseHelper nodeHelper(& xmlReader, NAMESPACE_URI);
+			base::xml::ParseHelper nodeHelper(& helper);
 			nodeHelper << base::xml::ParseElement("screens", 1, 1);
 			while (nodeHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "screens")
-					parseScreens(xmlReader, node);
+					parseScreens(nodeHelper, node);
 			}
 		}
 	}
@@ -48,14 +47,15 @@ void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) co
 	throw base::Exception("cutehmi::app::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseScreens(QXmlStreamReader & xmlReader, base::ProjectNode & node)
+void Plugin::parseScreens(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node)
 {
 	std::unique_ptr<MainScreen> mainScreen;
 	std::unique_ptr<ScreensNodeData> screensNodeData;
 
-	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
+	base::xml::ParseHelper helper(& parentHelper);
 	helper << base::xml::ParseElement("main_screen", {base::xml::ParseAttribute("source")}, 1, 1);
 
+	QXmlStreamReader & xmlReader = *helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "main_screen")
 			mainScreen.reset(new MainScreen(xmlReader.attributes().value("source").toString()));

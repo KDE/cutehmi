@@ -6,7 +6,12 @@ namespace base {
 namespace xml {
 
 ParseHelper::ParseHelper(QXmlStreamReader * reader, const QString & namespaceURI):
-	m(new Members{reader, namespaceURI, ElementsContainer(), 0})
+	m(new Members{reader, namespaceURI, ElementsContainer(), 0, nullptr, nullptr})
+{
+}
+
+ParseHelper::ParseHelper(const ParseHelper * parentHelper):
+	m(new Members{parentHelper->xmlReader(), parentHelper->namespaceURI(), ElementsContainer(), 0, nullptr, parentHelper})
 {
 }
 
@@ -31,8 +36,15 @@ QString ParseHelper::namespaceURI() const
 	return m->namespaceURI;
 }
 
+const ParseHelper * ParseHelper::parentHelper() const
+{
+	return m->parentHelper;
+}
+
 bool ParseHelper::readNextRecognizedElement()
 {
+	m->lastRecognizedElement = nullptr;
+
 	while (skipToNextSiblingElement()) {
 		if (!m->namespaceURI.isEmpty() && (m->namespaceURI != xmlReader()->namespaceUri())) {
 			CUTEHMI_BASE_QWARNING("Element '"<< xmlReader()->name() << "' does not belong to '" << m->namespaceURI << "' namespace at: " << internal::readerPositionString(*xmlReader()) << ".");
@@ -43,10 +55,14 @@ bool ParseHelper::readNextRecognizedElement()
 		if (element) {
 			element->incOccurences();
 			if ((element->maxOccurrences() >= 0) && (element->occurrences() > element->maxOccurrences())) {
-				xmlReader()->raiseError(QObject::tr("Too many occurences (%1) of '<%2>' element.").arg(element->occurrences()).arg(element->name()));
+				xmlReader()->raiseError(QObject::tr("Too many occurences (%1) of '<%2>' element within %3.").arg(element->occurrences()).arg(element->name()).arg(withinString()));
 				return false;
 			}
-			return checkAttributes(*xmlReader(), *element);
+			if (checkAttributes(*xmlReader(), *element)) {
+				m->lastRecognizedElement = element;
+				return true;
+			} else
+				return false;
 		} else {
 			CUTEHMI_BASE_QWARNING("Unrecognized element '"<< xmlReader()->name() << "' at: " << internal::readerPositionString(*xmlReader()) << ".");
 			xmlReader()->skipCurrentElement();
@@ -57,13 +73,19 @@ bool ParseHelper::readNextRecognizedElement()
 	if (!xmlReader()->hasError())
 		for (const ParseElement & element: m->elements) {
 			if (element.occurrences() < element.minOccurrences()) {
-				xmlReader()->raiseError(QObject::tr("Parent element requires %n occurrence(s) of '<%1>' element (encountered %2).", "", element.minOccurrences())
+				xmlReader()->raiseError(QObject::tr("There must be at least %n occurrence(s) of '<%1>' element (encountered %2) within %3.", "", element.minOccurrences())
 										.arg(element.name())
-										.arg(element.occurrences()));
+										.arg(element.occurrences())
+										.arg(withinString()));
 				return false;
 			}
 		}
 	return false;
+}
+
+const ParseElement * ParseHelper::lastRecognizedElement() const
+{
+	return m->lastRecognizedElement;
 }
 
 bool ParseHelper::skipToNextSiblingElement()
@@ -85,11 +107,6 @@ bool ParseHelper::skipToNextSiblingElement()
 		}
 	}
 	return false;
-}
-
-QXmlStreamReader * ParseHelper::xmlReader()
-{
-	return m->xmlReader;
 }
 
 ParseElement * ParseHelper::findElement(const QString & name)
@@ -131,6 +148,14 @@ bool ParseHelper::checkAttributes(QXmlStreamReader & reader, const ParseElement 
 			CUTEHMI_BASE_QWARNING("Element '" << element.name() << "' contains unrecognized attribute '" << attr.name().toString() << "' at: " << internal::readerPositionString(*xmlReader()) << ".");
 
 	return true;
+}
+
+QString ParseHelper::withinString() const
+{
+	if (parentHelper() != nullptr)
+		return QString("'<") + parentHelper()->lastRecognizedElement()->name() + " [...] xmlns=\"" + parentHelper()->namespaceURI() + "\">'";
+	else
+		return QString("'xmlns=\"") + namespaceURI() + "\"'";
 }
 
 }
