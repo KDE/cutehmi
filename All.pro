@@ -2,15 +2,15 @@ TEMPLATE = subdirs
 CONFIG += debug_and_release ordered
 
 SUBDIRS += \
-    LibUtils \
-    LibBase \
-    LibCharts \
-    LibServices \
-    LibModbus \
-    LibStupid \
-    PluginApp \
-    PluginModbus \
-    PluginServices \
-    PluginStupid \
+    UtilsLib \
+    BaseLib \
+    ChartsLib \
+    ServicesLib \
+    ServicesPlugin \
+    ModbusLib \
+    ModbusPlugin \
+    StupidLib \
+    StupidPlugin \
+    App \
+    AppPlugin \
     QML \
-    AppLite \

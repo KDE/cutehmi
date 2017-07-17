@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/json">
+        <file>AppPlugin.json</file>
+    </qresource>
+</RCC>

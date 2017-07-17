@@ -2,7 +2,7 @@
 # Note: common.pri must be included before this file.
 
 DEFINES += CUTEHMI_SERVICES_DYNAMIC
-INCLUDEPATH += $$PWD/LibServices/include
-DEPENDPATH += $$PWD/LibServices/include
+INCLUDEPATH += $$PWD/ServicesLib/include
+DEPENDPATH += $$PWD/ServicesLib/include
 win32:LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_services)$$CUTEHMI_SERVICES_MAJOR
 unix:LIBS += -L$$PWD/../bin -l$$qtLibraryTarget(cutehmi_services)

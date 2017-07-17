@@ -1,9 +1,0 @@
-Problem:
-
-Need to provide some code as a replacement for code commented out by workaround id="LibModbus-1".
-
-Workaround:
-
-Workaround code.
-
-Snippet:
