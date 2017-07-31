@@ -2,6 +2,8 @@
 
 #include <QPainter>
 
+#include <cmath>
+
 namespace cutehmi {
 namespace charts {
 
