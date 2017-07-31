@@ -27,7 +27,7 @@ int main(int argc, char * argv[])
 	static const char * PLUGINS_SUBDIR = "plugins";
 
 	QCoreApplication::setOrganizationDomain("cutehmi");
-	QCoreApplication::setApplicationName("CuteHMI Lite");
+	QCoreApplication::setApplicationName("CuteHMI");
 	QCoreApplication::setApplicationVersion(CUTEHMI_APP_VERSION);
 
 //<principle id="Qt.Qt_5_7_0_Reference_Documentation.Threads_and_QObjects.QObject_Reentrancy.creating_QObjects_before_QApplication">
@@ -45,7 +45,7 @@ int main(int argc, char * argv[])
 	app.setWindowIcon(QIcon(":/img/icon.png"));
 
 	QCommandLineParser cmd;
-	cmd.setApplicationDescription("CuteHMI Lite");
+	cmd.setApplicationDescription("CuteHMI");
 	cmd.addHelpOption();
 	cmd.addVersionOption();
 	QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
@@ -76,6 +76,11 @@ int main(int argc, char * argv[])
 
 	if (cmd.isSet(hideCursorOption))
 		QGuiApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
+	//<workaround id="App-5" target="Qt" cause="bug">
+	// When run on raw Xorg server application does not show up cursor unless some controls are hovered.
+	else
+		QGuiApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
+	//</workaround>
 
 	cutehmi::base::CuteHMI & cuteHMI = cutehmi::base::CuteHMI::Instance();
 	QDir dir(qApp->applicationDirPath());
@@ -107,6 +112,14 @@ int main(int argc, char * argv[])
 		result = app.exec();
 	}
 	cutehmi::base::CuteHMI::Destroy();
+
+	if (cmd.isSet(hideCursorOption))
+		QGuiApplication::restoreOverrideCursor();
+	//<workaround ref="App-5">
+	else
+		QGuiApplication::restoreOverrideCursor();
+	//</workaround>
+
 	return result;
 //</principle>
 }
