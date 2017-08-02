@@ -1,6 +1,6 @@
 module CuteHMI.Stupid
 DS18B20Controller 1.0 DS18B20Controller.qml
-plugin cutehmi_qmlplugin_stupid plugins
+plugin cutehmi_stupid_qml plugins
 classname CuteHMIStupidQMLPlugin
 typeinfo plugins.qmltypes
 designersupported

@@ -23,6 +23,8 @@ class CUTEHMI_BASE_API ParseHelper:
 	public:
 		ParseHelper(QXmlStreamReader * reader, const QString & namespaceURI = QString());
 
+		ParseHelper(QXmlStreamReader * reader, const QStringList & namespaceURIList = QStringList());
+
 		ParseHelper(const ParseHelper * parentHelper);
 
 		ParseHelper & operator <<(const ParseElement & element);
@@ -31,13 +33,15 @@ class CUTEHMI_BASE_API ParseHelper:
 
 		QXmlStreamReader * xmlReader() const;
 
-		QString namespaceURI() const;
+		QStringList namespaceURIList() const;
 
 		const ParseHelper * parentHelper() const;
 
 		bool readNextRecognizedElement();
 
 		const ParseElement * lastRecognizedElement() const;
+
+		QString lastRecognizedNamespaceURI() const;
 
 	protected:
 		/**
@@ -53,18 +57,21 @@ class CUTEHMI_BASE_API ParseHelper:
 
 		ParseElement * findElement(const QString & name);
 
-		bool checkAttributes(QXmlStreamReader & reader, const ParseElement & element);
+		bool checkAttributes(QXmlStreamReader & reader, const ParseElement & element) const;
 
 		QString withinString() const;
+
+		bool checkNamespace(const QString & namespaceURI) const;
 
 		struct Members
 		{
 			QXmlStreamReader * xmlReader;
-			QString namespaceURI;
+			QStringList namespaceURIList;
 			ElementsContainer elements;
 			int level;
 			const ParseElement * lastRecognizedElement;
 			const ParseHelper * parentHelper;
+			mutable QString lastRecognizedNamespaceURI;
 		};
 
 		utils::MPtr<Members> m;

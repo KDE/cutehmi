@@ -30,28 +30,27 @@ void PluginLoader::setPluginsDir(const QString & pluginsDir)
 	QCoreApplication::addLibraryPath(pluginsDir);
 }
 
-Plugin * PluginLoader::loadPlugin(const QString & binary, const QString & reqVersion)
+Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor)
 {
 	Plugin::MetaData meta = metaData(binary);
 
 	// Make an attempt to obtain version information from meta data.
-	if (!meta.version.isEmpty()) {
-		if (!checkVersion(meta.version, reqVersion))
-			throw WrongVersionException(binary, reqVersion, meta.version);
-	} else
-		CUTEHMI_BASE_QWARNING("Loading plugin '" << binary <<"', which has no version information available. Required version is '" << reqVersion << "'.");
+	if ((meta.minor != -1) && (meta.minor < reqMinor))
+		throw WrongVersionException(binary, reqMinor, meta.minor);
+	else
+		CUTEHMI_BASE_QWARNING("Loading plugin '" << binary <<"', which has undefined minor version. Required minor is '" << reqMinor << "'.");
 
 	m->loader.setFileName(binary);
 	if (!m->loader.isLoaded()) {
 		QObject * instance = m->loader.instance();
 		if (instance) {
 			Plugin * plugin = new Plugin(binary, instance, meta);
-			CUTEHMI_BASE_QDEBUG("Loaded plugin '" << binary << "' version '" << meta.version << "'.");
+			CUTEHMI_BASE_QDEBUG("Loaded plugin '" << binary << "' version '" << plugin->version() << "'.");
 			m->loadedPlugins.append(plugin);
 		} else
 			throw FailedLoadException(binary);
 	} else {
-		CUTEHMI_BASE_QDEBUG("Plugin '" << binary << "' version '" << meta.version << "' already loaded.");
+		CUTEHMI_BASE_QDEBUG("Plugin '" << binary << "' already loaded.");
 		if (!plugin(binary))
 			m->loadedPlugins.append(new Plugin(binary, m->loader.instance(), meta));
 	}
@@ -84,51 +83,26 @@ Plugin::MetaData PluginLoader::metaData(const QString & binary) const
 {
 	m->loader.setFileName(binary);
 	Plugin::MetaData metaData;
-	metaData.id = m->loader.metaData().value("MetaData").toObject().value("id").toString();
-	metaData.name = m->loader.metaData().value("MetaData").toObject().value("name").toString();
-	metaData.version = m->loader.metaData().value("MetaData").toObject().value("version").toString();
+	QJsonObject jsonMetaData = m->loader.metaData().value("MetaData").toObject();
 
 	QStringList unavailableMetaData;
-	if (metaData.id.isEmpty())
-		unavailableMetaData << "'id'";
-	if (metaData.name.isEmpty())
-		unavailableMetaData << "'name'";
-	if (metaData.version.isEmpty())
-		unavailableMetaData << "'version'";
+	if (jsonMetaData.value("id").isUndefined())
+		unavailableMetaData << "id";
+	if (jsonMetaData.value("name").isUndefined())
+		unavailableMetaData << "name";
+	if (jsonMetaData.value("minor").isUndefined())
+		unavailableMetaData << "minor";
+	if (jsonMetaData.value("micro").isUndefined())
+		unavailableMetaData << "micro";
 	if (!unavailableMetaData.isEmpty())
-		CUTEHMI_BASE_QWARNING("Plugin '" << binary <<"' is missing " << unavailableMetaData.join(", ") << " meta-data information.");
+		CUTEHMI_BASE_QWARNING("Plugin '" << binary <<"' is missing '" << unavailableMetaData.join("', '") << "' meta-data information.");
+
+	metaData.id = jsonMetaData.value("id").toString();
+	metaData.name = jsonMetaData.value("name").toString();
+	metaData.minor = jsonMetaData.value("minor").toInt(-1);
+	metaData.micro = jsonMetaData.value("micro").toInt(-1);
 
 	return metaData;
-}
-
-bool PluginLoader::checkVersion(const QString & pluginVersion, const QString & reqVersion)
-{
-	int pluginMajor;
-	int pluginMinor;
-	int pluginMicro;
-	int reqMajor;
-	int reqMinor;
-	int reqMicro;
-	parseVersion(pluginVersion, pluginMajor, pluginMinor, pluginMicro);
-	parseVersion(reqVersion, reqMajor, reqMinor, reqMicro);
-
-	// Incompatible version.
-	if (reqMajor != pluginMajor)
-		return false;
-
-	// Too old interface.
-	if (reqMinor > pluginMinor)
-		return false;
-
-	return true;
-}
-
-void PluginLoader::parseVersion(const QString & version, int & major, int & minor, int & micro)
-{
-	QStringList mmm = version.split(".");
-	major = mmm.value(0).toInt();
-	minor = mmm.value(1).toInt();
-	micro = mmm.value(2).toInt();
 }
 
 }

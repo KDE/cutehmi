@@ -1,6 +1,5 @@
 #include "../../../include/base/internal/ProjectXMLBackend.hpp"
 #include "../../../include/base/internal/PluginNodeData.hpp"
-#include "../../../include/base/xml/ParseHelper.hpp"
 #include "../../../include/base/IPlugin.hpp"
 #include "../../../include/base/XMLBackendPlugin.hpp"
 #include "../../../include/base/PluginLoader.hpp"
@@ -14,8 +13,6 @@ namespace cutehmi {
 namespace base {
 namespace internal {
 
-constexpr const char * ProjectXMLBackend::NAMESPACE_URI;
-
 ProjectXMLBackend::ProjectXMLBackend(ProjectModel * model, PluginLoader * pluginLoader, QQmlContext * qmlContext):
 	m(new Members{{}, model, pluginLoader, qmlContext})
 {
@@ -25,27 +22,19 @@ void ProjectXMLBackend::load(QIODevice & device)
 {
 	m->xmlReader.setDevice(& device);
 
-	xml::ParseHelper helper(& m->xmlReader, NAMESPACE_URI);
-	helper << xml::ParseElement("cutehmi_project", {xml::ParseAttribute("name"),
-													xml::ParseAttribute("version", "[0-9]+\\.[0-9]+")}, 1, 1);
+	QStringList supportedVersions1;
+	supportedVersions1 << "http://michpolicht.github.io/CuteHMI/BaseLib/xsd/1.0/";
+
+	xml::ParseHelper helper(& m->xmlReader, supportedVersions1);
+	helper << xml::ParseElement("cutehmi_project", {xml::ParseAttribute("name")}, 1, 1);
 	while (helper.readNextRecognizedElement()) {
 		if (m->xmlReader.name() == "cutehmi_project") {
 			m->model->root().data().setName(m->xmlReader.attributes().value("name").toString());
-			QVector<QStringRef> versionMM = m->xmlReader.attributes().value("version").split(".");
-			bool okMajor = true;
-			bool okMinor = true;
-			int versionMajor = versionMM.value(0).toInt(& okMajor);
-			int versionMinor = versionMM.value(1).toInt(& okMinor);
-			if (!okMajor || !okMinor) {
-				m->xmlReader.raiseError(QObject::tr("Could not parse 'version' attribute. Value of the attribute must be in 'MAJOR.MINOR' format, where 'MAJOR' and 'MINOR' are non-negative integers."));
-				break;
-			}
-			CUTEHMI_BASE_QDEBUG("Document version is '" << versionMajor << "."  << versionMinor << "'.");
-			if (versionMajor == 1) {
+
+			if (supportedVersions1.contains(helper.lastRecognizedNamespaceURI())) {
 				Loader1 loader(& m->model->root(), m->pluginLoader, m->qmlContext);
-				loader.parse(m->xmlReader, versionMinor);
-			} else
-				throw UnsupportedDocumentVersionException(versionMajor, versionMinor);
+				loader.parse(helper);
+			}
 		}
 	}
 
@@ -63,8 +52,6 @@ void ProjectXMLBackend::load(QIODevice & device)
 //{
 //}
 
-constexpr int ProjectXMLBackend::Loader1::VERSION_MAJOR;
-
 ProjectXMLBackend::Loader1::Loader1(ProjectNode * root, PluginLoader * pluginLoader, QQmlContext * qmlContext):
 	m_root(root),
 	m_pluginLoader(pluginLoader),
@@ -72,25 +59,28 @@ ProjectXMLBackend::Loader1::Loader1(ProjectNode * root, PluginLoader * pluginLoa
 {
 }
 
-void ProjectXMLBackend::Loader1::parse(QXmlStreamReader & reader, int versionMinor)
+void ProjectXMLBackend::Loader1::parse(const xml::ParseHelper & parentHelper)
 {
 	CUTEHMI_BASE_QDEBUG("Loader starts parsing a document...");
 
-	if (versionMinor > 0)
-		throw UnsupportedDocumentVersionException(VERSION_MAJOR, versionMinor);
-
-	xml::ParseHelper helper(& reader, ProjectXMLBackend::NAMESPACE_URI);
-	helper << xml::ParseElement("plugin", {xml::ParseAttribute("binary", "[a-z|A-Z|0-9|_-]+"), xml::ParseAttribute("min_version", "[0-9]+\\.[0-9]+")}, 0)
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("plugin", {xml::ParseAttribute("binary", "[a-z|A-Z|0-9|_-]+"), xml::ParseAttribute("req_minor", "[0-9]+")}, 0)
 		   << xml::ParseElement("context_properties", 0);
 
+	QXmlStreamReader & reader = *helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (reader.name() == "plugin") {
 			QString binary = reader.attributes().value("binary").toString();
-			QString minVersion = reader.attributes().value("min_version").toString();
+			bool reqMinorOk;
+			int reqMinor = reader.attributes().value("req_minor").toInt(& reqMinorOk);
+			if (!reqMinorOk) {
+				reader.raiseError(QObject::tr("Could not convert 'req_minor' attribute to integer."));
+				break;
+			}
 #ifdef CUTEHMI_DEBUG
 			binary.append('d');
 #endif
-			Plugin * plugin = (m_pluginLoader->loadPlugin(binary, minVersion));	// Note: loadPlugin() may throw exception.
+			Plugin * plugin = (m_pluginLoader->loadPlugin(binary, reqMinor));	// Note: loadPlugin() may throw exception.
 			IPlugin * pluginInstance = qobject_cast<IPlugin *>(plugin->instance());
 			if (pluginInstance == 0)
 				throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_BASE_IPLUGIN_IID);
@@ -99,23 +89,24 @@ void ProjectXMLBackend::Loader1::parse(QXmlStreamReader & reader, int versionMin
 				pluginNode = m_root->addChild(plugin->id(), ProjectNode::Data(plugin->name()), false);
 			else
 				pluginNode = m_root->addChild(ProjectNode::Data(plugin->name()), false);
-			pluginNode->data().append(std::unique_ptr<DataBlock>(new PluginNodeData(plugin, minVersion)));
+			pluginNode->data().append(std::unique_ptr<DataBlock>(new PluginNodeData(plugin, reqMinor)));
 			pluginNode->addExtension(plugin);
 			pluginInstance->init(*pluginNode);
-			parsePlugin(reader, *pluginNode);
+			parsePlugin(helper, *pluginNode);
 		} else if (reader.name() == "context_properties")
-			parseNodeRef(reader, *m_root);
+			parseNodeRef(helper, *m_root);
 	}
 }
 
-void ProjectXMLBackend::Loader1::parsePlugin(QXmlStreamReader & reader, ProjectNode & node)
+void ProjectXMLBackend::Loader1::parsePlugin(const xml::ParseHelper & parentHelper, ProjectNode & node)
 {
 	Plugin * plugin = qobject_cast<Plugin *>(node.extension(Plugin::staticMetaObject.className()));
 	CUTEHMI_BASE_ASSERT(plugin != nullptr, "pointer must be not nullptr");
 
-	xml::ParseHelper helper(& reader, ProjectXMLBackend::NAMESPACE_URI);
+	xml::ParseHelper helper(& parentHelper);
 	helper << xml::ParseElement("extension", {xml::ParseAttribute("object", XMLBackendPlugin::staticMetaObject.className())}, 0);
 
+	QXmlStreamReader & reader = *helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if ((reader.name() == "extension") && (reader.attributes().value("object") == XMLBackendPlugin::staticMetaObject.className())) {
 			XMLBackendPlugin * xmlPlugin = qobject_cast<XMLBackendPlugin *>(node.extension(XMLBackendPlugin::staticMetaObject.className()));
@@ -126,17 +117,18 @@ void ProjectXMLBackend::Loader1::parsePlugin(QXmlStreamReader & reader, ProjectN
 	}
 }
 
-void ProjectXMLBackend::Loader1::parseNodeRef(QXmlStreamReader & reader, ProjectNode & currentNode)
+void ProjectXMLBackend::Loader1::parseNodeRef(const xml::ParseHelper & parentHelper, ProjectNode & currentNode)
 {
-	xml::ParseHelper helper(& reader, ProjectXMLBackend::NAMESPACE_URI);
+	xml::ParseHelper helper(& parentHelper);
 	helper << xml::ParseElement("node_ref", {xml::ParseAttribute("id")}, 0)
 		   << xml::ParseElement("extension_ref", {xml::ParseAttribute("object"), xml::ParseAttribute("context_property", "[a-z|A-Z|_][a-z|A-Z|0-9|_]*")}, 0);
 
+	QXmlStreamReader & reader = *helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (reader.name() == "node_ref") {
 			QString id = reader.attributes().value("id").toString();
 			if (currentNode.child(id))
-				parseNodeRef(reader, *currentNode.child(id));
+				parseNodeRef(helper, *currentNode.child(id));
 			else
 				CUTEHMI_BASE_QWARNING("Could not find child node with an id '"<< id << "' referenced at: " << xml::internal::readerPositionString(reader) << ".");
 		} else if (reader.name() == "extension_ref") {

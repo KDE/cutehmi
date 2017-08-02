@@ -6,12 +6,17 @@ namespace base {
 namespace xml {
 
 ParseHelper::ParseHelper(QXmlStreamReader * reader, const QString & namespaceURI):
-	m(new Members{reader, namespaceURI, ElementsContainer(), 0, nullptr, nullptr})
+	m(new Members{reader, {namespaceURI}, ElementsContainer(), 0, nullptr, nullptr, QString()})
+{
+}
+
+ParseHelper::ParseHelper(QXmlStreamReader * reader, const QStringList & namespaceURIList):
+	m(new Members{reader, namespaceURIList, ElementsContainer(), 0, nullptr, nullptr, QString()})
 {
 }
 
 ParseHelper::ParseHelper(const ParseHelper * parentHelper):
-	m(new Members{parentHelper->xmlReader(), parentHelper->namespaceURI(), ElementsContainer(), 0, nullptr, parentHelper})
+	m(new Members{parentHelper->xmlReader(), parentHelper->namespaceURIList(), ElementsContainer(), 0, nullptr, parentHelper, parentHelper->lastRecognizedNamespaceURI()})
 {
 }
 
@@ -31,9 +36,9 @@ QXmlStreamReader * ParseHelper::xmlReader() const
 	return m->xmlReader;
 }
 
-QString ParseHelper::namespaceURI() const
+QStringList ParseHelper::namespaceURIList() const
 {
-	return m->namespaceURI;
+	return m->namespaceURIList;
 }
 
 const ParseHelper * ParseHelper::parentHelper() const
@@ -46,10 +51,12 @@ bool ParseHelper::readNextRecognizedElement()
 	m->lastRecognizedElement = nullptr;
 
 	while (skipToNextSiblingElement()) {
-		if (!m->namespaceURI.isEmpty() && (m->namespaceURI != xmlReader()->namespaceUri())) {
-			CUTEHMI_BASE_QWARNING("Element '"<< xmlReader()->name() << "' does not belong to '" << m->namespaceURI << "' namespace at: " << internal::readerPositionString(*xmlReader()) << ".");
-			xmlReader()->skipCurrentElement();
-			continue;
+		if (!m->namespaceURIList.isEmpty() && (!checkNamespace(xmlReader()->namespaceUri().toString()))) {
+			xmlReader()->raiseError(QObject::tr("Element '<%1 [...] xmlns=\"%2\">' does not belong to any of the supported namespaces. Supported namespaces: '%3'.")
+									.arg(xmlReader()->name().toString())
+									.arg(xmlReader()->namespaceUri().toString())
+									.arg(m->namespaceURIList.join("', '")));
+			return false;
 		}
 		ParseElement * element = findElement(xmlReader()->name().toString());
 		if (element) {
@@ -64,8 +71,8 @@ bool ParseHelper::readNextRecognizedElement()
 			} else
 				return false;
 		} else {
-			CUTEHMI_BASE_QWARNING("Unrecognized element '"<< xmlReader()->name() << "' at: " << internal::readerPositionString(*xmlReader()) << ".");
-			xmlReader()->skipCurrentElement();
+			xmlReader()->raiseError(QObject::tr("Unrecognized element '<%1>' within %2.").arg(xmlReader()->name().toString()).arg(withinString()));
+			return false;
 		}
 	}
 
@@ -86,6 +93,11 @@ bool ParseHelper::readNextRecognizedElement()
 const ParseElement * ParseHelper::lastRecognizedElement() const
 {
 	return m->lastRecognizedElement;
+}
+
+QString ParseHelper::lastRecognizedNamespaceURI() const
+{
+	return m->lastRecognizedNamespaceURI;
 }
 
 bool ParseHelper::skipToNextSiblingElement()
@@ -117,7 +129,7 @@ ParseElement * ParseHelper::findElement(const QString & name)
 	return & (*result);
 }
 
-bool ParseHelper::checkAttributes(QXmlStreamReader & reader, const ParseElement & element)
+bool ParseHelper::checkAttributes(QXmlStreamReader & reader, const ParseElement & element) const
 {
 	// Look for required attributes.
 	for (const ParseAttribute & reqAttr : element.attributes()) {
@@ -153,9 +165,21 @@ bool ParseHelper::checkAttributes(QXmlStreamReader & reader, const ParseElement 
 QString ParseHelper::withinString() const
 {
 	if (parentHelper() != nullptr)
-		return QString("'<") + parentHelper()->lastRecognizedElement()->name() + " [...] xmlns=\"" + parentHelper()->namespaceURI() + "\">'";
+		return QString("'<") + parentHelper()->lastRecognizedElement()->name()
+				+ (parentHelper()->lastRecognizedNamespaceURI().isEmpty() ? "\">'" : " [...] xmlns=\"" + parentHelper()->lastRecognizedNamespaceURI() + "\">'");
 	else
-		return QString("'xmlns=\"") + namespaceURI() + "\"'";
+		return QObject::tr("parent element");
+}
+
+bool ParseHelper::checkNamespace(const QString & namespaceURI) const
+{
+	if (lastRecognizedNamespaceURI() == namespaceURI)
+		return true;
+	if (namespaceURIList().contains(namespaceURI)) {
+		m->lastRecognizedNamespaceURI = namespaceURI;
+		return true;
+	}
+	return false;
 }
 
 }

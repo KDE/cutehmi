@@ -35,8 +35,8 @@ class CUTEHMI_BASE_API PluginLoader:
 			public Exception
 		{
 			public:
-				WrongVersionException(const QString & binary, const QString & reqVersion, const QString & version):
-					Exception(tr("Plugin '%1' does not satisfy version requirements. Availbale version is '%2'. Required version is '%3'.").arg(binary).arg(version).arg(reqVersion))
+				WrongVersionException(const QString & binary, int reqMinor, int minor):
+					Exception(tr("Plugin '%1' does not satisfy version requirements. Minor '%2' is available. Minor '%3' or higher is required.").arg(binary).arg(minor).arg(reqMinor))
 				{
 				}
 		};
@@ -75,9 +75,25 @@ class CUTEHMI_BASE_API PluginLoader:
 		 * @param reqVersion required version. Version should be provided in "[major[.minor[.micro]]]" format.
 		 * In most cases "micro" numbers can be omitted, because they have no semantics. Omitting a field
 		 * is equivalent to setting its value to @p 0.
-		 * @return error code.
+		 * @return plugin object or @p nullptr if plugin has not been loaded.
+		 *
+		 * @throws WrongVersionException
+		 * @throws FailedLoadException
+		 *
+		 * @deprecated use loadPlugin(const QString & binary, int minor) instead.
 		 */
-		Plugin * loadPlugin(const QString & binary, const QString & reqVersion = QString("0.0.0"));
+//		Plugin * loadPlugin(const QString & binary, int reqVersion = QString("0.0.0"));
+
+		/**
+		 * Load plugin.
+		 * @param binary name of plugin binary.
+		 * @param minor minimal required minor version.
+		 * @return plugin object or @p nullptr if plugin has not been loaded.
+		 *
+		 * @throws WrongVersionException
+		 * @throws FailedLoadException
+		 */
+		Plugin * loadPlugin(const QString & binary, int reqMinor);
 
 		void unloadPlugins();
 
@@ -89,11 +105,6 @@ class CUTEHMI_BASE_API PluginLoader:
 		Plugin * plugin(const QString & binary);
 
 		Plugin::MetaData metaData(const QString & binary) const;
-
-	private:
-		bool checkVersion(const QString & pluginVersion, const QString & reqVersion);
-
-		void parseVersion(const QString & version, int & major, int & minor, int & micro);
 
 	private:
 		struct Members

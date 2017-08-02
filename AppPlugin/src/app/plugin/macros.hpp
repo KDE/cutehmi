@@ -3,12 +3,12 @@
 
 #include <base/macros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_app_plugin_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_app_1_plugin_loggingCategory)
 
-#define CUTEHMI_APP_PLUGIN_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_app_plugin_loggingCategory, EXPR)
-#define CUTEHMI_APP_PLUGIN_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_app_plugin_loggingCategory, EXPR)
-#define CUTEHMI_APP_PLUGIN_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_app_plugin_loggingCategory, EXPR)
-#define CUTEHMI_APP_PLUGIN_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_app_plugin_loggingCategory, EXPR)
+#define CUTEHMI_APP_PLUGIN_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_app_1_plugin_loggingCategory, EXPR)
+#define CUTEHMI_APP_PLUGIN_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_app_1_plugin_loggingCategory, EXPR)
+#define CUTEHMI_APP_PLUGIN_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_app_1_plugin_loggingCategory, EXPR)
+#define CUTEHMI_APP_PLUGIN_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_app_1_plugin_loggingCategory, EXPR)
 
 #endif
 

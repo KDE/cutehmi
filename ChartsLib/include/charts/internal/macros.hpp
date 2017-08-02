@@ -3,12 +3,12 @@
 
 #include <base/macros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_charts_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_charts_0_lib_loggingCategory)
 
-#define CUTEHMI_CHARTS_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_charts_loggingCategory, EXPR)
-#define CUTEHMI_CHARTS_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_charts_loggingCategory, EXPR)
-#define CUTEHMI_CHARTS_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_charts_loggingCategory, EXPR)
-#define CUTEHMI_CHARTS_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_charts_loggingCategory, EXPR)
+#define CUTEHMI_CHARTS_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_charts_0_lib_loggingCategory, EXPR)
+#define CUTEHMI_CHARTS_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_charts_0_lib_loggingCategory, EXPR)
+#define CUTEHMI_CHARTS_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_charts_0_lib_loggingCategory, EXPR)
+#define CUTEHMI_CHARTS_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_charts_0_lib_loggingCategory, EXPR)
 
 #endif
 

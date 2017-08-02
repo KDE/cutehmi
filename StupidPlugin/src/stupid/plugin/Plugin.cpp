@@ -18,8 +18,6 @@ namespace cutehmi {
 namespace stupid {
 namespace plugin {
 
-constexpr const char * Plugin::NAMESPACE_URI;
-
 void Plugin::init(base::ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
@@ -29,13 +27,16 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_STUPID_PLUGIN_QDEBUG("Plugin cutehmi.stupid starts parsing its own portion of document...");
+	CUTEHMI_STUPID_PLUGIN_QDEBUG("Plugin 'cutehmi_stupid_1' starts parsing its own portion of document...");
 
-	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
-	helper << base::xml::ParseElement("cutehmi_plugin_stupid", 1, 1);
+	QStringList supportedVersions;
+	supportedVersions << "http://michpolicht.github.io/CuteHMI/StupidPlugin/xsd/1.0/";
+
+	base::xml::ParseHelper helper(& xmlReader, supportedVersions);
+	helper << base::xml::ParseElement("cutehmi_stupid_1", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
-		if (xmlReader.name() == "cutehmi_plugin_stupid") {
+		if (xmlReader.name() == "cutehmi_stupid_1") {
 			base::xml::ParseHelper nodeHelper(& helper);
 			nodeHelper << base::xml::ParseElement("stupid", {base::xml::ParseAttribute("id"),
 															 base::xml::ParseAttribute("name")}, 0);
@@ -112,12 +113,12 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 	stupidNode->addExtension(client.get());
 	stupidNode->addExtension(service.get());
 
-	if (node.root()->child("cutehmi.services")) {
-		services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi.services")->extension(services::ServiceRegistry::staticMetaObject.className()));
+	if (node.root()->child("cutehmi_services_1")) {
+		services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
 		CUTEHMI_BASE_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
 		serviceRegistry->add(service.get());
 	} else
-		CUTEHMI_STUPID_PLUGIN_QWARNING("Extension 'cutehmi.services' not available.");
+		CUTEHMI_STUPID_PLUGIN_QWARNING("Plugin 'cutehmi_services_1' not available.");
 
 	stupidNode->data().append(std::unique_ptr<StupidNodeData>(new StupidNodeData(std::move(client), std::move(service))));
 }

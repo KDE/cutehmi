@@ -1,4 +1,5 @@
 include(../common.pri)
+include(version.pri)
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget(cutehmi_modbus)
@@ -6,10 +7,12 @@ TARGET = $$qtLibraryTarget(cutehmi_modbus)
 QT -= gui
 QT += qml concurrent
 
-# Configure the library for building
+# Set version.
 VER_MAJ = $$CUTEHMI_MODBUS_MAJOR
-VER_MIN = 0
-VER_PAT = 0
+VER_MIN = $$CUTEHMI_MODBUS_MINOR
+VER_PAT = $$CUTEHMI_MODBUS_MICRO
+
+# Configure the library for building.
 DEFINES += CUTEHMI_MODBUS_BUILD
 DEFINES += CUTEHMI_MODBUS_DYNAMIC
 #CONFIG += shared
@@ -17,8 +20,9 @@ DEFINES += CUTEHMI_MODBUS_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_modbus_pl.ts
 
-include(../cutehmi_base.pri)
-include(../cutehmi_services.pri)
+include(../UtilsLib/import.pri)
+include(../BaseLib/import.pri)
+include(../ServicesLib/import.pri)
 include(../libmodbus.pri)
 
 unix {
@@ -65,7 +69,9 @@ HEADERS += \
     include/modbus/AbstractDevice.hpp \
     include/modbus/internal/ServiceThread.hpp
 
-DISTFILES +=
+DISTFILES += \
+    import.pri \
+    version.pri
 
 RESOURCES +=
 

@@ -1,5 +1,6 @@
 {
-	"id": "cutehmi.modbus",
-	"version": "0.0.0",
+	"id": "cutehmi_modbus_1",
+	"minor": -1,
+	"micro": 0,
 	"name": "Modbus Client"
 }

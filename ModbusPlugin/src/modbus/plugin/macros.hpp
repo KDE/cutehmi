@@ -3,12 +3,12 @@
 
 #include <base/macros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_plugin_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_1_plugin_loggingCategory)
 
-#define CUTEHMI_MODBUS_PLUGIN_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_modbus_plugin_loggingCategory, EXPR)
-#define CUTEHMI_MODBUS_PLUGIN_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_modbus_plugin_loggingCategory, EXPR)
-#define CUTEHMI_MODBUS_PLUGIN_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_modbus_plugin_loggingCategory, EXPR)
-#define CUTEHMI_MODBUS_PLUGIN_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_modbus_plugin_loggingCategory, EXPR)
+#define CUTEHMI_MODBUS_PLUGIN_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
+#define CUTEHMI_MODBUS_PLUGIN_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
+#define CUTEHMI_MODBUS_PLUGIN_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
+#define CUTEHMI_MODBUS_PLUGIN_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
 
 #endif
 

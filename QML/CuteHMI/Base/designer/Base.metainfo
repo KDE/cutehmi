@@ -1,27 +1,14 @@
 MetaInfo {
     Type {
-	name: "CuteHMI.Base.CuteHMI_Base_TextDisplay"
+        name: "CuteHMI.Base.NumberDisplay"
         icon: ":/qtquickplugin/images/item-icon16.png"
 
         ItemLibraryEntry {
-            name: "Text Display"
+	    name: "Number Display"
 	    category: "CuteHMI Base"
             libraryIcon: ":/qtquickplugin/images/item-icon.png"
             version: "1.0"
 	    requiredImport: "CuteHMI.Base"
         }
-    }
-
-    Type {
-	name: "CuteHMI.Base.CuteHMI_Base_Pipe"
-	icon: ":/qtquickplugin/images/item-icon16.png"
-
-	ItemLibraryEntry {
-	    name: "Pipe"
-	    category: "CuteHMI Base"
-	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
-	    version: "1.0"
-	    requiredImport: "CuteHMI.Base"
-	}
     }
 }

@@ -5,6 +5,7 @@
 #include "../ExceptionMixin.hpp"
 #include "../ProjectModel.hpp"
 #include "../xml/internal/functions.hpp"
+#include "../xml/ParseHelper.hpp"
 
 #include <QXmlStreamReader>
 #include <QQmlContext>
@@ -28,16 +29,6 @@ class ProjectXMLBackend
 
 			public:
 				using Parent::Parent;
-		};
-
-		class UnsupportedDocumentVersionException:
-			public Exception
-		{
-			public:
-				UnsupportedDocumentVersionException(int major, int minor):
-					Exception(tr("Unsupported CuteHMI project version. Version '%1' is not supported.").arg(QString::number(major) + "." + QString::number(minor)))
-				{
-				}
 		};
 
 		class ParseErrorException:
@@ -78,8 +69,6 @@ class ProjectXMLBackend
 				}
 		};
 
-		static constexpr const char * NAMESPACE_URI = "http://base.cutehmi";
-
 		/**
 		 * Constructor.
 		 * @param model project model.
@@ -101,15 +90,13 @@ class ProjectXMLBackend
 	private:
 		struct Loader1
 		{
-			static constexpr int VERSION_MAJOR = 1;
-
 			Loader1(ProjectNode * root, PluginLoader * pluginLoader, QQmlContext * qmlContext);
 
-			void parse(QXmlStreamReader & reader, int versionMinor);
+			void parse(const xml::ParseHelper & parentHelper);
 
-			void parsePlugin(QXmlStreamReader & reader, ProjectNode & node);
+			void parsePlugin(const xml::ParseHelper & parentHelper, ProjectNode & node);
 
-			void parseNodeRef(QXmlStreamReader & reader, ProjectNode & currentNode);
+			void parseNodeRef(const xml::ParseHelper & parentHelper, ProjectNode & currentNode);
 
 			private:
 				ProjectNode * m_root;

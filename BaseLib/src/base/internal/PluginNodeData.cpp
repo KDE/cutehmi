@@ -4,8 +4,8 @@ namespace cutehmi {
 namespace base {
 namespace internal {
 
-PluginNodeData::PluginNodeData(Plugin * plugin, const QString & minVersion):
-	m(new Members{plugin, minVersion})
+PluginNodeData::PluginNodeData(Plugin * plugin, int reqMinor):
+	m(new Members{plugin, reqMinor})
 {
 }
 
@@ -14,9 +14,9 @@ Plugin * PluginNodeData::plugin() const
 	return m->plugin;
 }
 
-QString PluginNodeData::minVersion() const
+int PluginNodeData::reqMinor() const
 {
-	return m->minVersion;
+	return m->reqMinor;
 }
 
 IPlugin * PluginNodeData::pluginInstance() const

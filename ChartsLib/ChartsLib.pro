@@ -1,14 +1,17 @@
 include(../common.pri)
+include(version.pri)
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget(cutehmi_charts)
 
 QT += qml quick
 
-# Configure the library for building.
+# Set version.
 VER_MAJ = $$CUTEHMI_CHARTS_MAJOR
-VER_MIN = 0
-VER_PAT = 0
+VER_MIN = $$CUTEHMI_CHARTS_MINOR
+VER_PAT = $$CUTEHMI_CHARTS_MICRO
+
+# Configure library for building.
 DEFINES += CUTEHMI_CHARTS_BUILD
 DEFINES += CUTEHMI_CHARTS_DYNAMIC
 #CONFIG += shared
@@ -16,7 +19,8 @@ DEFINES += CUTEHMI_CHARTS_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_charts_pl.ts
 
-include(../cutehmi_base.pri)
+include(../UtilsLib/import.pri)
+include(../BaseLib/import.pri)
 
 unix {
     target.path = /usr/lib
@@ -33,6 +37,8 @@ HEADERS += \
     include/charts/internal/common.hpp \
     include/charts/internal/macros.hpp
 
-DISTFILES +=
+DISTFILES += \
+    import.pri \
+    version.pri
 
 RESOURCES +=

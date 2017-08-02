@@ -14,11 +14,11 @@ class CUTEHMI_BASE_API PluginNodeData:
 	public DataBlock
 {
 	public:
-		PluginNodeData(Plugin * plugin, const QString & minVersion);
+		PluginNodeData(Plugin * plugin, int reqMinor);
 
 		Plugin * plugin() const;
 
-		QString minVersion() const;
+		int reqMinor() const;
 
 		IPlugin * pluginInstance() const;
 
@@ -26,7 +26,7 @@ class CUTEHMI_BASE_API PluginNodeData:
 		struct Members
 		{
 			Plugin * plugin;
-			QString minVersion;
+			int reqMinor;
 		};
 
 		utils::MPtr<Members> m;

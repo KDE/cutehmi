@@ -1,4 +1,5 @@
 include(../common.pri)
+include(version.pri)
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget(cutehmi_stupid)
@@ -6,10 +7,12 @@ TARGET = $$qtLibraryTarget(cutehmi_stupid)
 QT -= gui
 QT += qml concurrent sql
 
-# Configure the library for building
+# Set version.
 VER_MAJ = $$CUTEHMI_STUPID_MAJOR
-VER_MIN = 0
-VER_PAT = 0
+VER_MIN = $$CUTEHMI_STUPID_MINOR
+VER_PAT = $$CUTEHMI_STUPID_MICRO
+
+# Configure the library for building.
 DEFINES += CUTEHMI_STUPID_BUILD
 DEFINES += CUTEHMI_STUPID_DYNAMIC
 #CONFIG += shared
@@ -17,9 +20,10 @@ DEFINES += CUTEHMI_STUPID_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_stupid_pl.ts
 
-include(../cutehmi_base.pri)
-include(../cutehmi_services.pri)
-include(../cutehmi_charts.pri)
+include(../UtilsLib/import.pri)
+include(../BaseLib/import.pri)
+include(../ServicesLib/import.pri)
+include(../ChartsLib/import.pri)
 
 unix {
     target.path = /usr/lib
@@ -55,6 +59,8 @@ HEADERS += \
     include/stupid/internal/AsyncConnector.hpp \
     include/stupid/internal/functions.hpp
 
-DISTFILES +=
+DISTFILES += \
+    import.pri \
+    version.pri
 
 RESOURCES +=

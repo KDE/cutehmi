@@ -21,6 +21,7 @@
 #include <QCursor>
 #include <QTranslator>
 #include <QLibraryInfo>
+#include <QFile>
 
 int main(int argc, char * argv[])
 {
@@ -102,10 +103,14 @@ int main(int argc, char * argv[])
 		if (!cmd.value(projectOption).isNull()) {
 			cuteHMI.project()->loadXMLFile(cmd.value(projectOption), engine->rootContext());
 
-			cutehmi::base::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi.app");
+			cutehmi::base::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
 			if (appNode) {
 				QString source;
 				appNode->invoke("cutehmi::app::plugin::MainScreen", "source", Q_RETURN_ARG(QString, source));
+				if (!QUrl(source).isValid())
+					cutehmi::base::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
+				if (QUrl(source).isLocalFile() && !QFile::exists(QUrl(source).toLocalFile()))
+					cutehmi::base::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(source));
 				engine->rootContext()->setContextProperty("cutehmi_app_mainScreenURL", source);
 			}
 		}

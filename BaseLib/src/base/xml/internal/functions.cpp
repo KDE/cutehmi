@@ -16,7 +16,7 @@ QString readerPositionString(const QXmlStreamReader & xmlReader)
 	xmlReader.device()->seek(xmlReader.characterOffset() - xmlReader.columnNumber());
 	QByteArray line = xmlReader.device()->readLine();
 	xmlReader.device()->seek(savePos);
-	return QString::fromUtf8(line.trimmed()) + " (" + positionString + ")";
+	return QString("'") + QString::fromUtf8(line.trimmed()) + "' (" + positionString + ")";
 }
 
 }

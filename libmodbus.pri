@@ -1,5 +1,4 @@
 # This file sets qmake variables for linkage against libmodbus library.
-# Note: common.pri must be included before this file.
 
 DEFINES += DLLBUILD
 INCLUDEPATH += $$PWD/../include

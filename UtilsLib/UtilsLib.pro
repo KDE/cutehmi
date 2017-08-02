@@ -1,14 +1,15 @@
 include(../common.pri)
+include(version.pri)
 
 TEMPLATE = aux
 TARGET = $$qtLibraryTarget(cutehmi_utils)
 
 QT -= core gui
 
-# Configure the library.
+# Set version.
 VER_MAJ = $$CUTEHMI_UTILS_MAJOR
-VER_MIN = 0
-VER_PAT = 0
+VER_MIN = $$CUTEHMI_UTILS_MINOR
+VER_PAT = $$CUTEHMI_UTILS_MICRO
 
 # Translations.
 TRANSLATIONS = locale/cutehmi_utils_pl.ts
@@ -20,6 +21,8 @@ HEADERS += \
     include/utils/Singleton.hpp \
     include/utils/MPtr.hpp
 
-DISTFILES +=
+DISTFILES += \
+    import.pri \
+    version.pri
 
 RESOURCES +=

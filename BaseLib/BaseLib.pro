@@ -1,4 +1,5 @@
 include(../common.pri)
+include(version.pri)
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget(cutehmi_base)
@@ -6,10 +7,12 @@ TARGET = $$qtLibraryTarget(cutehmi_base)
 QT -= gui
 QT += qml
 
-# Configure the library for building.
+# Set version.
 VER_MAJ = $$CUTEHMI_BASE_MAJOR
-VER_MIN = 0
-VER_PAT = 0
+VER_MIN = $$CUTEHMI_BASE_MINOR
+VER_PAT = $$CUTEHMI_BASE_MICRO
+
+# Configure the library for building.
 DEFINES += CUTEHMI_BASE_BUILD
 DEFINES += CUTEHMI_BASE_DYNAMIC
 #CONFIG += shared
@@ -17,7 +20,7 @@ DEFINES += CUTEHMI_BASE_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_base_pl.ts
 
-include(../cutehmi_utils.pri)
+include(../UtilsLib/import.pri)
 
 unix {
     target.path = /usr/lib
@@ -84,6 +87,8 @@ HEADERS += \
     include/base/NotificationManager.hpp \
     include/base/NotificationListModel.hpp
 
-DISTFILES +=
+DISTFILES += \
+    import.pri \
+    version.pri
 
 RESOURCES +=

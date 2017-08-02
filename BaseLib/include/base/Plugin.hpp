@@ -20,7 +20,8 @@ class CUTEHMI_BASE_API Plugin:
 		{
 			QString id;
 			QString name;
-			QString version;
+			int minor;
+			int micro;
 		};
 
 		Plugin(const QString & binary, QObject * instance, const cutehmi::base::Plugin::MetaData & metaData, QObject * parent = 0);
@@ -33,7 +34,11 @@ class CUTEHMI_BASE_API Plugin:
 
 		const QString & name() const;
 
-		const QString & version() const;
+		int minor() const;
+
+		int micro() const;
+
+		QString version() const;
 
 	private:
 		struct Members

@@ -1,4 +1,5 @@
 include(../common.pri)
+include(version.pri)
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget(cutehmi_services)
@@ -6,10 +7,12 @@ TARGET = $$qtLibraryTarget(cutehmi_services)
 QT -= gui
 QT += qml
 
-# Configure the library for building
+# Set version.
 VER_MAJ = $$CUTEHMI_SERVICES_MAJOR
-VER_MIN = 0
-VER_PAT = 0
+VER_MIN = $$CUTEHMI_SERVICES_MINOR
+VER_PAT = $$CUTEHMI_SERVICES_MICRO
+
+# Configure the library for building.
 DEFINES += CUTEHMI_SERVICES_BUILD
 DEFINES += CUTEHMI_SERVICES_DYNAMIC
 #CONFIG += shared
@@ -17,7 +20,8 @@ DEFINES += CUTEHMI_SERVICES_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/cutehmi_services_pl.ts
 
-include(../cutehmi_base.pri)
+include(../UtilsLib/import.pri)
+include(../BaseLib/import.pri)
 
 unix {
     target.path = /usr/lib
@@ -36,6 +40,8 @@ HEADERS += \
     include/services/internal/common.hpp \
     include/services/internal/macros.hpp
 
-DISTFILES +=
+DISTFILES += \
+    import.pri \
+    version.pri
 
 RESOURCES +=

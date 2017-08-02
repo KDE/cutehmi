@@ -18,8 +18,6 @@ namespace cutehmi {
 namespace modbus {
 namespace plugin {
 
-constexpr const char * Plugin::NAMESPACE_URI;
-
 void Plugin::init(base::ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
@@ -29,13 +27,16 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_MODBUS_PLUGIN_QDEBUG("Plugin cutehmi.modbus starts parsing its own portion of document...");
+	CUTEHMI_MODBUS_PLUGIN_QDEBUG("Plugin 'cutehmi_modbus_1' starts parsing its own portion of document...");
 
-	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
-	helper << base::xml::ParseElement("cutehmi_plugin_modbus", 1, 1);
+	QStringList supportedVersions;
+	supportedVersions << "http://michpolicht.github.io/CuteHMI/ModbusPlugin/xsd/1.0/";
+
+	base::xml::ParseHelper helper(& xmlReader, supportedVersions);
+	helper << base::xml::ParseElement("cutehmi_modbus_1", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
-		if (xmlReader.name() == "cutehmi_plugin_modbus") {
+		if (xmlReader.name() == "cutehmi_modbus_1") {
 			base::xml::ParseHelper nodeHelper(& helper);
 			nodeHelper << base::xml::ParseElement("modbus", {base::xml::ParseAttribute("id"),
 															 base::xml::ParseAttribute("name")}, 0);
@@ -103,12 +104,12 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 	modbusNode->addExtension(client.get());
 	modbusNode->addExtension(service.get());
 
-	if (node.root()->child("cutehmi.services")) {
-		services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi.services")->extension(services::ServiceRegistry::staticMetaObject.className()));
+	if (node.root()->child("cutehmi_services_1")) {
+		services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
 		CUTEHMI_BASE_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
 		serviceRegistry->add(service.get());
 	} else
-		CUTEHMI_MODBUS_PLUGIN_QWARNING("Extension 'cutehmi.services' not available.");
+		CUTEHMI_MODBUS_PLUGIN_QWARNING("Plugin 'cutehmi_services_1' not available.");
 
 	modbusNode->data().append(std::unique_ptr<ModbusNodeData>(new ModbusNodeData(std::move(client), std::move(service))));
 }

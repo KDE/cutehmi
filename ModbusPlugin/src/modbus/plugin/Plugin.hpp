@@ -27,8 +27,6 @@ class Plugin:
 	friend class PluginTest;
 
 	public:
-		static constexpr const char * NAMESPACE_URI = "http://modbus.cutehmi";
-
 		// base::IPlugin
 		void init(base::ProjectNode & node) override;
 

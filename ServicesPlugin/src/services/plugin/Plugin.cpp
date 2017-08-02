@@ -7,8 +7,6 @@ namespace cutehmi {
 namespace services {
 namespace plugin {
 
-constexpr const char * Plugin::NAMESPACE_URI;
-
 void Plugin::init(base::ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> servicesNodeData(new PluginNodeData);

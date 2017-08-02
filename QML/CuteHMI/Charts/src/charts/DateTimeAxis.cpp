@@ -145,6 +145,9 @@ QString DateTimeAxis::tickToString(qreal tick) const
 			return tickDT.toString("MMM");
 		case YEARS:
 			return tickDT.toString("yyyy");
+		default:
+			qWarning("Unrecognized interval code '%d' (falling back to YEARS).", m_tickInterval);
+			return tickDT.toString("yyyy");
 	}
 	return QDateTime::fromMSecsSinceEpoch(tick).toString();
 }

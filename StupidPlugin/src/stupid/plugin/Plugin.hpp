@@ -27,8 +27,6 @@ class Plugin:
 	Q_INTERFACES(cutehmi::base::IPlugin)
 
 	public:
-		static constexpr const char * NAMESPACE_URI = "http://stupid.cutehmi";
-
 		// base::IPlugin
 		void init(base::ProjectNode & node) override;
 

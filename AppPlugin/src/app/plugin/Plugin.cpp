@@ -12,8 +12,6 @@ namespace cutehmi {
 namespace app {
 namespace plugin {
 
-constexpr const char * Plugin::NAMESPACE_URI;
-
 void Plugin::init(base::ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
@@ -23,13 +21,16 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_APP_PLUGIN_QDEBUG("Plugin cutehmi.app starts parsing its own portion of document...");
+	CUTEHMI_APP_PLUGIN_QDEBUG("Plugin 'cutehmi_app_1' starts parsing its own portion of document...");
 
-	base::xml::ParseHelper helper(& xmlReader, NAMESPACE_URI);
-	helper << base::xml::ParseElement("cutehmi_plugin_app", 1, 1);
+	QStringList supportedVersions;
+	supportedVersions << "http://michpolicht.github.io/CuteHMI/AppPlugin/xsd/1.0/";
+
+	base::xml::ParseHelper helper(& xmlReader, supportedVersions);
+	helper << base::xml::ParseElement("cutehmi_app_1", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
-		if (xmlReader.name() == "cutehmi_plugin_app") {
+		if (xmlReader.name() == "cutehmi_app_1") {
 			base::xml::ParseHelper nodeHelper(& helper);
 			nodeHelper << base::xml::ParseElement("screens", 1, 1);
 			while (nodeHelper.readNextRecognizedElement()) {

@@ -21,7 +21,8 @@ RC_FILE = App.rc
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = ../QML
 
-include (../cutehmi_base.pri)
+include(../UtilsLib/import.pri)
+include(../BaseLib/import.pri)
 
 # Default rules for deployment.
 include(deployment.pri)

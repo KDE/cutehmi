@@ -1,7 +1,7 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_qmlplugin_stupid)
+TARGET = $$qtLibraryTarget(cutehmi_stupid_qml)
 DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
@@ -9,11 +9,12 @@ QT += qml quick
 CONFIG += plugin
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_qmlplugin_stupid_pl.ts
+TRANSLATIONS = locale/cutehmi_stupid_qml_pl.ts
 
-include(../../../cutehmi_base.pri)
-include(../../../cutehmi_charts.pri)
-include(../../../cutehmi_stupid.pri)
+include(../../../UtilsLib/import.pri)
+include(../../../BaseLib/import.pri)
+include(../../../ChartsLib/import.pri)
+include(../../../StupidLib/import.pri)
 
 HEADERS += \
     src/CuteHMIStupidQMLPlugin.hpp

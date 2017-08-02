@@ -29,11 +29,33 @@ const QString & Plugin::name() const
 	return m->metaData.name;
 }
 
-const QString & Plugin::version() const
+int Plugin::minor() const
 {
-	return m->metaData.version;
+	return m->metaData.minor;
 }
 
+int Plugin::micro() const
+{
+	return m->metaData.micro;
+}
+
+QString Plugin::version() const
+{
+	QString result;
+	if (minor() == -1)
+		result += "undefined";
+	else
+		result += QString::number(minor());
+
+	result += ".";
+
+	if (micro() == -1)
+		result += "undefined";
+	else
+		result += QString::number(micro());
+
+	return result;
+}
 
 }
 }

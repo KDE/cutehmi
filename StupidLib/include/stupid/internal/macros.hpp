@@ -3,12 +3,12 @@
 
 #include <base/macros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_stupid_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_stupid_0_lib_loggingCategory)
 
-#define CUTEHMI_STUPID_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_stupid_loggingCategory, EXPR)
-#define CUTEHMI_STUPID_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_stupid_loggingCategory, EXPR)
-#define CUTEHMI_STUPID_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_stupid_loggingCategory, EXPR)
-#define CUTEHMI_STUPID_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_stupid_loggingCategory, EXPR)
+#define CUTEHMI_STUPID_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_stupid_0_lib_loggingCategory, EXPR)
+#define CUTEHMI_STUPID_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_stupid_0_lib_loggingCategory, EXPR)
+#define CUTEHMI_STUPID_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_stupid_0_lib_loggingCategory, EXPR)
+#define CUTEHMI_STUPID_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_stupid_0_lib_loggingCategory, EXPR)
 
 #endif
 

@@ -1,7 +1,7 @@
 include(../common.pri)
 
 TEMPLATE = lib
-TARGET = cutehmi_plugin_app
+TARGET = cutehmi_app_1
 # Instead of using $$qtLibraryTarget, for consistent naming of plugins on all platforms add "d" suffix to debug build.
 CONFIG(debug, debug|release) {
     TARGET = $$join(TARGET,,,d)
@@ -12,7 +12,8 @@ QT -= gui
 
 CONFIG += plugin
 
-include(../cutehmi_base.pri)
+include(../UtilsLib/import.pri)
+include(../BaseLib/import.pri)
 
 SOURCES += \
     src/app/plugin/Plugin.cpp \

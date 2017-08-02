@@ -3,12 +3,12 @@
 
 #include <base/macros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_services_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(lib_cutehmi_services_0_loggingCategory)
 
-#define CUTEHMI_SERVICES_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_services_loggingCategory, EXPR)
-#define CUTEHMI_SERVICES_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_services_loggingCategory, EXPR)
-#define CUTEHMI_SERVICES_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_services_loggingCategory, EXPR)
-#define CUTEHMI_SERVICES_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_services_loggingCategory, EXPR)
+#define CUTEHMI_SERVICES_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(lib_cutehmi_services_0_loggingCategory, EXPR)
+#define CUTEHMI_SERVICES_QINFO(EXPR) CUTEHMI_BASE_QCINFO(lib_cutehmi_services_0_loggingCategory, EXPR)
+#define CUTEHMI_SERVICES_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(lib_cutehmi_services_0_loggingCategory, EXPR)
+#define CUTEHMI_SERVICES_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(lib_cutehmi_services_0_loggingCategory, EXPR)
 
 #endif
 
