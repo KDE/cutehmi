@@ -61,6 +61,8 @@ int main(int argc, char * argv[])
 	cmd.addOption(styleOption);
 	QCommandLineOption langOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language"));
 	cmd.addOption(langOption);
+	QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
+	cmd.addOption(basedirOption);
 	cmd.process(app);
 
 	QTranslator qtTranslator;
@@ -82,6 +84,12 @@ int main(int argc, char * argv[])
 	else
 		QGuiApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	//</workaround>
+
+	QDir baseDir(QCoreApplication::applicationDirPath());
+	if (cmd.isSet(basedirOption))
+		baseDir = cmd.value(basedirOption);
+	QString baseDirPath = baseDir.absolutePath() + "/";
+	qDebug() << "Base directory: " << baseDirPath;
 
 	cutehmi::base::CuteHMI & cuteHMI = cutehmi::base::CuteHMI::Instance();
 	QDir dir(qApp->applicationDirPath());
@@ -107,11 +115,23 @@ int main(int argc, char * argv[])
 			if (appNode) {
 				QString source;
 				appNode->invoke("cutehmi::app::plugin::MainScreen", "source", Q_RETURN_ARG(QString, source));
-				if (!QUrl(source).isValid())
+				QUrl sourceUrl(source);
+				if (sourceUrl.isValid()) {
+					// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
+					if (!sourceUrl.scheme().isEmpty() && QDir::isRelativePath(sourceUrl.path()))
+						cutehmi::base::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(sourceUrl.url()));
+					else {
+						// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
+						if (sourceUrl.isRelative())
+							sourceUrl = QUrl::fromLocalFile(baseDirPath).resolved(sourceUrl);
+						// Check if file exists and eventually set context property.
+						if (sourceUrl.isLocalFile() && !QFile::exists(sourceUrl.toLocalFile()))
+							cutehmi::base::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
+						else
+							engine->rootContext()->setContextProperty("cutehmi_app_mainScreenURL", sourceUrl.url());
+					}
+				} else
 					cutehmi::base::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
-				if (QUrl(source).isLocalFile() && !QFile::exists(QUrl(source).toLocalFile()))
-					cutehmi::base::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(source));
-				engine->rootContext()->setContextProperty("cutehmi_app_mainScreenURL", source);
 			}
 		}
 		result = app.exec();
