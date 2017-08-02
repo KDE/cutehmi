@@ -63,7 +63,7 @@ std::unique_ptr<Notification> Notification::clone() const
 {
 	std::unique_ptr<Notification> clone(new Notification);
 	*(clone->m) = *m;
-	return std::move(clone);
+	return clone;
 }
 
 }

@@ -29,28 +29,28 @@ std::unique_ptr<Prompt> Prompt::Note(const QString & text, buttons_t buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(NOTE, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return std::move(result);
+	return result;
 }
 
 std::unique_ptr<Prompt> Prompt::Warning(const QString & text, buttons_t buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(WARNING, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return std::move(result);
+	return result;
 }
 
 std::unique_ptr<Prompt> Prompt::Question(const QString & text, buttons_t buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(QUESTION, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return std::move(result);
+	return result;
 }
 
 std::unique_ptr<Prompt> Prompt::Critical(const QString & text, buttons_t buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(CRITICAL, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return std::move(result);
+	return result;
 }
 
 std::unique_ptr<Prompt> Prompt::Critical(const ErrorInfo & errorInfo, buttons_t buttons)
