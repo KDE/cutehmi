@@ -64,7 +64,7 @@ void ProjectXMLBackend::Loader1::parse(const xml::ParseHelper & parentHelper)
 	CUTEHMI_BASE_QDEBUG("Loader starts parsing a document...");
 
 	xml::ParseHelper helper(& parentHelper);
-	helper << xml::ParseElement("plugin", {xml::ParseAttribute("binary", "[a-z|A-Z|0-9|_-]+"), xml::ParseAttribute("req_minor", "[0-9]+")}, 0)
+	helper << xml::ParseElement("plugin", {xml::ParseAttribute("binary", "[a-z|A-Z|0-9|_-]+"), xml::ParseAttribute("req_minor", "-?[0-9]+")}, 0)
 		   << xml::ParseElement("context_properties", 0);
 
 	QXmlStreamReader & reader = *helper.xmlReader();
