@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Root element. CuteHMI projects live in a tree. This tree is (more or less) reflected by the structure of XML document. 
+     The task of parsing XML document is delegated to 'cutehmi_base' library. This library loads plugins and feeds them 
+     with relevant XML data. It can also expose extensions provided by plugins as QML context properties.
+     name - project name.
+     xmlns - XML namespace, which denotes document format.
+     -->
+<cutehmi_project name="Sample Project" xmlns="http://michpolicht.github.io/CuteHMI/BaseLib/xsd/1.0/">
+  <!-- Plugin section. Plugin 'cutehmi_services_1' is required by 'cutehmi_modbus_1'.
+       binary - name of the plugin binary to load (file name without a file extension).
+       req_minor - required minor version of a plugin.
+  -->
+  <plugin binary="cutehmi_services_1" req_minor="0" />
+
+  <!-- Plugin 'cutehmi_modbus_1' provides a way to interact with Modbus devices. -->
+  <plugin binary="cutehmi_modbus_1" req_minor="0">
+    <!-- Extension section. Extension points can be provided by plugins or libraries.
+         In this case plugin 'cutehmi_modbus_1' provides instance of 'cutehmi::base::XMLBackendPlugin'
+         class and 'cutehmi_base' library uses this object to pass XML data to the plugin.
+         object - extension object (instance of cutehmi::base::XMLBackendPlugin in this case). 
+    -->
+    <extension object="cutehmi::base::XMLBackendPlugin">
+        <!-- Section of 'cutehmi_modbus_1' plugin. This is where plugin 'cutehmi_modbus_1' starts
+             parsing its own portion of document.
+             xmlns - XML namespace. It denotes section format.
+      -->
+      <cutehmi_modbus_1 xmlns="http://michpolicht.github.io/CuteHMI/ModbusPlugin/xsd/1.0/">
+        <!-- Modbus device.
+             id - device id. This id will be used to expose device object. 
+             name - human friendly device name.
+        -->
+        <modbus id="mbAA1" name="GE VersaMax AA1">
+          <!-- Client section (only client devices are supported by the plugin).
+          -->
+          <client>
+            <!-- Connection type.
+                 type - possible values are "dummy", "TCP", "RTU". Dummy connection is useful for testing the UI.
+            -->
+            <connection type="dummy">
+              <latency>100</latency> <!-- This parameter simulates communication latency (milliseconds). -->
+              <connect_latency>500</connect_latency> <!-- This parameter simulates connecting latency (milliseconds). --> 
+              <disconnect_latency>10</disconnect_latency> <!-- This parameter simulates disconnecting latency (milliseconds). -->
+            </connection>
+
+            <!-- To interact with real devices one needs to configure "TCP" or "RTU" connection type instead of dummy one. -->
+
+            <!-- <connection type="TCP"> -->
+                <!-- <node>127.0.0.1</node> --> <!-- Network node (IP adress). -->
+                <!-- <service>502</service> --> <!-- Port number. -->
+                <!-- <byte_timeout>5.0</byte_timeout> --> <!-- Time interval between two bytes, after which modbus function call fails (sec.usec format). -->
+                <!-- <response_timeout>5.0</response_timeout> --> <!-- Time to wait for response from the device, before modbus function fails (sec.usec format). -->
+                <!-- <unit_id>1</unit_id> --> <!-- Unit id (typically known as slave id). Even tho' IP and port unambiguously identifies modbus device within LAN, this is required by some RTU/TCP converters and bridges. -->
+            <!-- </connection> -->
+
+            <!-- <connection type="RTU"> -->
+                <!-- <port>\\.\COM1</port> -->
+                <!-- <baud_rate>19200</baud_rate> -->
+                <!-- <parity>NONE</parity> -->
+                <!-- <data_bits>8</data_bits> -->
+                <!-- <stop_bits>1</stop_bits> -->
+                <!-- <mode>RS232</mode> -->
+                <!-- <slave_id>1</slave_id> -->
+                <!-- <byte_timeout>5.0</byte_timeout> -->
+                <!-- <response_timeout>5.0</response_timeout> -->
+                <!-- </connection> -->
+          </client>
+          <!-- Service section. Service runs in a separate thread and performs reads and writes to modbus device. -->
+          <service>
+            <sleep>1000</sleep> <!-- Sleep interval between reads and writes. -->
+          </service>
+        </modbus>
+      </cutehmi_modbus_1>
+    </extension>
+  </plugin>
+
+  <!-- Plugin 'cutehmi_app_1' provides a way to interact with frontend application. -->
+  <plugin binary="cutehmi_app_1" req_minor="0">
+    <extension object="cutehmi::base::XMLBackendPlugin">
+      <cutehmi_app_1 xmlns="http://michpolicht.github.io/CuteHMI/AppPlugin/xsd/1.0/">
+        <!-- Screens section. -->
+        <screens>
+          <!-- Points to QML, which should be loaded and shown instead of default, empty screen. -->
+          <main_screen source="QML/Screens/SampleProject/_Main.ui.qml" />
+        </screens>
+      </cutehmi_app_1>
+    </extension>
+  </plugin>
+
+  <!-- Context properties section. Extension points provided by plugins can be exposed as QML context properties within this section. -->
+  <context_properties>
+    <!-- Element 'node_ref' refers to a node in a project tree. Here we pick a node provided by 'cutehmi_services_1' plugin. -->
+    <node_ref id="cutehmi_services_1">
+      <!-- Element 'extension_ref' points to an extension.
+           context_property - context property name.
+
+           In C++ this will make somewhat long reference: cutehmi::base::CuteHMI::Instance().project()->model()->root().child("cutehmi_services_1")->extension("cutehmi::services::ServiceRegistry").
+           This reference will be turned to context property with Qt setContextProperty() function. From now on instance of "cutehmi::services::ServiceRegistry" class will be available in QML as 'serviceRegistry'.
+      --> 
+      <extension_ref object="cutehmi::services::ServiceRegistry" context_property="serviceRegistry" />
+    </node_ref>
+
+    <!-- Now we want to make modbus device described earlier to become available in QML as 'mbAA1'. -->
+    <node_ref id="cutehmi_modbus_1">
+      <node_ref id="mbAA1">
+        <extension_ref object="cutehmi::modbus::Client" context_property="mbAA1" />
+      </node_ref>
+    </node_ref>
+  </context_properties>
+</cutehmi_project>
