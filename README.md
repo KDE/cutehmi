@@ -33,4 +33,4 @@ Something similar to this should show up on screen.
 
 ![SampleProject screenshot](https://raw.githubusercontent.com/michpolicht/CuteHMI/master/examples/QML/Screens/SampleProject/sample_project.png)
 
-Two essential files are: examples/projects/SampleProject.cutehmi.xml' and 'examples/QML/Screens/SampleProject/SampleProject.pro'. First one describes project in terms of CuteHMI application. The second one is a standard qmake project file, which can be opened in *QtCreator* for easy edition.
+Two essential files are: `examples/projects/SampleProject.cutehmi.xml` and `examples/QML/Screens/SampleProject/SampleProject.pro`. First one describes project in terms of CuteHMI application. The second one is a standard qmake project file, which can be opened in *QtCreator* for easy edition.
