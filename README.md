@@ -23,8 +23,12 @@ Compiling libmodbus on Windows can be a bit more tricky. I won't write the instr
 
 3. Open 'All.pro' file with *QtCreator* and build it. When apllication starts it shows empty screen.
 
-## Running examples
+## Running example
 
 To run *SampleProject* example with *QtCreator* click "Projects" -> "Build & Run" -> "Run" and in the "Command line arguments" box type `--project="projects/SampleProject.cutehmi.xml" --basedir="../CuteHMI/examples"`
 
 If anything goes wrong during loading, first check debug output and verify that paths are correct.
+
+Something similar to this should show up on screen.
+
+![SampleProject screenshot](https://raw.githubusercontent.com/michpolicht/CuteHMI/master/examples/QML/Screens/SampleProject/sample_project.png)
