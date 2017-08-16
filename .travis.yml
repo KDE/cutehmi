@@ -11,12 +11,12 @@ env:
   - QMAKE_ENV="CONFIG+=release"
 
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt58-trusty
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt59-trusty
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get -y install qt58[QTPACKAGE]
-  - sudo apt-get -y install qt58serialbus
+  - sudo apt-get -y install qt59[QTPACKAGE]
+  - sudo apt-get -y install qt59serialbus
   - git clone git://github.com/stephane/libmodbus.git
   - cd libmodbus
   - git checkout f9358460ee1f62bcac716ad0444b3bbe7628b204
@@ -26,7 +26,7 @@ install:
   - cd ..
 
 script:
-  - source /opt/qt58/bin/qt58-env.sh
+  - source /opt/qt59/bin/qt59-env.sh
   - mkdir build && cd build
-  - /opt/qt58/bin/qmake ../All.pro $QMAKE_ENV QMAKE_CC=$CC QMAKE_CXX=$CXX
+  - /opt/qt59/bin/qmake ../All.pro $QMAKE_ENV QMAKE_CC=$CC QMAKE_CXX=$CXX
   - make
