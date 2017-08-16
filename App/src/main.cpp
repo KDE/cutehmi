@@ -109,7 +109,7 @@ int main(int argc, char * argv[])
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
 		if (!cmd.value(projectOption).isNull()) {
-			cuteHMI.project()->loadXMLFile(cmd.value(projectOption), engine->rootContext());
+			cuteHMI.project()->loadXMLFile(baseDirPath + cmd.value(projectOption), engine->rootContext());
 
 			cutehmi::base::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
 			if (appNode) {
