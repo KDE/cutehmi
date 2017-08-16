@@ -20,7 +20,7 @@ git checkout f9358460ee1f62bcac716ad0444b3bbe7628b204
 make && sudo make install
 ```
 
-Compiling libmodbus on Windows can be a bit more tricky. I won't write them here, because if project prevails, it should use QtSerialBus module.
+Compiling libmodbus on Windows can be a bit more tricky. I won't write the instructions here, because if project prevails, it should use *QtSerialBus* module.
 
 3. Open 'All.pro' file with *QtCreator* and build it. When apllication starts it shows empty screen.
 
