@@ -33,7 +33,7 @@ class Plugin:
 		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
 
 	private:
-		void parseScreens(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node);
+		void parseSSHServer(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node);
 };
 
 }

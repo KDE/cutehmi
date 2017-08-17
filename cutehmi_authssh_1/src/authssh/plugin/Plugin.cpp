@@ -13,53 +13,69 @@ namespace plugin {
 
 void Plugin::init(base::ProjectNode & node)
 {
-	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-	node.addExtension(pluginNodeData->xmlBackendPlugin());
-	node.data().append(std::move(pluginNodeData));
+    std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
+    node.addExtension(pluginNodeData->xmlBackendPlugin());
+    node.data().append(std::move(pluginNodeData));
 }
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_AUTHSSH_PLUGIN_QDEBUG("Plugin 'cutehmi_aauthssh_1' starts parsing its own portion of document...");
+    CUTEHMI_AUTHSSH_PLUGIN_QDEBUG("Plugin 'cutehmi_aauthssh_1' starts parsing its own portion of document...");
 
-	QStringList supportedVersions;
-	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_authssh_1/xsd/1.0/";
+    QStringList supportedVersions;
+    supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_authssh_1/xsd/1.0/";
 
-	base::xml::ParseHelper helper(& xmlReader, supportedVersions);
-	helper << base::xml::ParseElement("cutehmi_authssh_1", 1, 1);
+    base::xml::ParseHelper helper(& xmlReader, supportedVersions);
+    helper << base::xml::ParseElement("cutehmi_authssh_1", 1, 1);
 
-	while (helper.readNextRecognizedElement()) {
-		if (xmlReader.name() == "cutehmi_authssh_1") {
-			base::xml::ParseHelper nodeHelper(& helper);
-			nodeHelper << base::xml::ParseElement("screens", 1, 1);
-			while (nodeHelper.readNextRecognizedElement()) {
-				if (xmlReader.name() == "screens")
-					parseScreens(nodeHelper, node);
-			}
-		}
-	}
+    while (helper.readNextRecognizedElement()) {
+        if (xmlReader.name() == "cutehmi_authssh_1") {
+            base::xml::ParseHelper nodeHelper(& helper);
+            nodeHelper << base::xml::ParseElement("ssh_server", 1, 1);
+            while (nodeHelper.readNextRecognizedElement()) {
+                if (xmlReader.name() == "ssh_server")
+                    parseSSHServer(nodeHelper, node);
+            }
+        }
+    }
 }
 
 void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const
 {
-	Q_UNUSED(xmlWriter);
-	Q_UNUSED(node);
-	throw base::Exception("cutehmi::authssh::plugin::Plugin::writeXML() not implemented yet.");
+    Q_UNUSED(xmlWriter);
+    Q_UNUSED(node);
+    throw base::Exception("cutehmi::authssh::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseScreens(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node)
+void Plugin::parseSSHServer(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node)
 {
 //	std::unique_ptr<MainScreen> mainScreen;
 //	std::unique_ptr<ScreensNodeData> screensNodeData;
+    QString host;
+    int port;
+    QString guest_username;
+    QString guest_password;
 
-//	base::xml::ParseHelper helper(& parentHelper);
-//	helper << base::xml::ParseElement("main_screen", {base::xml::ParseAttribute("source")}, 1, 1);
+    base::xml::ParseHelper helper(& parentHelper);
+    helper << base::xml::ParseElement("host", 1, 1)
+           << base::xml::ParseElement("port", 1, 1)
+           << base::xml::ParseElement("guest_username", 0, 1)
+           << base::xml::ParseElement("guest_password", 0, 1);
 
-//	QXmlStreamReader & xmlReader = *helper.xmlReader();
-//	while (helper.readNextRecognizedElement()) {
-//		if (xmlReader.name() == "main_screen")
-//			mainScreen.reset(new MainScreen(xmlReader.attributes().value("source").toString()));
-//	}
+    QXmlStreamReader & xmlReader = *helper.xmlReader();
+    while (helper.readNextRecognizedElement()) {
+        if (xmlReader.name() == "host")
+            host = xmlReader.readElementText();
+        else if (xmlReader.name() == "port") {
+            bool ok;
+            port = xmlReader.readElementText().toInt(& ok);
+            if (!ok)
+                xmlReader.raiseError(QObject::tr("Could not conver 'port' element contents to integer."));
+        } else if (xmlReader.name() == "guest_username")
+            guest_username = xmlReader.readElementText();
+        else if (xmlReader.name() == "guest_password")
+            guest_password = xmlReader.readElementText();
+    }
 
 //	node.addExtension(mainScreen.get());
 
