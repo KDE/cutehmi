@@ -10,6 +10,7 @@ INCLUDE_GUARD_PREFIX = "CUTEHMI_"
 
 SOURCE_DIRS = App/src \
 			  AppPlugin/src \
+			  cutehmi_authssh_1 \
 			  BaseLib/src \
 			  ChartsLib/src \
 			  ModbusLib/src \
@@ -26,6 +27,7 @@ SOURCE_DIRS = App/src \
 
 INCLUDE_DIRS = App/src \
 			   AppPlugin/src \
+			   cutehmi_authssh_1 \
 			   BaseLib/include \
 			   ChartsLib/include \
 			   ModbusLib/include \
