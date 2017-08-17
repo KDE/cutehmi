@@ -17,11 +17,13 @@ include(../BaseLib/import.pri)
 
 SOURCES += \
     src/authssh/plugin/macros.cpp \
-    src/authssh/plugin/Plugin.cpp
+    src/authssh/plugin/Plugin.cpp \
+    src/authssh/plugin/PluginNodeData.cpp
 
 HEADERS += \
     src/authssh/plugin/macros.hpp \
-    src/authssh/plugin/Plugin.hpp
+    src/authssh/plugin/Plugin.hpp \
+    src/authssh/plugin/PluginNodeData.hpp
 
 DISTFILES += cutehmi_authssh_1.json
 

@@ -1,6 +1,6 @@
 #include "macros.hpp"
 #include "Plugin.hpp"
-//#include "PluginNodeData.hpp"
+#include "PluginNodeData.hpp"
 
 #include <base/XMLBackendPlugin.hpp>
 #include <base/Exception.hpp>
@@ -13,9 +13,9 @@ namespace plugin {
 
 void Plugin::init(base::ProjectNode & node)
 {
-//	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-//	node.addExtension(pluginNodeData->xmlBackendPlugin());
-//	node.data().append(std::move(pluginNodeData));
+	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
+	node.addExtension(pluginNodeData->xmlBackendPlugin());
+	node.data().append(std::move(pluginNodeData));
 }
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
