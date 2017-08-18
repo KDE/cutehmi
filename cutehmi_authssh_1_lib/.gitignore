@@ -1,0 +1,11 @@
+.qmake.stash
+*.user
+*.autosave
+uic/*
+moc/*
+rcc/*
+Makefile
+Makefile.*
+object_script.*
+debug/*
+release/*
