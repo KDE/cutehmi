@@ -18,7 +18,7 @@ DEFINES += CUTEHMI_AUTHSSH_1_DYNAMIC
 #CONFIG += shared
 
 # Translations.
-# TRANSLATIONS = locale/cutehmi_modbus_pl.ts
+# TRANSLATIONS = locale/cutehmi_authssh_1_pl.ts
 
 include(../UtilsLib/import.pri)
 include(../BaseLib/import.pri)
