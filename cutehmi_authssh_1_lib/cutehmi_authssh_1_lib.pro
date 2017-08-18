@@ -30,8 +30,12 @@ unix {
 }
 
 SOURCES += \
+    src/authssh_1/SocketListener.cpp \
+    src/authssh_1/SSHClient.cpp
 
 HEADERS += \
+    include/authssh_1/SocketListener.hpp \
+    include/authssh_1/SSHClient.hpp
 
 DISTFILES += \
     import.pri \
