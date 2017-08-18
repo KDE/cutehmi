@@ -1,7 +1,7 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_modbus_qml)
+TARGET = $$qtLibraryTarget(cutehmi_modbus_1_qml)
 DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
@@ -9,7 +9,7 @@ QT += qml quick
 CONFIG += plugin
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_modbus_qml_pl.ts
+TRANSLATIONS = locale/cutehmi_modbus_1_qml_pl.ts
 
 include(../../../UtilsLib/import.pri)
 include(../../../BaseLib/import.pri)
@@ -32,7 +32,6 @@ SOURCES += \
 DISTFILES += \ 
     qmldir \
     designer/Modbus.metainfo \
-    QML_Modbus.qmltypes \
     CoilItem.qml \
     DiscreteInputItem.qml \
     HoldingRegisterItem.qml \

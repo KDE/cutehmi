@@ -3,7 +3,7 @@ CoilItem 1.0 CoilItem.qml
 DiscreteInputItem 1.0 DiscreteInputItem.qml
 HoldingRegisterItem 1.0 HoldingRegisterItem.qml
 InputRegisterItem 1.0 InputRegisterItem.qml
-plugin cutehmi_modbus_qml plugins
+plugin cutehmi_modbus_1_qml plugins
 classname CuteHMIModbusQMLPlugin
 typeinfo plugins.qmltypes
 designersupported

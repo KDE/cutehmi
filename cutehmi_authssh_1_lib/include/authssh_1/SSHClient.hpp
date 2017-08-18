@@ -1,5 +1,5 @@
-#ifndef SSHCLIENT_HPP
-#define SSHCLIENT_HPP
+#ifndef CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH__1_SSHCLIENT_HPP
+#define CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH__1_SSHCLIENT_HPP
 
 #include <QObject>
 
@@ -14,4 +14,4 @@ signals:
 public slots:
 };
 
-#endif // SSHCLIENT_HPP
+#endif

@@ -1,0 +1,11 @@
+Problem:
+
+QML plugin class name has to be specified in "qmldir" file. Normally this class
+would be wrapped in a namespace to avoid name clashes, but to avoid potential problems
+with "qmldir" it's probably better to not use namespaces.
+
+Workaround:
+
+Because this class is used only by QML plugin system, long class name can be used instead of a namespace.
+
+Snippet:

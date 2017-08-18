@@ -1,7 +1,7 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_services_1_qml)
+TARGET = $$qtLibraryTarget(cutehmi_authssh_1_qml)
 DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
@@ -9,21 +9,19 @@ QT += qml quick
 CONFIG += plugin
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_services_1_qml_pl.ts
+TRANSLATIONS = locale/cutehmi_authssh_1_qml_pl.ts
 
 include(../../../UtilsLib/import.pri)
 include(../../../BaseLib/import.pri)
-include(../../../ServicesLib/import.pri)
-
-DISTFILES += \
-    qmldir \
-    designer/Services.metainfo
-
-RESOURCES +=
+include(../../../AuthSSHLib/import.pri)
 
 HEADERS += \
-    src/CuteHMIServicesQMLPlugin.hpp
+    src/CuteHMIAuthSSHQMLPlugin.hpp
 
 SOURCES += \
-    src/CuteHMIServicesQMLPlugin.cpp
+    src/CuteHMIAuthSSHQMLPlugin.cpp \
 
+DISTFILES += \ 
+    qmldir
+
+RESOURCES +=

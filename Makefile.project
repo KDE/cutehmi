@@ -10,7 +10,8 @@ INCLUDE_GUARD_PREFIX = "CUTEHMI_"
 
 SOURCE_DIRS = App/src \
 			  AppPlugin/src \
-			  cutehmi_authssh_1 \
+			  cutehmi_authssh_1/src \
+			  cutehmi_authssh_1_lib/src \
 			  BaseLib/src \
 			  ChartsLib/src \
 			  ModbusLib/src \
@@ -19,6 +20,7 @@ SOURCE_DIRS = App/src \
 			  ServicesPlugin/src \
 			  StupidLib/src \
 			  StupidPlugin/src \
+			  QML/CuteHMI/AuthSSH/src \
 			  QML/CuteHMI/Base/src \
 			  QML/CuteHMI/Charts/src \
 			  QML/CuteHMI/Modbus/src \
@@ -27,7 +29,8 @@ SOURCE_DIRS = App/src \
 
 INCLUDE_DIRS = App/src \
 			   AppPlugin/src \
-			   cutehmi_authssh_1 \
+			   cutehmi_authssh_1/src \
+			   cutehmi_authssh_1_lib/include \
 			   BaseLib/include \
 			   ChartsLib/include \
 			   ModbusLib/include \
@@ -37,17 +40,19 @@ INCLUDE_DIRS = App/src \
 			   StupidLib/include \
 			   StupidPlugin/src \
 			   UtilsLib/include \
+			   QML/CuteHMI/AuthSSH/src \
 			   QML/CuteHMI/Base/src \
 			   QML/CuteHMI/Charts/src \
 			   QML/CuteHMI/Modbus/src \
 			   QML/CuteHMI/Services/src \
 			   QML/CuteHMI/Stupid/src
 
-QML_DIRS = QML/CuteHMI/Base \
-		   QML/CuteHMI/Charts \
-		   QML/CuteHMI/Modbus \
-		   QML/CuteHMI/Services \
-		   QML/CuteHMI/Stupid
+QML_DIRS = QML/CuteHMI/AuthSSH \
+			   QML/CuteHMI/Base \
+			   QML/CuteHMI/Charts \
+			   QML/CuteHMI/Modbus \
+			   QML/CuteHMI/Services \
+			   QML/CuteHMI/Stupid
 
 DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
 				 QML/CuteHMI/Base/Base.qdocconf
@@ -56,7 +61,8 @@ DOC_DOXYGEN_FILES = BaseLib/Doxyfile
 
 QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../lib
 
-QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
+QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.AuthSSH 1.0 QML > QML/CuteHMI/AuthSSH/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Charts 1.0 QML > QML/CuteHMI/Charts/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Services 1.0 QML > QML/CuteHMI/Services/plugins.qmltypes; \
