@@ -1,11 +1,5 @@
 HELP_MESSAGE = "Use qmake if you wish to build the software."
 
-LIC_QUALIFIER = MP
-
-LIC_DSLASH = LICENSE.MP.dslash.inc
-
-LIC_HASH = LICENSE.MP.hash.inc
-
 INCLUDE_GUARD_PREFIX = "CUTEHMI_"
 
 SOURCE_DIRS = App/src \

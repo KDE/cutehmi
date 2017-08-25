@@ -24,6 +24,7 @@ DOXYGEN = doxygen
 # [qmltypes] Qt's qmlplugindump program.
 QMLPLUGINDUMP = qmlplugindump
 
+
 # [help] Help message to be printed.
 
 HELP_MESSAGE =
@@ -35,26 +36,35 @@ else
   ORS = "\n"
 endif
 
-# [license] License qualifier. This is magic string that will be used when applying license to files. 
-LIC_QUALIFIER = AWKGWARD
+# [license] Extension of files containing license text to be appended to files, commented out with double slash.
+LIC_DSLASH = LICENSE.dslash.inc
 
-# [license] A path to file containing license text to be appended to files, commented out with double slash.
-LIC_DSLASH = awkgward/LICENSE.AWKGWARD.dslash.inc
-
-# [license] A path to file containing license text to be appended to files, commented out with hash.
-LIC_HASH = awkgward/LICENSE.AWKGWARD.hash.inc
+# [license] Extension of files containing license text to be appended to files, commented out with hash.
+LIC_HASH = LICENSE.hash.inc
 
 # [license] Directories containing CMake files.
 CMAKE_DIRS =
 
+# [license] CMake file types.
+CMAKE_FILE_TYPES = -name '*.cmake' -o -name 'CMakeLists.txt'
+
 # [license] Directories containing QML files.
 QML_DIRS =
+
+# [license] QML file types.
+QML_FILE_TYPES = -name '*.qml'
 
 # [license, sources] Directories containing source files.
 SOURCE_DIRS =
 
+# [license] Source file types.
+SOURCE_FILE_TYPES = -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in'
+
 # [license, guards] Directories containing header files.
 INCLUDE_DIRS =
+
+# [license] Include file types.
+INCLUDE_FILE_TYPES = -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in'
 
 # [guards] A prefix used for include guards.
 INCLUDE_GUARD_PREFIX = "AWKGWARD_"
@@ -85,30 +95,71 @@ help:
 		@echo ""
 		@echo "Make targets are:"
 		@echo "help - displays this info."
-		@echo "license - append license footer to source and header files."
+		@echo "license - append license footer to files."
 		@echo "sources - generate list of sources and put them into CMakeLists.txt."
 		@echo "guards - update include guards."
 		@echo "doc - generate documentation (subtargets are doc_qdoc and doc_doxygen)."
 		@echo "qmltypes - generate QML typeinfo files."
 		@echo "newlines - remove carriage return characters (obsolete; use dos2unix instead)."
 
-license: $(LIC_DSLASH) $(LIC_HASH)
+license:
 		@echo "Putting license..."
-		@$(FIND) $(INCLUDE_DIRS) \
-		\( -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in' \) \
-		-exec $(SH) awkgward/putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) $(FIND) \;
-		@$(FIND) $(SOURCE_DIRS) \
-		\( -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in' \) \
-		-exec $(SH) awkgward/putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) $(FIND) \;
-		@$(FIND) $(CMAKE_DIRS) \
-		\( -name '*.cmake' -o -name 'CMakeLists.txt' \) \
-		-exec $(SH) awkgward/putlic.sh {} $(LIC_HASH) hash $(LIC_QUALIFIER) $(ORS) $(FIND) \;
-		@$(FIND) $(QML_DIRS) \
-		\( -name '*.qml' \) \
-		-exec $(SH) awkgward/putlic.sh {} $(LIC_DSLASH) dslash $(LIC_QUALIFIER) $(ORS) $(FIND) \;
-		@$(FIND) $(CMAKE_DIRS) \
-		\( -name '*.cmake' -o -name 'CMakeLists.txt' \) \
-		-exec $(SH) awkgward/putlic.sh {} $(LIC_HASH) hash $(LIC_QUALIFIER) $(ORS) $(FIND) \;
+		@$(foreach directory, $(INCLUDE_DIRS), \
+			for lic_file in *.$(LIC_DSLASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(INCLUDE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+			for lic_file in $(directory)/*.$(LIC_DSLASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(INCLUDE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+		) 
+		@$(foreach directory, $(SOURCE_DIRS), \
+			for lic_file in *.$(LIC_DSLASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(SOURCE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+			for lic_file in $(directory)/*.$(LIC_DSLASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(SOURCE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+		) 
+		@$(foreach directory, $(CMAKE_DIRS), \
+			for lic_file in *.$(LIC_HASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(CMAKE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file hash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+			for lic_file in $(directory)/*.$(LIC_HASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(CMAKE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file hash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+		) 
+		@$(foreach directory, $(QML_DIRS), \
+			for lic_file in *.$(LIC_DSLASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(QML_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+			for lic_file in $(directory)/*.$(LIC_DSLASH); do \
+				if [ -f $$lic_file ]; then \
+					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
+					$(FIND) $(directory) \( $(QML_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
+				fi; \
+			done; \
+		) 
 
 sources: CMakeLists.txt
 		@echo "Generating list of sources..."
