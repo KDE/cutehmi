@@ -46,25 +46,25 @@ LIC_HASH = LICENSE.hash.inc
 CMAKE_DIRS =
 
 # [license] CMake file types.
-CMAKE_FILE_TYPES = -name '*.cmake' -o -name 'CMakeLists.txt'
+CMAKE_FILE_TYPES = "*.cmake CMakeLists.txt"
 
 # [license] Directories containing QML files.
 QML_DIRS =
 
 # [license] QML file types.
-QML_FILE_TYPES = -name '*.qml'
+QML_FILE_TYPES = "*.qml"
 
 # [license, sources] Directories containing source files.
 SOURCE_DIRS =
 
 # [license] Source file types.
-SOURCE_FILE_TYPES = -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in'
+SOURCE_FILE_TYPES = "*.cpp *.c *.cpp.in"
 
 # [license, guards] Directories containing header files.
 INCLUDE_DIRS =
 
 # [license] Include file types.
-INCLUDE_FILE_TYPES = -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in'
+INCLUDE_FILE_TYPES = "*.hpp *.h hpp.in"
 
 # [guards] A prefix used for include guards.
 INCLUDE_GUARD_PREFIX = "AWKGWARD_"
@@ -104,62 +104,10 @@ help:
 
 license:
 		@echo "Putting license..."
-		@$(foreach directory, $(INCLUDE_DIRS), \
-			for lic_file in *.$(LIC_DSLASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(INCLUDE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-			for lic_file in $(directory)/*.$(LIC_DSLASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(INCLUDE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-		) 
-		@$(foreach directory, $(SOURCE_DIRS), \
-			for lic_file in *.$(LIC_DSLASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(SOURCE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-			for lic_file in $(directory)/*.$(LIC_DSLASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(SOURCE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-		) 
-		@$(foreach directory, $(CMAKE_DIRS), \
-			for lic_file in *.$(LIC_HASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(CMAKE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file hash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-			for lic_file in $(directory)/*.$(LIC_HASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(CMAKE_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file hash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-		) 
-		@$(foreach directory, $(QML_DIRS), \
-			for lic_file in *.$(LIC_DSLASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(QML_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-			for lic_file in $(directory)/*.$(LIC_DSLASH); do \
-				if [ -f $$lic_file ]; then \
-					lic_qualifier=$${lic_file##*/}; lic_qualifier=$${lic_qualifier%%.*}; \
-					$(FIND) $(directory) \( $(QML_FILE_TYPES) \) -exec $(SH) awkgward/putlic.sh {} $$lic_file dslash $$lic_qualifier $(ORS) $(FIND) \; ;\
-				fi; \
-			done; \
-		) 
+		@$(foreach directory, $(INCLUDE_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(INCLUDE_FILE_TYPES) $(ORS) $(FIND); )
+		@$(foreach directory, $(SOURCE_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(SOURCE_FILE_TYPES) $(ORS) $(FIND); )
+		@$(foreach directory, $(CMAKE_DIRS), awkgward/makelic.sh $(LIC_HASH) hash $(directory) $(CMAKE_FILE_TYPES) $(ORS) $(FIND); )
+		@$(foreach directory, $(QML_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(QML_FILE_TYPES) $(ORS) $(FIND); )
 
 sources: CMakeLists.txt
 		@echo "Generating list of sources..."
