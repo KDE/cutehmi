@@ -1,28 +1,25 @@
 include(../common.pri)
-include(version.pri)
+include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_authssh_1)
+TARGET = $$qtLibraryTarget($$CUTEHMI_AUTHSSH_LIBNAME)
 
 QT -= gui
 QT += qml concurrent
 
-# Set version.
-VER_MAJ = $$CUTEHMI_AUTHSSH_1_MAJOR
-VER_MIN = $$CUTEHMI_AUTHSSH_1_MINOR
-VER_PAT = $$CUTEHMI_AUTHSSH_1_MICRO
-
 # Configure the library for building.
-DEFINES += CUTEHMI_AUTHSSH_1_BUILD
-DEFINES += CUTEHMI_AUTHSSH_1_DYNAMIC
+DEFINES += CUTEHMI_AUTHSSH_BUILD
+DEFINES += CUTEHMI_AUTHSSH_DYNAMIC
 #CONFIG += shared
 
 # Translations.
-# TRANSLATIONS = locale/cutehmi_authssh_1_pl.ts
+TRANSLATIONS = locale/$${CUTEHMI_AUTHSSH_LIBNAME}_pl.ts
 
 include(../UtilsLib/import.pri)
 include(../BaseLib/import.pri)
 include(../ServicesLib/import.pri)
+include(../libssh.pri)
+
 
 unix {
     target.path = /usr/lib
@@ -30,16 +27,21 @@ unix {
 }
 
 SOURCES += \
-    src/authssh_1/SocketListener.cpp \
-    src/authssh_1/SSHClient.cpp
+    src/authssh/SocketListener.cpp \
+    src/authssh/SSHClient.cpp \
+    src/authssh/Auth.cpp
 
 HEADERS += \
-    include/authssh_1/SocketListener.hpp \
-    include/authssh_1/SSHClient.hpp
+    include/authssh/SocketListener.hpp \
+    include/authssh/SSHClient.hpp \
+    include/authssh/internal/common.hpp \
+    include/authssh/internal/macros.hpp \
+    include/authssh/internal/platform.hpp \
+    include/authssh/Auth.hpp
 
 DISTFILES += \
     import.pri \
-    version.pri
+    libdef.pri
 
 RESOURCES +=
 

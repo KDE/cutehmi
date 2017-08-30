@@ -1,6 +1,6 @@
 #include "CuteHMIAuthSSHQMLPlugin.hpp"
 
-//#include <authssh/Auth.hpp>
+#include <authssh/Auth.hpp>
 
 #include <QtQml>
 
@@ -8,7 +8,7 @@ void CuteHMIAuthSSHQMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.AuthSSH"));
 
-//  qmlRegisterType<cutehmi::authssh::Auth>(uri, 1, 0, "Auth");
+	qmlRegisterType<cutehmi::authssh::Auth>(uri, 1, 0, "Auth");
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
