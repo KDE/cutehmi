@@ -13,8 +13,14 @@ class NotificationListModel:
 	public QAbstractListModel
 {
 	Q_OBJECT
+	typedef QAbstractListModel Parent;
 
 	public:
+		enum role_t {
+			TYPE_ROLE = Qt::UserRole,
+			DATE_TIME_ROLE
+		};
+
 		NotificationListModel(QObject * parent = 0);
 
 		~NotificationListModel() override;
@@ -22,6 +28,8 @@ class NotificationListModel:
 		int rowCount(const QModelIndex & parent = QModelIndex()) const override;
 
 		QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const override;
+
+		QHash<int, QByteArray> roleNames() const override;
 
 		void prepend(std::unique_ptr<Notification> notification);
 

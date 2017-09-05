@@ -6,6 +6,7 @@
 #include <utils/MPtr.hpp>
 
 #include <QObject>
+#include <QDateTime>
 
 namespace cutehmi {
 namespace base {
@@ -44,6 +45,8 @@ class CUTEHMI_BASE_API Notification:
 
 		void setText(const QString & text);
 
+		const QDateTime & dateTime() const;
+
 		std::unique_ptr<Notification> clone() const;
 
 	signals:
@@ -56,6 +59,7 @@ class CUTEHMI_BASE_API Notification:
 		{
 			type_t type;
 			QString text;
+			QDateTime dateTime;
 		};
 
 		utils::MPtr<Members> m;
