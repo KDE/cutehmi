@@ -52,7 +52,8 @@ SOURCES += \
     src/base/functions.cpp \
     src/base/Notification.cpp \
     src/base/NotificationManager.cpp \
-    src/base/NotificationListModel.cpp
+    src/base/NotificationListModel.cpp \
+    src/base/ProjectNodeData.cpp
 
 HEADERS += \
     include/base/ProjectModel.hpp \
@@ -85,7 +86,8 @@ HEADERS += \
     include/base/functions.hpp \
     include/base/Notification.hpp \
     include/base/NotificationManager.hpp \
-    include/base/NotificationListModel.hpp
+    include/base/NotificationListModel.hpp \
+    include/base/ProjectNodeData.hpp
 
 DISTFILES += \
     import.pri \

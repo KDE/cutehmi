@@ -6,7 +6,7 @@ namespace base {
 
 Notification::Notification(type_t type, const QString & text, QObject * parent):
 	QObject(parent),
-	m(new Members{type, text})
+	m(new Members{type, text, QDateTime::currentDateTime()})
 {
 }
 
@@ -57,6 +57,11 @@ void Notification::setText(const QString & text)
 		m->text = text;
 		emit textChanged();
 	}
+}
+
+const QDateTime & Notification::dateTime() const
+{
+	return m->dateTime;
 }
 
 std::unique_ptr<Notification> Notification::clone() const

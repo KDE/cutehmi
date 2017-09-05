@@ -30,7 +30,21 @@ QVariant NotificationListModel::data(const QModelIndex & index, int role) const
 	if (role == Qt::DisplayRole)
 		return m->notifications.at(index.row())->text();
 
+	if (role == TYPE_ROLE)
+		return m->notifications.at(index.row())->type();
+
+	if (role == DATE_TIME_ROLE)
+		return m->notifications.at(index.row())->dateTime();
+
 	return QVariant();
+}
+
+QHash<int, QByteArray> NotificationListModel::roleNames() const
+{
+	QHash<int, QByteArray> result = Parent::roleNames();
+	result[TYPE_ROLE] = "type";
+	result[DATE_TIME_ROLE] = "dateTime";
+	return result;
 }
 
 void NotificationListModel::prepend(std::unique_ptr<Notification> notification)
