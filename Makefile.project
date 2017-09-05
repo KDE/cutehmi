@@ -51,7 +51,7 @@ QML_DIRS = QML/CuteHMI/AuthSSH \
 DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
 				 QML/CuteHMI/Base/Base.qdocconf
 
-DOC_DOXYGEN_FILES = BaseLib/Doxyfile
+DOC_DOXYGEN_FILES = Doxyfile
 
 QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../lib
 
