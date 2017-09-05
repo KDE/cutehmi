@@ -14,7 +14,7 @@ namespace cutehmi {
 namespace base {
 
 /**
- * Plugin loader.
+ * %Plugin loader.
  */
 class CUTEHMI_BASE_API PluginLoader:
 	public QObject
@@ -68,21 +68,6 @@ class CUTEHMI_BASE_API PluginLoader:
 		 * @param pluginsDir plugins directory. Directory will be added to library search paths.
 		 */
 		void setPluginsDir(const QString & pluginsDir);
-
-		/**
-		 * Load plugin.
-		 * @param binary name of plugin binary.
-		 * @param reqVersion required version. Version should be provided in "[major[.minor[.micro]]]" format.
-		 * In most cases "micro" numbers can be omitted, because they have no semantics. Omitting a field
-		 * is equivalent to setting its value to @p 0.
-		 * @return plugin object or @p nullptr if plugin has not been loaded.
-		 *
-		 * @throws WrongVersionException
-		 * @throws FailedLoadException
-		 *
-		 * @deprecated use loadPlugin(const QString & binary, int minor) instead.
-		 */
-//		Plugin * loadPlugin(const QString & binary, int reqVersion = QString("0.0.0"));
 
 		/**
 		 * Load plugin.
