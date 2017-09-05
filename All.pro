@@ -4,11 +4,11 @@ CONFIG += debug_and_release ordered
 SUBDIRS += \
     UtilsLib \
     BaseLib \
-    cutehmi_authssh_1 \
-    cutehmi_authssh_1_lib \
     ChartsLib \
     ServicesLib \
     ServicesPlugin \
+    cutehmi_authssh_1 \
+    cutehmi_authssh_1_lib \
     ModbusLib \
     ModbusPlugin \
     StupidLib \
@@ -16,3 +16,4 @@ SUBDIRS += \
     App \
     AppPlugin \
     QML \
+    examples \
