@@ -46,6 +46,7 @@ CuteHMI::CuteHMI():
 {
 	qRegisterMetaType<cutehmi::base::ErrorInfo>();
 	qRegisterMetaType<cutehmi::base::Prompt::button_t>();
+	qRegisterMetaType<const cutehmi::base::ProjectNode *>();
 }
 
 std::unique_ptr<CuteHMI> & CuteHMI::InstancePtr()
