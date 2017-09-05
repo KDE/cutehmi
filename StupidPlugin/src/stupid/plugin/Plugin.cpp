@@ -109,7 +109,7 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 	service.reset(new Service(name, client.get()));
 	service->setSleep(serviceSleep);
 
-	base::ProjectNode * stupidNode = node.addChild(id, base::ProjectNode::Data(name));
+	base::ProjectNode * stupidNode = node.addChild(id, base::ProjectNodeData(name));
 	stupidNode->addExtension(client.get());
 	stupidNode->addExtension(service.get());
 

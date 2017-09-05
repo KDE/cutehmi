@@ -100,7 +100,7 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 	client.reset(new Client(std::move(connection)));
 	service.reset(new Service(name, client.get()));
 	service->setSleep(serviceSleep);
-	base::ProjectNode * modbusNode = node.addChild(id, base::ProjectNode::Data(name));
+	base::ProjectNode * modbusNode = node.addChild(id, base::ProjectNodeData(name));
 	modbusNode->addExtension(client.get());
 	modbusNode->addExtension(service.get());
 

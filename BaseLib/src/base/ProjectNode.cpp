@@ -3,32 +3,19 @@
 #include <QtDebug>
 #include <QQmlContext>
 #include <QUuid>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace base {
 
-ProjectNode::Data::Data(const QString & name):
-	m_name(name)
-{
-}
-
-QString ProjectNode::Data::name() const
-{
-	return m_name;
-}
-
-void ProjectNode::Data::setName(const QString & name)
-{
-	m_name = name;
-}
-
-QObject * ProjectNode::extension(const QString & extensionId)
+QObject * ProjectNode::extension(const QString & extensionId) const
 {
 	return extensions()->value(extensionId, nullptr);
 }
 
 void ProjectNode::addExtension(const QString & extensionId, QObject * extension)
 {
+	QQmlEngine::setObjectOwnership(extension, QQmlEngine::CppOwnership);
 	extensions()->insert(extensionId, extension);
 }
 
@@ -42,12 +29,12 @@ QStringList ProjectNode::extensionIds() const
 	return extensions()->keys();
 }
 
-const ProjectNode::Data & ProjectNode::data() const
+const ProjectNodeData & ProjectNode::data() const
 {
 	return m->data;
 }
 
-ProjectNode::Data & ProjectNode::data()
+ProjectNodeData & ProjectNode::data()
 {
 	return m->data;
 }
@@ -80,18 +67,19 @@ QString ProjectNode::id() const
 	return m->id;
 }
 
-ProjectNode * ProjectNode::addChild(const QString & id, Data && data, bool leaf)
+ProjectNode * ProjectNode::addChild(const QString & id, ProjectNodeData && data, bool leaf)
 {
 	CUTEHMI_BASE_ASSERT(child(id) == nullptr, QString("child with specified id '%1' already exists").arg(id).toLocal8Bit().constData());
 
 	ProjectNode * child = leaf ? new ProjectNode(id, std::move(data), nullptr) :
-										new ProjectNode(id, std::move(data), std::unique_ptr<ChildrenContainer>(new ChildrenContainer));
+								 new ProjectNode(id, std::move(data), std::unique_ptr<ChildrenContainer>(new ChildrenContainer));
+	QQmlEngine::setObjectOwnership(child, QQmlEngine::CppOwnership);
 	children()->append(child);
 	child->setParent(this, children()->size() - 1);
 	return child;
 }
 
-ProjectNode * ProjectNode::addChild(Data && data, bool leaf)
+ProjectNode * ProjectNode::addChild(ProjectNodeData && data, bool leaf)
 {
 	return addChild(QUuid::createUuid().toString(), std::move(data), leaf);
 }
@@ -161,7 +149,7 @@ bool ProjectNode::invoke(const QString & extensionId, const char * method, QGene
 	return QMetaObject::invokeMethod(extension(extensionId), method, val0, val1, val2, val3, val4, val5, val6, val7, val8, val9);
 }
 
-ProjectNode::ProjectNode(const QString & id, Data && data, std::unique_ptr<ChildrenContainer> children):
+ProjectNode::ProjectNode(const QString & id, ProjectNodeData && data, std::unique_ptr<ChildrenContainer> children):
 	m(new Members{
 	  nullptr,
 	  0,

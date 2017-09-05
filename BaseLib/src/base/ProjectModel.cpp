@@ -105,7 +105,7 @@ QVariant ProjectModel::data(const QModelIndex & index, int role) const
 //			return QVariant();	// No description.
 
 		default:
-			qDebug() << "Data item role (" << role << ") not supported yet.";
+			CUTEHMI_BASE_QDEBUG("Data item role (" << role << ") not supported yet.");
 	}
 	return QVariant();
 }
@@ -158,7 +158,7 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 //			return QVariant();	// No description.
 
 		default:
-			qDebug() << "Header item role (" << role << ") not supported yet.";
+			CUTEHMI_BASE_QDEBUG("Header item role (" << role << ") not supported yet.");
 	}
 	return QVariant();
 }
@@ -210,6 +210,11 @@ ProjectModel::const_iterator ProjectModel::end() const
 	return const_iterator();
 }
 
+const ProjectNode & ProjectModel::root() const
+{
+	return m->root;
+}
+
 ProjectNode & ProjectModel::root()
 {
 	return m->root;
@@ -220,13 +225,13 @@ QModelIndex ProjectModel::createIndex(int row, int column, ProjectNode * ptr) co
 	return QAbstractItemModel::createIndex(row, column, ptr);
 }
 
-const ProjectNode & ProjectModel::root() const
+const ProjectNode * ProjectModel::rootPtr() const
 {
-	return m->root;
+	return & m->root;
 }
 
 ProjectModel::Members::Members():
-	root("root", ProjectNode::Data("Root node"), std::unique_ptr<ProjectNode::ChildrenContainer>(new ProjectNode::ChildrenContainer))
+	root("root", ProjectNodeData("Root node"), std::unique_ptr<ProjectNode::ChildrenContainer>(new ProjectNode::ChildrenContainer))
 {
 }
 

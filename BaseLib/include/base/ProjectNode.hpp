@@ -2,10 +2,9 @@
 #define CUTEHMI_BASELIB_INCLUDE_BASE_PROJECTNODE_HPP
 
 #include "internal/common.hpp"
-#include "DataBlock.hpp"
+#include "ProjectNodeData.hpp"
 
-#include <utils/NonCopyable.hpp>
-
+#include <QObject>
 #include <QStringList>
 
 #include <iterator>
@@ -30,47 +29,14 @@ namespace base {
  * </principle>
  */
 class CUTEHMI_BASE_API ProjectNode:
-	public utils::NonCopyable
+	public QObject
 {
-	Q_GADGET
+	Q_OBJECT
 
 	friend class ProjectModel;
 	friend class ProjectNodeTest;
 
 	public:
-		/**
-		 *	Node data.
-		 */
-		struct CUTEHMI_BASE_API Data final:
-			public DataBlock
-		{
-			/**
-			 * Constructor.
-			 * @param name name of the item. It will be used to display item in the view.
-			 */
-			explicit Data(const QString & name);
-
-			Data(Data && other) = default;
-
-			Data & operator =(Data && other) = default;
-
-			/**
-			 * Get name.
-			 * @return name.
-			 */
-			QString name() const;
-
-			/**
-			 * Set name.
-			 * @param name node name.
-			 */
-			void setName(const QString & name);
-
-			private:
-				QString m_name;
-				//QIcon m_icon;
-		};
-
 		typedef QList<ProjectNode *> ChildrenContainer;
 		typedef QHash<QString, QObject *> ExtensionsContainer;
 
@@ -78,10 +44,8 @@ class CUTEHMI_BASE_API ProjectNode:
 		 * Access extension.
 		 * @param extensionId extension id.
 		 * @return extension object or @p nullptr if no extension was found for the given extension id.
-		 *
-		 * @internal non-const method, because extension object can technically keep reference to the Node object and modify it.
 		 */
-		Q_INVOKABLE QObject * extension(const QString & extensionId);
+		Q_INVOKABLE QObject * extension(const QString & extensionId) const;
 
 		/**
 		 * Add extension.
@@ -90,6 +54,9 @@ class CUTEHMI_BASE_API ProjectNode:
 		 * @param extension extension object.
 		 *
 		 * @note extension object won't be owned by Node.
+		 *
+		 * @note this function explicitly sets QQmlEngine ownership of @a extension object to QQmlEngine::CppOwnership, to prevent deletion
+		 * from QML by garbage collector.
 		 */
 		void addExtension(const QString & extensionId, QObject * extension);
 
@@ -104,6 +71,9 @@ class CUTEHMI_BASE_API ProjectNode:
 		 * adding child nodes instead.
 		 *
 		 * @note extension object won't be owned by Node.
+		 *
+		 * @note this function explicitly sets QQmlEngine ownership of @a extension object to QQmlEngine::CppOwnership, to prevent deletion
+		 * from QML by garbage collector.
 		 */
 		void addExtension(QObject * extension);
 
@@ -111,19 +81,19 @@ class CUTEHMI_BASE_API ProjectNode:
 		 * Get list of extension ids.
 		 * @return list of extension ids.
 		 */
-		QStringList extensionIds() const;
+		Q_INVOKABLE QStringList extensionIds() const;
 
 		/**
 		 * Access node data (const version).
 		 * @return node data.
 		 */
-		const Data & data() const;
+		const ProjectNodeData & data() const;
 
 		/**
 		 * Access node data.
 		 * @return node data.
 		 */
-		Data & data();
+		ProjectNodeData & data();
 
 		/**
 		 * Get parent of this node (const version).
@@ -144,7 +114,7 @@ class CUTEHMI_BASE_API ProjectNode:
 		const ProjectNode * root() const;
 
 		/**
-		 * Get root node. Convenient function that walks up parents hierarchy up to root node.
+		 * Get root node. Convenient function that walks parents hierarchy up to the root node.
 		 * @return root node.
 		 */
 		ProjectNode * root();
@@ -153,18 +123,21 @@ class CUTEHMI_BASE_API ProjectNode:
 		 * Get node id.
 		 * @return node id.
 		 */
-		QString id() const;
+		Q_INVOKABLE QString id() const;
 
 		/**
 		 * Add child node.
 		 * @param id node id. Node id must be unique with respect to its siblings. Nodes, which have different parents may have the same id.
-		 * Results of using the same id for nodes, which are children of the same parent, are undefined.
+		 * Results of using the same id for nodes, which are children of the same parent are undefined.
 		 * @param data node data.
 		 * @param leaf indicates if child node is a leaf. Leaf is a node that do not have
 		 * any children.
 		 * @return pointer to newly created child. Child is owned by instance of this class.
+		 *
+		 * @note this function explicitly sets QQmlEngine ownership of created object to QQmlEngine::CppOwnership, to prevent deletion
+		 * from QML by garbage collector.
 		 */
-		ProjectNode * addChild(const QString & id, Data && data, bool leaf = true);
+		ProjectNode * addChild(const QString & id, ProjectNodeData && data, bool leaf = true);
 
 		/**
 		 * Add child node. This version is provided for convenience. Random node id is generated automatically.
@@ -173,14 +146,14 @@ class CUTEHMI_BASE_API ProjectNode:
 		 * any children.
 		 * @return pointer to newly created child. Child is owned by instance of this class.
 		 */
-		ProjectNode * addChild(Data && data, bool leaf = true);
+		ProjectNode * addChild(ProjectNodeData && data, bool leaf = true);
 
 		/**
 		 * Get child at specified index (const version).
 		 * @param index child index.
 		 * @return child at specified index or @p nullptr if child does not exist.
 		 */
-		const ProjectNode * child(int index) const;
+		Q_INVOKABLE const ProjectNode * child(int index) const;
 
 		/**
 		 * Get child at specified index.
@@ -196,7 +169,7 @@ class CUTEHMI_BASE_API ProjectNode:
 		 *
 		 * @note this function searches all children for the specified @a id. For frequent access use child(int index) variant.
 		 */
-		const ProjectNode * child(const QString & id) const;
+		Q_INVOKABLE const cutehmi::base::ProjectNode * child(const QString & id) const;
 
 		/**
 		 * Get child by specified id.
@@ -205,14 +178,14 @@ class CUTEHMI_BASE_API ProjectNode:
 		 *
 		 * @note this function searches all children for the specified @a id. For frequent access use child(int index) variant.
 		 */
-		ProjectNode * child(const QString & id);
+		cutehmi::base::ProjectNode * child(const QString & id);
 
 		/**
 		 * Get child index.
 		 * @param child node to get index for.
 		 * @return child node index or @p -1 if child was not found.
 		 */
-		int childIndex(const ProjectNode * child) const;
+		Q_INVOKABLE int childIndex(const ProjectNode * child) const;
 
 		/**
 		 * Get list of child ids.
@@ -220,13 +193,13 @@ class CUTEHMI_BASE_API ProjectNode:
 		 *
 		 * @note this function iterates over all children to produce the list, thus it should not be used frequently.
 		 */
-		QStringList childIds() const;
+		Q_INVOKABLE QStringList childIds() const;
 
 		/**
 		 * Count children.
 		 * @return number of children.
 		 */
-		int countChildren() const;
+		Q_INVOKABLE int countChildren() const;
 
 		/**
 		 * Invoke method. Convenient function for invoking extension's method using Qt meta-object system.
@@ -266,7 +239,7 @@ class CUTEHMI_BASE_API ProjectNode:
 		 * @param id node id.
 		 * @param children children container. Setting this to @p nullptr indicates that node is a leaf.
 		 */
-		ProjectNode(const QString & id, Data && data, std::unique_ptr<ChildrenContainer> children = nullptr);
+		ProjectNode(const QString & id, ProjectNodeData && data, std::unique_ptr<ChildrenContainer> children = nullptr);
 
 		/**
 		 * Get node index.
@@ -330,7 +303,7 @@ class CUTEHMI_BASE_API ProjectNode:
 			ProjectNode * parent;
 			int index;	///< Index with respect to parent's children container. Solely for optimization purposes.
 			QString id;
-			Data data;
+			ProjectNodeData data;
 			std::unique_ptr<ExtensionsContainer> extensions; ///< Extensions. It's more safe to access this member via extensions() function.
 			std::unique_ptr<ChildrenContainer> children;	///< Children nodes. It's more safe to access this member via children() function.
 			//</principle_ref>
@@ -345,6 +318,8 @@ class CUTEHMI_BASE_API ProjectNode:
 
 }
 }
+
+Q_DECLARE_METATYPE(const cutehmi::base::ProjectNode *)
 
 #endif
 

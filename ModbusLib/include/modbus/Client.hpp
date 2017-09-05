@@ -21,10 +21,6 @@ namespace modbus {
 
 /**
  * Modbus client.
- *
- * @todo raise alerts on failed writes/reads.
- *
- * @todo support for 32 bit values.
  */
 class CUTEHMI_MODBUS_API Client:
 	public AbstractDevice

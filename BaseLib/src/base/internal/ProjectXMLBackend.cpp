@@ -86,9 +86,9 @@ void ProjectXMLBackend::Loader1::parse(const xml::ParseHelper & parentHelper)
 				throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_BASE_IPLUGIN_IID);
 			ProjectNode * pluginNode;
 			if (!plugin->id().isEmpty())
-				pluginNode = m_root->addChild(plugin->id(), ProjectNode::Data(plugin->name()), false);
+				pluginNode = m_root->addChild(plugin->id(), ProjectNodeData(plugin->name()), false);
 			else
-				pluginNode = m_root->addChild(ProjectNode::Data(plugin->name()), false);
+				pluginNode = m_root->addChild(ProjectNodeData(plugin->name()), false);
 			pluginNode->data().append(std::unique_ptr<DataBlock>(new PluginNodeData(plugin, reqMinor)));
 			pluginNode->addExtension(plugin);
 			pluginInstance->init(*pluginNode);

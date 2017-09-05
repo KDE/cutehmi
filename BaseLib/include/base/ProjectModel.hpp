@@ -13,7 +13,8 @@ namespace cutehmi {
 namespace base {
 
 /**
- * Project model.
+ * Project model. Project model is technically a tree, which uses ProjectNode instances as underlying data structure for its nodes.
+ * Various aspects of the model are exposed as QAbstractItemModel, so that it can be used with standard Qt views.
  *
  * @principles
  *
@@ -28,12 +29,16 @@ namespace base {
 class CUTEHMI_BASE_API ProjectModel:
 	public QAbstractItemModel
 {
+	Q_OBJECT
+
 	template <typename NODE>
 	struct Iterator;
 
 	public:
 		typedef Iterator<ProjectNode> iterator;
 		typedef Iterator<const ProjectNode> const_iterator;
+
+		Q_PROPERTY(const cutehmi::base::ProjectNode * root READ rootPtr)
 
 		explicit ProjectModel(QObject * parent = 0);
 
@@ -81,6 +86,12 @@ class CUTEHMI_BASE_API ProjectModel:
 	protected:
 		// QAbstractItemModel
 		QModelIndex createIndex(int row, int column, ProjectNode * ptr) const;	// shadow
+
+		/**
+		 * Root node pointer. This function is provided to deal with property system, which can not use references to non-copyable objects.
+		 * @return root node pointer.
+		 */
+		const ProjectNode * rootPtr() const;
 
 	private:
 		template <typename NODE>
