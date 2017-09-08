@@ -7,7 +7,7 @@ import QtQuick.tooling 1.2
 // 'qmlplugindump -nonrelocatable CuteHMI.Services 1.0 QML'
 
 Module {
-    dependencies: []
+    dependencies: ["QtQuick 2.8"]
     Component {
         name: "cutehmi::services::Service"
         prototype: "QObject"
@@ -19,7 +19,9 @@ Module {
                 "STOPPED": 0,
                 "STOPPING": 1,
                 "STARTED": 2,
-                "STARTING": 3
+                "STARTING": 3,
+                "BROKEN": 4,
+                "REPAIRING": 5
             }
         }
         Property { name: "name"; type: "string"; isReadonly: true }
@@ -29,6 +31,8 @@ Module {
             Parameter { name: "oldState"; type: "state_t" }
             Parameter { name: "newState"; type: "state_t" }
         }
+        Method { name: "start" }
+        Method { name: "stop" }
     }
     Component {
         name: "cutehmi::services::ServiceRegistry"

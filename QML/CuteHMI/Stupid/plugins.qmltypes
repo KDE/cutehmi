@@ -7,7 +7,7 @@ import QtQuick.tooling 1.2
 // 'qmlplugindump -nonrelocatable CuteHMI.Stupid 1.0 QML'
 
 Module {
-    dependencies: []
+    dependencies: ["QtQuick 2.0"]
     Component {
         name: "cutehmi::stupid::DS18B20"
         prototype: "QObject"
