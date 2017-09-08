@@ -1,0 +1,4 @@
+module CuteHMI.ScreenLock
+plugin cutehmi_screenlock_qml plugins
+classname CuteHMIScreenLockQMLPlugin
+designersupported
