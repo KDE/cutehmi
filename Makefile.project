@@ -21,6 +21,7 @@ SOURCE_DIRS = App/src \
 			  QML/CuteHMI/Base/src \
 			  QML/CuteHMI/Charts/src \
 			  QML/CuteHMI/Modbus/src \
+			  QML/CuteHMI/ScreenLock/src \
 			  QML/CuteHMI/Services/src \
 			  QML/CuteHMI/Stupid/src
 
@@ -38,12 +39,14 @@ INCLUDE_DIRS = App/src \
 			   QML/CuteHMI/Base/src \
 			   QML/CuteHMI/Charts/src \
 			   QML/CuteHMI/Modbus/src \
+			   QML/CuteHMI/ScreenLock/src \
 			   QML/CuteHMI/Services/src \
 			   QML/CuteHMI/Stupid/src
 
 QML_DIRS = QML/CuteHMI/Base \
 		   QML/CuteHMI/Charts \
 		   QML/CuteHMI/Modbus \
+		   QML/CuteHMI/ScreenLock \
 		   QML/CuteHMI/Services \
 		   QML/CuteHMI/Stupid
 
@@ -52,10 +55,13 @@ DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
 
 DOC_DOXYGEN_FILES = BaseLib/Doxyfile
 
-QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../lib
+PWD_DIR := $(shell $(PWD))
+
+QMLTYPES_EXTRAPATH = $(PWD_DIR)/../bin:$(PWD_DIR)/../lib
 
 QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Charts 1.0 QML > QML/CuteHMI/Charts/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Services 1.0 QML > QML/CuteHMI/Services/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.ScreenLock 1.0 QML > QML/CuteHMI/ScreenLock/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Stupid 1.0 QML > QML/CuteHMI/Stupid/plugins.qmltypes"
