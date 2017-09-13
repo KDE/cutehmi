@@ -15,12 +15,16 @@ include(../../../UtilsLib/import.pri)
 include(../../../BaseLib/import.pri)
 
 HEADERS += \
-    src/CuteHMIScreenLockQMLPlugin.hpp
+    src/CuteHMIScreenLockQMLPlugin.hpp \
+    src/cutehmi/screen_lock/PassphraseInterface.hpp
 
 SOURCES += \
-    src/CuteHMIScreenLockQMLPlugin.cpp
+    src/CuteHMIScreenLockQMLPlugin.cpp \
+    src/cutehmi/screen_lock/PassphraseInterface.cpp
 
 DISTFILES += \ 
-    qmldir
+    qmldir \
+    KeyButton.qml \
+    LockScreen.qml
 
 RESOURCES +=

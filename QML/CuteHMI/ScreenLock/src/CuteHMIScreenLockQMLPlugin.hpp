@@ -3,6 +3,8 @@
 
 #include <QQmlExtensionPlugin>
 
+class QJSEngine;
+
 class CuteHMIScreenLockQMLPlugin:
 	public QQmlExtensionPlugin
 {
@@ -11,6 +13,11 @@ class CuteHMIScreenLockQMLPlugin:
 
 	public:
 		void registerTypes(const char * uri) override;
+
+    private:
+
+    static QObject * PassphraseInterfaceProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+
 };
 
 #endif
