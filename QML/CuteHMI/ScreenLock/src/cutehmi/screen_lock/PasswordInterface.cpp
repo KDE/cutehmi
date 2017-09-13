@@ -1,11 +1,16 @@
 #include "PasswordInterface.hpp"
 
+#include <QDebug>
+#include <QDateTime>
+
 namespace cutehmi {
 namespace screen_lock {
 
-PasswordInterface::PasswordInterface(QObject *parent) : QObject(parent), m_crypto(QCryptographicHash::Sha3_512)
+PasswordInterface::PasswordInterface(QObject *parent) : QObject(parent), m_crypto(QCryptographicHash::Sha3_512),
+    lowerBoundOfHashes(9000), upperBoundOfHashes(10000)
 {
     m_settings = new QSettings("Termotronika", "CuteHMI", this);
+    qsrand(QTime::currentTime().msec());
 }
 
 bool PasswordInterface::validatePassword(const QString &password)
@@ -25,7 +30,18 @@ bool PasswordInterface::changePassword(const QString &oldPassword, const QString
 
 void PasswordInterface::setPassword(const QString &password)
 {
-    m_settings->setValue("screenLockPassword", password);
+    QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
+    for (int i = 0; i < getNumberOfHashes(); ++i)
+    {
+        hash = QCryptographicHash::hash(hash, QCryptographicHash::Sha3_512).toHex();
+    }
+    QString passwordHash = hash;
+    m_settings->setValue("screenLockPassword", passwordHash);
+}
+
+int PasswordInterface::getNumberOfHashes()
+{
+    return qrand() % (upperBoundOfHashes - lowerBoundOfHashes) + lowerBoundOfHashes;
 }
 
 }
