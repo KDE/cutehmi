@@ -25,7 +25,6 @@ private:
     void setPassword(const QString &password);
 
     QSettings *m_settings;
-    QCryptographicHash m_crypto;
 
     int lowerBoundOfHashes;
     int upperBoundOfHashes;
