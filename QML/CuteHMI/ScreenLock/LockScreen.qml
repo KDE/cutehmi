@@ -7,12 +7,9 @@ Image
 {
     id: root
     property real scale: paintedWidth / sourceSize.width
-    property string password: "31415"
     property string passphraseInput
     property list<KeyButton> keyButtons
     property alias passphraseTimer: passphraseTimer
-    property alias wrondPasspraseAnimation: wrongPassphraseAnimation
-    property Item buttonContainer: buttons
 
     fillMode: Image.PreserveAspectCrop
 
