@@ -17,9 +17,7 @@ Image
     fillMode: Image.PreserveAspectCrop
 
     states: [
-        State {
-            name: "unlocked"
-        },
+        State { name: "unlocked" },
         State {
             name: "edit-passphrase"
             PropertyChanges { target: root; passphraseInput: "" }
@@ -30,15 +28,14 @@ Image
         }
     ]
 
-//    Item
-//    {
-//        id: buttons
-//        states: [
-//            State { name: "highlighted" }
-//        ]
-
-//        onStateChanged: console.log("buttons state: " + buttons.state)
-//    }
+    Item
+    {
+        id: buttons
+        states: [
+            State { name: "highlighted" }
+        ]
+        children: keyButtons
+    }
 
     Timer
     {
@@ -63,7 +60,6 @@ Image
             }
         }
     }
-
 
     SequentialAnimation
     {
