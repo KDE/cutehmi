@@ -7,17 +7,17 @@ Image
 {
     id: root
     property real scale: paintedWidth / sourceSize.width
-    property string passphraseInput
+    property string passwordInput
     property list<KeyButton> keyButtons
-    property alias passphraseTimer: passphraseTimer
+    property alias passwordTimer: passwordTimer
 
     fillMode: Image.PreserveAspectCrop
 
     states: [
         State { name: "unlocked" },
         State {
-            name: "edit-passphrase"
-            PropertyChanges { target: root; passphraseInput: "" }
+            name: "edit-password"
+            PropertyChanges { target: root; passwordInput: "" }
             PropertyChanges {
                 target: buttons
                 state: "highlighted"
@@ -36,31 +36,31 @@ Image
 
     Timer
     {
-        id: passphraseTimer
+        id: passwordTimer
         interval: 1000
         onTriggered:
         {
-            console.log("Inserted passphrase: " + root.passphraseInput);
+            console.log("Inserted password: " + root.passwordInput);
             switch (root.state) {
-            case "edit-passphrase":
+            case "edit-password":
                 var oldPass = "31415";
-                PassphraseInterface.changePassphrase(oldPass, root.passphraseInput);
+                PasswordInterface.changePassword(oldPass, root.passwordInput);
             }
 
-            if (PassphraseInterface.validatePassphrase(root.passphraseInput)) {
+            if (PasswordInterface.validatePassword(root.passwordInput)) {
                 console.log("Screen unlocked!")
                 root.state = "unlocked"
             } else {
-                console.log("Wrong passphrase!")
-                wrongPassphraseAnimation.restart()
-                root.passphraseInput = ""
+                console.log("Wrong password!")
+                wrongPasswordAnimation.restart()
+                root.passwordInput = ""
             }
         }
     }
 
     SequentialAnimation
     {
-        id: wrongPassphraseAnimation
+        id: wrongPasswordAnimation
         loops: 4
         property int duration: 10
         property real amplitude: 10.0
@@ -69,24 +69,24 @@ Image
             target: root
             property: "x"
             from: 0
-            to: wrongPassphraseAnimation.amplitude
-            duration: 2 * wrongPassphraseAnimation.duration
+            to: wrongPasswordAnimation.amplitude
+            duration: 2 * wrongPasswordAnimation.duration
         }
 
         NumberAnimation {
             target: root
             property: "x"
-            from: wrongPassphraseAnimation.amplitude
-            to: -wrongPassphraseAnimation.amplitude
-            duration: wrongPassphraseAnimation.duration
+            from: wrongPasswordAnimation.amplitude
+            to: -wrongPasswordAnimation.amplitude
+            duration: wrongPasswordAnimation.duration
         }
 
         NumberAnimation {
             target: root
             property: "x"
-            from: -wrongPassphraseAnimation.amplitude
+            from: -wrongPasswordAnimation.amplitude
             to: 0
-            duration: 2 * wrongPassphraseAnimation.duration
+            duration: 2 * wrongPasswordAnimation.duration
         }
     }
 

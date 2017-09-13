@@ -31,24 +31,24 @@ AbstractButton {
     onHighlightedChanged: { button_background.opacity = (root.highlighted ? 0.4 : 0.0) }
     onPressedChanged: (pressed ^ highlighted) ? button_background.opacity = 0.4 : button_background.opacity = 0.0
 
-//    TODO: move timer.restart() to Its parent slot (e.g. onPassphraseInputChanged)
-//    Should append button value to lockScreen.passphraseInput
+//    TODO: move timer.restart() to Its parent slot (e.g. onPasswordInputChanged)
+//    Should append button value to lockScreen.passwordInput
     onClicked: {
         timer.restart()
-        lockScreen.passphraseInput += root.value
+        lockScreen.passwordInput += root.value
     }
 
-//    TODO: create edit passphrase screen
-//    When held and unlocked – should enter lockScreen to edit-passphrase state
+//    TODO: create edit password screen
+//    When held and unlocked – should enter lockScreen to edit-password state
     onPressAndHold:
     {
         switch (lockScreen.state) {
         case "unlocked":
-            lockScreen.state = "edit-passphrase";
-            console.log("Entered to change passphrase mode.");
+            lockScreen.state = "edit-password";
+            console.log("Entered to change password mode.");
             break;
-        case "edit-passphrase":
-            console.log("Passphrase edition mode already entered.");
+        case "edit-password":
+            console.log("Password edition mode already entered.");
             break;
         default:
             console.log("Unlock screen first.");

@@ -16,7 +16,7 @@ class CuteHMIScreenLockQMLPlugin:
 
     private:
 
-    static QObject * PassphraseInterfaceProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+    static QObject * PasswordInterfaceProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 
 };
 
