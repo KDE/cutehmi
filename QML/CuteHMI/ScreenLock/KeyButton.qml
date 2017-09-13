@@ -31,12 +31,8 @@ AbstractButton {
     onHighlightedChanged: { button_background.opacity = (root.highlighted ? 0.4 : 0.0) }
     onPressedChanged: (pressed ^ highlighted) ? button_background.opacity = 0.4 : button_background.opacity = 0.0
 
-//    TODO: move timer.restart() to Its parent slot (e.g. onPasswordInputChanged)
 //    Should append button value to lockScreen.passwordInput
-    onClicked: {
-        timer.restart()
-        lockScreen.passwordInput += root.value
-    }
+    onClicked: { lockScreen.passwordInput += root.value }
 
 //    TODO: create edit password screen
 //    When held and unlocked – should enter lockScreen to edit-password state

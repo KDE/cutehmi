@@ -90,4 +90,11 @@ Image
         }
     }
 
+    onPasswordInputChanged:
+    {
+//        Clearing out passwordInput results in stopping timer
+        if (passwordInput.length == 0) passwordTimer.stop()
+        else passwordTimer.restart()
+    }
+
 }
