@@ -1,19 +1,19 @@
 #include "CuteHMIScreenLockQMLPlugin.hpp"
-#include "cutehmi/screen_lock/PasswordInterface.hpp"
+#include "cutehmi/screen_lock/LockScreenInterface.hpp"
 
 #include <QtQml>
 
 void CuteHMIScreenLockQMLPlugin::registerTypes(const char * uri)
 {
     Q_ASSERT(uri == QLatin1String("CuteHMI.ScreenLock"));
-    qmlRegisterSingletonType<cutehmi::screen_lock::PasswordInterface>(uri, 1, 0, "PasswordInterface", PasswordInterfaceProvider);
+    qmlRegisterSingletonType<cutehmi::screen_lock::LockScreenInterface>(uri, 1, 0, "PasswordInterface", PasswordInterfaceProvider);
 }
 
 QObject * CuteHMIScreenLockQMLPlugin::PasswordInterfaceProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
 {
     Q_UNUSED(scriptEngine)
 
-    cutehmi::screen_lock::PasswordInterface *interface = new cutehmi::screen_lock::PasswordInterface();
+    cutehmi::screen_lock::LockScreenInterface *interface = new cutehmi::screen_lock::LockScreenInterface();
     engine->setObjectOwnership(interface, QQmlEngine::CppOwnership);
     return interface;
 }

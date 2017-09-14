@@ -43,7 +43,7 @@ Image
             console.log("Inserted password: " + root.passwordInput);
             switch (root.state) {
             case "edit-password":
-                var oldPass = "31415";
+                var oldPass = "544";
                 PasswordInterface.changePassword(oldPass, root.passwordInput);
             }
 

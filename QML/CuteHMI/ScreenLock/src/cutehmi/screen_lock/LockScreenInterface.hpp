@@ -8,11 +8,11 @@
 namespace cutehmi {
 namespace screen_lock {
 
-class PasswordInterface : public QObject
+class LockScreenInterface : public QObject
 {
     Q_OBJECT
 public:
-    explicit PasswordInterface(QObject *parent = nullptr);
+    explicit LockScreenInterface(QObject *parent = nullptr);
 
     Q_INVOKABLE bool validatePassword(const QString &password);
 
