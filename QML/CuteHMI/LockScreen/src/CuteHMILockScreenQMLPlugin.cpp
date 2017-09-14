@@ -1,5 +1,5 @@
-#include "CuteHMIScreenLockQMLPlugin.hpp"
-#include "cutehmi/screen_lock/LockScreenInterface.hpp"
+#include "CuteHMILockScreenQMLPlugin.hpp"
+#include "cutehmi/lock_screen/LockScreenInterface.hpp"
 
 #include <QtQml>
 

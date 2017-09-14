@@ -1,7 +1,7 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_screenlock_qml)
+TARGET = $$qtLibraryTarget(cutehmi_lockscreen_qml)
 DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
@@ -9,18 +9,18 @@ QT += qml quick
 CONFIG += plugin
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_screenlock_qml_pl.ts
+TRANSLATIONS = locale/cutehmi_lockscreen_qml_pl.ts
 
 include(../../../UtilsLib/import.pri)
 include(../../../BaseLib/import.pri)
 
 HEADERS += \
-    src/CuteHMIScreenLockQMLPlugin.hpp \
-    src/cutehmi/screen_lock/LockScreenInterface.hpp
+    src/CuteHMILockScreenQMLPlugin.hpp \
+    src/cutehmi/lock_screen/LockScreenInterface.hpp
 
 SOURCES += \
-    src/CuteHMIScreenLockQMLPlugin.cpp \
-    src/cutehmi/screen_lock/LockScreenInterface.cpp
+    src/CuteHMILockScreenQMLPlugin.cpp \
+    src/cutehmi/lock_screen/LockScreenInterface.cpp
 
 DISTFILES += \ 
     qmldir \

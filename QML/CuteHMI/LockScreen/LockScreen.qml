@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.2
-import CuteHMI.ScreenLock 1.0
+import CuteHMI.LockScreen 1.0
 
 Image
 {
@@ -40,7 +40,6 @@ Image
         interval: 1000
         onTriggered:
         {
-            console.log("Inserted password: " + root.passwordInput);
             switch (root.state) {
             case "edit-password":
                 var oldPass = "544";

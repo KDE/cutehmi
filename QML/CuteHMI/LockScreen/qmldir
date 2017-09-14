@@ -1,7 +1,7 @@
-module CuteHMI.ScreenLock
+module CuteHMI.LockScreen
 KeyButton 1.0 KeyButton.qml
 LockScreen 1.0 LockScreen.qml
-plugin cutehmi_screenlock_qml plugins
-classname CuteHMIScreenLockQMLPlugin
+plugin cutehmi_lockscreen_qml plugins
+classname CuteHMILockScreenQMLPlugin
 typeinfo plugins.qmltypes
 designersupported
