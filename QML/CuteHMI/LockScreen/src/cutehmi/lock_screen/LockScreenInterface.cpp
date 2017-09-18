@@ -4,7 +4,7 @@
 #include <QDateTime>
 
 namespace cutehmi {
-namespace screen_lock {
+namespace lock_screen {
 
 LockScreenInterface::LockScreenInterface(QObject *parent) : QObject(parent),
     lowerBoundOfHashes(9000), upperBoundOfHashes(10000)
@@ -15,7 +15,7 @@ LockScreenInterface::LockScreenInterface(QObject *parent) : QObject(parent),
 
 bool LockScreenInterface::validatePassword(const QString &password)
 {
-    QString passwordHash = m_settings->value("screenLockPassword").toString();
+    QString passwordHash = m_settings->value("lockScreenPassword").toString();
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
     for (int i = 0; i < upperBoundOfHashes; ++i)
     {
@@ -44,7 +44,7 @@ void LockScreenInterface::setPassword(const QString &password)
         hash = QCryptographicHash::hash(hash, QCryptographicHash::Sha3_512).toHex();
     }
     QString passwordHash = hash;
-    m_settings->setValue("screenLockPassword", passwordHash);
+    m_settings->setValue("lockScreenPassword", passwordHash);
 }
 
 int LockScreenInterface::getNumberOfHashes()

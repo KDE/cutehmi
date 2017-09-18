@@ -1,12 +1,12 @@
-#ifndef PASSWORDINTERFACE_HPP
-#define PASSWORDINTERFACE_HPP
+#ifndef LOCKSCREENINTERFACE_HPP
+#define LOCKSCREENINTERFACE_HPP
 
 #include <QSettings>
 #include <QCryptographicHash>
 #include <QQmlExtensionPlugin>
 
 namespace cutehmi {
-namespace screen_lock {
+namespace lock_screen {
 
 class LockScreenInterface : public QObject
 {
@@ -37,4 +37,4 @@ public slots:
 }
 }
 
-#endif // PASSWORDINTERFACE_HPP
+#endif // LOCKSCREENINTERFACE_HPP

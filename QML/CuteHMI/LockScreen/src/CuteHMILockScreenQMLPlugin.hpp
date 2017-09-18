@@ -5,7 +5,7 @@
 
 class QJSEngine;
 
-class CuteHMIScreenLockQMLPlugin:
+class CuteHMILockScreenQMLPlugin:
 	public QQmlExtensionPlugin
 {
 	Q_OBJECT
