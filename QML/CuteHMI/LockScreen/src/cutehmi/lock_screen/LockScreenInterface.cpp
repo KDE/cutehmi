@@ -9,7 +9,8 @@ namespace lock_screen {
 LockScreenInterface::LockScreenInterface(QObject *parent) : QObject(parent),
     lowerBoundOfHashes(9000), upperBoundOfHashes(10000)
 {
-    m_settings = new QSettings("Termotronika", "CuteHMI", this);
+    m_settings = new QSettings(this);
+    m_settings->beginGroup("LockScreen");
     qsrand(QTime::currentTime().msec());
 }
 

@@ -25,6 +25,7 @@ SOURCES += \
 DISTFILES += \ 
     qmldir \
     KeyButton.qml \
-    LockScreen.qml
+    LockScreen.qml \
+    LockScreenSettings.qml
 
 RESOURCES +=
