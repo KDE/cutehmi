@@ -63,5 +63,5 @@ QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugin
 				 -nonrelocatable CuteHMI.Charts 1.0 QML > QML/CuteHMI/Charts/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Services 1.0 QML > QML/CuteHMI/Services/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.ScreenLock 1.0 QML > QML/CuteHMI/ScreenLock/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.LockScreen 1.0 QML > QML/CuteHMI/LockScreen/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Stupid 1.0 QML > QML/CuteHMI/Stupid/plugins.qmltypes"
