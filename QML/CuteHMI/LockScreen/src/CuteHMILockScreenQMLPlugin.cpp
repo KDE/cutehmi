@@ -3,6 +3,8 @@
 
 #include <QtQml>
 
+#include <memory>
+
 void CuteHMILockScreenQMLPlugin::registerTypes(const char * uri)
 {
     Q_ASSERT(uri == QLatin1String("CuteHMI.LockScreen"));
@@ -12,8 +14,8 @@ void CuteHMILockScreenQMLPlugin::registerTypes(const char * uri)
 QObject * CuteHMILockScreenQMLPlugin::AuthProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
 {
     Q_UNUSED(scriptEngine)
+    Q_UNUSED(engine)
 
-    cutehmi::lockscreen::Auth *interface = new cutehmi::lockscreen::Auth();
-    engine->setObjectOwnership(interface, QQmlEngine::CppOwnership);
-    return interface;
+    std::unique_ptr<cutehmi::lockscreen::Auth> instance(new cutehmi::lockscreen::Auth);
+    return instance.release();
 }
