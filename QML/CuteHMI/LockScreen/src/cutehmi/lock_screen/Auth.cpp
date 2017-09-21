@@ -1,12 +1,12 @@
-#include "LockScreenInterface.hpp"
+#include "Auth.hpp"
 
 #include <QDebug>
 #include <QDateTime>
 
 namespace cutehmi {
-namespace lock_screen {
+namespace lockscreen {
 
-LockScreenInterface::LockScreenInterface(QObject *parent) : QObject(parent),
+Auth::Auth(QObject *parent) : QObject(parent),
     lowerBoundOfHashes(9000), upperBoundOfHashes(10000)
 {
     m_settings = new QSettings(this);
@@ -14,7 +14,7 @@ LockScreenInterface::LockScreenInterface(QObject *parent) : QObject(parent),
     qsrand(QTime::currentTime().msec());
 }
 
-bool LockScreenInterface::validatePassword(const QString &password)
+bool Auth::validatePassword(const QString &password)
 {
     QString passwordHash = m_settings->value("lockScreenPassword").toString();
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
@@ -27,7 +27,7 @@ bool LockScreenInterface::validatePassword(const QString &password)
     return false;
 }
 
-bool LockScreenInterface::changePassword(const QString &oldPassword, const QString &newPassword)
+bool Auth::changePassword(const QString &oldPassword, const QString &newPassword)
 {
     if (validatePassword(oldPassword))
     {
@@ -37,7 +37,7 @@ bool LockScreenInterface::changePassword(const QString &oldPassword, const QStri
     return false;
 }
 
-void LockScreenInterface::setPassword(const QString &password)
+void Auth::setPassword(const QString &password)
 {
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
     for (int i = 0; i < getNumberOfHashes(); ++i)
@@ -48,7 +48,7 @@ void LockScreenInterface::setPassword(const QString &password)
     m_settings->setValue("lockScreenPassword", passwordHash);
 }
 
-int LockScreenInterface::getNumberOfHashes()
+int Auth::getNumberOfHashes()
 {
     return qrand() % (upperBoundOfHashes - lowerBoundOfHashes) + lowerBoundOfHashes;
 }

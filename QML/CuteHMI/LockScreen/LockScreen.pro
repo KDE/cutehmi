@@ -16,11 +16,11 @@ include(../../../BaseLib/import.pri)
 
 HEADERS += \
     src/CuteHMILockScreenQMLPlugin.hpp \
-    src/cutehmi/lock_screen/LockScreenInterface.hpp
+    src/cutehmi/lock_screen/Auth.hpp
 
 SOURCES += \
     src/CuteHMILockScreenQMLPlugin.cpp \
-    src/cutehmi/lock_screen/LockScreenInterface.cpp
+    src/cutehmi/lock_screen/Auth.cpp
 
 DISTFILES += \ 
     qmldir \

@@ -6,13 +6,13 @@
 #include <QQmlExtensionPlugin>
 
 namespace cutehmi {
-namespace lock_screen {
+namespace lockscreen {
 
-class LockScreenInterface : public QObject
+class Auth : public QObject
 {
     Q_OBJECT
 public:
-    explicit LockScreenInterface(QObject *parent = nullptr);
+    explicit Auth(QObject *parent = nullptr);
 
     Q_INVOKABLE bool validatePassword(const QString &password);
 

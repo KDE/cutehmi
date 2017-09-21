@@ -6,47 +6,49 @@ import CuteHMI.LockScreen 1.0
 Image
 {
     id: root
+    default property alias keyButtons: buttons.children
     property real scale: paintedWidth / sourceSize.width
     property string passwordInput
-    property list<KeyButton> keyButtons
+    property bool inverted: false
     property alias passwordTimer: passwordTimer
 
     fillMode: Image.PreserveAspectCrop
 
-    states: [
-        State { name: "unlocked" },
-        State {
-            name: "edit-password"
-            PropertyChanges { target: root; passwordInput: "" }
-            PropertyChanges {
-                target: buttons
-                state: "highlighted"
-            }
-        }
-    ]
-
     Item
     {
         id: buttons
-        states: [
-            State { name: "highlighted" }
+
+        transform: [
+            Scale { origin.x: - root.x; origin.y: - root.y; xScale: root.scale; yScale: root.scale },
+            Translate { x: - (root.paintedWidth - root.width) / 2; y: - (root.paintedHeight - root.height) / 2 }
         ]
-        children: keyButtons
+
+        Component.onCompleted: {
+            for (var i = 0; i < children.length; i++)
+                if (children[i].valueTriggered) {
+                    children[i].valueTriggered.connect(appendValue)
+                    children[i].inverted = Qt.binding(function() { return root.inverted })
+                }
+        }
+
+        function appendValue(value)
+        {
+            root.passwordInput += value
+        }
     }
 
     Timer
     {
         id: passwordTimer
         interval: 1000
-        onTriggered:
-        {
+        onTriggered: {
             switch (root.state) {
             case "edit-password":
                 var oldPass = "544";
-                PasswordInterface.changePassword(oldPass, root.passwordInput);
+                Auth.changePassword(oldPass, root.passwordInput);
             }
 
-            if (PasswordInterface.validatePassword(root.passwordInput)) {
+            if (Auth.validatePassword(root.passwordInput)) {
                 console.log("Screen unlocked!")
                 root.state = "unlocked"
             } else {
