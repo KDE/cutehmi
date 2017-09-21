@@ -14,6 +14,8 @@ class Auth : public QObject
 public:
     explicit Auth(QObject *parent = nullptr);
 
+    Q_PROPERTY(bool locked MEMBER m_locked NOTIFY lockedChanged)
+
     Q_INVOKABLE bool validatePassword(const QString &password);
 
     Q_INVOKABLE bool changePassword(const QString &oldPassword, const QString &newPassword);
@@ -29,9 +31,11 @@ private:
     int lowerBoundOfHashes;
     int upperBoundOfHashes;
 
+    bool m_locked;
+
 signals:
 
-public slots:
+    void lockedChanged();
 };
 
 }

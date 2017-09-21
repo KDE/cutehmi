@@ -7,11 +7,11 @@ namespace cutehmi {
 namespace lockscreen {
 
 Auth::Auth(QObject *parent) : QObject(parent),
-    lowerBoundOfHashes(9000), upperBoundOfHashes(10000)
+    lowerBoundOfHashes(9000), upperBoundOfHashes(10000), m_locked(false)
 {
     m_settings = new QSettings(this);
     m_settings->beginGroup("LockScreen");
-    qsrand(QTime::currentTime().msec());
+    qsrand(static_cast<uint>(QTime::currentTime().msec()));
 }
 
 bool Auth::validatePassword(const QString &password)

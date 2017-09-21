@@ -42,17 +42,9 @@ Image
         id: passwordTimer
         interval: 1000
         onTriggered: {
-            switch (root.state) {
-            case "edit-password":
-                var oldPass = "544";
-                Auth.changePassword(oldPass, root.passwordInput);
-            }
-
             if (Auth.validatePassword(root.passwordInput)) {
-                console.log("Screen unlocked!")
-                root.state = "unlocked"
+                Auth.locked = false
             } else {
-                console.log("Wrong password!")
                 wrongPasswordAnimation.restart()
                 root.passwordInput = ""
             }
