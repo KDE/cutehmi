@@ -31,7 +31,8 @@ if [ $# -lt 2 ]; then
 fi
 
 if [ $# -gt 2 ]; then
-    export PATH=$PATH:$3;
+    export PATH=$PATH:$3
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$3
 fi
 
 qmlplugindump_program=$1

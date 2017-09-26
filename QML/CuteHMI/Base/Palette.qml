@@ -4,18 +4,26 @@ import QtQuick 2.0
 
 QtObject
 {
-	property color text: "black"
-	property color alert: "#FF3300"
-	property color warning: "#FF9933"
-	property color normal: "#66CC33"
-	property color disabled: "#CECECE"
+	property color text: foreground.text
+	property color alarm: foreground.alarm
+	property color warning: foreground.warning
+	property color normal: foreground.normal
+	property color disabled: foreground.disabled
+
+	property QtObject foreground: QtObject {
+		readonly property color text: "black"
+		readonly property color alarm: "#FF3300"
+		readonly property color warning: "#FF9933"
+		readonly property color normal: "#66CC33"
+		readonly property color disabled: "#CECECE"
+	}
 
 	property QtObject background: QtObject {
-		property color text: "white"
-		property color alert: "#FF4B1D"
-		property color warning: "#FFA64D"
-		property color normal: "#CCF4CC"
-		property color disabled: "#E3E3E3"
+		readonly property color text: "white"
+		readonly property color alarm: "#FF4B1D"
+		readonly property color warning: "#FFA64D"
+		readonly property color normal: "#CCF4CC"
+		readonly property color disabled: "#E3E3E3"
 	}
 
 //	property color on: "#66CC33"

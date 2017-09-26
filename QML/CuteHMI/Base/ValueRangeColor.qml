@@ -12,7 +12,7 @@ ValueColor
 {
 	property var ranges: [[-Infinity, Infinity]]
 	property var colors: [implicitColor]
-	property color nanColor: Palette.alert
+	property color nanColor: Palette.alarm
 
 	function setStandardRanges(obj, palette)
 	{
@@ -21,10 +21,10 @@ ValueColor
 		var lowerBound = -Infinity
 		if ((typeof palette === "undefined"))
 			palette = Palette
-		if ((typeof obj.alertLow !== "undefined")) {
-			ranges.push([lowerBound, obj.alertLow])
-			colors.push(palette.alert)
-			lowerBound = obj.alertLow
+		if ((typeof obj.alarmLow !== "undefined")) {
+			ranges.push([lowerBound, obj.alarmLow])
+			colors.push(palette.alarm)
+			lowerBound = obj.alarmLow
 		}
 		if ((typeof obj.warningLow !== "undefined")) {
 			ranges.push([lowerBound, obj.warningLow])
@@ -36,10 +36,10 @@ ValueColor
 //			lowerBound = obj.low
 //		}
 		var upperBound = Infinity
-		if ((typeof obj.alertHigh !== "undefined")) {
-			ranges.push([obj.alertHigh, upperBound])
-			colors.push(palette.alert)
-			upperBound = obj.alertHigh
+		if ((typeof obj.alarmHigh !== "undefined")) {
+			ranges.push([obj.alarmHigh, upperBound])
+			colors.push(palette.alarm)
+			upperBound = obj.alarmHigh
 		}
 		if ((typeof obj.warningHigh !== "undefined")) {
 			ranges.push([obj.warningHigh, upperBound])
@@ -64,5 +64,5 @@ ValueColor
 	}
 }
 
-//(c)MP: Copyright © 2016, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
