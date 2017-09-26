@@ -5,6 +5,8 @@
 #include <base/ErrorInfo.hpp>
 #include <base/PluginLoader.hpp>
 
+#include <app/CuteApp.hpp>
+
 //<workaround id="App-4" target="Qt" cause="bug">
 #include <QApplication>
 // Instead of:
@@ -31,6 +33,16 @@ int main(int argc, char * argv[])
 	QCoreApplication::setApplicationName("CuteHMI");
 	QCoreApplication::setApplicationVersion(CUTEHMI_APP_VERSION);
 
+	if (qgetenv("QT_IM_MODULE").isEmpty())
+		qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+	qDebug() << "Input method: " << qgetenv("QT_IM_MODULE");
+
+	if (qgetenv("QT_IM_MODULE") == "qtvirtualkeyboard") {
+		if (qgetenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH").isEmpty())
+			qputenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH", QByteArray(QDir("../layouts").absolutePath().toLocal8Bit()));
+		qDebug() << "Qt Virtual Keyboard layouts path: " << qgetenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH");
+	}
+
 //<principle id="Qt.Qt_5_7_0_Reference_Documentation.Threads_and_QObjects.QObject_Reentrancy.creating_QObjects_before_QApplication">
 // "In general, creating QObjects before the QApplication is not supported and can lead to weird crashes on exit, depending on the
 //	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
@@ -38,7 +50,7 @@ int main(int argc, char * argv[])
 
 	//<workaround id="App-4" target="Qt" cause="bug">
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-	QApplication app(argc, argv);
+	cutehmi::app::CuteApp app(argc, argv);
 	// Instead of:
 //	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 //	QGuiApplication app(argc, argv);
@@ -53,8 +65,6 @@ int main(int argc, char * argv[])
 	cmd.addOption(fullScreenOption);
 	QCommandLineOption projectOption({"p", "project"}, QCoreApplication::translate("main", "Load CuteHMI project <file>."), QCoreApplication::translate("main", "file"));
 	cmd.addOption(projectOption);
-//	QCommandLineOption stoppedOption({"s", "stopped"}, QCoreApplication::translate("main", "Do not start project."));
-//	cmd.addOption(stoppedOption);
 	QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
 	cmd.addOption(hideCursorOption);
 	QCommandLineOption styleOption("qstyle", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
@@ -64,6 +74,8 @@ int main(int argc, char * argv[])
 	QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
 	cmd.addOption(basedirOption);
 	cmd.process(app);
+
+	qDebug() << "Default locale: " << QLocale();
 
 	QTranslator qtTranslator;
 	if (cmd.isSet(langOption))

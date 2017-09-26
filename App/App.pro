@@ -23,6 +23,7 @@ QML_IMPORT_PATH = ../QML
 
 include(../UtilsLib/import.pri)
 include(../BaseLib/import.pri)
+include(../cutehmi_app_1_lib/import.pri)
 
 # Default rules for deployment.
 include(deployment.pri)

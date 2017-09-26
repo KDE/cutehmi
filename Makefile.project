@@ -4,6 +4,7 @@ INCLUDE_GUARD_PREFIX = "CUTEHMI_"
 
 SOURCE_DIRS = App/src \
 			  AppPlugin/src \
+			  cutehmi_app_1_lib/src \
 			  cutehmi_authssh_1/src \
 			  cutehmi_authssh_1_lib/src \
 			  BaseLib/src \
@@ -14,6 +15,7 @@ SOURCE_DIRS = App/src \
 			  ServicesPlugin/src \
 			  StupidLib/src \
 			  StupidPlugin/src \
+			  QML/CuteHMI/App/src \
 			  QML/CuteHMI/AuthSSH/src \
 			  QML/CuteHMI/Base/src \
 			  QML/CuteHMI/Charts/src \
@@ -23,7 +25,7 @@ SOURCE_DIRS = App/src \
 
 INCLUDE_DIRS = App/src \
 			   AppPlugin/src \
-			   cutehmi_authssh_1/src \
+			   cutehmi_app_1_lib/include \
 			   cutehmi_authssh_1_lib/include \
 			   BaseLib/include \
 			   ChartsLib/include \
@@ -34,6 +36,7 @@ INCLUDE_DIRS = App/src \
 			   StupidLib/include \
 			   StupidPlugin/src \
 			   UtilsLib/include \
+			   QML/CuteHMI/App/src \
 			   QML/CuteHMI/AuthSSH/src \
 			   QML/CuteHMI/Base/src \
 			   QML/CuteHMI/Charts/src \
@@ -41,7 +44,8 @@ INCLUDE_DIRS = App/src \
 			   QML/CuteHMI/Services/src \
 			   QML/CuteHMI/Stupid/src
 
-QML_DIRS = QML/CuteHMI/AuthSSH \
+QML_DIRS = QML/CuteHMI/App \
+		       QML/CuteHMI/AuthSSH \
 			   QML/CuteHMI/Base \
 			   QML/CuteHMI/Charts \
 			   QML/CuteHMI/Modbus \
@@ -53,9 +57,12 @@ DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
 
 DOC_DOXYGEN_FILES = Doxyfile
 
-QMLTYPES_EXTRAPATH = $$(PWD)/../bin:$$(PWD)/../lib
+PWD_DIR := $(shell $(PWD))
 
-QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.AuthSSH 1.0 QML > QML/CuteHMI/AuthSSH/plugins.qmltypes; \
+QMLTYPES_EXTRAPATH = $(PWD_DIR)/../bin:$(PWD_DIR)/../lib
+
+QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.App 1.0 QML > QML/CuteHMI/App/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.AuthSSH 1.0 QML > QML/CuteHMI/AuthSSH/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Charts 1.0 QML > QML/CuteHMI/Charts/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \

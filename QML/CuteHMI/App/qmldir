@@ -1,0 +1,5 @@
+module CuteHMI.App
+
+plugin cutehmi_app_1_qml plugins
+classname CuteHMIAppQMLPlugin
+designersupported
