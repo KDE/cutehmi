@@ -3,18 +3,39 @@
 namespace cutehmi {
 namespace authssh {
 
-Auth::Auth(QObject * parent):
-	QObject(parent)
+QString Auth::user() const
 {
+	return m->user;
 }
 
-void Auth::login(const QString & user, const QString & password)
+bool Auth::login(const QString & user, const QString & password)
 {
+	if ((user == "dupa") &&  (password == "dupa")) {
+		setUser("dupa");
+		return true;
+	}
+	setUser("");
+	return false;
 }
 
 void Auth::logout()
 {
 }
+
+void Auth::setUser(const QString & user)
+{
+	if (m->user != user) {
+		m->user = user;
+		emit userChanged();
+	}
+}
+
+Auth::Auth(QObject * parent):
+	QObject(parent),
+	m(new Members)
+{
+}
+
 
 }
 }

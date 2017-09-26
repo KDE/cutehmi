@@ -1,6 +1,8 @@
 #ifndef CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_AUTH_HPP
 #define CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_AUTH_HPP
 
+#include "internal/common.hpp"
+
 #include <QObject>
 
 namespace cutehmi {
@@ -12,17 +14,30 @@ class Auth:
 	Q_OBJECT
 
 	public:
-//		Q_PROPERTY(QString user READ user NOTIFY userChanged)
+		Q_PROPERTY(QString user READ user NOTIFY userChanged)
 
-		explicit Auth(QObject * parent = nullptr);
-
-	signals:
-//		void userChanged();
+		QString user() const;
 
 	public slots:
-		void login(const QString & user, const QString & password);
+		bool login(const QString & user, const QString & password);
 
 		void logout();
+
+	signals:
+		void userChanged();
+
+	protected:
+		explicit Auth(QObject * parent = nullptr);
+
+		void setUser(const QString & user);
+
+	private:
+		struct Members
+		{
+			QString user;
+		};
+
+		utils::MPtr<Members> m;
 };
 
 }
