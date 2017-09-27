@@ -7,7 +7,7 @@ import QtQuick.tooling 1.2
 // 'qmlplugindump -nonrelocatable CuteHMI.Services 1.0 QML'
 
 Module {
-    dependencies: []
+    dependencies: ["QtQuick 2.8"]
     Component {
         name: "cutehmi::services::Service"
         prototype: "QObject"

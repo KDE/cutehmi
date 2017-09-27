@@ -8,5 +8,6 @@ SUBDIRS += \
     CuteHMI/Charts \
     CuteHMI/Stupid \
     CuteHMI/Modbus \
+    CuteHMI/LockScreen \
     CuteHMI/Services
 
