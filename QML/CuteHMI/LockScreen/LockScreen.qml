@@ -19,7 +19,7 @@ Image
         id: buttons
 
         transform: [
-            Scale { origin.x: - root.x; origin.y: - root.y; xScale: root.scale; yScale: root.scale },
+            Scale { xScale: root.scale; yScale: root.scale },
             Translate { x: - (root.paintedWidth - root.width) / 2; y: - (root.paintedHeight - root.height) / 2 }
         ]
 
