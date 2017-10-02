@@ -4,6 +4,8 @@ import QtQuick.Controls 2.2
 import Qt.labs.settings 1.0
 
 Item {
+    property alias changePasswordButton: changePasswordButton
+
     Frame {
         anchors.centerIn: parent
         padding: 20.0
@@ -53,6 +55,7 @@ Item {
             }
 
             Button {
+                id: changePasswordButton
                 text: qsTr("zmień...")
             }
         }

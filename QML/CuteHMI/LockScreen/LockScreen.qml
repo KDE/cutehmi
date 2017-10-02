@@ -10,9 +10,10 @@ Image
     property real scale: paintedWidth / sourceSize.width
     property string passwordInput
     property bool inverted: false
-    property alias passwordTimer: passwordTimer
 
     fillMode: Image.PreserveAspectCrop
+
+    signal unlocked()
 
     Item
     {
@@ -37,18 +38,14 @@ Image
         }
     }
 
-    Timer
-    {
-        id: passwordTimer
-        interval: 1000
-        onTriggered: {
-            if (Auth.validatePassword(root.passwordInput)) {
-                Auth.locked = false
-            } else {
-                wrongPasswordAnimation.restart()
-                root.passwordInput = ""
-            }
-        }
+    function tryUnlock() {
+        if (Auth.checkPassword(root.passwordInput)) {
+            Auth.locked = false;
+            unlocked();
+        } else
+            wrongPasswordAnimation.restart();
+
+        root.passwordInput = "";
     }
 
     SequentialAnimation
@@ -81,13 +78,6 @@ Image
             to: 0
             duration: 2 * wrongPasswordAnimation.duration
         }
-    }
-
-    onPasswordInputChanged:
-    {
-//        Clearing out passwordInput results in stopping timer
-        if (passwordInput.length == 0) passwordTimer.stop()
-        else passwordTimer.restart()
     }
 
 }
