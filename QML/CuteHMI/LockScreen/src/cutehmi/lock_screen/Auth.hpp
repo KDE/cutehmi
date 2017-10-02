@@ -12,26 +12,28 @@ class Auth : public QObject
 {
     Q_OBJECT
 public:
-    explicit Auth(QObject *parent = nullptr);
+    explicit Auth(QObject * parent = nullptr);
 
-    Q_PROPERTY(bool locked MEMBER m_locked NOTIFY lockedChanged)
+    Q_PROPERTY(bool locked MEMBER m_locked NOTIFY lockedChanged)     ///< @todo implement.
 
-    Q_INVOKABLE bool validatePassword(const QString &password);
+    Q_INVOKABLE bool checkPassword(const QString & password);
 
-    Q_INVOKABLE bool changePassword(const QString &oldPassword, const QString &newPassword);
+    Q_INVOKABLE bool validatePassword(const QString & password);
+
+    Q_INVOKABLE bool changePassword(const QString & newPassword, const QString & oldPassword);
+
+    Q_INVOKABLE void changePassword(const QString & password);
 
 private:
 
     int getNumberOfHashes();
 
-    void setPassword(const QString &password);
-
-    QSettings *m_settings;
+    QSettings * m_settings;
 
     int m_lowerBoundOfHashes;
     int m_upperBoundOfHashes;
 
-    bool m_locked;
+    bool m_locked;  ///< @todo implement.
 
 signals:
 

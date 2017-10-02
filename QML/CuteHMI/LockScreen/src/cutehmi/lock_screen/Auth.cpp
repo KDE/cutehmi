@@ -14,8 +14,10 @@ Auth::Auth(QObject * parent) : QObject(parent),
     qsrand(static_cast<uint>(QTime::currentTime().msec()));
 }
 
-bool Auth::validatePassword(const QString &password)
+bool Auth::checkPassword(const QString & password)
 {
+    if (validatePassword(password) != true)
+        return false;
     QString passwordHash = m_settings->value("lockScreenPassword").toString();
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
     for (int i = 0; i < m_upperBoundOfHashes; ++i) {
@@ -26,23 +28,29 @@ bool Auth::validatePassword(const QString &password)
     return false;
 }
 
-bool Auth::changePassword(const QString &oldPassword, const QString &newPassword)
+bool Auth::validatePassword(const QString & password)
 {
-    if (validatePassword(oldPassword))
-    {
-        setPassword(newPassword);
+    if (password.length() != 0)
+        return true;
+    return false;
+}
+
+bool Auth::changePassword(const QString & newPassword, const QString & oldPassword)
+{
+    if (checkPassword(oldPassword)) {
+        changePassword(newPassword);
         return true;
     }
     return false;
 }
 
-void Auth::setPassword(const QString &password)
+void Auth::changePassword(const QString & password)
 {
+    if (validatePassword(password) != true)
+        return;
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
     for (int i = 0; i < getNumberOfHashes(); ++i)
-    {
         hash = QCryptographicHash::hash(hash, QCryptographicHash::Sha3_512).toHex();
-    }
     QString passwordHash = hash;
     m_settings->setValue("lockScreenPassword", passwordHash);
 }
