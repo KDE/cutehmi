@@ -28,8 +28,8 @@ private:
 
     QSettings *m_settings;
 
-    int lowerBoundOfHashes;
-    int upperBoundOfHashes;
+    int m_lowerBoundOfHashes;
+    int m_upperBoundOfHashes;
 
     bool m_locked;
 

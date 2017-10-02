@@ -6,8 +6,8 @@
 namespace cutehmi {
 namespace lockscreen {
 
-Auth::Auth(QObject *parent) : QObject(parent),
-    lowerBoundOfHashes(9000), upperBoundOfHashes(10000), m_locked(false)
+Auth::Auth(QObject * parent) : QObject(parent),
+    m_lowerBoundOfHashes(9000), m_upperBoundOfHashes(10000), m_locked(false)
 {
     m_settings = new QSettings(this);
     m_settings->beginGroup("LockScreen");
@@ -18,9 +18,8 @@ bool Auth::validatePassword(const QString &password)
 {
     QString passwordHash = m_settings->value("lockScreenPassword").toString();
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
-    for (int i = 0; i < upperBoundOfHashes; ++i)
-    {
-        if (i >= lowerBoundOfHashes && hash == passwordHash)
+    for (int i = 0; i < m_upperBoundOfHashes; ++i) {
+        if (i >= m_lowerBoundOfHashes && hash == passwordHash)
             return true;
         hash = QCryptographicHash::hash(hash, QCryptographicHash::Sha3_512).toHex();
     }
@@ -50,7 +49,7 @@ void Auth::setPassword(const QString &password)
 
 int Auth::getNumberOfHashes()
 {
-    return qrand() % (upperBoundOfHashes - lowerBoundOfHashes) + lowerBoundOfHashes;
+    return qrand() % (m_upperBoundOfHashes - m_lowerBoundOfHashes) + m_lowerBoundOfHashes;
 }
 
 }
