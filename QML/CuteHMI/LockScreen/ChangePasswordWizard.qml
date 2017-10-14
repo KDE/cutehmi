@@ -5,200 +5,200 @@ import QtQuick.Layouts 1.3
 import CuteHMI.LockScreen 1.0
 
 Item {
-    id: root
-    property string newPassword
-    property string retypedNewPassword
-    property alias cancelButton: cancelButton
-    property alias applyButton: applyButton
-    property alias lockScreen: lockScreenLoader.item
-    property url lockScreenUrl
-    signal finished
+	id: root
+	property string newPassword
+	property string retypedNewPassword
+	property alias cancelButton: cancelButton
+	property alias applyButton: applyButton
+	property alias lockScreen: lockScreenLoader.item
+	property url lockScreenUrl
+	signal finished
 
-    states: [
-        State {
-            name: "NewPassword"
-            PropertyChanges {
-                target: label
-                text: qsTr('Proszę wprowadzić nowe hasło, następnie przycisnąć "Dalej"')
-            }
+	states: [
+		State {
+			name: "NewPassword"
+			PropertyChanges {
+				target: label
+				text: qsTr('Proszę wprowadzić nowe hasło, następnie przycisnąć "Dalej"')
+			}
 
-            PropertyChanges {
-                target: nextButton
-                enabled: Auth.validatePassword(lockScreen.passwordInput)
-            }
+			PropertyChanges {
+				target: nextButton
+				enabled: Auth.validatePassword(lockScreen.passwordInput)
+			}
 
-            PropertyChanges {
-                target: lockScreen
-                inverted: true
-            }
+			PropertyChanges {
+				target: lockScreen
+				inverted: true
+			}
 
-            PropertyChanges {
-                target: lockScreenConnection
-                enabled: false
-            }
-        },
-        State {
-            name: "MismatchPassword"
-            extend: "NewPassword"
+			PropertyChanges {
+				target: lockScreenConnection
+				enabled: false
+			}
+		},
+		State {
+			name: "MismatchPassword"
+			extend: "NewPassword"
 
-            PropertyChanges {
-                target: label
-                text: qsTr('Hasła się nie zgadzają. Proszę wprowadzić nowe hasło, następnie przycisnąć "Dalej"')
-            }
-        },
-        State {
-            name: "RetypePassword"
+			PropertyChanges {
+				target: label
+				text: qsTr('Hasła się nie zgadzają. Proszę wprowadzić nowe hasło, następnie przycisnąć "Dalej"')
+			}
+		},
+		State {
+			name: "RetypePassword"
 
-            PropertyChanges {
-                target: label
-                text: qsTr('Proszę powtórzyć nowe hasło, nasępnie przycisnąć "Zatwierdź"')
-            }
+			PropertyChanges {
+				target: label
+				text: qsTr('Proszę powtórzyć nowe hasło, nasępnie przycisnąć "Zatwierdź"')
+			}
 
-            PropertyChanges {
-                target: applyButton
-                visible: true
-            }
+			PropertyChanges {
+				target: applyButton
+				visible: true
+			}
 
-            PropertyChanges {
-                target: lockScreenConnection
-                enabled: false
-            }
+			PropertyChanges {
+				target: lockScreenConnection
+				enabled: false
+			}
 
-            PropertyChanges {
-                target: nextButton
-                visible: false
-            }
-        },
-        State {
-            name: "Success"
-            extend: "RetypePassword"
+			PropertyChanges {
+				target: nextButton
+				visible: false
+			}
+		},
+		State {
+			name: "Success"
+			extend: "RetypePassword"
 
-            PropertyChanges {
-                target: successPopup
-                visible: true
-            }
-        }
-    ]
+			PropertyChanges {
+				target: successPopup
+				visible: true
+			}
+		}
+	]
 
-    ColumnLayout {
-        id: columnLayout
+	ColumnLayout {
+		id: columnLayout
 
-        anchors.margins: 20
-        anchors.fill: parent
-        spacing: 10
+		anchors.margins: 20
+		anchors.fill: parent
+		spacing: 10
 
-        RowLayout {
-            id: rowLayout
-            Layout.maximumWidth: lockScreen.paintedWidth
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+		RowLayout {
+			id: rowLayout
+			Layout.maximumWidth: lockScreenLoader.item.paintedWidth
+			Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-            Button {
-                id: cancelButton
-                text: qsTr("Anuluj")
-                Layout.alignment: Qt.AlignLeft
+			Button {
+				id: cancelButton
+				text: qsTr("Anuluj")
+				Layout.alignment: Qt.AlignLeft
 
-                Connections {
-                    onClicked: finished()
-                }
-            }
+				Connections {
+					onClicked: finished()
+				}
+			}
 
-            Frame {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: true
+			Frame {
+				Layout.alignment: Qt.AlignHCenter
+				Layout.fillWidth: true
 
-                Label {
-                    id: label
-                    anchors.centerIn: parent
-                    text: qsTr("Proszę wprowadzić stare hasło")
-                    font.pixelSize: 14
-                }
-            }
+				Label {
+					id: label
+					anchors.centerIn: parent
+					text: qsTr("Proszę wprowadzić stare hasło")
+					font.pixelSize: 14
+				}
+			}
 
-            Button {
-                id: nextButton
-                Layout.alignment: Qt.AlignRight
-                enabled: false
-                text: qsTr("Dalej")
+			Button {
+				id: nextButton
+				Layout.alignment: Qt.AlignRight
+				enabled: false
+				text: qsTr("Dalej")
 
-                Connections {
-                    onClicked: {
-                        newPassword = lockScreen.passwordInput
-                        lockScreen.passwordInput = ""
-                        root.state = "RetypePassword"
-                    }
-                }
-            }
+				Connections {
+					onClicked: {
+						newPassword = lockScreen.passwordInput
+						lockScreen.passwordInput = ""
+						root.state = "RetypePassword"
+					}
+				}
+			}
 
-            Button {
-                id: applyButton
-                Layout.alignment: Qt.AlignRight
-                visible: false
-                text: qsTr("Zatwierdź")
+			Button {
+				id: applyButton
+				Layout.alignment: Qt.AlignRight
+				visible: false
+				text: qsTr("Zatwierdź")
 
-                Connections {
-                    onClicked: {
-                        retypedNewPassword = lockScreen.passwordInput
-                        lockScreen.passwordInput = ""
-                        if (newPassword == retypedNewPassword) {
-                            Auth.changePassword(retypedNewPassword)
-                            root.state = "Success"
-                        } else
-                            root.state = "MismatchPassword"
-                    }
-                }
-            }
-        }
+				Connections {
+					onClicked: {
+						retypedNewPassword = lockScreen.passwordInput
+						lockScreen.passwordInput = ""
+						if (newPassword == retypedNewPassword) {
+							Auth.changePassword(retypedNewPassword)
+							root.state = "Success"
+						} else
+							root.state = "MismatchPassword"
+					}
+				}
+			}
+		}
 
-        Loader {
-            id: lockScreenLoader
-            source: lockScreenUrl
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter
+		Loader {
+			id: lockScreenLoader
+			source: lockScreenUrl
+			Layout.fillHeight: true
+			Layout.fillWidth: true
+			Layout.alignment: Qt.AlignHCenter
 
-            Connections {
-                id: lockScreenConnection
-                target: lockScreenLoader.item
-                onPasswordInputChanged: {
-                    // Clearing out passwordInput results in stopping timer
-                    if (target.passwordInput.length === 0)
-                        passwordTimer.stop();
-                    else
-                        passwordTimer.restart();
-                }
-                onUnlocked: {
-                    return root.state == "" ? root.state = "NewPassword" : true;
-                }
-            }
-        }
-    }
+			Connections {
+				id: lockScreenConnection
+				target: lockScreenLoader.item
+				onPasswordInputChanged: {
+					// Clearing out passwordInput results in stopping timer
+					if (target.passwordInput.length === 0)
+						passwordTimer.stop()
+					else
+						passwordTimer.restart()
+				}
+				onUnlocked: {
+					return root.state == "" ? root.state = "NewPassword" : true
+				}
+			}
+		}
+	}
 
-    Timer {
-        id: passwordTimer
-        interval: 1000
-        onTriggered: lockScreen.tryUnlock()
-    }
+	Timer {
+		id: passwordTimer
+		interval: 1000
+		onTriggered: lockScreen.tryUnlock()
+	}
 
-    Dialog {
-        id: successPopup
-        x: (parent.width - successPopup.width) / 2
-        y: (parent.height - successPopup.height) / 2
-        modal: true
-        closePolicy: Popup.NoAutoClose
-        title: qsTr("Zmiana hasła")
-        standardButtons: Dialog.Ok
+	Dialog {
+		id: successPopup
+		x: (parent.width - successPopup.width) / 2
+		y: (parent.height - successPopup.height) / 2
+		modal: true
+		closePolicy: Popup.NoAutoClose
+		title: qsTr("Zmiana hasła")
+		standardButtons: Dialog.Ok
 
-        contentItem: Label {
-            text: qsTr("Hasło zmieniono pomyślnie")
-            anchors.centerIn: parent
-            padding: 30
-            font.pixelSize: 14
-        }
+		contentItem: Label {
+			text: qsTr("Hasło zmieniono pomyślnie")
+			anchors.centerIn: parent
+			padding: 30
+			font.pixelSize: 14
+		}
 
-        onAccepted: finished()
-    }
+		onAccepted: finished()
+	}
 
-    Connections {
-        onFinished: root.state = ""
-    }
+	Connections {
+		onFinished: root.state = ""
+	}
 }

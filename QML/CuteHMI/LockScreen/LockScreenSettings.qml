@@ -3,60 +3,82 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import Qt.labs.settings 1.0
 
-Frame {
-    padding: 20.0
+import CuteHMI.alpha.Controls 1.0
 
-    property alias changePasswordButton: changePasswordButton
+Item {
+	id: root
+	property url lockScreenUrl
 
-    GridLayout {
-        id: gridLayout
-        rowSpacing: 40.0
-        columnSpacing: 30.0
-        columns: 2
+	StackView {
+		id: stackView
+		anchors.fill: parent
+		initialItem: Item {
+			Frame {
+				anchors.centerIn: parent
+				padding: 20.0
 
+				property alias changePasswordButton: changePasswordButton
 
-        Label {
-            text: qsTr("Ekran blokady: ")
-            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-        }
+				GridLayout {
+					id: gridLayout
+					rowSpacing: 40.0
+					columnSpacing: 30.0
+					columns: 2
 
-        Switch {
-            id: lockScreenSwitch
+					Label {
+						text: qsTr("Ekran blokady: ")
+						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+					}
 
-            Settings {
-                category: "LockScreen"
-                property alias activated: lockScreenSwitch.checked
-            }
-        }
+					Switch {
+						id: lockScreenSwitch
 
+						Settings {
+							category: "LockScreen"
+							property alias activated: lockScreenSwitch.checked
+						}
+					}
 
-        Label {
-            text: qsTr("Czas włączania blokady: ")
-            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-        }
+					Label {
+						text: qsTr("Czas włączania blokady: ")
+						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+					}
 
-        SpinBox {
-            id: lockScreenTimeout
-            from: 10
-            to: 600
-            value: 10
-            stepSize: 10
+					RealSpinBox {
+						id: lockScreenTimeout
+						from: 10
+						to: 600
+						value: 10
+						stepSize: 10
+						suffix: " s"
 
-            Settings {
-                category: "LockScreen"
-                property alias timeout: lockScreenTimeout.value
-            }
-        }
+						Settings {
+							category: "LockScreen"
+							property alias timeout: lockScreenTimeout.value
+						}
+					}
 
-        Label {
-            text: qsTr("Zmiana hasła: ")
-            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-        }
+					Label {
+						text: qsTr("Zmiana hasła: ")
+						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+					}
 
-        Button {
-            id: changePasswordButton
-            text: qsTr("zmień...")
-        }
-    }
+					Button {
+						id: changePasswordButton
+						text: qsTr("zmień...")
+						onClicked: stackView.push(changePasswordWizard)
+					}
+				}
+			}
+		}
+	}
 
+	Component {
+		id: changePasswordWizard
+
+		ChangePasswordWizard {
+			onFinished: stackView.pop()
+			lockScreenUrl: lockScreenUrl
+		}
+	}
 }
