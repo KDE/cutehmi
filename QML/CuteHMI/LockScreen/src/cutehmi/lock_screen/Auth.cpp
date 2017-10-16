@@ -18,7 +18,7 @@ bool Auth::checkPassword(const QString & password)
 {
     if (validatePassword(password) != true)
         return false;
-    QString passwordHash = m_settings->value("lockScreenPassword").toString();
+	QString passwordHash = m_settings->value("password").toString();
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
     for (int i = 0; i < m_upperBoundOfHashes; ++i) {
         if (i >= m_lowerBoundOfHashes && hash == passwordHash)
@@ -52,7 +52,7 @@ void Auth::changePassword(const QString & password)
     for (int i = 0; i < getNumberOfHashes(); ++i)
         hash = QCryptographicHash::hash(hash, QCryptographicHash::Sha3_512).toHex();
     QString passwordHash = hash;
-    m_settings->setValue("lockScreenPassword", passwordHash);
+	m_settings->setValue("password", passwordHash);
 }
 
 int Auth::getNumberOfHashes()
