@@ -19,6 +19,8 @@ bool Auth::checkPassword(const QString & password)
     if (validatePassword(password) != true)
         return false;
 	QString passwordHash = m_settings->value("password").toString();
+	if (passwordHash.isEmpty())
+		return true;
     QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha3_512).toHex();
     for (int i = 0; i < m_upperBoundOfHashes; ++i) {
         if (i >= m_lowerBoundOfHashes && hash == passwordHash)
