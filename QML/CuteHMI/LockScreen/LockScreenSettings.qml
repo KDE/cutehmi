@@ -34,7 +34,7 @@ Item {
 						id: lockScreenSwitch
 
 						Settings {
-							category: "LockScreen"
+							category: "cutehmi_lockscreen_1"
 							property alias activated: lockScreenSwitch.checked
 						}
 					}
@@ -53,7 +53,7 @@ Item {
 						suffix: " s"
 
 						Settings {
-							category: "LockScreen"
+							category: "cutehmi_lockscreen_1"
 							property alias timeout: lockScreenTimeout.value
 						}
 					}

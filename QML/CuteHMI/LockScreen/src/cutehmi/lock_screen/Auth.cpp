@@ -10,7 +10,7 @@ Auth::Auth(QObject * parent) : QObject(parent),
     m_lowerBoundOfHashes(9000), m_upperBoundOfHashes(10000), m_locked(false)
 {
     m_settings = new QSettings(this);
-    m_settings->beginGroup("LockScreen");
+	m_settings->beginGroup("cutehmi_lockscreen_1");
     qsrand(static_cast<uint>(QTime::currentTime().msec()));
 }
 
