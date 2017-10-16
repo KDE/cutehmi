@@ -8,79 +8,81 @@ import CuteHMI.alpha.Controls 1.0
 Item {
 	id: root
 
-	property Component lockScreenComponent
+	property alias lockScreenComponent: wizard.lockScreenComponent
+	Frame {
+		anchors.centerIn: parent
+		padding: 20.0
 
-	StackView {
-		id: stackView
-		anchors.fill: parent
-		initialItem: Item {
-			Frame {
-				anchors.centerIn: parent
-				padding: 20.0
+		property alias changePasswordButton: changePasswordButton
 
-				property alias changePasswordButton: changePasswordButton
+		GridLayout {
+			id: gridLayout
+			rowSpacing: 40.0
+			columnSpacing: 30.0
+			columns: 2
 
-				GridLayout {
-					id: gridLayout
-					rowSpacing: 40.0
-					columnSpacing: 30.0
-					columns: 2
+			Label {
+				text: qsTr("Ekran blokady:")
+				Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+			}
 
-					Label {
-						text: qsTr("Ekran blokady:")
-						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-					}
+			Switch {
+				id: lockScreenSwitch
 
-					Switch {
-						id: lockScreenSwitch
-
-						Settings {
-							category: "cutehmi_lockscreen_1"
-							property alias activated: lockScreenSwitch.checked
-						}
-					}
-
-					Label {
-						text: qsTr("Czas włączania blokady: ")
-						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-					}
-
-					RealSpinBox {
-						id: lockScreenTimeout
-						from: 10
-						to: 600
-						value: 10
-						stepSize: 10
-						suffix: " s"
-
-						Settings {
-							category: "cutehmi_lockscreen_1"
-							property alias timeout: lockScreenTimeout.value
-						}
-					}
-
-					Label {
-						text: qsTr("Zmiana hasła: ")
-						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-					}
-
-					Button {
-						id: changePasswordButton
-						text: qsTr("zmień...")
-						onClicked: stackView.push(wizardComponent)
-					}
+				Settings {
+					category: "cutehmi_lockscreen_1"
+					property alias activated: lockScreenSwitch.checked
 				}
+			}
+
+			Label {
+				text: qsTr("Czas włączania blokady: ")
+				Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+			}
+
+			RealSpinBox {
+				id: lockScreenTimeout
+				from: 10
+				to: 600
+				value: 10
+				stepSize: 10
+				suffix: " s"
+
+				Settings {
+					category: "cutehmi_lockscreen_1"
+					property alias timeout: lockScreenTimeout.value
+				}
+			}
+
+			Label {
+				text: qsTr("Zmiana hasła: ")
+				Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+			}
+
+			Button {
+				id: changePasswordButton
+				text: qsTr("zmień...")
+				onClicked: wizardPopup.open()
 			}
 		}
 	}
 
-	Component {
-		id: wizardComponent
+	Popup {
+		id: wizardPopup
+
+		x: 10
+		y: 10
+		width: parent.width - 2 * x
+		height: parent.height - 2 * y
+		closePolicy: Popup.NoAutoClose
+		modal: true
 
 		ChangePasswordWizard {
 			id: wizard
+
+			anchors.fill: parent
 			lockScreenComponent: root.lockScreenComponent
-			onFinished: stackView.pop()
+			onFinished: wizardPopup.close()
 		}
 	}
 }
