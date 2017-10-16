@@ -7,7 +7,8 @@ import CuteHMI.alpha.Controls 1.0
 
 Item {
 	id: root
-	property url lockScreenUrl
+
+	property Component lockScreenComponent
 
 	StackView {
 		id: stackView
@@ -26,7 +27,7 @@ Item {
 					columns: 2
 
 					Label {
-						text: qsTr("Ekran blokady: ")
+						text: qsTr("Ekran blokady:")
 						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
 					}
 
@@ -66,7 +67,7 @@ Item {
 					Button {
 						id: changePasswordButton
 						text: qsTr("zmień...")
-						onClicked: stackView.push(changePasswordWizard)
+						onClicked: stackView.push(wizardComponent)
 					}
 				}
 			}
@@ -74,11 +75,12 @@ Item {
 	}
 
 	Component {
-		id: changePasswordWizard
+		id: wizardComponent
 
 		ChangePasswordWizard {
+			id: wizard
+			lockScreenComponent: root.lockScreenComponent
 			onFinished: stackView.pop()
-			lockScreenUrl: lockScreenUrl
 		}
 	}
 }

@@ -11,7 +11,7 @@ Item {
 	property alias cancelButton: cancelButton
 	property alias applyButton: applyButton
 	property alias lockScreen: lockScreenLoader.item
-	property url lockScreenUrl
+	property Component lockScreenComponent
 	signal finished
 
 	states: [
@@ -151,7 +151,7 @@ Item {
 
 		Loader {
 			id: lockScreenLoader
-			source: lockScreenUrl
+			sourceComponent: lockScreenComponent
 			Layout.fillHeight: true
 			Layout.fillWidth: true
 			Layout.alignment: Qt.AlignHCenter
