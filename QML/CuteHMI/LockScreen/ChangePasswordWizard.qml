@@ -74,7 +74,7 @@ Item {
 			extend: "RetypePassword"
 
 			PropertyChanges {
-				target: successPopup
+				target: successDialog
 				visible: true
 			}
 		}
@@ -180,9 +180,10 @@ Item {
 	}
 
 	Dialog {
-		id: successPopup
-		x: (parent.width - successPopup.width) / 2
-		y: (parent.height - successPopup.height) / 2
+		id: successDialog
+
+		x: (parent.width - successDialog.width) / 2
+		y: (parent.height - successDialog.height) / 2
 		modal: true
 		closePolicy: Popup.NoAutoClose
 		title: qsTr("Zmiana hasła")
