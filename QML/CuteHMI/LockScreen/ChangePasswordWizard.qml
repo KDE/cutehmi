@@ -19,7 +19,7 @@ Item {
 			name: "NewPassword"
 			PropertyChanges {
 				target: label
-				text: qsTr('Proszę wprowadzić nowe hasło, następnie przycisnąć "Dalej"')
+				text: qsTr('Proszę wprowadzić nowe hasło, a następnie nacisnąć przycisk "Dalej"')
 			}
 
 			PropertyChanges {
@@ -41,9 +41,13 @@ Item {
 			name: "MismatchPassword"
 			extend: "NewPassword"
 
+			//			PropertyChanges {
+			//				target: label
+			//				text: qsTr('Hasła się nie zgadzają. Proszę wprowadzić nowe hasło, następnie przycisnąć "Dalej"')
+			//			}
 			PropertyChanges {
-				target: label
-				text: qsTr('Hasła się nie zgadzają. Proszę wprowadzić nowe hasło, następnie przycisnąć "Dalej"')
+				target: mismatchPasswordDialog
+				visible: true
 			}
 		},
 		State {
@@ -51,7 +55,7 @@ Item {
 
 			PropertyChanges {
 				target: label
-				text: qsTr('Proszę powtórzyć nowe hasło, nasępnie przycisnąć "Zatwierdź"')
+				text: qsTr('Proszę powtórzyć nowe hasło, a następnie nacisnąć przycisk "Zatwierdź"')
 			}
 
 			PropertyChanges {
@@ -182,21 +186,39 @@ Item {
 	Dialog {
 		id: successDialog
 
-		x: (parent.width - successDialog.width) / 2
-		y: (parent.height - successDialog.height) / 2
+		x: (parent.width - width) / 2
+		y: (parent.height - height) / 2
 		modal: true
 		closePolicy: Popup.NoAutoClose
 		title: qsTr("Zmiana hasła")
 		standardButtons: Dialog.Ok
 
 		contentItem: Label {
-			text: qsTr("Hasło zmieniono pomyślnie")
+			text: qsTr("Hasło zmieniono pomyślnie!")
 			anchors.centerIn: parent
 			padding: 30
 			font.pixelSize: 14
 		}
 
 		onAccepted: finished()
+	}
+
+	Dialog {
+		id: mismatchPasswordDialog
+
+		x: (parent.width - width) / 2
+		y: (parent.height - height) / 2
+		modal: true
+		closePolicy: Popup.NoAutoClose
+		title: qsTr("Zmiana hasła")
+		standardButtons: Dialog.Ok
+
+		contentItem: Label {
+			text: qsTr('Hasła się nie zgadzają. Proszę ponownie wprowadzić nowe hasło, a następnie nacisnąć przycisk "Dalej".')
+			anchors.centerIn: parent
+			padding: 30
+			font.pixelSize: 14
+		}
 	}
 
 	Connections {
