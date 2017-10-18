@@ -5,8 +5,7 @@ import Qt.labs.settings 1.0
 
 import CuteHMI.Base 1.0
 
-ApplicationWindow
-{
+ApplicationWindow {
 	id: mainWindow
 
 	x: settings.x
@@ -16,8 +15,7 @@ ApplicationWindow
 	visibility: settings.visibility
 	visible: true	// This is required to avoid "Conflicting properties 'visible' and 'visibility' for Window 'root'" warning and to make Window.AutomaticVisibility visibility work.
 
-	FocusScope
-	{
+	FocusScope {
 		focus: true
 
 		Keys.onPressed: {
@@ -43,18 +41,18 @@ ApplicationWindow
 		}
 	}
 
-	Settings
-	{
+	Settings {
 		id: settings
-		category: "MainWindow"
+
+		category: "cutehmi_app_1_bin/MainWindow"
+
 		property int visibility: Window.AutomaticVisibility
 		property int x: 0
 		property int y: 0
 		property int width: 1280
 		property int height: 720
 
-		function storeMainWindow()
-		{
+		function storeMainWindow() {
 			if (mainWindow.visibility === Window.Hidden)
 				settings.visibility = Window.AutomaticVisibility
 			else
@@ -68,14 +66,12 @@ ApplicationWindow
 		}
 	}
 
-	Loader
-	{
+	Loader {
 		anchors.fill: parent
 		source: cutehmi_app_mainScreenURL
 	}
 
-	function createPrompt(prompt)
-	{
+	function createPrompt(prompt) {
 		var promptDialogComponent = Qt.createComponent("PromptDialog.qml")
 		var promptDialog = promptDialogComponent.createObject(mainWindow, {"prompt" : prompt})
 		promptDialog.promptChanged.connect(promptDialog.destroy)
