@@ -38,7 +38,7 @@ class CUTEHMI_BASE_API ProjectModel:
 		typedef Iterator<ProjectNode> iterator;
 		typedef Iterator<const ProjectNode> const_iterator;
 
-		Q_PROPERTY(const cutehmi::base::ProjectNode * root READ rootPtr)
+		Q_PROPERTY(const cutehmi::base::ProjectNode * root READ rootPtr CONSTANT)
 
 		explicit ProjectModel(QObject * parent = 0);
 
