@@ -1,6 +1,7 @@
 #include "CuteHMIAuthSSHQMLPlugin.hpp"
 
 #include <authssh/Auth.hpp>
+#include <authssh/Client.hpp>
 
 #include <QtQml>
 
@@ -9,6 +10,7 @@ void CuteHMIAuthSSHQMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.AuthSSH"));
 
 	qmlRegisterUncreatableType<cutehmi::authssh::Auth>(uri, 1, 0, "Auth", "cutehmi::authssh::Auth instances can not be created within QML");
+	qmlRegisterUncreatableType<cutehmi::authssh::Client>(uri, 1, 0, "Client", "cutehmi::authssh::Client instances can not be created within QML");
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
