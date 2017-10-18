@@ -28,16 +28,18 @@ unix {
 
 SOURCES += \
     src/authssh/SocketListener.cpp \
-    src/authssh/SSHClient.cpp \
-    src/authssh/Auth.cpp
+    src/authssh/Auth.cpp \
+    src/authssh/internal/macros.cpp \
+    src/authssh/Client.cpp
 
 HEADERS += \
     include/authssh/SocketListener.hpp \
-    include/authssh/SSHClient.hpp \
     include/authssh/internal/common.hpp \
     include/authssh/internal/macros.hpp \
     include/authssh/internal/platform.hpp \
-    include/authssh/Auth.hpp
+    include/authssh/Auth.hpp \
+    include/authssh/Client.hpp \
+    include/authssh/Exception.hpp
 
 DISTFILES += \
     import.pri \

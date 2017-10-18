@@ -1,0 +1,10 @@
+Problem:
+
+Function 'ssh_is_connected()' returns true, even if 'ssh_connect()' fails to establish connection due to
+timeout.
+
+Investigation:
+
+Workaround:
+
+Create 'connected' bool variable to hold connection status independently.
