@@ -14,16 +14,21 @@ CONFIG += plugin
 
 include(../UtilsLib/import.pri)
 include(../BaseLib/import.pri)
+include(../cutehmi_authssh_1_lib/import.pri)
+include(../libssh.pri)
+
 
 SOURCES += \
     src/authssh/plugin/macros.cpp \
     src/authssh/plugin/Plugin.cpp \
-    src/authssh/plugin/PluginNodeData.cpp
+    src/authssh/plugin/PluginNodeData.cpp \
+    src/authssh/plugin/AuthSSHNodeData.cpp
 
 HEADERS += \
     src/authssh/plugin/macros.hpp \
     src/authssh/plugin/Plugin.hpp \
-    src/authssh/plugin/PluginNodeData.hpp
+    src/authssh/plugin/PluginNodeData.hpp \
+    src/authssh/plugin/AuthSSHNodeData.hpp
 
 DISTFILES += cutehmi_authssh_1.json
 
