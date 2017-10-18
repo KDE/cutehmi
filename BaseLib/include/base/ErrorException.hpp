@@ -13,8 +13,8 @@ class CUTEHMI_BASE_API ErrorException:
 	typedef ExceptionMixin<ErrorException> Parent;
 
 	public:
-		template <class ERROR>
-		explicit ErrorException(ERROR error);
+		template <class ERR>
+		explicit ErrorException(ERR error);
 
 		const ErrorInfo & info() const;
 
@@ -22,10 +22,10 @@ class CUTEHMI_BASE_API ErrorException:
 		ErrorInfo m_errorInfo;
 };
 
-template <class ERROR>
-ErrorException::ErrorException(ERROR error):
+template <class ERR>
+ErrorException::ErrorException(ERR error):
 	Parent(error.str()),
-	m_errorInfo(::cutehmi::base::errorInfo<ERROR>(error))
+	m_errorInfo(::cutehmi::base::errorInfo<ERR>(error))
 {
 }
 
