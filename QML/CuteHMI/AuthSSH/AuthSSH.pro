@@ -14,6 +14,8 @@ TRANSLATIONS = locale/cutehmi_authssh_1_qml_pl.ts
 include(../../../UtilsLib/import.pri)
 include(../../../BaseLib/import.pri)
 include(../../../cutehmi_authssh_1_lib/import.pri)
+include(../../../libssh.pri)
+
 
 HEADERS += \
     src/CuteHMIAuthSSHQMLPlugin.hpp
