@@ -1,16 +1,13 @@
 include(../common.pri)
-include(version.pri)
+include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_base)
+TARGET = $$qtLibraryTarget($$CUTEHMI_BASE_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+VERSION = $$CUTEHMI_BASE_LIBVERSION
 
 QT -= gui
 QT += qml
-
-# Set version.
-VER_MAJ = $$CUTEHMI_BASE_MAJOR
-VER_MIN = $$CUTEHMI_BASE_MINOR
-VER_PAT = $$CUTEHMI_BASE_MICRO
 
 # Configure the library for building.
 DEFINES += CUTEHMI_BASE_BUILD
@@ -18,7 +15,7 @@ DEFINES += CUTEHMI_BASE_DYNAMIC
 #CONFIG += shared
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_base_pl.ts
+TRANSLATIONS = locale/$${CUTEHMI_BASE_LIBNAME}_pl.ts
 
 include(../cutehmi_utils_1_lib/import.pri)
 
@@ -91,6 +88,6 @@ HEADERS += \
 
 DISTFILES += \
     import.pri \
-    version.pri
+    libdef.pri
 
 RESOURCES +=

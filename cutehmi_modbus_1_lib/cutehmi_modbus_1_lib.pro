@@ -1,16 +1,13 @@
 include(../common.pri)
-include(version.pri)
+include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_modbus)
+TARGET = $$qtLibraryTarget($$CUTEHMI_MODBUS_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+VERSION = $$CUTEHMI_MODBUS_LIBVERSION
 
 QT -= gui
 QT += qml concurrent
-
-# Set version.
-VER_MAJ = $$CUTEHMI_MODBUS_MAJOR
-VER_MIN = $$CUTEHMI_MODBUS_MINOR
-VER_PAT = $$CUTEHMI_MODBUS_MICRO
 
 # Configure the library for building.
 DEFINES += CUTEHMI_MODBUS_BUILD
@@ -18,7 +15,7 @@ DEFINES += CUTEHMI_MODBUS_DYNAMIC
 #CONFIG += shared
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_modbus_pl.ts
+TRANSLATIONS = locale/$${CUTEHMI_MODBUS_LIBNAME}_pl.ts
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_base_1_lib/import.pri)
@@ -71,7 +68,7 @@ HEADERS += \
 
 DISTFILES += \
     import.pri \
-    version.pri
+    libdef.pri
 
 RESOURCES +=
 

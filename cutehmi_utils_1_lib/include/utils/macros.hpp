@@ -4,27 +4,27 @@
 #define CUTEHMI_UTILS_FLF " [file: " << __FILE__ << " line: " << __LINE__ << " function: " << __FUNCTION__ << "]"
 
 #ifndef CUTEHMI_NO_UTILS_DEBUG
-	#define CUTEHMI_UTILS_DEBUG(CATEGORY, EXPR) cDebug() << "Debug message: " << EXPR << CUTEHMI_UTILS_FLF
+	#define CUTEHMI_UTILS_DEBUG(EXPR) qCDebug(loggingCategory()).nospace().noquote() << "Debug message: " << EXPR << CUTEHMI_BASE_FLF
 #else
-	#define CUTEHMI_UTILS_DEBUG(CATEGORY, EXPR) (void)0
+	#define CUTEHMI_UTILS_DEBUG(EXPR) (void)0
 #endif
 
 #ifndef CUTEHMI_NO_UTILS_INFO
-	#define CUTEHMI_UTILS_INFO(CATEGORY, EXPR) cInfo() << "Note: " << EXPR << CUTEHMI_UTILS_FLF
+	#define CUTEHMI_UTILS_INFO(EXPR) qCInfo(loggingCategory()).nospace().noquote() << "Note: " << EXPR << CUTEHMI_UTILS_FLF
 #else
-	#define CUTEHMI_UTILS_INFO(CATEGORY, EXPR) (void)0
+	#define CUTEHMI_UTILS_INFO(EXPR) (void)0
 #endif
 
 #ifndef CUTEHMI_NO_UTILS_WARNING
-	#define CUTEHMI_UTILS_WARNING(CATEGORY, EXPR) cWarning() << "Warning: " << EXPR << CUTEHMI_UTILS_FLF
+	#define CUTEHMI_UTILS_WARNING(EXPR) qCWarning(loggingCategory()).nospace().noquote() << "Warning: " << EXPR << CUTEHMI_UTILS_FLF
 #else
-	#define CUTEHMI_UTILS_WARNING(CATEGORY, EXPR) (void)0
+	#define CUTEHMI_UTILS_WARNING(EXPR) (void)0
 #endif
 
 #ifndef CUTEHMI_NO_UTILS_CRITICAL
-	#define CUTEHMI_UTILS_CRITICAL(CATEGORY, EXPR) cCritical() << "Critical error: " << EXPR << CUTEHMI_UTILS_FLF
+	#define CUTEHMI_UTILS_CRITICAL(EXPR) qCCritical(loggingCategory()).nospace().noquote() << "Critical: " << EXPR << CUTEHMI_UTILS_FLF
 #else
-	#define CUTEHMI_UTILS_CRITICAL(CATEGORY, EXPR) (void)0
+	#define CUTEHMI_UTILS_CRITICAL(EXPR) (void)0
 #endif
 
 #ifdef CUTEHMI_DEBUG

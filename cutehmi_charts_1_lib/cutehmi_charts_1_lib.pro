@@ -1,15 +1,12 @@
 include(../common.pri)
-include(version.pri)
+include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget(cutehmi_charts)
+TARGET = $$qtLibraryTarget($$CUTEHMI_CHARTS_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+VERSION = $$CUTEHMI_CHARTS_LIBVERSION
 
 QT += qml quick
-
-# Set version.
-VER_MAJ = $$CUTEHMI_CHARTS_MAJOR
-VER_MIN = $$CUTEHMI_CHARTS_MINOR
-VER_PAT = $$CUTEHMI_CHARTS_MICRO
 
 # Configure library for building.
 DEFINES += CUTEHMI_CHARTS_BUILD
@@ -17,7 +14,7 @@ DEFINES += CUTEHMI_CHARTS_DYNAMIC
 #CONFIG += shared
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_charts_pl.ts
+TRANSLATIONS = locale/$${CUTEHMI_CHARTS_LIBNAME}_pl.ts
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_base_1_lib/import.pri)
@@ -39,6 +36,6 @@ HEADERS += \
 
 DISTFILES += \
     import.pri \
-    version.pri
+    libdef.pri
 
 RESOURCES +=

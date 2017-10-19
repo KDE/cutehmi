@@ -1,9 +1,8 @@
-# This file sets qmake variables for linkage against cutehmi_app_1 library.
+# This file sets qmake variables for linkage against cutehmi_app_1_lib.
 
 include(libdef.pri)
 
 DEFINES += CUTEHMI_APP_DYNAMIC
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
-win32:LIBS += -L$$PWD/../../bin -l$$qtLibraryTarget($$CUTEHMI_APP_LIBNAME)
-unix:LIBS += -L$$PWD/../../bin -l$$qtLibraryTarget($$CUTEHMI_APP_LIBNAME)
+LIBS += -L$$PWD/../../bin -l$$qtLibraryTarget($$CUTEHMI_APP_LIBNAME)

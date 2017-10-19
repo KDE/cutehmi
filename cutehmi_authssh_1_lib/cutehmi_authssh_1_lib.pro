@@ -3,6 +3,8 @@ include(libdef.pri)
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget($$CUTEHMI_AUTHSSH_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+VERSION = $$CUTEHMI_AUTHSSH_LIBVERSION
 
 QT -= gui
 QT += qml concurrent

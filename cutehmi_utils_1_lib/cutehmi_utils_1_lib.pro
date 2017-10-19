@@ -1,15 +1,12 @@
 include(../common.pri)
-include(version.pri)
+include(libdef.pri)
 
 TEMPLATE = aux
-TARGET = $$qtLibraryTarget(cutehmi_utils_1_lib)
+TARGET = $$qtLibraryTarget($$CUTEHMI_UTILS_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+VERSION = $$CUTEHMI_UTILS_LIBVERSION
 
 QT -= core gui
-
-# Set version.
-VER_MAJ = $$CUTEHMI_UTILS_MAJOR
-VER_MIN = $$CUTEHMI_UTILS_MINOR
-VER_PAT = $$CUTEHMI_UTILS_MICRO
 
 # Translations.
 TRANSLATIONS = locale/cutehmi_utils_pl.ts
@@ -24,6 +21,6 @@ HEADERS += \
 
 DISTFILES += \
     import.pri \
-    version.pri
+    libdef.pri
 
 RESOURCES +=

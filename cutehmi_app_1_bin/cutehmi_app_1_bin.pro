@@ -1,9 +1,8 @@
 include(../common.pri)
 
 TEMPLATE = app
-CONFIG(debug, debug|release) {
-    TARGET = App-Debug
-}
+CONFIG(debug, debug|release):TARGET = App-Debug
+CONFIG(release, debug|release):TARGET = App
 
 QT += qml quick
 

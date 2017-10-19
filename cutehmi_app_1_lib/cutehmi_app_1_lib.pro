@@ -3,6 +3,8 @@ include(libdef.pri)
 
 TEMPLATE = lib
 TARGET = $$qtLibraryTarget($$CUTEHMI_APP_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+VERSION = $$CUTEHMI_APP_LIBVERSION
 
 #<workaround ref="cutehmi_app_1_lib-1" target="Qt" cause="bug">
 QT += widgets
