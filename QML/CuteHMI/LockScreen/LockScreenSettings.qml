@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import Qt.labs.settings 1.0
 
+import CuteHMI.App 1.0
 import CuteHMI.alpha.Controls 1.0
 
 Item {
@@ -30,8 +31,15 @@ Item {
 				id: lockScreenSwitch
 
 				Settings {
+					id: checkedSettings
 					category: "cutehmi_lockscreen_1"
 					property alias activated: lockScreenSwitch.checked
+				}
+
+				Binding {
+					target: CuteApp
+					property: "idleMeasureEnabled"
+					value: checkedSettings.activated
 				}
 			}
 
