@@ -19,26 +19,77 @@ class CUTEHMI_BASE_API ParseAttribute
 	friend class ParseAttributeTest;
 
 	public:
+		/**
+		 * Constructor.
+		 * @param key attribute key (XML attributes appear as 'key="value"' pairs).
+		 * @param required determines whether attribute is required or optional.
+		 */
 		explicit ParseAttribute(const QString & key, bool required = true);
 
+		/**
+		 * Constructor.
+		 * @param key attribute key (XML attributes appear as 'key="value"' pairs).
+		 * @param valuesPattern regular expression pattern used to validate attribute value.
+		 * @param required determines whether attribute is required or optional.
+		 */
 		ParseAttribute(const QString & key, const char * valuesPattern, bool required = true);
 
+		/**
+		 * Constructor.
+		 * @param key attribute key (XML attributes appear as 'key="value"' pairs).
+		 * @param valuesPattern regular expression pattern used to validate attribute value.
+		 * @param required determines whether attribute is required or optional.
+		 */
 		ParseAttribute(const QString & key, const QString & valuesPattern, bool required = true);
 
+		/**
+		 * Constructor.
+		 * @param key attribute key (XML attributes appear as 'key="value"' pairs).
+		 * @param valuesRegExp regular expression used to validate attribute value.
+		 * @param required determines whether attribute is required or optional.
+		 */
 		ParseAttribute(const QString & key, const QRegExp & valuesRegExp, bool required = true);
 
+		/**
+		 * Copy constructor.
+		 * @param other other object.
+		 */
 		ParseAttribute(const ParseAttribute & other);
 
+		/**
+		 * Move constructor.
+		 * @param other other object.
+		 */
 		ParseAttribute(ParseAttribute && other) = default;
 
+		/**
+		 * Copy assignment operator.
+		 * @param other other object.
+		 */
 		ParseAttribute & operator =(const ParseAttribute & other);
 
+		/**
+		 * Move assignment operator.
+		 * @param other other object.
+		 */
 		ParseAttribute & operator =(ParseAttribute && other) = default;
 
+		/**
+		 * Get attribute key.
+		 * @return attribute key.
+		 */
 		const QString & key() const;
 
+		/**
+		 * Get regular expression used to validate attribute value.
+		 * @return regular expression used to validate attribute value.
+		 */
 		const QRegExp & valuesRegExp() const;
 
+		/**
+		 * Check whether attribute is required or optional.
+		 * @return @p true if attribute is required, @p false otherwise.
+		 */
 		bool required() const;
 
 	private:

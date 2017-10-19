@@ -2,39 +2,56 @@
 #define CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_AUTH_HPP
 
 #include "internal/common.hpp"
+#include "Client.hpp"
 
 #include <QObject>
+#include <QSettings>
 
 namespace cutehmi {
 namespace authssh {
 
-class Auth:
+class CUTEHMI_AUTHSSH_API Auth:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(QString user READ user NOTIFY userChanged)
+		Q_PROPERTY(bool authenticated READ authenticated NOTIFY authenticatedChanged)
+		Q_PROPERTY(cutehmi::authssh::Client * client READ client CONSTANT)
 
-		QString user() const;
+		explicit Auth(QObject * parent = nullptr);
+
+		bool authenticated() const;
+
+		const Client * client() const;
+
+		Client * client();
 
 	public slots:
 		bool login(const QString & user, const QString & password);
 
 		void logout();
 
+		void acceptHostKey();
+
 	signals:
-		void userChanged();
+		void authenticatedChanged();
+
+		void hostKeyNew();
+
+		void hostKeyMismatch();
 
 	protected:
-		explicit Auth(QObject * parent = nullptr);
-
-		void setUser(const QString & user);
+		void setAuthenticated(bool authenticated);
 
 	private:
+		QString hostKeySettingsKey() const;
+
 		struct Members
 		{
-			QString user;
+			bool authenticated{false};
+			Client client;
+			QSettings settings;
 		};
 
 		utils::MPtr<Members> m;

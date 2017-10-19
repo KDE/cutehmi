@@ -8,8 +8,8 @@ SUBDIRS += \
     ServicesLib \
     ServicesPlugin \
     cutehmi_app_1_lib \
-    cutehmi_authssh_1 \
     cutehmi_authssh_1_lib \
+    cutehmi_authssh_1 \
     ModbusLib \
     ModbusPlugin \
     StupidLib \

@@ -5,10 +5,10 @@
 
 Q_DECLARE_LOGGING_CATEGORY(cutehmi_authssh_1_lib_loggingCategory)
 
-#define CUTEHMI_AUTHSSH_QDEBUG(EXPR) CUTEHMI_AUTHSSH_QCDEBUG(cutehmi_authssh_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_AUTHSSH_QINFO(EXPR) CUTEHMI_AUTHSSH_QCINFO(cutehmi_authssh_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_AUTHSSH_QWARNING(EXPR) CUTEHMI_AUTHSSH_QCWARNING(cutehmi_authssh_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_AUTHSSH_QCRITICAL(EXPR) CUTEHMI_AUTHSSH_QCCRITICAL(cutehmi_authssh_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_AUTHSSH_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_authssh_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_AUTHSSH_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_authssh_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_AUTHSSH_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_authssh_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_AUTHSSH_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_authssh_1_lib_loggingCategory, EXPR)
 
 #endif
 

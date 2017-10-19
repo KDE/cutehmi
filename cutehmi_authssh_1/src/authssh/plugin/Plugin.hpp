@@ -33,7 +33,9 @@ class Plugin:
 		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
 
 	private:
-		void parseSSHServer(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node);
+		void parseAuth(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name);
+
+		void parseServer(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, QString & host, int & port);
 };
 
 }

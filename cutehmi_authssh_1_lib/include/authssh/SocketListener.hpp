@@ -1,12 +1,14 @@
 #ifndef CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_SOCKETLISTENER_HPP
 #define CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_SOCKETLISTENER_HPP
 
+#include "internal/common.hpp"
+
 #include <QObject>
 
 namespace cutehmi {
 namespace authssh {
 
-class SocketListener:
+class CUTEHMI_AUTHSSH_API SocketListener:
 	public QObject
 {
 	Q_OBJECT
