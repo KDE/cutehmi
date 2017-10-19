@@ -35,10 +35,10 @@ Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor)
 	Plugin::MetaData meta = metaData(binary);
 
 	// Make an attempt to obtain version information from meta data.
-	if ((meta.minor != -1) && (meta.minor < reqMinor))
-		throw WrongVersionException(binary, reqMinor, meta.minor);
-	else
+	if (meta.minor == -1)
 		CUTEHMI_BASE_QWARNING("Loading plugin '" << binary <<"', which has undefined minor version. Required minor is '" << reqMinor << "'.");
+	else if (meta.minor < reqMinor)
+		throw WrongVersionException(binary, reqMinor, meta.minor);
 
 	m->loader.setFileName(binary);
 	if (!m->loader.isLoaded()) {
