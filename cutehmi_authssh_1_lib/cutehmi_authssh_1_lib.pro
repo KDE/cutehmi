@@ -15,9 +15,9 @@ DEFINES += CUTEHMI_AUTHSSH_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/$${CUTEHMI_AUTHSSH_LIBNAME}_pl.ts
 
-include(../UtilsLib/import.pri)
-include(../BaseLib/import.pri)
-include(../ServicesLib/import.pri)
+include(../cutehmi_utils_1_lib/import.pri)
+include(../cutehmi_base_1_lib/import.pri)
+include(../cutehmi_services_1_lib/import.pri)
 include(../libssh.pri)
 
 

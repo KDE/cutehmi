@@ -16,8 +16,8 @@ DEFINES += CUTEHMI_APP_DYNAMIC
 # Translations.
 TRANSLATIONS = locale/$${CUTEHMI_APP_LIBNAME}_pl.ts
 
-include(../UtilsLib/import.pri)
-include(../BaseLib/import.pri)
+include(../cutehmi_utils_1_lib/import.pri)
+include(../cutehmi_base_1_lib/import.pri)
 
 unix {
     target.path = /usr/lib

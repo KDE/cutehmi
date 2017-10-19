@@ -5,7 +5,7 @@
      name - project name.
      xmlns - XML namespace, which denotes document format.
      -->
-<cutehmi_project name="Sample Project" xmlns="http://michpolicht.github.io/CuteHMI/BaseLib/xsd/1.0/">
+<cutehmi_project name="Sample Project" xmlns="http://michpolicht.github.io/CuteHMI/cutehmi_base_1_lib/xsd/1.0/">
   <!-- Plugin section. Plugin 'cutehmi_services_1' is required by 'cutehmi_modbus_1'.
        binary - name of the plugin binary to load (file name without a file extension).
        req_minor - required minor version of a plugin.
@@ -24,7 +24,7 @@
              parsing its own portion of document.
              xmlns - XML namespace. It denotes section format.
       -->
-      <cutehmi_modbus_1 xmlns="http://michpolicht.github.io/CuteHMI/ModbusPlugin/xsd/1.0/">
+      <cutehmi_modbus_1 xmlns="http://michpolicht.github.io/CuteHMI/cutehmi_modbus_1/xsd/1.0/">
         <!-- Modbus device.
              id - device id. This id will be used to expose device object. 
              name - human friendly device name.
@@ -76,7 +76,7 @@
   <!-- Plugin 'cutehmi_app_1' provides a way to interact with frontend application. -->
   <plugin binary="cutehmi_app_1" req_minor="0">
     <extension object="cutehmi::base::XMLBackendPlugin">
-      <cutehmi_app_1 xmlns="http://michpolicht.github.io/CuteHMI/AppPlugin/xsd/1.0/">
+      <cutehmi_app_1 xmlns="http://michpolicht.github.io/CuteHMI/cutehmi_app_1/xsd/1.0/">
         <!-- Screens section. -->
         <screens>
           <!-- Points to QML, which should be loaded and shown instead of default, empty screen. -->

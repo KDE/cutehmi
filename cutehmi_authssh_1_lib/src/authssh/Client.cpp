@@ -106,7 +106,7 @@ void Client::newSession()
 void Client::destroySession()
 {
 	if (!hasSession()) {
-		CUTEHMI_AUTHSSH_QWARNING("Session already destroyed.");
+		CUTEHMI_AUTHSSH_1_LIB_QWARNING("Session already destroyed.");
 		return;
 	}
 
@@ -122,7 +122,7 @@ bool Client::hasSession() const
 void Client::connect()
 {
 	if (connected()) {
-		CUTEHMI_AUTHSSH_QWARNING("Client already connected.");
+		CUTEHMI_AUTHSSH_1_LIB_QWARNING("Client already connected.");
 		return;
 	}
 
@@ -130,14 +130,14 @@ void Client::connect()
 	while (result == SSH_AGAIN)
 		result = ssh_connect(session());
 	if (result != SSH_OK) {
-		CUTEHMI_AUTHSSH_QWARNING("Client could not connect with host '" << m->host << "' on port '" << m->port << "', because of the following error: " << ssh_get_error(session()) << ".");
+		CUTEHMI_AUTHSSH_1_LIB_QWARNING("Client could not connect with host '" << m->host << "' on port '" << m->port << "', because of the following error: " << ssh_get_error(session()) << ".");
 	//<workaround ref="cutehmi_authssh_1_lib-1" target="libssh" cause="bug">
 		setConnected(false);
 	} else {
 		setConnected(true);
 	//</workaround>
-		CUTEHMI_AUTHSSH_QDEBUG("Client connected with host '" << m->host << "' using port '" << m->port << "'.");
-		CUTEHMI_AUTHSSH_QDEBUG("Supported authentication methods: " << authMethods().join(", ") << ".");
+		CUTEHMI_AUTHSSH_1_LIB_QDEBUG("Client connected with host '" << m->host << "' using port '" << m->port << "'.");
+		CUTEHMI_AUTHSSH_1_LIB_QDEBUG("Supported authentication methods: " << authMethods().join(", ") << ".");
 
 		Error hostKeyError = updateHostKey();
 		if (hostKeyError != Error::OK)
@@ -148,7 +148,7 @@ void Client::connect()
 void Client::disconnect()
 {
 	if (!connected()) {
-		CUTEHMI_AUTHSSH_QWARNING("Client already disconnected.");
+		CUTEHMI_AUTHSSH_1_LIB_QWARNING("Client already disconnected.");
 		return;
 	}
 
@@ -165,7 +165,7 @@ bool Client::passwordAuth(const QString & password)
 	if (result == SSH_AUTH_SUCCESS)
 		return true;
 	else
-		CUTEHMI_AUTHSSH_QWARNING("Function 'ssh_userauth_password()' has failed due to following error (code: " << result << "): " << ssh_get_error(session()) << " .");
+		CUTEHMI_AUTHSSH_1_LIB_QWARNING("Function 'ssh_userauth_password()' has failed due to following error (code: " << result << "): " << ssh_get_error(session()) << " .");
 	return false;
 }
 
@@ -184,17 +184,17 @@ Client::Error Client::updateHostKey()
 				setHostKey(hexHash);
 				ssh_string_free_char(hexHash);
 			} else {
-				CUTEHMI_AUTHSSH_QWARNING("Function 'ssh_get_hexa()' has failed.");
+				CUTEHMI_AUTHSSH_1_LIB_QWARNING("Function 'ssh_get_hexa()' has failed.");
 				result = Error::FAILED_PUBLIC_KEY_HEX_STRING;
 			}
 			ssh_clean_pubkey_hash(& hash);
 		} else {
-			CUTEHMI_AUTHSSH_QWARNING("Function 'ssh_get_publickey_hash()' has failed.");
+			CUTEHMI_AUTHSSH_1_LIB_QWARNING("Function 'ssh_get_publickey_hash()' has failed.");
 			result = Error::FAILED_GET_PUBLIC_KEY_HASH;
 		}
 		ssh_key_free(pubkey);
 	} else {
-		CUTEHMI_AUTHSSH_QWARNING("Function 'ssh_get_publickey()' has failed due to following error (code: " << sshGetPublickeyResult << "): " << ssh_get_error(session()) << ".");
+		CUTEHMI_AUTHSSH_1_LIB_QWARNING("Function 'ssh_get_publickey()' has failed due to following error (code: " << sshGetPublickeyResult << "): " << ssh_get_error(session()) << ".");
 		result = Error::FAILED_GET_PUBLIC_KEY;
 	}
 

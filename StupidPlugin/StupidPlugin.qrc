@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/json">
-        <file>StupidPlugin.json</file>
-    </qresource>
-</RCC>

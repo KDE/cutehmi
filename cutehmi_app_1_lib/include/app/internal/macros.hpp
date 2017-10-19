@@ -5,10 +5,10 @@
 
 Q_DECLARE_LOGGING_CATEGORY(cutehmi_app_1_lib_loggingCategory)
 
-#define CUTEHMI_APP_QDEBUG(EXPR) CUTEHMI_APP_QCDEBUG(cutehmi_app_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_APP_QINFO(EXPR) CUTEHMI_APP_QCINFO(cutehmi_app_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_APP_QWARNING(EXPR) CUTEHMI_APP_QCWARNING(cutehmi_app_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_APP_QCRITICAL(EXPR) CUTEHMI_APP_QCCRITICAL(cutehmi_app_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_APP_1_LIB_QDEBUG(EXPR) CUTEHMI_APP_QCDEBUG(cutehmi_app_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_APP_1_LIB_QINFO(EXPR) CUTEHMI_APP_QCINFO(cutehmi_app_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_APP_1_LIB_QWARNING(EXPR) CUTEHMI_APP_QCWARNING(cutehmi_app_1_lib_loggingCategory, EXPR)
+#define CUTEHMI_APP_1_LIB_QCRITICAL(EXPR) CUTEHMI_APP_QCCRITICAL(cutehmi_app_1_lib_loggingCategory, EXPR)
 
 #endif
 

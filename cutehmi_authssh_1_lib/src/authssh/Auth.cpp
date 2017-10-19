@@ -35,7 +35,7 @@ bool Auth::login(const QString & user, const QString & password)
 
 	client()->setUser(user);
 
-	CUTEHMI_AUTHSSH_QDEBUG("Logging in user '" << client()->user() << "'.");
+	CUTEHMI_AUTHSSH_1_LIB_QDEBUG("Logging in user '" << client()->user() << "'.");
 	try {
 		client()->newSession();
 		client()->connect();
@@ -64,7 +64,7 @@ void Auth::logout()
 			client()->disconnect();
 		client()->destroySession();
 	}
-	CUTEHMI_AUTHSSH_QDEBUG("Logged out.");
+	CUTEHMI_AUTHSSH_1_LIB_QDEBUG("Logged out.");
 }
 
 void Auth::acceptHostKey()
