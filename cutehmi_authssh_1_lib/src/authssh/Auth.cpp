@@ -39,15 +39,18 @@ bool Auth::login(const QString & user, const QString & password)
 	try {
 		client()->newSession();
 		client()->connect();
-		QString hostKey = m->settings.value(hostKeySettingsKey()).toString();
-		if (hostKey.isEmpty())
-			emit hostKeyNew();
-		else if (client()->hostKey() != hostKey)
-			emit hostKeyMismatch();
-		else if (client()->passwordAuth(password)) {
-			setAuthenticated(true);
-			return true;
-		}
+		if (client()->connected()) {
+			QString hostKey = m->settings.value(hostKeySettingsKey()).toString();
+			if (hostKey.isEmpty())
+				emit hostKeyNew();
+			else if (client()->hostKey() != hostKey)
+				emit hostKeyMismatch();
+			else if (client()->passwordAuth(password)) {
+				setAuthenticated(true);
+				return true;
+			}
+		} else
+			CUTEHMI_AUTHSSH_1_LIB_QWARNING("Could not connect with host '" << client()->host() << ":" << QString::number(client()->port()) << "'");
 	} catch (const Exception & e) {
 		base::Prompt::Critical(e.what());
 	}
