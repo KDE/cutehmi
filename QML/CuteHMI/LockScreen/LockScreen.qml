@@ -42,6 +42,7 @@ Image {
 			root.passwordInput += value
 		}
 	}
+
 	function tryUnlock() {
 		if (Auth.checkPassword(root.passwordInput)) {
 			Auth.locked = false

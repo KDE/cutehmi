@@ -1,9 +1,9 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
-import Qt.labs.settings 1.0
 
 import CuteHMI.App 1.0
+import CuteHMI.LockScreen 1.0
 import CuteHMI.alpha.Controls 1.0
 
 Item {
@@ -29,18 +29,8 @@ Item {
 
 			Switch {
 				id: lockScreenSwitch
-
-				Settings {
-					id: checkedSettings
-					category: "cutehmi_lockscreen_1"
-					property alias activated: lockScreenSwitch.checked
-				}
-
-				Binding {
-					target: CuteApp
-					property: "idleMeasureEnabled"
-					value: checkedSettings.activated
-				}
+				checked: Settings.activated
+				onCheckedChanged: Settings.activated = checked
 			}
 
 			Label {
@@ -52,14 +42,10 @@ Item {
 				id: lockScreenTimeout
 				from: 10
 				to: 600
-				value: 10
 				stepSize: 10
 				suffix: " s"
-
-				Settings {
-					category: "cutehmi_lockscreen_1"
-					property alias timeout: lockScreenTimeout.value
-				}
+				value: Settings.timeout
+				onValueChanged: Settings.timeout = value
 			}
 
 			Label {
@@ -90,7 +76,9 @@ Item {
 
 			anchors.fill: parent
 			lockScreenComponent: root.lockScreenComponent
-			onFinished: wizardPopup.close()
+			onFinished: {
+				wizardPopup.close()
+			}
 		}
 	}
 }
