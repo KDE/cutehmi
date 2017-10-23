@@ -29,6 +29,7 @@ DISTFILES += \
     KeyButton.qml \
     LockScreen.qml \
     LockScreenSettings.qml \
-    ChangePasswordWizard.qml
+    ChangePasswordWizard.qml \
+    LockScreenPopup.qml
 
 RESOURCES +=
