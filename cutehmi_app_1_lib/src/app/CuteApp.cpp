@@ -51,7 +51,8 @@ void CuteApp::updateIdleTime()
 		setIdle(0.0);
 		m->notifyEventCtr = 0;
 	} else
-		setIdle(idle() + static_cast<double>(m->idleTime.restart()) / 1000.0);
+		setIdle(idle() + static_cast<double>(m->idleTime.elapsed()) / 1000.0);
+	m->idleTime.restart();
 }
 
 void CuteApp::setIdle(double idle)
