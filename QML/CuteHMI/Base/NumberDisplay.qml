@@ -24,7 +24,7 @@ Templates.Control
 
 	background: Rectangle {
 		color: Palette.background.normal
-		border.width: height / 25.0
+		border.width: 2.0
 		radius: height / 5.0
 
 		Behavior on color {
