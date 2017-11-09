@@ -11,7 +11,7 @@ env:
   - QMAKE_ENV="CONFIG+=release"
 
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt59-trusty
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt592-trusty
   - sudo apt-get update -qq
 
 install:
