@@ -54,7 +54,7 @@ QtObject
 	  Neutral color set is for elements that do not distinguish between active and inactive states.
 	  */
 	property ColorSet neutral: ColorSet {
-		base: "black"
+		base: "white"
 		tint: Qt.lighter(base)
 		shade: Qt.darker(base)
 		foreground: "black"
