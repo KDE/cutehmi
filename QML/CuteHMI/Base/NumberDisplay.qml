@@ -23,7 +23,7 @@ Templates.Control
 	property var textFormatter: function(value) { return value.toFixed(root.fractionalWidth) }
 
 	background: Rectangle {
-		color: Palette.background.normal
+		color: Palette.active.background
 		border.width: 2.0
 		radius: height / 5.0
 
@@ -40,6 +40,7 @@ Templates.Control
 			id: valueDisplay
 
 			font: root.font
+			color: Palette.active.foreground
 			text: textFormatter(root.value)
 			horizontalAlignment: Text.AlignRight
 			width: Math.max(contentWidth, contentWidth / text.length * (root.fractionalWidth + root.integralWidth + 1))
@@ -50,6 +51,7 @@ Templates.Control
 			id: unitDisplay
 
 			font: root.font
+			color: Palette.active.foreground
 			text: root.unit
 		}
 	}

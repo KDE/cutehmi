@@ -2,28 +2,64 @@ pragma Singleton
 
 import QtQuick 2.0
 
+/*!
+  \qmltype Palette
+  \inqmlmodule CuteHMI.Base
+  \since CuteHMI.Base 1.0
+  \brief Palette.
+
+  Palette defines standard colors to be used with CuteHMI components.
+  */
 QtObject
 {
-	property color text: foreground.text
-	property color alarm: foreground.alarm
-	property color warning: foreground.warning
-	property color normal: foreground.normal
-	property color disabled: foreground.disabled
+	property color background: "white"
 
-	property QtObject foreground: QtObject {
-		readonly property color text: "black"
-		readonly property color alarm: "#FF3300"
-		readonly property color warning: "#FF9933"
-		readonly property color normal: "#66CC33"
-		readonly property color disabled: "#CECECE"
+	property ColorSet alarm: ColorSet {
+		base: "#FF3300"
+		tint: "#FF4B1D"
+		shade: Qt.darker(base)
+		foreground: "black"
+		background: tint
+		stroke: "black"
 	}
 
-	property QtObject background: QtObject {
-		readonly property color text: "white"
-		readonly property color alarm: "#FF4B1D"
-		readonly property color warning: "#FFA64D"
-		readonly property color normal: "#CCF4CC"
-		readonly property color disabled: "#E3E3E3"
+	property ColorSet warning: ColorSet {
+		base: "#FF9933"
+		tint: "#FFA64D"
+		shade: Qt.darker(base)
+		foreground: "black"
+		background: tint
+		stroke: "black"
+	}
+
+	property ColorSet active: ColorSet {
+		base: "#66CC33"
+		tint: "#CCF4CC"
+		shade: Qt.darker(base)
+		foreground: "black"
+		background: tint
+		stroke: "black"
+	}
+
+	property ColorSet inactive: ColorSet {
+		base: "#CECECE"
+		tint: "#E3E3E3"
+		shade: Qt.darker(base)
+		foreground: "black"
+		background: tint
+		stroke: "black"
+	}
+
+	/**
+	  Neutral color set is for elements that do not distinguish between active and inactive states.
+	  */
+	property ColorSet neutral: ColorSet {
+		base: "black"
+		tint: Qt.lighter(base)
+		shade: Qt.darker(base)
+		foreground: "black"
+		background: "white"
+		stroke: "black"
 	}
 
 //	property color on: "#66CC33"

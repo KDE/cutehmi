@@ -22,10 +22,8 @@ DISTFILES += \
     PipeEmitterSettings.qml \
     PipePoint.qml \
     NumberDisplay.qml \
-    ValueRangeColor.qml \
-    ValueColor.qml \
     Palette.qml \
-    ValueRangeColor.js
+    ColorSet.qml
 
 RESOURCES +=
 
