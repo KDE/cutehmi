@@ -16,17 +16,20 @@ include(../../../cutehmi_base_1_lib/import.pri)
 
 HEADERS += \
     src/CuteHMILockScreenQMLPlugin.hpp \
-    src/cutehmi/lock_screen/Auth.hpp
+    src/cutehmi/lock_screen/Auth.hpp \
+    src/cutehmi/lock_screen/InternalSettings.hpp
 
 SOURCES += \
     src/CuteHMILockScreenQMLPlugin.cpp \
-    src/cutehmi/lock_screen/Auth.cpp
+    src/cutehmi/lock_screen/Auth.cpp \
+    src/cutehmi/lock_screen/InternalSettings.cpp
 
 DISTFILES += \ 
     qmldir \
     KeyButton.qml \
     LockScreen.qml \
     LockScreenSettings.qml \
-    ChangePasswordWizard.qml
+    ChangePasswordWizard.qml \
+    LockScreenPopup.qml
 
 RESOURCES +=
