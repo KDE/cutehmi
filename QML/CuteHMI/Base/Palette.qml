@@ -16,6 +16,7 @@ QtObject
 
 	property ColorSet alarm: ColorSet {
 		base: "#FF3300"
+		fill: base
 		tint: "#FF4B1D"
 		shade: Qt.darker(base)
 		foreground: "black"
@@ -25,6 +26,7 @@ QtObject
 
 	property ColorSet warning: ColorSet {
 		base: "#FF9933"
+		fill: base
 		tint: "#FFA64D"
 		shade: Qt.darker(base)
 		foreground: "black"
@@ -34,6 +36,7 @@ QtObject
 
 	property ColorSet active: ColorSet {
 		base: "#66CC33"
+		fill: base
 		tint: "#CCF4CC"
 		shade: Qt.darker(base)
 		foreground: "black"
@@ -43,6 +46,7 @@ QtObject
 
 	property ColorSet inactive: ColorSet {
 		base: "#CECECE"
+		fill: base
 		tint: "#E3E3E3"
 		shade: Qt.darker(base)
 		foreground: "black"
@@ -54,7 +58,8 @@ QtObject
 	  Neutral color set is for elements that do not distinguish between active and inactive states.
 	  */
 	property ColorSet neutral: ColorSet {
-		base: "white"
+		base: "black"
+		fill: "white"
 		tint: Qt.lighter(base)
 		shade: Qt.darker(base)
 		foreground: "black"
