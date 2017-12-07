@@ -23,7 +23,8 @@ DISTFILES += \
     PipePoint.qml \
     NumberDisplay.qml \
     Palette.qml \
-    ColorSet.qml
+    ColorSet.qml \
+    PropItem.qml
 
 RESOURCES +=
 

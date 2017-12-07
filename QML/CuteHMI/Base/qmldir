@@ -2,6 +2,7 @@ module CuteHMI.Base
 
 NumberDisplay 1.0 NumberDisplay.qml
 ColorSet 1.0 ColorSet.qml
+PropItem 1.0 PropItem.qml
 singleton Palette 1.0 Palette.qml
 plugin cutehmi_base_1_qml plugins
 classname CuteHMIBaseQMLPlugin
