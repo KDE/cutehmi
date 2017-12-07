@@ -1,7 +1,5 @@
 import QtQuick 2.0
 
-import CuteHMI.Base 1.0
-
 Item {
     implicitWidth: 40.0
     implicitHeight: 40.0
