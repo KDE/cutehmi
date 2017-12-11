@@ -44,7 +44,7 @@ Item {
 	ColorSet {
 		id: alarmBlink
 
-		base: palette.alarm.base
+		base: Qt.lighter(palette.alarm.base)
 		fill: palette.alarm.stroke
 		tint: palette.alarm.shade
 		shade: palette.alarm.tint
