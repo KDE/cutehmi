@@ -8,6 +8,7 @@ Item {
 	property ColorSet colorSet: alarm ? (blinkTimer.blink ? alarmBlink : palette.alarm) :
 								warning ? (blinkTimer.blink ? warningBlink : palette.warning) :
 								active ? palette.active : palette.inactive
+	property color baseColor: colorSet.base
 	property color fillColor: colorSet.fill
 	property color tintColor: colorSet.tint
 	property color shadeColor: colorSet.shade
@@ -20,6 +21,7 @@ Item {
 	property bool warning: false
 	property bool alarm: false
 
+	Behavior on baseColor { ColorAnimation {} }
 	Behavior on fillColor { ColorAnimation {} }
 	Behavior on tintColor { ColorAnimation {} }
 	Behavior on shadeColor { ColorAnimation {} }
