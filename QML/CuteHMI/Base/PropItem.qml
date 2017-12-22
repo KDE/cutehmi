@@ -1,5 +1,11 @@
 import QtQuick 2.3
 
+//<workaround id="QML_Base-4" target="Qt" cause="QTBUG-34418">
+// Palette is a singleton.
+// Singletons require explicit import to load qmldir file.
+import "."
+//</workaround>
+
 Canvas {
 	id: root
 
@@ -7,7 +13,7 @@ Canvas {
 	implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
 	property real thickness: 2.0
-	property color color: "black"
+	property color color: Palette.neutral.stroke
 
 	property real leftPadding: 0.0
 	property real rightPadding: 0.0
