@@ -1,13 +1,17 @@
 import QtQuick 2.0
 
+//<workaround id="QML_Base-4" target="Qt" cause="QTBUG-34418">
+// Palette is a singleton.
+// Singletons require explicit import to load qmldir file.
+import "."
+//</workaround>
+
 Item {
     implicitWidth: 40.0
     implicitHeight: 40.0
 
 	property Palette palette: Palette
-	property ColorSet colorSet: alarm ? (blinkTimer.blink ? alarmBlink : palette.alarm) :
-								warning ? (blinkTimer.blink ? warningBlink : palette.warning) :
-								active ? palette.active : palette.inactive
+	property ColorSet colorSet: currentStateColorSet()
 	property color baseColor: colorSet.base
 	property color fillColor: colorSet.fill
 	property color tintColor: colorSet.tint
@@ -65,4 +69,9 @@ Item {
 		onTriggered: blink = !blink
 	}
 
+	function currentStateColorSet() {
+		return alarm ? (blinkTimer.blink ? alarmBlink : palette.alarm) :
+			   warning ? (blinkTimer.blink ? warningBlink : palette.warning) :
+			   active ? palette.active : palette.inactive
+	}
 }
