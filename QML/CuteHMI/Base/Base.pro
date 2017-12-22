@@ -24,7 +24,8 @@ DISTFILES += \
     NumberDisplay.qml \
     Palette.qml \
     ColorSet.qml \
-    PropItem.qml
+    PropItem.qml \
+    Element.qml
 
 RESOURCES +=
 
