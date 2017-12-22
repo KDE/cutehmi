@@ -7,43 +7,55 @@ import QtQuick.Templates 2.0 as Templates
 import "."
 //</workaround>
 
-Templates.Control
+Element
 {
 	id: root
 
-	implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-	implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
-	padding: font.pixelSize / 3
+	implicitWidth: background.width - valueDisplay.overfull
+	implicitHeight: background.height
+	active: value === value		// NaN === NaN equals false, thus NaN value deactivates display.
 
-	property real value: 0.0
+	property alias font: valueDisplay.font
+	property real paddingLeft: font.pixelSize * 0.25
+	property real paddingRight: font.pixelSize * 0.25
+	property real paddingTop: font.pixelSize * 0.25
+	property real paddingBottom: font.pixelSize * 0.25
+	property real value: NaN
 	property int fractionalWidth: 1
 	property int integralWidth: 3
 	property string unit: "°C"
 
 	property var textFormatter: function(value) { return value.toFixed(root.fractionalWidth) }
 
-	background: Rectangle {
-		color: Palette.active.background
-		border.width: 2.0
-		radius: height / 5.0
+	Rectangle {
+		id: background
 
-		Behavior on color {
-			ColorAnimation {}
-		}
+		x: -0.5 * valueDisplay.overfull
+		width: contentItem.width + paddingLeft + paddingRight
+		height: contentItem.height + paddingTop + paddingBottom
+		color: backgroundColor
+		border.width: lineWidth
+		radius: height / 5
 	}
 
-	contentItem: Row {
-		spacing: root.font.pixelSize / 5
+	Row {
+		id: contentItem
+
+		x: paddingLeft - 0.5 * valueDisplay.overfull
+		y: paddingTop
+		spacing: root.font.pixelSize * 0.25
 
 		Text
 		{
 			id: valueDisplay
 
-			font: root.font
-			color: Palette.active.foreground
+			color: foregroundColor
 			text: textFormatter(root.value)
 			horizontalAlignment: Text.AlignRight
-			width: Math.max(contentWidth, contentWidth / text.length * (root.fractionalWidth + root.integralWidth + 1))
+			width: Math.max(contentWidth, nominaLWidth)
+
+			property real overfull: width - nominaLWidth
+			property real nominaLWidth: contentWidth / text.length * (root.fractionalWidth + root.integralWidth + 1)
 		}
 
 		Text
@@ -51,7 +63,7 @@ Templates.Control
 			id: unitDisplay
 
 			font: root.font
-			color: Palette.active.foreground
+			color: foregroundColor
 			text: root.unit
 		}
 	}
