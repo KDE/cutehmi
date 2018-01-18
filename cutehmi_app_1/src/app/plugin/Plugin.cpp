@@ -21,7 +21,7 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_APP_1_QDEBUG("Plugin 'cutehmi_app_1' starts parsing its own portion of document...");
+	CUTEHMI_UTILS_DEBUG("Plugin 'cutehmi_app_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_app_1/xsd/1.0/";
@@ -56,16 +56,18 @@ void Plugin::parseScreens(const base::xml::ParseHelper & parentHelper, base::Pro
 	base::xml::ParseHelper helper(& parentHelper);
 	helper << base::xml::ParseElement("main_screen", {base::xml::ParseAttribute("source")}, 1, 1);
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "main_screen")
 			mainScreen.reset(new MainScreen(xmlReader.attributes().value("source").toString()));
 	}
 
-	node.addExtension(mainScreen.get());
+	if (!xmlReader.hasError()) {
+		node.addExtension(mainScreen.get());
 
-	screensNodeData.reset(new ScreensNodeData(std::move(mainScreen)));
-	node.data().append(std::move(screensNodeData));
+		screensNodeData.reset(new ScreensNodeData(std::move(mainScreen)));
+		node.data().append(std::move(screensNodeData));
+	}
 }
 
 }

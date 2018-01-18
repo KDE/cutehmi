@@ -1,14 +1,25 @@
 #ifndef CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_MACROS_HPP
 #define CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_MACROS_HPP
 
-#include <base/macros.hpp>
+#include <utils/macros.hpp>
+
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(cutehmi_app_1_loggingCategory)
 
-#define CUTEHMI_APP_1_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_app_1_loggingCategory, EXPR)
-#define CUTEHMI_APP_1_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_app_1_loggingCategory, EXPR)
-#define CUTEHMI_APP_1_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_app_1_loggingCategory, EXPR)
-#define CUTEHMI_APP_1_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_app_1_loggingCategory, EXPR)
+namespace cutehmi {
+namespace app {
+namespace plugin {
+
+inline
+const QLoggingCategory & loggingCategory()
+{
+	return cutehmi_app_1_loggingCategory();
+}
+
+}
+}
+}
 
 #endif
 
