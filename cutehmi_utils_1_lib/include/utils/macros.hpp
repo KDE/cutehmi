@@ -4,7 +4,7 @@
 #define CUTEHMI_UTILS_FLF " [file: " << __FILE__ << " line: " << __LINE__ << " function: " << __FUNCTION__ << "]"
 
 #ifndef CUTEHMI_NO_UTILS_DEBUG
-	#define CUTEHMI_UTILS_DEBUG(EXPR) qCDebug(loggingCategory()).nospace().noquote() << "Debug message: " << EXPR << CUTEHMI_BASE_FLF
+	#define CUTEHMI_UTILS_DEBUG(EXPR) qCDebug(loggingCategory()).nospace().noquote() << "Debug message: " << EXPR << CUTEHMI_UTILS_FLF
 #else
 	#define CUTEHMI_UTILS_DEBUG(EXPR) (void)0
 #endif
