@@ -14,7 +14,7 @@ ServiceRegistry::ServiceRegistry(QObject * parent):
 ServiceRegistry::~ServiceRegistry()
 {
 	if (stopped() != count())
-		CUTEHMI_SERVICES_QWARNING("Destroying ServiceRegistry instance while not all registered services have been stopped.");
+		CUTEHMI_UTILS_WARNING("Destroying ServiceRegistry instance while not all registered services have been stopped.");
 }
 
 const QQmlListProperty<Service> & ServiceRegistry::serviceList() const

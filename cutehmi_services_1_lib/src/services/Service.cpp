@@ -33,7 +33,7 @@ Service::state_t Service::state() const
 void Service::start()
 {
 	if (state() != STOPPED) {
-		CUTEHMI_SERVICES_QWARNING("Service::start() failed to start the service, because it is not in STOPPED state.");
+		CUTEHMI_UTILS_WARNING("Service::start() failed to start the service, because it is not in STOPPED state.");
 		return;
 	}
 	setState(customStart());
