@@ -36,17 +36,17 @@ void NotificationManager::add(Notification * notification_l)
 #ifdef CUTEHMI_DEBUG
 	switch (notification_l->type()) {
 		case Notification::NOTE:
-			CUTEHMI_BASE_QINFO("[NOTIFICATION] " << notification_l->text());
+			CUTEHMI_UTILS_INFO("[NOTIFICATION] " << notification_l->text());
 			break;
 		case Notification::WARNING:
-			CUTEHMI_BASE_QWARNING("[NOTIFICATION] " << notification_l->text());
+			CUTEHMI_UTILS_WARNING("[NOTIFICATION] " << notification_l->text());
 			break;
 		case Notification::CRITICAL:
-			CUTEHMI_BASE_QCRITICAL("[NOTIFICATION] " << notification_l->text());
+			CUTEHMI_UTILS_CRITICAL("[NOTIFICATION] " << notification_l->text());
 			break;
 		default:
-			CUTEHMI_BASE_QCRITICAL("Unrecognized code ('" << notification_l->type() << "') of 'Notification::type()'. Assuming 'Notification::CRITICAL'.");
-			CUTEHMI_BASE_QCRITICAL("[NOTIFICATION] " << notification_l->text());
+			CUTEHMI_UTILS_CRITICAL("Unrecognized code ('" << notification_l->type() << "') of 'Notification::type()'. Assuming 'Notification::CRITICAL'.");
+			CUTEHMI_UTILS_CRITICAL("[NOTIFICATION] " << notification_l->text());
 	}
 #endif
 

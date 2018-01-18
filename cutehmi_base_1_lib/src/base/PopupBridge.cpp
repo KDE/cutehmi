@@ -14,7 +14,7 @@ void PopupBridge::advertise(Prompt * prompt_l)
 	QMutexLocker locker(& m->requestMutex);
 
 	if (m->advertiser == nullptr) {
-		CUTEHMI_BASE_QCRITICAL("No advertiser has been set. Forcing 'Prompt::NO_BUTTON' response.");
+		CUTEHMI_UTILS_CRITICAL("No advertiser has been set. Forcing 'Prompt::NO_BUTTON' response.");
 		prompt_l->acceptResponse(Prompt::NO_BUTTON);
 		return;
 	}

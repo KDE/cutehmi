@@ -56,7 +56,7 @@ void NotificationListModel::prepend(std::unique_ptr<Notification> notification)
 
 void NotificationListModel::removeLast(int num)
 {
-	CUTEHMI_BASE_ASSERT(num >= 0, QString("parameter value must be non-negative (given '%1')").arg(num).toLocal8Bit().constData());
+	CUTEHMI_UTILS_ASSERT(num >= 0, QString("parameter value must be non-negative (given '%1')").arg(num).toLocal8Bit().constData());
 
 	if (num <= 0)
 		return;

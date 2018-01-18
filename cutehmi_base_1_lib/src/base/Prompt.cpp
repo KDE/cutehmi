@@ -131,7 +131,7 @@ Prompt::button_t Prompt::response() const
 void Prompt::acceptResponse(button_t response)
 {
 	if (m->response != NO_BUTTON)
-		CUTEHMI_BASE_QWARNING("Response has been already accepted.");
+		CUTEHMI_UTILS_WARNING("Response has been already accepted.");
 	else {
 		m->response = response;
 		emit responseArrived(response);

@@ -69,7 +69,7 @@ QString ProjectNode::id() const
 
 ProjectNode * ProjectNode::addChild(const QString & id, ProjectNodeData && data, bool leaf)
 {
-	CUTEHMI_BASE_ASSERT(child(id) == nullptr, QString("child with specified id '%1' already exists").arg(id).toLocal8Bit().constData());
+	CUTEHMI_UTILS_ASSERT(child(id) == nullptr, QString("child with specified id '%1' already exists").arg(id).toLocal8Bit().constData());
 
 	ProjectNode * child = leaf ? new ProjectNode(id, std::move(data), nullptr) :
 								 new ProjectNode(id, std::move(data), std::unique_ptr<ChildrenContainer>(new ChildrenContainer));
@@ -137,14 +137,14 @@ int ProjectNode::countChildren() const
 
 bool ProjectNode::invoke(const QString & extensionId, const char * method, QGenericReturnArgument returnValue, QGenericArgument val0, QGenericArgument val1, QGenericArgument val2, QGenericArgument val3,	QGenericArgument val4, QGenericArgument val5, QGenericArgument val6, QGenericArgument val7,	QGenericArgument val8, QGenericArgument val9)
 {
-	CUTEHMI_BASE_ASSERT(extension(extensionId), QString("extension '%1' not found").arg(extensionId).toLocal8Bit().constData());
+	CUTEHMI_UTILS_ASSERT(extension(extensionId), QString("extension '%1' not found").arg(extensionId).toLocal8Bit().constData());
 
 	return QMetaObject::invokeMethod(extension(extensionId), method, returnValue, val0, val1, val2, val3, val4, val5, val6, val7, val8, val9);
 }
 
 bool ProjectNode::invoke(const QString & extensionId, const char * method, QGenericArgument val0, QGenericArgument val1, QGenericArgument val2, QGenericArgument val3,	QGenericArgument val4, QGenericArgument val5, QGenericArgument val6, QGenericArgument val7,	QGenericArgument val8, QGenericArgument val9)
 {
-	CUTEHMI_BASE_ASSERT(extension(extensionId), QString("extension '%1' not found").arg(extensionId).toLocal8Bit().constData());
+	CUTEHMI_UTILS_ASSERT(extension(extensionId), QString("extension '%1' not found").arg(extensionId).toLocal8Bit().constData());
 
 	return QMetaObject::invokeMethod(extension(extensionId), method, val0, val1, val2, val3, val4, val5, val6, val7, val8, val9);
 }
@@ -192,7 +192,7 @@ ProjectNode::ExtensionsContainer * ProjectNode::extensions()
 const ProjectNode::ChildrenContainer * ProjectNode::children() const
 {
 	if (m->children == nullptr) {
-		CUTEHMI_BASE_QWARNING("Implicitly promoting leaf " << data().name() << " to a child.");
+		CUTEHMI_UTILS_WARNING("Implicitly promoting leaf " << data().name() << " to a child.");
 		const_cast<ProjectNode *>(this)->allocateChildren();
 	}
 	return m->children.get();

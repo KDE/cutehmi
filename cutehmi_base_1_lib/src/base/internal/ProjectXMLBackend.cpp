@@ -41,7 +41,7 @@ void ProjectXMLBackend::load(QIODevice & device)
 	if (m->xmlReader.hasError())
 		throw ParseErrorException(m->xmlReader);
 	if (!m->xmlReader.readNextStartElement() && m->xmlReader.atEnd())
-		CUTEHMI_BASE_QDEBUG("Finished parsing the document.");
+		CUTEHMI_UTILS_DEBUG("Finished parsing the document.");
 	else {
 		m->xmlReader.raiseError(QObject::tr("Could not finish parsing the document."));
 		throw ParseErrorException(m->xmlReader);
@@ -61,20 +61,20 @@ ProjectXMLBackend::Loader1::Loader1(ProjectNode * root, PluginLoader * pluginLoa
 
 void ProjectXMLBackend::Loader1::parse(const xml::ParseHelper & parentHelper)
 {
-	CUTEHMI_BASE_QDEBUG("Loader starts parsing a document...");
+	CUTEHMI_UTILS_DEBUG("Loader starts parsing a document...");
 
 	xml::ParseHelper helper(& parentHelper);
 	helper << xml::ParseElement("plugin", {xml::ParseAttribute("binary", "[a-z|A-Z|0-9|_-]+"), xml::ParseAttribute("req_minor", "-?[0-9]+")}, 0)
 		   << xml::ParseElement("context_properties", 0);
 
-	QXmlStreamReader & reader = *helper.xmlReader();
+	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (reader.name() == "plugin") {
 			QString binary = reader.attributes().value("binary").toString();
 			bool reqMinorOk;
 			int reqMinor = reader.attributes().value("req_minor").toInt(& reqMinorOk);
 			if (!reqMinorOk) {
-				reader.raiseError(QObject::tr("Could not convert 'req_minor' attribute to integer."));
+				helper.raiseError(QObject::tr("Could not convert 'req_minor' attribute to integer."));
 				break;
 			}
 #ifdef CUTEHMI_DEBUG
@@ -101,18 +101,18 @@ void ProjectXMLBackend::Loader1::parse(const xml::ParseHelper & parentHelper)
 void ProjectXMLBackend::Loader1::parsePlugin(const xml::ParseHelper & parentHelper, ProjectNode & node)
 {
 	Plugin * plugin = qobject_cast<Plugin *>(node.extension(Plugin::staticMetaObject.className()));
-	CUTEHMI_BASE_ASSERT(plugin != nullptr, "pointer must be not nullptr");
+	CUTEHMI_UTILS_ASSERT(plugin != nullptr, "pointer must be not nullptr");
 
 	xml::ParseHelper helper(& parentHelper);
 	helper << xml::ParseElement("extension", {xml::ParseAttribute("object", XMLBackendPlugin::staticMetaObject.className())}, 0);
 
-	QXmlStreamReader & reader = *helper.xmlReader();
+	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if ((reader.name() == "extension") && (reader.attributes().value("object") == XMLBackendPlugin::staticMetaObject.className())) {
 			XMLBackendPlugin * xmlPlugin = qobject_cast<XMLBackendPlugin *>(node.extension(XMLBackendPlugin::staticMetaObject.className()));
 			if (xmlPlugin == nullptr)
 				throw MissingExtensionException(plugin->binary(), plugin->version(), XMLBackendPlugin::staticMetaObject.className());
-			xmlPlugin->implementation()->readXML(reader, node);
+			xmlPlugin->implementation()->readXML(static_cast<QXmlStreamReader &>(helper), node);
 		}
 	}
 }
@@ -123,25 +123,25 @@ void ProjectXMLBackend::Loader1::parseNodeRef(const xml::ParseHelper & parentHel
 	helper << xml::ParseElement("node_ref", {xml::ParseAttribute("id")}, 0)
 		   << xml::ParseElement("extension_ref", {xml::ParseAttribute("object"), xml::ParseAttribute("context_property", "[a-z|A-Z|_][a-z|A-Z|0-9|_]*")}, 0);
 
-	QXmlStreamReader & reader = *helper.xmlReader();
+	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (reader.name() == "node_ref") {
 			QString id = reader.attributes().value("id").toString();
 			if (currentNode.child(id))
 				parseNodeRef(helper, *currentNode.child(id));
 			else
-				CUTEHMI_BASE_QWARNING("Could not find child node with an id '"<< id << "' referenced at: " << xml::internal::readerPositionString(reader) << ".");
+				CUTEHMI_UTILS_WARNING("Could not find child node with an id '"<< id << "' referenced at: " << xml::internal::readerPositionString(reader) << ".");
 		} else if (reader.name() == "extension_ref") {
 			QString contextProperty = reader.attributes().value("context_property").toString();
 			if (contextProperty.startsWith("cutehmi_"))
-				reader.raiseError(QObject::tr("Context properties starting with 'cutehmi_' string are reserved by CuteHMI."));
+				helper.raiseError(QObject::tr("Context properties starting with 'cutehmi_' string are reserved by CuteHMI."));
 			else {
 				QString objectName = reader.attributes().value("object").toString();
 				if (m_qmlContext->contextProperty(contextProperty).isValid())
-					CUTEHMI_BASE_QWARNING("Context property '"<< contextProperty << "' has been already set. Redefined at: " << xml::internal::readerPositionString(reader) << ".");
+					CUTEHMI_UTILS_WARNING("Context property '"<< contextProperty << "' has been already set. Redefined at: " << xml::internal::readerPositionString(reader) << ".");
 				QObject * object = currentNode.extension(objectName);
 				if (object == nullptr)
-					CUTEHMI_BASE_QWARNING("Could not find extension object '"<< objectName << "' referenced at: " << xml::internal::readerPositionString(reader) << ".");
+					CUTEHMI_UTILS_WARNING("Could not find extension object '"<< objectName << "' referenced at: " << xml::internal::readerPositionString(reader) << ".");
 				else
 					m_qmlContext->setContextProperty(contextProperty, object);
 			}

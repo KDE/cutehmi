@@ -30,9 +30,9 @@
 #endif
 
 #ifdef CUTEHMI_DEBUG
-	#define CUTEHMI_BASE_ASSERT(EXPR, MSG) Q_ASSERT_X(EXPR, __FILE__, MSG)
+	#define CUTEHMI_UTILS_ASSERT(EXPR, MSG) Q_ASSERT_X(EXPR, __FILE__, MSG)
 #else
-	#define CUTEHMI_BASE_ASSERT(EXPR, MSG) (void)0
+	#define CUTEHMI_UTILS_ASSERT(EXPR, MSG) (void)0
 #endif
 
 #endif
