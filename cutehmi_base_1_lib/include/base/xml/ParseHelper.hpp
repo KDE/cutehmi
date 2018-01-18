@@ -27,11 +27,15 @@ class CUTEHMI_BASE_API ParseHelper:
 
 		ParseHelper(const ParseHelper * parentHelper);
 
+		explicit operator const QXmlStreamReader & () const;
+
+		explicit operator QXmlStreamReader & ();
+
 		ParseHelper & operator <<(const ParseElement & element);
 
 		void addElement(const ParseElement & element);
 
-		QXmlStreamReader * xmlReader() const;
+		const QXmlStreamReader & xmlReader() const;
 
 		QStringList namespaceURIList() const;
 
@@ -39,9 +43,13 @@ class CUTEHMI_BASE_API ParseHelper:
 
 		bool readNextRecognizedElement();
 
+		QString readElementText();
+
 		const ParseElement * lastRecognizedElement() const;
 
 		QString lastRecognizedNamespaceURI() const;
+
+		void raiseError(const QString & message = QString());
 
 	protected:
 		/**
