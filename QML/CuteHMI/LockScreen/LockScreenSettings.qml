@@ -6,10 +6,20 @@ import CuteHMI.App 1.0
 import CuteHMI.LockScreen 1.0
 import CuteHMI.alpha.Controls 1.0
 
+/**
+  @todo Set implicit width and height.
+
+  @todo Try to use Item as lockScreenComponent property (change name to lockScreenItem in such case).
+
+  @todo Try to use default property for lockScreenX property.
+
+  @todo Fix image fit.
+  */
 Item {
 	id: root
 
 	property alias lockScreenComponent: wizard.lockScreenComponent
+
 	Frame {
 		anchors.centerIn: parent
 		padding: 20.0
