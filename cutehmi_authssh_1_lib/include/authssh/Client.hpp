@@ -2,124 +2,127 @@
 #define CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_CLIENT_HPP
 
 #include "internal/common.hpp"
-
-#include <base/Error.hpp>
-
-#include <libssh/libssh.h>
+#include "internal/ChannelsThread.hpp"
+#include "Session.hpp"
 
 #include <QObject>
+#include <QSettings>
+#include <QVariantList>
 
 namespace cutehmi {
 namespace authssh {
 
+/**
+ * @todo create Init() function add add libssh thread initialization code there.
+ */
 class CUTEHMI_AUTHSSH_API Client:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		struct CUTEHMI_AUTHSSH_API Error:
-			public base::Error
-		{
-			enum : int {
-				FAILED_GET_PUBLIC_KEY = base::Error::SUBCLASS_BEGIN,
-				FAILED_GET_PUBLIC_KEY_HASH,
-				FAILED_PUBLIC_KEY_HEX_STRING
-			};
+		static constexpr const char * QSETTINGS_GROUP = "cutehmi_authssh_1_lib";
+		static constexpr const char * INITIAL_SERVER_HOST = "localhost";
+		static constexpr uint INITIAL_SERVER_PORT = 22;
 
-			using base::Error::Error;
-
-			QString str() const;
-		};
-
-		static constexpr const char * INITIAL_HOST = "localhost";
-		static constexpr int INITIAL_PORT = 22;
-		static constexpr const char * INITIAL_USER = "";
-#ifdef CUTEHMI_DEBUG
-		static const int INITIAL_VERBOSITY = SSH_LOG_FUNCTIONS;
-#else
-		static const int INITIAL_VERBOSITY = SSH_LOG_NOLOG;
-#endif
-
-		Q_PROPERTY(QString host READ host WRITE setHost NOTIFY hostChanged)
-		Q_PROPERTY(int port READ port WRITE setPort NOTIFY portChanged)
-		Q_PROPERTY(QString user READ user WRITE setUser NOTIFY userChanged)
-		//<workaround ref="cutehmi_authssh_1_lib-1" target="libssh" cause="bug">
-		// Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged STORED false)
-		Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
-		//</workaround>
-		Q_PROPERTY(QString hostKey READ hostKey NOTIFY hostKeyChanged)
+		Q_PROPERTY(QString serverHost READ serverHost WRITE setServerHost NOTIFY serverHostChanged)
+		Q_PROPERTY(uint serverPort READ serverPort WRITE setServerPort NOTIFY serverPortChanged)
+		Q_PROPERTY(QString serverKey READ serverKey NOTIFY serverKeyChanged)
+		Q_PROPERTY(QString user READ user NOTIFY userChanged)
+		Q_PROPERTY(bool authenticated READ authenticated NOTIFY authenticatedChanged)
 
 		explicit Client(QObject * parent = nullptr);
 
 		~Client() override;
 
-		QString host() const;
+		QString serverHost() const;
 
-		void setHost(const QString & host);
+		void setServerHost(const QString & host);
 
-		int port() const;
+		uint serverPort() const;
 
-		void setPort(int port);
+		void setServerPort(uint port);
+
+		QString serverKey() const;
 
 		QString user() const;
 
-		void setUser(const QString & user);
+		bool authenticated() const;
 
-		bool connected() const;
+		void addChannel(std::unique_ptr<AbstractChannel> channel);
 
-		QString hostKey() const;
+//		const Session * client() const;
 
-		void newSession();
+//		Session * client();
 
-		void destroySession();
+	public slots:
+		void acceptServerKey();
 
-		bool hasSession() const;
+		void invalidateServerKey();
 
-		void connect();
+		bool login(const QString & user, const QString & password);
 
-		void disconnect();
-
-		bool passwordAuth(const QString & password);
-
-//		Q_INVOKABLE bool authPassword(const QString & password);
+		void logout();
 
 	signals:
-		void hostChanged();
+		void serverHostChanged();
 
-		void portChanged();
+		void serverPortChanged();
+
+		void serverKeyChanged();
 
 		void userChanged();
 
-		void connectedChanged();
+		void authenticatedChanged();
 
-		void hostKeyChanged();
+		void serverKeyNew();
+
+		void serverKeyMismatch();
 
 	protected:
-		ssh_session session() const;
+		void setServerKey(const QString & key);
 
-		Error updateHostKey();
+		void setUser(const QString & user);
 
-		void setHostKey(const QString & key);
+		void setAuthenticated(bool authenticated);
 
-		//<workaround ref="cutehmi_authssh_1_lib-1" target="libssh" cause="bug">
-		void setConnected(bool connected);
-		//</workaround>
+		void startChannels(Session * session);
+
+		void stopChannels();
+
+	private slots:
+		void handleChannelError(const QString & error);
 
 	private:
-		QStringList authMethods() const;
+		typedef QVariantList SessionCointainer;
 
-	private:
+		Session * lastSession();
+
+		const Session * lastSession() const;
+
+		Session * takeLastSession();
+
+//		bool connect();
+
+		bool verifyServer();
+
+//		void disconnect();
+
+		QString serverKeySettingsKey() const;
+
 		struct Members
 		{
-			QString host;
-			int port;
+			QString serverHost{Client::INITIAL_SERVER_HOST};
+			uint serverPort{Client::INITIAL_SERVER_PORT};
+			QString serverKey;
 			QString user;
-			QString hostKey;
-			ssh_session session;
-			//<workaround id="cutehmi_authssh_1_lib-1" target="libssh" cause="bug">
-			// Function 'ssh_is_connected()' returns true, even if 'ssh_connect()' fails to establish connection due to	timeout.
-			bool connected;
+			bool authenticated{false};
+			Client::SessionCointainer sessions;
+			QSettings settings;
+			//<workaround id="cutehmi_authssh_1_lib-3" target="libssh" cause="design">
+			// "You cannot use a single session (or channels for a single session) in several threads at the same time. This will most likely lead to internal state corruption. This limitation is being worked out and will maybe disappear later." -- http://api.libssh.org/master/libssh_tutor_threads.html
+			// Workaround is to use collective thread for all channels.
+			internal::ChannelsThread channelsThread;
 			//</workaround>
 		};
 

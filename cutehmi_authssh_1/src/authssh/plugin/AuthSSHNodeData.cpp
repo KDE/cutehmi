@@ -4,12 +4,12 @@ namespace cutehmi {
 namespace authssh {
 namespace plugin {
 
-AuthSSHNodeData::AuthSSHNodeData(std::unique_ptr<Auth> auth):
+AuthSSHNodeData::AuthSSHNodeData(std::unique_ptr<Client> auth):
 	m_auth(std::move(auth))
 {
 }
 
-Auth * AuthSSHNodeData::auth() const
+Client * AuthSSHNodeData::auth() const
 {
 	return m_auth.get();
 }

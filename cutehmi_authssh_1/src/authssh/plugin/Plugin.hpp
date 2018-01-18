@@ -5,6 +5,8 @@
 #include <base/IXMLBackendPlugin.hpp>
 #include <base/xml/ParseHelper.hpp>
 
+#include <authssh/AbstractChannel.hpp>
+
 #include <QObject>
 
 #include <memory>
@@ -33,9 +35,11 @@ class Plugin:
 		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
 
 	private:
-		void parseAuth(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name);
+		void parseClient(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name);
 
-		void parseServer(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, QString & host, int & port);
+		void parseChannels(const base::xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel> > & channels);
+
+		void parseForwardChannel(const base::xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel);
 };
 
 }

@@ -9,6 +9,7 @@ CONFIG(debug, debug|release) {
 DESTDIR = $$DESTDIR/plugins
 
 QT -= gui
+QT += network
 
 CONFIG += plugin
 

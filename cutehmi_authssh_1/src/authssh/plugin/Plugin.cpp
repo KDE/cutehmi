@@ -3,12 +3,17 @@
 #include "PluginNodeData.hpp"
 #include "AuthSSHNodeData.hpp"
 
-#include <authssh/Auth.hpp>
+#include <authssh/Client.hpp>
+#include <authssh/ForwardChannel.hpp>
 
 #include <base/XMLBackendPlugin.hpp>
 #include <base/Exception.hpp>
 
+#include <base/xml/conversions.hpp>
+
 #include <QtDebug>
+
+#include <vector>
 
 namespace cutehmi {
 namespace authssh {
@@ -23,7 +28,7 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_AUTHSSH_1_QDEBUG("Plugin 'cutehmi_aauthssh_1' starts parsing its own portion of document...");
+	CUTEHMI_UTILS_DEBUG("Plugin 'cutehmi_authssh_1' starts parsing its own portion of document...");
 
     QStringList supportedVersions;
     supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_authssh_1/xsd/1.0/";
@@ -31,13 +36,14 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
     base::xml::ParseHelper helper(& xmlReader, supportedVersions);
 	helper << base::xml::ParseElement("cutehmi_authssh_1", 1, 1);
 
-    while (helper.readNextRecognizedElement()) {
-        if (xmlReader.name() == "cutehmi_authssh_1") {
+	const QXmlStreamReader & reader = helper.xmlReader();
+	while (helper.readNextRecognizedElement()) {
+		if (reader.name() == "cutehmi_authssh_1") {
             base::xml::ParseHelper nodeHelper(& helper);
-			nodeHelper << base::xml::ParseElement("auth", { base::xml::ParseAttribute("id"), base::xml::ParseAttribute("name") }, 1, 1);
+			nodeHelper << base::xml::ParseElement("client", { base::xml::ParseAttribute("id"), base::xml::ParseAttribute("name") }, 1, 1);
             while (nodeHelper.readNextRecognizedElement()) {
-				if (xmlReader.name() == "auth")
-					parseAuth(nodeHelper, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());
+				if (reader.name() == "client")
+					parseClient(nodeHelper, node, reader.attributes().value("id").toString(), reader.attributes().value("name").toString());
             }
         }
     }
@@ -50,59 +56,94 @@ void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) co
     throw base::Exception("cutehmi::authssh::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseAuth(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name)
+void Plugin::parseClient(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name)
 {
-	std::unique_ptr<Auth> auth;
+	std::vector<std::unique_ptr<AbstractChannel>> channels;
+	std::unique_ptr<Client> client;
 	QString host;
-	int port;
+	uint port;
 
 	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("server", 1, 1);
+	helper << base::xml::ParseElement("server_host", 1, 1)
+		   << base::xml::ParseElement("server_port", 1, 1)
+		   << base::xml::ParseElement("channels", 1, 1);
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
-		if (xmlReader.name() == "server")
-			parseServer(helper, node, host, port);
+		if (reader.name() == "server_host")
+			host = helper.readElementText();
+		else if (reader.name() == "server_port") {
+			bool ok;
+			port = helper.readElementText().toUInt(& ok);
+			if (!ok)
+				helper.raiseError(QObject::tr("Could not convert 'port' element contents to unsigned integer."));
+		} else if (reader.name() == "channels")
+			parseChannels(helper, channels);
 	}
 
-	auth.reset(new Auth);
-	auth->client()->setHost(host);
-	auth->client()->setPort(port);
-	base::ProjectNode * authNode = node.addChild(id, base::ProjectNodeData(name));
-	authNode->addExtension(auth.get());
+	if (!reader.hasError()) {
+		client.reset(new Client);
+		client->setServerHost(host);
+		client->setServerPort(port);
+		for (auto it = channels.begin(); it != channels.end(); ++it)
+			client->addChannel(std::move(*it));
 
-	authNode->data().append(std::unique_ptr<AuthSSHNodeData>(new AuthSSHNodeData(std::move(auth))));
+		base::ProjectNode * authsshNode = node.addChild(id, base::ProjectNodeData(name));
+		authsshNode->addExtension(client.get());
+
+		authsshNode->data().append(std::unique_ptr<AuthSSHNodeData>(new AuthSSHNodeData(std::move(client))));
+	}
 }
 
-void Plugin::parseServer(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, QString & host, int & port)
+void Plugin::parseChannels(const base::xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel>> & channels)
 {
-	Q_UNUSED(node);
+	base::xml::ParseHelper helper(& parentHelper);
+	helper << base::xml::ParseElement("channel", { base::xml::ParseAttribute("type", "forward")}, 0, -1);
 
-    base::xml::ParseHelper helper(& parentHelper);
-    helper << base::xml::ParseElement("host", 1, 1)
-		   << base::xml::ParseElement("port", 1, 1);
-//           << base::xml::ParseElement("guest_username", 0, 1)
-//           << base::xml::ParseElement("guest_password", 0, 1);
+	const QXmlStreamReader & reader = helper.xmlReader();
+	while (helper.readNextRecognizedElement()) {
+		if (reader.name() == "channel") {
+			std::unique_ptr<AbstractChannel> channel;
+			if (reader.attributes().value("type") == "forward")
+				parseForwardChannel(parentHelper, channel);
+			channels.push_back(std::move(channel));
+		}
+	}
+}
 
-    QXmlStreamReader & xmlReader = *helper.xmlReader();
-    while (helper.readNextRecognizedElement()) {
-        if (xmlReader.name() == "host")
-			host = xmlReader.readElementText();
-        else if (xmlReader.name() == "port") {
-            bool ok;
-			port = xmlReader.readElementText().toInt(& ok);
-            if (!ok)
-                xmlReader.raiseError(QObject::tr("Could not conver 'port' element contents to integer."));
-		} /*else if (xmlReader.name() == "guest_username")
-            guest_username = xmlReader.readElementText();
-        else if (xmlReader.name() == "guest_password")
-			guest_password = xmlReader.readElementText();*/
-    }
+void Plugin::parseForwardChannel(const base::xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel)
+{
+	QHostAddress remoteHost;
+	uint remotePort;
+	QHostAddress sourceHost;
+	uint localPort;
 
-//	node.addExtension(mainScreen.get());
+	base::xml::ParseHelper helper(& parentHelper);
+	helper << base::xml::ParseElement("remote_host", 1, 1)
+		   << base::xml::ParseElement("remote_port", 1, 1)
+		   << base::xml::ParseElement("source_host", 1, 1)
+		   << base::xml::ParseElement("local_port", 1, 1);
 
-//	screensNodeData.reset(new ScreensNodeData(std::move(mainScreen)));
-//	node.data().append(std::move(screensNodeData));
+	const QXmlStreamReader & reader = helper.xmlReader();
+	while (helper.readNextRecognizedElement()) {
+		if (reader.name() == "remote_host") {
+			remoteHost.setAddress(helper.readElementText());
+		} else if (reader.name() == "remote_port") {
+			bool ok;
+			remotePort = helper.readElementText().toUInt(& ok);
+			if (!ok)
+				helper.raiseError(QObject::tr("Could not convert 'remote_port' element contents to unsigned integer."));
+		} else if (reader.name() == "source_host") {
+			sourceHost.setAddress(helper.readElementText());
+		} else if (reader.name() == "local_port") {
+			bool ok;
+			localPort = helper.readElementText().toUInt(& ok);
+			if (!ok)
+				helper.raiseError(QObject::tr("Could not convert 'local_port' element contents to unsigned integer."));
+		}
+	}
+
+	channel.reset(new ForwardChannel(remoteHost, remotePort, sourceHost, localPort));
 }
 
 }

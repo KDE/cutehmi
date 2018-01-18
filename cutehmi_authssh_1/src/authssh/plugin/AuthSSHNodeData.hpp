@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_AUTHSSHPLUGIN_SRC_AUTHSSH_PLUGIN_AUTHSSHNODEDATA_HPP
 #define CUTEHMI_AUTHSSHPLUGIN_SRC_AUTHSSH_PLUGIN_AUTHSSHNODEDATA_HPP
 
-#include <authssh/Auth.hpp>
+#include <authssh/Client.hpp>
 
 #include <base/DataBlock.hpp>
 
@@ -17,14 +17,14 @@ class AuthSSHNodeData:
 	public base::DataBlock
 {
 	public:
-		AuthSSHNodeData(std::unique_ptr<Auth> auth);
+		AuthSSHNodeData(std::unique_ptr<Client> auth);
 
 		~AuthSSHNodeData() override = default;
 
-		Auth * auth() const;
+		Client * auth() const;
 
 	private:
-		std::unique_ptr<Auth> m_auth;
+		std::unique_ptr<Client> m_auth;
 };
 
 }

@@ -1,14 +1,23 @@
 #ifndef CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_INTERNAL_MACROS_HPP
 #define CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_INTERNAL_MACROS_HPP
 
-#include <base/macros.hpp>
+#include <utils/macros.hpp>
+
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(cutehmi_authssh_1_lib_loggingCategory)
 
-#define CUTEHMI_AUTHSSH_1_LIB_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_authssh_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_AUTHSSH_1_LIB_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_authssh_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_AUTHSSH_1_LIB_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_authssh_1_lib_loggingCategory, EXPR)
-#define CUTEHMI_AUTHSSH_1_LIB_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_authssh_1_lib_loggingCategory, EXPR)
+namespace cutehmi {
+namespace authssh {
+
+inline
+const QLoggingCategory & loggingCategory()
+{
+	return cutehmi_authssh_1_lib_loggingCategory();
+}
+
+}
+}
 
 #endif
 
