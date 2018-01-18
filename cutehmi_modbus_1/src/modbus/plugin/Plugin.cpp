@@ -27,7 +27,7 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_MODBUS_PLUGIN_QDEBUG("Plugin 'cutehmi_modbus_1' starts parsing its own portion of document...");
+	CUTEHMI_UTILS_DEBUG("Plugin 'cutehmi_modbus_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_modbus_1/xsd/1.0/";
@@ -66,7 +66,7 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 	std::unique_ptr<internal::AbstractConnection> connection;
 	unsigned long serviceSleep = 0;
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "client") {
 			base::xml::ParseHelper clientHelper(& helper);
@@ -89,29 +89,31 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 			while (serviceHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "sleep") {
 					bool ok;
-					serviceSleep = xmlReader.readElementText().toULong(& ok);
+					serviceSleep = serviceHelper.readElementText().toULong(& ok);
 					if (!ok)
-						xmlReader.raiseError(QObject::tr("Could not convert 'sleep' element contents to long integer."));
+						serviceHelper.raiseError(QObject::tr("Could not convert 'sleep' element contents to long integer."));
 				}
 			}
 		}
 	}
 
-	client.reset(new Client(std::move(connection)));
-	service.reset(new Service(name, client.get()));
-	service->setSleep(serviceSleep);
-	base::ProjectNode * modbusNode = node.addChild(id, base::ProjectNodeData(name));
-	modbusNode->addExtension(client.get());
-	modbusNode->addExtension(service.get());
+	if (!xmlReader.hasError()) {
+		client.reset(new Client(std::move(connection)));
+		service.reset(new Service(name, client.get()));
+		service->setSleep(serviceSleep);
+		base::ProjectNode * modbusNode = node.addChild(id, base::ProjectNodeData(name));
+		modbusNode->addExtension(client.get());
+		modbusNode->addExtension(service.get());
 
-	if (node.root()->child("cutehmi_services_1")) {
-		services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
-		CUTEHMI_BASE_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
-		serviceRegistry->add(service.get());
-	} else
-		CUTEHMI_MODBUS_PLUGIN_QWARNING("Plugin 'cutehmi_services_1' not available.");
+		if (node.root()->child("cutehmi_services_1")) {
+			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
+			CUTEHMI_UTILS_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
+			serviceRegistry->add(service.get());
+		} else
+			CUTEHMI_UTILS_WARNING("Plugin 'cutehmi_services_1' not available.");
 
-	modbusNode->data().append(std::unique_ptr<ModbusNodeData>(new ModbusNodeData(std::move(client), std::move(service))));
+		modbusNode->data().append(std::unique_ptr<ModbusNodeData>(new ModbusNodeData(std::move(client), std::move(service))));
+	}
 }
 
 void Plugin::parseTCP(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
@@ -130,23 +132,23 @@ void Plugin::parseTCP(const base::xml::ParseHelper & parentHelper, std::unique_p
 		   << base::xml::ParseElement("response_timeout", 1, 1)
 		   << base::xml::ParseElement("unit_id", 1, 1);
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "node")
-			name = xmlReader.readElementText();
+			name = helper.readElementText();
 		else if (xmlReader.name() == "service")
-			service = xmlReader.readElementText();
+			service = helper.readElementText();
 		else if (xmlReader.name() == "byte_timeout") {
-			if (!timeoutFromString(xmlReader.readElementText(), byteTimeout))
-				xmlReader.raiseError(QObject::tr("Could not parse 'byte_timeout' element."));
+			if (!timeoutFromString(helper.readElementText(), byteTimeout))
+				helper.raiseError(QObject::tr("Could not parse 'byte_timeout' element."));
 		} else if (xmlReader.name() == "response_timeout") {
-			if (!timeoutFromString(xmlReader.readElementText(), responseTimeout))
-				xmlReader.raiseError(QObject::tr("Could not parse 'response_timeout' element."));
+			if (!timeoutFromString(helper.readElementText(), responseTimeout))
+				helper.raiseError(QObject::tr("Could not parse 'response_timeout' element."));
 		} else if (xmlReader.name() == "unit_id") {
 			bool ok;
-			unitId = xmlReader.readElementText().toInt(& ok);
+			unitId = helper.readElementText().toInt(& ok);
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'unit_id' element contents to integer."));
+				helper.raiseError(QObject::tr("Could not convert 'unit_id' element contents to integer."));
 		}
 	}
 	tcpConnection.reset(new internal::TCPConnection(name, service, unitId));
@@ -177,17 +179,17 @@ void Plugin::parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_p
 		   << base::xml::ParseElement("mode", 1, 1)
 		   << base::xml::ParseElement("slave_id", 1, 1);
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "port")
-			port = xmlReader.readElementText();
+			port = helper.readElementText();
 		else if (xmlReader.name() == "baud_rate") {
 			bool ok;
 			baudRate = xmlReader.text().toInt(& ok);
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'baud_rate' element contents to integer."));
+				helper.raiseError(QObject::tr("Could not convert 'baud_rate' element contents to integer."));
 		} else if (xmlReader.name() == "parity") {
-			QString parityText = xmlReader.readElementText();
+			QString parityText = helper.readElementText();
 			if (parityText == "NONE")
 				parity = internal::RTUConnection::Parity::NONE;
 			else if (parityText == "ODD")
@@ -195,19 +197,19 @@ void Plugin::parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_p
 			else if (parityText == "EVEN")
 				parity = internal::RTUConnection::Parity::EVEN;
 			else
-				xmlReader.raiseError(QObject::tr("Contents of 'parity' element must match pattern 'NONE|ODD|EVEN'."));
+				helper.raiseError(QObject::tr("Contents of 'parity' element must match pattern 'NONE|ODD|EVEN'."));
 		} else if (xmlReader.name() == "data_bits") {
 			bool ok;
-			dataBits = static_cast<internal::RTUConnection::DataBits>(xmlReader.readElementText().toInt(& ok));
+			dataBits = static_cast<internal::RTUConnection::DataBits>(helper.readElementText().toInt(& ok));
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'data_bits' element contents to integer."));
+				helper.raiseError(QObject::tr("Could not convert 'data_bits' element contents to integer."));
 		} else if (xmlReader.name() == "stop_bits") {
 			bool ok;
-			stopBits = static_cast<internal::RTUConnection::StopBits>(xmlReader.readElementText().toInt(& ok));
+			stopBits = static_cast<internal::RTUConnection::StopBits>(helper.readElementText().toInt(& ok));
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'stop_bits' element contents to integer."));
+				helper.raiseError(QObject::tr("Could not convert 'stop_bits' element contents to integer."));
 		} else if (xmlReader.name() == "mode") {
-			QString modeText = xmlReader.readElementText();
+			QString modeText = helper.readElementText();
 			if (modeText == "RS232")
 				mode = internal::RTUConnection::Mode::RS232;
 //<workaround id="cutehmi_modbus_1_lib-1" target="libmodbus" cause="bug">
@@ -215,18 +217,18 @@ void Plugin::parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_p
 //				mode = internal::RTUConnection::Mode::RS485;
 //</workaround>
 			else
-				xmlReader.raiseError(QObject::tr("Contents of 'mode' element must match pattern 'RS232'."));
+				helper.raiseError(QObject::tr("Contents of 'mode' element must match pattern 'RS232'."));
 		} else if (xmlReader.name() == "slave_id") {
 			bool ok;
-			slaveId = xmlReader.readElementText().toInt(& ok);
+			slaveId = helper.readElementText().toInt(& ok);
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'slave_id' element contents to integer."));
+				helper.raiseError(QObject::tr("Could not convert 'slave_id' element contents to integer."));
 		} else if (xmlReader.name() == "byte_timeout") {
-			if (!timeoutFromString(xmlReader.readElementText(), byteTimeout))
-				xmlReader.raiseError(QObject::tr("Could not parse 'byte_timeout' element."));
+			if (!timeoutFromString(helper.readElementText(), byteTimeout))
+				helper.raiseError(QObject::tr("Could not parse 'byte_timeout' element."));
 		} else if (xmlReader.name() == "response_timeout") {
-			if (!timeoutFromString(xmlReader.readElementText(), responseTimeout))
-				xmlReader.raiseError(QObject::tr("Could not parse 'response_timeout' element."));
+			if (!timeoutFromString(helper.readElementText(), responseTimeout))
+				helper.raiseError(QObject::tr("Could not parse 'response_timeout' element."));
 		}
 	}
 
@@ -248,23 +250,23 @@ void Plugin::parseDummy(const base::xml::ParseHelper & parentHelper, std::unique
 		   << base::xml::ParseElement("connect_latency", 1, 1)
 		   << base::xml::ParseElement("disconnect_latency", 1, 1);
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "latency") {
 			bool ok;
-			latency = xmlReader.readElementText().toULong(& ok);
+			latency = helper.readElementText().toULong(& ok);
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'latency' element data to long integer."));
+				helper.raiseError(QObject::tr("Could not convert 'latency' element data to long integer."));
 		} else if (xmlReader.name() == "connect_latency") {
 			bool ok;
-			connectLatency = xmlReader.readElementText().toULong(& ok);
+			connectLatency = helper.readElementText().toULong(& ok);
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'connect_latency' element data to long integer."));
+				helper.raiseError(QObject::tr("Could not convert 'connect_latency' element data to long integer."));
 		} else if (xmlReader.name() == "disconnect_latency") {
 			bool ok;
-			disconnectLatency = xmlReader.readElementText().toULong(& ok);
+			disconnectLatency = helper.readElementText().toULong(& ok);
 			if (!ok)
-				xmlReader.raiseError(QObject::tr("Could not convert 'disconnect_latency' element data to long integer."));
+				helper.raiseError(QObject::tr("Could not convert 'disconnect_latency' element data to long integer."));
 		}
 	}
 	dummyConnection.reset(new internal::DummyConnection);
@@ -295,7 +297,7 @@ bool Plugin::secUsecFromString(const QString & timeoutString, unsigned long & se
 	if (secUsec.length() != 2)
 		return false;
 	if (secUsec.value(1).count() > 6)
-		CUTEHMI_MODBUS_PLUGIN_QDEBUG("Values smaller than a microsecond will be ignored.");
+		CUTEHMI_UTILS_DEBUG("Values smaller than a microsecond will be ignored.");
 	sec = secUsec.value(0).toULong(& okSec);
 	usec = secUsec.value(1).leftJustified(6, '0', true).toULong(& okUsec); // unsigned long is guaranteed to be at least 32 bit.
 	if (!okSec || !okUsec)
