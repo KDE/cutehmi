@@ -46,11 +46,12 @@ SOURCES += \
     src/base/DataBlock.cpp \
     src/base/PopupBridge.cpp \
     src/base/Prompt.cpp \
-    src/base/functions.cpp \
     src/base/Notification.cpp \
     src/base/NotificationManager.cpp \
     src/base/NotificationListModel.cpp \
-    src/base/ProjectNodeData.cpp
+    src/base/ProjectNodeData.cpp \
+    src/base/Worker.cpp \
+    src/base/xml/conversions.cpp
 
 HEADERS += \
     include/base/ProjectModel.hpp \
@@ -80,11 +81,12 @@ HEADERS += \
     include/base/ExceptionMixin.hpp \
     include/base/PopupBridge.hpp \
     include/base/Prompt.hpp \
-    include/base/functions.hpp \
     include/base/Notification.hpp \
     include/base/NotificationManager.hpp \
     include/base/NotificationListModel.hpp \
-    include/base/ProjectNodeData.hpp
+    include/base/ProjectNodeData.hpp \
+    include/base/Worker.hpp \
+    include/base/xml/conversions.hpp
 
 DISTFILES += \
     import.pri \
