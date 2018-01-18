@@ -100,13 +100,13 @@ Service::state_t Service::customStop()
 
 void Service::startServiceThread()
 {
-	CUTEHMI_MODBUS_QDEBUG("Starting modbus service thread...");
+	CUTEHMI_UTILS_DEBUG("Starting modbus service thread...");
 	m->thread->start();
 }
 
 void Service::stopServiceThread()
 {
-	CUTEHMI_MODBUS_QDEBUG("Stopping modbus service thread...");
+	CUTEHMI_UTILS_DEBUG("Stopping modbus service thread...");
 	m->thread->stop();
 	m->thread->quit();
 	m->thread->wait();

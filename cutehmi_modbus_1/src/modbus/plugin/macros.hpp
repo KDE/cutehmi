@@ -1,14 +1,25 @@
 #ifndef CUTEHMI_CUTEHMI__MODBUS__1_SRC_MODBUS_PLUGIN_MACROS_HPP
 #define CUTEHMI_CUTEHMI__MODBUS__1_SRC_MODBUS_PLUGIN_MACROS_HPP
 
-#include <base/macros.hpp>
+#include <utils/macros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_1_plugin_loggingCategory)
+#include <QLoggingCategory>
 
-#define CUTEHMI_MODBUS_PLUGIN_QDEBUG(EXPR) CUTEHMI_BASE_QCDEBUG(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
-#define CUTEHMI_MODBUS_PLUGIN_QINFO(EXPR) CUTEHMI_BASE_QCINFO(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
-#define CUTEHMI_MODBUS_PLUGIN_QWARNING(EXPR) CUTEHMI_BASE_QCWARNING(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
-#define CUTEHMI_MODBUS_PLUGIN_QCRITICAL(EXPR) CUTEHMI_BASE_QCCRITICAL(cutehmi_modbus_1_plugin_loggingCategory, EXPR)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_1_loggingCategory)
+
+namespace cutehmi {
+namespace modbus {
+namespace plugin {
+
+inline
+const QLoggingCategory & loggingCategory()
+{
+	return cutehmi_modbus_1_loggingCategory();
+}
+
+}
+}
+}
 
 #endif
 
