@@ -61,7 +61,7 @@ void Client::checkDatabaseConnectionStatus()
 void Client::connect()
 {
 	if (!isDisconnected()) {
-		CUTEHMI_STUPID_QWARNING("Trying to connect, while not disconnected.");
+		CUTEHMI_UTILS_WARNING("Trying to connect, while not disconnected.");
 		return;
 	}
 
@@ -73,10 +73,10 @@ void Client::connect()
 void Client::disconnect()
 {
 	if (isDisconnected()) {
-		CUTEHMI_STUPID_QWARNING("Already disconnected.");
+		CUTEHMI_UTILS_WARNING("Already disconnected.");
 		return;
 	} else if (!isConnected())
-		CUTEHMI_STUPID_QWARNING("Forcing disconnect, while connection has not been fully established (connection status is '" << static_cast<int>(m->asyncConnector->status()) << "'.");
+		CUTEHMI_UTILS_WARNING("Forcing disconnect, while connection has not been fully established (connection status is '" << static_cast<int>(m->asyncConnector->status()) << "'.");
 
 	m->asyncConnector->disconnect(this);
 	m->asyncConnector->deleteLater();
@@ -97,7 +97,7 @@ void Client::readAll(const QAtomicInt & run)
 	Q_UNUSED(run)
 
 	if (!isConnected()) {
-		CUTEHMI_STUPID_QWARNING("Read attempt without established connection (connection status: '" << static_cast<int>(m->asyncConnector->status()) << "').");
+		CUTEHMI_UTILS_WARNING("Read attempt without established connection (connection status: '" << static_cast<int>(m->asyncConnector->status()) << "').");
 		return;
 	}
 
@@ -132,7 +132,7 @@ constexpr int Client::EXPIRE_MIN_INTERVAL;
 void Client::asyncConnect(QObject * connector)
 {
 	if (m->asyncConnector != connector) {
-		CUTEHMI_STUPID_QWARNING("Received orphaned signal. Connection has been aborted.");
+		CUTEHMI_UTILS_WARNING("Received orphaned signal. Connection has been aborted.");
 		return;
 	}
 
@@ -142,7 +142,7 @@ void Client::asyncConnect(QObject * connector)
 		std::unique_ptr<internal::DS18B20HistoryWorker> worker(new internal::DS18B20HistoryWorker(m->dbThread, *w1Id));
 		m->ds18b20History.insert(*w1Id, QVariant::fromValue(new DS18B20History(std::move(worker))));
 	}
-	CUTEHMI_STUPID_QDEBUG("Connection has been established.");
+	CUTEHMI_UTILS_DEBUG("Connection has been established.");
 	m->connected = true;
 	emit connected();
 }

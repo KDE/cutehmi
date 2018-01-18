@@ -49,10 +49,10 @@ void DatabaseThread::run()
 		db.setUserName(m->dbData->userName);
 		db.setPassword(m->dbData->password);
 		if (db.open()) {
-			CUTEHMI_STUPID_QDEBUG("[TODO provide App with a UI for signaling errors] Connected with database.");
+			CUTEHMI_UTILS_DEBUG("[TODO provide App with a UI for signaling errors] Connected with database.");
 			emit connected();
 		} else {
-			CUTEHMI_STUPID_QDEBUG("[TODO provide App with a UI for signaling errors] Could not connect with database.");
+			CUTEHMI_UTILS_DEBUG("[TODO provide App with a UI for signaling errors] Could not connect with database.");
 			emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 		}
 		exec();

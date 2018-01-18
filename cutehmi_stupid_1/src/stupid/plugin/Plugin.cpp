@@ -27,7 +27,7 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_STUPID_PLUGIN_QDEBUG("Plugin 'cutehmi_stupid_1' starts parsing its own portion of document...");
+	CUTEHMI_UTILS_DEBUG("Plugin 'cutehmi_stupid_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_stupid_1/xsd/1.0/";
@@ -66,7 +66,7 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 	std::unique_ptr<DatabaseConnectionData> dbData;
 	unsigned long serviceSleep = 0;
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "client") {
 			base::xml::ParseHelper clientHelper(& helper);
@@ -95,32 +95,34 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 			while (serviceHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "sleep") {
 					bool ok;
-					serviceSleep = xmlReader.readElementText().toULong(& ok);
+					serviceSleep = serviceHelper.readElementText().toULong(& ok);
 					if (!ok)
-						xmlReader.raiseError(QObject::tr("Could not convert 'sleep' element data to long integer."));
+						serviceHelper.raiseError(QObject::tr("Could not convert 'sleep' element data to long integer."));
 				}
 			}
 		}
 	}
 
-	client.reset(new Client);
-	client->moveDatabaseConnectionData(std::move(dbData));
+	if (!xmlReader.hasError()) {
+		client.reset(new Client);
+		client->moveDatabaseConnectionData(std::move(dbData));
 
-	service.reset(new Service(name, client.get()));
-	service->setSleep(serviceSleep);
+		service.reset(new Service(name, client.get()));
+		service->setSleep(serviceSleep);
 
-	base::ProjectNode * stupidNode = node.addChild(id, base::ProjectNodeData(name));
-	stupidNode->addExtension(client.get());
-	stupidNode->addExtension(service.get());
+		base::ProjectNode * stupidNode = node.addChild(id, base::ProjectNodeData(name));
+		stupidNode->addExtension(client.get());
+		stupidNode->addExtension(service.get());
 
-	if (node.root()->child("cutehmi_services_1")) {
-		services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
-		CUTEHMI_BASE_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
-		serviceRegistry->add(service.get());
-	} else
-		CUTEHMI_STUPID_PLUGIN_QWARNING("Plugin 'cutehmi_services_1' not available.");
+		if (node.root()->child("cutehmi_services_1")) {
+			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
+			CUTEHMI_UTILS_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
+			serviceRegistry->add(service.get());
+		} else
+			CUTEHMI_UTILS_WARNING("Plugin 'cutehmi_services_1' not available.");
 
-	stupidNode->data().append(std::unique_ptr<StupidNodeData>(new StupidNodeData(std::move(client), std::move(service))));
+		stupidNode->data().append(std::unique_ptr<StupidNodeData>(new StupidNodeData(std::move(client), std::move(service))));
+	}
 }
 
 void Plugin::parsePostgreSQL(const base::xml::ParseHelper & parentHelper, DatabaseConnectionData & dbData)
@@ -128,7 +130,7 @@ void Plugin::parsePostgreSQL(const base::xml::ParseHelper & parentHelper, Databa
 	base::xml::ParseHelper helper(& parentHelper);
 	helper << base::xml::ParseElement("postgresql", 1, 1);
 
-	QXmlStreamReader & xmlReader = *helper.xmlReader();
+	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "postgresql") {
 			base::xml::ParseHelper postgresqlHelper(& helper);
@@ -140,19 +142,19 @@ void Plugin::parsePostgreSQL(const base::xml::ParseHelper & parentHelper, Databa
 
 			while (postgresqlHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "host")
-					dbData.hostName = xmlReader.readElementText();
+					dbData.hostName = helper.readElementText();
 				else if (xmlReader.name() == "port") {
 					bool ok;
-					int port = xmlReader.readElementText().toInt(& ok);
+					int port = helper.readElementText().toInt(& ok);
 					if (!ok)
-						xmlReader.raiseError(QObject::tr("Could not convert 'port' data to integer."));
+						helper.raiseError(QObject::tr("Could not convert 'port' data to integer."));
 					dbData.port = port;
 				} else if (xmlReader.name() == "name")
-					dbData.databaseName = xmlReader.readElementText();
+					dbData.databaseName = helper.readElementText();
 				else if (xmlReader.name() == "user")
-					dbData.userName = xmlReader.readElementText();
+					dbData.userName = helper.readElementText();
 				else if (xmlReader.name() == "password")
-					dbData.password = xmlReader.readElementText();
+					dbData.password = helper.readElementText();
 			}
 		}
 	}

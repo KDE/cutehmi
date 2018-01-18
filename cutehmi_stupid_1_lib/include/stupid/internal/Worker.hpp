@@ -17,6 +17,8 @@ namespace internal {
 
 /**
  * Worker. This class acts as a container that allows specified code to be run in a specified thread.
+ *
+ * @obsolete replaced by cutehmi::base::Worker.
  */
 class Worker:
 	public QObject
@@ -33,7 +35,7 @@ class Worker:
 		Worker(std::function<void()> task = nullptr);
 
 		/**
-		 * Constructor. This constructors acts as if employ(@a thread, false) was called immediately after
+		 * Constructor. This constructor acts as if employ(@a thread, false) was called immediately after
 		 * constructing default worker object.
 		 * @param thread thread in which worker's job should be run.
 		 */
