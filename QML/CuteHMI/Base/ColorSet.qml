@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 /**
   Color set defines standard colors to be used by CuteHMI components. CuteHMI components are using color codes to signal
-  specific states of an equipment, such as "normal", warning", "alarm", "disabled". To improve a visual appearance of
+  specific states of an equipment, such as "active", warning", "alarm", "inactive". To improve a visual appearance of
   a component a set of adjacent colors is provided to represent a state of the component.
   */
 QtObject {

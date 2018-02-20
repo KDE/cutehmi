@@ -5,7 +5,7 @@
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_app_1_lib_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_app_1_loggingCategory)
 
 namespace cutehmi {
 namespace app {
@@ -13,7 +13,7 @@ namespace app {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_app_1_lib_loggingCategory();
+	return cutehmi_app_1_loggingCategory();
 }
 
 }

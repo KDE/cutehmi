@@ -6,3 +6,4 @@ Makefile.user
 make.exe
 awkgward/find.exe
 Custom.pro
+test_*

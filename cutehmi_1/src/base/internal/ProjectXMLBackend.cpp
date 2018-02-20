@@ -23,7 +23,7 @@ void ProjectXMLBackend::load(QIODevice & device)
 	m->xmlReader.setDevice(& device);
 
 	QStringList supportedVersions1;
-	supportedVersions1 << "http://michpolicht.github.io/CuteHMI/cutehmi_base_1_lib/xsd/1.0/";
+	supportedVersions1 << "http://michpolicht.github.io/CuteHMI/cutehmi_1/xsd/1.0/";
 
 	xml::ParseHelper helper(& m->xmlReader, supportedVersions1);
 	helper << xml::ParseElement("cutehmi_project", {xml::ParseAttribute("name")}, 1, 1);

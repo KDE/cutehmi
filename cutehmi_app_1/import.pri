@@ -5,4 +5,4 @@ include(libdef.pri)
 DEFINES += CUTEHMI_APP_DYNAMIC
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
-LIBS += -L$$PWD/../../bin -l$$qtLibraryTarget($$CUTEHMI_APP_LIBNAME)
+LIBS += -L$$PWD/../../bin -l$$cutehmiTarget($$CUTEHMI_APP_LIBNAME)

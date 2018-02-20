@@ -5,7 +5,7 @@ namespace base {
 
 CuteHMI & CuteHMI::Instance()
 {
-	//<workaround id="cutehmi_base_1_lib-2" target="std" cause="design">
+	//<workaround id="cutehmi_1-2" target="std" cause="design">
 	// Function std::unique_ptr::reset() sets internal pointer to nullptr and only after that it will
 	// delete its contents. This causes error, when managed object still needs to be accessed through
 	// std::unique_ptr::get() function by members of managed object during their destruction.
@@ -17,7 +17,7 @@ CuteHMI & CuteHMI::Instance()
 
 void CuteHMI::Destroy()
 {
-	//<workaround ref="cutehmi_base_1_lib-2">
+	//<workaround ref="cutehmi_1-2">
 	Instance();	// A bit paranoic, but if Instance() wasn't called before, it would point to nullptr.
 	//</workaround>
 	InstancePtr().reset();

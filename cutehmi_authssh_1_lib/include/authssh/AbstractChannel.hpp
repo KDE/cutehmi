@@ -24,6 +24,8 @@ class CUTEHMI_AUTHSSH_API AbstractChannel:
 
 		bool init(ssh_session session);
 
+//		bool switchSession(ssh_session session);
+
 		void shutdown();
 
 	signals:
@@ -60,11 +62,14 @@ class CUTEHMI_AUTHSSH_API AbstractChannel:
 		void process();
 
 	private:
+//		typedef QMap<ssh_session, ssh_channel> SessionChannelContainer;
+
 		void freeChannel();
 
 		struct Members
 		{
 			ssh_channel channel;
+//			SessionChannelContainer sessionChannels;
 		};
 
 		utils::MPtr<Members> m;

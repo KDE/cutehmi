@@ -22,7 +22,7 @@ QModelIndex ProjectModel::index(int row, int column, const QModelIndex & parent)
 	ProjectNode * parentNode;
 	// No parent. Use root node.
 	if (parent == QModelIndex())
-		//<workaround id="cutehmi_base_1_lib-1" target="Qt" cause="design">
+		//<workaround id="cutehmi_1-1" target="Qt" cause="design">
 		parentNode = const_cast<ProjectNode *>(& m->root);
 		//</workaround>
 	else

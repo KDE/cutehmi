@@ -33,6 +33,24 @@ bool AbstractChannel::init(ssh_session session)
 		return false;
 }
 
+//bool AbstractChannel::switchSession(ssh_session session)
+//{
+//	CUTEHMI_UTILS_ASSERT(session != NULL, "session must not be NULL");
+
+//	m->channel = ssh_channel_new(session);
+//	if (m->channel == NULL) {
+//		CUTEHMI_UTILS_WARNING("Function 'ssh_channel_new()' returned NULL.");
+//		emit error(QObject::tr("Could not create a channel."));
+//		return false;
+//	}
+
+////	if (switchChannel(m->channel)) {
+////		emit sessionSwitched();
+////		return true;
+////	} else
+////		return false;
+//}
+
 void AbstractChannel::shutdown()
 {
 	CUTEHMI_UTILS_ASSERT(m->channel != NULL, "channel must not be NULL (forget to initialize?)");

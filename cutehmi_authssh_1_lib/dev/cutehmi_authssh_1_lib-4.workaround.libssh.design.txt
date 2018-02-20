@@ -1,0 +1,15 @@
+Problem:
+
+Individual channels can not be run in individual threads, because of limitted threading capabilities of libssh.
+
+http://api.libssh.org/master/libssh_tutor_threads.html
+
+Additionaly some functions can not be used from different threads, because they are not reentrant.
+
+"libssh is not reentrant here. That means that if a signal is caught during the processing of this function, you cannot call libssh functions on sessions that are busy with ssh_select()." -- http://api.libssh.org/master/group__libssh__session.html#ga86cbf041bced56d18a2a5248c46cecb4
+
+Investigation:
+
+Workaround:
+
+Use collective thread for channels.

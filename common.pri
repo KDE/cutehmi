@@ -19,3 +19,14 @@ CONFIG(release, debug|release) {
 }
 
 DEFINES += QT_DEPRECATED_WARNINGS
+
+# Returns affected library target name.
+# This function is intended to be used instead of standard $$qtLibraryTarget. It adds "d" suffix to debug build on all platforms (for consistent naming).
+defineReplace(cutehmiTarget) {
+    target = $$1
+    CONFIG(debug, debug|release) {
+        target = $$join(target,,,d)
+    }
+    return($$target)
+}
+

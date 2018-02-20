@@ -21,8 +21,8 @@ RC_FILE = cutehmi_app_1_bin.rc
 QML_IMPORT_PATH = ../QML
 
 include(../cutehmi_utils_1_lib/import.pri)
-include(../cutehmi_base_1_lib/import.pri)
-include(../cutehmi_app_1_lib/import.pri)
+include(../cutehmi_1/import.pri)
+include(../cutehmi_app_1/import.pri)
 
 # Default rules for deployment.
 include(deployment.pri)

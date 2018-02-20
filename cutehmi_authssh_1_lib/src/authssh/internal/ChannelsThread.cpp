@@ -71,7 +71,14 @@ void ChannelsThread::run()
 		(*it)->init(session);
 
 	if (!isInterruptionRequested())
-		retVal = exec();
+//		do {
+			retVal = exec();
+//			if (retVal == Error::SESSION_SWITCH) {
+//				ssh_session =
+//				for (ChannelsContainer::iterator it = m_channels.begin(); it != m_channels.end(); ++it)
+//					(*it)->switchSession(newSession);
+//			}
+//		} while (retVal != Error::SESSION_SWITCH);
 
 	for (ChannelsContainer::iterator it = m_channels.begin(); it != m_channels.end(); ++it)
 		if ((*it)->isInitialized())

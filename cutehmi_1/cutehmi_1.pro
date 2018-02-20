@@ -2,8 +2,10 @@ include(../common.pri)
 include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget($$CUTEHMI_BASE_LIBNAME)
+
+TARGET = $$cutehmiTarget($$CUTEHMI_BASE_LIBNAME)
 win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+
 VERSION = $$CUTEHMI_BASE_LIBVERSION
 
 QT -= gui
