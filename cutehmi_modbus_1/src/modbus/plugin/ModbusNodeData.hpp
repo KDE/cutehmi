@@ -1,8 +1,8 @@
 #ifndef CUTEHMI_CUTEHMI__MODBUS__1_SRC_MODBUS_PLUGIN_MODBUSNODEDATA_HPP
 #define CUTEHMI_CUTEHMI__MODBUS__1_SRC_MODBUS_PLUGIN_MODBUSNODEDATA_HPP
 
-#include <modbus/Client.hpp>
-#include <modbus/Service.hpp>
+#include "../../../include/modbus/Client.hpp"
+#include "../../../include/modbus/Service.hpp"
 
 #include <base/DataBlock.hpp>
 

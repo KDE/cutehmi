@@ -1,7 +1,8 @@
 #ifndef CUTEHMI_AUTHSSHPLUGIN_SRC_AUTHSSH_PLUGIN_AUTHSSHNODEDATA_HPP
 #define CUTEHMI_AUTHSSHPLUGIN_SRC_AUTHSSH_PLUGIN_AUTHSSHNODEDATA_HPP
 
-#include <authssh/Client.hpp>
+#include "../../../include/authssh/Client.hpp"
+
 
 #include <base/DataBlock.hpp>
 

@@ -1,11 +1,11 @@
 #ifndef CUTEHMI_CUTEHMI__MODBUS__1_SRC_MODBUS_PLUGIN_PLUGIN_HPP
 #define CUTEHMI_CUTEHMI__MODBUS__1_SRC_MODBUS_PLUGIN_PLUGIN_HPP
 
+#include "../../../include/modbus/internal/LibmodbusConnection.hpp"
+
 #include <base/IXMLBackendPlugin.hpp>
 #include <base/IPlugin.hpp>
 #include <base/xml/ParseHelper.hpp>
-
-#include <modbus/internal/LibmodbusConnection.hpp>
 
 #include <QObject>
 

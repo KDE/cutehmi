@@ -18,14 +18,13 @@ DEFINES += CUTEHMI_STUPID_DYNAMIC
 TRANSLATIONS = locale/$${CUTEHMI_STUPID_LIBNAME}_pl.ts
 
 QT -= gui
-QT += qml sql
+QT += qml sql concurrent
 
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
 include(../cutehmi_services_1/import.pri)
 include(../cutehmi_charts_1/import.pri)
-include(../cutehmi_stupid_1/import.pri)
 
 SOURCES += \
     src/stupid/plugin/Plugin.cpp \

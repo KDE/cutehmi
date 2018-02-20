@@ -1,10 +1,10 @@
-#include "macros.hpp"
 #include "Plugin.hpp"
 #include "PluginNodeData.hpp"
 #include "AuthSSHNodeData.hpp"
 
-#include <authssh/Client.hpp>
-#include <authssh/ForwardChannel.hpp>
+#include "../../../include/authssh/macros.hpp"
+#include "../../../include/authssh/Client.hpp"
+#include "../../../include/authssh/ForwardChannel.hpp"
 
 #include <base/XMLBackendPlugin.hpp>
 #include <base/Exception.hpp>

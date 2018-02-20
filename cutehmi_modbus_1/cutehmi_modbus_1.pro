@@ -18,13 +18,12 @@ DEFINES += CUTEHMI_MODBUS_DYNAMIC
 TRANSLATIONS = locale/$${CUTEHMI_MODBUS_LIBNAME}_pl.ts
 
 QT -= gui
-QT += qml
+QT += qml concurrent
 
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
 include(../cutehmi_services_1/import.pri)
-include(../cutehmi_modbus_1/import.pri)
 include(../libmodbus.pri)
 
 SOURCES += \

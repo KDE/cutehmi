@@ -1,7 +1,7 @@
-#include "macros.hpp"
 #include "Plugin.hpp"
 #include "PluginNodeData.hpp"
 #include "ScreensNodeData.hpp"
+#include "../../../include/app/macros.hpp"
 
 #include <base/XMLBackendPlugin.hpp>
 #include <base/Exception.hpp>

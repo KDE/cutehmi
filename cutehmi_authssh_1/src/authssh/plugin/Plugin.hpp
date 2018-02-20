@@ -1,11 +1,11 @@
 #ifndef CUTEHMI_CUTEHMI__AUTHSSH__1_SRC_AUTHSSH_PLUGIN_PLUGIN_HPP
 #define CUTEHMI_CUTEHMI__AUTHSSH__1_SRC_AUTHSSH_PLUGIN_PLUGIN_HPP
 
+#include "../../../include/authssh/AbstractChannel.hpp"
+
 #include <base/IPlugin.hpp>
 #include <base/IXMLBackendPlugin.hpp>
 #include <base/xml/ParseHelper.hpp>
-
-#include <authssh/AbstractChannel.hpp>
 
 #include <QObject>
 

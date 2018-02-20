@@ -1,9 +1,8 @@
-#include "macros.hpp"
 #include "Plugin.hpp"
 #include "StupidNodeData.hpp"
 #include "PluginNodeData.hpp"
-
-#include <stupid/Service.hpp>
+#include "../../../include/stupid/macros.hpp"
+#include "../../../include/stupid/Service.hpp"
 
 #include <services/ServiceRegistry.hpp>
 

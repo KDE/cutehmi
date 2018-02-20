@@ -1,12 +1,12 @@
 #ifndef CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_PLUGIN_HPP
 #define CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_PLUGIN_HPP
 
+#include "../../../include/stupid/Client.hpp"
+#include "../../../include/stupid/internal/DatabaseConnectionData.hpp"
+
 #include <base/IPlugin.hpp>
 #include <base/IXMLBackendPlugin.hpp>
 #include <base/xml/ParseHelper.hpp>
-
-#include <stupid/Client.hpp>
-#include <stupid/internal/DatabaseConnectionData.hpp>
 
 #include <QObject>
 #include <QSqlDatabase>

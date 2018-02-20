@@ -22,7 +22,6 @@ QT += network
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
-include(../cutehmi_authssh_1/import.pri)
 include(../libssh.pri)
 
 

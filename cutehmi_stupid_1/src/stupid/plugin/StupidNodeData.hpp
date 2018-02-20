@@ -1,8 +1,8 @@
 #ifndef CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_STUPIDNODEDATA_HPP
 #define CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_STUPIDNODEDATA_HPP
 
-#include <stupid/Client.hpp>
-#include <stupid/Service.hpp>
+#include "../../../include/stupid/Client.hpp"
+#include "../../../include/stupid/Service.hpp"
 
 #include <base/DataBlock.hpp>
 

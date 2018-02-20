@@ -1,11 +1,10 @@
-#include "macros.hpp"
 #include "Plugin.hpp"
 #include "PluginNodeData.hpp"
 #include "ModbusNodeData.hpp"
-
-#include <modbus/internal/TCPConnection.hpp>
-#include <modbus/internal/RTUConnection.hpp>
-#include <modbus/internal/DummyConnection.hpp>
+#include "../../../include/modbus/macros.hpp"
+#include "../../../include/modbus/internal/TCPConnection.hpp"
+#include "../../../include/modbus/internal/RTUConnection.hpp"
+#include "../../../include/modbus/internal/DummyConnection.hpp"
 
 #include <services/ServiceRegistry.hpp>
 
