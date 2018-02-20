@@ -3,21 +3,23 @@ include(libdef.pri)
 
 TEMPLATE = lib
 
-TARGET = $$cutehmiTarget($$CUTEHMI_BASE_LIBNAME)
+TARGET = $$cutehmiTarget($$CUTEHMI_LIBNAME)
 win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
 
-VERSION = $$CUTEHMI_BASE_LIBVERSION
+VERSION = $$CUTEHMI_LIBVERSION
 
-QT -= gui
-QT += qml
+#CONFIG += plugin
 
 # Configure the library for building.
-DEFINES += CUTEHMI_BASE_BUILD
-DEFINES += CUTEHMI_BASE_DYNAMIC
+DEFINES += CUTEHMI_BUILD
+DEFINES += CUTEHMI_DYNAMIC
 #CONFIG += shared
 
 # Translations.
-TRANSLATIONS = locale/$${CUTEHMI_BASE_LIBNAME}_pl.ts
+TRANSLATIONS = locale/$${CUTEHMI_LIBNAME}_pl.ts
+
+QT -= gui
+QT += qml
 
 include(../cutehmi_utils_1_lib/import.pri)
 

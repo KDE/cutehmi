@@ -13,7 +13,7 @@ namespace base {
  * Project node data. This class encapsulates basic data required by each project node. Plugins may attach their
  * own data to the node using DataBlock interface.
  */
-class CUTEHMI_BASE_API ProjectNodeData final:
+class CUTEHMI_API ProjectNodeData final:
 	public DataBlock
 {
 	public:

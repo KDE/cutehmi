@@ -11,7 +11,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API Notification:
+class CUTEHMI_API Notification:
 	public QObject
 {
 	Q_OBJECT

@@ -20,7 +20,7 @@ namespace base {
  * Child objects are destroyed in the reverse order as they were appended.
  * </principle>
  */
-class CUTEHMI_BASE_API DataBlock:
+class CUTEHMI_API DataBlock:
 	public utils::NonCopyable
 {
 	template <typename BLOCK>

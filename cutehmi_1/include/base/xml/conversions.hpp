@@ -13,16 +13,16 @@ namespace xml {
  * @brief Minimal port number of a random port. By default a number defined by
  * IANA for a dynamic port range is used (http://www.rfc-editor.org/rfc/rfc6335.txt).
  */
-CUTEHMI_BASE_API extern uint randomPortBegin;
+CUTEHMI_API extern uint randomPortBegin;
 
-CUTEHMI_BASE_API extern uint randomPortEnd;
+CUTEHMI_API extern uint randomPortEnd;
 
-#ifndef CUTEHMI_BASE_XML_RANDOM_PORT_BEGIN
-	#define CUTEHMI_BASE_XML_RANDOM_PORT_BEGIN 49152 // Minimal port number of a random port. By default a number defined by IANA for a dynamic port range is used (http://www.rfc-editor.org/rfc/rfc6335.txt).
+#ifndef CUTEHMI_XML_RANDOM_PORT_BEGIN
+	#define CUTEHMI_XML_RANDOM_PORT_BEGIN 49152 // Minimal port number of a random port. By default a number defined by IANA for a dynamic port range is used (http://www.rfc-editor.org/rfc/rfc6335.txt).
 #endif
 
-#ifndef CUTEHMI_BASE_XML_RANDOM_PORT_END
-	#define CUTEHMI_BASE_XML_RANDOM_PORT_END 65535 // Maximal port number of a random port.
+#ifndef CUTEHMI_XML_RANDOM_PORT_END
+	#define CUTEHMI_XML_RANDOM_PORT_END 65535 // Maximal port number of a random port.
 #endif
 
 /**
@@ -34,9 +34,9 @@ CUTEHMI_BASE_API extern uint randomPortEnd;
  * @param ok set to @p true when conversion was succesful, otherwise set to @p false.
  * @return port number.
  */
-CUTEHMI_BASE_API uint portFromString(const QString & string, bool & ok);
+CUTEHMI_API uint portFromString(const QString & string, bool & ok);
 
-CUTEHMI_BASE_API QString portToString(uint port, bool random);
+CUTEHMI_API QString portToString(uint port, bool random);
 
 }
 }

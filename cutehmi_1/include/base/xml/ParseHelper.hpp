@@ -15,7 +15,7 @@ namespace cutehmi {
 namespace base {
 namespace xml {
 
-class CUTEHMI_BASE_API ParseHelper:
+class CUTEHMI_API ParseHelper:
 	utils::NonCopyable
 {
 	friend class ParseHelperTest;

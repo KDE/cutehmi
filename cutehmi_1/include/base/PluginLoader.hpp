@@ -16,13 +16,13 @@ namespace base {
 /**
  * %Plugin loader.
  */
-class CUTEHMI_BASE_API PluginLoader:
+class CUTEHMI_API PluginLoader:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		class CUTEHMI_BASE_API Exception:
+		class CUTEHMI_API Exception:
 			public base::ExceptionMixin<Exception>
 		{
 			typedef base::ExceptionMixin<Exception> Parent;
@@ -31,7 +31,7 @@ class CUTEHMI_BASE_API PluginLoader:
 				using Parent::Parent;
 		};
 
-		class CUTEHMI_BASE_API WrongVersionException:
+		class CUTEHMI_API WrongVersionException:
 			public Exception
 		{
 			public:
@@ -41,7 +41,7 @@ class CUTEHMI_BASE_API PluginLoader:
 				}
 		};
 
-		class CUTEHMI_BASE_API FailedLoadException:
+		class CUTEHMI_API FailedLoadException:
 			public Exception
 		{
 			public:

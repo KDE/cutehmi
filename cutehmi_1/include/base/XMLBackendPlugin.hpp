@@ -11,7 +11,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API XMLBackendPlugin:
+class CUTEHMI_API XMLBackendPlugin:
 	public QObject
 {
 	Q_OBJECT

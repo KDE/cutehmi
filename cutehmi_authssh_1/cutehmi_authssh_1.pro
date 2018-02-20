@@ -1,21 +1,28 @@
 include(../common.pri)
+include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = cutehmi_authssh_1
-# Instead of using $$qtLibraryTarget, for consistent naming of plugins on all platforms add "d" suffix to debug build.
-CONFIG(debug, debug|release) {
-    TARGET = $$join(TARGET,,,d)
-}
-DESTDIR = $$DESTDIR/plugins
+
+TARGET = $$cutehmiTarget($$CUTEHMI_AUTHSSH_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+
+VERSION = $$CUTEHMI_AUTHSSH_LIBVERSION
+
+CONFIG += plugin
+
+# Configure the library for building.
+DEFINES += CUTEHMI_AUTHSSH_BUILD
+DEFINES += CUTEHMI_AUTHSSH_DYNAMIC
+
+# Translations.
+TRANSLATIONS = locale/$${CUTEHMI_AUTHSSH_LIBNAME}_pl.ts
 
 QT -= gui
 QT += network
 
-CONFIG += plugin
-
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
-include(../cutehmi_authssh_1_lib/import.pri)
+include(../cutehmi_authssh_1/import.pri)
 include(../libssh.pri)
 
 

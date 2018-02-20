@@ -12,12 +12,12 @@ namespace cutehmi {
 namespace base {
 namespace xml {
 
-class CUTEHMI_BASE_API ParseElement
+class CUTEHMI_API ParseElement
 {
 	friend class ParseElementTest;
 
 	public:
-		class CUTEHMI_BASE_API AttributesContainer:
+		class CUTEHMI_API AttributesContainer:
 			protected QMap<QString, ParseAttribute>
 		{
 			friend class ParseElementTest;

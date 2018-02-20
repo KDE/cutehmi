@@ -1,4 +1,4 @@
-# This file sets qmake variables for linkage against cutehmi_app_1_lib.
+# This file sets qmake variables for linkage against cutehmi_app_1.
 
 include(libdef.pri)
 

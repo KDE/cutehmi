@@ -1,23 +1,31 @@
 include(../common.pri)
+include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = cutehmi_stupid_1
-# Instead of using $$qtLibraryTarget, for consistent naming of plugins on all platforms add "d" suffix to debug build.
-CONFIG(debug, debug|release) {
-    TARGET = $$join(TARGET,,,d)
-}
-DESTDIR = $$DESTDIR/plugins
+
+TARGET = $$cutehmiTarget($$CUTEHMI_STUPID_LIBNAME)
+win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+
+VERSION = $$CUTEHMI_STUPID_LIBVERSION
+
+CONFIG += plugin
+
+# Configure the library for building.
+DEFINES += CUTEHMI_STUPID_BUILD
+DEFINES += CUTEHMI_STUPID_DYNAMIC
+
+# Translations.
+TRANSLATIONS = locale/$${CUTEHMI_STUPID_LIBNAME}_pl.ts
 
 QT -= gui
 QT += qml sql
 
-CONFIG += plugin
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
-include(../cutehmi_services_1_lib/import.pri)
-include(../cutehmi_charts_1_lib/import.pri)
-include(../cutehmi_stupid_1_lib/import.pri)
+include(../cutehmi_services_1/import.pri)
+include(../cutehmi_charts_1/import.pri)
+include(../cutehmi_stupid_1/import.pri)
 
 SOURCES += \
     src/stupid/plugin/Plugin.cpp \
@@ -55,7 +63,9 @@ HEADERS += \
     include/stupid/internal/Worker.hpp
 
 DISTFILES += cutehmi_stupid_1.json \
-    dev/cutehmi_stupid_1-1.solved.Qt.design.txt
+    dev/cutehmi_stupid_1-1.solved.Qt.design.txt \
+    import.pri \
+    libdef.pri
 
 RESOURCES += \
     cutehmi_stupid_1.qrc

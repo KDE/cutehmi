@@ -10,7 +10,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API Plugin:
+class CUTEHMI_API Plugin:
 	public QObject
 {
 	Q_OBJECT

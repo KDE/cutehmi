@@ -1,16 +1,16 @@
 #ifndef CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_BASE_INTERNAL_PLATFORM_HPP
 #define CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_BASE_INTERNAL_PLATFORM_HPP
 
-#ifdef CUTEHMI_BASE_DYNAMIC
-	#ifdef CUTEHMI_BASE_BUILD
+#ifdef CUTEHMI_DYNAMIC
+	#ifdef CUTEHMI_BUILD
 		//export symbols to dll
-		#define CUTEHMI_BASE_API Q_DECL_EXPORT
+		#define CUTEHMI_API Q_DECL_EXPORT
 	#else
 		//using functions from dll
-		#define CUTEHMI_BASE_API Q_DECL_IMPORT
+		#define CUTEHMI_API Q_DECL_IMPORT
 	#endif
 #else
-	#define CUTEHMI_BASE_API
+	#define CUTEHMI_API
 #endif
 
 #endif

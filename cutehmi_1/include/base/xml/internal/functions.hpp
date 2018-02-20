@@ -10,7 +10,7 @@ namespace base {
 namespace xml {
 namespace internal {
 
-QString CUTEHMI_BASE_API readerPositionString(const QXmlStreamReader & xmlReader);
+QString CUTEHMI_API readerPositionString(const QXmlStreamReader & xmlReader);
 
 }
 }

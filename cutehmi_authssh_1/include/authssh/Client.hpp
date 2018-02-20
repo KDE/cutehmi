@@ -21,7 +21,7 @@ class CUTEHMI_AUTHSSH_API Client:
 	Q_OBJECT
 
 	public:
-		static constexpr const char * QSETTINGS_GROUP = "cutehmi_authssh_1_lib";
+		static constexpr const char * QSETTINGS_GROUP = "cutehmi_authssh_1";
 		static constexpr const char * INITIAL_SERVER_HOST = "localhost";
 		static constexpr uint INITIAL_SERVER_PORT = 22;
 

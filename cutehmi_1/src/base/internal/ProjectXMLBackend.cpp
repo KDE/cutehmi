@@ -83,7 +83,7 @@ void ProjectXMLBackend::Loader1::parse(const xml::ParseHelper & parentHelper)
 			Plugin * plugin = (m_pluginLoader->loadPlugin(binary, reqMinor));	// Note: loadPlugin() may throw exception.
 			IPlugin * pluginInstance = qobject_cast<IPlugin *>(plugin->instance());
 			if (pluginInstance == 0)
-				throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_BASE_IPLUGIN_IID);
+				throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_IPLUGIN_IID);
 			ProjectNode * pluginNode;
 			if (!plugin->id().isEmpty())
 				pluginNode = m_root->addChild(plugin->id(), ProjectNodeData(plugin->name()), false);

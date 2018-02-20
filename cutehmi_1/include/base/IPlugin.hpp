@@ -26,8 +26,8 @@ class IPlugin
 }
 }
 
-#define CUTEHMI_BASE_IPLUGIN_IID "cutehmi::base::IPlugin"
-Q_DECLARE_INTERFACE(cutehmi::base::IPlugin, CUTEHMI_BASE_IPLUGIN_IID)
+#define CUTEHMI_IPLUGIN_IID "cutehmi::base::IPlugin"
+Q_DECLARE_INTERFACE(cutehmi::base::IPlugin, CUTEHMI_IPLUGIN_IID)
 
 #endif
 

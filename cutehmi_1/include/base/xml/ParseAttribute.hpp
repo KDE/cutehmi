@@ -14,7 +14,7 @@ namespace xml {
 /**
  * Parse attribute.
  */
-class CUTEHMI_BASE_API ParseAttribute
+class CUTEHMI_API ParseAttribute
 {
 	friend class ParseAttributeTest;
 

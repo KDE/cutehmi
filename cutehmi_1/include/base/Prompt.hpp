@@ -14,7 +14,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API Prompt:
+class CUTEHMI_API Prompt:
 	public QObject
 {
 	Q_OBJECT

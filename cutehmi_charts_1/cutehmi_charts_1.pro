@@ -2,19 +2,22 @@ include(../common.pri)
 include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = $$qtLibraryTarget($$CUTEHMI_CHARTS_LIBNAME)
+
+TARGET = $$cutehmiTarget($$CUTEHMI_CHARTS_LIBNAME)
 win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
+
 VERSION = $$CUTEHMI_CHARTS_LIBVERSION
 
-QT += qml quick
+#CONFIG += plugin
 
-# Configure library for building.
+# Configure the library for building.
 DEFINES += CUTEHMI_CHARTS_BUILD
 DEFINES += CUTEHMI_CHARTS_DYNAMIC
-#CONFIG += shared
 
 # Translations.
 TRANSLATIONS = locale/$${CUTEHMI_CHARTS_LIBNAME}_pl.ts
+
+QT += qml quick
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)

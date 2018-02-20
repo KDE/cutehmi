@@ -17,7 +17,7 @@ namespace base {
 /**
  * Worker. This class acts as a container that allows specified code to be run in a specified thread.
  */
-class CUTEHMI_BASE_API Worker:
+class CUTEHMI_API Worker:
 	public QObject
 {
 	typedef QObject Parent;

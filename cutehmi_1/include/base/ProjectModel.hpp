@@ -26,7 +26,7 @@ namespace base {
  *
  * @endprinciples
  */
-class CUTEHMI_BASE_API ProjectModel:
+class CUTEHMI_API ProjectModel:
 	public QAbstractItemModel
 {
 	Q_OBJECT

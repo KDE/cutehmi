@@ -2,21 +2,25 @@ include(../common.pri)
 include(libdef.pri)
 
 TEMPLATE = lib
-TARGET = $$cutehmiTarget(cutehmi_app_1)
+
+TARGET = $$cutehmiTarget($$CUTEHMI_APP_LIBNAME)
 win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
 
 VERSION = $$CUTEHMI_APP_LIBVERSION
 
 CONFIG += plugin
 
+# Configure the library for building.
+DEFINES += CUTEHMI_APP_BUILD
+DEFINES += CUTEHMI_APP_DYNAMIC
+
+# Translations.
+TRANSLATIONS = locale/$${CUTEHMI_APP_LIBNAME}_pl.ts
+
 QT -= gui
 #<workaround ref="cutehmi_app_1-1" target="Qt" cause="bug">
 QT += widgets
 #</workaround>
-
-# Configure the library for building.
-DEFINES += CUTEHMI_APP_BUILD
-DEFINES += CUTEHMI_APP_DYNAMIC
 
 include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)

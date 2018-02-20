@@ -13,7 +13,7 @@ TRANSLATIONS = locale/cutehmi_charts_1_qml_pl.ts
 
 include(../../../cutehmi_utils_1_lib/import.pri)
 include(../../../cutehmi_1/import.pri)
-include(../../../cutehmi_charts_1_lib/import.pri)
+include(../../../cutehmi_charts_1/import.pri)
 
 HEADERS += \
     src/CuteHMIChartsQMLPlugin.hpp \

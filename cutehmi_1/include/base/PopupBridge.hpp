@@ -10,7 +10,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API PopupBridge:
+class CUTEHMI_API PopupBridge:
 	public QObject
 {
 	Q_OBJECT

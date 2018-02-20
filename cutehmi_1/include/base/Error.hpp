@@ -13,7 +13,7 @@ namespace base {
  * Standarized error. Class reserves negative values for its error codes. When subclassing start
  * custom error codes from 1 (@p Error::SUBCLASS_BEGIN).
  */
-struct CUTEHMI_BASE_API Error
+struct CUTEHMI_API Error
 {
 	Q_DECLARE_TR_FUNCTIONS(cutehmi::base::Error) // This macro ends with "private:" specifier :o !!!
 
@@ -72,13 +72,13 @@ struct CUTEHMI_BASE_API Error
 }
 }
 
-CUTEHMI_BASE_API bool operator ==(const cutehmi::base::Error & error, int code);
+CUTEHMI_API bool operator ==(const cutehmi::base::Error & error, int code);
 
-CUTEHMI_BASE_API bool operator ==(int code, const cutehmi::base::Error & error);
+CUTEHMI_API bool operator ==(int code, const cutehmi::base::Error & error);
 
-CUTEHMI_BASE_API bool operator !=(const cutehmi::base::Error & error, int code);
+CUTEHMI_API bool operator !=(const cutehmi::base::Error & error, int code);
 
-CUTEHMI_BASE_API bool operator !=(int code, const cutehmi::base::Error & error);
+CUTEHMI_API bool operator !=(int code, const cutehmi::base::Error & error);
 
 #endif
 

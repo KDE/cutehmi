@@ -9,7 +9,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API Exception:
+class CUTEHMI_API Exception:
 	public QException
 {
 	Q_DECLARE_TR_FUNCTIONS(cutehmi::base::Exception) // This macro ends with "private:" specifier :o !!!

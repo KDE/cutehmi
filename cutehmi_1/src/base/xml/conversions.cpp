@@ -24,8 +24,8 @@ QString portToString(uint port, bool random)
 
 uint portFromString(const QString & string, bool & ok)
 {
-	constexpr uint PORT_BEGIN = CUTEHMI_BASE_XML_RANDOM_PORT_BEGIN;
-	constexpr uint PORT_END = CUTEHMI_BASE_XML_RANDOM_PORT_END;
+	constexpr uint PORT_BEGIN = CUTEHMI_XML_RANDOM_PORT_BEGIN;
+	constexpr uint PORT_END = CUTEHMI_XML_RANDOM_PORT_END;
 
 	qDebug() << "string: " << string;
 	QRegExp test("^\\s*randPlus\\(([0-9]*\\))\\s*$");

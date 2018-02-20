@@ -49,7 +49,7 @@ class CUTEHMI_MODBUS_API RTUConnection:
 //			RS485 = MODBUS_RTU_RS485
 //		};
 //</workaround>
-//<workaround id="cutehmi_modbus_1-2" target="cutehmi_modbus_1_lib" cause="cutehmi_modbus_1-1">
+//<workaround id="cutehmi_modbus_1-2" target="cutehmi_modbus_1" cause="cutehmi_modbus_1-1">
 		enum class Mode : int
 		{
 			RS232 = MODBUS_RTU_RS232

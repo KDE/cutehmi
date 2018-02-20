@@ -28,7 +28,7 @@ namespace base {
  *		.
  * </principle>
  */
-class CUTEHMI_BASE_API ProjectNode:
+class CUTEHMI_API ProjectNode:
 	public QObject
 {
 	Q_OBJECT

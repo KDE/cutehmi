@@ -7,7 +7,7 @@
 namespace cutehmi {
 namespace base {
 
-class CUTEHMI_BASE_API ErrorException:
+class CUTEHMI_API ErrorException:
 	public ExceptionMixin<ErrorException>
 {
 	typedef ExceptionMixin<ErrorException> Parent;

@@ -10,7 +10,7 @@ namespace cutehmi {
 namespace base {
 namespace internal {
 
-class CUTEHMI_BASE_API PluginNodeData:
+class CUTEHMI_API PluginNodeData:
 	public DataBlock
 {
 	public:
