@@ -1,19 +1,19 @@
-#ifndef CUTEHMI_CUTEHMI__STUPID__1__LIB_INCLUDE_STUPID_INTERNAL_MACROS_HPP
-#define CUTEHMI_CUTEHMI__STUPID__1__LIB_INCLUDE_STUPID_INTERNAL_MACROS_HPP
+#ifndef CUTEHMI_CUTEHMI__SERVICES__1__LIB_INCLUDE_SERVICES_INTERNAL_MACROS_HPP
+#define CUTEHMI_CUTEHMI__SERVICES__1__LIB_INCLUDE_SERVICES_INTERNAL_MACROS_HPP
 
 #include <utils/macros.hpp>
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_stupid_1_lib_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_services_1_loggingCategory)
 
 namespace cutehmi {
-namespace stupid {
+namespace services {
 
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_stupid_1_lib_loggingCategory();
+	return cutehmi_services_1_loggingCategory();
 }
 
 }

@@ -1,4 +1,4 @@
-#include "macros.hpp"
+#include "../../include/stupid/macros.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_stupid_1_loggingCategory, "cutehmi_stupid_1")
 

@@ -32,7 +32,6 @@ SOURCES += \
     src/authssh/macros.cpp
 
 HEADERS += \
-    src/authssh/plugin/macros.hpp \
     src/authssh/plugin/Plugin.hpp \
     src/authssh/plugin/PluginNodeData.hpp \
     src/authssh/plugin/AuthSSHNodeData.hpp \

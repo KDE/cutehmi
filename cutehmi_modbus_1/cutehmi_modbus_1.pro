@@ -23,7 +23,6 @@ SOURCES += \
     src/modbus/plugin/ModbusNodeData.cpp \
     src/modbus/plugin/Plugin.cpp \
     src/modbus/plugin/PluginNodeData.cpp \
-    src/modbus/plugin/macros.cpp \
     src/modbus/AbstractDevice.cpp \
     src/modbus/Client.cpp \
     src/modbus/Coil.cpp \
@@ -35,16 +34,15 @@ SOURCES += \
     src/modbus/internal/DummyConnection.cpp \
     src/modbus/internal/functions.cpp \
     src/modbus/internal/LibmodbusConnection.cpp \
-    src/modbus/internal/macros.cpp \
     src/modbus/internal/RTUConnection.cpp \
     src/modbus/internal/ServiceThread.cpp \
-    src/modbus/internal/TCPConnection.cpp
+    src/modbus/internal/TCPConnection.cpp \
+    src/modbus/macros.cpp
 
 HEADERS += \
     src/modbus/plugin/ModbusNodeData.hpp \
     src/modbus/plugin/Plugin.hpp \
     src/modbus/plugin/PluginNodeData.hpp \
-    src/modbus/plugin/macros.hpp \
     include/modbus/AbstractDevice.hpp \
     include/modbus/Client.hpp \
     include/modbus/Coil.hpp \
@@ -59,12 +57,12 @@ HEADERS += \
     include/modbus/internal/DummyConnection.hpp \
     include/modbus/internal/functions.hpp \
     include/modbus/internal/LibmodbusConnection.hpp \
-    include/modbus/internal/macros.hpp \
     include/modbus/internal/platform.hpp \
     include/modbus/internal/RegisterTraits.hpp \
     include/modbus/internal/RTUConnection.hpp \
     include/modbus/internal/ServiceThread.hpp \
-    include/modbus/internal/TCPConnection.hpp
+    include/modbus/internal/TCPConnection.hpp \
+    include/modbus/macros.hpp
 
 DISTFILES += cutehmi_modbus_1.json \
     import.pri \

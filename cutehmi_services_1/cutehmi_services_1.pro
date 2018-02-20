@@ -22,7 +22,7 @@ SOURCES += \
     src/services/plugin/PluginNodeData.cpp \
     src/services/Service.cpp \
     src/services/ServiceRegistry.cpp \
-    src/services/internal/macros.cpp
+    src/services/macros.cpp
 
 HEADERS += \
     src/services/plugin/Plugin.hpp \
@@ -30,8 +30,8 @@ HEADERS += \
     include/services/Service.hpp \
     include/services/ServiceRegistry.hpp \
     include/services/internal/common.hpp \
-    include/services/internal/macros.hpp \
-    include/services/internal/platform.hpp
+    include/services/internal/platform.hpp \
+    include/services/macros.hpp
 
 DISTFILES += cutehmi_services_1.json \
     import.pri \

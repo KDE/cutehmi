@@ -2,7 +2,7 @@
 #define CUTEHMI_CUTEHMI__SERVICES__1__LIB_INCLUDE_SERVICES_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
-#include "macros.hpp"
+#include "../macros.hpp"
 
 #include <utils/MPtr.hpp>
 

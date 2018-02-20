@@ -1,19 +1,19 @@
-#ifndef CUTEHMI_CUTEHMI__MODBUS__1__LIB_INCLUDE_MODBUS_INTERNAL_MACROS_HPP
-#define CUTEHMI_CUTEHMI__MODBUS__1__LIB_INCLUDE_MODBUS_INTERNAL_MACROS_HPP
+#ifndef CUTEHMI_CUTEHMI__CHARTS__1__LIB_INCLUDE_CHARTS_INTERNAL_MACROS_HPP
+#define CUTEHMI_CUTEHMI__CHARTS__1__LIB_INCLUDE_CHARTS_INTERNAL_MACROS_HPP
 
 #include <utils/macros.hpp>
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_1_lib_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_charts_1_loggingCategory)
 
 namespace cutehmi {
-namespace modbus {
+namespace charts {
 
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_modbus_1_lib_loggingCategory();
+	return cutehmi_charts_1_loggingCategory();
 }
 
 }

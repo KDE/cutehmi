@@ -1,23 +1,21 @@
-#ifndef CUTEHMI_CUTEHMI__AUTHSSH__1_SRC_AUTHSSH_PLUGIN_MACROS_HPP
-#define CUTEHMI_CUTEHMI__AUTHSSH__1_SRC_AUTHSSH_PLUGIN_MACROS_HPP
+#ifndef CUTEHMI_CUTEHMI__STUPID__1__LIB_INCLUDE_STUPID_INTERNAL_MACROS_HPP
+#define CUTEHMI_CUTEHMI__STUPID__1__LIB_INCLUDE_STUPID_INTERNAL_MACROS_HPP
 
 #include <utils/macros.hpp>
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_authssh_1_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_stupid_1_loggingCategory)
 
 namespace cutehmi {
-namespace authssh {
-namespace plugin {
+namespace stupid {
 
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_authssh_1_loggingCategory();
+	return cutehmi_stupid_1_loggingCategory();
 }
 
-}
 }
 }
 
