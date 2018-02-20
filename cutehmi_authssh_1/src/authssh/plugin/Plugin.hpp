@@ -3,9 +3,9 @@
 
 #include "../../../include/authssh/AbstractChannel.hpp"
 
-#include <base/IPlugin.hpp>
-#include <base/IXMLBackendPlugin.hpp>
-#include <base/xml/ParseHelper.hpp>
+#include <cutehmi/IPlugin.hpp>
+#include <cutehmi/IXMLBackendPlugin.hpp>
+#include <cutehmi/xml/ParseHelper.hpp>
 
 #include <QObject>
 

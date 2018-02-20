@@ -3,7 +3,7 @@
 
 #include "../Session.hpp"
 
-#include <base/Error.hpp>
+#include <cutehmi/Error.hpp>
 
 #include <QThread>
 

@@ -1,5 +1,5 @@
-#include "../../include/base/Notification.hpp"
-#include "../../include/base/CuteHMI.hpp"
+#include "../../include/cutehmi/Notification.hpp"
+#include "../../include/cutehmi/CuteHMI.hpp"
 
 namespace cutehmi {
 namespace base {

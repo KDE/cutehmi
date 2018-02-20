@@ -1,4 +1,4 @@
-#include "../../include/base/Worker.hpp"
+#include "../../include/cutehmi/Worker.hpp"
 
 #include <QCoreApplication>
 

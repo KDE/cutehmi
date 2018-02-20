@@ -1,4 +1,4 @@
-#include "../../include/base/Plugin.hpp"
+#include "../../include/cutehmi/Plugin.hpp"
 
 namespace cutehmi {
 namespace base {

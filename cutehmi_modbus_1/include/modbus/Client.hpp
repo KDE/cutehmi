@@ -6,7 +6,7 @@
 #include "internal/RegisterTraits.hpp"
 #include "AbstractDevice.hpp"
 
-#include <base/ErrorInfo.hpp>
+#include <cutehmi/ErrorInfo.hpp>
 
 #include <QObject>
 #include <QQmlListProperty>

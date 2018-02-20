@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_CUTEHMI__SERVICES__1_SRC_SERVICES_PLUGIN_PLUGIN_HPP
 #define CUTEHMI_CUTEHMI__SERVICES__1_SRC_SERVICES_PLUGIN_PLUGIN_HPP
 
-#include <base/IPlugin.hpp>
+#include <cutehmi/IPlugin.hpp>
 
 #include <QObject>
 

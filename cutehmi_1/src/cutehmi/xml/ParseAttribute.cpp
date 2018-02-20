@@ -1,4 +1,4 @@
-#include "../../../include/base/xml/ParseAttribute.hpp"
+#include "../../../include/cutehmi/xml/ParseAttribute.hpp"
 
 namespace cutehmi {
 namespace base {

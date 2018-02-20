@@ -1,4 +1,4 @@
-#include "../../../include/base/internal/PluginNodeData.hpp"
+#include "../../../include/cutehmi/internal/PluginNodeData.hpp"
 
 namespace cutehmi {
 namespace base {

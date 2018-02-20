@@ -3,7 +3,7 @@
 
 #include "internal/common.hpp"
 
-#include <base/ExceptionMixin.hpp>
+#include <cutehmi/ExceptionMixin.hpp>
 
 namespace cutehmi {
 namespace authssh {

@@ -1,7 +1,7 @@
 #include "../../include/authssh/ForwardChannel.hpp"
 #include "../../include/authssh/Exception.hpp"
 
-#include <base/Worker.hpp>
+#include <cutehmi/Worker.hpp>
 
 namespace cutehmi {
 namespace authssh {

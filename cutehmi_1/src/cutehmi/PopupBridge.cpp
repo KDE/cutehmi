@@ -1,4 +1,4 @@
-#include "../../include/base/PopupBridge.hpp"
+#include "../../include/cutehmi/PopupBridge.hpp"
 
 namespace cutehmi {
 namespace base {

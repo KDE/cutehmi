@@ -6,10 +6,10 @@
 #include "../../../include/authssh/Client.hpp"
 #include "../../../include/authssh/ForwardChannel.hpp"
 
-#include <base/XMLBackendPlugin.hpp>
-#include <base/Exception.hpp>
+#include <cutehmi/XMLBackendPlugin.hpp>
+#include <cutehmi/Exception.hpp>
 
-#include <base/xml/conversions.hpp>
+#include <cutehmi/xml/conversions.hpp>
 
 #include <QtDebug>
 
@@ -61,7 +61,7 @@ void Plugin::parseClient(const base::xml::ParseHelper & parentHelper, base::Proj
 	std::vector<std::unique_ptr<AbstractChannel>> channels;
 	std::unique_ptr<Client> client;
 	QString host;
-	uint port;
+	uint port = 0;
 
 	base::xml::ParseHelper helper(& parentHelper);
 	helper << base::xml::ParseElement("server_host", 1, 1)
@@ -114,9 +114,9 @@ void Plugin::parseChannels(const base::xml::ParseHelper & parentHelper, std::vec
 void Plugin::parseForwardChannel(const base::xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel)
 {
 	QHostAddress remoteHost;
-	uint remotePort;
+	uint remotePort = 0;
 	QHostAddress sourceHost;
-	uint localPort;
+	uint localPort = 0;
 
 	base::xml::ParseHelper helper(& parentHelper);
 	helper << base::xml::ParseElement("remote_host", 1, 1)

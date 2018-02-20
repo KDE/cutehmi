@@ -1,7 +1,7 @@
 #include "../../include/authssh/Session.hpp"
 #include "../../include/authssh/Exception.hpp"
 
-#include <base/ErrorException.hpp>
+#include <cutehmi/ErrorException.hpp>
 
 #include <QSocketNotifier>	//temp
 

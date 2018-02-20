@@ -1,4 +1,4 @@
-#include "../../include/base/PluginLoader.hpp"
+#include "../../include/cutehmi/PluginLoader.hpp"
 
 #include <QDir>
 #include <QtDebug>

@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_CUTEHMI__STUPID__1__LIB_INCLUDE_STUPID_INTERNAL_FUNCTIONS_HPP
 #define CUTEHMI_CUTEHMI__STUPID__1__LIB_INCLUDE_STUPID_INTERNAL_FUNCTIONS_HPP
 
-#include <base/ErrorInfo.hpp>
+#include <cutehmi/ErrorInfo.hpp>
 
 #include <QSqlError>
 

@@ -4,7 +4,7 @@
 #include "../../../include/modbus/Client.hpp"
 #include "../../../include/modbus/Service.hpp"
 
-#include <base/DataBlock.hpp>
+#include <cutehmi/DataBlock.hpp>
 
 #include <QObject>
 

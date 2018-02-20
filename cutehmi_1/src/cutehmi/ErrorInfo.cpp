@@ -1,21 +1,17 @@
-#include "../../include/base/ProjectNodeData.hpp"
+#include "../../include/cutehmi/ErrorInfo.hpp"
 
 namespace cutehmi {
 namespace base {
 
-ProjectNodeData::ProjectNodeData(const QString & name):
-	m(new Members{name})
+QString ErrorInfo::toString() const
 {
-}
-
-QString ProjectNodeData::name() const
-{
-	return m->name;
-}
-
-void ProjectNodeData::setName(const QString & name)
-{
-	m->name = name;
+	QString result = str;
+	result += "\n[error class: ";
+	result += errClass;
+	result += " code: ";
+	result += QString::number(code);
+	result += "]";
+	return result;
 }
 
 }

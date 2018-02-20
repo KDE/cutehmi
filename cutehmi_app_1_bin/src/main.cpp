@@ -1,9 +1,9 @@
 #include "version.hpp"
 
-#include <base/CuteHMI.hpp>
-#include <base/ProjectModel.hpp>
-#include <base/ErrorInfo.hpp>
-#include <base/PluginLoader.hpp>
+#include <cutehmi/CuteHMI.hpp>
+#include <cutehmi/ProjectModel.hpp>
+#include <cutehmi/ErrorInfo.hpp>
+#include <cutehmi/PluginLoader.hpp>
 
 #include <app/CuteApp.hpp>
 

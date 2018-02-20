@@ -2,7 +2,7 @@
 #include "../../include/stupid/Client.hpp"
 #include "../../include/stupid/internal/CommunicationThread.hpp"
 
-#include <base/Prompt.hpp>
+#include <cutehmi/Prompt.hpp>
 
 namespace cutehmi {
 namespace stupid {

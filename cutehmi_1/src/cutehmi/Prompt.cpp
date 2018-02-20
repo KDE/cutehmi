@@ -1,5 +1,5 @@
-#include "../../include/base/Prompt.hpp"
-#include "../../include/base/CuteHMI.hpp"
+#include "../../include/cutehmi/Prompt.hpp"
+#include "../../include/cutehmi/CuteHMI.hpp"
 
 #include <QEventLoop>
 #include <QMutexLocker>

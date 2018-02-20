@@ -8,7 +8,7 @@
 #include "DS18B20.hpp"
 #include "DS18B20History.hpp"
 
-#include <base/ErrorInfo.hpp>
+#include <cutehmi/ErrorInfo.hpp>
 
 #include <QObject>
 #include <QSqlError>

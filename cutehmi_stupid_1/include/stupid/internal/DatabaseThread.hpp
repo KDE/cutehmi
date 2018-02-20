@@ -5,7 +5,7 @@
 #include "Worker.hpp"
 #include "DatabaseConnectionData.hpp"
 
-#include <base/ErrorInfo.hpp>
+#include <cutehmi/ErrorInfo.hpp>
 
 #include <QThread>
 

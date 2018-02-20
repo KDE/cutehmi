@@ -1,17 +1,26 @@
-#include "../../include/base/XMLBackendPlugin.hpp"
+#include "../../include/cutehmi/Exception.hpp"
 
 namespace cutehmi {
 namespace base {
 
-XMLBackendPlugin::XMLBackendPlugin(IXMLBackendPlugin * implementation, QObject * parent):
-	QObject(parent),
-	m(new Members{implementation})
+Exception::Exception(const QString & what):
+	m_whatArr(what.toLocal8Bit())
 {
 }
 
-IXMLBackendPlugin * XMLBackendPlugin::implementation()
+void Exception::raise() const
 {
-	return m->implementation;
+	throw *this;
+}
+
+Exception * Exception::clone() const
+{
+	return new Exception(*this);
+}
+
+const char * Exception::what() const noexcept
+{
+	return m_whatArr.constData();
 }
 
 }

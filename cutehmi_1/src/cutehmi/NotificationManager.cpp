@@ -1,4 +1,4 @@
-#include "../../include/base/NotificationManager.hpp"
+#include "../../include/cutehmi/NotificationManager.hpp"
 
 namespace cutehmi {
 namespace base {

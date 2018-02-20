@@ -1,9 +1,9 @@
 #ifndef CUTEHMI_CUTEHMI__SERVICES__1_SRC_SERVICES_PLUGIN_PLUGINNODEDATA_HPP
 #define CUTEHMI_CUTEHMI__SERVICES__1_SRC_SERVICES_PLUGIN_PLUGINNODEDATA_HPP
 
-#include <services/ServiceRegistry.hpp>
+#include "../../../include/services/ServiceRegistry.hpp"
 
-#include <base/DataBlock.hpp>
+#include <cutehmi/DataBlock.hpp>
 
 namespace cutehmi {
 namespace services {

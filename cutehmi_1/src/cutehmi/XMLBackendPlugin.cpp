@@ -1,11 +1,17 @@
-#include "../../include/base/ErrorException.hpp"
+#include "../../include/cutehmi/XMLBackendPlugin.hpp"
 
 namespace cutehmi {
 namespace base {
 
-const ErrorInfo & ErrorException::info() const
+XMLBackendPlugin::XMLBackendPlugin(IXMLBackendPlugin * implementation, QObject * parent):
+	QObject(parent),
+	m(new Members{implementation})
 {
-	return m_errorInfo;
+}
+
+IXMLBackendPlugin * XMLBackendPlugin::implementation()
+{
+	return m->implementation;
 }
 
 }

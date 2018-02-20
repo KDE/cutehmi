@@ -1,9 +1,9 @@
 #ifndef CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_PLUGIN_HPP
 #define CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_PLUGIN_HPP
 
-#include <base/IPlugin.hpp>
-#include <base/IXMLBackendPlugin.hpp>
-#include <base/xml/ParseHelper.hpp>
+#include <cutehmi/IPlugin.hpp>
+#include <cutehmi/IXMLBackendPlugin.hpp>
+#include <cutehmi/xml/ParseHelper.hpp>
 
 #include <QObject>
 

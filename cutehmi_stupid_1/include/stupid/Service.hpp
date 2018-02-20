@@ -4,7 +4,7 @@
 #include "internal/common.hpp"
 #include "internal/CommunicationThread.hpp"
 
-#include <base/ErrorInfo.hpp>
+#include <cutehmi/ErrorInfo.hpp>
 
 #include <services/Service.hpp>
 

@@ -1,8 +1,8 @@
 #include "CuteHMIBaseQMLPlugin.hpp"
 
-#include <base/CuteHMI.hpp>
-#include <base/Prompt.hpp>
-#include <base/Notification.hpp>
+#include <cutehmi/CuteHMI.hpp>
+#include <cutehmi/Prompt.hpp>
+#include <cutehmi/Notification.hpp>
 
 #include <QtQml>
 

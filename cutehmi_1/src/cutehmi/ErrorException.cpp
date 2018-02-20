@@ -1,17 +1,11 @@
-#include "../../include/base/ErrorInfo.hpp"
+#include "../../include/cutehmi/ErrorException.hpp"
 
 namespace cutehmi {
 namespace base {
 
-QString ErrorInfo::toString() const
+const ErrorInfo & ErrorException::info() const
 {
-	QString result = str;
-	result += "\n[error class: ";
-	result += errClass;
-	result += " code: ";
-	result += QString::number(code);
-	result += "]";
-	return result;
+	return m_errorInfo;
 }
 
 }

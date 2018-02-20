@@ -1,7 +1,7 @@
 #include "../../include/modbus/Service.hpp"
 #include "../../include/modbus/Client.hpp"
 
-#include <base/Prompt.hpp>
+#include <cutehmi/Prompt.hpp>
 
 #include <QTimer>
 #include <QCoreApplication>

@@ -1,5 +1,5 @@
-#include "../../../include/base/xml/ParseHelper.hpp"
-#include "../../../include/base/xml/internal/functions.hpp"
+#include "../../../include/cutehmi/xml/ParseHelper.hpp"
+#include "../../../include/cutehmi/xml/internal/functions.hpp"
 
 namespace cutehmi {
 namespace base {

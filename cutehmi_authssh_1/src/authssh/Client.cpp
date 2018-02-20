@@ -2,7 +2,7 @@
 #include "../../include/authssh/AbstractChannel.hpp"
 #include "../../include/authssh/Exception.hpp"
 
-#include <base/Prompt.hpp>
+#include <cutehmi/Prompt.hpp>
 
 namespace cutehmi {
 namespace authssh {

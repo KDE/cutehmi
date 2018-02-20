@@ -1,26 +1,21 @@
-#include "../../include/base/Exception.hpp"
+#include "../../include/cutehmi/ProjectNodeData.hpp"
 
 namespace cutehmi {
 namespace base {
 
-Exception::Exception(const QString & what):
-	m_whatArr(what.toLocal8Bit())
+ProjectNodeData::ProjectNodeData(const QString & name):
+	m(new Members{name})
 {
 }
 
-void Exception::raise() const
+QString ProjectNodeData::name() const
 {
-	throw *this;
+	return m->name;
 }
 
-Exception * Exception::clone() const
+void ProjectNodeData::setName(const QString & name)
 {
-	return new Exception(*this);
-}
-
-const char * Exception::what() const noexcept
-{
-	return m_whatArr.constData();
+	m->name = name;
 }
 
 }

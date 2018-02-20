@@ -3,8 +3,8 @@
 #include "ScreensNodeData.hpp"
 #include "../../../include/app/macros.hpp"
 
-#include <base/XMLBackendPlugin.hpp>
-#include <base/Exception.hpp>
+#include <cutehmi/XMLBackendPlugin.hpp>
+#include <cutehmi/Exception.hpp>
 
 #include <QtDebug>
 

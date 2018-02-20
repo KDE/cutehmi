@@ -1,6 +1,6 @@
-#include "../../include/base/Project.hpp"
-#include "../../include/base/Exception.hpp"
-#include "../../include/base/internal/ProjectXMLBackend.hpp"
+#include "../../include/cutehmi/Project.hpp"
+#include "../../include/cutehmi/Exception.hpp"
+#include "../../include/cutehmi/internal/ProjectXMLBackend.hpp"
 
 #include <QFile>
 #include <QFileInfo>

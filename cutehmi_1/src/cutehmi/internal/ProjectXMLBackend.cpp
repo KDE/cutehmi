@@ -1,8 +1,8 @@
-#include "../../../include/base/internal/ProjectXMLBackend.hpp"
-#include "../../../include/base/internal/PluginNodeData.hpp"
-#include "../../../include/base/IPlugin.hpp"
-#include "../../../include/base/XMLBackendPlugin.hpp"
-#include "../../../include/base/PluginLoader.hpp"
+#include "../../../include/cutehmi/internal/ProjectXMLBackend.hpp"
+#include "../../../include/cutehmi/internal/PluginNodeData.hpp"
+#include "../../../include/cutehmi/IPlugin.hpp"
+#include "../../../include/cutehmi/XMLBackendPlugin.hpp"
+#include "../../../include/cutehmi/PluginLoader.hpp"
 
 #include <QIODevice>
 #include <QtDebug>

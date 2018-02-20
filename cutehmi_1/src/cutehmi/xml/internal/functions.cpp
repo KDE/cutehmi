@@ -1,4 +1,4 @@
-#include "../../../../include/base/xml/internal/functions.hpp"
+#include "../../../../include/cutehmi/xml/internal/functions.hpp"
 
 #include <QXmlStreamReader>
 

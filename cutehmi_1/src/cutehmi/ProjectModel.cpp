@@ -1,4 +1,4 @@
-#include "../../include/base/ProjectModel.hpp"
+#include "../../include/cutehmi/ProjectModel.hpp"
 
 #include <QtDebug>
 #include <QQmlContext>

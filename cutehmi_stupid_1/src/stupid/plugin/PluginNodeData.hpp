@@ -1,8 +1,8 @@
 #ifndef CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_PLUGINNODEDATA_HPP
 #define CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_PLUGINNODEDATA_HPP
 
-#include <base/DataBlock.hpp>
-#include <base/XMLBackendPlugin.hpp>
+#include <cutehmi/DataBlock.hpp>
+#include <cutehmi/XMLBackendPlugin.hpp>
 
 namespace cutehmi {
 namespace stupid {

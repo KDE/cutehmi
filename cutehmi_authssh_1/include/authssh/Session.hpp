@@ -3,7 +3,7 @@
 
 #include "internal/common.hpp"
 
-#include <base/Error.hpp>
+#include <cutehmi/Error.hpp>
 
 #include <libssh/libssh.h>
 

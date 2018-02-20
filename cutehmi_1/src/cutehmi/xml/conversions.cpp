@@ -1,4 +1,4 @@
-#include "../../../include/base/xml/conversions.hpp"
+#include "../../../include/cutehmi/xml/conversions.hpp"
 
 #include <QString>
 #include <QUuid>
