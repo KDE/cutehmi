@@ -11,7 +11,7 @@ namespace cutehmi {
 namespace app {
 
 class CUTEHMI_APP_API CuteApp:
-	//<workaround id="cutehmi_app_1_lib-1" target="Qt" cause="bug">
+	//<workaround id="cutehmi_app_1-1" target="Qt" cause="bug">
 	public QApplication
 	// Instead of:
 	// public QGuiApplication

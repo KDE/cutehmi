@@ -5,7 +5,7 @@ TARGET = $$qtLibraryTarget(cutehmi_app_1_qml)
 DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
-#<workaround ref="cutehmi_app_1_lib-1" target="Qt" cause="bug">
+#<workaround ref="cutehmi_app_1-1" target="Qt" cause="bug">
 QT += widgets
 #</workaround>
 

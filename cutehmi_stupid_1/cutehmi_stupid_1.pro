@@ -31,7 +31,8 @@ HEADERS += \
     src/stupid/plugin/PluginNodeData.hpp \
     src/stupid/plugin/macros.hpp
 
-DISTFILES += cutehmi_stupid_1.json
+DISTFILES += cutehmi_stupid_1.json \
+    dev/cutehmi_stupid_1-1.solved.Qt.design.txt
 
 RESOURCES += \
     cutehmi_stupid_1.qrc

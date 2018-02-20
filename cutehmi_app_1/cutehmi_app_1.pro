@@ -10,7 +10,7 @@ VERSION = $$CUTEHMI_APP_LIBVERSION
 CONFIG += plugin
 
 QT -= gui
-#<workaround ref="cutehmi_app_1_lib-1" target="Qt" cause="bug">
+#<workaround ref="cutehmi_app_1-1" target="Qt" cause="bug">
 QT += widgets
 #</workaround>
 
@@ -24,26 +24,25 @@ include(../cutehmi_1/import.pri)
 SOURCES += \
     src/app/plugin/Plugin.cpp \
     src/app/plugin/PluginNodeData.cpp \
-    src/app/plugin/macros.cpp \
     src/app/plugin/MainScreen.cpp \
     src/app/plugin/ScreensNodeData.cpp \
     src/app/CuteApp.cpp \
-    src/app/internal/macros.cpp
+    src/app/macros.cpp
 
 HEADERS += \
     src/app/plugin/Plugin.hpp \
     src/app/plugin/PluginNodeData.hpp \
-    src/app/plugin/macros.hpp \
     src/app/plugin/MainScreen.hpp \
     src/app/plugin/ScreensNodeData.hpp \
     include/app/internal/common.hpp \
-    include/app/internal/macros.hpp \
     include/app/internal/platform.hpp \
-    include/app/CuteApp.hpp
+    include/app/CuteApp.hpp \
+    include/app/macros.hpp
 
 DISTFILES += cutehmi_app_1.json \
     import.pri \
-    libdef.pri
+    libdef.pri \
+    dev/cutehmi_app_1-1.workaround.Qt.bug.txt
 
 RESOURCES += \
     cutehmi_app_1.qrc

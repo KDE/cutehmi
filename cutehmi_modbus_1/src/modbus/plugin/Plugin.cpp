@@ -212,7 +212,7 @@ void Plugin::parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_p
 			QString modeText = helper.readElementText();
 			if (modeText == "RS232")
 				mode = internal::RTUConnection::Mode::RS232;
-//<workaround id="cutehmi_modbus_1_lib-1" target="libmodbus" cause="bug">
+//<workaround id="cutehmi_modbus_1-1" target="libmodbus" cause="bug">
 //			else if (modeText == "RS485")
 //				mode = internal::RTUConnection::Mode::RS485;
 //</workaround>

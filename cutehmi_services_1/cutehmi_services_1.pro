@@ -19,13 +19,23 @@ include(../cutehmi_services_1_lib/import.pri)
 
 SOURCES += \
     src/services/plugin/Plugin.cpp \
-    src/services/plugin/PluginNodeData.cpp
+    src/services/plugin/PluginNodeData.cpp \
+    src/services/Service.cpp \
+    src/services/ServiceRegistry.cpp \
+    src/services/internal/macros.cpp
 
 HEADERS += \
     src/services/plugin/Plugin.hpp \
-    src/services/plugin/PluginNodeData.hpp
+    src/services/plugin/PluginNodeData.hpp \
+    include/services/Service.hpp \
+    include/services/ServiceRegistry.hpp \
+    include/services/internal/common.hpp \
+    include/services/internal/macros.hpp \
+    include/services/internal/platform.hpp
 
-DISTFILES += cutehmi_services_1.json
+DISTFILES += cutehmi_services_1.json \
+    import.pri \
+    libdef.pri
 
 RESOURCES += \
     cutehmi_services_1.qrc

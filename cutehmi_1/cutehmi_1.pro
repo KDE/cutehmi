@@ -92,6 +92,8 @@ HEADERS += \
 
 DISTFILES += \
     import.pri \
-    libdef.pri
+    libdef.pri \
+    dev/cutehmi_1-1.workaround.Qt.design.txt \
+    dev/cutehmi_1-2.workaround.std.design.txt
 
 RESOURCES +=
