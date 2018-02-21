@@ -102,7 +102,7 @@ class CUTEHMI_STUPID_API DS18B20:
 			QAtomicInt error = ERROR_OK;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

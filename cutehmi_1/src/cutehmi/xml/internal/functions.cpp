@@ -3,7 +3,6 @@
 #include <QXmlStreamReader>
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 namespace internal {
 
@@ -19,7 +18,6 @@ QString readerPositionString(const QXmlStreamReader & xmlReader)
 	return QString("'") + QString::fromUtf8(line.trimmed()) + "' (" + positionString + ")";
 }
 
-}
 }
 }
 }

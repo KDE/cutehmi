@@ -45,7 +45,7 @@ class CUTEHMI_CHARTS_API PointSeries:
 			DataContainer data;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

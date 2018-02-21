@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/NotificationListModel.hpp"
 
 namespace cutehmi {
-namespace base {
 
 NotificationListModel::NotificationListModel(QObject * parent):
 	QAbstractListModel(parent),
@@ -80,7 +79,6 @@ void NotificationListModel::clear()
 	endRemoveRows();
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

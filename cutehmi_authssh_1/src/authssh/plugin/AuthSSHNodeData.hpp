@@ -15,7 +15,7 @@ namespace authssh {
 namespace plugin {
 
 class AuthSSHNodeData:
-	public base::DataBlock
+	public DataBlock
 {
 	public:
 		AuthSSHNodeData(std::unique_ptr<Client> auth);

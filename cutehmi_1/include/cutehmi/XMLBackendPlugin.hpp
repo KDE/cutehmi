@@ -9,7 +9,6 @@
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API XMLBackendPlugin:
 	public QObject
@@ -30,7 +29,6 @@ class CUTEHMI_API XMLBackendPlugin:
 		std::unique_ptr<Members> m;
 };
 
-}
 }
 
 #endif

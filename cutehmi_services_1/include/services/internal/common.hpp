@@ -4,7 +4,7 @@
 #include "platform.hpp"
 #include "../logging.hpp"
 
-#include <utils/MPtr.hpp>
+#include <cutehmi/MPtr.hpp>
 
 #include <QtGlobal>
 

@@ -76,7 +76,7 @@ class CUTEHMI_MODBUS_API DummyConnection:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

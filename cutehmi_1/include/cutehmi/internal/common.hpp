@@ -3,11 +3,10 @@
 
 #include "platform.hpp"
 #include "../logging.hpp"
+#include "../MPtr.hpp"
 #include "../ErrorInfo.hpp"
 #include "../Notification.hpp"
 #include "../Prompt.hpp"
-
-#include <utils/MPtr.hpp>
 
 #include <QtGlobal>
 

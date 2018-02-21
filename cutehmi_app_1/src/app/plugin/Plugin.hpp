@@ -15,25 +15,25 @@ namespace plugin {
 
 class Plugin:
 	public QObject,
-	public base::IPlugin,
-	public base::IXMLBackendPlugin
+	public IPlugin,
+	public IXMLBackendPlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "cutehmi_app_1.json")
-	Q_INTERFACES(cutehmi::base::IPlugin)
+	Q_INTERFACES(cutehmi::IPlugin)
 
 	public:
-		// base::IPlugin
-		void init(base::ProjectNode & node) override;
+		// IPlugin
+		void init(ProjectNode & node) override;
 
-		// base::IXMLBackendPlugin
-		void readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node) override;
+		// IXMLBackendPlugin
+		void readXML(QXmlStreamReader & xmlReader, ProjectNode & node) override;
 
-		// base::IXMLBackendPlugin
-		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
+		// IXMLBackendPlugin
+		void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const override;
 
 	private:
-		void parseScreens(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node);
+		void parseScreens(const xml::ParseHelper & parentHelper, ProjectNode & node);
 };
 
 }

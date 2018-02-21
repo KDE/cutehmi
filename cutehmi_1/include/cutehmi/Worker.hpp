@@ -12,7 +12,6 @@
 #include <functional>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Worker. This class acts as a container that allows specified code to be run in a specified thread.
@@ -146,10 +145,9 @@ class CUTEHMI_API Worker:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

@@ -8,7 +8,6 @@
 #include <QMutexLocker>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API PopupBridge:
 	public QObject
@@ -39,10 +38,9 @@ class CUTEHMI_API PopupBridge:
 			QObject * advertiser {nullptr};
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

@@ -6,7 +6,6 @@
 #include <QString>
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 /**
@@ -38,7 +37,6 @@ CUTEHMI_API uint portFromString(const QString & string, bool & ok);
 
 CUTEHMI_API QString portToString(uint port, bool random);
 
-}
 }
 }
 

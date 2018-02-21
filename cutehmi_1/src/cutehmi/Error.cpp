@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/Error.hpp"
 
 namespace cutehmi {
-namespace base {
 
 Error::Error():
 	m_code(UNINITIALIZED)
@@ -53,24 +52,23 @@ void Error::setCode(int code)
 }
 
 }
-}
 
-bool operator ==(const cutehmi::base::Error & error, int code)
+bool operator ==(const cutehmi::Error & error, int code)
 {
 	return error.code() == code;
 }
 
-bool operator ==(int code, const cutehmi::base::Error & error)
+bool operator ==(int code, const cutehmi::Error & error)
 {
 	return error.code() == code;
 }
 
-bool operator !=(const cutehmi::base::Error & error, int code)
+bool operator !=(const cutehmi::Error & error, int code)
 {
 	return error.code() != code;
 }
 
-bool operator !=(int code, const cutehmi::base::Error & error)
+bool operator !=(int code, const cutehmi::Error & error)
 {
 	return error.code() != code;
 }

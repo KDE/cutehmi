@@ -10,7 +10,7 @@ namespace services {
 namespace plugin {
 
 class PluginNodeData:
-	public base::DataBlock
+	public DataBlock
 {
 	public:
 		PluginNodeData();

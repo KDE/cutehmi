@@ -13,7 +13,6 @@
 class QIODevice;
 
 namespace cutehmi {
-namespace base {
 
 class PluginLoader;
 
@@ -23,9 +22,9 @@ class ProjectXMLBackend
 {
 	public:
 		class Exception:
-			public base::ExceptionMixin<Exception>
+			public ExceptionMixin<Exception>
 		{
-			typedef base::ExceptionMixin<Exception> Parent;
+			typedef ExceptionMixin<Exception> Parent;
 
 			public:
 				using Parent::Parent;
@@ -115,10 +114,9 @@ class ProjectXMLBackend
 			QQmlContext * qmlContext;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 }
 

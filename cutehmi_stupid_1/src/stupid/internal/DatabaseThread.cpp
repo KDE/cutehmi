@@ -21,7 +21,7 @@ QString DatabaseThread::Error::str() const
 		case Error::UNABLE_TO_CONNECT:
 			return tr("Unable to establish database connection.");
 		default:
-			return base::Error::str();
+			return Error::str();
 	}
 }
 
@@ -53,11 +53,11 @@ void DatabaseThread::run()
 			emit connected();
 		} else {
 			CUTEHMI_LOG_DEBUG("[TODO provide App with a UI for signaling errors] Could not connect with database.");
-			emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
+			emit error(errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 		}
 		exec();
 	} else {
-		emit (base::errorInfo(Error(Error::NOT_CONFIGURED)));
+		emit (errorInfo(Error(Error::NOT_CONFIGURED)));
 		exec();
 	}
 	if (m->dbData) {

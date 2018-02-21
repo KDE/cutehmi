@@ -17,28 +17,28 @@ namespace cutehmi {
 namespace modbus {
 namespace plugin {
 
-void Plugin::init(base::ProjectNode & node)
+void Plugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
 	node.addExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
-void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
+void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 {
 	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_modbus_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_modbus_1/xsd/1.0/";
 
-	base::xml::ParseHelper helper(& xmlReader, supportedVersions);
-	helper << base::xml::ParseElement("cutehmi_modbus_1", 1, 1);
+	xml::ParseHelper helper(& xmlReader, supportedVersions);
+	helper << xml::ParseElement("cutehmi_modbus_1", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "cutehmi_modbus_1") {
-			base::xml::ParseHelper nodeHelper(& helper);
-			nodeHelper << base::xml::ParseElement("modbus", {base::xml::ParseAttribute("id"),
-															 base::xml::ParseAttribute("name")}, 0);
+			xml::ParseHelper nodeHelper(& helper);
+			nodeHelper << xml::ParseElement("modbus", {xml::ParseAttribute("id"),
+															 xml::ParseAttribute("name")}, 0);
 			while (nodeHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "modbus")
 					parseModbus(nodeHelper, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());
@@ -47,18 +47,18 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 	}
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const
+void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const
 {
 	Q_UNUSED(xmlWriter);
 	Q_UNUSED(node);
-	throw base::Exception("cutehmi::modbus::plugin::Plugin::writeXML() not implemented yet.");
+	throw Exception("cutehmi::modbus::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name)
+void Plugin::parseModbus(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name)
 {
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("client", 1, 1)
-		   << base::xml::ParseElement("service", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("client", 1, 1)
+		   << xml::ParseElement("service", 1, 1);
 
 	std::unique_ptr<Client> client;
 	std::unique_ptr<Service> service;
@@ -68,8 +68,8 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "client") {
-			base::xml::ParseHelper clientHelper(& helper);
-			clientHelper << base::xml::ParseElement("connection", {base::xml::ParseAttribute("type", "TCP|RTU|dummy")}, 1, 1);
+			xml::ParseHelper clientHelper(& helper);
+			clientHelper << xml::ParseElement("connection", {xml::ParseAttribute("type", "TCP|RTU|dummy")}, 1, 1);
 
 			while (clientHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "connection") {
@@ -82,8 +82,8 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 				}
 			}
 		} else if (xmlReader.name() == "service") {
-			base::xml::ParseHelper serviceHelper(& helper);
-			serviceHelper << base::xml::ParseElement("sleep", 1, 1);
+			xml::ParseHelper serviceHelper(& helper);
+			serviceHelper << xml::ParseElement("sleep", 1, 1);
 
 			while (serviceHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "sleep") {
@@ -100,7 +100,7 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 		client.reset(new Client(std::move(connection)));
 		service.reset(new Service(name, client.get()));
 		service->setSleep(serviceSleep);
-		base::ProjectNode * modbusNode = node.addChild(id, base::ProjectNodeData(name));
+		ProjectNode * modbusNode = node.addChild(id, ProjectNodeData(name));
 		modbusNode->addExtension(client.get());
 		modbusNode->addExtension(service.get());
 
@@ -115,7 +115,7 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 	}
 }
 
-void Plugin::parseTCP(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
+void Plugin::parseTCP(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
 {
 	QString name;
 	QString service;
@@ -124,12 +124,12 @@ void Plugin::parseTCP(const base::xml::ParseHelper & parentHelper, std::unique_p
 	std::unique_ptr<internal::TCPConnection> tcpConnection;
 	int unitId = MODBUS_TCP_SLAVE;
 
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("node", 1, 1)
-		   << base::xml::ParseElement("service", 1, 1)
-		   << base::xml::ParseElement("byte_timeout", 1, 1)
-		   << base::xml::ParseElement("response_timeout", 1, 1)
-		   << base::xml::ParseElement("unit_id", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("node", 1, 1)
+		   << xml::ParseElement("service", 1, 1)
+		   << xml::ParseElement("byte_timeout", 1, 1)
+		   << xml::ParseElement("response_timeout", 1, 1)
+		   << xml::ParseElement("unit_id", 1, 1);
 
 	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
@@ -156,7 +156,7 @@ void Plugin::parseTCP(const base::xml::ParseHelper & parentHelper, std::unique_p
 	connection.reset(tcpConnection.release());
 }
 
-void Plugin::parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
+void Plugin::parseRTU(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
 {
 	QString port;
 	int baudRate = 19200;
@@ -169,14 +169,14 @@ void Plugin::parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_p
 	internal::LibmodbusConnection::Timeout responseTimeout;
 	std::unique_ptr<internal::RTUConnection> rtuConnection;
 
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("port", 1, 1)
-		   << base::xml::ParseElement("baud_rate", 1, 1)
-		   << base::xml::ParseElement("parity", 1, 1)
-		   << base::xml::ParseElement("data_bits", 1, 1)
-		   << base::xml::ParseElement("stop_bits", 1, 1)
-		   << base::xml::ParseElement("mode", 1, 1)
-		   << base::xml::ParseElement("slave_id", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("port", 1, 1)
+		   << xml::ParseElement("baud_rate", 1, 1)
+		   << xml::ParseElement("parity", 1, 1)
+		   << xml::ParseElement("data_bits", 1, 1)
+		   << xml::ParseElement("stop_bits", 1, 1)
+		   << xml::ParseElement("mode", 1, 1)
+		   << xml::ParseElement("slave_id", 1, 1);
 
 	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
@@ -237,17 +237,17 @@ void Plugin::parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_p
 	connection.reset(rtuConnection.release());
 }
 
-void Plugin::parseDummy(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
+void Plugin::parseDummy(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
 {
 	unsigned long latency = 0;
 	unsigned long connectLatency = 0;
 	unsigned long disconnectLatency = 0;
 	std::unique_ptr<internal::DummyConnection> dummyConnection;
 
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("latency", 1, 1)
-		   << base::xml::ParseElement("connect_latency", 1, 1)
-		   << base::xml::ParseElement("disconnect_latency", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("latency", 1, 1)
+		   << xml::ParseElement("connect_latency", 1, 1)
+		   << xml::ParseElement("disconnect_latency", 1, 1);
 
 	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {

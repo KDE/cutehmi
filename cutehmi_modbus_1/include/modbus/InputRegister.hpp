@@ -69,7 +69,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

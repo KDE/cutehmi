@@ -1,7 +1,6 @@
 #include "../../../include/cutehmi/xml/ParseElement.hpp"
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 ParseElement::AttributesContainer::AttributesContainer(std::initializer_list<ParseAttribute> list)
@@ -111,7 +110,6 @@ const ParseElement::AttributesContainer & ParseElement::attributes() const
 	return m->attributes;
 }
 
-}
 }
 }
 

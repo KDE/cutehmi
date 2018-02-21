@@ -49,7 +49,7 @@ class CUTEHMI_MODBUS_API TCPConnection:
 			int unitId;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

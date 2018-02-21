@@ -10,7 +10,6 @@
 #include <QQmlContext>
 
 namespace cutehmi {
-namespace base {
 namespace internal {
 
 ProjectXMLBackend::ProjectXMLBackend(ProjectModel * model, PluginLoader * pluginLoader, QQmlContext * qmlContext):
@@ -106,6 +105,7 @@ void ProjectXMLBackend::Loader1::parsePlugin(const xml::ParseHelper & parentHelp
 	xml::ParseHelper helper(& parentHelper);
 	helper << xml::ParseElement("extension", {xml::ParseAttribute("object", XMLBackendPlugin::staticMetaObject.className())}, 0);
 
+
 	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if ((reader.name() == "extension") && (reader.attributes().value("object") == XMLBackendPlugin::staticMetaObject.className())) {
@@ -149,7 +149,6 @@ void ProjectXMLBackend::Loader1::parseNodeRef(const xml::ParseHelper & parentHel
 	}
 }
 
-}
 }
 }
 

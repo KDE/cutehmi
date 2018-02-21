@@ -1,7 +1,6 @@
 #include "../include/cutehmi/CuteHMI.hpp"
 
 namespace cutehmi {
-namespace base {
 
 CuteHMI & CuteHMI::Instance()
 {
@@ -44,9 +43,9 @@ CuteHMI::CuteHMI():
 	  std::unique_ptr<NotificationManager>(new NotificationManager),
 	  std::unique_ptr<Project>(new Project)})
 {
-	qRegisterMetaType<cutehmi::base::ErrorInfo>();
-	qRegisterMetaType<cutehmi::base::Prompt::button_t>();
-	qRegisterMetaType<const cutehmi::base::ProjectNode *>();
+	qRegisterMetaType<cutehmi::ErrorInfo>();
+	qRegisterMetaType<cutehmi::Prompt::button_t>();
+	qRegisterMetaType<const cutehmi::ProjectNode *>();
 }
 
 std::unique_ptr<CuteHMI> & CuteHMI::InstancePtr()
@@ -55,7 +54,6 @@ std::unique_ptr<CuteHMI> & CuteHMI::InstancePtr()
 	return instance;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

@@ -7,7 +7,6 @@
 #include <QString>
 
 namespace cutehmi {
-namespace base {
 
 template <class DERIVED>
 class ExceptionMixin:
@@ -39,7 +38,6 @@ Exception * ExceptionMixin<DERIVED>::clone() const
 	return new DERIVED(static_cast<const DERIVED &>(*this));
 }
 
-}
 }
 
 #endif

@@ -1,7 +1,6 @@
 #include "../../../include/cutehmi/xml/ParseAttribute.hpp"
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 ParseAttribute::ParseAttribute(const QString & key, bool required):
@@ -56,7 +55,6 @@ bool ParseAttribute::required() const
 	return m->required;
 }
 
-}
 }
 }
 

@@ -7,7 +7,7 @@ namespace cutehmi {
 namespace services {
 namespace plugin {
 
-void Plugin::init(base::ProjectNode & node)
+void Plugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> servicesNodeData(new PluginNodeData);
 	node.addExtension(servicesNodeData->serviceRegistry());

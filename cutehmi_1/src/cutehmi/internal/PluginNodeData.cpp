@@ -1,7 +1,6 @@
 #include "../../../include/cutehmi/internal/PluginNodeData.hpp"
 
 namespace cutehmi {
-namespace base {
 namespace internal {
 
 PluginNodeData::PluginNodeData(Plugin * plugin, int reqMinor):
@@ -26,7 +25,6 @@ IPlugin * PluginNodeData::pluginInstance() const
 	return qobject_cast<IPlugin *>(m->plugin->instance());
 }
 
-}
 }
 }
 

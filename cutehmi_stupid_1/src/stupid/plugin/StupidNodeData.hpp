@@ -15,7 +15,7 @@ namespace stupid {
 namespace plugin {
 
 class StupidNodeData:
-	public base::DataBlock
+	public DataBlock
 {
 	public:
 		StupidNodeData(std::unique_ptr<Client> client, std::unique_ptr<Service> service);

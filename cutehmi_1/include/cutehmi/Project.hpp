@@ -10,7 +10,6 @@
 class QIODevice;
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Project. Encapsulates objects related to a project and provides neat interface to deal with projects.
@@ -42,17 +41,16 @@ class CUTEHMI_API Project:
 	private:
 		struct Members
 		{
-			//<principle id="cutehmi.base.Project.Members.determined_destruction_order">
+			//<principle id="cutehmi.Project.Members.determined_destruction_order">
 			// Plugins may be used by model.
 			std::unique_ptr<PluginLoader> pluginLoader{new PluginLoader};
 			std::unique_ptr<ProjectModel> model{new ProjectModel};
 			//</principle>
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

@@ -4,10 +4,7 @@
 #include "internal/common.hpp"
 #include "DataBlock.hpp"
 
-#include <utils/MPtr.hpp>
-
 namespace cutehmi {
-namespace base {
 
 /**
  * Project node data. This class encapsulates basic data required by each project node. Plugins may attach their
@@ -46,10 +43,9 @@ class CUTEHMI_API ProjectNodeData final:
 			//QIcon icon;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

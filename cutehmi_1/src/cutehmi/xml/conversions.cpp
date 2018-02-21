@@ -5,7 +5,6 @@
 #include <QRegExp>
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 static uint randPort()
@@ -42,6 +41,5 @@ uint portFromString(const QString & string, bool & ok)
 	return string.toUInt(& ok);
 }
 
-}
 }
 }

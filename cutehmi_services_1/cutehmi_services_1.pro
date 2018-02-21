@@ -21,7 +21,6 @@ QT -= gui
 QT += qml
 
 
-include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
 
 SOURCES += \

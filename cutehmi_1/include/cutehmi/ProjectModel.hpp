@@ -10,7 +10,6 @@
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Project model. Project model is technically a tree, which uses ProjectNode instances as underlying data structure for its nodes.
@@ -18,7 +17,7 @@ namespace base {
  *
  * @principles
  *
- * <principle id="cutehmi.base.ProjectModel.internalPoiner">
+ * <principle id="cutehmi.ProjectModel.internalPoiner">
  * For all valid items in the model, QModelIndex::internalPointer() is always associated with pointer
  * to object of type @p ProjectModel::Node, so that neither @p nullptr nor a pointer to any other object
  * type can be returned.
@@ -38,7 +37,7 @@ class CUTEHMI_API ProjectModel:
 		typedef Iterator<ProjectNode> iterator;
 		typedef Iterator<const ProjectNode> const_iterator;
 
-		Q_PROPERTY(const cutehmi::base::ProjectNode * root READ rootPtr CONSTANT)
+		Q_PROPERTY(const cutehmi::ProjectNode * root READ rootPtr CONSTANT)
 
 		explicit ProjectModel(QObject * parent = 0);
 
@@ -152,7 +151,7 @@ class CUTEHMI_API ProjectModel:
 			Members();
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 template <typename NODE>
@@ -232,7 +231,6 @@ NODE * ProjectModel::Iterator<NODE>::nextSibling(NODE * node, NODE * parent) con
 	return parent->child(parent->childIndex(node) + 1);
 }
 
-}
 }
 
 #endif

@@ -5,7 +5,6 @@
 #include "ErrorInfo.hpp"
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API ErrorException:
 	public ExceptionMixin<ErrorException>
@@ -25,11 +24,10 @@ class CUTEHMI_API ErrorException:
 template <class ERR>
 ErrorException::ErrorException(ERR error):
 	Parent(error.str()),
-	m_errorInfo(::cutehmi::base::errorInfo<ERR>(error))
+	m_errorInfo(::cutehmi::errorInfo<ERR>(error))
 {
 }
 
-}
 }
 
 #endif

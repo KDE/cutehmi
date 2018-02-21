@@ -3,8 +3,6 @@
 
 #include "internal/common.hpp"
 
-#include <utils/MPtr.hpp>
-
 #include <memory>
 
 #include <QObject>
@@ -12,7 +10,6 @@
 #include <QMutex>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API Prompt:
 	public QObject
@@ -135,13 +132,12 @@ class CUTEHMI_API Prompt:
 			button_t response;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }
-}
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::base::Prompt::buttons_t)
+Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Prompt::buttons_t)
 
 #endif
 

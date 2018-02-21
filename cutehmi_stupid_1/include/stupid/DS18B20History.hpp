@@ -95,7 +95,7 @@ class CUTEHMI_STUPID_API DS18B20History:
 			bool updating;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

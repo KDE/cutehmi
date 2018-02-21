@@ -89,7 +89,7 @@ bool Client::login(const QString & user, const QString & password)
 		// Connect to server.
 		Session::Error connectError = session->connect();
 		if (connectError != Session::Error::OK) {
-			base::Prompt::Critical(tr("Could not connect to host '%1:%2', because of following error. ").arg(m->serverHost).arg(m->serverPort) + connectError.str());
+			Prompt::Critical(tr("Could not connect to host '%1:%2', because of following error. ").arg(m->serverHost).arg(m->serverPort) + connectError.str());
 			return false;
 		}
 
@@ -113,7 +113,7 @@ bool Client::login(const QString & user, const QString & password)
 			return true;
 		}
 	} catch (const Exception & e) {
-		base::Prompt::Critical(e.what());
+		Prompt::Critical(e.what());
 		return false;
 	}
 
@@ -176,7 +176,7 @@ void Client::stopChannels()
 
 void Client::handleChannelError(const QString & error)
 {
-	base::Prompt::Critical(error);
+	Prompt::Critical(error);
 	logout();
 }
 

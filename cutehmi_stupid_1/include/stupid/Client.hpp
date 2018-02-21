@@ -82,7 +82,7 @@ class CUTEHMI_STUPID_API Client:
 		void readAll(const QAtomicInt & run = 1);
 
 	signals:
-		void error(cutehmi::base::ErrorInfo errInfo);
+		void error(cutehmi::ErrorInfo errInfo);
 
 		void connected();
 
@@ -117,7 +117,7 @@ class CUTEHMI_STUPID_API Client:
 			QVariantMap ds18b20History;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/NotificationManager.hpp"
 
 namespace cutehmi {
-namespace base {
 
 NotificationManager::NotificationManager(QObject * parent):
 	QObject(parent),
@@ -61,7 +60,6 @@ void NotificationManager::clear()
 	m->model->clear();
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

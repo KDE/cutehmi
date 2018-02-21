@@ -72,7 +72,7 @@ class CUTEHMI_AUTHSSH_API AbstractChannel:
 //			SessionChannelContainer sessionChannels;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

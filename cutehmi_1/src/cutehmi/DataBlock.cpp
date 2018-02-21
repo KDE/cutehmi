@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/DataBlock.hpp"
 
 namespace cutehmi {
-namespace base {
 
 DataBlock::DataBlock():
 	m(new Members{nullptr})
@@ -50,7 +49,6 @@ DataBlock::const_iterator DataBlock::end() const
 }
 
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

@@ -9,7 +9,6 @@
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 class CUTEHMI_API ParseElement
@@ -96,10 +95,9 @@ class CUTEHMI_API ParseElement
 			AttributesContainer attributes;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 }
 

@@ -7,7 +7,6 @@
 #include "../DataBlock.hpp"
 
 namespace cutehmi {
-namespace base {
 namespace internal {
 
 class CUTEHMI_API PluginNodeData:
@@ -29,10 +28,9 @@ class CUTEHMI_API PluginNodeData:
 			int reqMinor;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 }
 

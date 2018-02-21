@@ -12,7 +12,7 @@ namespace app {
 namespace plugin {
 
 class ScreensNodeData:
-	public base::DataBlock
+	public DataBlock
 {
 	public:
 		ScreensNodeData(std::unique_ptr<MainScreen> mainScreen);

@@ -126,7 +126,7 @@ class CUTEHMI_AUTHSSH_API Client:
 			//</workaround>
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

@@ -42,7 +42,7 @@ class CommunicationThread:
 			Client * client;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

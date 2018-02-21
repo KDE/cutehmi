@@ -100,7 +100,7 @@ class CUTEHMI_MODBUS_API RTUConnection:
 			int slaveId;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

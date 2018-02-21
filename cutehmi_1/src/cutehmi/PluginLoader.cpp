@@ -6,7 +6,6 @@
 #include <QLibraryInfo>
 
 namespace cutehmi {
-namespace base {
 
 PluginLoader::PluginLoader():
 	m(new Members(QCoreApplication::libraryPaths().first()))
@@ -105,7 +104,6 @@ Plugin::MetaData PluginLoader::metaData(const QString & binary) const
 	return metaData;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

@@ -37,7 +37,7 @@ class CUTEHMI_STUPID_API Service:
 
 		void onClientDisconnected();
 
-		void handleError(cutehmi::base::ErrorInfo errorInfo);
+		void handleError(cutehmi::ErrorInfo errorInfo);
 
 	private:
 		struct Members
@@ -46,7 +46,7 @@ class CUTEHMI_STUPID_API Service:
 			Client * client;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

@@ -72,7 +72,7 @@ class TunnelEntrance:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

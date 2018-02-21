@@ -9,7 +9,7 @@ namespace cutehmi {
 namespace stupid {
 namespace internal {
 
-base::ErrorInfo errorInfo(const QSqlError & error);
+ErrorInfo errorInfo(const QSqlError & error);
 
 }
 }

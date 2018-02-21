@@ -11,7 +11,6 @@
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Project model node. Represents a node of tree-like structure of project. Objects of this class can not be instantiated directly.
@@ -20,7 +19,7 @@ namespace base {
  * Nodes serve several purposes. They reflect dependencies of the project, control lifetime of injected data and serve as extension
  * points, allowing various parts of application to communicate with each other. Each node has an id by which it may be referred.
  *
- * <principle id="cutehmi.base.ProjectNode.determined_destruction_order">
+ * <principle id="cutehmi.ProjectNode.determined_destruction_order">
  * Destruction order of exposed data members is determined. The order is as follows:
  *		- child nodes (children()) in reverse order as they were added. Each child follows the order.
  *		- extensions.
@@ -169,7 +168,7 @@ class CUTEHMI_API ProjectNode:
 		 *
 		 * @note this function searches all children for the specified @a id. For frequent access use child(int index) variant.
 		 */
-		Q_INVOKABLE const cutehmi::base::ProjectNode * child(const QString & id) const;
+		Q_INVOKABLE const cutehmi::ProjectNode * child(const QString & id) const;
 
 		/**
 		 * Get child by specified id.
@@ -178,7 +177,7 @@ class CUTEHMI_API ProjectNode:
 		 *
 		 * @note this function searches all children for the specified @a id. For frequent access use child(int index) variant.
 		 */
-		cutehmi::base::ProjectNode * child(const QString & id);
+		cutehmi::ProjectNode * child(const QString & id);
 
 		/**
 		 * Get child index.
@@ -299,7 +298,7 @@ class CUTEHMI_API ProjectNode:
 	private:
 		struct Members
 		{
-			//<principle_ref id="cutehmi.base.ProjectNode.determined_destruction_order">
+			//<principle_ref id="cutehmi.ProjectNode.determined_destruction_order">
 			ProjectNode * parent;
 			int index;	///< Index with respect to parent's children container. Solely for optimization purposes.
 			QString id;
@@ -313,13 +312,12 @@ class CUTEHMI_API ProjectNode:
 
 		void allocateChildren();
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }
-}
 
-Q_DECLARE_METATYPE(const cutehmi::base::ProjectNode *)
+Q_DECLARE_METATYPE(const cutehmi::ProjectNode *)
 
 #endif
 

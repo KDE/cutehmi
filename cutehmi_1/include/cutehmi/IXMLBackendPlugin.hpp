@@ -9,7 +9,6 @@
 #include <QXmlStreamWriter>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Plugin interface.
@@ -27,7 +26,6 @@ class IXMLBackendPlugin
 		IXMLBackendPlugin() = default;
 };
 
-}
 }
 
 #endif

@@ -27,7 +27,7 @@ QString Client::Error::str() const
 		case Error::FAILED_TO_WRITE_COIL:
 			return tr("Failed to write coil value to the device.");
 		default:
-			return base::Error::str();
+			return Error::str();
 	}
 }
 
@@ -111,7 +111,7 @@ void Client::readIr(int addr)
 	uint16_t val;
 	CUTEHMI_LOG_DEBUG("Reading value from input register '" << addr << "'.");
 	if (m->connection->readIr(addr, NUM_READ, & val) != NUM_READ)
-		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_INPUT_REGISTER)));
+		emit error(errorInfo(Error(Error::FAILED_TO_READ_INPUT_REGISTER)));
 	else
 		(*it)->updateValue(val);
 }
@@ -126,7 +126,7 @@ void Client::readR(int addr)
 	uint16_t val;
 	CUTEHMI_LOG_DEBUG("Reading value from holding register '" << addr << "'.");
 	if (m->connection->readR(addr, NUM_READ, & val) != NUM_READ)
-		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_HOLDING_REGISTER)));
+		emit error(errorInfo(Error(Error::FAILED_TO_READ_HOLDING_REGISTER)));
 	else
 		(*it)->updateValue(val);
 }
@@ -139,7 +139,7 @@ void Client::writeR(int addr)
 	uint16_t val = (*it)->requestedValue();
 	CUTEHMI_LOG_DEBUG("Writing requested value '" << val << "' to holding register '" << addr << "'.");
 	if (m->connection->writeR(addr, val) != 1) {
-		emit error(base::errorInfo(Error(Error::FAILED_TO_WRITE_HOLDING_REGISTER)));
+		emit error(errorInfo(Error(Error::FAILED_TO_WRITE_HOLDING_REGISTER)));
 		emit (*it)->valueRejected();
 	} else
 		emit (*it)->valueWritten();
@@ -155,7 +155,7 @@ void Client::readIb(int addr)
 	bool val = 0;
 	CUTEHMI_LOG_DEBUG("Reading value from discrete input '" << addr << "'.");
 	if (m->connection->readIb(addr, NUM_READ, & val) != NUM_READ)
-		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_DISCRETE_INPUT)));
+		emit error(errorInfo(Error(Error::FAILED_TO_READ_DISCRETE_INPUT)));
 	else
 		(*it)->updateValue(val);
 }
@@ -170,7 +170,7 @@ void Client::readB(int addr)
 	bool val = 0;
 	CUTEHMI_LOG_DEBUG("Reading value from coil '" << addr << "'.");
 	if (m->connection->readB(addr, NUM_READ, & val) != NUM_READ)
-		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_COIL)));
+		emit error(errorInfo(Error(Error::FAILED_TO_READ_COIL)));
 	else
 		(*it)->updateValue(val);
 }
@@ -183,7 +183,7 @@ void Client::writeB(int addr)
 	bool val = (*it)->requestedValue();
 	CUTEHMI_LOG_DEBUG("Writing requested value '" << val << "' to coil '" << addr << "'.");
 	if (m->connection->writeB(addr, val) != 1) {
-		emit error(base::errorInfo(Error(Error::FAILED_TO_WRITE_COIL)));
+		emit error(errorInfo(Error(Error::FAILED_TO_WRITE_COIL)));
 		emit (*it)->valueRejected();
 	} else
 		emit (*it)->valueWritten();
@@ -201,7 +201,7 @@ void Client::connect()
 		CUTEHMI_LOG_DEBUG("Modbus client connected.");
 		emit connected();
 	} else
-		emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
+		emit error(errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 }
 
 void Client::disconnect()

@@ -13,14 +13,14 @@ namespace plugin {
 
 class Plugin:
 	public QObject,
-	public base::IPlugin
+	public IPlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "cutehmi_services_1.json")
-	Q_INTERFACES(cutehmi::base::IPlugin)
+	Q_INTERFACES(cutehmi::IPlugin)
 
 	public:
-		void init(base::ProjectNode & node) override;
+		void init(ProjectNode & node) override;
 };
 
 }

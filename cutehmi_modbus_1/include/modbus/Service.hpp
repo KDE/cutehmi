@@ -57,7 +57,7 @@ class CUTEHMI_MODBUS_API Service:
 
 		void onBrokenWaitExited();
 
-		void handleError(cutehmi::base::ErrorInfo errorInfo);
+		void handleError(cutehmi::ErrorInfo errorInfo);
 
 	private:
 		static constexpr long MAX_BROKEN_SERVICE_WAIT = 600000; // [ms] = 10 minutes.
@@ -78,7 +78,7 @@ class CUTEHMI_MODBUS_API Service:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

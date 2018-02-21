@@ -16,7 +16,7 @@ namespace internal {
 //		case Error::SESSION_SWITCH:
 //			return tr("Session switch requested.");
 //		default:
-//			return base::Error::str();
+//			return Error::str();
 //	}
 //}
 

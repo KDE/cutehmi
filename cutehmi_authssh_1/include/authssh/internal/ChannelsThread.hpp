@@ -25,13 +25,13 @@ class ChannelsThread:
 
 	public:
 //		struct Error:
-//			public base::Error
+//			public cutehmi::Error
 //		{
 //			enum : int {
-//				SESSION_SWITCH = base::Error::SUBCLASS_BEGIN
+//				SESSION_SWITCH = Error::SUBCLASS_BEGIN
 //			};
 
-//			using base::Error::Error;
+//			using cutehmi::Error::Error;
 
 //			QString str() const;
 //		};

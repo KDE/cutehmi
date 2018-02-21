@@ -2,13 +2,11 @@
 #define CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_BASE_DATABLOCK_HPP
 
 #include "internal/common.hpp"
-
-#include <utils/NonCopyable.hpp>
+#include "NonCopyable.hpp"
 
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Data block. Data block is meant to act as a container, which serves its purpose through inheritance. It provides
@@ -16,12 +14,12 @@ namespace base {
  * child appended to it. This functionality is similar to singly linked list, however the objective is to make data block
  * extensible, rather than manipulative. Instances of this class are non-copyable, but movable.
  *
- * <principle id="cutehmi.base.DataBlock.determined_destruction_order">
+ * <principle id="cutehmi.DataBlock.determined_destruction_order">
  * Child objects are destroyed in the reverse order as they were appended.
  * </principle>
  */
 class CUTEHMI_API DataBlock:
-	public utils::NonCopyable
+	public NonCopyable
 {
 	template <typename BLOCK>
 	struct Iterator;
@@ -117,12 +115,12 @@ class CUTEHMI_API DataBlock:
 
 		struct Members
 		{
-			//<principle_ref id="cutehmi.base.DataBlock.determined_destruction_order">
+			//<principle_ref id="cutehmi.DataBlock.determined_destruction_order">
 			std::unique_ptr<DataBlock> child;
 			//</principle_ref>
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 template <typename BLOCK>
@@ -183,7 +181,6 @@ bool DataBlock::Iterator<BLOCK>::operator !=(const Iterator & other) const
 	return other.m_me != m_me;
 }
 
-}
 }
 
 #endif

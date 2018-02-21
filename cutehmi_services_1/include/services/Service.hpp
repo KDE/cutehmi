@@ -91,7 +91,7 @@ class CUTEHMI_SERVICES_API Service:
 			state_t state;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

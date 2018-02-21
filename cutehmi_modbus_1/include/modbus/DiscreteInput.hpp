@@ -57,7 +57,7 @@ class CUTEHMI_MODBUS_API DiscreteInput:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

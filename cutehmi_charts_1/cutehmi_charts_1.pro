@@ -19,7 +19,6 @@ TRANSLATIONS = locale/$${CUTEHMI_CHARTS_LIBNAME}_pl.ts
 
 QT += qml quick
 
-include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
 
 unix {

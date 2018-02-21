@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/Plugin.hpp"
 
 namespace cutehmi {
-namespace base {
 
 Plugin::Plugin(const QString & binary, QObject * instance, const MetaData & metaData, QObject * parent):
 	QObject(parent),
@@ -57,7 +56,6 @@ QString Plugin::version() const
 	return result;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

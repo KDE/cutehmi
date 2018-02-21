@@ -5,7 +5,6 @@
 #include <QUuid>
 
 namespace cutehmi {
-namespace base {
 
 ProjectModel::ProjectModel(QObject * parent):
 	QAbstractItemModel(parent),
@@ -235,7 +234,6 @@ ProjectModel::Members::Members():
 {
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

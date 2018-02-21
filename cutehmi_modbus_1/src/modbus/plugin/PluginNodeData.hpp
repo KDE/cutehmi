@@ -9,15 +9,15 @@ namespace modbus {
 namespace plugin {
 
 class PluginNodeData:
-	public base::DataBlock
+	public DataBlock
 {
 	public:
-		PluginNodeData(base::IXMLBackendPlugin * implementation);
+		PluginNodeData(IXMLBackendPlugin * implementation);
 
-		base::XMLBackendPlugin * xmlBackendPlugin() const;
+		XMLBackendPlugin * xmlBackendPlugin() const;
 
 	private:
-		std::unique_ptr<base::XMLBackendPlugin> m_xmlBackendPlugin;
+		std::unique_ptr<XMLBackendPlugin> m_xmlBackendPlugin;
 };
 
 }

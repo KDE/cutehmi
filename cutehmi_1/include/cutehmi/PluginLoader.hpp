@@ -11,7 +11,6 @@
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * %Plugin loader.
@@ -23,9 +22,9 @@ class CUTEHMI_API PluginLoader:
 
 	public:
 		class CUTEHMI_API Exception:
-			public base::ExceptionMixin<Exception>
+			public ExceptionMixin<Exception>
 		{
-			typedef base::ExceptionMixin<Exception> Parent;
+			typedef ExceptionMixin<Exception> Parent;
 
 			public:
 				using Parent::Parent;
@@ -104,10 +103,9 @@ class CUTEHMI_API PluginLoader:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

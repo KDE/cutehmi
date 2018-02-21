@@ -20,7 +20,6 @@ RC_FILE = cutehmi_bin_1.rc
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = ../QML
 
-include(../cutehmi_utils_1_lib/import.pri)
 include(../cutehmi_1/import.pri)
 include(../cutehmi_app_1/import.pri)
 

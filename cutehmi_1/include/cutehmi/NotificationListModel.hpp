@@ -7,7 +7,6 @@
 #include <QAbstractListModel>
 
 namespace cutehmi {
-namespace base {
 
 class NotificationListModel:
 	public QAbstractListModel
@@ -45,10 +44,9 @@ class NotificationListModel:
 			NotificationsContainer notifications;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

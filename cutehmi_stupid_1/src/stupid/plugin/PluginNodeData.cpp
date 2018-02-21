@@ -4,12 +4,12 @@ namespace cutehmi {
 namespace stupid {
 namespace plugin {
 
-PluginNodeData::PluginNodeData(base::IXMLBackendPlugin * implementation):
-	m_xmlBackendPlugin(new base::XMLBackendPlugin(implementation))
+PluginNodeData::PluginNodeData(IXMLBackendPlugin * implementation):
+	m_xmlBackendPlugin(new XMLBackendPlugin(implementation))
 {
 }
 
-base::XMLBackendPlugin * PluginNodeData::xmlBackendPlugin() const
+XMLBackendPlugin * PluginNodeData::xmlBackendPlugin() const
 {
 	return m_xmlBackendPlugin.get();
 }

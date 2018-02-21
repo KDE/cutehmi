@@ -5,7 +5,6 @@
 #include <QMutexLocker>
 
 namespace cutehmi {
-namespace base {
 
 Prompt::Prompt(type_t type, const QString & text, buttons_t buttons, QObject * parent):
 	QObject(parent),
@@ -154,7 +153,6 @@ Prompt::button_t Prompt::exec()
 	return response();
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

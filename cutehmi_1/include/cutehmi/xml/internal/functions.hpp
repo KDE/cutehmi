@@ -6,13 +6,11 @@
 #include <QXmlStreamReader>
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 namespace internal {
 
 QString CUTEHMI_API readerPositionString(const QXmlStreamReader & xmlReader);
 
-}
 }
 }
 }

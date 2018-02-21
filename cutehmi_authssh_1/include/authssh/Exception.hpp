@@ -9,9 +9,9 @@ namespace cutehmi {
 namespace authssh {
 
 class CUTEHMI_AUTHSSH_API Exception:
-	public base::ExceptionMixin<Exception>
+	public ExceptionMixin<Exception>
 {
-	typedef base::ExceptionMixin<Exception> Parent;
+	typedef ExceptionMixin<Exception> Parent;
 
 	public:
 		using Parent::Parent;

@@ -8,7 +8,6 @@
 #include <QRegExp>
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 /**
@@ -100,10 +99,9 @@ class CUTEHMI_API ParseAttribute
 			bool required;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 }
 
@@ -115,12 +113,12 @@ class CUTEHMI_API ParseAttribute
  *
  * @warning two parse attributes are equal if their keys are equal.
  */
-inline bool operator ==(const cutehmi::base::xml::ParseAttribute & attr1, const cutehmi::base::xml::ParseAttribute & attr2)
+inline bool operator ==(const cutehmi::xml::ParseAttribute & attr1, const cutehmi::xml::ParseAttribute & attr2)
 {
 	return attr1.key() == attr2.key();
 }
 
-inline uint qHash(const cutehmi::base::xml::ParseAttribute & attr, uint seed)
+inline uint qHash(const cutehmi::xml::ParseAttribute & attr, uint seed)
 {
 	return qHash(attr.key(), seed);
 }

@@ -65,9 +65,9 @@ void Service::onClientDisconnected()
 	setState(STOPPED);
 }
 
-void Service::handleError(cutehmi::base::ErrorInfo errorInfo)
+void Service::handleError(cutehmi::ErrorInfo errorInfo)
 {
-	base::Prompt::Critical(errorInfo);
+	Prompt::Critical(errorInfo);
 	stop();
 }
 

@@ -2,9 +2,8 @@
 #define CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_BASE_XML_PARSEHELPER_HPP
 
 #include "../internal/common.hpp"
+#include "../NonCopyable.hpp"
 #include "ParseElement.hpp"
-
-#include <utils/NonCopyable.hpp>
 
 #include <QVector>
 #include <QXmlStreamReader>
@@ -12,11 +11,10 @@
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 class CUTEHMI_API ParseHelper:
-	utils::NonCopyable
+	NonCopyable
 {
 	friend class ParseHelperTest;
 
@@ -82,10 +80,9 @@ class CUTEHMI_API ParseHelper:
 			mutable QString lastRecognizedNamespaceURI;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 }
 

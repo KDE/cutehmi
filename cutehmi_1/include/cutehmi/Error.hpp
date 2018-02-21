@@ -7,7 +7,6 @@
 #include <QCoreApplication>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Standarized error. Class reserves negative values for its error codes. When subclassing start
@@ -15,7 +14,7 @@ namespace base {
  */
 struct CUTEHMI_API Error
 {
-	Q_DECLARE_TR_FUNCTIONS(cutehmi::base::Error) // This macro ends with "private:" specifier :o !!!
+	Q_DECLARE_TR_FUNCTIONS(cutehmi::Error) // This macro ends with "private:" specifier :o !!!
 
 	public:
 		enum : int {
@@ -70,15 +69,14 @@ struct CUTEHMI_API Error
 };
 
 }
-}
 
-CUTEHMI_API bool operator ==(const cutehmi::base::Error & error, int code);
+CUTEHMI_API bool operator ==(const cutehmi::Error & error, int code);
 
-CUTEHMI_API bool operator ==(int code, const cutehmi::base::Error & error);
+CUTEHMI_API bool operator ==(int code, const cutehmi::Error & error);
 
-CUTEHMI_API bool operator !=(const cutehmi::base::Error & error, int code);
+CUTEHMI_API bool operator !=(const cutehmi::Error & error, int code);
 
-CUTEHMI_API bool operator !=(int code, const cutehmi::base::Error & error);
+CUTEHMI_API bool operator !=(int code, const cutehmi::Error & error);
 
 #endif
 

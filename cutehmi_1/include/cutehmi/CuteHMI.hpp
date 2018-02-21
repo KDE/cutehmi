@@ -9,7 +9,6 @@
 #include <QObject>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API CuteHMI:
 	public QObject
@@ -25,9 +24,9 @@ class CUTEHMI_API CuteHMI:
 		 * Get instance. Gets a reference to the instance of the singleton class.
 		 * Calling this function for the first time will also result in registering
 		 * some types with qRegisterMetaType() function. Types that are registered:
-		 *	- cutehmi::base::ErrorInfo
-		 *  - cutehmi::base::Prompt::button_t
-		 *	- const cutehmi::base::ProjectNode *
+		 *	- cutehmi::ErrorInfo
+		 *  - cutehmi::Prompt::button_t
+		 *	- const cutehmi::ProjectNode *
 		 *  .
 		 *
 		 * @return a reference to the instance of the singleton class.
@@ -79,10 +78,9 @@ class CUTEHMI_API CuteHMI:
 			std::unique_ptr<Project> project;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

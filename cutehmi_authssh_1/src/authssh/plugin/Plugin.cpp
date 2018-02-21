@@ -19,28 +19,28 @@ namespace cutehmi {
 namespace authssh {
 namespace plugin {
 
-void Plugin::init(base::ProjectNode & node)
+void Plugin::init(ProjectNode & node)
 {
     std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
     node.addExtension(pluginNodeData->xmlBackendPlugin());
     node.data().append(std::move(pluginNodeData));
 }
 
-void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
+void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 {
 	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_authssh_1' starts parsing its own portion of document...");
 
     QStringList supportedVersions;
     supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_authssh_1/xsd/1.0/";
 
-    base::xml::ParseHelper helper(& xmlReader, supportedVersions);
-	helper << base::xml::ParseElement("cutehmi_authssh_1", 1, 1);
+    xml::ParseHelper helper(& xmlReader, supportedVersions);
+	helper << xml::ParseElement("cutehmi_authssh_1", 1, 1);
 
 	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (reader.name() == "cutehmi_authssh_1") {
-            base::xml::ParseHelper nodeHelper(& helper);
-			nodeHelper << base::xml::ParseElement("client", { base::xml::ParseAttribute("id"), base::xml::ParseAttribute("name") }, 1, 1);
+            xml::ParseHelper nodeHelper(& helper);
+			nodeHelper << xml::ParseElement("client", { xml::ParseAttribute("id"), xml::ParseAttribute("name") }, 1, 1);
             while (nodeHelper.readNextRecognizedElement()) {
 				if (reader.name() == "client")
 					parseClient(nodeHelper, node, reader.attributes().value("id").toString(), reader.attributes().value("name").toString());
@@ -49,24 +49,24 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
     }
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const
+void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const
 {
     Q_UNUSED(xmlWriter);
     Q_UNUSED(node);
-    throw base::Exception("cutehmi::authssh::plugin::Plugin::writeXML() not implemented yet.");
+    throw Exception("cutehmi::authssh::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseClient(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name)
+void Plugin::parseClient(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name)
 {
 	std::vector<std::unique_ptr<AbstractChannel>> channels;
 	std::unique_ptr<Client> client;
 	QString host;
 	uint port = 0;
 
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("server_host", 1, 1)
-		   << base::xml::ParseElement("server_port", 1, 1)
-		   << base::xml::ParseElement("channels", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("server_host", 1, 1)
+		   << xml::ParseElement("server_port", 1, 1)
+		   << xml::ParseElement("channels", 1, 1);
 
 	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
@@ -88,17 +88,17 @@ void Plugin::parseClient(const base::xml::ParseHelper & parentHelper, base::Proj
 		for (auto it = channels.begin(); it != channels.end(); ++it)
 			client->addChannel(std::move(*it));
 
-		base::ProjectNode * authsshNode = node.addChild(id, base::ProjectNodeData(name));
+		ProjectNode * authsshNode = node.addChild(id, ProjectNodeData(name));
 		authsshNode->addExtension(client.get());
 
 		authsshNode->data().append(std::unique_ptr<AuthSSHNodeData>(new AuthSSHNodeData(std::move(client))));
 	}
 }
 
-void Plugin::parseChannels(const base::xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel>> & channels)
+void Plugin::parseChannels(const xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel>> & channels)
 {
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("channel", { base::xml::ParseAttribute("type", "forward")}, 0, -1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("channel", { xml::ParseAttribute("type", "forward")}, 0, -1);
 
 	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
@@ -111,18 +111,18 @@ void Plugin::parseChannels(const base::xml::ParseHelper & parentHelper, std::vec
 	}
 }
 
-void Plugin::parseForwardChannel(const base::xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel)
+void Plugin::parseForwardChannel(const xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel)
 {
 	QHostAddress remoteHost;
 	uint remotePort = 0;
 	QHostAddress sourceHost;
 	uint localPort = 0;
 
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("remote_host", 1, 1)
-		   << base::xml::ParseElement("remote_port", 1, 1)
-		   << base::xml::ParseElement("source_host", 1, 1)
-		   << base::xml::ParseElement("local_port", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("remote_host", 1, 1)
+		   << xml::ParseElement("remote_port", 1, 1)
+		   << xml::ParseElement("source_host", 1, 1)
+		   << xml::ParseElement("local_port", 1, 1);
 
 	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {

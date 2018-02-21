@@ -6,7 +6,6 @@
 #include <QQmlEngine>
 
 namespace cutehmi {
-namespace base {
 
 QObject * ProjectNode::extension(const QString & extensionId) const
 {
@@ -220,8 +219,6 @@ void ProjectNode::allocateChildren()
 	m->children.reset(new ChildrenContainer);
 }
 
-
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

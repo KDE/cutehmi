@@ -53,7 +53,7 @@ class CUTEHMI_AUTHSSH_API ForwardChannel:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

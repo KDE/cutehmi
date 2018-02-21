@@ -7,7 +7,6 @@
 #include <QtPlugin>
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Plugin interface.
@@ -24,10 +23,9 @@ class IPlugin
 };
 
 }
-}
 
-#define CUTEHMI_IPLUGIN_IID "cutehmi::base::IPlugin"
-Q_DECLARE_INTERFACE(cutehmi::base::IPlugin, CUTEHMI_IPLUGIN_IID)
+#define CUTEHMI_IPLUGIN_IID "cutehmi::IPlugin"
+Q_DECLARE_INTERFACE(cutehmi::IPlugin, CUTEHMI_IPLUGIN_IID)
 
 #endif
 

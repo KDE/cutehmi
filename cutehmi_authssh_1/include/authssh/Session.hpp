@@ -25,17 +25,17 @@ class CUTEHMI_AUTHSSH_API Session:
 
 	public:
 		struct CUTEHMI_AUTHSSH_API Error:
-			public base::Error
+			public cutehmi::Error
 		{
 			enum : int {
-				FAILED_GET_PUBLIC_KEY = base::Error::SUBCLASS_BEGIN,
+				FAILED_GET_PUBLIC_KEY = Error::SUBCLASS_BEGIN,
 				FAILED_GET_PUBLIC_KEY_HASH,
 				FAILED_PUBLIC_KEY_HEX_STRING,
 				ALREADY_CONNNECTED,
 				COULD_NOT_CONNECT
 			};
 
-			using base::Error::Error;
+			using cutehmi::Error::Error;
 
 			QString str() const;
 		};
@@ -103,7 +103,7 @@ class CUTEHMI_AUTHSSH_API Session:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

@@ -22,7 +22,7 @@ QString Session::Error::str() const
 		case Error::COULD_NOT_CONNECT:
 			return tr("Client could not connect with host.");
 		default:
-			return base::Error::str();
+			return Error::str();
 	}
 }
 

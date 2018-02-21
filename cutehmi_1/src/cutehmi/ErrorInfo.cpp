@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/ErrorInfo.hpp"
 
 namespace cutehmi {
-namespace base {
 
 QString ErrorInfo::toString() const
 {
@@ -14,7 +13,6 @@ QString ErrorInfo::toString() const
 	return result;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

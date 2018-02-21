@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/ProjectNodeData.hpp"
 
 namespace cutehmi {
-namespace base {
 
 ProjectNodeData::ProjectNodeData(const QString & name):
 	m(new Members{name})
@@ -18,7 +17,6 @@ void ProjectNodeData::setName(const QString & name)
 	m->name = name;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

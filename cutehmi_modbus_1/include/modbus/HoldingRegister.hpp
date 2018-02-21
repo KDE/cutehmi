@@ -102,7 +102,7 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

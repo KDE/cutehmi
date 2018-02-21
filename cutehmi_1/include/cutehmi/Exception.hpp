@@ -7,12 +7,11 @@
 #include <QException>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API Exception:
 	public QException
 {
-	Q_DECLARE_TR_FUNCTIONS(cutehmi::base::Exception) // This macro ends with "private:" specifier :o !!!
+	Q_DECLARE_TR_FUNCTIONS(cutehmi::Exception) // This macro ends with "private:" specifier :o !!!
 
 	public:
 		Exception(const QString & what);
@@ -27,7 +26,6 @@ class CUTEHMI_API Exception:
 		QByteArray m_whatArr;
 };
 
-}
 }
 
 #endif

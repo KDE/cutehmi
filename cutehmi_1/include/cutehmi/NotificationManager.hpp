@@ -10,7 +10,6 @@
 #include <limits>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API NotificationManager:
 	public QObject
@@ -54,10 +53,9 @@ class CUTEHMI_API NotificationManager:
 			int maxNotifications {std::numeric_limits<int>::max()};
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

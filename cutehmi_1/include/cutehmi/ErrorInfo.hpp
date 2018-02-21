@@ -8,7 +8,6 @@
 #include "Error.hpp"
 
 namespace cutehmi {
-namespace base {
 
 /**
  * Error info.
@@ -38,9 +37,8 @@ ErrorInfo errorInfo(ERR err)
 }
 
 }
-}
 
-Q_DECLARE_METATYPE(cutehmi::base::ErrorInfo)
+Q_DECLARE_METATYPE(cutehmi::ErrorInfo)
 
 #endif
 

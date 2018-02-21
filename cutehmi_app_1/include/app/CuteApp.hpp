@@ -75,7 +75,7 @@ class CUTEHMI_APP_API CuteApp:
 			Members();
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

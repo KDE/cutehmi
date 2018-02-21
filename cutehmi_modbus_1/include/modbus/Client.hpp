@@ -29,10 +29,10 @@ class CUTEHMI_MODBUS_API Client:
 
 	public:
 		struct CUTEHMI_MODBUS_API Error:
-			public base::Error
+			public cutehmi::Error
 		{
 			enum : int {
-				UNABLE_TO_CONNECT = base::Error::SUBCLASS_BEGIN,
+				UNABLE_TO_CONNECT = Error::SUBCLASS_BEGIN,
 				FAILED_TO_READ_INPUT_REGISTER,
 				FAILED_TO_READ_HOLDING_REGISTER,
 				FAILED_TO_WRITE_HOLDING_REGISTER,
@@ -41,7 +41,7 @@ class CUTEHMI_MODBUS_API Client:
 				FAILED_TO_WRITE_COIL
 			};
 
-			using base::Error::Error;
+			using cutehmi::Error::Error;
 
 			QString str() const;
 		};
@@ -150,7 +150,7 @@ class CUTEHMI_MODBUS_API Client:
 		void readAll(const QAtomicInt & run = 1);
 
 	signals:
-		void error(cutehmi::base::ErrorInfo errInfo);
+		void error(cutehmi::ErrorInfo errInfo);
 
 		void connected();
 
@@ -252,7 +252,7 @@ class CUTEHMI_MODBUS_API Client:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 template <typename T>

@@ -15,7 +15,7 @@ namespace modbus {
 namespace plugin {
 
 class ModbusNodeData:
-	public base::DataBlock
+	public DataBlock
 {
 	public:
 		ModbusNodeData(std::unique_ptr<Client> client, std::unique_ptr<Service> service);

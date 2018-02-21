@@ -45,7 +45,7 @@ class DS18B20HistoryWorker:
 			Results results;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

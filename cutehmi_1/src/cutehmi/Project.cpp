@@ -6,7 +6,6 @@
 #include <QFileInfo>
 
 namespace cutehmi {
-namespace base {
 
 Project::Project(QObject * parent):
 	QObject(parent),
@@ -39,7 +38,7 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 
 	QFile file(filePath);
 	if (file.open(QIODevice::ReadOnly)) {
-		utils::MPtr<Members> newM(new Members);
+		MPtr<Members> newM(new Members);
 		internal::ProjectXMLBackend xmlBackend(newM->model.get(), newM->pluginLoader.get(), qmlContext);
 		try {
 			xmlBackend.load(file);
@@ -59,7 +58,6 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 	}
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

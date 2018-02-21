@@ -79,7 +79,7 @@ class CUTEHMI_SERVICES_API ServiceRegistry:
 
 		static Service * At(QQmlListProperty<Service> * property, int index);
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

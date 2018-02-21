@@ -3,13 +3,10 @@
 
 #include "internal/common.hpp"
 
-#include <utils/MPtr.hpp>
-
 #include <QObject>
 #include <QDateTime>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API Notification:
 	public QObject
@@ -62,10 +59,9 @@ class CUTEHMI_API Notification:
 			QDateTime dateTime;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

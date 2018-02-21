@@ -8,7 +8,6 @@
 Q_DECLARE_LOGGING_CATEGORY(cutehmi_1_loggingCategory)
 
 namespace cutehmi {
-namespace base {
 
 inline
 const QLoggingCategory & loggingCategory()
@@ -16,7 +15,6 @@ const QLoggingCategory & loggingCategory()
 	return cutehmi_1_loggingCategory();
 }
 
-}
 }
 
 #endif

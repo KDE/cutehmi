@@ -1,14 +1,12 @@
 #include "../../include/cutehmi/ErrorException.hpp"
 
 namespace cutehmi {
-namespace base {
 
 const ErrorInfo & ErrorException::info() const
 {
 	return m_errorInfo;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

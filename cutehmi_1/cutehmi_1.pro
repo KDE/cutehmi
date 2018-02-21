@@ -21,8 +21,6 @@ TRANSLATIONS = locale/$${CUTEHMI_LIBNAME}_pl.ts
 QT -= gui
 QT += qml
 
-include(../cutehmi_utils_1_lib/import.pri)
-
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -90,7 +88,11 @@ HEADERS += \
     include/cutehmi/Worker.hpp \
     include/cutehmi/xml/conversions.hpp \
     include/cutehmi/logging.hpp \
-    include/cutehmi/loggingMacros.hpp
+    include/cutehmi/loggingMacros.hpp \
+    include/cutehmi/MPtr.hpp \
+    include/cutehmi/NonCopyable.hpp \
+    include/cutehmi/NonMovable.hpp \
+    include/cutehmi/Singleton.hpp
 
 DISTFILES += \
     import.pri \

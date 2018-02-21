@@ -17,33 +17,33 @@ namespace plugin {
 
 class Plugin:
 	public QObject,
-	public base::IPlugin,
-	public base::IXMLBackendPlugin
+	public IPlugin,
+	public IXMLBackendPlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "cutehmi_modbus_1.json")
-	Q_INTERFACES(cutehmi::base::IPlugin)
+	Q_INTERFACES(cutehmi::IPlugin)
 
 	friend class PluginTest;
 
 	public:
-		// base::IPlugin
-		void init(base::ProjectNode & node) override;
+		// IPlugin
+		void init(ProjectNode & node) override;
 
-		// base::IXMLBackendPlugin
-		void readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node) override;
+		// IXMLBackendPlugin
+		void readXML(QXmlStreamReader & xmlReader, ProjectNode & node) override;
 
-		// base::IXMLBackendPlugin
-		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
+		// IXMLBackendPlugin
+		void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const override;
 
 	private:
-		void parseModbus(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name);
+		void parseModbus(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name);
 
-		void parseTCP(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
+		void parseTCP(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
 
-		void parseRTU(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
+		void parseRTU(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
 
-		void parseDummy(const base::xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
+		void parseDummy(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection);
 
 		bool timeoutFromString(const QString & timeoutString, internal::LibmodbusConnection::Timeout & timeout);
 

@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/PopupBridge.hpp"
 
 namespace cutehmi {
-namespace base {
 
 PopupBridge::PopupBridge(QObject * parent):
 	QObject(parent),
@@ -36,7 +35,6 @@ void PopupBridge::resetAdvertiser(QObject * advertiser)
 	QObject::connect(this, SIGNAL(promptRequested(QVariant)), advertiser, SLOT(createPrompt(QVariant)));
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

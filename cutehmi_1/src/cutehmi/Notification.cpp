@@ -2,7 +2,6 @@
 #include "../../include/cutehmi/CuteHMI.hpp"
 
 namespace cutehmi {
-namespace base {
 
 Notification::Notification(type_t type, const QString & text, QObject * parent):
 	QObject(parent),
@@ -71,7 +70,6 @@ std::unique_ptr<Notification> Notification::clone() const
 	return clone;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

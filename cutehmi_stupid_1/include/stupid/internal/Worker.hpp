@@ -18,7 +18,7 @@ namespace internal {
 /**
  * Worker. This class acts as a container that allows specified code to be run in a specified thread.
  *
- * @obsolete replaced by cutehmi::base::Worker.
+ * @obsolete replaced by cutehmi::Worker.
  */
 class Worker:
 	public QObject
@@ -149,7 +149,7 @@ class Worker:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

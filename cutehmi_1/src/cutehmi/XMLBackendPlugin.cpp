@@ -1,7 +1,6 @@
 #include "../../include/cutehmi/XMLBackendPlugin.hpp"
 
 namespace cutehmi {
-namespace base {
 
 XMLBackendPlugin::XMLBackendPlugin(IXMLBackendPlugin * implementation, QObject * parent):
 	QObject(parent),
@@ -14,7 +13,6 @@ IXMLBackendPlugin * XMLBackendPlugin::implementation()
 	return m->implementation;
 }
 
-}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

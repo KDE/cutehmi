@@ -87,7 +87,7 @@ class CUTEHMI_MODBUS_API Coil:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

@@ -5,8 +5,8 @@
 #include "AbstractConnection.hpp"
 #include "../Exception.hpp"
 
-#include <utils/NonCopyable.hpp>
-#include <utils/NonMovable.hpp>
+#include <cutehmi/NonCopyable.hpp>
+#include <cutehmi/NonMovable.hpp>
 
 #include <modbus/modbus.h>
 
@@ -21,8 +21,8 @@ namespace internal {
  */
 class CUTEHMI_MODBUS_API LibmodbusConnection:
 	public AbstractConnection,
-	public utils::NonCopyable,
-	public utils::NonMovable
+	public NonCopyable,
+	public NonMovable
 {
 	public:
 		struct Timeout {
@@ -99,7 +99,7 @@ class CUTEHMI_MODBUS_API LibmodbusConnection:
 			}
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }

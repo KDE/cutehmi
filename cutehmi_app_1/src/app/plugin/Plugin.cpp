@@ -12,27 +12,27 @@ namespace cutehmi {
 namespace app {
 namespace plugin {
 
-void Plugin::init(base::ProjectNode & node)
+void Plugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
 	node.addExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
-void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
+void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 {
 	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_app_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_app_1/xsd/1.0/";
 
-	base::xml::ParseHelper helper(& xmlReader, supportedVersions);
-	helper << base::xml::ParseElement("cutehmi_app_1", 1, 1);
+	xml::ParseHelper helper(& xmlReader, supportedVersions);
+	helper << xml::ParseElement("cutehmi_app_1", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "cutehmi_app_1") {
-			base::xml::ParseHelper nodeHelper(& helper);
-			nodeHelper << base::xml::ParseElement("screens", 1, 1);
+			xml::ParseHelper nodeHelper(& helper);
+			nodeHelper << xml::ParseElement("screens", 1, 1);
 			while (nodeHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "screens")
 					parseScreens(nodeHelper, node);
@@ -41,20 +41,20 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 	}
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const
+void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const
 {
 	Q_UNUSED(xmlWriter);
 	Q_UNUSED(node);
-	throw base::Exception("cutehmi::app::plugin::Plugin::writeXML() not implemented yet.");
+	throw Exception("cutehmi::app::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseScreens(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node)
+void Plugin::parseScreens(const xml::ParseHelper & parentHelper, ProjectNode & node)
 {
 	std::unique_ptr<MainScreen> mainScreen;
 	std::unique_ptr<ScreensNodeData> screensNodeData;
 
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("main_screen", {base::xml::ParseAttribute("source")}, 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("main_screen", {xml::ParseAttribute("source")}, 1, 1);
 
 	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {

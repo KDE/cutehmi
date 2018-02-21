@@ -2,7 +2,6 @@
 #include "../../../include/cutehmi/xml/internal/functions.hpp"
 
 namespace cutehmi {
-namespace base {
 namespace xml {
 
 ParseHelper::ParseHelper(QXmlStreamReader * reader, const QString & namespaceURI):
@@ -202,7 +201,6 @@ bool ParseHelper::checkNamespace(const QString & namespaceURI) const
 	return false;
 }
 
-}
 }
 }
 

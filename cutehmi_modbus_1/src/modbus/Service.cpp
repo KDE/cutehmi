@@ -31,12 +31,12 @@ Service::Service(const QString & name, Client * client, QObject * parent):
 	startingState->addTransition(this, SIGNAL(customStopRequested()), stoppingState);
 	startingState->addTransition(m->thread.get(), SIGNAL(ran()), startedState);
 	startingState->addTransition(m->thread.get(), SIGNAL(finished()), brokenWaitState);
-	startingState->addTransition(m->client, SIGNAL(error(cutehmi::base::ErrorInfo)), brokenState);
+	startingState->addTransition(m->client, SIGNAL(error(cutehmi::ErrorInfo)), brokenState);
 	startingState->addTransition(m->client, SIGNAL(disconnected()), brokenState);
 	QObject::connect(startingState, & QState::entered, this, & Service::startServiceThread);
 
 	startedState->addTransition(this, SIGNAL(customStopRequested()), stoppingState);
-	startedState->addTransition(m->client, SIGNAL(error(cutehmi::base::ErrorInfo)), brokenState);
+	startedState->addTransition(m->client, SIGNAL(error(cutehmi::ErrorInfo)), brokenState);
 	startedState->addTransition(m->client, SIGNAL(disconnected()), brokenState);
 	startedState->addTransition(m->thread.get(), SIGNAL(finished()), brokenWaitState);
 	QObject::connect(startedState, & QState::entered, this, & Service::onStartedEntered);
@@ -115,20 +115,20 @@ void Service::stopServiceThread()
 void Service::onStartedEntered()
 {
 	setState(STARTED);
-	base::Notification::Note(tr("Modbus service '%1' started.").arg(name()));
+	Notification::Note(tr("Modbus service '%1' started.").arg(name()));
 	m->brokenServiceWait = INITIAL_BROKEN_SERVICE_WAIT;
 }
 
 void Service::onStoppedEntered()
 {
 	setState(STOPPED);
-	base::Notification::Note(tr("Modbus service '%1' stopped.").arg(name()));
+	Notification::Note(tr("Modbus service '%1' stopped.").arg(name()));
 }
 
 void Service::onBrokenEntered()
 {
 	setState(BROKEN);
-	base::Notification::Critical(tr("Modbus service '%1' is in broken state.").arg(name()));
+	Notification::Critical(tr("Modbus service '%1' is in broken state.").arg(name()));
 	stopServiceThread();
 }
 
@@ -137,7 +137,7 @@ void Service::onBrokenWaitEntered()
 	setState(BROKEN);
 	if (m->client->isConnected())
 		m->client->disconnect();
-	base::Notification::Note(tr("Modbus service '%1' is scheduled to restart in %2 seconds...").arg(name()).arg(m->brokenServiceWait / 1000 ));
+	Notification::Note(tr("Modbus service '%1' is scheduled to restart in %2 seconds...").arg(name()).arg(m->brokenServiceWait / 1000 ));
 	QTimer::singleShot(m->brokenServiceWait, this, SIGNAL(brokenTimeoutTriggered()));
 	m->brokenServiceWait = std::min(static_cast<int>(std::min(MAX_BROKEN_SERVICE_WAIT, static_cast<long>(std::numeric_limits<int>::max()))), m->brokenServiceWait * 2);
 }
@@ -147,9 +147,9 @@ void Service::onBrokenWaitExited()
 	setState(REPAIRING);
 }
 
-void Service::handleError(cutehmi::base::ErrorInfo errorInfo)
+void Service::handleError(cutehmi::ErrorInfo errorInfo)
 {
-	base::Notification::Critical(errorInfo);
+	Notification::Critical(errorInfo);
 }
 
 constexpr long Service::MAX_BROKEN_SERVICE_WAIT;

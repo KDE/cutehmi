@@ -17,28 +17,28 @@ namespace cutehmi {
 namespace stupid {
 namespace plugin {
 
-void Plugin::init(base::ProjectNode & node)
+void Plugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
 	node.addExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
-void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
+void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 {
 	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_stupid_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_stupid_1/xsd/1.0/";
 
-	base::xml::ParseHelper helper(& xmlReader, supportedVersions);
-	helper << base::xml::ParseElement("cutehmi_stupid_1", 1, 1);
+	xml::ParseHelper helper(& xmlReader, supportedVersions);
+	helper << xml::ParseElement("cutehmi_stupid_1", 1, 1);
 
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "cutehmi_stupid_1") {
-			base::xml::ParseHelper nodeHelper(& helper);
-			nodeHelper << base::xml::ParseElement("stupid", {base::xml::ParseAttribute("id"),
-															 base::xml::ParseAttribute("name")}, 0);
+			xml::ParseHelper nodeHelper(& helper);
+			nodeHelper << xml::ParseElement("stupid", {xml::ParseAttribute("id"),
+															 xml::ParseAttribute("name")}, 0);
 			while (nodeHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "stupid")
 					parseStupid(nodeHelper, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());
@@ -47,18 +47,18 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 	}
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const
+void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const
 {
 	Q_UNUSED(xmlWriter);
 	Q_UNUSED(node);
-	throw base::Exception("cutehmi::stupid::plugin::Plugin::writeXML() not implemented yet.");
+	throw Exception("cutehmi::stupid::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name)
+void Plugin::parseStupid(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name)
 {
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("client", 1, 1)
-		   << base::xml::ParseElement("service", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("client", 1, 1)
+		   << xml::ParseElement("service", 1, 1);
 
 	std::unique_ptr<Client> client;
 	std::unique_ptr<Service> service;
@@ -68,13 +68,13 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "client") {
-			base::xml::ParseHelper clientHelper(& helper);
-			clientHelper << base::xml::ParseElement("session", {base::xml::ParseAttribute("type", "SQL")}, 1, 1);
+			xml::ParseHelper clientHelper(& helper);
+			clientHelper << xml::ParseElement("session", {xml::ParseAttribute("type", "SQL")}, 1, 1);
 
 			while (clientHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "session") {
-					base::xml::ParseHelper sessionHelper(& clientHelper);
-					sessionHelper << base::xml::ParseElement("dbms", {base::xml::ParseAttribute("name", "PostgreSQL")}, 1, 1);
+					xml::ParseHelper sessionHelper(& clientHelper);
+					sessionHelper << xml::ParseElement("dbms", {xml::ParseAttribute("name", "PostgreSQL")}, 1, 1);
 					while (sessionHelper.readNextRecognizedElement()) {
 						if (xmlReader.name() == "dbms") {
 							dbData.reset(new DatabaseConnectionData);
@@ -88,8 +88,8 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 				}
 			}
 		} else if (xmlReader.name() == "service") {
-			base::xml::ParseHelper serviceHelper(& helper);
-			serviceHelper << base::xml::ParseElement("sleep", 1, 1);
+			xml::ParseHelper serviceHelper(& helper);
+			serviceHelper << xml::ParseElement("sleep", 1, 1);
 
 			while (serviceHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "sleep") {
@@ -109,7 +109,7 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 		service.reset(new Service(name, client.get()));
 		service->setSleep(serviceSleep);
 
-		base::ProjectNode * stupidNode = node.addChild(id, base::ProjectNodeData(name));
+		ProjectNode * stupidNode = node.addChild(id, ProjectNodeData(name));
 		stupidNode->addExtension(client.get());
 		stupidNode->addExtension(service.get());
 
@@ -124,20 +124,20 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 	}
 }
 
-void Plugin::parsePostgreSQL(const base::xml::ParseHelper & parentHelper, DatabaseConnectionData & dbData)
+void Plugin::parsePostgreSQL(const xml::ParseHelper & parentHelper, DatabaseConnectionData & dbData)
 {
-	base::xml::ParseHelper helper(& parentHelper);
-	helper << base::xml::ParseElement("postgresql", 1, 1);
+	xml::ParseHelper helper(& parentHelper);
+	helper << xml::ParseElement("postgresql", 1, 1);
 
 	const QXmlStreamReader & xmlReader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (xmlReader.name() == "postgresql") {
-			base::xml::ParseHelper postgresqlHelper(& helper);
-			postgresqlHelper << base::xml::ParseElement("port", 1, 1)
-							 << base::xml::ParseElement("host", 1, 1)
-							 << base::xml::ParseElement("name", 1, 1)
-							 << base::xml::ParseElement("user", 1, 1)
-							 << base::xml::ParseElement("password", 1, 1);
+			xml::ParseHelper postgresqlHelper(& helper);
+			postgresqlHelper << xml::ParseElement("port", 1, 1)
+							 << xml::ParseElement("host", 1, 1)
+							 << xml::ParseElement("name", 1, 1)
+							 << xml::ParseElement("user", 1, 1)
+							 << xml::ParseElement("password", 1, 1);
 
 			while (postgresqlHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "host")

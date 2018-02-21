@@ -8,7 +8,6 @@
 #include <memory>
 
 namespace cutehmi {
-namespace base {
 
 class CUTEHMI_API Plugin:
 	public QObject
@@ -24,7 +23,7 @@ class CUTEHMI_API Plugin:
 			int micro;
 		};
 
-		Plugin(const QString & binary, QObject * instance, const cutehmi::base::Plugin::MetaData & metaData, QObject * parent = 0);
+		Plugin(const QString & binary, QObject * instance, const cutehmi::Plugin::MetaData & metaData, QObject * parent = 0);
 
 		const QString & binary() const;
 
@@ -48,10 +47,9 @@ class CUTEHMI_API Plugin:
 			MetaData metaData;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
-}
 }
 
 #endif

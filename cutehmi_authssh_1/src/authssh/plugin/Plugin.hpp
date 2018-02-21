@@ -17,29 +17,29 @@ namespace plugin {
 
 class Plugin:
 	public QObject,
-	public base::IPlugin,
-	public base::IXMLBackendPlugin
+	public IPlugin,
+	public IXMLBackendPlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "cutehmi_authssh_1.json")
-	Q_INTERFACES(cutehmi::base::IPlugin)
+	Q_INTERFACES(cutehmi::IPlugin)
 
 	public:
-		// base::IPlugin
-		void init(base::ProjectNode & node) override;
+		// IPlugin
+		void init(ProjectNode & node) override;
 
-		// base::IXMLBackendPlugin
-		void readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node) override;
+		// IXMLBackendPlugin
+		void readXML(QXmlStreamReader & xmlReader, ProjectNode & node) override;
 
-		// base::IXMLBackendPlugin
-		void writeXML(QXmlStreamWriter & xmlWriter, base::ProjectNode & node) const override;
+		// IXMLBackendPlugin
+		void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const override;
 
 	private:
-		void parseClient(const base::xml::ParseHelper & parentHelper, base::ProjectNode & node, const QString & id, const QString & name);
+		void parseClient(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name);
 
-		void parseChannels(const base::xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel> > & channels);
+		void parseChannels(const xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel> > & channels);
 
-		void parseForwardChannel(const base::xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel);
+		void parseForwardChannel(const xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel);
 };
 
 }

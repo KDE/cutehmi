@@ -22,14 +22,14 @@ class DatabaseThread:
 
 	public:
 		struct CUTEHMI_STUPID_API Error:
-			public base::Error
+			public cutehmi::Error
 		{
 			enum : int {
-				NOT_CONFIGURED = base::Error::SUBCLASS_BEGIN,
+				NOT_CONFIGURED = Error::SUBCLASS_BEGIN,
 				UNABLE_TO_CONNECT
 			};
 
-			using base::Error::Error;
+			using cutehmi::Error::Error;
 
 			QString str() const;
 		};
@@ -41,7 +41,7 @@ class DatabaseThread:
 		stupid::DatabaseConnectionData * dbData() const;
 
 	signals:
-		void error(cutehmi::base::ErrorInfo errInfo);
+		void error(cutehmi::ErrorInfo errInfo);
 
 		void connected();
 
@@ -57,7 +57,7 @@ class DatabaseThread:
 			QMutex runLock;
 		};
 
-		utils::MPtr<Members> m;
+		MPtr<Members> m;
 };
 
 }
