@@ -27,8 +27,6 @@
 
 int main(int argc, char * argv[])
 {
-	static const char * PLUGINS_SUBDIR = "plugins";
-
 	QCoreApplication::setOrganizationDomain("cutehmi");
 	QCoreApplication::setApplicationName("CuteHMI");
 	QCoreApplication::setApplicationVersion(CUTEHMI_APP_VERSION);
@@ -103,13 +101,9 @@ int main(int argc, char * argv[])
 	QString baseDirPath = baseDir.absolutePath() + "/";
 	qDebug() << "Base directory: " << baseDirPath;
 
-	cutehmi::base::CuteHMI & cuteHMI = cutehmi::base::CuteHMI::Instance();
-	QDir dir(qApp->applicationDirPath());
-	dir.cd(PLUGINS_SUBDIR);
-	cuteHMI.project()->pluginLoader()->setPluginsDir(dir.canonicalPath());
 	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
 
-	// QQmlApplicationEngine scope. It's quite important to destroy "engine" before cutehmi::base::CuteHMI::Instance() members, because they
+	// QQmlApplicationEngine scope. It's quite important to destroy "engine" before cutehmi::CuteHMI::Instance() members, because they
 	// may still be used by some QML components (for example in "Component.onDestroyed" handlers).
 	int result;
 	{
@@ -121,9 +115,10 @@ int main(int argc, char * argv[])
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
 		if (!cmd.value(projectOption).isNull()) {
+			cutehmi::CuteHMI & cuteHMI = cutehmi::CuteHMI::Instance();
 			cuteHMI.project()->loadXMLFile(baseDirPath + cmd.value(projectOption), engine->rootContext());
 
-			cutehmi::base::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
+			cutehmi::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
 			if (appNode) {
 				QString source;
 				appNode->invoke("cutehmi::app::plugin::MainScreen", "source", Q_RETURN_ARG(QString, source));
@@ -131,24 +126,24 @@ int main(int argc, char * argv[])
 				if (sourceUrl.isValid()) {
 					// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
 					if (!sourceUrl.scheme().isEmpty() && QDir::isRelativePath(sourceUrl.path()))
-						cutehmi::base::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(sourceUrl.url()));
+						cutehmi::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(sourceUrl.url()));
 					else {
 						// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
 						if (sourceUrl.isRelative())
 							sourceUrl = QUrl::fromLocalFile(baseDirPath).resolved(sourceUrl);
 						// Check if file exists and eventually set context property.
 						if (sourceUrl.isLocalFile() && !QFile::exists(sourceUrl.toLocalFile()))
-							cutehmi::base::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
+							cutehmi::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
 						else
 							engine->rootContext()->setContextProperty("cutehmi_app_mainScreenURL", sourceUrl.url());
 					}
 				} else
-					cutehmi::base::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
+					cutehmi::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
 			}
 		}
 		result = app.exec();
 	}
-	cutehmi::base::CuteHMI::Destroy();
+	cutehmi::CuteHMI::Destroy();
 
 	if (cmd.isSet(hideCursorOption))
 		QGuiApplication::restoreOverrideCursor();
