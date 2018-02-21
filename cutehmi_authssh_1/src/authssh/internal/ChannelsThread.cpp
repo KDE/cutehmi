@@ -1,5 +1,5 @@
 #include "../../../include/authssh/internal/ChannelsThread.hpp"
-#include "../../../include/authssh/macros.hpp"
+#include "../../../include/authssh/logging.hpp"
 #include "../../../include/authssh/AbstractChannel.hpp"
 #include "../../../include/authssh/Exception.hpp"
 #include "../../../include/authssh/Session.hpp"

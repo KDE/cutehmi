@@ -1,7 +1,7 @@
 #include "Plugin.hpp"
 #include "PluginNodeData.hpp"
 #include "ModbusNodeData.hpp"
-#include "../../../include/modbus/macros.hpp"
+#include "../../../include/modbus/logging.hpp"
 #include "../../../include/modbus/internal/TCPConnection.hpp"
 #include "../../../include/modbus/internal/RTUConnection.hpp"
 #include "../../../include/modbus/internal/DummyConnection.hpp"

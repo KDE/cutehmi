@@ -31,7 +31,7 @@ SOURCES += \
     src/app/plugin/MainScreen.cpp \
     src/app/plugin/ScreensNodeData.cpp \
     src/app/CuteApp.cpp \
-    src/app/macros.cpp
+    src/app/logging.cpp
 
 HEADERS += \
     src/app/plugin/Plugin.hpp \
@@ -41,7 +41,7 @@ HEADERS += \
     include/app/internal/common.hpp \
     include/app/internal/platform.hpp \
     include/app/CuteApp.hpp \
-    include/app/macros.hpp
+    include/app/logging.hpp
 
 DISTFILES += cutehmi_app_1.json \
     import.pri \

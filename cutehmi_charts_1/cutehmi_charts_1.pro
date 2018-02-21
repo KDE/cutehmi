@@ -29,13 +29,13 @@ unix {
 
 SOURCES += \
     src/charts/PointSeries.cpp \
-    src/charts/macros.cpp
+    src/charts/logging.cpp
 
 HEADERS += \
     include/charts/PointSeries.hpp \
     include/charts/internal/platform.hpp \
     include/charts/internal/common.hpp \
-    include/charts/macros.hpp
+    include/charts/logging.hpp
 
 DISTFILES += \
     import.pri \

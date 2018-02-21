@@ -30,7 +30,6 @@ SOURCES += \
     src/stupid/plugin/Plugin.cpp \
     src/stupid/plugin/StupidNodeData.cpp \
     src/stupid/plugin/PluginNodeData.cpp \
-    src/stupid/macros.cpp \
     src/stupid/Client.cpp \
     src/stupid/DS18B20.cpp \
     src/stupid/DS18B20History.cpp \
@@ -40,7 +39,8 @@ SOURCES += \
     src/stupid/internal/DatabaseThread.cpp \
     src/stupid/internal/DS18B20HistoryWorker.cpp \
     src/stupid/internal/functions.cpp \
-    src/stupid/internal/Worker.cpp
+    src/stupid/internal/Worker.cpp \
+    src/stupid/logging.cpp
 
 HEADERS += \
     src/stupid/plugin/Plugin.hpp \
@@ -49,7 +49,6 @@ HEADERS += \
     include/stupid/Client.hpp \
     include/stupid/DS18B20.hpp \
     include/stupid/DS18B20History.hpp \
-    include/stupid/macros.hpp \
     include/stupid/Service.hpp \
     include/stupid/internal/AsyncConnector.hpp \
     include/stupid/internal/common.hpp \
@@ -59,7 +58,8 @@ HEADERS += \
     include/stupid/internal/DS18B20HistoryWorker.hpp \
     include/stupid/internal/functions.hpp \
     include/stupid/internal/platform.hpp \
-    include/stupid/internal/Worker.hpp
+    include/stupid/internal/Worker.hpp \
+    include/stupid/logging.hpp
 
 DISTFILES += cutehmi_stupid_1.json \
     dev/cutehmi_stupid_1-1.solved.Qt.design.txt \

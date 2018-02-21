@@ -2,7 +2,7 @@
 #define CUTEHMI_CUTEHMI__STUPID__1__LIB_INCLUDE_STUPID_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
-#include "../macros.hpp"
+#include "../logging.hpp"
 
 #include <utils/MPtr.hpp>
 

@@ -2,7 +2,7 @@
 #define CUTEHMI_CUTEHMI__AUTHSSH__1__LIB_INCLUDE_AUTHSSH_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
-#include "../macros.hpp"
+#include "../logging.hpp"
 
 #include <utils/MPtr.hpp>
 

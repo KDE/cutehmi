@@ -1,7 +1,7 @@
 #include "Plugin.hpp"
 #include "PluginNodeData.hpp"
 #include "ScreensNodeData.hpp"
-#include "../../../include/app/macros.hpp"
+#include "../../../include/app/logging.hpp"
 
 #include <cutehmi/XMLBackendPlugin.hpp>
 #include <cutehmi/Exception.hpp>

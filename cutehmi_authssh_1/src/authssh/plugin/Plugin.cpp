@@ -2,7 +2,7 @@
 #include "PluginNodeData.hpp"
 #include "AuthSSHNodeData.hpp"
 
-#include "../../../include/authssh/macros.hpp"
+#include "../../../include/authssh/logging.hpp"
 #include "../../../include/authssh/Client.hpp"
 #include "../../../include/authssh/ForwardChannel.hpp"
 

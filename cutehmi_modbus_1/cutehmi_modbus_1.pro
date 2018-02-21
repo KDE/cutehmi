@@ -44,7 +44,7 @@ SOURCES += \
     src/modbus/internal/RTUConnection.cpp \
     src/modbus/internal/ServiceThread.cpp \
     src/modbus/internal/TCPConnection.cpp \
-    src/modbus/macros.cpp
+    src/modbus/logging.cpp
 
 HEADERS += \
     src/modbus/plugin/ModbusNodeData.hpp \
@@ -69,7 +69,7 @@ HEADERS += \
     include/modbus/internal/RTUConnection.hpp \
     include/modbus/internal/ServiceThread.hpp \
     include/modbus/internal/TCPConnection.hpp \
-    include/modbus/macros.hpp
+    include/modbus/logging.hpp
 
 DISTFILES += cutehmi_modbus_1.json \
     import.pri \

@@ -2,7 +2,7 @@
 #define CUTEHMI_CUTEHMI__APP__1__LIB_INCLUDE_APP_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
-#include "../macros.hpp"
+#include "../logging.hpp"
 
 #include <utils/MPtr.hpp>
 

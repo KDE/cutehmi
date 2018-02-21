@@ -1,4 +1,4 @@
-#include "../../include/authssh/macros.hpp"
+#include "../../include/authssh/logging.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_authssh_1_loggingCategory, "cutehmi_authssh_1")
 

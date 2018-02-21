@@ -35,7 +35,7 @@ SOURCES += \
     src/authssh/Session.cpp \
     src/authssh/internal/ChannelsThread.cpp \
     src/authssh/internal/TunnelEntrance.cpp \
-    src/authssh/macros.cpp
+    src/authssh/logging.cpp
 
 HEADERS += \
     src/authssh/plugin/Plugin.hpp \
@@ -50,7 +50,7 @@ HEADERS += \
     include/authssh/internal/common.hpp \
     include/authssh/internal/platform.hpp \
     include/authssh/internal/TunnelEntrance.hpp \
-    include/authssh/macros.hpp
+    include/authssh/logging.hpp
 
 DISTFILES += cutehmi_authssh_1.json \
     import.pri \

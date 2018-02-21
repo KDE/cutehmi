@@ -1,7 +1,7 @@
 #include "Plugin.hpp"
 #include "StupidNodeData.hpp"
 #include "PluginNodeData.hpp"
-#include "../../../include/stupid/macros.hpp"
+#include "../../../include/stupid/logging.hpp"
 #include "../../../include/stupid/Service.hpp"
 
 #include <services/ServiceRegistry.hpp>
