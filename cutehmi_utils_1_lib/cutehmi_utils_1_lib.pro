@@ -16,8 +16,7 @@ HEADERS += \
     include/utils/NonCopyable.hpp \
     include/utils/NonMovable.hpp \
     include/utils/Singleton.hpp \
-    include/utils/MPtr.hpp \
-    include/utils/macros.hpp
+    include/utils/MPtr.hpp
 
 DISTFILES += \
     import.pri \

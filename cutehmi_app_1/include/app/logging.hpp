@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_CUTEHMI__APP__1__LIB_INCLUDE_APP_INTERNAL_MACROS_HPP
 #define CUTEHMI_CUTEHMI__APP__1__LIB_INCLUDE_APP_INTERNAL_MACROS_HPP
 
-#include <utils/macros.hpp>
+#include <cutehmi/loggingMacros.hpp>
 
 #include <QLoggingCategory>
 

@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_CUTEHMI__MODBUS__1__LIB_INCLUDE_MODBUS_INTERNAL_MACROS_HPP
 #define CUTEHMI_CUTEHMI__MODBUS__1__LIB_INCLUDE_MODBUS_INTERNAL_MACROS_HPP
 
-#include <utils/macros.hpp>
+#include <cutehmi/loggingMacros.hpp>
 
 #include <QLoggingCategory>
 

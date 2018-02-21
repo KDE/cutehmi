@@ -89,7 +89,8 @@ HEADERS += \
     include/cutehmi/ProjectNodeData.hpp \
     include/cutehmi/Worker.hpp \
     include/cutehmi/xml/conversions.hpp \
-    include/cutehmi/logging.hpp
+    include/cutehmi/logging.hpp \
+    include/cutehmi/loggingMacros.hpp
 
 DISTFILES += \
     import.pri \
