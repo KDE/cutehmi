@@ -2,7 +2,7 @@
 #define CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_BASE_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
-#include "macros.hpp"
+#include "../logging.hpp"
 #include "../ErrorInfo.hpp"
 #include "../Notification.hpp"
 #include "../Prompt.hpp"

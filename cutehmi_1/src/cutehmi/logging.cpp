@@ -1,4 +1,4 @@
-#include "../../../include/cutehmi/internal/macros.hpp"
+#include "../../include/cutehmi/logging.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_1_loggingCategory, "cutehmi_1")
 

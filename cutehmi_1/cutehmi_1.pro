@@ -46,7 +46,6 @@ SOURCES += \
     src/cutehmi/xml/internal/functions.cpp \
     src/cutehmi/internal/PluginNodeData.cpp \
     src/cutehmi/XMLBackendPlugin.cpp \
-    src/cutehmi/internal/macros.cpp \
     src/cutehmi/DataBlock.cpp \
     src/cutehmi/PopupBridge.cpp \
     src/cutehmi/Prompt.cpp \
@@ -55,7 +54,8 @@ SOURCES += \
     src/cutehmi/NotificationListModel.cpp \
     src/cutehmi/ProjectNodeData.cpp \
     src/cutehmi/Worker.cpp \
-    src/cutehmi/xml/conversions.cpp
+    src/cutehmi/xml/conversions.cpp \
+    src/cutehmi/logging.cpp
 
 HEADERS += \
     include/cutehmi/ProjectModel.hpp \
@@ -69,7 +69,6 @@ HEADERS += \
     include/cutehmi/ErrorException.hpp \
     include/cutehmi/internal/common.hpp \
     include/cutehmi/internal/platform.hpp \
-    include/cutehmi/internal/macros.hpp \
     include/cutehmi/ProjectNode.hpp \
     include/cutehmi/Plugin.hpp \
     include/cutehmi/xml/ParseAttribute.hpp \
@@ -80,7 +79,6 @@ HEADERS += \
     include/cutehmi/IXMLBackendPlugin.hpp \
     include/cutehmi/internal/PluginNodeData.hpp \
     include/cutehmi/XMLBackendPlugin.hpp \
-    include/cutehmi/macros.hpp \
     include/cutehmi/DataBlock.hpp \
     include/cutehmi/ExceptionMixin.hpp \
     include/cutehmi/PopupBridge.hpp \
@@ -90,7 +88,8 @@ HEADERS += \
     include/cutehmi/NotificationListModel.hpp \
     include/cutehmi/ProjectNodeData.hpp \
     include/cutehmi/Worker.hpp \
-    include/cutehmi/xml/conversions.hpp
+    include/cutehmi/xml/conversions.hpp \
+    include/cutehmi/logging.hpp
 
 DISTFILES += \
     import.pri \
