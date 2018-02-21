@@ -26,7 +26,7 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_UTILS_DEBUG("Plugin 'cutehmi_modbus_1' starts parsing its own portion of document...");
+	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_modbus_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_modbus_1/xsd/1.0/";
@@ -106,10 +106,10 @@ void Plugin::parseModbus(const base::xml::ParseHelper & parentHelper, base::Proj
 
 		if (node.root()->child("cutehmi_services_1")) {
 			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
-			CUTEHMI_UTILS_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
+			CUTEHMI_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
 			serviceRegistry->add(service.get());
 		} else
-			CUTEHMI_UTILS_WARNING("Plugin 'cutehmi_services_1' not available.");
+			CUTEHMI_LOG_WARNING("Plugin 'cutehmi_services_1' not available.");
 
 		modbusNode->data().append(std::unique_ptr<ModbusNodeData>(new ModbusNodeData(std::move(client), std::move(service))));
 	}
@@ -296,7 +296,7 @@ bool Plugin::secUsecFromString(const QString & timeoutString, unsigned long & se
 	if (secUsec.length() != 2)
 		return false;
 	if (secUsec.value(1).count() > 6)
-		CUTEHMI_UTILS_DEBUG("Values smaller than a microsecond will be ignored.");
+		CUTEHMI_LOG_DEBUG("Values smaller than a microsecond will be ignored.");
 	sec = secUsec.value(0).toULong(& okSec);
 	usec = secUsec.value(1).leftJustified(6, '0', true).toULong(& okUsec); // unsigned long is guaranteed to be at least 32 bit.
 	if (!okSec || !okUsec)

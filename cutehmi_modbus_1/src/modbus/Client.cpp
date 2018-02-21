@@ -109,7 +109,7 @@ void Client::readIr(int addr)
 	IrDataContainer::iterator it = m->irData.find(addr);
 	Q_ASSERT_X(it != m->irData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
-	CUTEHMI_UTILS_DEBUG("Reading value from input register '" << addr << "'.");
+	CUTEHMI_LOG_DEBUG("Reading value from input register '" << addr << "'.");
 	if (m->connection->readIr(addr, NUM_READ, & val) != NUM_READ)
 		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_INPUT_REGISTER)));
 	else
@@ -124,7 +124,7 @@ void Client::readR(int addr)
 	RDataContainer::iterator it = m->rData.find(addr);
 	Q_ASSERT_X(it != m->rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val;
-	CUTEHMI_UTILS_DEBUG("Reading value from holding register '" << addr << "'.");
+	CUTEHMI_LOG_DEBUG("Reading value from holding register '" << addr << "'.");
 	if (m->connection->readR(addr, NUM_READ, & val) != NUM_READ)
 		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_HOLDING_REGISTER)));
 	else
@@ -137,7 +137,7 @@ void Client::writeR(int addr)
 	RDataContainer::iterator it = m->rData.find(addr);
 	Q_ASSERT_X(it != m->rData.end(), __func__, "register has not been referenced yet");
 	uint16_t val = (*it)->requestedValue();
-	CUTEHMI_UTILS_DEBUG("Writing requested value '" << val << "' to holding register '" << addr << "'.");
+	CUTEHMI_LOG_DEBUG("Writing requested value '" << val << "' to holding register '" << addr << "'.");
 	if (m->connection->writeR(addr, val) != 1) {
 		emit error(base::errorInfo(Error(Error::FAILED_TO_WRITE_HOLDING_REGISTER)));
 		emit (*it)->valueRejected();
@@ -153,7 +153,7 @@ void Client::readIb(int addr)
 	IbDataContainer::iterator it = m->ibData.find(addr);
 	Q_ASSERT_X(it != m->ibData.end(), __func__, "discrete input has not been referenced yet");
 	bool val = 0;
-	CUTEHMI_UTILS_DEBUG("Reading value from discrete input '" << addr << "'.");
+	CUTEHMI_LOG_DEBUG("Reading value from discrete input '" << addr << "'.");
 	if (m->connection->readIb(addr, NUM_READ, & val) != NUM_READ)
 		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_DISCRETE_INPUT)));
 	else
@@ -168,7 +168,7 @@ void Client::readB(int addr)
 	BDataContainer::iterator it = m->bData.find(addr);
 	Q_ASSERT_X(it != m->bData.end(), __func__, "coil has not been referenced yet");
 	bool val = 0;
-	CUTEHMI_UTILS_DEBUG("Reading value from coil '" << addr << "'.");
+	CUTEHMI_LOG_DEBUG("Reading value from coil '" << addr << "'.");
 	if (m->connection->readB(addr, NUM_READ, & val) != NUM_READ)
 		emit error(base::errorInfo(Error(Error::FAILED_TO_READ_COIL)));
 	else
@@ -181,7 +181,7 @@ void Client::writeB(int addr)
 	BDataContainer::iterator it = m->bData.find(addr);
 	Q_ASSERT_X(it != m->bData.end(), __func__, "coil has not been referenced yet");
 	bool val = (*it)->requestedValue();
-	CUTEHMI_UTILS_DEBUG("Writing requested value '" << val << "' to coil '" << addr << "'.");
+	CUTEHMI_LOG_DEBUG("Writing requested value '" << val << "' to coil '" << addr << "'.");
 	if (m->connection->writeB(addr, val) != 1) {
 		emit error(base::errorInfo(Error(Error::FAILED_TO_WRITE_COIL)));
 		emit (*it)->valueRejected();
@@ -198,7 +198,7 @@ void Client::connect()
 	m->connectionMutex.unlock();
 
 	if (status) {
-		CUTEHMI_UTILS_DEBUG("Modbus client connected.");
+		CUTEHMI_LOG_DEBUG("Modbus client connected.");
 		emit connected();
 	} else
 		emit error(base::errorInfo(Error(Error::UNABLE_TO_CONNECT)));
@@ -211,7 +211,7 @@ void Client::disconnect()
 	m->connection->disconnect();
 	m->connectionMutex.unlock();
 
-	CUTEHMI_UTILS_DEBUG("Modbus client disconnected.");
+	CUTEHMI_LOG_DEBUG("Modbus client disconnected.");
 
 	emit disconnected();
 }

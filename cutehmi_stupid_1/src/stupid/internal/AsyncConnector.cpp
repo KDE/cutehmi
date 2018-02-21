@@ -36,10 +36,10 @@ void AsyncConnector::connect()
 {
 	switch (m_status) {
 		case INIT:
-			CUTEHMI_UTILS_DEBUG("Establishing connection - 'INIT'.");
+			CUTEHMI_LOG_DEBUG("Establishing connection - 'INIT'.");
 			m_status= ENUMERATE_DEVICES;
 		case ENUMERATE_DEVICES:
-			CUTEHMI_UTILS_DEBUG("Establishing connection - 'ENUMERATE_DEVICES'.");
+			CUTEHMI_LOG_DEBUG("Establishing connection - 'ENUMERATE_DEVICES'.");
 			// For proper thread affinity of DS18B20* objects do not create them inside m_dbThread, just store the results of a query.
 			m_dbWorker.setTask([this]() {
 				QSqlQuery query(QSqlDatabase::database(m_dbThread->dbData()->connectionName, false));
@@ -52,7 +52,7 @@ void AsyncConnector::connect()
 			m_dbWorker.work();
 			break;
 		case LOAD_DAEMON_SLEEP:
-			CUTEHMI_UTILS_DEBUG("Establishing connection - 'LOAD_DAEMON_SLEEP'.");
+			CUTEHMI_LOG_DEBUG("Establishing connection - 'LOAD_DAEMON_SLEEP'.");
 			m_dbWorker.setTask([this]() {
 				QSqlQuery query(QSqlDatabase::database(m_dbThread->dbData()->connectionName, false));
 				query.exec("SELECT daemon_sleep FROM settings");
@@ -63,12 +63,12 @@ void AsyncConnector::connect()
 			m_dbWorker.work();
 			break;
 		case FINALIZE:
-			CUTEHMI_UTILS_DEBUG("Establishing connection - 'FINALIZE'.");
+			CUTEHMI_LOG_DEBUG("Establishing connection - 'FINALIZE'.");
 			m_status= CONNECTED;
 			emit connected(this);
 			break;
 		case CONNECTED:
-			CUTEHMI_UTILS_WARNING("Received signal, but connection status is already 'CONNECTED'.");
+			CUTEHMI_LOG_WARNING("Received signal, but connection status is already 'CONNECTED'.");
 			break;
 		default:
 			qFatal("Unrecognized connection status code: '%d'.", static_cast<int>(m_status));

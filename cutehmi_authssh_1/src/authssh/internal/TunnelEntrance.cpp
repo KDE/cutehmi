@@ -41,14 +41,14 @@ qint64 TunnelEntrance::write(const QByteArray & data)
 
 bool TunnelEntrance::open()
 {
-	CUTEHMI_UTILS_DEBUG("Opening tunnel entrance.");
+	CUTEHMI_LOG_DEBUG("Opening tunnel entrance.");
 
 	return m->tcpServer->listen(m->host, m->port);
 }
 
 void TunnelEntrance::close()
 {
-	CUTEHMI_UTILS_DEBUG("Closing tunnel entrance.");
+	CUTEHMI_LOG_DEBUG("Closing tunnel entrance.");
 
 	m->tcpServer->close();
 	if (m->connection)
@@ -58,7 +58,7 @@ void TunnelEntrance::close()
 void TunnelEntrance::establishConnection()
 {	
 	if (m->tcpServer) {
-		CUTEHMI_UTILS_DEBUG("Establishing connection via tunnel.");
+		CUTEHMI_LOG_DEBUG("Establishing connection via tunnel.");
 
 		m->tcpServer->pauseAccepting();
 		m->connection = m->tcpServer->nextPendingConnection();
@@ -69,7 +69,7 @@ void TunnelEntrance::establishConnection()
 
 void TunnelEntrance::removeConnection()
 {
-	CUTEHMI_UTILS_DEBUG("Removing tunnel connection.");
+	CUTEHMI_LOG_DEBUG("Removing tunnel connection.");
 
 	if (m->connection) {
 		m->connection->deleteLater();

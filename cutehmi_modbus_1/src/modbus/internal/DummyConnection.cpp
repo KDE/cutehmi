@@ -66,7 +66,7 @@ bool DummyConnection::connected() const
 int DummyConnection::readIr(int addr, int num, uint16_t * dest)
 {
 	if (!m->connected) {
-		CUTEHMI_UTILS_DEBUG("Not connected.");
+		CUTEHMI_LOG_DEBUG("Not connected.");
 		return -1;
 	}
 	QThread::msleep(latency());
@@ -77,7 +77,7 @@ int DummyConnection::readIr(int addr, int num, uint16_t * dest)
 int DummyConnection::readR(int addr, int num, uint16_t * dest)
 {
 	if (!m->connected) {
-		CUTEHMI_UTILS_DEBUG("Not connected.");
+		CUTEHMI_LOG_DEBUG("Not connected.");
 		return -1;
 	}
 	QThread::msleep(latency());
@@ -88,7 +88,7 @@ int DummyConnection::readR(int addr, int num, uint16_t * dest)
 int DummyConnection::writeR(int addr, uint16_t value)
 {
 	if (!m->connected) {
-		CUTEHMI_UTILS_DEBUG("Not connected.");
+		CUTEHMI_LOG_DEBUG("Not connected.");
 		return -1;
 	}
 	QThread::msleep(latency());
@@ -99,7 +99,7 @@ int DummyConnection::writeR(int addr, uint16_t value)
 int DummyConnection::readIb(int addr, int num, bool * dest)
 {
 	if (!m->connected) {
-		CUTEHMI_UTILS_DEBUG("Not connected.");
+		CUTEHMI_LOG_DEBUG("Not connected.");
 		return -1;
 	}
 	QThread::msleep(latency());
@@ -110,7 +110,7 @@ int DummyConnection::readIb(int addr, int num, bool * dest)
 int DummyConnection::readB(int addr, int num, bool * dest)
 {
 	if (!m->connected) {
-		CUTEHMI_UTILS_DEBUG("Not connected.");
+		CUTEHMI_LOG_DEBUG("Not connected.");
 		return -1;
 	}
 	QThread::msleep(latency());
@@ -121,7 +121,7 @@ int DummyConnection::readB(int addr, int num, bool * dest)
 int DummyConnection::writeB(int addr, bool value)
 {
 	if (!m->connected) {
-		CUTEHMI_UTILS_DEBUG("Not connected.");
+		CUTEHMI_LOG_DEBUG("Not connected.");
 		return -1;
 	}
 	QThread::msleep(latency());

@@ -77,7 +77,7 @@ bool Session::connected() const
 
 std::pair<Session::Error, QString> Session::getServerKey()
 {
-	CUTEHMI_UTILS_DEBUG("Getting server key...");
+	CUTEHMI_LOG_DEBUG("Getting server key...");
 
 	Error error = Error::OK;
 	ssh_key pubkey;
@@ -93,17 +93,17 @@ std::pair<Session::Error, QString> Session::getServerKey()
 					m->serverKeyCache = hexHash;
 					ssh_string_free_char(hexHash);
 				} else {
-					CUTEHMI_UTILS_WARNING("Function 'ssh_get_hexa()' has failed.");
+					CUTEHMI_LOG_WARNING("Function 'ssh_get_hexa()' has failed.");
 					error = Error::FAILED_PUBLIC_KEY_HEX_STRING;
 				}
 				ssh_clean_pubkey_hash(& hash);
 			} else {
-				CUTEHMI_UTILS_WARNING("Function 'ssh_get_publickey_hash()' has failed.");
+				CUTEHMI_LOG_WARNING("Function 'ssh_get_publickey_hash()' has failed.");
 				error = Error::FAILED_GET_PUBLIC_KEY_HASH;
 			}
 			ssh_key_free(pubkey);
 		} else {
-			CUTEHMI_UTILS_WARNING("Function 'ssh_get_publickey()' has failed due to following error (code: " << sshGetPublickeyResult << "): " << ssh_get_error(session()) << ".");
+			CUTEHMI_LOG_WARNING("Function 'ssh_get_publickey()' has failed due to following error (code: " << sshGetPublickeyResult << "): " << ssh_get_error(session()) << ".");
 			error = Error::FAILED_GET_PUBLIC_KEY;
 		}
 	}
@@ -113,10 +113,10 @@ std::pair<Session::Error, QString> Session::getServerKey()
 
 Session::Error Session::connect()
 {
-	CUTEHMI_UTILS_DEBUG("Connecting to host '" << m->host << ":" << m->port << "'...");
+	CUTEHMI_LOG_DEBUG("Connecting to host '" << m->host << ":" << m->port << "'...");
 
 	if (connected()) {
-		CUTEHMI_UTILS_WARNING("Already connected.");
+		CUTEHMI_LOG_WARNING("Already connected.");
 		return Error::ALREADY_CONNNECTED;
 	}
 
@@ -124,14 +124,14 @@ Session::Error Session::connect()
 	while (result == SSH_AGAIN)
 		result = ssh_connect(session());
 	if (result != SSH_OK) {
-		CUTEHMI_UTILS_WARNING("Could not connect to host '" << m->host << "' on port '" << m->port << "', because of the following error: " << ssh_get_error(session()) << ".");
+		CUTEHMI_LOG_WARNING("Could not connect to host '" << m->host << "' on port '" << m->port << "', because of the following error: " << ssh_get_error(session()) << ".");
 	//<workaround ref="cutehmi_authssh_1-1" target="libssh" cause="bug">
 		setConnected(false);
 	} else {
 		setConnected(true);
 	//</workaround>
-		CUTEHMI_UTILS_DEBUG("Connected with host '" << m->host << "' using port '" << m->port << "'.");
-		CUTEHMI_UTILS_DEBUG("Supported authentication methods: " << authMethods().join(", ") << ".");
+		CUTEHMI_LOG_DEBUG("Connected with host '" << m->host << "' using port '" << m->port << "'.");
+		CUTEHMI_LOG_DEBUG("Supported authentication methods: " << authMethods().join(", ") << ".");
 		return Error::OK;
 	}
 	return Error::COULD_NOT_CONNECT;
@@ -140,7 +140,7 @@ Session::Error Session::connect()
 void Session::disconnect()
 {
 	if (!connected()) {
-		CUTEHMI_UTILS_WARNING("Client already disconnected.");
+		CUTEHMI_LOG_WARNING("Client already disconnected.");
 		return;
 	}
 
@@ -153,19 +153,19 @@ void Session::disconnect()
 
 bool Session::passwordAuth(const QString & password)
 {
-	CUTEHMI_UTILS_DEBUG("Authenticating user with password...");
+	CUTEHMI_LOG_DEBUG("Authenticating user with password...");
 
 	int result = ssh_userauth_password(session(), NULL, password.toLocal8Bit().constData());
 	if (result == SSH_AUTH_SUCCESS)
 		return true;
 	else
-		CUTEHMI_UTILS_WARNING("Function 'ssh_userauth_password()' has failed due to following error (code: " << result << "): " << ssh_get_error(session()) << " .");
+		CUTEHMI_LOG_WARNING("Function 'ssh_userauth_password()' has failed due to following error (code: " << result << "): " << ssh_get_error(session()) << " .");
 	return false;
 }
 
 ssh_session Session::session() const
 {
-	CUTEHMI_UTILS_ASSERT(m->session != NULL, "attempt to use NULL session (either uninitialized or acquired)");
+	CUTEHMI_ASSERT(m->session != NULL, "attempt to use NULL session (either uninitialized or acquired)");
 
 	return m->session;
 }

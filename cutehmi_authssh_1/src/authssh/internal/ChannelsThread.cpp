@@ -55,7 +55,7 @@ void ChannelsThread::addChannel(std::unique_ptr<AbstractChannel> channel)
 void ChannelsThread::quit()
 {
 	if (isRunning()) {
-		CUTEHMI_UTILS_DEBUG("Requesting channels thread to quit...");
+		CUTEHMI_LOG_DEBUG("Requesting channels thread to quit...");
 		requestInterruption();
 		Parent::quit();
 	}
@@ -88,7 +88,7 @@ void ChannelsThread::run()
 	m_session->releaseLibsshSession(session);
 	m_session = nullptr;
 
-	CUTEHMI_UTILS_DEBUG("Channels thread quits with return code: " << retVal << ".");
+	CUTEHMI_LOG_DEBUG("Channels thread quits with return code: " << retVal << ".");
 }
 
 }

@@ -36,7 +36,7 @@ Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor)
 
 	// Make an attempt to obtain version information from meta data.
 	if (meta.minor == -1)
-		CUTEHMI_UTILS_WARNING("Loading plugin '" << binary <<"', which has undefined minor version. Required minor is '" << reqMinor << "'.");
+		CUTEHMI_LOG_WARNING("Loading plugin '" << binary <<"', which has undefined minor version. Required minor is '" << reqMinor << "'.");
 	else if (meta.minor < reqMinor)
 		throw WrongVersionException(binary, reqMinor, meta.minor);
 
@@ -45,12 +45,12 @@ Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor)
 		QObject * instance = m->loader.instance();
 		if (instance) {
 			Plugin * plugin = new Plugin(binary, instance, meta);
-			CUTEHMI_UTILS_DEBUG("Loaded plugin '" << binary << "' version '" << plugin->version() << "'.");
+			CUTEHMI_LOG_DEBUG("Loaded plugin '" << binary << "' version '" << plugin->version() << "'.");
 			m->loadedPlugins.append(plugin);
 		} else
 			throw FailedLoadException(binary);
 	} else {
-		CUTEHMI_UTILS_DEBUG("Plugin '" << binary << "' already loaded.");
+		CUTEHMI_LOG_DEBUG("Plugin '" << binary << "' already loaded.");
 		if (!plugin(binary))
 			m->loadedPlugins.append(new Plugin(binary, m->loader.instance(), meta));
 	}
@@ -63,9 +63,9 @@ void PluginLoader::unloadPlugins()
 		Plugin * plugin = m->loadedPlugins.last();
 		m->loader.setFileName(plugin->binary());
 		if (m->loader.unload())
-			CUTEHMI_UTILS_DEBUG("Unloaded plugin '" << plugin->binary() << "'.");
+			CUTEHMI_LOG_DEBUG("Unloaded plugin '" << plugin->binary() << "'.");
 		else
-			CUTEHMI_UTILS_DEBUG("Could not unload plugin '" << plugin->binary() << "'.");
+			CUTEHMI_LOG_DEBUG("Could not unload plugin '" << plugin->binary() << "'.");
 		m->loadedPlugins.removeLast();
 		plugin->deleteLater();
 	}
@@ -95,7 +95,7 @@ Plugin::MetaData PluginLoader::metaData(const QString & binary) const
 	if (jsonMetaData.value("micro").isUndefined())
 		unavailableMetaData << "micro";
 	if (!unavailableMetaData.isEmpty())
-		CUTEHMI_UTILS_WARNING("Plugin '" << binary <<"' is missing '" << unavailableMetaData.join("', '") << "' meta-data information.");
+		CUTEHMI_LOG_WARNING("Plugin '" << binary <<"' is missing '" << unavailableMetaData.join("', '") << "' meta-data information.");
 
 	metaData.id = jsonMetaData.value("id").toString();
 	metaData.name = jsonMetaData.value("name").toString();

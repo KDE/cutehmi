@@ -19,19 +19,19 @@ ForwardChannel::~ForwardChannel()
 
 bool ForwardChannel::initChannel(ssh_channel channel)
 {
-	CUTEHMI_UTILS_ASSERT(channel != NULL, "channel must not be NULL");
+	CUTEHMI_ASSERT(channel != NULL, "channel must not be NULL");
 
 	std::unique_ptr<QSocketNotifier> sessionReadNotifier(new QSocketNotifier(ssh_get_fd(ssh_channel_get_session(channel)), QSocketNotifier::Read));
 	connect(sessionReadNotifier.get(), & QSocketNotifier::activated, this, & AbstractChannel::activated);
 
-	CUTEHMI_UTILS_DEBUG("Opening forward channel.");
+	CUTEHMI_LOG_DEBUG("Opening forward channel.");
 	int errorCode;
 	do
 		errorCode = ssh_channel_open_forward(channel, m->remoteHost.constData(), m->remotePort, m->sourceHost.constData(), m->localPort);
 	while (errorCode == SSH_AGAIN);
 
 	if (errorCode != SSH_OK) {
-		CUTEHMI_UTILS_WARNING("Function 'ssh_channel_open_forward()' has failed (error code: " << errorCode << ").");
+		CUTEHMI_LOG_WARNING("Function 'ssh_channel_open_forward()' has failed (error code: " << errorCode << ").");
 		emit error(QObject::tr("Could not open forward channel. Check if host '%1' is accepting connections on port '%2' or if it is not blocked by a firewall.")
 						.arg(m->remoteHost.constData())
 						.arg(m->remotePort));
@@ -41,7 +41,7 @@ bool ForwardChannel::initChannel(ssh_channel channel)
 	//<workaround id="cutehmi_authssh_lib_1-2" target="libssh" cause="bug">
 	// Function 'ssh_channel_open_forward()' returns 'SSH_OK', even if it fails to open channel.
 	if (!ssh_channel_is_open(channel)) {
-		CUTEHMI_UTILS_WARNING("Function 'ssh_channel_open_forward()' has failed to open channel.");
+		CUTEHMI_LOG_WARNING("Function 'ssh_channel_open_forward()' has failed to open channel.");
 		emit error(QObject::tr("Could not open forward channel. Check if host '%1' is accepting connections on port '%2' or if it is not blocked by a firewall.")
 						.arg(m->remoteHost.constData())
 						.arg(m->remotePort));
@@ -60,7 +60,7 @@ bool ForwardChannel::initChannel(ssh_channel channel)
 
 bool ForwardChannel::processChannel(ssh_channel channel)
 {
-	CUTEHMI_UTILS_DEBUG("Processing forward channel.");
+	CUTEHMI_LOG_DEBUG("Processing forward channel.");
 
 	int available = m->tunnelEntrance->bytesAvailable();
 	if (available > 0) {
@@ -105,7 +105,7 @@ bool ForwardChannel::processChannel(ssh_channel channel)
 
 void ForwardChannel::shutdownChannel(ssh_channel channel)
 {
-	CUTEHMI_UTILS_DEBUG("Shutting down forward channel.");
+	CUTEHMI_LOG_DEBUG("Shutting down forward channel.");
 
 	shutdown();
 

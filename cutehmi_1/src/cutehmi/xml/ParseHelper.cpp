@@ -135,7 +135,7 @@ bool ParseHelper::skipToNextSiblingElement()
 			if (m->level == 1)
 				return true;
 			else if (m->level == 2)
-				CUTEHMI_UTILS_WARNING("Skipping child element: " << internal::readerPositionString(*m->xmlReader) << ".");
+				CUTEHMI_LOG_WARNING("Skipping child element: " << internal::readerPositionString(*m->xmlReader) << ".");
 		}
 	}
 	return false;
@@ -177,7 +177,7 @@ bool ParseHelper::checkAttributes(QXmlStreamReader & reader, const ParseElement 
 	// Warn about unrecognized attributes.
 	for (const QXmlStreamAttribute & attr : reader.attributes())
 		if (!element.attributes().containsKey(attr.name().toString()))
-			CUTEHMI_UTILS_WARNING("Element '" << element.name() << "' contains unrecognized attribute '" << attr.name().toString() << "' at: " << internal::readerPositionString(*m->xmlReader) << ".");
+			CUTEHMI_LOG_WARNING("Element '" << element.name() << "' contains unrecognized attribute '" << attr.name().toString() << "' at: " << internal::readerPositionString(*m->xmlReader) << ".");
 
 	return true;
 }

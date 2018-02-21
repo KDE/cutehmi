@@ -26,7 +26,7 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_UTILS_DEBUG("Plugin 'cutehmi_stupid_1' starts parsing its own portion of document...");
+	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_stupid_1' starts parsing its own portion of document...");
 
 	QStringList supportedVersions;
 	supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_stupid_1/xsd/1.0/";
@@ -115,10 +115,10 @@ void Plugin::parseStupid(const base::xml::ParseHelper & parentHelper, base::Proj
 
 		if (node.root()->child("cutehmi_services_1")) {
 			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
-			CUTEHMI_UTILS_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
+			CUTEHMI_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
 			serviceRegistry->add(service.get());
 		} else
-			CUTEHMI_UTILS_WARNING("Plugin 'cutehmi_services_1' not available.");
+			CUTEHMI_LOG_WARNING("Plugin 'cutehmi_services_1' not available.");
 
 		stupidNode->data().append(std::unique_ptr<StupidNodeData>(new StupidNodeData(std::move(client), std::move(service))));
 	}

@@ -81,7 +81,7 @@ void Client::invalidateServerKey()
 
 bool Client::login(const QString & user, const QString & password)
 {
-	CUTEHMI_UTILS_DEBUG("Logging in user '" << user << "'...");
+	CUTEHMI_LOG_DEBUG("Logging in user '" << user << "'...");
 
 	try {
 		std::unique_ptr<Session> session(new Session(m->serverHost, m->serverPort, user));
@@ -135,7 +135,7 @@ void Client::logout()
 			setUser(lastSession()->user());
 		}
 		delete session;
-		CUTEHMI_UTILS_DEBUG("Logged out.");
+		CUTEHMI_LOG_DEBUG("Logged out.");
 	}
 }
 
@@ -203,7 +203,7 @@ const Session * Client::lastSession() const
 
 bool Client::verifyServer()
 {
-	CUTEHMI_UTILS_DEBUG("Verifying server...");
+	CUTEHMI_LOG_DEBUG("Verifying server...");
 
 	m->settings.beginGroup(QSETTINGS_GROUP);
 	QString storedServerKey = m->settings.value(serverKeySettingsKey()).toString();

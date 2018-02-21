@@ -42,11 +42,11 @@ Service::state_t Service::customStart()
 Service::state_t Service::customStop()
 {
 	if (m->thread->isRunning()) {
-		CUTEHMI_UTILS_DEBUG("Stopping STUPiD client thread...");
+		CUTEHMI_LOG_DEBUG("Stopping STUPiD client thread...");
 		m->thread->stop();
 		m->thread->quit();
 		m->thread->wait();
-		CUTEHMI_UTILS_DEBUG("STUPiD client thread finished.");
+		CUTEHMI_LOG_DEBUG("STUPiD client thread finished.");
 	}
 	setState(STOPPING);
 	m->client->disconnect();
@@ -55,7 +55,7 @@ Service::state_t Service::customStop()
 
 void Service::onClientConnected()
 {
-	CUTEHMI_UTILS_DEBUG("Starting STUPiD client thread...");
+	CUTEHMI_LOG_DEBUG("Starting STUPiD client thread...");
 	m->thread->start();
 	setState(STARTED);
 }

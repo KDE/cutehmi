@@ -35,7 +35,7 @@ void Project::loadXMLFile(const QString & filePath, QQmlContext * qmlContext)
 		return;
 	}
 
-	CUTEHMI_UTILS_DEBUG("Loading project file '" << filePath << "'...");
+	CUTEHMI_LOG_DEBUG("Loading project file '" << filePath << "'...");
 
 	QFile file(filePath);
 	if (file.open(QIODevice::ReadOnly)) {

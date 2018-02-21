@@ -105,7 +105,7 @@ QVariant ProjectModel::data(const QModelIndex & index, int role) const
 //			return QVariant();	// No description.
 
 		default:
-			CUTEHMI_UTILS_DEBUG("Data item role (" << role << ") not supported yet.");
+			CUTEHMI_LOG_DEBUG("Data item role (" << role << ") not supported yet.");
 	}
 	return QVariant();
 }
@@ -158,7 +158,7 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 //			return QVariant();	// No description.
 
 		default:
-			CUTEHMI_UTILS_DEBUG("Header item role (" << role << ") not supported yet.");
+			CUTEHMI_LOG_DEBUG("Header item role (" << role << ") not supported yet.");
 	}
 	return QVariant();
 }

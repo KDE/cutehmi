@@ -74,7 +74,7 @@ bool DS18B20History::requestUpdate()
 {
 	if (m->worker) {
 		if (m->worker->isWorking()) {
-			CUTEHMI_UTILS_DEBUG("Update request rejected - worker has not finished its previous job yet.");
+			CUTEHMI_LOG_DEBUG("Update request rejected - worker has not finished its previous job yet.");
 			return false;
 		} else {
 			setUpdating(true);
@@ -84,7 +84,7 @@ bool DS18B20History::requestUpdate()
 			return true;
 		}
 	} else {
-		CUTEHMI_UTILS_DEBUG("Worker has not been set.");
+		CUTEHMI_LOG_DEBUG("Worker has not been set.");
 		return false;
 	}
 }

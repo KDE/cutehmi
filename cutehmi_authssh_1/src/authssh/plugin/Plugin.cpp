@@ -28,7 +28,7 @@ void Plugin::init(base::ProjectNode & node)
 
 void Plugin::readXML(QXmlStreamReader & xmlReader, base::ProjectNode & node)
 {
-	CUTEHMI_UTILS_DEBUG("Plugin 'cutehmi_authssh_1' starts parsing its own portion of document...");
+	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_authssh_1' starts parsing its own portion of document...");
 
     QStringList supportedVersions;
     supportedVersions << "http://michpolicht.github.io/CuteHMI/cutehmi_authssh_1/xsd/1.0/";
