@@ -7,7 +7,7 @@
 
 #include <app/CuteApp.hpp>
 
-//<workaround id="cutehmi_app_1_bin-4" target="Qt" cause="bug">
+//<workaround id="cutehmi_bin_1-4" target="Qt" cause="bug">
 #include <QApplication>
 // Instead of:
 //#include <QGuiApplication>
@@ -48,7 +48,7 @@ int main(int argc, char * argv[])
 //	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
 //	should make the QApplication be the first created, and last destroyed QObject."
 
-	//<workaround id="cutehmi_app_1_bin-4" target="Qt" cause="bug">
+	//<workaround id="cutehmi_bin_1-4" target="Qt" cause="bug">
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	cutehmi::app::CuteApp app(argc, argv);
 	// Instead of:
@@ -91,7 +91,7 @@ int main(int argc, char * argv[])
 
 	if (cmd.isSet(hideCursorOption))
 		QGuiApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
-	//<workaround id="cutehmi_app_1_bin-5" target="Qt" cause="bug">
+	//<workaround id="cutehmi_bin_1-5" target="Qt" cause="bug">
 	// When run on raw Xorg server application does not show up cursor unless some controls are hovered.
 	else
 		QGuiApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -152,7 +152,7 @@ int main(int argc, char * argv[])
 
 	if (cmd.isSet(hideCursorOption))
 		QGuiApplication::restoreOverrideCursor();
-	//<workaround ref="cutehmi_app_1_bin-5">
+	//<workaround ref="cutehmi_bin_1-5">
 	else
 		QGuiApplication::restoreOverrideCursor();
 	//</workaround>

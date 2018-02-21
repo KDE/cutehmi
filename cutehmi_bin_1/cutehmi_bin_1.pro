@@ -1,21 +1,21 @@
 include(../common.pri)
 
 TEMPLATE = app
-CONFIG(debug, debug|release):TARGET = App-Debug
-CONFIG(release, debug|release):TARGET = App
+CONFIG(debug, debug|release):TARGET = cutehmi_debug
+CONFIG(release, debug|release):TARGET = cutehmi
 
 QT += qml quick
 
-#<workaround id="cutehmi_app_1_bin-4" target="Qt" cause="bug">
+#<workaround id="cutehmi_bin_1-4" target="Qt" cause="bug">
 QT += widgets
 #</workaround>
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_app_1_bin_pl.ts
+TRANSLATIONS = locale/cutehmi_bin_1_pl.ts
 
 # Resources.
-RESOURCES += cutehmi_app_1_bin.qrc
-RC_FILE = cutehmi_app_1_bin.rc
+RESOURCES += cutehmi_bin_1.qrc
+RC_FILE = cutehmi_bin_1.rc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = ../QML
@@ -37,7 +37,7 @@ FORMS +=
 
 DISTFILES += \ 
     deployment.pri \
-    cutehmi_app_1_bin.rc \
+    cutehmi_bin_1.rc \
     qml/MainWindow.qml \
     qml/DefaultScreen.qml \
     qml/PromptDialog.qml \
