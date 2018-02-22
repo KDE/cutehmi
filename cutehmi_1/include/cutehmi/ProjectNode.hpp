@@ -19,7 +19,7 @@ namespace cutehmi {
  * Nodes serve several purposes. They reflect dependencies of the project, control lifetime of injected data and serve as extension
  * points, allowing various parts of application to communicate with each other. Each node has an id by which it may be referred.
  *
- * <principle id="cutehmi.ProjectNode.determined_destruction_order">
+ * <principle id="cutehmi::ProjectNode-determined_destruction_order">
  * Destruction order of exposed data members is determined. The order is as follows:
  *		- child nodes (children()) in reverse order as they were added. Each child follows the order.
  *		- extensions.
@@ -298,7 +298,7 @@ class CUTEHMI_API ProjectNode:
 	private:
 		struct Members
 		{
-			//<principle_ref id="cutehmi.ProjectNode.determined_destruction_order">
+			//<principle_ref id="cutehmi::ProjectNode-determined_destruction_order">
 			ProjectNode * parent;
 			int index;	///< Index with respect to parent's children container. Solely for optimization purposes.
 			QString id;

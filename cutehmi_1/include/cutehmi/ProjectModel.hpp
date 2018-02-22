@@ -17,7 +17,7 @@ namespace cutehmi {
  *
  * @principles
  *
- * <principle id="cutehmi.ProjectModel.internalPoiner">
+ * <principle id="cutehmi::ProjectModel-internalPoiner">
  * For all valid items in the model, QModelIndex::internalPointer() is always associated with pointer
  * to object of type @p ProjectModel::Node, so that neither @p nullptr nor a pointer to any other object
  * type can be returned.

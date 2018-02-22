@@ -83,7 +83,7 @@ bool Worker::event(QEvent * event)
 		m->waitCondition.wakeAll();
 		m->stateMutex.unlock();
 
-//<principle id="cutehmi.stupid.AbstractWorker.event.member_access_forbidden">
+//<principle id="cutehmi::stupid::AbstractWorker-event.member_access_forbidden">
 // After unlocking m->workMutex object may be deleted from its former thread.
 // From now on members of worker object must not be accessed from within itself or undefined behaviour will occur.
 		m->workMutex.unlock();

@@ -13,12 +13,12 @@ class DateTimeAxis:
 
 	public:
 		/**
-		 * <principle id="cutehmi.charts.DateTimeAxis.ordered_interval_enum">
+		 * <principle id="cutehmi::charts::DateTimeAxis-ordered_interval_enum">
 		 * Enum values are stored from smallest to largest intervals and are guaranteed to be contiguous.
 		 * </principle>
 		 */
 		enum interval_t {
-			//<principle_ref id="cutehmi.charts.DateTimeAxis.ordered_interval_enum">
+			//<principle_ref id="cutehmi::charts::DateTimeAxis-ordered_interval_enum">
 			MILLISECONDS,
 			SECONDS,
 			MINUTES,

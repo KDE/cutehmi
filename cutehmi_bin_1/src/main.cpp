@@ -41,7 +41,7 @@ int main(int argc, char * argv[])
 		qDebug() << "Qt Virtual Keyboard layouts path: " << qgetenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH");
 	}
 
-//<principle id="Qt.Qt_5_7_0_Reference_Documentation.Threads_and_QObjects.QObject_Reentrancy.creating_QObjects_before_QApplication">
+//<principle id="Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication">
 // "In general, creating QObjects before the QApplication is not supported and can lead to weird crashes on exit, depending on the
 //	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
 //	should make the QApplication be the first created, and last destroyed QObject."
