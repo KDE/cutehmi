@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_QML_CUTEHMI_MODBUS_SRC_CUTEHMI_MODBUS_QML_COILCONTROLLER_HPP
 #define CUTEHMI_QML_CUTEHMI_MODBUS_SRC_CUTEHMI_MODBUS_QML_COILCONTROLLER_HPP
 
-#include <modbus/AbstractDevice.hpp>
+#include <cutehmi/modbus/AbstractDevice.hpp>
 
 #include <QObject>
 

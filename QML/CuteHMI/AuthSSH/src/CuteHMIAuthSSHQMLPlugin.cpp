@@ -1,6 +1,6 @@
 #include "CuteHMIAuthSSHQMLPlugin.hpp"
 
-#include <authssh/Client.hpp>
+#include <cutehmi/authssh/Client.hpp>
 
 #include <QtQml>
 

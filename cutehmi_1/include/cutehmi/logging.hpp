@@ -3,8 +3,6 @@
 
 #include "loggingMacros.hpp"
 
-#include <QLoggingCategory>
-
 Q_DECLARE_LOGGING_CATEGORY(cutehmi_1_loggingCategory)
 
 namespace cutehmi {

@@ -25,31 +25,31 @@ include(../libssh.pri)
 
 
 SOURCES += \
-    src/authssh/plugin/Plugin.cpp \
-    src/authssh/plugin/PluginNodeData.cpp \
-    src/authssh/plugin/AuthSSHNodeData.cpp \
-    src/authssh/AbstractChannel.cpp \
-    src/authssh/Client.cpp \
-    src/authssh/ForwardChannel.cpp \
-    src/authssh/Session.cpp \
-    src/authssh/internal/ChannelsThread.cpp \
-    src/authssh/internal/TunnelEntrance.cpp \
-    src/authssh/logging.cpp
+    src/cutehmi/authssh/plugin/Plugin.cpp \
+    src/cutehmi/authssh/plugin/PluginNodeData.cpp \
+    src/cutehmi/authssh/plugin/AuthSSHNodeData.cpp \
+    src/cutehmi/authssh/AbstractChannel.cpp \
+    src/cutehmi/authssh/Client.cpp \
+    src/cutehmi/authssh/ForwardChannel.cpp \
+    src/cutehmi/authssh/Session.cpp \
+    src/cutehmi/authssh/internal/ChannelsThread.cpp \
+    src/cutehmi/authssh/internal/TunnelEntrance.cpp \
+    src/cutehmi/authssh/logging.cpp
 
 HEADERS += \
-    src/authssh/plugin/Plugin.hpp \
-    src/authssh/plugin/PluginNodeData.hpp \
-    src/authssh/plugin/AuthSSHNodeData.hpp \
-    include/authssh/AbstractChannel.hpp \
-    include/authssh/Client.hpp \
-    include/authssh/Exception.hpp \
-    include/authssh/ForwardChannel.hpp \
-    include/authssh/Session.hpp \
-    include/authssh/internal/ChannelsThread.hpp \
-    include/authssh/internal/common.hpp \
-    include/authssh/internal/platform.hpp \
-    include/authssh/internal/TunnelEntrance.hpp \
-    include/authssh/logging.hpp
+    src/cutehmi/authssh/plugin/Plugin.hpp \
+    src/cutehmi/authssh/plugin/PluginNodeData.hpp \
+    src/cutehmi/authssh/plugin/AuthSSHNodeData.hpp \
+    include/cutehmi/authssh/AbstractChannel.hpp \
+    include/cutehmi/authssh/Client.hpp \
+    include/cutehmi/authssh/Exception.hpp \
+    include/cutehmi/authssh/ForwardChannel.hpp \
+    include/cutehmi/authssh/Session.hpp \
+    include/cutehmi/authssh/internal/ChannelsThread.hpp \
+    include/cutehmi/authssh/internal/common.hpp \
+    include/cutehmi/authssh/internal/platform.hpp \
+    include/cutehmi/authssh/internal/TunnelEntrance.hpp \
+    include/cutehmi/authssh/logging.hpp
 
 DISTFILES += cutehmi_authssh_1.json \
     import.pri \

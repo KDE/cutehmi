@@ -1,6 +1,6 @@
 #include "CuteHMIAppQMLPlugin.hpp"
 
-#include <app/CuteApp.hpp>
+#include <cutehmi/app/CuteApp.hpp>
 
 #include <QtQml>
 

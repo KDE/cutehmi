@@ -25,22 +25,22 @@ QT += widgets
 include(../cutehmi_1/import.pri)
 
 SOURCES += \
-    src/app/plugin/Plugin.cpp \
-    src/app/plugin/PluginNodeData.cpp \
-    src/app/plugin/MainScreen.cpp \
-    src/app/plugin/ScreensNodeData.cpp \
-    src/app/CuteApp.cpp \
-    src/app/logging.cpp
+    src/cutehmi/app/plugin/Plugin.cpp \
+    src/cutehmi/app/plugin/PluginNodeData.cpp \
+    src/cutehmi/app/plugin/MainScreen.cpp \
+    src/cutehmi/app/plugin/ScreensNodeData.cpp \
+    src/cutehmi/app/CuteApp.cpp \
+    src/cutehmi/app/logging.cpp
 
 HEADERS += \
-    src/app/plugin/Plugin.hpp \
-    src/app/plugin/PluginNodeData.hpp \
-    src/app/plugin/MainScreen.hpp \
-    src/app/plugin/ScreensNodeData.hpp \
-    include/app/internal/common.hpp \
-    include/app/internal/platform.hpp \
-    include/app/CuteApp.hpp \
-    include/app/logging.hpp
+    src/cutehmi/app/plugin/Plugin.hpp \
+    src/cutehmi/app/plugin/PluginNodeData.hpp \
+    src/cutehmi/app/plugin/MainScreen.hpp \
+    src/cutehmi/app/plugin/ScreensNodeData.hpp \
+    include/cutehmi/app/internal/common.hpp \
+    include/cutehmi/app/internal/platform.hpp \
+    include/cutehmi/app/CuteApp.hpp \
+    include/cutehmi/app/logging.hpp
 
 DISTFILES += cutehmi_app_1.json \
     import.pri \

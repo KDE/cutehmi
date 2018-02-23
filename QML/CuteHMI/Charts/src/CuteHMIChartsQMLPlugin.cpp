@@ -1,24 +1,24 @@
 #include "CuteHMIChartsQMLPlugin.hpp"
-#include "charts/ScatterPlot.hpp"
-#include "charts/LinearAxis.hpp"
-#include "charts/DateTimeAxis.hpp"
-#include "charts/PlotArea.hpp"
+#include "cutehmi/charts/qml/ScatterPlot.hpp"
+#include "cutehmi/charts/qml/LinearAxis.hpp"
+#include "cutehmi/charts/qml/DateTimeAxis.hpp"
+#include "cutehmi/charts/qml/PlotArea.hpp"
 
-#include <charts/PointSeries.hpp>
+#include <cutehmi/charts/PointSeries.hpp>
 
 #include <QtQml>
 
 void CuteHMIChartsQMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Charts"));
-	qmlRegisterType<cutehmi::charts::ScatterPlot>(uri, 1, 0, "PointSeries");
-	qmlRegisterType<cutehmi::charts::ScatterPlot>(uri, 1, 0, "ScatterPlot");
-	qmlRegisterType<cutehmi::charts::ValueAxis>();
-	qmlRegisterType<cutehmi::charts::CartesianAxis>();
-	qmlRegisterType<cutehmi::charts::TickedAxis>();
-	qmlRegisterType<cutehmi::charts::LinearAxis>(uri, 1, 0, "LinearAxis");
-	qmlRegisterType<cutehmi::charts::DateTimeAxis>(uri, 1, 0, "DateTimeAxis");
-	qmlRegisterType<cutehmi::charts::PlotArea>(uri, 1, 0, "PlotArea");
+	qmlRegisterType<cutehmi::charts::qml::ScatterPlot>(uri, 1, 0, "PointSeries");
+	qmlRegisterType<cutehmi::charts::qml::ScatterPlot>(uri, 1, 0, "ScatterPlot");
+	qmlRegisterType<cutehmi::charts::qml::ValueAxis>();
+	qmlRegisterType<cutehmi::charts::qml::CartesianAxis>();
+	qmlRegisterType<cutehmi::charts::qml::TickedAxis>();
+	qmlRegisterType<cutehmi::charts::qml::LinearAxis>(uri, 1, 0, "LinearAxis");
+	qmlRegisterType<cutehmi::charts::qml::DateTimeAxis>(uri, 1, 0, "DateTimeAxis");
+	qmlRegisterType<cutehmi::charts::qml::PlotArea>(uri, 1, 0, "PlotArea");
 }
 
 //(c)MP: Copyright © 2016, Michal Policht. All rights reserved.

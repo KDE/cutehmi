@@ -11,18 +11,17 @@ CONFIG += plugin
 # Translations.
 TRANSLATIONS = locale/cutehmi_lockscreen_1_qml_pl.ts
 
-include(../../../cutehmi_utils_1_lib/import.pri)
 include(../../../cutehmi_1/import.pri)
 
 HEADERS += \
     src/CuteHMILockScreenQMLPlugin.hpp \
-    src/cutehmi/lock_screen/Auth.hpp \
-    src/cutehmi/lock_screen/InternalSettings.hpp
+    src/cutehmi/lockscreen/qml/Auth.hpp \
+    src/cutehmi/lockscreen/qml/Settings.hpp
 
 SOURCES += \
     src/CuteHMILockScreenQMLPlugin.cpp \
-    src/cutehmi/lock_screen/Auth.cpp \
-    src/cutehmi/lock_screen/InternalSettings.cpp
+    src/cutehmi/lockscreen/qml/Auth.cpp \
+    src/cutehmi/lockscreen/qml/Settings.cpp
 
 DISTFILES += \ 
     qmldir \

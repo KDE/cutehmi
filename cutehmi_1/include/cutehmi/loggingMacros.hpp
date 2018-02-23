@@ -1,6 +1,8 @@
 #ifndef CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_UTILS_MACROS_HPP
 #define CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_UTILS_MACROS_HPP
 
+#include <QLoggingCategory>
+
 #define CUTEHMI_LOG_FLF " [file: " << __FILE__ << " line: " << __LINE__ << " function: " << __FUNCTION__ << "]"
 
 #ifndef CUTEHMI_NO_LOG_DEBUG

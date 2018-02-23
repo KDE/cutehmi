@@ -1,7 +1,7 @@
 #include "CuteHMIServicesQMLPlugin.hpp"
 
-#include <services/Service.hpp>
-#include <services/ServiceRegistry.hpp>
+#include <cutehmi/services/Service.hpp>
+#include <cutehmi/services/ServiceRegistry.hpp>
 
 #include <QtQml>
 

@@ -27,14 +27,14 @@ unix {
 }
 
 SOURCES += \
-    src/charts/PointSeries.cpp \
-    src/charts/logging.cpp
+    src/cutehmi/charts/PointSeries.cpp \
+    src/cutehmi/charts/logging.cpp
 
 HEADERS += \
-    include/charts/PointSeries.hpp \
-    include/charts/internal/platform.hpp \
-    include/charts/internal/common.hpp \
-    include/charts/logging.hpp
+    include/cutehmi/charts/PointSeries.hpp \
+    include/cutehmi/charts/internal/platform.hpp \
+    include/cutehmi/charts/internal/common.hpp \
+    include/cutehmi/charts/logging.hpp
 
 DISTFILES += \
     import.pri \

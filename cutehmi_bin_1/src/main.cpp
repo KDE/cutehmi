@@ -5,7 +5,7 @@
 #include <cutehmi/ErrorInfo.hpp>
 #include <cutehmi/PluginLoader.hpp>
 
-#include <app/CuteApp.hpp>
+#include <cutehmi/app/CuteApp.hpp>
 
 //<workaround id="cutehmi_bin_1-4" target="Qt" cause="bug">
 #include <QApplication>

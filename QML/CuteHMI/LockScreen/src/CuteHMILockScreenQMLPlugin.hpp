@@ -18,7 +18,7 @@ class CuteHMILockScreenQMLPlugin:
 
     static QObject * AuthProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 
-	static QObject * InternalSettingsProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+	static QObject * SettingsProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 
 };
 

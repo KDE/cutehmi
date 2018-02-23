@@ -4,11 +4,11 @@
 #include "cutehmi/modbus/qml/HoldingRegisterController.hpp"
 #include "cutehmi/modbus/qml/InputRegisterController.hpp"
 
-#include <modbus/HoldingRegister.hpp>
-#include <modbus/InputRegister.hpp>
-#include <modbus/DiscreteInput.hpp>
-#include <modbus/Coil.hpp>
-#include <modbus/Client.hpp>
+#include <cutehmi/modbus/HoldingRegister.hpp>
+#include <cutehmi/modbus/InputRegister.hpp>
+#include <cutehmi/modbus/DiscreteInput.hpp>
+#include <cutehmi/modbus/Coil.hpp>
+#include <cutehmi/modbus/Client.hpp>
 
 #include <QtQml>
 

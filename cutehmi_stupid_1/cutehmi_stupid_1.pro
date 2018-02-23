@@ -26,39 +26,39 @@ include(../cutehmi_services_1/import.pri)
 include(../cutehmi_charts_1/import.pri)
 
 SOURCES += \
-    src/stupid/plugin/Plugin.cpp \
-    src/stupid/plugin/StupidNodeData.cpp \
-    src/stupid/plugin/PluginNodeData.cpp \
-    src/stupid/Client.cpp \
-    src/stupid/DS18B20.cpp \
-    src/stupid/DS18B20History.cpp \
-    src/stupid/Service.cpp \
-    src/stupid/internal/AsyncConnector.cpp \
-    src/stupid/internal/CommunicationThread.cpp \
-    src/stupid/internal/DatabaseThread.cpp \
-    src/stupid/internal/DS18B20HistoryWorker.cpp \
-    src/stupid/internal/functions.cpp \
-    src/stupid/internal/Worker.cpp \
-    src/stupid/logging.cpp
+    src/cutehmi/stupid/plugin/Plugin.cpp \
+    src/cutehmi/stupid/plugin/StupidNodeData.cpp \
+    src/cutehmi/stupid/plugin/PluginNodeData.cpp \
+    src/cutehmi/stupid/Client.cpp \
+    src/cutehmi/stupid/DS18B20.cpp \
+    src/cutehmi/stupid/DS18B20History.cpp \
+    src/cutehmi/stupid/Service.cpp \
+    src/cutehmi/stupid/internal/AsyncConnector.cpp \
+    src/cutehmi/stupid/internal/CommunicationThread.cpp \
+    src/cutehmi/stupid/internal/DatabaseThread.cpp \
+    src/cutehmi/stupid/internal/DS18B20HistoryWorker.cpp \
+    src/cutehmi/stupid/internal/functions.cpp \
+    src/cutehmi/stupid/internal/Worker.cpp \
+    src/cutehmi/stupid/logging.cpp
 
 HEADERS += \
-    src/stupid/plugin/Plugin.hpp \
-    src/stupid/plugin/StupidNodeData.hpp \
-    src/stupid/plugin/PluginNodeData.hpp \
-    include/stupid/Client.hpp \
-    include/stupid/DS18B20.hpp \
-    include/stupid/DS18B20History.hpp \
-    include/stupid/Service.hpp \
-    include/stupid/internal/AsyncConnector.hpp \
-    include/stupid/internal/common.hpp \
-    include/stupid/internal/CommunicationThread.hpp \
-    include/stupid/internal/DatabaseConnectionData.hpp \
-    include/stupid/internal/DatabaseThread.hpp \
-    include/stupid/internal/DS18B20HistoryWorker.hpp \
-    include/stupid/internal/functions.hpp \
-    include/stupid/internal/platform.hpp \
-    include/stupid/internal/Worker.hpp \
-    include/stupid/logging.hpp
+    src/cutehmi/stupid/plugin/Plugin.hpp \
+    src/cutehmi/stupid/plugin/StupidNodeData.hpp \
+    src/cutehmi/stupid/plugin/PluginNodeData.hpp \
+    include/cutehmi/stupid/Client.hpp \
+    include/cutehmi/stupid/DS18B20.hpp \
+    include/cutehmi/stupid/DS18B20History.hpp \
+    include/cutehmi/stupid/Service.hpp \
+    include/cutehmi/stupid/internal/AsyncConnector.hpp \
+    include/cutehmi/stupid/internal/common.hpp \
+    include/cutehmi/stupid/internal/CommunicationThread.hpp \
+    include/cutehmi/stupid/internal/DatabaseConnectionData.hpp \
+    include/cutehmi/stupid/internal/DatabaseThread.hpp \
+    include/cutehmi/stupid/internal/DS18B20HistoryWorker.hpp \
+    include/cutehmi/stupid/internal/functions.hpp \
+    include/cutehmi/stupid/internal/platform.hpp \
+    include/cutehmi/stupid/internal/Worker.hpp \
+    include/cutehmi/stupid/logging.hpp
 
 DISTFILES += cutehmi_stupid_1.json \
     dev/cutehmi_stupid_1-1.solved.Qt.design.txt \
