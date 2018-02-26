@@ -28,20 +28,20 @@ include(../cutehmi_xml_1/import.pri)
 SOURCES += \
     src/cutehmi/app/plugin/Plugin.cpp \
     src/cutehmi/app/plugin/PluginNodeData.cpp \
-    src/cutehmi/app/plugin/MainScreen.cpp \
     src/cutehmi/app/plugin/ScreensNodeData.cpp \
     src/cutehmi/app/CuteApp.cpp \
-    src/cutehmi/app/logging.cpp
+    src/cutehmi/app/logging.cpp \
+    src/cutehmi/app/MainScreen.cpp
 
 HEADERS += \
     src/cutehmi/app/plugin/Plugin.hpp \
     src/cutehmi/app/plugin/PluginNodeData.hpp \
-    src/cutehmi/app/plugin/MainScreen.hpp \
     src/cutehmi/app/plugin/ScreensNodeData.hpp \
     include/cutehmi/app/internal/common.hpp \
     include/cutehmi/app/internal/platform.hpp \
     include/cutehmi/app/CuteApp.hpp \
-    include/cutehmi/app/logging.hpp
+    include/cutehmi/app/logging.hpp \
+    include/cutehmi/app/MainScreen.hpp
 
 DISTFILES += cutehmi_app_1.json \
     import.pri \

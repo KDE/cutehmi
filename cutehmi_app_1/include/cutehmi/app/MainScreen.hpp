@@ -1,13 +1,14 @@
 #ifndef CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_MAINSCREEN_HPP
 #define CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_MAINSCREEN_HPP
 
+#include "internal/common.hpp"
+
 #include <QObject>
 
 namespace cutehmi {
 namespace app {
-namespace plugin {
 
-class MainScreen:
+class CUTEHMI_APP_API MainScreen:
 	public QObject
 {
 	Q_OBJECT
@@ -21,7 +22,6 @@ class MainScreen:
 		QString m_source;
 };
 
-}
 }
 }
 

@@ -152,7 +152,7 @@ int main(int argc, char * argv[])
 			cutehmi::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
 			if (appNode) {
 				QString source;
-				appNode->invoke("cutehmi::app::plugin::MainScreen", "source", Q_RETURN_ARG(QString, source));
+				appNode->invoke("cutehmi::app::MainScreen", "source", Q_RETURN_ARG(QString, source));
 				QUrl sourceUrl(source);
 				if (sourceUrl.isValid()) {
 					// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.

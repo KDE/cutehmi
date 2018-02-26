@@ -1,7 +1,7 @@
 #ifndef CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_SCREENSNODEDATA_HPP
 #define CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_SCREENSNODEDATA_HPP
 
-#include "MainScreen.hpp"
+#include "../../../../include/cutehmi/app/MainScreen.hpp"
 
 #include <cutehmi/DataBlock.hpp>
 

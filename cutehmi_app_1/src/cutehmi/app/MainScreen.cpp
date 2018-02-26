@@ -1,8 +1,7 @@
-#include "MainScreen.hpp"
+#include "../../../include/cutehmi/app/MainScreen.hpp"
 
 namespace cutehmi {
 namespace app {
-namespace plugin {
 
 MainScreen::MainScreen(const QString & source, QObject * parent):
 	QObject(parent),
@@ -15,7 +14,6 @@ QString MainScreen::source() const
 	return m_source;
 }
 
-}
 }
 }
 
