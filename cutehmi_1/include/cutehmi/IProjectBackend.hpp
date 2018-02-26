@@ -9,7 +9,7 @@ namespace cutehmi {
 /**
  * Backend interface.
  */
-class IProjectBackend
+class CUTEHMI_API IProjectBackend
 {
 	public:
 		virtual void load(const ProjectPluginLoader & pluginLoader, ProjectNode & rootNode) noexcept(false) = 0;

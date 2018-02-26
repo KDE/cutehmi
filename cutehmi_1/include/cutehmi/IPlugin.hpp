@@ -11,7 +11,7 @@ namespace cutehmi {
 /**
  * Plugin interface.
  */
-class IPlugin
+class CUTEHMI_API IPlugin
 {
 	public:
 		virtual void init(ProjectNode & node) = 0;
