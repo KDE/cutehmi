@@ -3,6 +3,7 @@ CONFIG += debug_and_release ordered
 
 SUBDIRS += \
     cutehmi_1 \
+    cutehmi_xml_1 \
     cutehmi_charts_1 \
     cutehmi_services_1 \
     cutehmi_authssh_1 \
