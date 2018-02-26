@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/PluginLoader.hpp"
+#include "../../../include/cutehmi/internal/PluginLoader.hpp"
 
 #include <QDir>
 #include <QtDebug>
@@ -6,16 +6,12 @@
 #include <QLibraryInfo>
 
 namespace cutehmi {
+namespace internal {
 
-PluginLoader::PluginLoader():
-	m(new Members(QCoreApplication::libraryPaths().first()))
-{
-}
-
-PluginLoader::PluginLoader(const QString & pluginsDir):
+PluginLoader::PluginLoader(QObject * parent):
+	QObject(parent),
 	m(new Members)
 {
-	setPluginsDir(pluginsDir);
 }
 
 PluginLoader::~PluginLoader()
@@ -23,13 +19,7 @@ PluginLoader::~PluginLoader()
 	unloadPlugins();
 }
 
-void PluginLoader::setPluginsDir(const QString & pluginsDir)
-{
-	m->pluginsDir = pluginsDir;
-	QCoreApplication::addLibraryPath(pluginsDir);
-}
-
-Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor)
+Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor) noexcept(false)
 {
 	Plugin::MetaData meta = metaData(binary);
 
@@ -104,6 +94,7 @@ Plugin::MetaData PluginLoader::metaData(const QString & binary) const
 	return metaData;
 }
 
+}
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.

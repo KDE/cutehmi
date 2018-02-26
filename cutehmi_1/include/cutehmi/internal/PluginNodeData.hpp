@@ -2,14 +2,16 @@
 #define CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_BASE_INTERNAL_PLUGINNODEDATA_HPP
 
 #include "common.hpp"
-#include "../IPlugin.hpp"
-#include "../Plugin.hpp"
 #include "../DataBlock.hpp"
 
 namespace cutehmi {
+
+class Plugin;
+class IPlugin;
+
 namespace internal {
 
-class CUTEHMI_API PluginNodeData:
+class PluginNodeData:
 	public DataBlock
 {
 	public:

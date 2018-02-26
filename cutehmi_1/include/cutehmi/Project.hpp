@@ -2,10 +2,9 @@
 #define CUTEHMI_CUTEHMI__BASE__1__LIB_INCLUDE_BASE_PROJECT_HPP
 
 #include "internal/common.hpp"
-#include "PluginLoader.hpp"
+#include "internal/PluginLoader.hpp"
 #include "ProjectModel.hpp"
-
-#include <QQmlContext>
+#include "IProjectBackend.hpp"
 
 class QIODevice;
 
@@ -20,30 +19,28 @@ class CUTEHMI_API Project:
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(PluginLoader * pluginLoader READ pluginLoader NOTIFY pluginLoaderChanged)
 		Q_PROPERTY(ProjectModel * model READ model NOTIFY modelChanged)
 
 		Project(QObject * parent = 0);
 
 		~Project() override;
 
-		PluginLoader * pluginLoader() const;
-
 		ProjectModel * model() const;
 
-		void loadXMLFile(const QString & filePath, QQmlContext * qmlContext);
+		void load(IProjectBackend & backend) noexcept(false);
 
 	signals:
-		void pluginLoaderChanged();
-
 		void modelChanged();
+
+	protected:
+		internal::PluginLoader * pluginLoader() const;
 
 	private:
 		struct Members
 		{
 			//<principle id="cutehmi::Project::Members-determined_destruction_order">
 			// Plugins may be used by model.
-			std::unique_ptr<PluginLoader> pluginLoader{new PluginLoader};
+			std::unique_ptr<internal::PluginLoader> pluginLoader{new internal::PluginLoader};
 			std::unique_ptr<ProjectModel> model{new ProjectModel};
 			//</principle>
 		};

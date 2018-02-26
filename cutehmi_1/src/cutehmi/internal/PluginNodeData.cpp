@@ -1,4 +1,6 @@
 #include "../../../include/cutehmi/internal/PluginNodeData.hpp"
+#include "../../../include/cutehmi/Plugin.hpp"
+#include "../../../include/cutehmi/IPlugin.hpp"
 
 namespace cutehmi {
 namespace internal {

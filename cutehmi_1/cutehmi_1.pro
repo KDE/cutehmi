@@ -29,21 +29,14 @@ unix {
 SOURCES += \
     src/cutehmi/ProjectModel.cpp \
     src/cutehmi/Error.cpp \
-    src/cutehmi/PluginLoader.cpp \
     src/cutehmi/Project.cpp \
     src/cutehmi/CuteHMI.cpp \
-    src/cutehmi/internal/ProjectXMLBackend.cpp \
     src/cutehmi/Exception.cpp \
     src/cutehmi/ErrorException.cpp \
     src/cutehmi/ErrorInfo.cpp \
     src/cutehmi/ProjectNode.cpp \
     src/cutehmi/Plugin.cpp \
-    src/cutehmi/xml/ParseAttribute.cpp \
-    src/cutehmi/xml/ParseElement.cpp \
-    src/cutehmi/xml/ParseHelper.cpp \
-    src/cutehmi/xml/internal/functions.cpp \
     src/cutehmi/internal/PluginNodeData.cpp \
-    src/cutehmi/XMLBackendPlugin.cpp \
     src/cutehmi/DataBlock.cpp \
     src/cutehmi/PopupBridge.cpp \
     src/cutehmi/Prompt.cpp \
@@ -52,31 +45,23 @@ SOURCES += \
     src/cutehmi/NotificationListModel.cpp \
     src/cutehmi/ProjectNodeData.cpp \
     src/cutehmi/Worker.cpp \
-    src/cutehmi/xml/conversions.cpp \
-    src/cutehmi/logging.cpp
+    src/cutehmi/logging.cpp \
+    src/cutehmi/ProjectPluginLoader.cpp \
+    src/cutehmi/internal/PluginLoader.cpp
 
 HEADERS += \
     include/cutehmi/ProjectModel.hpp \
     include/cutehmi/Error.hpp \
-    include/cutehmi/PluginLoader.hpp \
     include/cutehmi/ErrorInfo.hpp \
     include/cutehmi/Project.hpp \
     include/cutehmi/CuteHMI.hpp \
-    include/cutehmi/internal/ProjectXMLBackend.hpp \
     include/cutehmi/Exception.hpp \
     include/cutehmi/ErrorException.hpp \
     include/cutehmi/internal/common.hpp \
     include/cutehmi/internal/platform.hpp \
-    include/cutehmi/ProjectNode.hpp \
     include/cutehmi/Plugin.hpp \
-    include/cutehmi/xml/ParseAttribute.hpp \
-    include/cutehmi/xml/ParseElement.hpp \
-    include/cutehmi/xml/ParseHelper.hpp \
-    include/cutehmi/xml/internal/functions.hpp \
     include/cutehmi/IPlugin.hpp \
-    include/cutehmi/IXMLBackendPlugin.hpp \
     include/cutehmi/internal/PluginNodeData.hpp \
-    include/cutehmi/XMLBackendPlugin.hpp \
     include/cutehmi/DataBlock.hpp \
     include/cutehmi/ExceptionMixin.hpp \
     include/cutehmi/PopupBridge.hpp \
@@ -86,13 +71,16 @@ HEADERS += \
     include/cutehmi/NotificationListModel.hpp \
     include/cutehmi/ProjectNodeData.hpp \
     include/cutehmi/Worker.hpp \
-    include/cutehmi/xml/conversions.hpp \
     include/cutehmi/logging.hpp \
     include/cutehmi/loggingMacros.hpp \
     include/cutehmi/MPtr.hpp \
     include/cutehmi/NonCopyable.hpp \
     include/cutehmi/NonMovable.hpp \
-    include/cutehmi/Singleton.hpp
+    include/cutehmi/Singleton.hpp \
+    include/cutehmi/IProjectBackend.hpp \
+    include/cutehmi/ProjectPluginLoader.hpp \
+    include/cutehmi/internal/PluginLoader.hpp \
+    include/cutehmi/ProjectNode.hpp
 
 DISTFILES += \
     import.pri \
