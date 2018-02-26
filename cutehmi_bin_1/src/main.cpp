@@ -3,7 +3,8 @@
 #include <cutehmi/CuteHMI.hpp>
 #include <cutehmi/ProjectModel.hpp>
 #include <cutehmi/ErrorInfo.hpp>
-#include <cutehmi/PluginLoader.hpp>
+
+#include <cutehmi/xml/ProjectBackend.hpp>
 
 #include <cutehmi/app/CuteApp.hpp>
 
@@ -24,6 +25,36 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QFile>
+
+namespace cutehmi {
+namespace bin {
+
+void loadXMLFile(const QString & filePath, Project & project, QQmlContext & qmlContext)
+{
+	if (filePath.isEmpty()) {
+		Prompt::Warning(QObject::tr("Empty filename has been provided."));
+		return;
+	}
+
+	qDebug() << "Loading project file '" << filePath << "'...";
+
+	QFile file(filePath);
+	xml::ProjectBackend xmlBackend(& file, & qmlContext);
+	try {
+		project.load(xmlBackend);
+		Notification::Note(QObject::tr("Succesfuly loaded project file '%1'.").arg(filePath));
+	} catch (const xml::ProjectBackend::DeviceOpenReadException & ) {
+		if (!QFileInfo(filePath).exists())
+			Prompt::Warning(QObject::tr("Could not load project file. File '%1' does not exist.").arg(filePath));
+		else
+			Prompt::Warning(QObject::tr("Could not load project file. File '%1' could not be opened for reading.").arg(filePath));
+	} catch (const Exception & e) {
+		Prompt::Critical(QObject::tr("Error while parsing '%1' document.").arg(filePath) + "\n\n" + e.what());
+	}
+}
+
+}
+}
 
 int main(int argc, char * argv[])
 {
@@ -111,12 +142,12 @@ int main(int argc, char * argv[])
 		engine->addImportPath("../CuteHMI/QML");
 		engine->addImportPath("../QML");
 		qDebug() << "QML import paths: " << engine->importPathList();
-		engine->rootContext()->setContextProperty("cutehmi_app_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
+		engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
 		if (!cmd.value(projectOption).isNull()) {
 			cutehmi::CuteHMI & cuteHMI = cutehmi::CuteHMI::Instance();
-			cuteHMI.project()->loadXMLFile(baseDirPath + cmd.value(projectOption), engine->rootContext());
+			cutehmi::bin::loadXMLFile(baseDirPath + cmd.value(projectOption), *cuteHMI.project(), *engine->rootContext());
 
 			cutehmi::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
 			if (appNode) {
@@ -135,7 +166,7 @@ int main(int argc, char * argv[])
 						if (sourceUrl.isLocalFile() && !QFile::exists(sourceUrl.toLocalFile()))
 							cutehmi::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
 						else
-							engine->rootContext()->setContextProperty("cutehmi_app_mainScreenURL", sourceUrl.url());
+							engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", sourceUrl.url());
 					}
 				} else
 					cutehmi::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));

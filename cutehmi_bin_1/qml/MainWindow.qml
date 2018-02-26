@@ -68,7 +68,7 @@ ApplicationWindow {
 
 	Loader {
 		anchors.fill: parent
-		source: cutehmi_app_mainScreenURL
+		source: cutehmi_bin_mainScreenURL
 	}
 
 	function createPrompt(prompt) {
