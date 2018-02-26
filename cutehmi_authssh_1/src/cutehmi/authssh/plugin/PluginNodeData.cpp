@@ -4,12 +4,12 @@ namespace cutehmi {
 namespace authssh {
 namespace plugin {
 
-PluginNodeData::PluginNodeData(IXMLBackendPlugin * implementation):
-	m_xmlBackendPlugin(new XMLBackendPlugin(implementation))
+PluginNodeData::PluginNodeData(xml::IBackendPlugin * implementation):
+	m_xmlBackendPlugin(new xml::BackendPlugin(implementation))
 {
 }
 
-XMLBackendPlugin * PluginNodeData::xmlBackendPlugin() const
+xml::BackendPlugin * PluginNodeData::xmlBackendPlugin() const
 {
 	return m_xmlBackendPlugin.get();
 }

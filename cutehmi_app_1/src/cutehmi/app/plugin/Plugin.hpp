@@ -1,9 +1,10 @@
 #ifndef CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_PLUGIN_HPP
 #define CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_PLUGIN_HPP
 
-#include <cutehmi/IPlugin.hpp>
-#include <cutehmi/IXMLBackendPlugin.hpp>
+#include <cutehmi/xml/IBackendPlugin.hpp>
 #include <cutehmi/xml/ParseHelper.hpp>
+
+#include <cutehmi/IPlugin.hpp>
 
 #include <QObject>
 
@@ -16,7 +17,7 @@ namespace plugin {
 class Plugin:
 	public QObject,
 	public IPlugin,
-	public IXMLBackendPlugin
+	public xml::IBackendPlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "cutehmi_app_1.json")
@@ -26,10 +27,10 @@ class Plugin:
 		// IPlugin
 		void init(ProjectNode & node) override;
 
-		// IXMLBackendPlugin
+		// xml::IBackendPlugin
 		void readXML(QXmlStreamReader & xmlReader, ProjectNode & node) override;
 
-		// IXMLBackendPlugin
+		// xml::IBackendPlugin
 		void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const override;
 
 	private:

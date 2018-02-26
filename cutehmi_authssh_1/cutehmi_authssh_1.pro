@@ -21,6 +21,7 @@ QT -= gui
 QT += network
 
 include(../cutehmi_1/import.pri)
+include(../cutehmi_xml_1/import.pri)
 include(../libssh.pri)
 
 

@@ -1,8 +1,9 @@
 #ifndef CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_PLUGINNODEDATA_HPP
 #define CUTEHMI_CUTEHMI__APP__1_SRC_APP_PLUGIN_PLUGINNODEDATA_HPP
 
+#include <cutehmi/xml/BackendPlugin.hpp>
+
 #include <cutehmi/DataBlock.hpp>
-#include <cutehmi/XMLBackendPlugin.hpp>
 
 namespace cutehmi {
 namespace app {
@@ -12,12 +13,12 @@ class PluginNodeData:
 	public DataBlock
 {
 	public:
-		PluginNodeData(IXMLBackendPlugin * implementation);
+		PluginNodeData(xml::IBackendPlugin * implementation);
 
-		XMLBackendPlugin * xmlBackendPlugin() const;
+		xml::BackendPlugin * xmlBackendPlugin() const;
 
 	private:
-		std::unique_ptr<XMLBackendPlugin> m_xmlBackendPlugin;
+		std::unique_ptr<xml::BackendPlugin> m_xmlBackendPlugin;
 };
 
 }

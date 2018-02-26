@@ -8,7 +8,8 @@
 
 #include <cutehmi/services/ServiceRegistry.hpp>
 
-#include <cutehmi/XMLBackendPlugin.hpp>
+#include <cutehmi/xml/BackendPlugin.hpp>
+
 #include <cutehmi/Exception.hpp>
 
 #include <QtDebug>

@@ -6,10 +6,10 @@
 #include "../../../../include/cutehmi/authssh/Client.hpp"
 #include "../../../../include/cutehmi/authssh/ForwardChannel.hpp"
 
-#include <cutehmi/XMLBackendPlugin.hpp>
-#include <cutehmi/Exception.hpp>
-
+#include <cutehmi/xml/BackendPlugin.hpp>
 #include <cutehmi/xml/conversions.hpp>
+
+#include <cutehmi/Exception.hpp>
 
 #include <QtDebug>
 

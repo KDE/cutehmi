@@ -22,6 +22,7 @@ QT += qml concurrent
 
 
 include(../cutehmi_1/import.pri)
+include(../cutehmi_xml_1/import.pri)
 include(../cutehmi_services_1/import.pri)
 include(../libmodbus.pri)
 
