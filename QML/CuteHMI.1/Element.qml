@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-//<workaround id="QML_Base-4" target="Qt" cause="QTBUG-34418">
+//<workaround id="cutehmi_1_qml-4" target="Qt" cause="QTBUG-34418">
 // Palette is a singleton.
 // Singletons require explicit import to load qmldir file.
 import "."

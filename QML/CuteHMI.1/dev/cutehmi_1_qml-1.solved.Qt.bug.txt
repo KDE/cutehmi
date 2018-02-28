@@ -15,3 +15,8 @@ Snippet:
 import QtQuick.Controls.Styles.Flat 1.0
 import QtQuick.Extras 1.0	// To surpass "QtQuick.Extras.Private is not installed" ComboBox error, when using Flat style.
 // </workaround>
+
+Solution:
+
+Issue has been fixed or is not relevant any more.
+
