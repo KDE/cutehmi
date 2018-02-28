@@ -2,9 +2,9 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += \
+    CuteHMI.1 \
     CuteHMI/App \
     CuteHMI/AuthSSH \
-    CuteHMI/Base \
     CuteHMI/Charts \
     CuteHMI/Stupid \
     CuteHMI/Modbus \

@@ -1,7 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 2.2
 
-import CuteHMI.Base 1.0
+import CuteHMI 1.0
 import CuteHMI.Modbus 1.0
 
 Page

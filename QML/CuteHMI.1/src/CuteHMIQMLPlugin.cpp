@@ -1,4 +1,4 @@
-#include "CuteHMIBaseQMLPlugin.hpp"
+#include "CuteHMIQMLPlugin.hpp"
 
 #include <cutehmi/CuteHMI.hpp>
 #include <cutehmi/Prompt.hpp>
@@ -6,9 +6,9 @@
 
 #include <QtQml>
 
-void CuteHMIBaseQMLPlugin::registerTypes(const char * uri)
+void CuteHMIQMLPlugin::registerTypes(const char * uri)
 {
-	Q_ASSERT(uri == QLatin1String("CuteHMI.Base"));
+	Q_ASSERT(uri == QLatin1String("CuteHMI"));
 
 	qmlRegisterType<cutehmi::Prompt>(uri, 1, 0, "Prompt");
 	qmlRegisterType<cutehmi::Notification>(uri, 1, 0, "Notification");
@@ -20,7 +20,7 @@ void CuteHMIBaseQMLPlugin::registerTypes(const char * uri)
 	qmlRegisterSingletonType<cutehmi::CuteHMI>(uri, 1, 0, "CuteHMI", CuteHMIProvider);
 }
 
-QObject * CuteHMIBaseQMLPlugin::CuteHMIProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
+QObject * CuteHMIQMLPlugin::CuteHMIProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
 {
 	Q_UNUSED(scriptEngine)
 

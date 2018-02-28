@@ -1,14 +1,14 @@
 MetaInfo {
     Type {
-        name: "CuteHMI.Base.NumberDisplay"
+        name: "CuteHMI.NumberDisplay"
         icon: ":/qtquickplugin/images/item-icon16.png"
 
         ItemLibraryEntry {
 	    name: "Number Display"
-	    category: "CuteHMI Base"
+	    category: "CuteHMI"
             libraryIcon: ":/qtquickplugin/images/item-icon.png"
             version: "1.0"
-	    requiredImport: "CuteHMI.Base"
+	    requiredImport: "CuteHMI"
         }
     }
 }

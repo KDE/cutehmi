@@ -1,24 +1,24 @@
-include(../../../common.pri)
+include(../../common.pri)
 
 TEMPLATE = lib
 
-DESTDIR = $$QML_DESTDIR/CuteHMI/Base/plugins
+DESTDIR = $$QML_DESTDIR/CuteHMI.1/plugins
 
-TARGET = $$qtLibraryTarget(cutehmi_base_1_qml)
+TARGET = $$qtLibraryTarget(cutehmi_1_qml)
 
 QT += qml quick
 
 CONFIG += plugin
 
 # Translations.
-TRANSLATIONS = locale/cutehmi_base_1_qml_pl.ts
+TRANSLATIONS = locale/cutehmi_1_qml_pl.ts
 
-include(../../../cutehmi_1/import.pri)
+include(../../cutehmi_1/import.pri)
 
 DISTFILES += \
     qmldir \
     plugins.qmltypes \
-    designer/Base.metainfo \
+    designer/CuteHMI.metainfo \
     NumberDisplay.qml \
     Palette.qml \
     ColorSet.qml \
@@ -28,9 +28,9 @@ DISTFILES += \
 RESOURCES +=
 
 HEADERS += \
-    src/CuteHMIBaseQMLPlugin.hpp
+    src/CuteHMIQMLPlugin.hpp
 
 SOURCES += \
-    src/CuteHMIBaseQMLPlugin.cpp
+    src/CuteHMIQMLPlugin.cpp
 
 QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)

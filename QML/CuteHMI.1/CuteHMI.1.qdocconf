@@ -1,7 +1,7 @@
 #include(compat.qdocconf)
 
-project = CuteHMI.Base
-description = CuteHMI.Base QML module
+project = CuteHMI
+description = CuteHMI QML module
 
 sourcedirs = .
 
@@ -10,10 +10,10 @@ headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"
 examples.fileextensions = "*.cpp *.h *.js *.xq *.svg *.xml *.ui *.qhp *.qhcp *.qml"
 examples.imageextensions = "*.png *.jpeg *.jpg *.gif *.mng"
 
-outputdir  =    ../../../../doc/CuteHMI/QML/CuteHMI/Base/html
+outputdir  =    ../../../doc/CuteHMI/QML/CuteHMI/html
 outputformats = HTML
 
-HTML.stylesheets = ../../../doc/template/style/qt.css
+HTML.stylesheets = ../../doc/template/style/qt.css
 HTML.headerstyles = \
     "  <link rel=\"stylesheet\" type=\"text/css\" href=\"style/qt.css\" />\n"
 

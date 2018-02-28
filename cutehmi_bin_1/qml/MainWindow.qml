@@ -3,7 +3,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 
-import CuteHMI.Base 1.0
+import CuteHMI 1.0
 
 ApplicationWindow {
 	id: mainWindow
