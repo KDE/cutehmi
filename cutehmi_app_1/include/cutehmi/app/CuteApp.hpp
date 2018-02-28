@@ -22,11 +22,11 @@ class CUTEHMI_APP_API CuteApp:
 	Q_OBJECT
 
 	public:
-		//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+		//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 		static constexpr int IDLE_MEASURE_INTERVAL = 1000;	///< Idle measurement update interval [milliseconds].
 		//</workaround>
 
-		//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+		//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 		Q_PROPERTY(double idle READ idle NOTIFY idleChanged)
 
 		Q_PROPERTY(bool idleMeasureEnabled READ idleMeasureEnabled WRITE setIdleMeasureEnabled NOTIFY idleMeasureEnabledChanged)
@@ -34,7 +34,7 @@ class CUTEHMI_APP_API CuteApp:
 
 		CuteApp(int & argc, char ** argv);
 
-		//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+		//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 		double idle() const;
 
 		bool idleMeasureEnabled() const;
@@ -45,26 +45,26 @@ class CUTEHMI_APP_API CuteApp:
 		//</workaround>
 
 	signals:
-		//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+		//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 		void idleChanged();
 
 		void idleMeasureEnabledChanged();
 		//</workaround>
 
 	private slots:
-		//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+		//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 		void updateIdleTime();
 		//</workaround>
 
 	private:
-		//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+		//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 		void setIdle(double idle);
 		//</workaround>
 
 	private:
 		struct Members
 		{
-			//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+			//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 			int notifyEventCtr;
 			double idle;	///< Idle time [seconds].
 			bool idleMeasureEnabled;

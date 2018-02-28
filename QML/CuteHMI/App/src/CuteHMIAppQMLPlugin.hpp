@@ -14,7 +14,7 @@ class CuteHMIAppQMLPlugin:
 	public:
 		void registerTypes(const char * uri) override;
 
-		//<workaround ref="QML_CuteHMI_LockScreen-1" target="Qt" cause="design">
+		//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
 		static QObject * CuteAppProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 		//</workaround>
 };

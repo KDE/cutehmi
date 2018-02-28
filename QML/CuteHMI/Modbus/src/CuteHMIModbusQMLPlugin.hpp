@@ -3,7 +3,7 @@
 
 #include <QQmlExtensionPlugin>
 
-//<workaround id="QML_CuteHMI_Modbus-1" target="Qt" cause="design">
+//<workaround id="cutehmi_modbus_1_qml-1" target="Qt" cause="design">
 // Using long class name instead of a namespace.
 class CuteHMIModbusQMLPlugin:
 	public QQmlExtensionPlugin
