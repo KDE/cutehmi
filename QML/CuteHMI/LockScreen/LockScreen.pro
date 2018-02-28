@@ -1,8 +1,10 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
+
+DESTDIR = $$QML_DESTDIR/CuteHMI/LockScreen/plugins
+
 TARGET = $$qtLibraryTarget(cutehmi_lockscreen_1_qml)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
 
@@ -25,10 +27,13 @@ SOURCES += \
 
 DISTFILES += \ 
     qmldir \
+    plugins.qmltypes \
     KeyButton.qml \
     LockScreen.qml \
     LockScreenSettings.qml \
     ChangePasswordWizard.qml \
-    LockScreenPopup.qml
+    LockScreenPopup.qml \
 
 RESOURCES +=
+
+QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)

@@ -1,8 +1,10 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
+
+DESTDIR = $$QML_DESTDIR/CuteHMI/Stupid/plugins
+
 TARGET = $$qtLibraryTarget(cutehmi_stupid_1_qml)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
 
@@ -23,7 +25,10 @@ SOURCES += \
 
 DISTFILES += \ 
     qmldir \
+    plugins.qmltypes \
     DS18B20Controller.qml \
     DS18B20Controller.js
 
 RESOURCES +=
+
+QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)

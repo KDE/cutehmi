@@ -1,8 +1,10 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
+
+DESTDIR = $$QML_DESTDIR/CuteHMI/Modbus/plugins
+
 TARGET = $$qtLibraryTarget(cutehmi_modbus_1_qml)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
 
@@ -30,12 +32,19 @@ SOURCES += \
 
 DISTFILES += \ 
     qmldir \
-    designer/Modbus.metainfo \
+    plugins.qmltypes \
     CoilItem.qml \
     DiscreteInputItem.qml \
     HoldingRegisterItem.qml \
     InputRegisterItem.qml \
     HoldingRegisterItem.js \
-    CoilItem.js
+    CoilItem.js \
+    designer/Modbus.metainfo \
+    designer/CoilItemSpecifics.qml \
+    designer/DiscreteInputItemSpecifics.qml \
+    designer/HoldingRegisterItemSpecifics.qml \
+    designer/InputRegisterItemSpecifics.qml
 
 RESOURCES +=
+
+QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)

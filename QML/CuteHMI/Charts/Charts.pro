@@ -1,8 +1,10 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
+
+DESTDIR = $$QML_DESTDIR/CuteHMI/Charts/plugins
+
 TARGET = $$qtLibraryTarget(cutehmi_charts_1_qml)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
 
@@ -36,6 +38,9 @@ SOURCES += \
 
 DISTFILES += \ 
     qmldir \
+    plugins.qmltypes \
     Chart.qml
 
 RESOURCES +=
+
+QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)

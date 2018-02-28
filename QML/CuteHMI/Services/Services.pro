@@ -1,8 +1,10 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
+
+DESTDIR = $$QML_DESTDIR/CuteHMI/Services/plugins
+
 TARGET = $$qtLibraryTarget(cutehmi_services_1_qml)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
 
@@ -16,6 +18,7 @@ include(../../../cutehmi_services_1/import.pri)
 
 DISTFILES += \
     qmldir \
+    plugins.qmltypes \
     designer/Services.metainfo
 
 RESOURCES +=
@@ -26,3 +29,4 @@ HEADERS += \
 SOURCES += \
     src/CuteHMIServicesQMLPlugin.cpp
 
+QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)

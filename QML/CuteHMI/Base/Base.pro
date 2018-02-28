@@ -1,8 +1,10 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
+
+DESTDIR = $$QML_DESTDIR/CuteHMI/Base/plugins
+
 TARGET = $$qtLibraryTarget(cutehmi_base_1_qml)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
 
@@ -15,11 +17,8 @@ include(../../../cutehmi_1/import.pri)
 
 DISTFILES += \
     qmldir \
-    TextDisplay.qml \
+    plugins.qmltypes \
     designer/Base.metainfo \
-    Pipe.qml \
-    PipeEmitterSettings.qml \
-    PipePoint.qml \
     NumberDisplay.qml \
     Palette.qml \
     ColorSet.qml \
@@ -34,3 +33,4 @@ HEADERS += \
 SOURCES += \
     src/CuteHMIBaseQMLPlugin.cpp
 
+QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)

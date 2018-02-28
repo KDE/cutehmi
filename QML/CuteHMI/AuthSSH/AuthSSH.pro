@@ -1,8 +1,10 @@
 include(../../../common.pri)
 
 TEMPLATE = lib
+
+DESTDIR = $$QML_DESTDIR/CuteHMI/AuthSSH/plugins
+
 TARGET = $$qtLibraryTarget(cutehmi_authssh_1_qml)
-DESTDIR = $$PWD/plugins	# QtDesigner can find library only in a location relative to qmldir file.
 
 QT += qml quick
 
@@ -23,6 +25,9 @@ SOURCES += \
     src/CuteHMIAuthSSHQMLPlugin.cpp \
 
 DISTFILES += \ 
-    qmldir
+    qmldir \
+    plugins.qmltypes
 
 RESOURCES +=
+
+QMAKE_POST_LINK += $$cutehmiCopyFiles($$DISTFILES, $$DESTDIR/..)
