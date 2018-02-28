@@ -1,6 +1,8 @@
 # Common qmake input for all CuteHMI subprojects.
 
-DESTDIR = $$PWD/../bin
+BIN_DESTDIR = $$PWD/../bin
+LIB_DESTDIR = $$PWD/../bin
+QML_DESTDIR = $$PWD/../QML
 
 CONFIG += object_parallel_to_source
 
@@ -30,3 +32,21 @@ defineReplace(cutehmiTarget) {
     return($$target)
 }
 
+# Prepare a string that copies files to specified directory. Usage: '$$cutehmiCopyFiles($$files, $$dir)'.
+defineReplace(cutehmiCopyFiles) {
+    result =
+    for(FILE, 1) {
+        src = $$PWD/$$FILE
+        dst = $$2/$$FILE
+        dstDir = $$dirname(dst)
+
+        # Replace slashes in paths with backslashes for Windows
+        win32:src ~= s,/,\\,g
+        win32:dst ~= s,/,\\,g
+        win32:dstDir ~= s,/,\\,g
+
+        result += $$QMAKE_MKDIR $$quote($$dstDir) $$escape_expand(\\n\\t)
+        result += $$QMAKE_COPY $$quote($$src) $$quote($$dst) $$escape_expand(\\n\\t)
+    }
+    return($$result)
+}

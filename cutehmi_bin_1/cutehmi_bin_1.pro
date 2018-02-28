@@ -1,5 +1,7 @@
 include(../common.pri)
 
+DESTDIR = $$BIN_DESTDIR
+
 TEMPLATE = app
 CONFIG(debug, debug|release):TARGET = cutehmi_debug
 CONFIG(release, debug|release):TARGET = cutehmi

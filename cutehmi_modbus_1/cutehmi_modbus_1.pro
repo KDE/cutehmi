@@ -3,6 +3,8 @@ include(libdef.pri)
 
 TEMPLATE = lib
 
+DESTDIR = $$LIB_DESTDIR
+
 TARGET = $$cutehmiTarget($$CUTEHMI_MODBUS_LIBNAME)
 win32:TARGET_EXT = .dll # Remove major version number appended to target dll on Windows.
 
