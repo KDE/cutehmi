@@ -139,7 +139,6 @@ int main(int argc, char * argv[])
 	int result;
 	{
 		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-		engine->addImportPath("../CuteHMI/QML");
 		engine->addImportPath("../QML");
 		qDebug() << "QML import paths: " << engine->importPathList();
 		engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
