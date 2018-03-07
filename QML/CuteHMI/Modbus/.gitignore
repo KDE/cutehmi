@@ -1,8 +1,0 @@
-*.qmlc
-*.jsc
-*.user
-*.autosave
-uic/*
-moc/*
-rcc/*
-plugins/*
