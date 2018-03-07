@@ -8,73 +8,73 @@ LIC_HASH = LICENSE.MP.hash.inc
 
 INCLUDE_GUARD_PREFIX = "CUTEHMI_"
 
-SOURCE_DIRS = cutehmi_app_1_bin/src \
-			  cutehmi_app_1/src \
-			  cutehmi_app_1_lib/src \
-			  cutehmi_authssh_1/src \
-			  cutehmi_authssh_1_lib/src \
-			  cutehmi_base_1_lib/src \
-			  cutehmi_charts_1_lib/src \
-			  cutehmi_modbus_1_lib/src \
-			  cutehmi_modbus_1/src \
-			  cutehmi_services_1_lib/src \
-			  cutehmi_services_1/src \
-			  cutehmi_stupid_1_lib/src \
-			  cutehmi_stupid_1/src \
-			  QML/CuteHMI/cutehmi_app_1_bin/src \
+SOURCE_DIRS = tools/cutehmi_cutehmi_1/src \
+			  modules/cutehmi_1/src \
+			  modules/cutehmi_app_1/src \
+			  modules/cutehmi_authssh_1/src \
+			  modules/cutehmi_charts_1/src \
+			  modules/cutehmi_modbus_1/src \
+			  modules/cutehmi_services_1/src \
+			  modules/cutehmi_stupid_1/src \
+			  modules/cutehmi_xml_1/src \
+			  QML/CuteHMI.1/src \
+			  QML/CuteHMI/App/src \
 			  QML/CuteHMI/AuthSSH/src \
-			  QML/CuteHMI/Base/src \
 			  QML/CuteHMI/Charts/src \
-			  QML/CuteHMI/Modbus/src \
 			  QML/CuteHMI/LockScreen/src \
+			  QML/CuteHMI/Modbus/src \
 			  QML/CuteHMI/Services/src \
 			  QML/CuteHMI/Stupid/src
 
-INCLUDE_DIRS = cutehmi_app_1_bin/src \
-			   cutehmi_app_1/src \
-			   cutehmi_app_1_lib/include \
-			   cutehmi_authssh_1_lib/include \
-			   cutehmi_base_1_lib/include \
-			   cutehmi_charts_1_lib/include \
-			   cutehmi_modbus_1_lib/include \
-			   cutehmi_modbus_1/src \
-			   cutehmi_services_1_lib/include \
-			   cutehmi_services_1/src \
-			   cutehmi_stupid_1_lib/include \
-			   cutehmi_stupid_1/src \
-			   cutehmi_utils_1_lib/include \
+INCLUDE_DIRS = tools/cutehmi_cutehmi_1/src \
+			   modules/cutehmi_1/src \
+			   modules/cutehmi_1/include \
+			   modules/cutehmi_app_1/src \
+			   modules/cutehmi_app_1/include \
+			   modules/cutehmi_authssh_1/src \
+			   modules/cutehmi_authssh_1/include \
+			   modules/cutehmi_charts_1/src \
+			   modules/cutehmi_charts_1/include \
+			   modules/cutehmi_modbus_1/src \
+			   modules/cutehmi_modbus_1/include \
+			   modules/cutehmi_services_1/src \
+			   modules/cutehmi_services_1/include \
+			   modules/cutehmi_stupid_1/src \
+			   modules/cutehmi_stupid_1/include \
+			   modules/cutehmi_xml_1/src \
+			   modules/cutehmi_xml_1/include \
+			   QML/CuteHMI.1/src \
 			   QML/CuteHMI/App/src \
 			   QML/CuteHMI/AuthSSH/src \
-			   QML/CuteHMI/Base/src \
 			   QML/CuteHMI/Charts/src \
-			   QML/CuteHMI/Modbus/src \
 			   QML/CuteHMI/LockScreen/src \
+			   QML/CuteHMI/Modbus/src \
 			   QML/CuteHMI/Services/src \
 			   QML/CuteHMI/Stupid/src
 
-QML_DIRS = QML/CuteHMI/App \
+QML_DIRS = QML/CuteHMI.1 \
+		       QML/CuteHMI/App \
 		       QML/CuteHMI/AuthSSH \
-			   QML/CuteHMI/Base \
 			   QML/CuteHMI/Charts \
-			   QML/CuteHMI/Modbus \
 			   QML/CuteHMI/LockScreen \
+			   QML/CuteHMI/Modbus \
 			   QML/CuteHMI/Services \
 			   QML/CuteHMI/Stupid
 
 DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
-				 QML/CuteHMI/Base/Base.qdocconf
+				 QML/CuteHMI.1/CuteHMI.1.qdocconf
 
-DOC_DOXYGEN_FILES = cutehmi_base_1_lib/Doxyfile
+DOC_DOXYGEN_FILES =
 
 PWD_DIR := $(shell $(PWD))
 
 QMLTYPES_EXTRAPATH = $(PWD_DIR)/../bin:$(PWD_DIR)/../lib
 
-QMLTYPES_DUMPS = "-nonrelocatable CuteHMI.App 1.0 QML > QML/CuteHMI/App/plugins.qmltypes; \
+QMLTYPES_DUMPS = "-nonrelocatable CuteHMI 1.0 QML > QML/CuteHMI.1/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.App 1.0 QML > QML/CuteHMI/App/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.AuthSSH 1.0 QML > QML/CuteHMI/AuthSSH/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.Base 1.0 QML > QML/CuteHMI/Base/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Charts 1.0 QML > QML/CuteHMI/Charts/plugins.qmltypes; \
+				 -nonrelocatable CuteHMI.LockScreen 1.0 QML > QML/CuteHMI/LockScreen/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Modbus 1.0 QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Services 1.0 QML > QML/CuteHMI/Services/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.LockScreen 1.0 QML > QML/CuteHMI/LockScreen/plugins.qmltypes; \
 				 -nonrelocatable CuteHMI.Stupid 1.0 QML > QML/CuteHMI/Stupid/plugins.qmltypes"
