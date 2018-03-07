@@ -13,9 +13,9 @@ CONFIG += plugin
 # Translations.
 TRANSLATIONS = locale/cutehmi_stupid_qml_1_pl.ts
 
-include(../../../cutehmi_1/import.pri)
-include(../../../cutehmi_charts_1/import.pri)
-include(../../../cutehmi_stupid_1/import.pri)
+include(../../../modules/cutehmi_1/import.pri)
+include(../../../modules/cutehmi_charts_1/import.pri)
+include(../../../modules/cutehmi_stupid_1/import.pri)
 
 HEADERS += \
     src/CuteHMIStupidQMLPlugin.hpp

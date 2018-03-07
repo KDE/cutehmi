@@ -13,8 +13,8 @@ CONFIG += plugin
 # Translations.
 TRANSLATIONS = locale/cutehmi_authssh_1_qml_pl.ts
 
-include(../../../cutehmi_1/import.pri)
-include(../../../cutehmi_authssh_1/import.pri)
+include(../../../modules/cutehmi_1/import.pri)
+include(../../../modules/cutehmi_authssh_1/import.pri)
 include(../../../libssh.pri)
 
 

@@ -1,7 +1,7 @@
 # Common qmake input for all CuteHMI subprojects.
 
-BIN_DESTDIR = $$PWD/../bin
-LIB_DESTDIR = $$PWD/../bin
+TOOLS_DESTDIR = $$PWD/../bin
+MODULES_DESTDIR = $$PWD/../bin
 QML_DESTDIR = $$PWD/../QML
 
 CONFIG += object_parallel_to_source

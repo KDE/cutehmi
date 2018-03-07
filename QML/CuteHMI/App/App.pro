@@ -16,8 +16,8 @@ CONFIG += plugin
 # Translations.
 TRANSLATIONS = locale/cutehmi_app_1_qml_pl.ts
 
-include(../../../cutehmi_1/import.pri)
-include(../../../cutehmi_app_1/import.pri)
+include(../../../modules/cutehmi_1/import.pri)
+include(../../../modules/cutehmi_app_1/import.pri)
 
 DISTFILES += \
     qmldir \
