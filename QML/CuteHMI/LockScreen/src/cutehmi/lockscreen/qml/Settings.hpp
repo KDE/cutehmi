@@ -1,5 +1,5 @@
-#ifndef SETTINGS_HPP
-#define SETTINGS_HPP
+#ifndef H_QML_CUTEHMI_LOCKSCREEN_SRC_CUTEHMI_LOCKSCREEN_QML_SETTINGS_HPP
+#define H_QML_CUTEHMI_LOCKSCREEN_SRC_CUTEHMI_LOCKSCREEN_QML_SETTINGS_HPP
 
 #include <QSettings>
 #include <QObject>
@@ -42,4 +42,4 @@ class Settings : public QObject
 }
 }
 
-#endif // SETTINGS_HPP
+#endif

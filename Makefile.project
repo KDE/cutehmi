@@ -6,7 +6,7 @@ LIC_DSLASH = LICENSE.MP.dslash.inc
 
 LIC_HASH = LICENSE.MP.hash.inc
 
-INCLUDE_GUARD_PREFIX = ""
+INCLUDE_GUARD_PREFIX = "H_"
 
 SOURCE_DIRS = tools/cutehmi_cutehmi_1/src \
 			  modules/cutehmi_1/src \

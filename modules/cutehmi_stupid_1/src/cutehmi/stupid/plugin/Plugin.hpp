@@ -1,5 +1,5 @@
-#ifndef CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_PLUGIN_HPP
-#define CUTEHMI_CUTEHMI__STUPID__1_SRC_STUPID_PLUGIN_PLUGIN_HPP
+#ifndef H_MODULES_CUTEHMI__STUPID__1_SRC_CUTEHMI_STUPID_PLUGIN_PLUGIN_HPP
+#define H_MODULES_CUTEHMI__STUPID__1_SRC_CUTEHMI_STUPID_PLUGIN_PLUGIN_HPP
 
 #include "../../../../include/cutehmi/stupid/Client.hpp"
 #include "../../../../include/cutehmi/stupid/internal/DatabaseConnectionData.hpp"
