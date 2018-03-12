@@ -8,6 +8,11 @@ CommonProduct {
 
 	property string installDir: FileInfo.relativePath(path + "/../..", sourceDirectory)
 
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		targetName: name
+	}
+
 	FileTagger {
 		patterns: "*.qml"
 		fileTags: ["qml"]
