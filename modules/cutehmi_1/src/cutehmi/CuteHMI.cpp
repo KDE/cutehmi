@@ -1,4 +1,4 @@
-#include "../include/cutehmi/CuteHMI.hpp"
+#include "../../include/cutehmi/CuteHMI.hpp"
 
 namespace cutehmi {
 

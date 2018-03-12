@@ -24,7 +24,7 @@ class Plugin:
 	public xml::IBackendPlugin
 {
 	Q_OBJECT
-	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "cutehmi_stupid_1.json")
+	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "../../../../cutehmi_stupid_1.json")
 	Q_INTERFACES(cutehmi::IPlugin)
 
 	public:
