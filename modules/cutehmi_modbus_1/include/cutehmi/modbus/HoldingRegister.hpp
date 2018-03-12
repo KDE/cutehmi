@@ -39,9 +39,9 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		 */
 		explicit HoldingRegister(uint16_t value = 0, QObject * parent = 0);
 
-		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const;
+		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const noexcept(false);
 
-		Q_INVOKABLE uint16_t requestedValue() const;
+		Q_INVOKABLE uint16_t requestedValue() const noexcept(false);
 
 		Q_INVOKABLE void rest();
 

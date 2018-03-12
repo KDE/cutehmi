@@ -68,7 +68,7 @@ class CUTEHMI_MODBUS_API RTUConnection:
 		 *
 		 * @throw Exception.
 		 */
-		RTUConnection(const QString & port, int baudRate = 19200, Parity parity = Parity::NONE, DataBits dataBits = DataBits::BITS_8, StopBits stopBits = StopBits::BITS_1, Mode mode = Mode::RS232, int slaveId = 0);
+		RTUConnection(const QString & port, int baudRate = 19200, Parity parity = Parity::NONE, DataBits dataBits = DataBits::BITS_8, StopBits stopBits = StopBits::BITS_1, Mode mode = Mode::RS232, int slaveId = 0) noexcept(false);
 
 		virtual ~RTUConnection();
 

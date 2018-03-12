@@ -42,7 +42,7 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 	}
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const
+void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false)
 {
 	Q_UNUSED(xmlWriter);
 	Q_UNUSED(node);

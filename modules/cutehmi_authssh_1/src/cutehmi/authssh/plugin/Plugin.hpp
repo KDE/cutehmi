@@ -33,7 +33,7 @@ class Plugin:
 		void readXML(QXmlStreamReader & xmlReader, ProjectNode & node) override;
 
 		// xml::IBackendPlugin
-		void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const override;
+		void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false) override;
 
 	private:
 		void parseClient(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name);

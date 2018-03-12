@@ -15,7 +15,7 @@ class ExceptionMixin:
 	public:
 		ExceptionMixin(const QString & what);
 
-		void raise() const override;
+		void raise() const noexcept(false) override;
 
 		Exception * clone() const override;
 };
@@ -27,7 +27,7 @@ ExceptionMixin<DERIVED>::ExceptionMixin(const QString & what):
 }
 
 template <class DERIVED>
-void ExceptionMixin<DERIVED>::raise() const
+void ExceptionMixin<DERIVED>::raise() const noexcept(false)
 {
 	throw *(static_cast<const DERIVED *>(this));
 }

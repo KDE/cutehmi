@@ -16,7 +16,7 @@ class CUTEHMI_API Exception:
 	public:
 		Exception(const QString & what);
 
-		void raise() const override;
+		void raise() const noexcept(false) override;
 
 		Exception * clone() const override;
 

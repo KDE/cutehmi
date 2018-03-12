@@ -17,7 +17,7 @@ HoldingRegister::HoldingRegister(uint16_t value, QObject * parent):
 	connect(this, & HoldingRegister::valueRejected, this, & HoldingRegister::onValueRejected);
 }
 
-QVariant HoldingRegister::value(encoding_t encoding) const
+QVariant HoldingRegister::value(encoding_t encoding) const noexcept(false)
 {
 	QReadLocker locker(& m->valueLock);
 	switch (encoding) {
@@ -55,7 +55,7 @@ int HoldingRegister::pendingRequests() const
 	return m->writeCtr;
 }
 
-void HoldingRegister::requestValue(QVariant value, encoding_t encoding)
+void HoldingRegister::requestValue(QVariant value, encoding_t encoding) noexcept(false)
 {
 	m->writeCtrLock.lockForWrite();
 	m->writeCtr++;

@@ -7,7 +7,7 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
-RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode, int slaveId):
+RTUConnection::RTUConnection(const QString & port, int baudRate, Parity parity, DataBits dataBits, StopBits stopBits, Mode mode, int slaveId) noexcept(false):
 	Parent(modbus_new_rtu(port.toLocal8Bit().data(), baudRate, ToLibmodbusParity(parity), static_cast<int>(dataBits), static_cast<int>(stopBits))),
 	m(new Members{port, baudRate, parity, dataBits, stopBits, mode, slaveId})
 {

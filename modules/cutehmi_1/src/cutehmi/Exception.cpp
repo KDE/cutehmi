@@ -7,7 +7,7 @@ Exception::Exception(const QString & what):
 {
 }
 
-void Exception::raise() const
+void Exception::raise() const noexcept(false)
 {
 	throw *this;
 }

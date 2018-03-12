@@ -31,7 +31,7 @@ class CUTEHMI_MODBUS_API TCPConnection:
 		 *
 		 * @throw Exception.
 		 */
-		TCPConnection(const QString & node = "127.0.0.1", const QString & service = "502", int unitId =  MODBUS_TCP_SLAVE);
+		TCPConnection(const QString & node = "127.0.0.1", const QString & service = "502", int unitId =  MODBUS_TCP_SLAVE) noexcept(false);
 
 		virtual ~TCPConnection();
 

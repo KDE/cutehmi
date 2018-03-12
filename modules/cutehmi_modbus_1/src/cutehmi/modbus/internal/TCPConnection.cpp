@@ -7,7 +7,7 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
-TCPConnection::TCPConnection(const QString & node, const QString & service, int unitId):
+TCPConnection::TCPConnection(const QString & node, const QString & service, int unitId) noexcept(false):
 	Parent(modbus_new_tcp_pi(node.toLocal8Bit().data(), service.toLocal8Bit().data())),
 	m(new Members{node, service, unitId})
 {

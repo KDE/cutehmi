@@ -20,7 +20,7 @@ class CUTEHMI_XML_API IBackendPlugin
 	public:
 		virtual void readXML(QXmlStreamReader & xmlReader, ProjectNode & node) = 0;
 
-		virtual void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const = 0;
+		virtual void writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false) = 0;
 
 	protected:
 		virtual ~IBackendPlugin() = default; // Making dtor virtual for plugin interface as in Qt docs.

@@ -14,7 +14,7 @@ InputRegister::InputRegister(uint16_t value, QObject * parent):
 {
 }
 
-QVariant InputRegister::value(encoding_t encoding) const
+QVariant InputRegister::value(encoding_t encoding) const noexcept(false)
 {
 	QReadLocker locker(& m->valueLock);
 	switch (encoding) {
