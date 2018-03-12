@@ -6,6 +6,8 @@
 # QtCreator files.
 **/*.pro.user.*
 **/*.pro.user
+**/*.qbs.user
+**/*.qbs.user.*
 **/*.autosave
 
 # QML compiler artifacts.
