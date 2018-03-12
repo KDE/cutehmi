@@ -27,7 +27,7 @@ ApplicationWindow {
 					mainWindow.visibility = Window.FullScreen
 				} else {
 					// Restore visibility or swap to Window.AutomaticVisibility if application was restored to full screen mode on startup.
-					//<unsolved id="cutehmi_cutehmi_1-2" target="Qt" cause="bug">
+					//<unsolved id="cutehmi_view-2" target="Qt" cause="bug">
 					// When changing window visiblity in the following manner:
 					// Window.Windowed -> Window.Maximized -> Window.FullScreen -> Window.Maximized -> Window.Windowed,
 					// window does not return to its original size.
@@ -44,7 +44,7 @@ ApplicationWindow {
 	Settings {
 		id: settings
 
-		category: "cutehmi_cutehmi_1/MainWindow"
+		category: "cutehmi_view/MainWindow"
 
 		property int visibility: Window.AutomaticVisibility
 		property int x: 0

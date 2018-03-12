@@ -8,7 +8,7 @@
 
 #include <cutehmi/app/CuteApp.hpp>
 
-//<workaround id="cutehmi_cutehmi_1-4" target="Qt" cause="bug">
+//<workaround id="cutehmi_view-4" target="Qt" cause="bug">
 #include <QApplication>
 // Instead of:
 //#include <QGuiApplication>
@@ -27,7 +27,7 @@
 #include <QFile>
 
 namespace cutehmi {
-namespace bin {
+namespace view {
 
 void loadXMLFile(const QString & filePath, Project & project, QQmlContext & qmlContext)
 {
@@ -77,7 +77,7 @@ int main(int argc, char * argv[])
 //	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
 //	should make the QApplication be the first created, and last destroyed QObject."
 
-	//<workaround id="cutehmi_cutehmi_1-4" target="Qt" cause="bug">
+	//<workaround id="cutehmi_view-4" target="Qt" cause="bug">
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	cutehmi::app::CuteApp app(argc, argv);
 	// Instead of:
@@ -120,7 +120,7 @@ int main(int argc, char * argv[])
 
 	if (cmd.isSet(hideCursorOption))
 		QGuiApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
-	//<workaround id="cutehmi_cutehmi_1-5" target="Qt" cause="bug">
+	//<workaround id="cutehmi_view-5" target="Qt" cause="bug">
 	// When run on raw Xorg server application does not show up cursor unless some controls are hovered.
 	else
 		QGuiApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -139,14 +139,14 @@ int main(int argc, char * argv[])
 	int result;
 	{
 		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-		engine->addImportPath("../QML");
+		engine->addImportPath(baseDirPath + "../QML");
 		qDebug() << "QML import paths: " << engine->importPathList();
 		engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
 		if (!cmd.value(projectOption).isNull()) {
 			cutehmi::CuteHMI & cuteHMI = cutehmi::CuteHMI::Instance();
-			cutehmi::bin::loadXMLFile(baseDirPath + cmd.value(projectOption), *cuteHMI.project(), *engine->rootContext());
+			cutehmi::view::loadXMLFile(baseDirPath + cmd.value(projectOption), *cuteHMI.project(), *engine->rootContext());
 
 			cutehmi::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
 			if (appNode) {
@@ -177,7 +177,7 @@ int main(int argc, char * argv[])
 
 	if (cmd.isSet(hideCursorOption))
 		QGuiApplication::restoreOverrideCursor();
-	//<workaround ref="cutehmi_cutehmi_1-5">
+	//<workaround ref="cutehmi_view-5">
 	else
 		QGuiApplication::restoreOverrideCursor();
 	//</workaround>
