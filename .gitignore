@@ -27,8 +27,9 @@ Makefile.user
 make.exe
 awkgward/find.exe
 
-# Customized project file.
+# Customized project files.
 Custom.pro
+Custom.qbs
 
 # Test modules.
 modules/test_*
