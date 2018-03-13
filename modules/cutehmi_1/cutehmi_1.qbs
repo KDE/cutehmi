@@ -58,12 +58,10 @@ ModuleLib {
 		"src/cutehmi/logging.cpp",
 	]
 
-	Depends { name: "cpp" }
 	Depends { name: "Qt.core" }
 	Depends { name: "Qt.qml" }
 
 	Export {
-		Depends { name: "cpp" }
 		Depends { name: "Qt.core" }
 		Depends { name: "Qt.qml" }
 	}
