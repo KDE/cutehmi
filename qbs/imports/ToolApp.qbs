@@ -7,6 +7,11 @@ CommonProduct {
 
 	targetName: qbs.buildVariant.contains("debug") ? name + "_debug" : name
 
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.linkerFlags: "-rpath=$ORIGIN"
+	}
+
 	Depends { name: "cpp" }
 
 	Export {
