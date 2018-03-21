@@ -9,7 +9,7 @@ void CuteHMIAppQMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.App"));
 
 	//<workaround ref="cutehmi_lockscreen_1_qml-1" target="Qt" cause="design">
-	qmlRegisterSingletonType<cutehmi::app::CuteApp>(uri, 1, 0, "CuteApp", CuteAppProvider);
+	qmlRegisterSingletonType<cutehmi::app::CuteApp>(uri, CUTEHMI_APP_MAJOR, CUTEHMI_APP_1_CURRENT, "CuteApp", CuteAppProvider);
 	//</workaround>
 }
 

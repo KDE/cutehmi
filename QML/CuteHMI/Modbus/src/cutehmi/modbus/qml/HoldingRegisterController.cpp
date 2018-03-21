@@ -110,6 +110,11 @@ void HoldingRegisterController::onValueUpdated()
 	setBusy(false);
 }
 
+void HoldingRegisterController::onHoldingRegisterDestroyed()
+{
+	m_register = nullptr;
+}
+
 void HoldingRegisterController::setBusy(bool busy)
 {
 	if (m_busy != busy) {
@@ -135,12 +140,14 @@ void HoldingRegisterController::setupRegister(HoldingRegister * reg)
 	if (m_register != nullptr) {
 		disconnect(m_register, & HoldingRegister::valueUpdated, this, & HoldingRegisterController::onValueUpdated);
 		disconnect(m_register, & HoldingRegister::valueRequested, this, & HoldingRegisterController::onValueRequested);
+		disconnect(m_register, & HoldingRegister::destroyed, this, & HoldingRegisterController::onHoldingRegisterDestroyed);
 		m_register->rest();
 	}
 	m_register = reg;
 	if (m_register != nullptr) {
 		connect(m_register, & HoldingRegister::valueUpdated, this, & HoldingRegisterController::onValueUpdated);
 		connect(m_register, & HoldingRegister::valueRequested, this, & HoldingRegisterController::onValueRequested);
+		connect(m_register, & HoldingRegister::destroyed, this, & HoldingRegisterController::onHoldingRegisterDestroyed);
 		m_register->awake();
 	}
 }

@@ -1,7 +1,23 @@
 import qbs
 
-QMLPlugin {
-	name: "cutehmi_modbus_1_qml"
+import cutehmi
+
+cutehmi.QMLPlugin {
+	name: "cutehmi_modbus_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "Modbus QML"
+
+	description: "QML components for dealing with Modbus protocol."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
 		"CoilItem.js",
@@ -29,6 +45,8 @@ QMLPlugin {
 		"src/cutehmi/modbus/qml/InputRegisterController.hpp",
 	]
 
-	Depends { name: "cutehmi_modbus_1" }
+	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_modbus_1" } cutehmi_modbus_1.version: "0.0"
+	//</workaround>
 }
 

@@ -69,6 +69,8 @@ class HoldingRegisterController:
 
 		void onValueUpdated();
 
+		void onHoldingRegisterDestroyed();
+
 	protected:
 		void setBusy(bool busy);
 

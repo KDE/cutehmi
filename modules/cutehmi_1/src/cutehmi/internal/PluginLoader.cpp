@@ -21,43 +21,40 @@ PluginLoader::~PluginLoader()
 
 Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor) noexcept(false)
 {
-	Plugin::MetaData meta = metaData(binary);
+	if (!Plugin::BinaryExists(binary))
+		throw BinaryAbsentException(binary);
 
-	// Make an attempt to obtain version information from meta data.
-	if (meta.minor == -1)
-		CUTEHMI_LOG_WARNING("Loading plugin '" << binary <<"', which has undefined minor version. Required minor is '" << reqMinor << "'.");
-	else if (meta.minor < reqMinor)
-		throw WrongVersionException(binary, reqMinor, meta.minor);
+	Plugin::Metadata meta = Plugin::BinaryMetadata(binary);
 
-	m->loader.setFileName(binary);
-	if (!m->loader.isLoaded()) {
-		QObject * instance = m->loader.instance();
-		if (instance) {
-			Plugin * plugin = new Plugin(binary, instance, meta);
+	QList<Plugin::Metadata> metaList{meta};
+	int checkMinor = Plugin::CheckReqMinors(reqMinor, metaList);
+
+	if (checkMinor == -1)
+		throw BinaryAbsentException(metaList.last().data().value("name").toString());
+
+	if (checkMinor != 0)
+		throw WrongVersionException(metaList.last().data().value("name").toString(), checkMinor, metaList.last().minor());
+
+	std::unique_ptr<QPluginLoader> loader(new QPluginLoader(binary));
+	if (!plugin(binary)) {
+		if (loader->load()) {
+			Plugin * plugin = new Plugin(binary, std::move(loader), false, meta);
 			CUTEHMI_LOG_DEBUG("Loaded plugin '" << binary << "' version '" << plugin->version() << "'.");
 			m->loadedPlugins.append(plugin);
+
+			// Dependant plugins should be implicitly loaded at this point.
+			handleImplicitLoads(*plugin);
 		} else
 			throw FailedLoadException(binary);
-	} else {
-		CUTEHMI_LOG_DEBUG("Plugin '" << binary << "' already loaded.");
-		if (!plugin(binary))
-			m->loadedPlugins.append(new Plugin(binary, m->loader.instance(), meta));
-	}
+	} else
+		throw LoadPrecedenceException(binary);
 	return plugin(binary);
 }
 
 void PluginLoader::unloadPlugins()
 {
-	while (!m->loadedPlugins.isEmpty()) {
-		Plugin * plugin = m->loadedPlugins.last();
-		m->loader.setFileName(plugin->binary());
-		if (m->loader.unload())
-			CUTEHMI_LOG_DEBUG("Unloaded plugin '" << plugin->binary() << "'.");
-		else
-			CUTEHMI_LOG_DEBUG("Could not unload plugin '" << plugin->binary() << "'.");
-		m->loadedPlugins.removeLast();
-		plugin->deleteLater();
-	}
+	while (!m->loadedPlugins.isEmpty())
+		m->loadedPlugins.takeLast()->deleteLater();
 }
 
 Plugin * PluginLoader::plugin(const QString & binary)
@@ -68,30 +65,24 @@ Plugin * PluginLoader::plugin(const QString & binary)
 	return nullptr;
 }
 
-Plugin::MetaData PluginLoader::metaData(const QString & binary) const
+const PluginLoader::LoadedPluginsContainer * PluginLoader::loadedPlugins() const
 {
-	m->loader.setFileName(binary);
-	Plugin::MetaData metaData;
-	QJsonObject jsonMetaData = m->loader.metaData().value("MetaData").toObject();
+	return & m->loadedPlugins;
+}
 
-	QStringList unavailableMetaData;
-	if (jsonMetaData.value("id").isUndefined())
-		unavailableMetaData << "id";
-	if (jsonMetaData.value("name").isUndefined())
-		unavailableMetaData << "name";
-	if (jsonMetaData.value("minor").isUndefined())
-		unavailableMetaData << "minor";
-	if (jsonMetaData.value("micro").isUndefined())
-		unavailableMetaData << "micro";
-	if (!unavailableMetaData.isEmpty())
-		CUTEHMI_LOG_WARNING("Plugin '" << binary <<"' is missing '" << unavailableMetaData.join("', '") << "' meta-data information.");
-
-	metaData.id = jsonMetaData.value("id").toString();
-	metaData.name = jsonMetaData.value("name").toString();
-	metaData.minor = jsonMetaData.value("minor").toInt(-1);
-	metaData.micro = jsonMetaData.value("micro").toInt(-1);
-
-	return metaData;
+void PluginLoader::handleImplicitLoads(const Plugin & plugin) noexcept(false)
+{
+	QVariantList dependencies = plugin.metadata().value("dependencies").toList();
+	for (auto dependency = dependencies.begin(); dependency != dependencies.end(); ++dependency) {
+		QString depBinary = Plugin::NameToBinary(dependency->toMap().value("name").toString());
+		if (!PluginLoader::plugin(depBinary)) {
+			std::unique_ptr<QPluginLoader> depLoader(new QPluginLoader(depBinary));
+			Plugin * depPlugin = new Plugin(depBinary, std::move(depLoader), true);
+			CUTEHMI_LOG_DEBUG("Plugin '" << depBinary << "' version '" << depPlugin->version() << "' has been implicitly loaded.");
+			m->loadedPlugins.append(depPlugin);
+			handleImplicitLoads(*depPlugin);
+		}
+	}
 }
 
 }

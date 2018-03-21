@@ -101,20 +101,20 @@ void ProjectBackend::Loader1::parse(const ParseHelper & parentHelper)
 	CUTEHMI_LOG_DEBUG("Loader starts parsing a document...");
 
 	ParseHelper helper(& parentHelper);
-	helper << ParseElement("plugin", {ParseAttribute("binary", "[a-z|A-Z|0-9|_-]+"), ParseAttribute("req_minor", "-?[0-9]+")}, 0)
+	helper << ParseElement("plugin", {ParseAttribute("name", "[a-z|A-Z|0-9|_-]+"), ParseAttribute("req_minor", "-?[0-9]+")}, 0)
 		   << ParseElement("context_properties", 0);
 
 	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (reader.name() == "plugin") {
-			QString binary = reader.attributes().value("binary").toString();
+			QString name = reader.attributes().value("name").toString();
 			bool reqMinorOk;
 			int reqMinor = reader.attributes().value("req_minor").toInt(& reqMinorOk);
 			if (!reqMinorOk) {
 				helper.raiseError(QObject::tr("Could not convert 'req_minor' attribute to integer."));
 				break;
 			}
-			ProjectNode * pluginNode = m_pluginLoader->addPluginNode(binary, reqMinor, *m_root);
+			ProjectNode * pluginNode = m_pluginLoader->addPluginNode(name, reqMinor, *m_root);
 			parsePlugin(helper, *pluginNode);
 		} else if (reader.name() == "context_properties")
 			parseNodeRef(helper, *m_root);
@@ -134,8 +134,9 @@ void ProjectBackend::Loader1::parsePlugin(const ParseHelper & parentHelper, Proj
 		if ((reader.name() == "extension") && (reader.attributes().value("object") == BackendPlugin::staticMetaObject.className())) {
 			BackendPlugin * xmlPlugin = qobject_cast<BackendPlugin *>(node.extension(BackendPlugin::staticMetaObject.className()));
 			if (xmlPlugin == nullptr)
-				throw MissingExtensionException(plugin->binary(), plugin->version(), BackendPlugin::staticMetaObject.className());
-			xmlPlugin->implementation()->readXML(static_cast<QXmlStreamReader &>(helper), node);
+				helper.raiseError(QObject::tr("Plugin '%1' version '%2' does not provide required extension '%3'.").arg(plugin->binary()).arg(plugin->version()).arg(BackendPlugin::staticMetaObject.className()));
+			else
+				xmlPlugin->implementation()->readXML(static_cast<QXmlStreamReader &>(helper), node);
 		}
 	}
 }
@@ -153,20 +154,22 @@ void ProjectBackend::Loader1::parseNodeRef(const ParseHelper & parentHelper, Pro
 			if (currentNode.child(id))
 				parseNodeRef(helper, *currentNode.child(id));
 			else
-				CUTEHMI_LOG_WARNING("Could not find child node with an id '"<< id << "' referenced at: " << internal::readerPositionString(reader) << ".");
+				helper.raiseError(QObject::tr("Could not find child node with an id '%1'.").arg(id));
 		} else if (reader.name() == "extension_ref") {
 			QString contextProperty = reader.attributes().value("context_property").toString();
 			if (contextProperty.startsWith("cutehmi_"))
-				helper.raiseError(QObject::tr("Context properties starting with 'cutehmi_' string are reserved by CuteHMI."));
+				helper.raiseError(QObject::tr("Context properties starting with 'cutehmi_' prefix are reserved by CuteHMI."));
 			else {
 				QString objectName = reader.attributes().value("object").toString();
 				if (m_qmlContext->contextProperty(contextProperty).isValid())
-					CUTEHMI_LOG_WARNING("Context property '"<< contextProperty << "' has been already set. Redefined at: " << internal::readerPositionString(reader) << ".");
-				QObject * object = currentNode.extension(objectName);
-				if (object == nullptr)
-					CUTEHMI_LOG_WARNING("Could not find extension object '"<< objectName << "' referenced at: " << internal::readerPositionString(reader) << ".");
-				else
-					m_qmlContext->setContextProperty(contextProperty, object);
+					helper.raiseError(QObject::tr("Context property '%1' has been already set.").arg(contextProperty));
+				else {
+					QObject * object = currentNode.extension(objectName);
+					if (object == nullptr)
+						helper.raiseError(QObject::tr("Could not find extension object '%1'.").arg(objectName));
+					else
+						m_qmlContext->setContextProperty(contextProperty, object);
+				}
 			}
 		}
 	}

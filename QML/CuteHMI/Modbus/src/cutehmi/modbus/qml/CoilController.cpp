@@ -82,6 +82,11 @@ void CoilController::onValueUpdated()
 	setBusy(false);
 }
 
+void CoilController::onCoilDestroyed()
+{
+	m_coil = nullptr;
+}
+
 void CoilController::setBusy(bool busy)
 {
 	if (m_busy != busy) {
@@ -101,17 +106,19 @@ void CoilController::updateValue()
 	}
 }
 
-void CoilController::setupCoil(Coil * reg)
+void CoilController::setupCoil(Coil * coil)
 {
 	if (m_coil != nullptr) {
 		disconnect(m_coil, & Coil::valueUpdated, this, & CoilController::onValueUpdated);
 		disconnect(m_coil, & Coil::valueRequested, this, & CoilController::onValueRequested);
+		disconnect(m_coil, & Coil::destroyed, this, & CoilController::onCoilDestroyed);
 		m_coil->rest();
 	}
-	m_coil = reg;
+	m_coil = coil;
 	if (m_coil != nullptr) {
 		connect(m_coil, & Coil::valueUpdated, this, & CoilController::onValueUpdated);
 		connect(m_coil, & Coil::valueRequested, this, & CoilController::onValueRequested);
+		connect(m_coil, & Coil::destroyed, this, & CoilController::onCoilDestroyed);
 		m_coil->awake();
 	}
 }

@@ -1,7 +1,23 @@
 import qbs
 
-QMLPlugin {
-	name: "cutehmi_charts_1_qml"
+import cutehmi
+
+cutehmi.QMLPlugin {
+	name: "cutehmi_charts_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "Charts QML"
+
+	description: "QML components for data visualization with charts."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
         "plugins.qmltypes",
@@ -24,7 +40,9 @@ QMLPlugin {
         "src/cutehmi/charts/qml/ValueAxis.hpp",
     ]
 
-	Depends { name: "cutehmi_charts_1" }
+	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_charts_1" } cutehmi_charts_1.version: "0.0"
+	//</workaround>
 
 	Depends { name: "Qt.quick" }
 }

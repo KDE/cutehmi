@@ -21,7 +21,7 @@ make && sudo make install
 ```  
 Compiling libmodbus on Windows can be a bit more tricky. I won't write the instructions here, because if project prevails, it should use *QtSerialBus* module.
 
-3. Open `All.pro` file with *QtCreator* and build it. When apllication starts it shows empty screen.
+3. Open `CuteHMI.qbs` file with *QtCreator* and build it. When apllication starts it shows empty screen.
 
 ## Running example
 

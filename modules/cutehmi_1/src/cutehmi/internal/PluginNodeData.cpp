@@ -1,6 +1,6 @@
 #include "../../../include/cutehmi/internal/PluginNodeData.hpp"
 #include "../../../include/cutehmi/Plugin.hpp"
-#include "../../../include/cutehmi/IPlugin.hpp"
+#include "../../../include/cutehmi/IProjectPlugin.hpp"
 
 namespace cutehmi {
 namespace internal {
@@ -20,11 +20,11 @@ int PluginNodeData::reqMinor() const
 	return m->reqMinor;
 }
 
-IPlugin * PluginNodeData::pluginInstance() const
+IProjectPlugin * PluginNodeData::pluginInstance() const
 {
-	CUTEHMI_ASSERT(qobject_cast<IPlugin *>(m->plugin->instance()), "plugin instance does not implement IPlugin interface");
+	CUTEHMI_ASSERT(qobject_cast<IProjectPlugin *>(m->plugin->instance()), "plugin instance does not implement IProjectPlugin interface");
 
-	return qobject_cast<IPlugin *>(m->plugin->instance());
+	return qobject_cast<IProjectPlugin *>(m->plugin->instance());
 }
 
 }

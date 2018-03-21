@@ -1,5 +1,5 @@
 #include "../../include/cutehmi/ProjectPluginLoader.hpp"
-#include "../../include/cutehmi/IPlugin.hpp"
+#include "../../include/cutehmi/IProjectPlugin.hpp"
 #include "../../include/cutehmi/internal/PluginNodeData.hpp"
 #include "../../include/cutehmi/internal/PluginLoader.hpp"
 
@@ -12,22 +12,19 @@ ProjectPluginLoader::ProjectPluginLoader(internal::PluginLoader * pluginLoader):
 {
 }
 
-ProjectNode * ProjectPluginLoader::addPluginNode(const QString & binary, int reqMinor, ProjectNode & parentNode) const noexcept(false)
+ProjectNode * ProjectPluginLoader::addPluginNode(const QString & name, int reqMinor, ProjectNode & parentNode) const noexcept(false)
 {
-	QString binaryd(binary);
-#ifdef CUTEHMI_DEBUG
-	binaryd.append('d');
-#endif
+	QString binary(Plugin::NameToBinary(name));
 
-	Plugin * plugin = (m->pluginLoader->loadPlugin(binaryd, reqMinor));	// Note: loadPlugin() may throw exception.
-	IPlugin * pluginInstance = qobject_cast<IPlugin *>(plugin->instance());
+	Plugin * plugin = (m->pluginLoader->loadPlugin(binary, reqMinor));	// Note: loadPlugin() may throw exception.
+	IProjectPlugin * pluginInstance = qobject_cast<IProjectPlugin *>(plugin->instance());
 	if (pluginInstance == 0)
-		throw MissingInterfaceException(binaryd, plugin->version(), CUTEHMI_IPLUGIN_IID);
+		throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_IPROJECTPLUGIN_IID);
 	ProjectNode * pluginNode;
-	if (!plugin->id().isEmpty())
-		pluginNode = parentNode.addChild(plugin->id(), ProjectNodeData(plugin->name()), false);
+	if (!plugin->name().isEmpty())
+		pluginNode = parentNode.addChild(plugin->name(), ProjectNodeData(plugin->friendlyName()), false);
 	else
-		pluginNode = parentNode.addChild(ProjectNodeData(plugin->name()), false);
+		pluginNode = parentNode.addChild(ProjectNodeData(plugin->friendlyName()), false);
 	pluginNode->data().append(std::unique_ptr<DataBlock>(new internal::PluginNodeData(plugin, reqMinor)));
 	pluginNode->addExtension(plugin);
 	pluginInstance->init(*pluginNode);

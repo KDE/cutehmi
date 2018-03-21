@@ -93,7 +93,7 @@ Item {
 
 		RowLayout {
 			id: rowLayout
-			Layout.maximumWidth: lockScreenLoader.item.paintedWidth
+            Layout.fillWidth: true
 			Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
 			Button {
@@ -159,6 +159,7 @@ Item {
 			Layout.fillHeight: true
 			Layout.fillWidth: true
 			Layout.alignment: Qt.AlignHCenter
+            onLoaded: item.fillMode = Image.PreserveAspectFit
 
 			Connections {
 				id: lockScreenConnection

@@ -10,14 +10,15 @@ void CuteHMIQMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI"));
 
-	qmlRegisterType<cutehmi::Prompt>(uri, 1, 0, "Prompt");
-	qmlRegisterType<cutehmi::Notification>(uri, 1, 0, "Notification");
-	qmlRegisterUncreatableType<cutehmi::PopupBridge>(uri, 1, 0, "PopupBridge", QObject::tr("cutehmi::PopupBridge instances can not be created within QML."));
-	qmlRegisterUncreatableType<cutehmi::NotificationManager>(uri, 1, 0, "NotificationManager", QObject::tr("cutehmi::NotificationManager instances can not be created within QML."));
-	qmlRegisterUncreatableType<cutehmi::Project>(uri, 1, 0, "Project", QObject::tr("cutehmi::Project instances can not be created within QML."));
-	qmlRegisterUncreatableType<cutehmi::ProjectModel>(uri, 1, 0, "ProjectModel", QObject::tr("cutehmi::ProjectModel instances can not be created within QML."));
-	qmlRegisterUncreatableType<const cutehmi::ProjectNode>(uri, 1, 0, "ProjectNode", QObject::tr("cutehmi::ProjectNode instances can not be created within QML."));
-	qmlRegisterSingletonType<cutehmi::CuteHMI>(uri, 1, 0, "CuteHMI", CuteHMIProvider);
+	qmlRegisterType<cutehmi::Prompt>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "Prompt");
+	qmlRegisterType<cutehmi::Notification>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "Notification");
+	qmlRegisterUncreatableType<cutehmi::PopupBridge>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "PopupBridge", QObject::tr("cutehmi::PopupBridge instances can not be created within QML."));
+	qmlRegisterUncreatableType<cutehmi::NotificationManager>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "NotificationManager", QObject::tr("cutehmi::NotificationManager instances can not be created within QML."));
+	qmlRegisterUncreatableType<cutehmi::Project>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "Project", QObject::tr("cutehmi::Project instances can not be created within QML."));
+	qmlRegisterUncreatableType<cutehmi::ProjectModel>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "ProjectModel", QObject::tr("cutehmi::ProjectModel instances can not be created within QML."));
+	qmlRegisterUncreatableType<cutehmi::Plugin>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "Plugin", QObject::tr("cutehmi::Plugin instances can not be created within QML."));
+	qmlRegisterUncreatableType<const cutehmi::ProjectNode>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "ProjectNode", QObject::tr("cutehmi::ProjectNode instances can not be created within QML."));
+	qmlRegisterSingletonType<cutehmi::CuteHMI>(uri, CUTEHMI_MAJOR, CUTEHMI_1_CURRENT, "CuteHMI", CuteHMIProvider);
 }
 
 QObject * CuteHMIQMLPlugin::CuteHMIProvider(QQmlEngine * engine, QJSEngine * scriptEngine)

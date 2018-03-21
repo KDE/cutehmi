@@ -4,6 +4,9 @@
 #include "internal/common.hpp"
 
 #include <QObject>
+#include <QList>
+#include <QVariantMap>
+#include <QPluginLoader>
 
 #include <memory>
 
@@ -15,36 +18,82 @@ class CUTEHMI_API Plugin:
 	Q_OBJECT
 
 	public:
-		struct MetaData
+		Q_PROPERTY(QString binary READ binary CONSTANT)
+		Q_PROPERTY(QString fileName READ fileName CONSTANT)
+		Q_PROPERTY(QVariantMap metadata READ metadata CONSTANT)
+		Q_PROPERTY(bool implicitLoad READ implicitLoad CONSTANT)
+
+		class Metadata
 		{
-			QString id;
-			QString name;
-			int minor;
-			int micro;
+			public:
+				/**
+				 * Sanitize metadata. Checks if all required metadata is present. Provide fallbacks
+				 * if required metadata is missing.
+				 * @param binary binary name. This can be used as a fallback, if metadata does not
+				 * contain 'name' property. Function expects binary name to contain 'd' suffix
+				 * in debug mode, so in debug mode last character of the string will be chopped.
+				 * @param metadata metadata to sanitize.
+				 * @return sanitized metadata.
+				 */
+				static QVariantMap SanitizeMedatada(const QString & binary, const QVariantMap & metadata);
+
+				Metadata(const QString & binary, const QVariantMap & metadata);
+
+				const QVariantMap & data() const;
+
+				int minor() const;
+
+				int micro() const;
+
+			private:
+				QVariantMap m_data;
 		};
 
-		Plugin(const QString & binary, QObject * instance, const cutehmi::Plugin::MetaData & metaData, QObject * parent = 0);
+		static QString NameToBinary(const QString & name);
+
+		static QString NameFromBinary(const QString & binary);
+
+		static Metadata BinaryMetadata(const QString & binary);
+
+		static bool BinaryExists(const QString & binary);
+
+		static int CheckReqMinors(int reqMinor, QList<Metadata> & metadataList);
+
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, QObject * parent = 0);
+
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, const Metadata & metadata, QObject * parent = 0);
+
+		~Plugin() override;
 
 		const QString & binary() const;
 
+		QString fileName() const;
+
+		bool implicitLoad() const;
+
+		const QVariantMap & metadata() const;
+
+		const QPluginLoader & loader() const;
+
 		QObject * instance();
 
-		const QString & id() const;
+		QString name() const;
 
-		const QString & name() const;
+		QString friendlyName() const;
+
+		QString version() const;
 
 		int minor() const;
 
 		int micro() const;
 
-		QString version() const;
-
 	private:
 		struct Members
 		{
 			QString binary;
-			QObject * instance;
-			MetaData metaData;
+			std::unique_ptr<QPluginLoader> loader;
+			bool implicitLoad;
+			Metadata metadata;
 		};
 
 		MPtr<Members> m;

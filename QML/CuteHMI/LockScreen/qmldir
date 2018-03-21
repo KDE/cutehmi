@@ -4,7 +4,7 @@ LockScreen 1.0 LockScreen.qml
 LockScreenSettings 1.0 LockScreenSettings.qml
 LockScreenPopup 1.0 LockScreenPopup.qml
 ChangePasswordWizard 1.0 ChangePasswordWizard.qml
-plugin cutehmi_lockscreen_1_qml plugins
+plugin cutehmi_lockscreen_qml_1 plugins
 classname CuteHMILockScreenQMLPlugin
 typeinfo plugins.qmltypes
 designersupported

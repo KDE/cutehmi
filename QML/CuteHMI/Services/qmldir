@@ -1,5 +1,5 @@
 module CuteHMI.Services
 
-plugin cutehmi_services_1_qml plugins
+plugin cutehmi_services_qml_1 plugins
 classname CuteHMIServicesQMLPlugin
 designersupported

@@ -1,0 +1,6 @@
+#ifndef H_MODULES_CUTEHMI__APP__1_INCLUDE_CUTEHMI_APP_METADATA_HPP
+#define H_MODULES_CUTEHMI__APP__1_INCLUDE_CUTEHMI_APP_METADATA_HPP
+
+#include "../../../cutehmi.metadata.hpp"
+
+#endif // METADATA_HPP

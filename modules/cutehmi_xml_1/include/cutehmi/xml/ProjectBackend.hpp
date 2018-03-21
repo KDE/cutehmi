@@ -49,26 +49,6 @@ class CUTEHMI_XML_API ProjectBackend:
 				}
 		};
 
-		class MissingInterfaceException:
-			public Exception
-		{
-			public:
-				MissingInterfaceException(const QString & binary, const QString & pluginVersion, const QString & interface):
-					Exception(tr("Plugin '%1' version '%2' does not implement required interface '%3'.").arg(binary).arg(pluginVersion).arg(interface))
-				{
-				}
-		};
-
-		class MissingExtensionException:
-			public Exception
-		{
-			public:
-				MissingExtensionException(const QString & binary, const QString & pluginVersion, const QString & interface):
-					Exception(tr("Plugin '%1' version '%2' does not provide required extension '%3'.").arg(binary).arg(pluginVersion).arg(interface))
-				{
-				}
-		};
-
 		class DeviceOpenReadException:
 			public Exception
 		{

@@ -5,6 +5,6 @@ ColorSet 1.0 ColorSet.qml
 PropItem 1.0 PropItem.qml
 Element 1.0 Element.qml
 singleton Palette 1.0 Palette.qml
-plugin cutehmi_1_qml plugins
+plugin cutehmi_qml_1 plugins
 classname CuteHMIQMLPlugin
 designersupported

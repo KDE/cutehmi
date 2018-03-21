@@ -65,6 +65,8 @@ class InputRegisterController:
 	protected slots:
 		void onValueUpdated();
 
+		void onInputRegisterDestroyed();
+
 	protected:
 		void setBusy(bool busy);
 

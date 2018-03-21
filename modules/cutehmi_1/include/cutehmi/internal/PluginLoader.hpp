@@ -51,6 +51,26 @@ class PluginLoader:
 				}
 		};
 
+		class CUTEHMI_API BinaryAbsentException:
+			public Exception
+		{
+			public:
+				BinaryAbsentException(const QString & binary):
+					Exception(tr("Could not find '%1' plugin binary.").arg(binary))
+				{
+				}
+		};
+
+		class CUTEHMI_API LoadPrecedenceException:
+			public Exception
+		{
+			public:
+				LoadPrecedenceException(const QString & binary):
+					Exception(tr("Plugin '%1' have been implicitly loaded by dependant plugin, which disqualifies further explicit loading.").arg(binary))
+				{
+				}
+		};
+
 		typedef QVector<Plugin *> LoadedPluginsContainer;
 
 		explicit PluginLoader(QObject * parent = 0);
@@ -71,18 +91,20 @@ class PluginLoader:
 		void unloadPlugins();
 
 		/**
-		 * Get plugin.
+		 * Get loaded plugin.
 		 * @param binary name of plugin binary.
 		 * @return plugin object or @p nullptr if plugin has not been loaded.
 		 */
 		Plugin * plugin(const QString & binary);
 
-		Plugin::MetaData metaData(const QString & binary) const;
+		const LoadedPluginsContainer * loadedPlugins() const;
+
+	private:
+		void handleImplicitLoads(const Plugin & plugin) noexcept(false);
 
 	private:
 		struct Members
 		{
-			mutable QPluginLoader loader;
 			LoadedPluginsContainer loadedPlugins;
 		};
 

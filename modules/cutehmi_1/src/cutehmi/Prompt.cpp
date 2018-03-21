@@ -141,7 +141,7 @@ std::unique_ptr<Prompt> Prompt::clone() const
 {
 	std::unique_ptr<Prompt> clone(new Prompt);
 	*(clone->m) = *m;
-	return std::move(clone);
+	return clone;
 }
 
 Prompt::button_t Prompt::exec()
