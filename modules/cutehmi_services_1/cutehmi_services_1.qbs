@@ -4,6 +4,8 @@ ModuleLib {
 	name: "cutehmi_services_1"
 
 	files: [
+        "cutehmi_services_1.json",
+        "cutehmi_services_1.qrc",
         "include/cutehmi/services/Service.hpp",
         "include/cutehmi/services/ServiceRegistry.hpp",
         "include/cutehmi/services/internal/common.hpp",

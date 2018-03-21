@@ -4,6 +4,8 @@ ModuleLib {
 	name: "cutehmi_stupid_1"
 
 	files: [
+        "cutehmi_stupid_1.json",
+        "cutehmi_stupid_1.qrc",
         "include/cutehmi/stupid/Client.hpp",
         "include/cutehmi/stupid/DS18B20.hpp",
         "include/cutehmi/stupid/DS18B20History.hpp",

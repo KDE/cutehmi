@@ -4,6 +4,8 @@ ModuleLib {
 	name: "cutehmi_authssh_1"
 
 	files: [
+        "cutehmi_authssh_1.json",
+        "cutehmi_authssh_1.qrc",
         "include/cutehmi/authssh/AbstractChannel.hpp",
         "include/cutehmi/authssh/Client.hpp",
         "include/cutehmi/authssh/Exception.hpp",

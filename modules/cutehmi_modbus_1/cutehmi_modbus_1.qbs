@@ -4,6 +4,8 @@ ModuleLib {
 	name: "cutehmi_modbus_1"
 
 	files: [
+        "cutehmi_modbus_1.json",
+        "cutehmi_modbus_1.qrc",
         "include/cutehmi/modbus/AbstractDevice.hpp",
         "include/cutehmi/modbus/Client.hpp",
         "include/cutehmi/modbus/Coil.hpp",
