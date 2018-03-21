@@ -11,12 +11,13 @@ env:
   - QMAKE_ENV="CONFIG+=release"
 
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt592-trusty
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-trusty
   - sudo apt-get update -qq
 
 install:
   - sudo apt-get -y install qt59[QTPACKAGE]
   - sudo apt-get -y install qt59serialbus
+  - sudo apt-get -y install qt59creator
   - sudo apt-get -y install libssh-dev
   - git clone git://github.com/stephane/libmodbus.git
   - cd libmodbus
