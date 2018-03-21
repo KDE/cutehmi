@@ -1,4 +1,5 @@
 module CuteHMI.Charts
+
 plugin cutehmi_charts_qml_1 plugins
 classname CuteHMIChartsQMLPlugin
 typeinfo plugins.qmltypes

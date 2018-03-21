@@ -1,0 +1,43 @@
+--- old/0004-fix-gl_cv_prog_as_underscore-test.patch	2018-06-19 16:06:07 +0000
++++ new/0004-fix-gl_cv_prog_as_underscore-test.patch	2018-06-20 11:02:21 +0000
+@@ -1,5 +1,5 @@
+---- a/gettext-runtime/gnulib-m4/asm-underscore.m4	Sat Jun 11 14:59:32 2016
+-+++ b/gettext-runtime/gnulib-m4/asm-underscore.m4	Mon Jul 11 11:14:31 2016
++--- a/gettext-runtime/gnulib-m4/asm-underscore.m4	Sat Jun 11 12:59:32 2016
+++++ b/gettext-runtime/gnulib-m4/asm-underscore.m4	Sat Jun 11 12:59:32 2016
+ @@ -27,11 +27,11 @@
+  #endif
+  int foo(void) { return 0; }
+@@ -13,8 +13,8 @@
+         gl_cv_prog_as_underscore=no
+       fi
+       rm -f conftest*
+---- a/gettext-runtime/configure	Sat Jun 11 15:00:53 2016
+-+++ b/gettext-runtime/configure	Mon Jul 11 11:13:30 2016
++--- a/gettext-runtime/configure	Sat Jun 11 13:00:53 2016
+++++ b/gettext-runtime/configure	Sat Jun 11 13:00:53 2016
+ @@ -24601,11 +24601,11 @@
+    { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_try\""; } >&5
+    (eval $ac_try) 2>&5
+@@ -28,8 +28,8 @@
+         gl_cv_prog_as_underscore=no
+       fi
+       rm -f conftest*
+---- a/gettext-tools/gnulib-m4/asm-underscore.m4	Sat Jun 11 15:00:02 2016
+-+++ b/gettext-tools/gnulib-m4/asm-underscore.m4	Mon Jul 11 11:12:41 2016
++--- a/gettext-tools/gnulib-m4/asm-underscore.m4	Sat Jun 11 13:00:02 2016
+++++ b/gettext-tools/gnulib-m4/asm-underscore.m4	Sat Jun 11 13:00:02 2016
+ @@ -27,11 +27,11 @@
+  #endif
+  int foo(void) { return 0; }
+@@ -43,8 +43,8 @@
+         gl_cv_prog_as_underscore=no
+       fi
+       rm -f conftest*
+---- a/gettext-tools/configure	Sat Jun 11 15:01:07 2016
+-+++ b/gettext-tools/configure	Mon Jul 11 11:13:07 2016
++--- a/gettext-tools/configure	Sat Jun 11 13:01:07 2016
+++++ b/gettext-tools/configure  Sat Jun 11 13:01:07 2016
+ @@ -32284,11 +32284,11 @@
+    { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_try\""; } >&5
+    (eval $ac_try) 2>&5

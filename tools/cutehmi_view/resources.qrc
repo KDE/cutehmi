@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/icon.png</file>
+        <file>qml/MainWindow.qml</file>
+        <file>qml/DefaultScreen.qml</file>
+        <file>qml/PromptDialog.qml</file>
+        <file>qml/NotificationListView.qml</file>
+    </qresource>
+</RCC>

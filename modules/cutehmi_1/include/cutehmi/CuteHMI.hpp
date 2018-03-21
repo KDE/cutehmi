@@ -10,22 +10,31 @@
 
 namespace cutehmi {
 
+/**
+ * %CuteHMI singleton. This is a cornerstone object, which acts as a bridge
+ * between various parts of the framework. It exposes essential properties to
+ * frontend applications, plugins and QML components.
+ *
+ * To retrieve singleton use Instance() function. Frontend applications (tools)
+ * may need to call Destroy() function to satisfy destruction order
+ * requirements.
+ */
 class CUTEHMI_API CuteHMI:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(Project * project READ project CONSTANT)
-		Q_PROPERTY(PopupBridge * popupBridge READ popupBridge CONSTANT)
-		Q_PROPERTY(NotificationManager * notificationManager READ notificationManager CONSTANT)
+		Q_PROPERTY(Project * project READ project CONSTANT)	///< %Project. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
+		Q_PROPERTY(PopupBridge * popupBridge READ popupBridge CONSTANT)	///< %Popup bridge. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
+		Q_PROPERTY(NotificationManager * notificationManager READ notificationManager CONSTANT) ///< %Notification manager. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
 
 		/**
 		 * Get instance. Gets a reference to the instance of the singleton class.
 		 * Calling this function for the first time will also result in registering
 		 * some types with qRegisterMetaType() function. Types that are registered:
 		 *	- cutehmi::ErrorInfo
-		 *  - cutehmi::Prompt::button_t
+		 *  - cutehmi::Prompt::Button
 		 *	- const cutehmi::ProjectNode *
 		 *  .
 		 *
@@ -49,18 +58,42 @@ class CUTEHMI_API CuteHMI:
 		 * Destroy instance. This function is provided to satisfy the requirement that
 		 * QApplication has to be first created and last destroyed QObject.
 		 * Once this function is called singleton becomes unusable.
+		 *
+		 * @note Only frontend applications, which instantiate QApplication should take care about
+		 * this function.
 		 */
 		static void Destroy();
 
+		/**
+		 * Get project.
+		 * @return project.
+		 */
 		Project * project() const;
 
+		/**
+		 * Get popup bridge.
+		 * @return popup bridge.
+		 */
 		PopupBridge * popupBridge() const;
 
+		/**
+		 * Get notification manager.
+		 * @return notification manager.
+		 */
 		NotificationManager * notificationManager() const;
 
 	protected:
+		/**
+		 * Default constructor.
+		 */
 		CuteHMI();
 
+		/**
+		 * Get instance pointer.
+		 * @return instance pointer.
+		 *
+		 * @note This is provided as a workaround (id="cutehmi_1-2").
+		 */
 		static std::unique_ptr<CuteHMI> & InstancePtr();
 
 	private:
@@ -78,5 +111,5 @@ class CUTEHMI_API CuteHMI:
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -54,7 +54,11 @@ void Client::moveDatabaseConnectionData(std::unique_ptr<stupid::DatabaseConnecti
 
 void Client::checkDatabaseConnectionStatus()
 {
-	m->sqlErrors.push_back(QSqlDatabase::database(m->dbThread.dbData()->connectionName, false).lastError());
+	internal::Worker dbWorker([this]() {
+		m->sqlErrors.push_back(QSqlDatabase::database(m->dbThread.dbData()->connectionName, false).lastError());
+	});
+	dbWorker.employ(m->dbThread);
+	dbWorker.wait();
 	processSQLErrors();
 }
 
@@ -168,5 +172,5 @@ void Client::clearDevices()
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

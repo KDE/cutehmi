@@ -1,0 +1,299 @@
+C_DIR := $(patsubst %/,%,$(realpath C:/))
+
+MINGW_DIR = $(C_DIR)/MinGW
+MINGW_BIN_DIR = $(MINGW_DIR)/bin
+MINGW_GET = $(MINGW_BIN_DIR)/mingw-get.exe
+
+MSYS_DIR = $(MINGW_DIR)/msys/1.0
+MSYS_BIN_DIR = $(MSYS_DIR)/bin
+
+PATH := $(MSYS_BIN_DIR):$(PATH)
+MAKE_BUILD_JOBS = 1
+
+# msysCORE-bin
+ERROR-MODE = $(MSYS_BIN_DIR)/error-mode.exe
+MSYSMNT = $(MSYS_BIN_DIR)/msysmnt.exe
+PS = $(MSYS_BIN_DIR)/ps.exe
+
+# msysCORE-ext
+CLS = $(MSYS_BIN_DIR)/cls
+CLSB = $(MSYS_BIN_DIR)/clsb
+CMD = $(MSYS_BIN_DIR)/cmd
+FTP = $(MSYS_BIN_DIR)/ftp
+LNKCNV = $(MSYS_BIN_DIR)/lnkcnv
+MOUNT = $(MSYS_BIN_DIR)/mount
+MSYSINFO = $(MSYS_BIN_DIR)/msysinfo
+START = $(MSYS_BIN_DIR)/start
+UMOUNT = $(MSYS_BIN_DIR)/umount
+WHICH = $(MSYS_BIN_DIR)/which
+
+# msys-awk-bin
+AWK = $(MSYS_BIN_DIR)/awk.exe
+GAWK = $(MSYS_BIN_DIR)/gawk.exe
+PGAWK = $(MSYS_BIN_DIR)/pgawk.exe
+
+# msys-bash-bin
+SH = $(MSYS_BIN_DIR)/sh.exe
+BASH = $(MSYS_BIN_DIR)/bash.exe
+
+# msys-bzip2-bin
+BUNZIP2 = $(MSYS_BIN_DIR)/bunzip2.exe
+BZCAT = $(MSYS_BIN_DIR)/bzcat.exe
+BZIP2 = $(MSYS_BIN_DIR)/bzip2.exe
+BZIP2RECOVER = $(MSYS_BIN_DIR)/bzip2recover.exe
+
+# msys-coreutils-bin
+BASENAME = $(MSYS_BIN_DIR)/basename.exe
+CAT = $(MSYS_BIN_DIR)/cat.exe
+CHMOD = $(MSYS_BIN_DIR)/chmod.exe
+CP = $(MSYS_BIN_DIR)/cp.exe
+CUT = $(MSYS_BIN_DIR)/cut.exe
+DATE = $(MSYS_BIN_DIR)/date.exe
+DIRNAME = $(MSYS_BIN_DIR)/dirname.exe
+ECHO = $(MSYS_BIN_DIR)/echo.exe
+ENV = $(MSYS_BIN_DIR)/env.exe
+EXPR = $(MSYS_BIN_DIR)/expr.exe
+FALSE = $(MSYS_BIN_DIR)/false.exe
+FOLD = $(MSYS_BIN_DIR)/fold.exe
+HEAD = $(MSYS_BIN_DIR)/head.exe
+ID = $(MSYS_BIN_DIR)/id.exe
+INSTALL = $(MSYS_BIN_DIR)/install.exe
+JOIN = $(MSYS_BIN_DIR)/join.exe
+LN = $(MSYS_BIN_DIR)/ln.exe
+LS = $(MSYS_BIN_DIR)/ls.exe
+MD5SUM = $(MSYS_BIN_DIR)/md5sum.exe
+MKDIR = $(MSYS_BIN_DIR)/mkdir.exe
+MV = $(MSYS_BIN_DIR)/mv.exe
+PASTE = $(MSYS_BIN_DIR)/paste.exe
+PRINTF = $(MSYS_BIN_DIR)/printf.exe
+PWD = $(MSYS_BIN_DIR)/pwd.exe
+RM = $(MSYS_BIN_DIR)/rm.exe
+RMDIR = $(MSYS_BIN_DIR)/rmdir.exe
+SLEEP = $(MSYS_BIN_DIR)/sleep.exe
+SORT = $(MSYS_BIN_DIR)/sort.exe
+SPLIT = $(MSYS_BIN_DIR)/split.exe
+STTY = $(MSYS_BIN_DIR)/stty.exe
+TAIL = $(MSYS_BIN_DIR)/tail.exe
+TEE = $(MSYS_BIN_DIR)/tee.exe
+TOUCH = $(MSYS_BIN_DIR)/touch.exe
+TR = $(MSYS_BIN_DIR)/tr.exe
+TRUE = $(MSYS_BIN_DIR)/true.exe
+UNAME = $(MSYS_BIN_DIR)/uname.exe
+UNIQ = $(MSYS_BIN_DIR)/uniq.exe
+WC = $(MSYS_BIN_DIR)/wc.exe
+
+# msys-coreutils-ext
+[ = $(MSYS_BIN_DIR)/[.exe
+CHGRP = $(MSYS_BIN_DIR)/chgrp.exe
+CHOWN = $(MSYS_BIN_DIR)/chown.exe
+CHROOT = $(MSYS_BIN_DIR)/chroot.exe
+CKSUM = $(MSYS_BIN_DIR)/cksum.exe
+CSPLIT = $(MSYS_BIN_DIR)/csplit.exe
+DD = $(MSYS_BIN_DIR)/dd.exe
+DF = $(MSYS_BIN_DIR)/df.exe
+DIR = $(MSYS_BIN_DIR)/dir.exe
+DIRCOLORS = $(MSYS_BIN_DIR)/dircolors.exe
+DU = $(MSYS_BIN_DIR)/du.exe
+EXPAND = $(MSYS_BIN_DIR)/expand.exe
+FACTOR = $(MSYS_BIN_DIR)/factor.exe
+FMT = $(MSYS_BIN_DIR)/fmt.exe
+GROUPS = $(MSYS_BIN_DIR)/groups
+HOSTNAME = $(MSYS_BIN_DIR)/hostname.exe
+KILL = $(MSYS_BIN_DIR)/kill.exe
+LINK = $(MSYS_BIN_DIR)/link.exe
+LOGNAME = $(MSYS_BIN_DIR)/logname.exe
+MKFIFO = $(MSYS_BIN_DIR)/mkfifo.exe
+MKNOD = $(MSYS_BIN_DIR)/mknod.exe
+NICE = $(MSYS_BIN_DIR)/nice.exe
+NL = $(MSYS_BIN_DIR)/nl.exe
+NOHUP = $(MSYS_BIN_DIR)/nohup.exe
+PATHCHK = $(MSYS_BIN_DIR)/pathchk.exe
+PINKY = $(MSYS_BIN_DIR)/pinky.exe
+PR = $(MSYS_BIN_DIR)/pr.exe
+PRINTENV = $(MSYS_BIN_DIR)/printenv.exe
+PTX = $(MSYS_BIN_DIR)/ptx.exe
+READLINK = $(MSYS_BIN_DIR)/readlink.exe
+SEQ = $(MSYS_BIN_DIR)/seq.exe
+SHA1SUM = $(MSYS_BIN_DIR)/sha1sum.exe
+SHRED = $(MSYS_BIN_DIR)/shred.exe
+STAT = $(MSYS_BIN_DIR)/stat.exe
+SU = $(MSYS_BIN_DIR)/su.exe
+SUM = $(MSYS_BIN_DIR)/sum.exe
+SYNC = $(MSYS_BIN_DIR)/sync.exe
+TAC = $(MSYS_BIN_DIR)/tac.exe
+TEST = $(MSYS_BIN_DIR)/test.exe
+TSORT = $(MSYS_BIN_DIR)/tsort.exe
+TTY = $(MSYS_BIN_DIR)/tty.exe
+UNEXPAND = $(MSYS_BIN_DIR)/unexpand.exe
+UNLINK = $(MSYS_BIN_DIR)/unlink.exe
+USERS = $(MSYS_BIN_DIR)/users.exe
+VDIR = $(MSYS_BIN_DIR)/vdir.exe
+WHO = $(MSYS_BIN_DIR)/who.exe
+WHOAMI = $(MSYS_BIN_DIR)/whoami.exe
+YES = $(MSYS_BIN_DIR)/yes.exe
+
+# msys-diffutils-bin
+CMP = $(MSYS_BIN_DIR)/cmp.exe
+DIFF = $(MSYS_BIN_DIR)/diff.exe
+DIFF3 = $(MSYS_BIN_DIR)/diff3.exe
+SDIFF = $(MSYS_BIN_DIR)/sdiff.exe
+
+# msys-file-bin
+FILE = $(MSYS_BIN_DIR)/file.exe
+
+# msys-findutils-bin
+FIND = $(MSYS_BIN_DIR)/find.exe
+OLDFIND  = $(MSYS_BIN_DIR)/oldfind.exe
+XARGS = $(MSYS_BIN_DIR)/xargs.exe
+
+# msys-gzip-bin
+GZIP = $(MSYS_BIN_DIR)/gzip.exe
+
+# msys-grep-bin
+EGREP = $(MSYS_BIN_DIR)/egrep.exe
+FGREP = $(MSYS_BIN_DIR)/fgrep.exe
+GREP = $(MSYS_BIN_DIR)/grep.exe
+
+# msys-groff
+EQN = $(MSYS_BIN_DIR)/eqn.exe
+GROFF = $(MSYS_BIN_DIR)/groff.exe
+GROPS = $(MSYS_BIN_DIR)/grops.exe
+GROTTY = $(MSYS_BIN_DIR)/grotty.exe
+PIC = $(MSYS_BIN_DIR)/pic.exe
+PRECONV = $(MSYS_BIN_DIR)/preconv.exe
+SOELIM = $(MSYS_BIN_DIR)/soelim.exe
+TBL = $(MSYS_BIN_DIR)/tbl.exe
+TROFF = $(MSYS_BIN_DIR)/troff.exe
+
+# msys-less-bin
+LESS = $(MSYS_BIN_DIR)/less.exe
+LESSECHO = $(MSYS_BIN_DIR)/lessecho.exe
+LESSKEY = $(MSYS_BIN_DIR)/lesskey.exe
+
+# msys-make-bin
+MAKE = $(MSYS_BIN_DIR)/make.exe
+
+# msys-patch-bin
+PATCH = $(MSYS_BIN_DIR)/patch.exe
+
+# msys-perl-bin
+A2P = $(MSYS_BIN_DIR)/a2p.exe
+PERL = $(MSYS_BIN_DIR)/perl.exe
+
+# msys-sed-bin
+SED = $(MSYS_BIN_DIR)/sed.exe
+
+# msys-tar-bin
+TAR = $(MSYS_BIN_DIR)/tar.exe
+
+# msys-wget-bin
+WGET = $(MSYS_BIN_DIR)/wget.exe
+
+# msys-xz-bin
+LZCAT = $(MSYS_BIN_DIR)/lzcat.exe
+LZMA = $(MSYS_BIN_DIR)/lzma.exe
+LZMADEC = $(MSYS_BIN_DIR)/lzmadec.exe
+LZMAINFO = $(MSYS_BIN_DIR)/lzmainfo.exe
+UNLZMA = $(MSYS_BIN_DIR)/unlzma.exe
+UNXZ = $(MSYS_BIN_DIR)/unxz.exe
+XZ = $(MSYS_BIN_DIR)/xz.exe
+XZCAT = $(MSYS_BIN_DIR)/xzcat.exe
+XZDEC = $(MSYS_BIN_DIR)/xzdec.exe
+
+
+.PHONY: msys-awk-bin msys-bash-bin msys-bzip2-bin msys-coreutils-bin \
+msys-coreutils-ext msys-diffutils-bin msys-file-bin msys-findutils-bin \
+msys-grep-bin msys-groff-bin msys-gzip-bin msys-less-bin msys-make-bin \
+msys-patch-bin msys-perl-bin msys-sed-bin msys-tar-bin msys-wget-bin \
+msys-xz-bin msysCORE-bin \
+doublequotes_bug_check
+
+$(MINGW_GET):
+	$(info --------------------------------------------------------------------------------)
+	$(info Program 'mingw-get' not found!)
+	$(info Download it from: https://sourceforge.net/projects/mingw/files/latest/download.)
+	$(info If 'mingw-get' is installed in custom location, then override MINGW_DIR variable.)
+	$(info MINGW_DIR = "$(MINGW_DIR)")
+	$(error MINGW_GET = $(MINGW_GET) not found)
+
+msys-awk-bin $(AWK) $(GAWK) $(PGAWK): | $(MINGW_GET)
+	$(MINGW_GET) install msys-awk-bin
+
+msys-bash-bin $(SH) $(BASH): | $(MINGW_GET)
+	$(MINGW_GET) install msys-bash-bin
+
+msys-bzip2-bin $(BUNZIP2) $(BZCAT) $(BZIP2) $(BZIP2RECOVER): | $(MINGW_GET)
+	$(MINGW_GET) install msys-bzip2-bin
+
+msys-coreutils-bin $(BASENAME) $(CAT) $(CHMOD) $(CP) $(CUT) $(DATE) $(DIRNAME) \
+$(ECHO) $(ENV) $(EXPR) $(FALSE) $(FOLD) $(HEAD) $(ID) $(INSTALL) $(JOIN) $(LN) \
+$(LS) $(MD5SUM) $(MKDIR) $(MV) $(PASTE) $(PRINTF) $(PWD) $(RM) $(RMDIR) \
+$(SLEEP) $(SORT) $(SPLIT) $(STTY) $(TAIL) $(TEE) $(TOUCH) $(TR) $(TRUE) \
+$(UNAME) $(UNIQ) $(WC): | $(MINGW_GET)
+	$(MINGW_GET) install msys-coreutils-bin
+
+msys-coreutils-ext $([) $(CHGRP) $(CHOWN) $(CHROOT) $(CKSUM) $(CSPLIT) $(DD) \
+$(DF) $(DIR) $(DIRCOLORS) $(DU) $(EXPAND) $(FACTOR) $(FMT) $(GROUPS) \
+$(HOSTNAME) $(KILL) $(LINK) $(LOGNAME) $(MKFIFO) $(MKNOD) $(NICE) $(NL) \
+$(NOHUP) $(PATHCHK) $(PINKY) $(PR) $(PRINTENV) $(PTX) $(READLINK) $(SEQ) \
+$(SHA1SUM) $(SHRED) $(STAT) $(SU) $(SUM) $(SYNC) $(TAC) $(TEST) $(TSORT) \
+$(TTY) $(UNEXPAND) $(UNLINK) $(USERS) $(VDIR) $(WHO) $(WHOAMI) $(YES): | $(MINGW_GET)
+	$(MINGW_GET) install msys-coreutils-ext
+
+msys-diffutils-bin $(CMP) $(DIFF) $(DIFF3) $(SDIFF): | $(MINGW_GET)
+	$(MINGW_GET) install msys-diffutils-bin
+
+msys-file-bin $(FILE): | $(MINGW_GET)
+	$(MINGW_GET) install msys-file-bin
+
+msys-findutils-bin $(FIND) $(OLDFIND) $(XARGS): | $(MINGW_GET)
+	$(MINGW_GET) install msys-findutils-bin
+
+msys-grep-bin $(EGREP) $(FGREP) $(GREP): | $(MINGW_GET)
+	$(MINGW_GET) install msys-grep-bin
+
+msys-groff-bin $(EQN) $(GROFF) $(GROPS) $(GROTTY) $(PIC) $(PRECONV) $(SOELIM) \
+$(TBL) $(TROFF): | $(MINGW_GET)
+	$(MINGW_GET) install msys-groff-bin
+
+msys-gzip-bin $(GZIP): | $(MINGW_GET)
+	$(MINGW_GET) install msys-gzip-bin
+
+msys-less-bin $(LESS) $(LESSECHO) $(LESSKEY): | $(MINGW_GET)
+	$(MINGW_GET) install msys-less-bin
+	
+msys-make-bin $(MAKE): | $(MINGW_GET)
+	$(MINGW_GET) install msys-make-bin
+
+msys-patch-bin $(PATCH): | $(MINGW_GET)
+	$(MINGW_GET) install msys-patch-bin
+
+msys-perl-bin $(A2P) $(PERL): | $(MINGW_GET)
+	$(MINGW_GET) install msys-perl-bin
+
+msys-sed-bin $(SED): | $(MINGW_GET)
+	$(MINGW_GET) install msys-sed-bin
+
+msys-tar-bin $(TAR): | $(MINGW_GET)
+	$(MINGW_GET) install msys-tar-bin
+
+msys-wget-bin $(WGET): | $(MINGW_GET)
+	$(MINGW_GET) install msys-wget-bin
+
+msys-xz-bin $(LZCAT) $(LZMA) $(LZMADEC) $(LZMAINFO) $(UNLZMA) $(UNXZ) $(XZ) \
+$(XZCAT) $(XZDEC): | $(MINGW_GET)
+	$(MINGW_GET) install msys-xz-bin
+
+msysCORE-bin $(ERROR-MODE) $(MSYSMNT) $(PS): | $(MINGW_GET)
+	$(MINGW_GET) install msysCORE-bin
+
+msysCORE-ext $(CLS) $(CLSB) $(CMD) $(FTP) $(LNKCNV) $(MOUNT) $(MSYSINFO) \
+$(START) $(UMOUNT) $(WHICH): | $(MINGW_GET)
+	$(MINGW_GET) install msysCORE-ext
+
+doublequotes_bug_check: | $(ECHO)
+ifeq ($(shell $(ECHO) \"),\)
+	$(info $(shell $(MAKE) --version) does not handle \" properly, which may cause build problems.)
+	$(error Please use MSYS version of Make, which can be installed by 'msys-make-bin' target)
+endif
+

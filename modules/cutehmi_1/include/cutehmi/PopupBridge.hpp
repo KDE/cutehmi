@@ -9,6 +9,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Popup bridge.
+ */
 class CUTEHMI_API PopupBridge:
 	public QObject
 {
@@ -22,7 +25,7 @@ class CUTEHMI_API PopupBridge:
 		 * @param prompt_l prompt to advertise. Parameter will be used locally by this function.
 		 * It's passed by a pointer instead of a reference for easier integration with QML.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		Q_INVOKABLE void advertise(Prompt * prompt_l);
 
@@ -45,5 +48,5 @@ class CUTEHMI_API PopupBridge:
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

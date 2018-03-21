@@ -17,9 +17,9 @@ class CUTEHMI_SERVICES_API Service:
 
 	public:
 		Q_PROPERTY(QString name READ name NOTIFY nameChanged)
-		Q_PROPERTY(state_t state READ state NOTIFY stateChanged)
+		Q_PROPERTY(State state READ state NOTIFY stateChanged)
 
-		enum state_t : int {
+		enum State : int {
 			STOPPED,
 			STOPPING,
 			STARTED,
@@ -27,10 +27,10 @@ class CUTEHMI_SERVICES_API Service:
 			BROKEN,
 			REPAIRING
 		};
-		Q_ENUM(state_t)
+		Q_ENUM(State)
 
 		static constexpr const char * INITIAL_NAME = "Unnamed service";
-		static constexpr state_t INITIAL_STATE = STOPPED;
+		static constexpr State INITIAL_STATE = STOPPED;
 
 		Service(const QString & name = INITIAL_NAME, QObject * parent = 0);
 
@@ -38,7 +38,7 @@ class CUTEHMI_SERVICES_API Service:
 
 		void setName(const QString & name);
 
-		state_t state() const;
+		State state() const;
 
 	public slots:
 		void start();
@@ -48,14 +48,14 @@ class CUTEHMI_SERVICES_API Service:
 	signals:
 		void nameChanged();
 
-		void stateChanged(state_t oldState, state_t newState);
+		void stateChanged(State oldState, State newState);
 
 	protected:
 		/**
 		 * Set state.
 		 * @param state state of the service.
 		 */
-		void setState(state_t state);
+		void setState(State state);
 
 		/**
 		 * Custom start. Override this function to provide start procedure.
@@ -68,7 +68,7 @@ class CUTEHMI_SERVICES_API Service:
 		 * appropriate state (@p STARTED or @p STOPPED) should be set later, using setState() function.
 		 * Default implementation returns @p STARTED value.
 		 */
-		virtual state_t customStart();
+		virtual State customStart();
 
 		/**
 		 * Custom stop. Override this function to provide custom stop procedure.
@@ -82,13 +82,13 @@ class CUTEHMI_SERVICES_API Service:
 		 * function should return @p STOPPING value and @p STOPPED state should be set later, using setState() function.
 		 * Default implementation returns @p STOPPED value.
 		 */
-		virtual state_t customStop();
+		virtual State customStop();
 
 	private:
 		struct Members
 		{
 			QString name;
-			state_t state;
+			State state;
 		};
 
 		MPtr<Members> m;
@@ -99,5 +99,5 @@ class CUTEHMI_SERVICES_API Service:
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -16,7 +16,7 @@ namespace plugin {
 void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-	node.addExtension(pluginNodeData->xmlBackendPlugin());
+	node.registerExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
@@ -64,7 +64,7 @@ void ProjectPlugin::parseScreens(const xml::ParseHelper & parentHelper, ProjectN
 	}
 
 	if (!xmlReader.hasError()) {
-		node.addExtension(mainScreen.get());
+		node.registerExtension(mainScreen.get());
 
 		screensNodeData.reset(new ScreensNodeData(std::move(mainScreen)));
 		node.data().append(std::move(screensNodeData));
@@ -75,5 +75,5 @@ void ProjectPlugin::parseScreens(const xml::ParseHelper & parentHelper, ProjectN
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

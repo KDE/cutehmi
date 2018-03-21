@@ -5,7 +5,11 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_stupid_1"
 
-	version: "0.0"
+	condition: cutehmi.libpq.available
+
+	minor: 0
+
+	micro: 0
 
 	friendlyName: "STUPiD"
 
@@ -57,20 +61,35 @@ cutehmi.Module {
 	Depends { name: "Qt.concurrent" }
 	Depends { name: "Qt.sql" }
 
-//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi.libpq" }
 
-	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
-	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.version: "0.0"
-	Depends { name: "cutehmi_services_1"; cutehmi.metadata.add: true } cutehmi_services_1.version: "0.0"
-	Depends { name: "cutehmi_charts_1"; cutehmi.metadata.add: true } cutehmi_charts_1.version: "0.0"
+//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
+
+	Depends { name: "cutehmi_1" }
+	cutehmi_1.reqMinor: 0
+
+	Depends { name: "cutehmi_xml_1" }
+	cutehmi_xml_1.reqMinor: 0
+
+	Depends { name: "cutehmi_services_1" }
+	cutehmi_services_1.reqMinor: 0
+
+	Depends { name: "cutehmi_charts_1" }
+	cutehmi_charts_1.reqMinor: 0
 
 	Export {
 		Depends { name: "Qt.concurrent" }
 		Depends { name: "Qt.sql" }
 
-		Depends { name: "cutehmi_1" } cutehmi_1.version: "0.0"
-		Depends { name: "cutehmi_charts_1" } cutehmi_charts_1.version: "0.0"
+		Depends { name: "cutehmi_1" }
+		cutehmi_1.reqMinor: 0
+
+		Depends { name: "cutehmi_charts_1" }
+		cutehmi_charts_1.reqMinor: 0
 	}
 
 //</workaround>
 }
+
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

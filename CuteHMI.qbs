@@ -12,4 +12,8 @@ Project {
 	SubProject {
 		filePath: "QML/QML.qbs"
 	}
+
+	SubProject {
+		filePath: "examples/examples.qbs"
+	}
 }

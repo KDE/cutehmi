@@ -40,10 +40,12 @@
 
 function create_guard_macro(prefix, filename)
 {
+    double_underscore = toupper(filename);
     # just in case, double single underscores
-    double_underscore = gensub(/_/, "__", "g", toupper(filename));
+    gsub(/_/, "__", double_underscore);
     # \/ = slash (/), \. = dot (.), \\ = backslash (\) - replace them with underscore.
-    return prefix gensub(/[\/\.\\]/, "_", "g", double_underscore);
+    gsub(/[\/\.\\]/, "_", double_underscore);
+    return prefix double_underscore;
 }
 
 function create_guard(prefix, filename)
@@ -81,7 +83,7 @@ BEGIN {
     state = S_START;
 }
  
-/^#ifndef[[:space:]].*/ {
+/^#ifndef[\t ].*/ {
     if (state == S_START) {
         ifndef_buf = $0;
         state = S_FIRST_IFNDEF;
@@ -89,7 +91,7 @@ BEGIN {
     }
 }
 
-/^#define[[:space:]].*/ {
+/^#define[\t ].*/ {
     if (state == S_FIRST_IFNDEF) {
         #eat old guard and replace it with new one
         print_or_buf(create_guard(prefix, FILENAME));
@@ -100,7 +102,7 @@ BEGIN {
         state = S_END;
 }
 
-/^#endif[[:space:]].*/ {
+/^#endif[\t ].*/ {
     #flush old buffer and whatever was in endif line
     if (global_buf_mode) {
         print endif_line;

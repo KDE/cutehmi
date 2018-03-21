@@ -27,7 +27,7 @@ unsigned long AsyncConnector::daemonSleep() const
 	return m_daemonSleep;
 }
 
-AsyncConnector::status_t AsyncConnector::status() const
+AsyncConnector::Status AsyncConnector::status() const
 {
 	return m_status;
 }
@@ -81,5 +81,5 @@ void AsyncConnector::connect()
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

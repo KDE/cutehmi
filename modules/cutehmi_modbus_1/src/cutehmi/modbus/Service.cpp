@@ -81,7 +81,7 @@ void Service::setSleep(unsigned long sleep)
 	m->thread->setSleep(sleep);
 }
 
-Service::state_t Service::customStart()
+Service::State Service::customStart()
 {
 	setState(STARTING);
 	if (m->sm.isRunning())
@@ -91,7 +91,7 @@ Service::state_t Service::customStart()
 	return state();
 }
 
-Service::state_t Service::customStop()
+Service::State Service::customStop()
 {
 	setState(STOPPING);
 	emit customStopRequested();
@@ -158,5 +158,5 @@ constexpr int Service::INITIAL_BROKEN_SERVICE_WAIT;
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

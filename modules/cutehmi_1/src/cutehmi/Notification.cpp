@@ -3,7 +3,7 @@
 
 namespace cutehmi {
 
-Notification::Notification(type_t type, const QString & text, QObject * parent):
+Notification::Notification(Type type, const QString & text, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, QDateTime::currentDateTime()})
 {
@@ -32,12 +32,12 @@ void Notification::Critical(const ErrorInfo & errorInfo)
 	return Critical(errorInfo.toString());
 }
 
-Notification::type_t Notification::type() const
+Notification::Type Notification::type() const
 {
 	return m->type;
 }
 
-void Notification::setType(type_t type)
+void Notification::setType(Type type)
 {
 	if (m->type != type) {
 		m->type = type;
@@ -72,5 +72,5 @@ std::unique_ptr<Notification> Notification::clone() const
 
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

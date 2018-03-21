@@ -2,10 +2,14 @@ import qbs
 
 import cutehmi
 
-cutehmi.QMLPlugin {
-	name: "cutehmi_lockscreen_qml_1"
+cutehmi.QMLExtension {
+	name: "CuteHMI.LockScreen"
 
-	version: "0.0"
+	major: 1
+
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 
@@ -25,7 +29,6 @@ cutehmi.QMLPlugin {
         "LockScreen.qml",
         "LockScreenPopup.qml",
         "LockScreenSettings.qml",
-        "plugins.qmltypes",
         "qmldir",
         "src/CuteHMILockScreenQMLPlugin.cpp",
         "src/CuteHMILockScreenQMLPlugin.hpp",
@@ -39,3 +42,5 @@ cutehmi.QMLPlugin {
 	Depends { name: "Qt.qml" }
 }
 
+//(c)WZMP: Copyright © 2018, Wojciech Zygmuntowicz, Michal Policht. All rights reserved.
+//(c)WZMP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

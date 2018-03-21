@@ -1,0 +1,6 @@
+LIBSSH2_DEPLOY_DIR = $(DEPLOY_DIR)
+LIBSSH2_INSTALL_DIR = $(INSTALL_DIR)/libssh2
+
+$(LIBSSH2_INSTALL_DIR):
+	$(MAKE) -C ../libssh2 buildinstall
+

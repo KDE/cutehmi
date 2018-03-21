@@ -1,16 +1,39 @@
 # CuteHMI
 
+<!-- CUT HERE -->
+<!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
+<div class="doxygen_github_hack" style="font-size: 0px">
+
+[//]: # (\htmlonly)
+
+[![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-blue.svg)](https://opensource.org/licenses/MPL-2.0)
 [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master)](https://travis-ci.org/michpolicht/CuteHMI)
 
-CuteHMI is an open-source HMI (Human Machine Interface) software written in C++ and QML, using Qt library as a framework.
+[//]: # (\endhtmlonly)
+</div>
+<!-- CUT HERE -->
 
-Note: While most of the project uses Mozilla Public License, v. 2.0, some files are distributed under different licenses.
+CuteHMI is an open-source HMI (Human Machine Interface) software written in C++
+and QML, using Qt libraries as a framework.
+
+Note: While most of the project uses Mozilla Public License, v. 2.0, some files
+are distributed under different licenses.
 
 ## Compiling
 
-1. Get the Qt framework. Open-source and commercial editions can be obtained from https://www.qt.io/. Qt can also be shipped with Linux distribution.
+1. Get the Qt toolkit. Open-source and commercial editions can be obtained from
+https://www.qt.io/. Qt can also be shipped with Linux distribution.
 
-2. Modbus components still use libmodbus library (http://libmodbus.org/). On Linux one can run following commands.
+2. Open `CuteHMI.qbs` file with *QtCreator* and simply build it.
+
+3. All modules dependent on external libraries will be disabled, if these
+libraries could not be found. To make the process of finding the libraries
+and installing them under Windows easier, a set of Makefiles is provided, which
+allows the libraries to be build from sources. Check out 
+[external](external/README.md) libraries for more details.
+
+Under Linux one can run following commands to compile and install libmodbus
+library.
 ```  
 git clone git://github.com/stephane/libmodbus.git
 cd libmodbus
@@ -18,23 +41,72 @@ git checkout f9358460ee1f62bcac716ad0444b3bbe7628b204
 ./autogen.sh
 ./configure
 make && sudo make install
-```  
-Compiling libmodbus on Windows can be a bit more tricky. I won't write the instructions here, because if project prevails, it should use *QtSerialBus* module.
+```
 
-3. Open `CuteHMI.qbs` file with *QtCreator* and build it. When apllication starts it shows empty screen.
+To install libssh on a Ubuntu-based system.
+```
+sudo apt-get -y install libssh-dev
+```
+
+On Arch-based system.
+```
+pacman -S libssh
+```
+
+To install PostgreSQL client library on Ubuntu-based system.
+```
+sudo apt-get -y install libpq-dev
+```
+
+Remember that Qbs caches [Probe](http://doc.qt.io/qbs/qml-qbslanguageitems-probe.html)
+items' results, so if the library is installed after the project has been 
+configured with Qbs, it will not show up. You can use `--force-probe-execution`
+option to force Qbs to not use cached results.
+
 
 ## Running example
 
-**The 'SampleProject' is now obsolete and won't run. Please email me if you want updated example.**
+To run *SampleProject* example with *QtCreator* click 
+"Projects" -> "Build & Run" -> "Run" and in the "Command line arguments" box 
+type: `--project="examples/SampleProject/SampleProject.cutehmi.xml"`.
 
-The following instructions work only with older commits.
-
-To run *SampleProject* example with *QtCreator* click "Projects" -> "Build & Run" -> "Run" and in the "Command line arguments" box type: `--project="projects/SampleProject.cutehmi.xml" --basedir="../CuteHMI/examples"`.
-
-If anything goes wrong during loading, first check debug output and verify that paths are correct.
+If anything goes wrong during loading, first check debug output and verify that
+paths are correct.
 
 Something similar to this should show up on screen.
 
-![SampleProject screenshot](doc/images/examples/SampleProject/screenshot.png)
+![SampleProject screenshot](doc/images/examples_SampleProject.png)
 
-Two essential files are: `examples/projects/SampleProject.cutehmi.xml` and `examples/QML/Screens/SampleProject/SampleProject.pro`. First one describes project in terms of CuteHMI application. The second one is a standard qmake project file, which can be opened in *QtCreator* for easy edition.
+
+## Internals
+
+Directory structure of the project is organized as follows.
+
+- *awkgward* - code maintanance scripts (don't bother).
+- *dev* - development notes (irrelevant).
+- [doc](doc/README.md) - a place where documentation shall be.
+- *examples* - self-explanatory.
+- [external](external/README.md) - directory containing "external" libraries.
+- *extra* - various stuff related to the project, such as T-shirts.
+- [modules](modules/README.md) - the heart of the project.
+- *qbs* - Qbs modules and imports.
+- [QML](QML/README.md) - QML extensions (secondary heart of the project).
+- [tools](tools/README.md) - end-user applications (tertiary heart of the project).
+
+![Dependencies between tools, modules, QML and external libraries](doc/images/general_dependencies.png)
+
+The concept is simple. Three most important directories are
+[modules](modules/README.md), [QML](QML/README.md) and [tools](tools/README.md).
+Modules are basically libraries, which provide various functionalities in modular
+fashion. These can be utilized by QML extensions or end-user applications.
+End-user applications may of course utilize QML extensions also, as this is one
+of the main features offered by Qt. Some modules may depend on
+[external](external/README.md) libraries.
+
+
+## Quick links
+
+- [CuteHMI on GitHub](https://github.com/michpolicht/CuteHMI)
+- [CuteHMI on GitHub Pages](http://michpolicht.github.io/CuteHMI/)
+- [Documentation generated by Doxygen](https://michpolicht.github.io/CuteHMI_Doxygen/docs/)
+

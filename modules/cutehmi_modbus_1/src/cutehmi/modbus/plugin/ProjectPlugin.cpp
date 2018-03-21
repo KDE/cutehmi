@@ -21,7 +21,7 @@ namespace plugin {
 void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-	node.addExtension(pluginNodeData->xmlBackendPlugin());
+	node.registerExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
@@ -101,9 +101,9 @@ void ProjectPlugin::parseModbus(const xml::ParseHelper & parentHelper, ProjectNo
 		client.reset(new Client(std::move(connection)));
 		service.reset(new Service(name, client.get()));
 		service->setSleep(serviceSleep);
-		ProjectNode * modbusNode = node.addChild(id, ProjectNodeData(name));
-		modbusNode->addExtension(client.get());
-		modbusNode->addExtension(service.get());
+		ProjectNode * modbusNode = node.appendChild(id, ProjectNodeData(name));
+		modbusNode->registerExtension(client.get());
+		modbusNode->registerExtension(service.get());
 
 		if (node.root()->child("cutehmi_services_1")) {
 			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
@@ -309,5 +309,5 @@ bool ProjectPlugin::secUsecFromString(const QString & timeoutString, unsigned lo
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

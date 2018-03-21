@@ -9,7 +9,7 @@
 namespace cutehmi {
 
 /**
- * Plugin interface.
+ * Metadata plugin interface.
  */
 class CUTEHMI_API IMetadataPlugin
 {

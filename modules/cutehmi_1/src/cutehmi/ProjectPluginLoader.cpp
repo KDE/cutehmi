@@ -22,16 +22,16 @@ ProjectNode * ProjectPluginLoader::addPluginNode(const QString & name, int reqMi
 		throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_IPROJECTPLUGIN_IID);
 	ProjectNode * pluginNode;
 	if (!plugin->name().isEmpty())
-		pluginNode = parentNode.addChild(plugin->name(), ProjectNodeData(plugin->friendlyName()), false);
+        pluginNode = parentNode.appendChild(plugin->name(), ProjectNodeData(plugin->friendlyName()), false);
 	else
-		pluginNode = parentNode.addChild(ProjectNodeData(plugin->friendlyName()), false);
+        pluginNode = parentNode.appendChild(ProjectNodeData(plugin->friendlyName()), false);
 	pluginNode->data().append(std::unique_ptr<DataBlock>(new internal::PluginNodeData(plugin, reqMinor)));
-	pluginNode->addExtension(plugin);
+    pluginNode->registerExtension(plugin);
 	pluginInstance->init(*pluginNode);
 	return pluginNode;
 }
 
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

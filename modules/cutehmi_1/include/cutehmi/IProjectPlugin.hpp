@@ -9,11 +9,18 @@
 namespace cutehmi {
 
 /**
- * Plugin interface.
+ * %Project plugin interface.
  */
 class CUTEHMI_API IProjectPlugin
 {
 	public:
+		/**
+		 * Initialize plugin.
+		 * @param node node of the plugin. Each plugin receives its own node in
+		 * a project tree. %Plugin is free to use this node for its own purposes.
+		 * It can register extensions, push some data into it or append child
+		 * nodes. The node will live for as long as a plugin inside a project tree.
+		 */
 		virtual void init(ProjectNode & node) = 0;
 
 	protected:
@@ -29,5 +36,5 @@ Q_DECLARE_INTERFACE(cutehmi::IProjectPlugin, CUTEHMI_IPROJECTPLUGIN_IID)
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

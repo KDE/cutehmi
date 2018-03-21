@@ -74,7 +74,7 @@ class CUTEHMI_MODBUS_API Client:
 		 * Read input register value and update associated InputRegister object.
 		 * @param addr register address.
 		 *
-		 * @note appropriate InputRegister object must be referenced using @a ir list before using this function.
+		 * @note Appropriate InputRegister object must be referenced using @a ir list before using this function.
 		 */
 		void readIr(int addr);
 
@@ -82,7 +82,7 @@ class CUTEHMI_MODBUS_API Client:
 		 * Read holding register value and update associated HoldingRegister object.
 		 * @param addr register address.
 		 *
-		 * @note appropriate HoldingRegister object must be referenced using @a r list before using this function.
+		 * @note Appropriate HoldingRegister object must be referenced using @a r list before using this function.
 		 */
 		void readR(int addr);
 
@@ -90,7 +90,7 @@ class CUTEHMI_MODBUS_API Client:
 		 * Write value requested by HoldingRegister object.
 		 * @param addr register address.
 		 *
-		 * @note appropriate HoldingRegister object must be referenced using @a r list before using this function.
+		 * @note Appropriate HoldingRegister object must be referenced using @a r list before using this function.
 		 */
 		void writeR(int addr);
 
@@ -98,7 +98,7 @@ class CUTEHMI_MODBUS_API Client:
 		 * Read discrete input value and update associated DiscreteInput object.
 		 * @param addr discrete input address.
 		 *
-		 * @note appropriate DiscreteInput object must be referenced using @a ib list before using this function.
+		 * @note Appropriate DiscreteInput object must be referenced using @a ib list before using this function.
 		 */
 		void readIb(int addr);
 
@@ -106,7 +106,7 @@ class CUTEHMI_MODBUS_API Client:
 		 * Read coil value and update associated Coil object.
 		 * @param addr register address.
 		 *
-		 * @note appropriate Coil object must be referenced using @a b list before using this function.
+		 * @note Appropriate Coil object must be referenced using @a b list before using this function.
 		 */
 		void readB(int addr);
 
@@ -114,7 +114,7 @@ class CUTEHMI_MODBUS_API Client:
 		 * Write value requested by Coil object.
 		 * @param addr register address.
 		 *
-		 * @note appropriate Coil object must be referenced using @a b list before using this function.
+		 * @note Appropriate Coil object must be referenced using @a b list before using this function.
 		 */
 		void writeB(int addr);
 
@@ -122,14 +122,14 @@ class CUTEHMI_MODBUS_API Client:
 		/**
 		 * Connect client to the Modbus device.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void connect();
 
 		/**
 		 * Disconnect client from the Modbus device.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void disconnect();
 
@@ -295,5 +295,5 @@ void Client::readRegisters(const CONTAINER & container, void (Client:: * readFn)
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

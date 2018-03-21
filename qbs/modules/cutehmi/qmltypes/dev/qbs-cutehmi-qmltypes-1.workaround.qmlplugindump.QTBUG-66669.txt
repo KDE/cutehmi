@@ -1,0 +1,16 @@
+Problem:
+
+Under Linux qmlplugindump fails with error message that look like the one below.
+
+```
+Error: SEGV
+While processing the property [...], which probably has uninitialized data.
+```
+
+This problem seems to be related to QTBUG-66669 (https://bugreports.qt.io/browse/QTBUG-66669).
+
+Workaround:
+
+Temporarily disable generation of `plugins.qmltypes` files on Linux until bug is fixed.
+
+Snippet:

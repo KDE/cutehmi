@@ -1,0 +1,28 @@
+clean: mostlyclean | $(RM)
+	$(RM) -Rf $(PRODUCT_SOURCE_DIR)
+	$(RM) -f $(PRODUCT_ARCHIVE_PATH)
+
+mostlyclean: deployclean | $(RM)
+	$(RM) -Rf $(PRODUCT_INSTALL_DIR)
+	$(RM) -f $(PRODUCT_CONFIGURE_TXT_PATH)
+	$(RM) -f $(PRODUCT_BUILD_TXT_PATH)
+	$(RM) -Rf $(PRODUCT_BUILD_DIR)
+	$(RM) -Rf $(PRODUCT_PORT_DIR)
+
+deployclean: | $(RM) $(RMDIR) $(MKDIR)
+	$(RM) -Rf $(PRODUCT_BIN_FILES_DEPLOY)
+	$(RM) -Rf $(PRODUCT_LIB_FILES_DEPLOY)
+	$(RM) -Rf $(PRODUCT_INCLUDE_FILES_DEPLOY)
+	$(MKDIR) -p $(PRODUCT_DEPLOY_LIB_DIR)
+	$(RMDIR) --ignore-fail-on-non-empty $(PRODUCT_DEPLOY_LIB_DIR)
+	$(MKDIR) -p $(PRODUCT_DEPLOY_INCLUDE_DIR)
+	$(RMDIR) --ignore-fail-on-non-empty $(PRODUCT_DEPLOY_INCLUDE_DIR)
+	$(MKDIR) -p $(PRODUCT_DEPLOY_DIR)
+	$(RMDIR) --ignore-fail-on-non-empty $(PRODUCT_DEPLOY_DIR)
+
+buildclean: | $(CD) $(MAKE)
+	$(CD) $(PRODUCT_BUILD_DIR) && $(MAKE) clean
+
+builduninstall: | $(CD) $(MAKE)
+	$(CD) $(PRODUCT_BUILD_DIR) && $(MAKE) uninstall 
+

@@ -4,7 +4,7 @@ namespace cutehmi {
 namespace services {
 
 constexpr const char * Service::INITIAL_NAME;
-constexpr Service::state_t Service::INITIAL_STATE;
+constexpr Service::State Service::INITIAL_STATE;
 
 Service::Service(const QString & name, QObject * parent):
 	QObject(parent),
@@ -25,7 +25,7 @@ void Service::setName(const QString & name)
 	}
 }
 
-Service::state_t Service::state() const
+Service::State Service::state() const
 {
 	return m->state;
 }
@@ -46,7 +46,7 @@ void Service::stop()
 	setState(customStop());
 }
 
-void Service::setState(state_t state)
+void Service::setState(State state)
 {
 	if (m->state != state) {
 		std::swap(m->state, state);
@@ -54,12 +54,12 @@ void Service::setState(state_t state)
 	}
 }
 
-Service::state_t Service::customStart()
+Service::State Service::customStart()
 {
 	return STARTED;
 }
 
-Service::state_t Service::customStop()
+Service::State Service::customStop()
 {
 	return STOPPED;
 }
@@ -67,5 +67,5 @@ Service::state_t Service::customStop()
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

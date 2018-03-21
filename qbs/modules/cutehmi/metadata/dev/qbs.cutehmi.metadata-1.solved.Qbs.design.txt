@@ -1,0 +1,22 @@
+Problem:
+
+If a plugin uses Q_PLUGIN_METADATA macro and specifies auto-generated
+'cutehmi.metadata.json' file for metadata, this file has to be generated before
+executing the C++ toolchain. Both 'cutehmi.metadata.json' and
+'cutehmi.metadata.hpp' are specified as artifacts for respective product types,
+but the C++ and metadata builds seem to be performed by Qbs in parallel, which
+leads to a race condition and successful build depends on whether metadata files
+were generated first.
+
+Workaround:
+
+As a workaround metadata arifacts are added to a Group and they are given 'hpp'
+file tag, which hopefuly affects Qbs build graph (rules of Qbs 'cpp' module use
+'hpp' tagged files as inputs for other rules)
+
+Snippet:
+
+Solution:
+
+Appropriate file tags have been found. These are 'qt.core.resource_data',
+'qt_plugin_metadata' in 'Qt.core' module.

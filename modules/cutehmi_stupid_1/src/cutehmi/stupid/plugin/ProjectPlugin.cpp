@@ -21,7 +21,7 @@ namespace plugin {
 void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-	node.addExtension(pluginNodeData->xmlBackendPlugin());
+	node.registerExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
@@ -39,7 +39,7 @@ void ProjectPlugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 		if (xmlReader.name() == "cutehmi_stupid_1") {
 			xml::ParseHelper nodeHelper(& helper);
 			nodeHelper << xml::ParseElement("stupid", {xml::ParseAttribute("id"),
-															 xml::ParseAttribute("name")}, 0);
+													   xml::ParseAttribute("name")}, 0);
 			while (nodeHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "stupid")
 					parseStupid(nodeHelper, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());
@@ -110,9 +110,9 @@ void ProjectPlugin::parseStupid(const xml::ParseHelper & parentHelper, ProjectNo
 		service.reset(new Service(name, client.get()));
 		service->setSleep(serviceSleep);
 
-		ProjectNode * stupidNode = node.addChild(id, ProjectNodeData(name));
-		stupidNode->addExtension(client.get());
-		stupidNode->addExtension(service.get());
+		ProjectNode * stupidNode = node.appendChild(id, ProjectNodeData(name));
+		stupidNode->registerExtension(client.get());
+		stupidNode->registerExtension(service.get());
 
 		if (node.root()->child("cutehmi_services_1")) {
 			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
@@ -164,5 +164,5 @@ void ProjectPlugin::parsePostgreSQL(const xml::ParseHelper & parentHelper, Datab
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -14,7 +14,7 @@ namespace modbus {
 /**
  * Modbus input register.
  *
- * @note to make this class accessible from QML it must inherit after QObject,
+ * @note To make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
  */
 class CUTEHMI_MODBUS_API InputRegister:
@@ -23,10 +23,10 @@ class CUTEHMI_MODBUS_API InputRegister:
 	Q_OBJECT
 
 	public:
-		enum encoding_t {
+		enum Encoding {
 			INT16
 		};
-		Q_ENUM(encoding_t)
+		Q_ENUM(Encoding)
 
 		/**
 		 * Constructor.
@@ -35,7 +35,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 		 */
 		explicit InputRegister(uint16_t value = 0, QObject * parent = 0);
 
-		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const noexcept(false);
+		Q_INVOKABLE QVariant value(Encoding encoding = INT16) const noexcept(false);
 
 		Q_INVOKABLE void rest();
 
@@ -48,7 +48,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 		 * Update value.
 		 * @param value new value.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void updateValue(uint16_t value);
 
@@ -77,5 +77,5 @@ class CUTEHMI_MODBUS_API InputRegister:
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

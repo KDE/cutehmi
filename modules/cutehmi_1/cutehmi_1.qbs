@@ -5,13 +5,15 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_1"
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 
-	friendlyName: "Base"
+	friendlyName: "[Core]"
 
-	description: "Base module for all CuteHMI applications."
+	description: "Provides core functionality to other modules."
 
 	author: "Michal Policht"
 
@@ -20,6 +22,7 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
+        "README.md",
         "include/cutehmi/CuteHMI.hpp",
         "include/cutehmi/DataBlock.hpp",
         "include/cutehmi/Error.hpp",
@@ -80,8 +83,14 @@ cutehmi.Module {
 	Depends { name: "Qt.core" }
 	Depends { name: "Qt.qml" }
 
+	Depends { name: "cutehmi.doxygen" }
+	cutehmi.doxygen.warnIfUndocumented: false
+
 	Export {
 		Depends { name: "Qt.core" }
 		Depends { name: "Qt.qml" }
 	}
 }
+
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

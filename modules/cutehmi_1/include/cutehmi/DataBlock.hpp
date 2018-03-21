@@ -9,14 +9,15 @@
 namespace cutehmi {
 
 /**
- * Data block. Data block is meant to act as a container, which serves its purpose through inheritance. It provides
- * interface, which gives derived classes the ability to be chained together. Each DataBlock object can have a DataBlock
- * child appended to it. This functionality is similar to singly linked list, however the objective is to make data block
- * extensible, rather than manipulative. Instances of this class are non-copyable, but movable.
+ * Data block. Data block is meant to act as a container, which serves its
+ * purpose through inheritance. It provides interface, which gives derived
+ * classes the ability to be chained together. Each data block object can have
+ * a data block child appended to it. This functionality is similar to singly
+ * linked list, however the objective is to make data block extensible, rather
+ * than manipulative. Instances of this class are non-copyable, but movable.
  *
- * <principle id="cutehmi::DataBlock-determined_destruction_order">
+ * @principle{cutehmi::DataBlock-determined_destruction_order}
  * Child objects are destroyed in the reverse order as they were appended.
- * </principle>
  */
 class CUTEHMI_API DataBlock:
 	public NonCopyable
@@ -25,8 +26,8 @@ class CUTEHMI_API DataBlock:
 	struct Iterator;
 
 	public:
-		typedef Iterator<DataBlock> iterator;
-		typedef Iterator<const DataBlock> const_iterator;
+		typedef Iterator<DataBlock> iterator;	///< Iterator.
+		typedef Iterator<const DataBlock> const_iterator;	///< Const iterator.
 
 		/**
 		 * Default constructor.
@@ -45,7 +46,7 @@ class CUTEHMI_API DataBlock:
 		 * Append data block. Data block is appended to the last child in the chain.
 		 * @param block data block to be appended.
 		 *
-		 * @note this class is not intended to be used with long data chains. The amount of time used by append operation is linearly
+		 * @note This class is not intended to be used with long data chains. The amount of time used by append operation is linearly
 		 * proportional to the size of the chain; O(n) in terms of algorithmic complexity.
 		 */
 		void append(std::unique_ptr<DataBlock> block);
@@ -56,12 +57,31 @@ class CUTEHMI_API DataBlock:
 		 */
 		int count() const;
 
+		/**
+		 * Get iterator pointing to first element in a sequence of data blocks.
+		 * @return iterator pointing to first element.
+		 */
 		iterator begin();
 
+		/**
+		 * Get iterator pointing to first element in a sequence of data blocks
+		 * (const version)s.
+		 * @return iterator pointing to first element.
+		 */
 		const_iterator begin() const;
 
+		/**
+		 * Get iterator pointing to past-the-end element in a sequence of data
+		 * blocks.
+		 * @return iterator referring to past-the-end element.
+		 */
 		iterator end();
 
+		/**
+		 * Get iterator pointing to past-the-end element in a sequence of data
+		 * blocks (const version).
+		 * @return iterator referring to past-the-end element.
+		 */
 		const_iterator end() const;
 
 	protected:
@@ -185,5 +205,5 @@ bool DataBlock::Iterator<BLOCK>::operator !=(const Iterator & other) const
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

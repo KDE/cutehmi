@@ -1,0 +1,6 @@
+PKG-CONFIG-LITE_DEPLOY_DIR = $(DEPLOY_DIR)
+PKG-CONFIG-LITE_INSTALL_DIR = $(INSTALL_DIR)/pkg-config-lite
+
+$(PKG-CONFIG-LITE_INSTALL_DIR):
+	$(MAKE) -C ../pkg-config-lite buildinstall
+

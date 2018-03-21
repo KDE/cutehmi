@@ -11,27 +11,30 @@
 
 namespace cutehmi {
 
+/**
+ * %Prompt message.
+ */
 class CUTEHMI_API Prompt:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(type_t type READ type WRITE setType NOTIFY typeChanged)
+		Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)
 		Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 		Q_PROPERTY(QString informativeText READ informativeText WRITE setInformativeText NOTIFY informativeTextChanged)
 		Q_PROPERTY(QString detailedText READ detailedText WRITE setDetailedText NOTIFY detailedTextChanged)
-		Q_PROPERTY(buttons_t buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
+		Q_PROPERTY(Buttons buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
 
-		enum type_t {
+		enum Type {
 			NOTE = 1,
 			WARNING = 2,
 			CRITICAL = 3,
 			QUESTION = 4
 		};
-		Q_ENUM(type_t)
+		Q_ENUM(Type)
 
-		enum button_t : qint32 {
+		enum Button : qint32 {
 			BUTTON_OK = 0x00000400,
 			BUTTON_OPEN = 0x00002000,
 			BUTTON_SAVE = 0x00000800,
@@ -52,31 +55,31 @@ class CUTEHMI_API Prompt:
 			BUTTON_IGNORE = 0x00100000,
 			NO_BUTTON = 0x00000000
 		};
-		Q_DECLARE_FLAGS(buttons_t, button_t)
-		Q_FLAG(buttons_t)
-		Q_ENUM(button_t)
+		Q_DECLARE_FLAGS(Buttons, Button)
+		Q_FLAG(Buttons)
+		Q_ENUM(Button)
 
-		explicit Prompt(type_t type = NOTE, const QString & text = QString(), buttons_t buttons = Prompt::NO_BUTTON, QObject * parent = 0);
+		explicit Prompt(Type type = NOTE, const QString & text = QString(), Buttons buttons = Prompt::NO_BUTTON, QObject * parent = 0);
 
-		Prompt(type_t type, const QString & text, const QString & informativeText, buttons_t buttons = Prompt::NO_BUTTON, QObject * parent = 0);
+		Prompt(Type type, const QString & text, const QString & informativeText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = 0);
 
-		Prompt(type_t type, const QString & text, const QString & informativeText, const QString & detailedText, buttons_t buttons = Prompt::NO_BUTTON, QObject * parent = 0);
+		Prompt(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = 0);
 
 		~Prompt() override = default;
 
-		static std::unique_ptr<Prompt> Note(const QString & text, buttons_t buttons = BUTTON_OK);
+		static std::unique_ptr<Prompt> Note(const QString & text, Buttons buttons = BUTTON_OK);
 
-		static std::unique_ptr<Prompt> Warning(const QString & text, buttons_t buttons = BUTTON_OK);
+		static std::unique_ptr<Prompt> Warning(const QString & text, Buttons buttons = BUTTON_OK);
 
-		static std::unique_ptr<Prompt> Question(const QString & text, buttons_t buttons = buttons_t{BUTTON_YES, BUTTON_NO});
+		static std::unique_ptr<Prompt> Question(const QString & text, Buttons buttons = Buttons{BUTTON_YES, BUTTON_NO});
 
-		static std::unique_ptr<Prompt> Critical(const QString & text, buttons_t buttons = BUTTON_OK);
+		static std::unique_ptr<Prompt> Critical(const QString & text, Buttons buttons = BUTTON_OK);
 
-		static std::unique_ptr<Prompt> Critical(const ErrorInfo & errorInfo, buttons_t buttons = BUTTON_OK);
+		static std::unique_ptr<Prompt> Critical(const ErrorInfo & errorInfo, Buttons buttons = BUTTON_OK);
 
-		type_t type() const;
+		Type type() const;
 
-		void setType(type_t type);
+		void setType(Type type);
 
 		QString text() const;
 
@@ -90,15 +93,15 @@ class CUTEHMI_API Prompt:
 
 		void setDetailedText(const QString & detailedText);
 
-		buttons_t buttons() const;
+		Buttons buttons() const;
 
-		void setButtons(buttons_t buttons);
+		void setButtons(Buttons buttons);
 
-		Q_INVOKABLE button_t response() const;
+		Q_INVOKABLE Button response() const;
 
 		std::unique_ptr<Prompt> clone() const;
 
-		button_t exec();
+		Button exec();
 
 	public slots:
 		/**
@@ -106,7 +109,7 @@ class CUTEHMI_API Prompt:
 		 * Prompt::NO_BUTTON will not change the value of @a response property and should be avoided.
 		 * @param response response to be set.
 		 */
-		void acceptResponse(button_t response);
+		void acceptResponse(Button response);
 
 	signals:
 		void typeChanged();
@@ -119,17 +122,17 @@ class CUTEHMI_API Prompt:
 
 		void buttonsChanged();
 
-		void responseArrived(button_t response);
+		void responseArrived(Button response);
 
 	private:
 		struct Members
 		{
-			type_t type;
+			Type type;
 			QString text;
 			QString informativeText;
 			QString detailedText;
-			buttons_t buttons;
-			button_t response;
+			Buttons buttons;
+			Button response;
 		};
 
 		MPtr<Members> m;
@@ -137,9 +140,9 @@ class CUTEHMI_API Prompt:
 
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Prompt::buttons_t)
+Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Prompt::Buttons)
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

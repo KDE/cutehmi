@@ -22,7 +22,7 @@ namespace plugin {
 void ProjectPlugin::init(ProjectNode & node)
 {
     std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-    node.addExtension(pluginNodeData->xmlBackendPlugin());
+    node.registerExtension(pluginNodeData->xmlBackendPlugin());
     node.data().append(std::move(pluginNodeData));
 }
 
@@ -88,8 +88,8 @@ void ProjectPlugin::parseClient(const xml::ParseHelper & parentHelper, ProjectNo
 		for (auto it = channels.begin(); it != channels.end(); ++it)
 			client->addChannel(std::move(*it));
 
-		ProjectNode * authsshNode = node.addChild(id, ProjectNodeData(name));
-		authsshNode->addExtension(client.get());
+		ProjectNode * authsshNode = node.appendChild(id, ProjectNodeData(name));
+		authsshNode->registerExtension(client.get());
 
 		authsshNode->data().append(std::unique_ptr<AuthSSHNodeData>(new AuthSSHNodeData(std::move(client))));
 	}
@@ -150,5 +150,5 @@ void ProjectPlugin::parseForwardChannel(const xml::ParseHelper & parentHelper, s
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

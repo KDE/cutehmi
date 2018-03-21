@@ -32,14 +32,14 @@ void Service::setSleep(unsigned long sleep)
 	m->thread->setSleep(sleep);
 }
 
-Service::state_t Service::customStart()
+Service::State Service::customStart()
 {
 	setState(STARTING);
 	m->client->connect();	// onClientConnected() is connected to m->client->connected() signal.
 	return state();
 }
 
-Service::state_t Service::customStop()
+Service::State Service::customStop()
 {
 	if (m->thread->isRunning()) {
 		CUTEHMI_LOG_DEBUG("Stopping STUPiD client thread...");
@@ -74,5 +74,5 @@ void Service::handleError(cutehmi::ErrorInfo errorInfo)
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

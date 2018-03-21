@@ -7,8 +7,9 @@
 namespace cutehmi {
 
 /**
- * Project node data. This class encapsulates basic data required by each project node. Plugins may attach their
- * own data to the node using DataBlock interface.
+ * %Project node data. This class encapsulates basic data required by each
+ * project node. Plugins may attach their own data to the node using DataBlock
+ * interface.
  */
 class CUTEHMI_API ProjectNodeData final:
 	public DataBlock
@@ -50,5 +51,5 @@ class CUTEHMI_API ProjectNodeData final:
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -1,70 +1,44 @@
-# Copyright (c) 2016, Michal Policht. This file is dually licensed under terms of 
+# Copyright (c) 2018, Michal Policht. This file is dually licensed under terms of 
 # either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or BEER-WARE
 # LICENSE by googling, binging, yahooing or downloading it from pirate bay.
 # NO WARRANTY.
 
-# Shell program.
-SH = sh
 
-# PWD (Print Working Directory) command.
-PWD = pwd
-
-# [license, sources, guards] AWK program.
-AWK = gawk
-
-# [license, sources, guards] Findutils find program (note: Windows comes with "find" which is not compatible with Findutils find).
-FIND = find
-
-# [doc_qdoc] qdoc program.
-QDOC = qdoc
-
-# [doc_doxygen] Doxygen program.
-DOXYGEN = doxygen
-
-# [qmltypes] Qt's qmlplugindump program.
-QMLPLUGINDUMP = qmlplugindump
-
+first: help
 
 # [help] Help message to be printed.
 
 HELP_MESSAGE =
 
-# [license, sources, guards] Output Record Separator as used in AWK.
-ifeq "$(OS)" "Windows_NT"
-  ORS = "\r\n"
-else
-  ORS = "\n"
-endif
+# [license] Names of files containing license text to be appended to files, commented out with double slash.
+LICENSE_DSLASH = '*.LICENSE.dslash.inc'
 
-# [license] Extension of files containing license text to be appended to files, commented out with double slash.
-LIC_DSLASH = LICENSE.dslash.inc
+# [license] Names of files containing license text to be appended to files, commented out with hash.
+LICENSE_HASH = '*.LICENSE.hash.inc'
 
-# [license] Extension of files containing license text to be appended to files, commented out with hash.
-LIC_HASH = LICENSE.hash.inc
-
-# [license] Directories containing CMake files.
-CMAKE_DIRS =
+# [license] Names of files containing license text to be appended to files, commented out with XML comment.
+LICENSE_XML = '*.LICENSE.xml.inc'
 
 # [license] CMake file types.
-CMAKE_FILE_TYPES = "*.cmake CMakeLists.txt"
+CMAKE_FILE_TYPES = -name '*.cmake' -o -name 'CMakeLists.txt'
 
-# [license] Directories containing QML files.
-QML_DIRS =
+# [license] Qbs file types.
+QBS_FILE_TYPES = -name '*.qbs'
 
 # [license] QML file types.
-QML_FILE_TYPES = "*.qml"
+QML_FILE_TYPES = -name '*.qml'
 
-# [license, sources] Directories containing source files.
-SOURCE_DIRS =
+# [license] JavaScript file types.
+JS_FILE_TYPES = -name '*.js'
+
+# [license] XML file types.
+XML_FILE_TYPES = -name '*.xml'
 
 # [license] Source file types.
-SOURCE_FILE_TYPES = "*.cpp *.c *.cpp.in"
+SOURCE_FILE_TYPES = -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in'
 
-# [license, guards] Directories containing header files.
-INCLUDE_DIRS =
-
-# [license] Include file types.
-INCLUDE_FILE_TYPES = "*.hpp *.h hpp.in"
+# [license, guards] Include file types.
+INCLUDE_FILE_TYPES = -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in'
 
 # [guards] A prefix used for include guards.
 INCLUDE_GUARD_PREFIX = "AWKGWARD_"
@@ -75,68 +49,105 @@ DOC_DOXYGEN_FILES =
 # [doc_qdoc] List of qdoc files.
 DOC_QDOC_FILES =
 
-# [qmltypes] Extra library paths to be used when generating qmltypes.
-QMLTYPES_EXTRAPATH =
+# [doc] Project-specific targets.
+DOC_PROJECT_TARGETS = 
 
-# [qmltypes] A list of semicolon separated dump commands as passed to qmlplugindump.
-QMLTYPES_DUMPS =
+# [guards] Directories, where include guards should be updated.
+INCLUDE_GUARDS_DIRS = $(INCLUDE_DIRS)
 
-# Makefile.project may override variables defined above.
--include Makefile.project
+# [guards] Find expression that can be used to exclude some directories.
+INCLUDE_GUARDS_EXCLUDE =
 
-# Makefile.user may override variables defined above.
--include Makefile.user
+# [guards] Shell script that invokes 'awkgward.awk'.
+AWKGWARD = awkgward/awkgward.sh
 
-.PHONY: help license sources guards doc doc_qdoc doc_doxygen qmltypes newlines
+# [license_dslash] Directories, where licenses with double slash comments should be applied.
+LICENSE_DSLASH_DIRS = /dev/null
 
-help:
-		@echo "This Makefile is responsible for code maintenance, not building."
+# [license_dslash] File types for which licenses with double slash comments should be applied.
+LICENSE_DSLASH_FILE_TYPES = $(INCLUDE_FILE_TYPES) -o $(SOURCE_FILE_TYPES) -o $(QML_FILE_TYPES) -o $(QBS_FILE_TYPES) -o $(JS_FILE_TYPES)
+
+# [license_hash] Directories, where licenses with hash comments should be applied.
+LICENSE_HASH_DIRS = /dev/null
+
+# [license_hash] File types for which licenses with hash comments should be applied.
+LICENSE_HASH_FILE_TYPES = $(CMAKE_FILE_TYPES)
+
+# [license_xml] Directories, where licenses with XML comments should be applied.
+LICENSE_XML_DIRS = /dev/null
+
+# [license_xml] File types for which licenses with XML comments should be applied.
+LICENSE_XML_FILE_TYPES = $(XML_FILE_TYPES)
+
+# [license] Make license script.
+MAKELIC = awkgward/makelic.sh
+
+
+include Makefile.project
+
+.PHONY: help description path license guards doc doc_clean doc_doxygen ports
+
+help: description path
+		@echo --------------------------------------------------------------------------------
+		@echo Make targets are:
+		@echo help - display this help box.
+		@echo license[_dslash][_hash][_xml] - append license footer to files [comment style].
+		@echo guards - update include guards.
+		@echo doc[_clean] - generate [or clean] documentation.
+		@echo ports[_clean][_jobs] - make [clean][build jobs of] external libraries.
+		@echo --------------------------------------------------------------------------------
+		@echo Note: you can create Makefile.user file to override Make variables.
+
+description:
+		@echo --------------------------------------------------------------------------------
 		@echo $(HELP_MESSAGE)
-		@echo ""
-		@echo "Make targets are:"
-		@echo "help - displays this info."
-		@echo "license - append license footer to files."
-		@echo "sources - generate list of sources and put them into CMakeLists.txt."
-		@echo "guards - update include guards."
-		@echo "doc - generate documentation (subtargets are doc_qdoc and doc_doxygen)."
-		@echo "qmltypes - generate QML typeinfo files."
-		@echo "newlines - remove carriage return characters (obsolete; use dos2unix instead)."
 
-license:
-		@echo "Putting license..."
-		@$(foreach directory, $(INCLUDE_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(INCLUDE_FILE_TYPES) $(ORS) $(FIND); )
-		@$(foreach directory, $(SOURCE_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(SOURCE_FILE_TYPES) $(ORS) $(FIND); )
-		@$(foreach directory, $(CMAKE_DIRS), awkgward/makelic.sh $(LIC_HASH) hash $(directory) $(CMAKE_FILE_TYPES) $(ORS) $(FIND); )
-		@$(foreach directory, $(QML_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(QML_FILE_TYPES) $(ORS) $(FIND); )
+# Double quotes are required for printing path reliably with raw mingw32-make (without MSYS shell).
+path:
+		@echo --------------------------------------------------------------------------------
+		@echo PATH = "$(PATH)"
 
-sources: CMakeLists.txt
-		@echo "Generating list of sources..."
-		@$(AWK) -v ORS=$(ORS) -v find="$(FIND)" -v src_dirs="$(SOURCE_DIRS)" -v src_files="*.cpp;*.c" -f awkgward/cmakesrcs.awk CMakeLists.txt > CMakeLists.txt.new
-		@mv CMakeLists.txt.new CMakeLists.txt
+license: license_dslash license_hash license_xml
 
-guards:
-	    @echo "Updating include guards..."
-		@$(FIND) $(INCLUDE_DIRS) \
-		\( -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in' \) \
-		-exec $(SH) awkgward/awkgward.sh $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(ORS) \;
+license_dslash: $(MAKELIC) $(LICENSE_DSLASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+		@echo Applying licenses using double slash comment...
+		@$(FIND) $(LICENSE_DSLASH_DIRS) -type f -name $(LICENSE_DSLASH) -exec $(SH) $(MAKELIC) {} dslash '$(LICENSE_DSLASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
 
-doc: doc_qdoc doc_doxygen
+license_hash: $(MAKELIC) $(LICENSE_HASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+		@echo Applying licenses using hash comment...
+		@$(FIND) $(LICENSE_HASH_DIRS) -type f -name $(LICENSE_HASH) -exec $(SH) $(MAKELIC) {} hash '$(LICENSE_HASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
 
-doc_qdoc: $(DOC_QDOC_FILES)
-		@$(foreach file, $^, $(QDOC) $(file);) 
+license_xml: $(MAKELIC) $(LICENSE_XML_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+		@echo Applying licenses using XML comment...
+		@$(FIND) $(LICENSE_XML_DIRS) -type f -name $(LICENSE_XML) -exec $(SH) $(MAKELIC) {} xml '$(LICENSE_XML_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
 
-doc_doxygen: $(DOC_DOXYGEN_FILES)
-		@$(foreach file, $^, $(DOXYGEN) $(file);) 
+guards: $(AWKGWARD) $(INCLUDE_GUARDS_DIRS) | $(FIND) $(SH) $(AWK) $(CUT) $(GREP) $(TOUCH) $(STAT) $(AWK) $(ECHO) $(MV)
+	    @echo Updating include guards...
+		@$(FIND) $(INCLUDE_GUARDS_DIRS) -type f \( $(INCLUDE_FILE_TYPES) \) $(INCLUDE_GUARDS_EXCLUDE) -exec $(SH) $(AWKGWARD) $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_IORS) \;
 
-qmltypes:
-		@$(SH) awkgward/qmltypes.sh $(QMLPLUGINDUMP) $(QMLTYPES_DUMPS) $(QMLTYPES_EXTRAPATH)
+doc: doc_project_targets doc_doxygen
 
-newlines:
-		@echo "Removing carriage return..."
-		@$(FIND) $(INCLUDE_DIRS) \
-		\( -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in' \) \
-		-exec $(SH) awkgward/rmcr.sh {} \;
-		@$(FIND) $(SOURCE_DIRS) \
-		\( -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in' \) \
-		-exec $(SH) awkgward/rmcr.sh {} \;
+doc_doxygen: | $(FIND) $(SED) $(DOXYGEN)
+		@echo Doxygen path: "$(DOXYGEN)"
+		@echo Doxygen version: $(shell $(DOXYGEN) -v)
+		@$(FIND) $(DOXYGEN_INPUT_DIRS) \
+		\( -name 'Doxyfile' -o -name '*.Doxyfile' \) \
+		-execdir $(DOXYGEN) {} \;
+
+doc_clean: | $(FIND)
+		@$(FIND) $(DOXYGEN_OUTPUT_DIRS) -type f -delete
+
+doc_project_targets: $(DOC_PROJECT_TARGETS)
+
+ports: | $(MAKE)
+		$(MAKE) -C external/recipes/$(BUILD_MACHINE)
+
+ports_clean: | $(MAKE)
+		$(MAKE) -C external/recipes/$(BUILD_MACHINE) clean
+
+ports_jobs:
+		@echo Variable MAKE_BUILD_JOBS controls the number of parallel build jobs in recipes.
+		@echo To alter the number of parallel build jobs either pass it as Make argument,
+		@echo or override it in 'Makefile.user' file.
+		@echo MAKE_BUILD_JOBS = $(MAKE_BUILD_JOBS)
 

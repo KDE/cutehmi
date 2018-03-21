@@ -1,0 +1,4 @@
+buildconfigure $(PRODUCT_BUILD_DIR)/Makefile: $(PRODUCT_BUILD_DIR)/configure | $(CD) $(SH) $(TEE) $(AWK) $(SED) $(CMD)
+	$(CD) $(PRODUCT_BUILD_DIR) && $(SH) configure --host=$(HOST_MACHINE) --build=$(BUILD_MACHINE) \
+		--prefix=$(PRODUCT_INSTALL_DIR) \
+		2>&1 | $(TEE) $(PRODUCT_CONFIGURE_TXT_PATH)

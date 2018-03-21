@@ -10,16 +10,18 @@
 namespace cutehmi {
 
 /**
- * Error info.
+ * %Error info.
+ *
+ * @see errorInfo()
  */
 struct ErrorInfo
 {
-	int code;				///< Error code.
-	const char * errClass;	///< Error class.
-	QString str;			///< Error string.
+	int code;				///< %Error code.
+	const char * errClass;	///< %Error class.
+	QString str;			///< %Error string.
 
 	/**
-	 * Error info to string.
+	 * %Error info to string.
 	 * @return multi-line string containing information extracted from ErrorInfo struct.
 	 */
 	QString toString() const;
@@ -42,5 +44,5 @@ Q_DECLARE_METATYPE(cutehmi::ErrorInfo)
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

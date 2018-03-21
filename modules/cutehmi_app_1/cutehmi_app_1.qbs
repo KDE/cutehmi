@@ -5,7 +5,9 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_app_1"
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	friendlyName: "Application"
 
@@ -41,15 +43,22 @@ cutehmi.Module {
 	Depends { name: "Qt.widgets" }
 //</workaround>
 
-//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
-	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
-	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.version: "0.0"
+//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_1" }
+	cutehmi_1.reqMinor: 0
+
+	Depends { name: "cutehmi_xml_1"}
+	cutehmi_xml_1.reqMinor: 0
 
 	Export {
 		Depends { name: "Qt.widgets" }
 
-		Depends { name: "cutehmi_1" } cutehmi_1.version: "0.0"
+		Depends { name: "cutehmi_1" }
+		cutehmi_1.reqMinor: 0
 	}
 
 //</workaround>
 }
+
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

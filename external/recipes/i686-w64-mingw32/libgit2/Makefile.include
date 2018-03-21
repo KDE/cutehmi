@@ -1,0 +1,6 @@
+LIBGIT2_DEPLOY_DIR = $(DEPLOY_DIR)
+LIBGIT2_INSTALL_DIR = $(INSTALL_DIR)/libgit2
+
+$(LIBGIT2_INSTALL_DIR):
+	$(MAKE) -C ../libgit2 buildinstall
+

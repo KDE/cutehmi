@@ -2,20 +2,24 @@ import qbs
 
 import cutehmi
 
-cutehmi.QMLPlugin {
-	name: "cutehmi_qml_1"
+cutehmi.QMLExtension {
+	name: "CuteHMI"
 
-	version: "0.0"
+	major: 1
+
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 
-	friendlyName: "Base QML"
+	friendlyName: "[Core] QML"
 
 	description: "Base CuteHMI extension for all QML applications."
 
-	author: "Wojciech Zygmuntowicz, Michal Policht"
+	author: "Michal Policht"
 
-	copyright: "Wojciech Zygmuntowicz, Michal Policht"
+	copyright: "Michal Policht"
 
 	license: "Mozilla Public License, v. 2.0"
 
@@ -25,14 +29,21 @@ cutehmi.QMLPlugin {
         "NumberDisplay.qml",
         "Palette.qml",
         "PropItem.qml",
+        "README.md",
         "designer/CuteHMI.metainfo",
-        "plugins.qmltypes",
         "qmldir",
         "src/CuteHMIQMLPlugin.cpp",
         "src/CuteHMIQMLPlugin.hpp",
     ]
 
-	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
-	Depends { name: "cutehmi_1" } cutehmi_1.version: "0.0"
+	//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_1" }
+	cutehmi_1.reqMinor: 0
 	//</workaround>
+
+	Depends { name: "cutehmi.doxygen" }
+	cutehmi.doxygen.warnIfUndocumented: false
 }
+
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -8,23 +8,26 @@
 
 namespace cutehmi {
 
+/**
+ * %Notification.
+ */
 class CUTEHMI_API Notification:
 	public QObject
 {
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(type_t type READ type WRITE setType NOTIFY typeChanged)
+		Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)
 		Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
-		enum type_t {
+		enum Type {
 			NOTE = 1,
 			WARNING = 2,
 			CRITICAL = 3
 		};
-		Q_ENUM(type_t)
+		Q_ENUM(Type)
 
-		explicit Notification(type_t type = NOTE, const QString & text = QString(), QObject * parent = 0);
+		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = 0);
 
 		static void Note(const QString & text);
 
@@ -34,9 +37,9 @@ class CUTEHMI_API Notification:
 
 		static void Critical(const ErrorInfo & errorInfo);
 
-		type_t type() const;
+		Type type() const;
 
-		void setType(type_t type);
+		void setType(Type type);
 
 		QString text() const;
 
@@ -54,7 +57,7 @@ class CUTEHMI_API Notification:
 	private:
 		struct Members
 		{
-			type_t type;
+			Type type;
 			QString text;
 			QDateTime dateTime;
 		};
@@ -66,5 +69,5 @@ class CUTEHMI_API Notification:
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

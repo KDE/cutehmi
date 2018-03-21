@@ -12,6 +12,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Plugin.
+ */
 class CUTEHMI_API Plugin:
 	public QObject
 {
@@ -20,6 +23,7 @@ class CUTEHMI_API Plugin:
 	public:
 		Q_PROPERTY(QString binary READ binary CONSTANT)
 		Q_PROPERTY(QString fileName READ fileName CONSTANT)
+		Q_PROPERTY(QString version READ version CONSTANT)
 		Q_PROPERTY(QVariantMap metadata READ metadata CONSTANT)
 		Q_PROPERTY(bool implicitLoad READ implicitLoad CONSTANT)
 
@@ -41,8 +45,25 @@ class CUTEHMI_API Plugin:
 
 				const QVariantMap & data() const;
 
+				/**
+				 * Get major version number. This function is provided for convenience. It converts value of 'major' field accessible through data() function
+				 * to @p int value.
+				 * @return major version number.
+				 */
+				int major() const;
+
+				/**
+				 * Get minor version number. This function is provided for convenience. It converts value of 'minor' field accessible through data() function
+				 * to @p int value.
+				 * @return minor version number.
+				 */
 				int minor() const;
 
+				/**
+				 * Get micro version number. This function is provided for convenience. It converts value of 'micro' field accessible through data() function
+				 * to @p int value.
+				 * @return micro version number.
+				 */
 				int micro() const;
 
 			private:
@@ -83,10 +104,6 @@ class CUTEHMI_API Plugin:
 
 		QString version() const;
 
-		int minor() const;
-
-		int micro() const;
-
 	private:
 		struct Members
 		{
@@ -103,5 +120,5 @@ class CUTEHMI_API Plugin:
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

@@ -49,10 +49,10 @@ void DatabaseThread::run()
 		db.setUserName(m->dbData->userName);
 		db.setPassword(m->dbData->password);
 		if (db.open()) {
-			CUTEHMI_LOG_DEBUG("[TODO provide App with a UI for signaling errors] Connected with database.");
+			CUTEHMI_LOG_DEBUG("Connected with database.");
 			emit connected();
 		} else {
-			CUTEHMI_LOG_DEBUG("[TODO provide App with a UI for signaling errors] Could not connect with database.");
+			CUTEHMI_LOG_DEBUG("Could not connect with database.");
 			emit error(errorInfo(Error(Error::UNABLE_TO_CONNECT)));
 		}
 		exec();
@@ -74,5 +74,5 @@ void DatabaseThread::run()
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

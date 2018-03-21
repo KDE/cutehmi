@@ -2,6 +2,9 @@ language: cpp
 sudo: required
 dist: xenial
 
+git:
+  submodules: false
+
 compiler:
   - clang
   - gcc
@@ -11,11 +14,12 @@ env:
   - QBS_ENV="debug"
 
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt596-xenial
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get -y install qt59[QTPACKAGE]
+  - sudo apt-get -y install qt59-meta-minimal
+  - sudo apt-get -y install qt59qbs
   - sudo apt-get -y install qt59serialbus
   - sudo apt-get -y install libssh-dev
   - git clone git://github.com/stephane/libmodbus.git

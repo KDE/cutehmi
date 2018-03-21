@@ -55,7 +55,7 @@ struct CUTEHMI_API Error
 		 * its own error descriptions.
 		 * @return error message.
 		 *
-		 * @note this function is non-virtual. When calling this function on down-casted
+		 * @note This function is non-virtual. When calling this function on down-casted
 		 * instance of derived class, it may not recognize error code and return
 		 * generic message.
 		 */
@@ -80,5 +80,5 @@ CUTEHMI_API bool operator !=(int code, const cutehmi::Error & error);
 
 #endif
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

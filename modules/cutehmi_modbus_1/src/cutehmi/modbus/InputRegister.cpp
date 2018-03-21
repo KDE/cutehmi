@@ -14,7 +14,7 @@ InputRegister::InputRegister(uint16_t value, QObject * parent):
 {
 }
 
-QVariant InputRegister::value(encoding_t encoding) const noexcept(false)
+QVariant InputRegister::value(Encoding encoding) const noexcept(false)
 {
 	QReadLocker locker(& m->valueLock);
 	switch (encoding) {
@@ -51,5 +51,5 @@ void InputRegister::updateValue(uint16_t value)
 }
 }
 
-//(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
+//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
