@@ -17,7 +17,6 @@ before_install:
 install:
   - sudo apt-get -y install qt59[QTPACKAGE]
   - sudo apt-get -y install qt59serialbus
-  - sudo apt-get -y install qt59creator
   - sudo apt-get -y install libssh-dev
   - git clone git://github.com/stephane/libmodbus.git
   - cd libmodbus
