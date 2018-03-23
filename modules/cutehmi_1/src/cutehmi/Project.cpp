@@ -25,6 +25,13 @@ void Project::load(IProjectBackend & backend) noexcept(false)
 	emit modelChanged();
 }
 
+void Project::reset()
+{
+	MPtr<Members> newM(new Members);
+	m.swap(newM);
+	emit modelChanged();
+}
+
 internal::PluginLoader * Project::pluginLoader() const
 {
 	return m->pluginLoader.get();

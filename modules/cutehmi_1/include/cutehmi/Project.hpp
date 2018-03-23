@@ -29,6 +29,8 @@ class CUTEHMI_API Project:
 
 		void load(IProjectBackend & backend) noexcept(false);
 
+		void reset();
+
 	signals:
 		void modelChanged();
 
