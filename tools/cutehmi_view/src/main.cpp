@@ -11,7 +11,7 @@
 //<workaround id="cutehmi_view-4" target="Qt" cause="bug">
 #include <QApplication>
 // Instead of:
-//#include <QGuiApplication>
+//  #include <QGuiApplication>
 //</workaround>
 
 #include <QQmlApplicationEngine>
@@ -81,8 +81,8 @@ int main(int argc, char * argv[])
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	cutehmi::app::CuteApp app(argc, argv);
 	// Instead of:
-//	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-//	QGuiApplication app(argc, argv);
+	//	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+	//	QGuiApplication app(argc, argv);
 	//<workaround>
 	app.setWindowIcon(QIcon(":/img/icon.png"));
 
@@ -134,56 +134,64 @@ int main(int argc, char * argv[])
 
 	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
 
-	// QQmlApplicationEngine scope. It's quite important to destroy "engine" before cutehmi::CuteHMI::Instance() members, because they
-	// may still be used by some QML components (for example in "Component.onDestroyed" handlers).
-	int result;
-	{
-		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-		engine->addImportPath(baseDirPath + "../QML");
-		qDebug() << "QML import paths: " << engine->importPathList();
-		engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
-		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
+	std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
+	engine->addImportPath(baseDirPath + "../QML");
+	qDebug() << "QML import paths: " << engine->importPathList();
+	engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
+	engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
-		if (!cmd.value(projectOption).isNull()) {
-			cutehmi::CuteHMI & cuteHMI = cutehmi::CuteHMI::Instance();
-			cutehmi::view::loadXMLFile(baseDirPath + cmd.value(projectOption), *cuteHMI.project(), *engine->rootContext());
+	if (!cmd.value(projectOption).isNull()) {
+		cutehmi::CuteHMI & cuteHMI = cutehmi::CuteHMI::Instance();
+		cutehmi::view::loadXMLFile(baseDirPath + cmd.value(projectOption), *cuteHMI.project(), *engine->rootContext());
 
-			cutehmi::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
-			if (appNode) {
-				QString source;
-				appNode->invoke("cutehmi::app::MainScreen", "source", Q_RETURN_ARG(QString, source));
-				QUrl sourceUrl(source);
-				if (sourceUrl.isValid()) {
-					// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
-					if (!sourceUrl.scheme().isEmpty() && QDir::isRelativePath(sourceUrl.path()))
-						cutehmi::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(sourceUrl.url()));
-					else {
-						// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
-						if (sourceUrl.isRelative())
-							sourceUrl = QUrl::fromLocalFile(baseDirPath).resolved(sourceUrl);
-						// Check if file exists and eventually set context property.
-						if (sourceUrl.isLocalFile() && !QFile::exists(sourceUrl.toLocalFile()))
-							cutehmi::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
-						else
-							engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", sourceUrl.url());
-					}
-				} else
-					cutehmi::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
-			}
+		cutehmi::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
+		if (appNode) {
+			QString source;
+			appNode->invoke("cutehmi::app::MainScreen", "source", Q_RETURN_ARG(QString, source));
+			QUrl sourceUrl(source);
+			if (sourceUrl.isValid()) {
+				// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
+				if (!sourceUrl.scheme().isEmpty() && QDir::isRelativePath(sourceUrl.path()))
+					cutehmi::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(sourceUrl.url()));
+				else {
+					// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
+					if (sourceUrl.isRelative())
+						sourceUrl = QUrl::fromLocalFile(baseDirPath).resolved(sourceUrl);
+					// Check if file exists and eventually set context property.
+					if (sourceUrl.isLocalFile() && !QFile::exists(sourceUrl.toLocalFile()))
+						cutehmi::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
+					else
+						engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", sourceUrl.url());
+				}
+			} else
+				cutehmi::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
 		}
-		result = app.exec();
 	}
-	cutehmi::CuteHMI::Destroy();
 
-	if (cmd.isSet(hideCursorOption))
-		QGuiApplication::restoreOverrideCursor();
-	//<workaround ref="cutehmi_view-5">
-	else
-		QGuiApplication::restoreOverrideCursor();
-	//</workaround>
+	//<principle id="Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec">
+	// "We recommend that you connect clean-up code to the aboutToQuit() signal, instead of putting it in your application's main() function because on some
+	//  platforms the exec() call may not return. For example, on Windows when the user logs off, the system terminates the process after Qt closes all top-level
+	//  windows. Hence, there is no guarantee that the application will have time to exit its event loop and execute code at the end of the main() function after
+	//  the exec() call."
+	QObject::connect(& app, & cutehmi::app::CuteApp::aboutToQuit, [&]() {
+		// It's quite important to destroy "engine" before cutehmi::CuteHMI::Instance() members, because they
+		// may still be used by some QML components (for example in "Component.onDestroyed" handlers).
+		engine.reset();
 
-	return result;
-//</principle>
+		cutehmi::CuteHMI::Destroy();
+
+		if (cmd.isSet(hideCursorOption))
+			QGuiApplication::restoreOverrideCursor();
+		//<workaround ref="cutehmi_view-5">
+		else
+			QGuiApplication::restoreOverrideCursor();
+		//</workaround>
+	});
+	//</principle>
+
+	return app.exec();
+
+	//</principle>
 }
 
 //(c)MP: Copyright © 2017, Michal Policht. All rights reserved.
