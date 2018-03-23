@@ -126,7 +126,7 @@ int main(int argc, char * argv[])
 		QGuiApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	//</workaround>
 
-	QDir baseDir(QCoreApplication::applicationDirPath());
+	QDir baseDir(QCoreApplication::applicationDirPath() + "/..");
 	if (cmd.isSet(basedirOption))
 		baseDir = cmd.value(basedirOption);
 	QString baseDirPath = baseDir.absolutePath() + "/";
@@ -135,7 +135,7 @@ int main(int argc, char * argv[])
 	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
 
 	std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-	engine->addImportPath(baseDirPath + "../QML");
+	engine->addImportPath(baseDirPath + "QML");
 	qDebug() << "QML import paths: " << engine->importPathList();
 	engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
 	engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
