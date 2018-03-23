@@ -82,7 +82,6 @@ class PluginLoader:
 	private:
 		struct Members
 		{
-			mutable QPluginLoader loader;
 			LoadedPluginsContainer loadedPlugins;
 		};
 

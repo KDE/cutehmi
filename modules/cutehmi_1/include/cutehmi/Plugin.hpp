@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 
 #include <QObject>
+#include <QPluginLoader>
 
 #include <memory>
 
@@ -23,9 +24,13 @@ class CUTEHMI_API Plugin:
 			int micro;
 		};
 
-		Plugin(const QString & binary, QObject * instance, const cutehmi::Plugin::MetaData & metaData, QObject * parent = 0);
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const cutehmi::Plugin::MetaData & metaData, QObject * parent = 0);
+
+		~Plugin() override;
 
 		const QString & binary() const;
+
+		const QPluginLoader & loader() const;
 
 		QObject * instance();
 
@@ -43,7 +48,7 @@ class CUTEHMI_API Plugin:
 		struct Members
 		{
 			QString binary;
-			QObject * instance;
+			std::unique_ptr<QPluginLoader> loader;
 			MetaData metaData;
 		};
 

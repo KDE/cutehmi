@@ -2,10 +2,18 @@
 
 namespace cutehmi {
 
-Plugin::Plugin(const QString & binary, QObject * instance, const MetaData & metaData, QObject * parent):
+Plugin::Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const MetaData & metaData, QObject * parent):
 	QObject(parent),
-	m(new Members{binary, instance, metaData})
+	m(new Members{binary, std::move(loader), metaData})
 {
+}
+
+Plugin::~Plugin()
+{
+	if (m->loader->unload())
+		CUTEHMI_LOG_DEBUG("Unloaded plugin '" << binary() << "'.");
+	else
+		CUTEHMI_LOG_WARNING("Could not unload plugin '" << binary() << "'.");
 }
 
 const QString & Plugin::binary() const
@@ -13,9 +21,14 @@ const QString & Plugin::binary() const
 	return m->binary;
 }
 
+const QPluginLoader & Plugin::loader() const
+{
+	return *m->loader;
+}
+
 QObject * Plugin::instance()
 {
-	return m->instance;
+	return m->loader->instance();
 }
 
 const QString & Plugin::id() const

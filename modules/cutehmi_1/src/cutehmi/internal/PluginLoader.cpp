@@ -29,11 +29,10 @@ Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor) noexcept
 	else if (meta.minor < reqMinor)
 		throw WrongVersionException(binary, reqMinor, meta.minor);
 
-	m->loader.setFileName(binary);
-	if (!m->loader.isLoaded()) {
-		QObject * instance = m->loader.instance();
-		if (instance) {
-			Plugin * plugin = new Plugin(binary, instance, meta);
+	std::unique_ptr<QPluginLoader> loader(new QPluginLoader(binary));
+	if (!loader->isLoaded()) {
+		if (loader->load()) {
+			Plugin * plugin = new Plugin(binary, std::move(loader), meta);
 			CUTEHMI_LOG_DEBUG("Loaded plugin '" << binary << "' version '" << plugin->version() << "'.");
 			m->loadedPlugins.append(plugin);
 		} else
@@ -41,23 +40,15 @@ Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor) noexcept
 	} else {
 		CUTEHMI_LOG_DEBUG("Plugin '" << binary << "' already loaded.");
 		if (!plugin(binary))
-			m->loadedPlugins.append(new Plugin(binary, m->loader.instance(), meta));
+			m->loadedPlugins.append(new Plugin(binary, std::move(loader), meta));
 	}
 	return plugin(binary);
 }
 
 void PluginLoader::unloadPlugins()
 {
-	while (!m->loadedPlugins.isEmpty()) {
-		Plugin * plugin = m->loadedPlugins.last();
-		m->loader.setFileName(plugin->binary());
-		if (m->loader.unload())
-			CUTEHMI_LOG_DEBUG("Unloaded plugin '" << plugin->binary() << "'.");
-		else
-			CUTEHMI_LOG_DEBUG("Could not unload plugin '" << plugin->binary() << "'.");
-		m->loadedPlugins.removeLast();
-		plugin->deleteLater();
-	}
+	while (!m->loadedPlugins.isEmpty())
+		m->loadedPlugins.takeLast()->deleteLater();
 }
 
 Plugin * PluginLoader::plugin(const QString & binary)
@@ -70,9 +61,9 @@ Plugin * PluginLoader::plugin(const QString & binary)
 
 Plugin::MetaData PluginLoader::metaData(const QString & binary) const
 {
-	m->loader.setFileName(binary);
+	std::unique_ptr<QPluginLoader> loader(new QPluginLoader(binary));
 	Plugin::MetaData metaData;
-	QJsonObject jsonMetaData = m->loader.metaData().value("MetaData").toObject();
+	QJsonObject jsonMetaData = loader->metaData().value("MetaData").toObject();
 
 	QStringList unavailableMetaData;
 	if (jsonMetaData.value("id").isUndefined())
