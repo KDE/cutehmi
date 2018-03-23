@@ -68,6 +68,11 @@ void DiscreteInputController::onValueUpdated()
 	setBusy(false);
 }
 
+void DiscreteInputController::onDiscreteInputDestroyed()
+{
+	m_input = nullptr;
+}
+
 void DiscreteInputController::setBusy(bool busy)
 {
 	if (m_busy != busy) {
@@ -91,11 +96,13 @@ void DiscreteInputController::setupInput(DiscreteInput * input)
 {
 	if (m_input != nullptr) {
 		disconnect(m_input, & DiscreteInput::valueUpdated, this, & DiscreteInputController::onValueUpdated);
+		disconnect(m_input, & DiscreteInput::destroyed, this, & DiscreteInputController::onDiscreteInputDestroyed);
 		m_input->rest();
 	}
 	m_input = input;
 	if (m_input != nullptr) {
 		connect(m_input, & DiscreteInput::valueUpdated, this, & DiscreteInputController::onValueUpdated);
+		connect(m_input, & DiscreteInput::destroyed, this, & DiscreteInputController::onDiscreteInputDestroyed);
 		m_input->awake();
 	}
 }

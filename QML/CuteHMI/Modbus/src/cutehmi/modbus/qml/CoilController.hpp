@@ -55,13 +55,15 @@ class CoilController:
 
 		void onValueUpdated();
 
+		void onCoilDestroyed();
+
 	protected:
 		void setBusy(bool busy);
 
 		void updateValue();
 
 	private:
-		void setupCoil(Coil * reg);
+		void setupCoil(Coil * coil);
 
 	private:
 		AbstractDevice * m_device;

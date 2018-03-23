@@ -51,6 +51,8 @@ class DiscreteInputController:
 	protected slots:
 		void onValueUpdated();
 
+		void onDiscreteInputDestroyed();
+
 	protected:
 		void setBusy(bool busy);
 

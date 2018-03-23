@@ -96,6 +96,11 @@ void InputRegisterController::onValueUpdated()
 	setBusy(false);
 }
 
+void InputRegisterController::onInputRegisterDestroyed()
+{
+	m_register = nullptr;
+}
+
 void InputRegisterController::setBusy(bool busy)
 {
 	if (m_busy != busy) {
@@ -120,11 +125,13 @@ void InputRegisterController::setupRegister(cutehmi::modbus::InputRegister * reg
 {
 	if (m_register != nullptr) {
 		disconnect(m_register, & InputRegister::valueUpdated, this, & InputRegisterController::onValueUpdated);
+		disconnect(m_register, & InputRegister::destroyed, this, & InputRegisterController::onInputRegisterDestroyed);
 		m_register->rest();
 	}
 	m_register = reg;
 	if (m_register != nullptr) {
 		connect(m_register, & InputRegister::valueUpdated, this, & InputRegisterController::onValueUpdated);
+		connect(m_register, & InputRegister::destroyed, this, & InputRegisterController::onInputRegisterDestroyed);
 		m_register->awake();
 	}
 }
