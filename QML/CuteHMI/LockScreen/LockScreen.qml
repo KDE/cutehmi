@@ -10,7 +10,7 @@ Image {
 	property string passwordInput
 	property bool inverted: false
 
-	fillMode: Image.PreserveAspectCrop
+	fillMode: Image.PreserveAspectFit
 
 	signal unlocked
 
