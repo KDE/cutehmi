@@ -1,7 +1,9 @@
 import qbs
 
-ModuleLib {
-	name: "cutehmi_authssh_1"
+import cutehmi
+
+cutehmi.Module {
+   name: "cutehmi_authssh_1"
 
 	files: [
         "cutehmi_authssh_1.json",
@@ -36,13 +38,13 @@ ModuleLib {
 	Depends { name: "cutehmi_1" }
 	Depends { name: "cutehmi_xml_1" }
 
-	Depends { name: "libssh" }
+	Depends { name: "cutehmi.libssh" }
 
 	Export {
 		Depends { name: "Qt.network" }
 
 		Depends { name: "cutehmi_1" }
 
-		Depends { name: "libssh" }
+		Depends { name: "cutehmi.libssh" }
 	}
 }

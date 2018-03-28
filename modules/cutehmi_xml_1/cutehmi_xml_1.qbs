@@ -1,6 +1,8 @@
 import qbs
 
-ModuleLib {
+import cutehmi
+
+cutehmi.Module {
 	name: "cutehmi_xml_1"
 
 	files: [

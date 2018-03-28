@@ -1,6 +1,8 @@
 import qbs
 
-ModuleLib {
+import cutehmi
+
+cutehmi.Module {
 	name: "cutehmi_modbus_1"
 
 	files: [
@@ -55,7 +57,7 @@ ModuleLib {
 	Depends { name: "cutehmi_xml_1" }
 	Depends { name: "cutehmi_services_1" }
 
-	Depends { name: "libmodbus" }
+	Depends { name: "cutehmi.libmodbus" }
 
 	Export {
 		Depends { name: "Qt.concurrent" }

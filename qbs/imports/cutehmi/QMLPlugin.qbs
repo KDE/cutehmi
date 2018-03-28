@@ -6,7 +6,7 @@ import "CommonProduct.qbs" as CommonProduct
 CommonProduct {
 	type: "dynamiclibrary"
 
-	property string installDir: FileInfo.relativePath(path + "/../..", sourceDirectory)
+	property string installDir: FileInfo.relativePath(path + "/../../..", sourceDirectory)
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")

@@ -1,6 +1,8 @@
 import qbs
 
-QMLPlugin {
+import cutehmi
+
+cutehmi.QMLPlugin {
 	name: "cutehmi_modbus_1_qml"
 
 	files: [

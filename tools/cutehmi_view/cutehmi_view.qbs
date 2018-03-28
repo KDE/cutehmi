@@ -1,6 +1,8 @@
 import qbs 1.0
 
-ToolApp {
+import cutehmi
+
+cutehmi.Tool {
 	name: "cutehmi_view"
 
 	files: [

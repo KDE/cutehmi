@@ -3,7 +3,19 @@ import qbs
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: "dynamiclibrary"
+	type: ["dynamiclibrary"]
+
+	property string vendor: "Undefined"		///< Product vendor.
+
+	property string humanName: "Undefined"	///< Descriptive product name for ordinary humans.
+
+	property string description: ""		///< Product description.
+
+	property string author: "Undefined" ///< Author(s).
+
+	property string copyright: "Undefined"	///< Copyright holder(s).
+
+	property string license: "Undefined"	///< License(s).
 
 	property string pluginName: name.substring(0, name.lastIndexOf("_", name.length - 1))
 

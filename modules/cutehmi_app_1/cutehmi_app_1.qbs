@@ -1,8 +1,10 @@
 import qbs
 
-ModuleLib {
-    files: [
-        "cutehmi_app_1.json",
+import cutehmi
+
+cutehmi.Module {
+	files: [
+		"cutehmi_app_1.json",
         "cutehmi_app_1.qrc",
         "include/cutehmi/app/CuteApp.hpp",
         "include/cutehmi/app/MainScreen.hpp",
@@ -19,11 +21,18 @@ ModuleLib {
         "src/cutehmi/app/plugin/ScreensNodeData.cpp",
         "src/cutehmi/app/plugin/ScreensNodeData.hpp",
     ]
+
 	name: "cutehmi_app_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
 
 //<workaround ref="cutehmi_app_1-1" target="Qt" cause="bug">
 	Depends { name: "Qt.widgets" }
 //</workaround>
+
+//	Depends { name: "cutehmi.metadata" }
 
 	Depends { name: "cutehmi_1" }
 	Depends { name: "cutehmi_xml_1" }

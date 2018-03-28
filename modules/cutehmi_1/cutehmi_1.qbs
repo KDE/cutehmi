@@ -1,7 +1,10 @@
 import qbs
 
-ModuleLib {
+import cutehmi
+
+cutehmi.Module {
 	name: "cutehmi_1"
+	version: "0.0"
 
 	files: [
 		"include/cutehmi/CuteHMI.hpp",

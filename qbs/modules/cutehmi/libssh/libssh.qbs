@@ -1,10 +1,12 @@
+import qbs 1.0
+
 Module {
     Depends { name: "cpp" }
 
     Properties {
         condition: qbs.targetOS.contains("windows")
-		cpp.includePaths: [path + "/../../../../include"]
-		cpp.libraryPaths: [path + "/../../../../lib"]
+		cpp.includePaths: [path + "/../../../../../include"]
+		cpp.libraryPaths: [path + "/../../../../../lib"]
 		cpp.dynamicLibraries: ["libssh"]
     }
 

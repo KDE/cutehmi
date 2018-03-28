@@ -1,6 +1,8 @@
 import qbs
 
-ModuleLib {
+import cutehmi
+
+cutehmi.Module {
 	name: "cutehmi_stupid_1"
 
 	files: [
