@@ -134,8 +134,9 @@ void ProjectBackend::Loader1::parsePlugin(const ParseHelper & parentHelper, Proj
 		if ((reader.name() == "extension") && (reader.attributes().value("object") == BackendPlugin::staticMetaObject.className())) {
 			BackendPlugin * xmlPlugin = qobject_cast<BackendPlugin *>(node.extension(BackendPlugin::staticMetaObject.className()));
 			if (xmlPlugin == nullptr)
-				throw MissingExtensionException(plugin->binary(), plugin->version(), BackendPlugin::staticMetaObject.className());
-			xmlPlugin->implementation()->readXML(static_cast<QXmlStreamReader &>(helper), node);
+				helper.raiseError(QObject::tr("Plugin '%1' version '%2' does not provide required extension '%3'.").arg(plugin->binary()).arg(plugin->version()).arg(BackendPlugin::staticMetaObject.className()));
+			else
+				xmlPlugin->implementation()->readXML(static_cast<QXmlStreamReader &>(helper), node);
 		}
 	}
 }
@@ -153,7 +154,7 @@ void ProjectBackend::Loader1::parseNodeRef(const ParseHelper & parentHelper, Pro
 			if (currentNode.child(id))
 				parseNodeRef(helper, *currentNode.child(id));
 			else
-				CUTEHMI_LOG_WARNING("Could not find child node with an id '"<< id << "' referenced at: " << internal::readerPositionString(reader) << ".");
+				helper.raiseError(QObject::tr("Could not find child node with an id '%1'.").arg(id));
 		} else if (reader.name() == "extension_ref") {
 			QString contextProperty = reader.attributes().value("context_property").toString();
 			if (contextProperty.startsWith("cutehmi_"))
@@ -161,12 +162,14 @@ void ProjectBackend::Loader1::parseNodeRef(const ParseHelper & parentHelper, Pro
 			else {
 				QString objectName = reader.attributes().value("object").toString();
 				if (m_qmlContext->contextProperty(contextProperty).isValid())
-					CUTEHMI_LOG_WARNING("Context property '"<< contextProperty << "' has been already set. Redefined at: " << internal::readerPositionString(reader) << ".");
-				QObject * object = currentNode.extension(objectName);
-				if (object == nullptr)
-					CUTEHMI_LOG_WARNING("Could not find extension object '"<< objectName << "' referenced at: " << internal::readerPositionString(reader) << ".");
-				else
-					m_qmlContext->setContextProperty(contextProperty, object);
+					helper.raiseError(QObject::tr("Context property '%1' has been already set.").arg(contextProperty));
+				else {
+					QObject * object = currentNode.extension(objectName);
+					if (object == nullptr)
+						helper.raiseError(QObject::tr("Could not find extension object '%1'.").arg(objectName));
+					else
+						m_qmlContext->setContextProperty(contextProperty, object);
+				}
 			}
 		}
 	}
