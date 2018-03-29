@@ -158,7 +158,7 @@ void ProjectBackend::Loader1::parseNodeRef(const ParseHelper & parentHelper, Pro
 		} else if (reader.name() == "extension_ref") {
 			QString contextProperty = reader.attributes().value("context_property").toString();
 			if (contextProperty.startsWith("cutehmi_"))
-				helper.raiseError(QObject::tr("Context properties starting with 'cutehmi_' string are reserved by CuteHMI."));
+				helper.raiseError(QObject::tr("Context properties starting with 'cutehmi_' prefix are reserved by CuteHMI."));
 			else {
 				QString objectName = reader.attributes().value("object").toString();
 				if (m_qmlContext->contextProperty(contextProperty).isValid())
