@@ -165,7 +165,8 @@ int main(int argc, char * argv[])
 				}
 			} else
 				cutehmi::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
-		}
+		} else
+			qInfo() << "Node 'cutehmi_app_1' has not been set in project model.";
 	}
 
 	//<principle id="Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec">
