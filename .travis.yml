@@ -1,6 +1,6 @@
 language: cpp
 sudo: required
-dist: trusty
+dist: xenial
 
 compiler:
   - clang
@@ -11,7 +11,7 @@ env:
   - QBS_ENV="debug"
 
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-trusty
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
   - sudo apt-get update -qq
 
 install:
