@@ -71,13 +71,15 @@ class PluginLoader:
 		void unloadPlugins();
 
 		/**
-		 * Get plugin.
+		 * Get loaded plugin.
 		 * @param binary name of plugin binary.
 		 * @return plugin object or @p nullptr if plugin has not been loaded.
 		 */
 		Plugin * plugin(const QString & binary);
 
-		Plugin::MetaData metaData(const QString & binary) const;
+		const LoadedPluginsContainer * loadedPlugins() const;
+
+		Plugin::Metadata metadata(const QString & binary) const;
 
 	private:
 		struct Members

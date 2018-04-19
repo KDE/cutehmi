@@ -21,13 +21,10 @@ PluginLoader::~PluginLoader()
 
 Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor) noexcept(false)
 {
-	Plugin::MetaData meta = metaData(binary);
+	Plugin::Metadata meta = metadata(binary);
 
-	// Make an attempt to obtain version information from meta data.
-	if (meta.minor == -1)
-		CUTEHMI_LOG_WARNING("Loading plugin '" << binary <<"', which has undefined minor version. Required minor is '" << reqMinor << "'.");
-	else if (meta.minor < reqMinor)
-		throw WrongVersionException(binary, reqMinor, meta.minor);
+	if (meta.minor() < reqMinor)
+		throw WrongVersionException(binary, reqMinor, meta.minor());
 
 	std::unique_ptr<QPluginLoader> loader(new QPluginLoader(binary));
 	if (!loader->isLoaded()) {
@@ -59,30 +56,15 @@ Plugin * PluginLoader::plugin(const QString & binary)
 	return nullptr;
 }
 
-Plugin::MetaData PluginLoader::metaData(const QString & binary) const
+const PluginLoader::LoadedPluginsContainer * PluginLoader::loadedPlugins() const
 {
-	std::unique_ptr<QPluginLoader> loader(new QPluginLoader(binary));
-	Plugin::MetaData metaData;
-	QJsonObject jsonMetaData = loader->metaData().value("MetaData").toObject();
+	return & m->loadedPlugins;
+}
 
-	QStringList unavailableMetaData;
-	if (jsonMetaData.value("id").isUndefined())
-		unavailableMetaData << "id";
-	if (jsonMetaData.value("name").isUndefined())
-		unavailableMetaData << "name";
-	if (jsonMetaData.value("minor").isUndefined())
-		unavailableMetaData << "minor";
-	if (jsonMetaData.value("micro").isUndefined())
-		unavailableMetaData << "micro";
-	if (!unavailableMetaData.isEmpty())
-		CUTEHMI_LOG_WARNING("Plugin '" << binary <<"' is missing '" << unavailableMetaData.join("', '") << "' meta-data information.");
-
-	metaData.id = jsonMetaData.value("id").toString();
-	metaData.name = jsonMetaData.value("name").toString();
-	metaData.minor = jsonMetaData.value("minor").toInt(-1);
-	metaData.micro = jsonMetaData.value("micro").toInt(-1);
-
-	return metaData;
+Plugin::Metadata PluginLoader::metadata(const QString & binary) const
+{
+	QPluginLoader loader(binary);
+	return Plugin::Metadata(binary, loader.metaData().value("MetaData").toObject().toVariantMap());
 }
 
 }

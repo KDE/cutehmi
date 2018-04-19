@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 
 #include <QObject>
+#include <QVariantMap>
 #include <QPluginLoader>
 
 #include <memory>
@@ -16,40 +17,66 @@ class CUTEHMI_API Plugin:
 	Q_OBJECT
 
 	public:
-		struct MetaData
+		Q_PROPERTY(QString binary READ binary CONSTANT)
+		Q_PROPERTY(QString fileName READ fileName CONSTANT)
+		Q_PROPERTY(QVariantMap metadata READ metadata CONSTANT)
+
+		class Metadata
 		{
-			QString id;
-			QString name;
-			int minor;
-			int micro;
+			public:
+				/**
+				 * Sanitize metadata. Checks if all required metadata is present. Provide fallbacks
+				 * if required metadata is missing.
+				 * @param binaryd binary name. This can be used as a fallback, if metadata does not
+				 * contain 'name' property. Function expects binary name to contain 'd' suffix
+				 * in debug mode, so in debug mode last character of the string will be chopped.
+				 * @param metadata metadata to sanitize.
+				 * @return sanitized metadata.
+				 */
+				static QVariantMap SanitizeMedatada(const QString & binaryd, const QVariantMap & metadata);
+
+				Metadata(const QString & binaryd, const QVariantMap & metadata);
+
+				const QVariantMap & data() const;
+
+				int minor() const;
+
+				int micro() const;
+
+			private:
+				QVariantMap m_data;
 		};
 
-		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const cutehmi::Plugin::MetaData & metaData, QObject * parent = 0);
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const Metadata & metadata, QObject * parent = 0);
 
 		~Plugin() override;
 
 		const QString & binary() const;
 
+		QString fileName() const;
+
+		const QVariantMap & metadata() const;
+
 		const QPluginLoader & loader() const;
 
 		QObject * instance();
 
-		const QString & id() const;
+		QString name() const;
 
-		const QString & name() const;
+		QString friendlyName() const;
+
+		QString version() const;
 
 		int minor() const;
 
 		int micro() const;
-
-		QString version() const;
 
 	private:
 		struct Members
 		{
 			QString binary;
 			std::unique_ptr<QPluginLoader> loader;
-			MetaData metaData;
+			Metadata metadata;
 		};
 
 		MPtr<Members> m;

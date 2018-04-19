@@ -2,9 +2,54 @@
 
 namespace cutehmi {
 
-Plugin::Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const MetaData & metaData, QObject * parent):
+QVariantMap Plugin::Metadata::SanitizeMedatada(const QString & binaryd, const QVariantMap & metadata)
+{
+	QVariantMap sanitized(metadata);
+
+	if (!sanitized.contains("name")) {
+		QString fallback(binaryd);
+#ifdef CUTEHMI_DEBUG
+		fallback.chop(1);
+#endif
+		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'name' property in '" << binaryd << "' metadata.");
+		sanitized.insert("name", fallback);
+	}
+	if (!sanitized.contains("version")) {
+		QString fallback("0.-1");	// Micro version is ignored, so use '-1' to indicate that this is a fallback value.
+		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'version' property in '" << binaryd << "' metadata.");
+		sanitized.insert("version", fallback);
+	}
+
+//	QStringList unavailableMetaData;
+//	if (!unavailableMetaData.isEmpty())
+//		CUTEHMI_LOG_WARNING("Plugin '" << binaryd <<"' is missing '" << unavailableMetaData.join("', '") << "' metadata information.");
+
+	return sanitized;
+}
+
+Plugin::Metadata::Metadata(const QString & binaryd, const QVariantMap & metadata):
+	m_data(SanitizeMedatada(binaryd, metadata))
+{
+}
+
+const QVariantMap & Plugin::Metadata::data() const
+{
+	return m_data;
+}
+
+int Plugin::Metadata::minor() const
+{
+	return m_data.value("version").toString().split('.').value(0).toInt();
+}
+
+int Plugin::Metadata::micro() const
+{
+	return m_data.value("version").toString().split('.').value(1).toInt();
+}
+
+Plugin::Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const Metadata & metadata, QObject * parent):
 	QObject(parent),
-	m(new Members{binary, std::move(loader), metaData})
+	m(new Members{binary, std::move(loader), metadata})
 {
 }
 
@@ -21,6 +66,11 @@ const QString & Plugin::binary() const
 	return m->binary;
 }
 
+const QVariantMap & Plugin::metadata() const
+{
+	return m->metadata.data();
+}
+
 const QPluginLoader & Plugin::loader() const
 {
 	return *m->loader;
@@ -31,42 +81,34 @@ QObject * Plugin::instance()
 	return m->loader->instance();
 }
 
-const QString & Plugin::id() const
+QString Plugin::name() const
 {
-	return m->metaData.id;
+	return m->metadata.data().value("name").toString();
 }
 
-const QString & Plugin::name() const
+QString Plugin::friendlyName() const
 {
-	return m->metaData.name;
-}
-
-int Plugin::minor() const
-{
-	return m->metaData.minor;
-}
-
-int Plugin::micro() const
-{
-	return m->metaData.micro;
+	return m->metadata.data().value("friendlyName").toString();
 }
 
 QString Plugin::version() const
 {
-	QString result;
-	if (minor() == -1)
-		result += "undefined";
-	else
-		result += QString::number(minor());
+	return m->metadata.data().value("version").toString();
+}
 
-	result += ".";
+QString Plugin::fileName() const
+{
+	return m->loader->fileName();
+}
 
-	if (micro() == -1)
-		result += "undefined";
-	else
-		result += QString::number(micro());
+int Plugin::minor() const
+{
+	return m->metadata.minor();
+}
 
-	return result;
+int Plugin::micro() const
+{
+	return m->metadata.micro();
 }
 
 }
