@@ -3,31 +3,40 @@ import qbs
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: ["dynamiclibrary"]
+	type: ["cutehmi.metadata", "dynamiclibrary"]
 
-	property string vendor: "Undefined"		///< Product vendor.
+	buildDefines: base.concat([baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"])
 
-	property string humanName: "Undefined"	///< Descriptive product name for ordinary humans.
+	property string vendor					///< Product vendor.
 
-	property string description: ""		///< Product description.
+	property string friendlyName			///< Descriptive product name for ordinary humans.
 
-	property string author: "Undefined" ///< Author(s).
+	property string description				///< Product description.
 
-	property string copyright: "Undefined"	///< Copyright holder(s).
+	property string author					///< Author(s).
 
-	property string license: "Undefined"	///< License(s).
+	property string copyright				///< Copyright holder(s).
 
-	property string pluginName: name.substring(0, name.lastIndexOf("_", name.length - 1))
+	property string license					///< License(s).
 
-	property string pluginMajor: name.substr(name.lastIndexOf("_", name.length - 1) + 1)
+	property string baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
 
-	buildDefines: base.concat([pluginName.toUpperCase() + "_BUILD", pluginName.toUpperCase() + "_DYNAMIC"])
+	property int major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
+
+	property int minor: Number(String(version).split('.')[0])
+
+	Depends { name: "cutehmi.metadata" }
 
 	Depends { name: "cpp" }
 
 	Export {
 		Depends { name: "cpp" }
-		cpp.defines: [product.pluginName.toUpperCase() + "_DYNAMIC"]
+//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+		cpp.defines: [product.baseName.toUpperCase() + "_DYNAMIC",
+			product.baseName.toUpperCase() + "_" + product.major + "_" + (importingProduct[product.name] && importingProduct[product.name].version ? String(importingProduct[product.name].version).split('.')[0] : product.minor)]
+		// Instead of somtehing like:
+		// cpp.defines: [product.baseName.toUpperCase() + "_DYNAMIC", product.baseName.toUpperCase() + "_" + product.major + "_" + cutehmi.depends.reqMinor]
+//</workaround>
 		cpp.includePaths: [product.sourceDirectory + "/include"]
 	}
 
