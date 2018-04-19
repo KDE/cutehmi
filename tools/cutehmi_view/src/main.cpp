@@ -60,7 +60,7 @@ int main(int argc, char * argv[])
 {
 	QCoreApplication::setOrganizationDomain("cutehmi");
 	QCoreApplication::setApplicationName("CuteHMI");
-	QCoreApplication::setApplicationVersion(CUTEHMI_APP_VERSION);
+	QCoreApplication::setApplicationVersion(CUTEHMI_VIEW_VERSION);
 
 	if (qgetenv("QT_IM_MODULE").isEmpty())
 		qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
