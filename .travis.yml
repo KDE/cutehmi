@@ -31,4 +31,4 @@ install:
   - qbs config profiles.qt59.baseProfile $CC
 
 script:
-  - qbs build -f CuteHMI.qbs -d build --command-echo-mode command-line profile:qt59 $QBS_ENV
+  - qbs build -f CuteHMI.qbs -d build --command-echo-mode command-line profile:qt59 config:$QBS_ENV
