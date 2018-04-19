@@ -5,6 +5,20 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_modbus_1"
 
+	version: "0.0"
+
+	friendlyName: "Modbus"
+
+	vendor: "CuteHMI"
+
+	description: "Allows for communication with devices over Modbus protocol."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
+
 	files: [
         "cutehmi_modbus_1.json",
         "cutehmi_modbus_1.qrc",
@@ -28,6 +42,7 @@ cutehmi.Module {
         "include/cutehmi/modbus/internal/functions.hpp",
         "include/cutehmi/modbus/internal/platform.hpp",
         "include/cutehmi/modbus/logging.hpp",
+        "include/cutehmi/modbus/metadata.hpp",
         "src/cutehmi/modbus/AbstractDevice.cpp",
         "src/cutehmi/modbus/Client.cpp",
         "src/cutehmi/modbus/Coil.cpp",
@@ -53,9 +68,11 @@ cutehmi.Module {
 
 	Depends { name: "Qt.concurrent" }
 
-	Depends { name: "cutehmi_1" }
-	Depends { name: "cutehmi_xml_1" }
-	Depends { name: "cutehmi_services_1" }
+//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
+	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.version: "0.0"
+	Depends { name: "cutehmi_services_1"; cutehmi.metadata.add: true } cutehmi_services_1.version: "0.0"
+//</workaround>
 
 	Depends { name: "cutehmi.libmodbus" }
 

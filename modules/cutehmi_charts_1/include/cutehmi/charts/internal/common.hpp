@@ -2,6 +2,7 @@
 #define H_MODULES_CUTEHMI__CHARTS__1_INCLUDE_CUTEHMI_CHARTS_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
+#include "../metadata.hpp"
 #include "../logging.hpp"
 
 #include <cutehmi/MPtr.hpp>

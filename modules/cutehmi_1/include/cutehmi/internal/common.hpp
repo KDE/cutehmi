@@ -2,6 +2,7 @@
 #define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
+#include "../metadata.hpp"
 #include "../logging.hpp"
 #include "../MPtr.hpp"
 #include "../ErrorInfo.hpp"

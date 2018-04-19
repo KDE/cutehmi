@@ -1,6 +1,11 @@
 {
-	"id": "cutehmi_app_1",
+	"name": "cutehmi_app_1",
+	"version": "0.0",
 	"minor": 0,
 	"micro": 0,
-	"name": "Application"
+	"friendlyName": "Application",
+	"depends": [
+		{"id": "cutehmi_1", "minor": 0},
+		{"id": "cutehmi_xml_1", "minor": 0}
+	]
 }

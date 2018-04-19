@@ -3,7 +3,21 @@ import qbs
 import cutehmi
 
 cutehmi.Module {
-   name: "cutehmi_authssh_1"
+	name: "cutehmi_authssh_1"
+
+	version: "0.0"
+
+	friendlyName: "SSH Authentication"
+
+	vendor: "CuteHMI"
+
+	description: "Authentication and tunneling with SSH protocol."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
         "cutehmi_authssh_1.json",
@@ -18,6 +32,7 @@ cutehmi.Module {
         "include/cutehmi/authssh/internal/common.hpp",
         "include/cutehmi/authssh/internal/platform.hpp",
         "include/cutehmi/authssh/logging.hpp",
+        "include/cutehmi/authssh/metadata.hpp",
         "src/cutehmi/authssh/AbstractChannel.cpp",
         "src/cutehmi/authssh/Client.cpp",
         "src/cutehmi/authssh/ForwardChannel.cpp",
@@ -35,8 +50,10 @@ cutehmi.Module {
 
 	Depends { name: "Qt.network" }
 
-	Depends { name: "cutehmi_1" }
-	Depends { name: "cutehmi_xml_1" }
+//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
+	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.version: "0.0"
+//</workaround>
 
 	Depends { name: "cutehmi.libssh" }
 

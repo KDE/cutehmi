@@ -12,7 +12,7 @@ cutehmi.Tool {
         "src/version.hpp",
     ]
 
-	Depends { name: "cutehmi_1" }
-	Depends { name: "cutehmi_xml_1" }
-	Depends { name: "cutehmi_app_1" }
+	Depends { name: "cutehmi_1" } cutehmi_1.version: "0.0"
+	Depends { name: "cutehmi_xml_1" } cutehmi_xml_1.version: "0.0"
+	Depends { name: "cutehmi_app_1" } cutehmi_app_1.version: "0.0"
 }

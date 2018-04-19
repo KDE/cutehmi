@@ -5,6 +5,20 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_stupid_1"
 
+	version: "0.0"
+
+	friendlyName: "STUPiD"
+
+	vendor: "CuteHMI"
+
+	description: "Store Temperature Using Pi Daemon."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
+
 	files: [
         "cutehmi_stupid_1.json",
         "cutehmi_stupid_1.qrc",
@@ -22,6 +36,7 @@ cutehmi.Module {
         "include/cutehmi/stupid/internal/functions.hpp",
         "include/cutehmi/stupid/internal/platform.hpp",
         "include/cutehmi/stupid/logging.hpp",
+        "include/cutehmi/stupid/metadata.hpp",
         "src/cutehmi/stupid/Client.cpp",
         "src/cutehmi/stupid/DS18B20.cpp",
         "src/cutehmi/stupid/DS18B20History.cpp",
@@ -44,10 +59,12 @@ cutehmi.Module {
 	Depends { name: "Qt.concurrent" }
 	Depends { name: "Qt.sql" }
 
-	Depends { name: "cutehmi_1" }
-	Depends { name: "cutehmi_xml_1" }
-	Depends { name: "cutehmi_services_1" }
-	Depends { name: "cutehmi_charts_1" }
+//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
+	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.version: "0.0"
+	Depends { name: "cutehmi_services_1"; cutehmi.metadata.add: true } cutehmi_services_1.version: "0.0"
+	Depends { name: "cutehmi_charts_1"; cutehmi.metadata.add: true } cutehmi_charts_1.version: "0.0"
+//</workaround>
 
 	Export {
 		Depends { name: "Qt.concurrent" }

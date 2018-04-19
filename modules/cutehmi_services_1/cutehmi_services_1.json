@@ -1,6 +1,6 @@
 {
-	"id": "cutehmi_services_1",
+	"name": "cutehmi_services_1",
 	"minor": 0,
 	"micro": 0,
-	"name": "Services"
+	"friendlyName": "Services"
 }
