@@ -6,6 +6,8 @@
 #include "ProjectModel.hpp"
 #include "IProjectBackend.hpp"
 
+#include <QQmlListProperty>
+
 class QIODevice;
 
 namespace cutehmi {
@@ -20,12 +22,15 @@ class CUTEHMI_API Project:
 
 	public:
 		Q_PROPERTY(ProjectModel * model READ model NOTIFY modelChanged)
+		Q_PROPERTY(QQmlListProperty<cutehmi::Plugin> plugins READ plugins NOTIFY pluginsChanged)
 
 		Project(QObject * parent = 0);
 
 		~Project() override;
 
 		ProjectModel * model() const;
+
+		const QQmlListProperty<Plugin> & plugins() const;
 
 		void load(IProjectBackend & backend) noexcept(false);
 
@@ -34,6 +39,8 @@ class CUTEHMI_API Project:
 	signals:
 		void modelChanged();
 
+		void pluginsChanged();
+
 	protected:
 		internal::PluginLoader * pluginLoader() const;
 
@@ -41,11 +48,15 @@ class CUTEHMI_API Project:
 		struct Members
 		{
 			//<principle id="cutehmi::Project::Members-determined_destruction_order">
-			// Plugins may be used by model.
-			std::unique_ptr<internal::PluginLoader> pluginLoader{new internal::PluginLoader};
+			std::unique_ptr<internal::PluginLoader> pluginLoader{new internal::PluginLoader}; // Plugins may be used by 'model'.
+			std::unique_ptr<QQmlListProperty<Plugin>> plugins{new QQmlListProperty<Plugin>(pluginLoader.get(), const_cast<internal::PluginLoader::LoadedPluginsContainer *>(pluginLoader.get()->loadedPlugins()), Project::PluginsCount, Project::PluginsAt)};
 			std::unique_ptr<ProjectModel> model{new ProjectModel};
 			//</principle>
 		};
+
+		static int PluginsCount(QQmlListProperty<Plugin> * property);
+
+		static Plugin * PluginsAt(QQmlListProperty<Plugin> * property, int index);
 
 		MPtr<Members> m;
 };
