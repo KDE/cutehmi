@@ -16,9 +16,9 @@ class CUTEHMI_API CuteHMI:
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(Project * project READ project NOTIFY projectChanged)
-		Q_PROPERTY(PopupBridge * popupBridge READ popupBridge NOTIFY popupBridgeChanged)
-		Q_PROPERTY(NotificationManager * notificationManager READ notificationManager NOTIFY notificationManagerChanged)
+		Q_PROPERTY(Project * project READ project CONSTANT)
+		Q_PROPERTY(PopupBridge * popupBridge READ popupBridge CONSTANT)
+		Q_PROPERTY(NotificationManager * notificationManager READ notificationManager CONSTANT)
 
 		/**
 		 * Get instance. Gets a reference to the instance of the singleton class.
@@ -57,13 +57,6 @@ class CUTEHMI_API CuteHMI:
 		PopupBridge * popupBridge() const;
 
 		NotificationManager * notificationManager() const;
-
-	signals:
-		void projectChanged();
-
-		void popupBridgeChanged();
-
-		void notificationManagerChanged();
 
 	protected:
 		CuteHMI();
