@@ -20,8 +20,6 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
-        "cutehmi_stupid_1.json",
-        "cutehmi_stupid_1.qrc",
         "include/cutehmi/stupid/Client.hpp",
         "include/cutehmi/stupid/DS18B20.hpp",
         "include/cutehmi/stupid/DS18B20History.hpp",
@@ -48,10 +46,10 @@ cutehmi.Module {
         "src/cutehmi/stupid/internal/Worker.cpp",
         "src/cutehmi/stupid/internal/functions.cpp",
         "src/cutehmi/stupid/logging.cpp",
-        "src/cutehmi/stupid/plugin/Plugin.cpp",
-        "src/cutehmi/stupid/plugin/Plugin.hpp",
         "src/cutehmi/stupid/plugin/PluginNodeData.cpp",
         "src/cutehmi/stupid/plugin/PluginNodeData.hpp",
+        "src/cutehmi/stupid/plugin/ProjectPlugin.cpp",
+        "src/cutehmi/stupid/plugin/ProjectPlugin.hpp",
         "src/cutehmi/stupid/plugin/StupidNodeData.cpp",
         "src/cutehmi/stupid/plugin/StupidNodeData.hpp",
     ]

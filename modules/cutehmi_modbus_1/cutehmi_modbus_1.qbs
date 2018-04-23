@@ -20,8 +20,6 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
-        "cutehmi_modbus_1.json",
-        "cutehmi_modbus_1.qrc",
         "include/cutehmi/modbus/AbstractDevice.hpp",
         "include/cutehmi/modbus/Client.hpp",
         "include/cutehmi/modbus/Coil.hpp",
@@ -60,10 +58,10 @@ cutehmi.Module {
         "src/cutehmi/modbus/logging.cpp",
         "src/cutehmi/modbus/plugin/ModbusNodeData.cpp",
         "src/cutehmi/modbus/plugin/ModbusNodeData.hpp",
-        "src/cutehmi/modbus/plugin/Plugin.cpp",
-        "src/cutehmi/modbus/plugin/Plugin.hpp",
         "src/cutehmi/modbus/plugin/PluginNodeData.cpp",
         "src/cutehmi/modbus/plugin/PluginNodeData.hpp",
+        "src/cutehmi/modbus/plugin/ProjectPlugin.cpp",
+        "src/cutehmi/modbus/plugin/ProjectPlugin.hpp",
     ]
 
 	Depends { name: "Qt.concurrent" }

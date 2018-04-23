@@ -20,8 +20,6 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
-        "cutehmi_authssh_1.json",
-        "cutehmi_authssh_1.qrc",
         "include/cutehmi/authssh/AbstractChannel.hpp",
         "include/cutehmi/authssh/Client.hpp",
         "include/cutehmi/authssh/Exception.hpp",
@@ -42,10 +40,10 @@ cutehmi.Module {
         "src/cutehmi/authssh/logging.cpp",
         "src/cutehmi/authssh/plugin/AuthSSHNodeData.cpp",
         "src/cutehmi/authssh/plugin/AuthSSHNodeData.hpp",
-        "src/cutehmi/authssh/plugin/Plugin.cpp",
-        "src/cutehmi/authssh/plugin/Plugin.hpp",
         "src/cutehmi/authssh/plugin/PluginNodeData.cpp",
         "src/cutehmi/authssh/plugin/PluginNodeData.hpp",
+        "src/cutehmi/authssh/plugin/ProjectPlugin.cpp",
+        "src/cutehmi/authssh/plugin/ProjectPlugin.hpp",
     ]
 
 	Depends { name: "Qt.network" }

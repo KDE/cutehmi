@@ -20,8 +20,6 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
-        "cutehmi_services_1.json",
-        "cutehmi_services_1.qrc",
         "include/cutehmi/services/Service.hpp",
         "include/cutehmi/services/ServiceRegistry.hpp",
         "include/cutehmi/services/internal/common.hpp",
@@ -31,10 +29,10 @@ cutehmi.Module {
         "src/cutehmi/services/Service.cpp",
         "src/cutehmi/services/ServiceRegistry.cpp",
         "src/cutehmi/services/logging.cpp",
-        "src/cutehmi/services/plugin/Plugin.cpp",
-        "src/cutehmi/services/plugin/Plugin.hpp",
         "src/cutehmi/services/plugin/PluginNodeData.cpp",
         "src/cutehmi/services/plugin/PluginNodeData.hpp",
+        "src/cutehmi/services/plugin/ProjectPlugin.cpp",
+        "src/cutehmi/services/plugin/ProjectPlugin.hpp",
     ]
 
 //<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
