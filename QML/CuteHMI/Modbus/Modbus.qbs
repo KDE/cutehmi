@@ -31,6 +31,8 @@ cutehmi.QMLPlugin {
 		"src/cutehmi/modbus/qml/InputRegisterController.hpp",
 	]
 
-	Depends { name: "cutehmi_modbus_1" }
+	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_modbus_1" } cutehmi_modbus_1.version: "0.0"
+	//</workaround>
 }
 

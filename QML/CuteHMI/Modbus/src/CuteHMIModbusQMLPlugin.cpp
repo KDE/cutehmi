@@ -16,10 +16,10 @@ void CuteHMIModbusQMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Modbus"));
 
-	qmlRegisterType<cutehmi::modbus::InputRegister>(uri, 1, 0, "InputRegister");
-	qmlRegisterType<cutehmi::modbus::HoldingRegister>(uri, 1, 0, "HoldingRegister");
-	qmlRegisterType<cutehmi::modbus::DiscreteInput>(uri, 1, 0, "DiscreteInput");
-	qmlRegisterType<cutehmi::modbus::Coil>(uri, 1, 0, "Coil");
+	qmlRegisterType<cutehmi::modbus::InputRegister>(uri, CUTEHMI_MODBUS_MAJOR, CUTEHMI_MODBUS_1_CURRENT, "InputRegister");
+	qmlRegisterType<cutehmi::modbus::HoldingRegister>(uri, CUTEHMI_MODBUS_MAJOR, CUTEHMI_MODBUS_1_CURRENT, "HoldingRegister");
+	qmlRegisterType<cutehmi::modbus::DiscreteInput>(uri, CUTEHMI_MODBUS_MAJOR, CUTEHMI_MODBUS_1_CURRENT, "DiscreteInput");
+	qmlRegisterType<cutehmi::modbus::Coil>(uri, CUTEHMI_MODBUS_MAJOR, CUTEHMI_MODBUS_1_CURRENT, "Coil");
 	qmlRegisterType<cutehmi::modbus::AbstractDevice>();
 	qmlRegisterType<cutehmi::modbus::Client>();
 

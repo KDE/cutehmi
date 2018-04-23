@@ -14,6 +14,8 @@ cutehmi.QMLPlugin {
         "src/CuteHMIStupidQMLPlugin.hpp",
     ]
 
-	Depends { name: "cutehmi_stupid_1" }
+	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	Depends { name: "cutehmi_stupid_1" } cutehmi_stupid_1.version: "0.0"
+	//</workaround>
 }
 

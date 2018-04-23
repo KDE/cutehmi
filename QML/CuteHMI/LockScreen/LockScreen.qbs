@@ -21,6 +21,7 @@ cutehmi.QMLPlugin {
         "src/cutehmi/lockscreen/qml/Settings.hpp",
     ]
 
-	Depends { name: "cutehmi_1" }
+	Depends { name: "Qt.core" }
+	Depends { name: "Qt.qml" }
 }
 
