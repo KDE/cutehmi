@@ -27,6 +27,7 @@ cutehmi.Module {
         "include/cutehmi/charts/metadata.hpp",
         "src/cutehmi/charts/PointSeries.cpp",
         "src/cutehmi/charts/logging.cpp",
+        "src/cutehmi/charts/plugin/MetadataPlugin.hpp",
     ]
 
 //<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">

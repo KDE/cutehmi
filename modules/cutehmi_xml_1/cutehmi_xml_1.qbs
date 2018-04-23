@@ -40,6 +40,7 @@ cutehmi.Module {
         "src/cutehmi/xml/conversions.cpp",
         "src/cutehmi/xml/internal/functions.cpp",
         "src/cutehmi/xml/logging.cpp",
+        "src/cutehmi/xml/plugin/MetadataPlugin.hpp",
     ]
 
 	Depends { name: "Qt.core" }
