@@ -1,4 +1,4 @@
-#include "Plugin.hpp"
+#include "ProjectPlugin.hpp"
 #include "PluginNodeData.hpp"
 #include "ScreensNodeData.hpp"
 #include "../../../../include/cutehmi/app/logging.hpp"
@@ -13,14 +13,14 @@ namespace cutehmi {
 namespace app {
 namespace plugin {
 
-void Plugin::init(ProjectNode & node)
+void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
 	node.addExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
-void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
+void ProjectPlugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 {
 	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_app_1' starts parsing its own portion of document...");
 
@@ -42,14 +42,14 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 	}
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false)
+void ProjectPlugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false)
 {
 	Q_UNUSED(xmlWriter);
 	Q_UNUSED(node);
 	throw Exception("cutehmi::app::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseScreens(const xml::ParseHelper & parentHelper, ProjectNode & node)
+void ProjectPlugin::parseScreens(const xml::ParseHelper & parentHelper, ProjectNode & node)
 {
 	std::unique_ptr<MainScreen> mainScreen;
 	std::unique_ptr<ScreensNodeData> screensNodeData;

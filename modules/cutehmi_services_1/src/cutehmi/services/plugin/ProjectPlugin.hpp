@@ -1,7 +1,7 @@
-#ifndef H_MODULES_CUTEHMI__SERVICES__1_SRC_CUTEHMI_SERVICES_PLUGIN_PLUGIN_HPP
-#define H_MODULES_CUTEHMI__SERVICES__1_SRC_CUTEHMI_SERVICES_PLUGIN_PLUGIN_HPP
+#ifndef H_MODULES_CUTEHMI__SERVICES__1_SRC_CUTEHMI_SERVICES_PLUGIN_PROJECTPLUGIN_HPP
+#define H_MODULES_CUTEHMI__SERVICES__1_SRC_CUTEHMI_SERVICES_PLUGIN_PROJECTPLUGIN_HPP
 
-#include <cutehmi/IPlugin.hpp>
+#include <cutehmi/IProjectPlugin.hpp>
 
 #include <QObject>
 
@@ -11,13 +11,13 @@ namespace cutehmi {
 namespace services {
 namespace plugin {
 
-class Plugin:
+class ProjectPlugin:
 	public QObject,
-	public IPlugin
+	public IProjectPlugin
 {
 	Q_OBJECT
-	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "../../../../cutehmi_services_1.json")
-	Q_INTERFACES(cutehmi::IPlugin)
+	Q_PLUGIN_METADATA(IID CUTEHMI_IPROJECTPLUGIN_IID FILE "../../../../cutehmi.metadata.json")
+	Q_INTERFACES(cutehmi::IProjectPlugin)
 
 	public:
 		void init(ProjectNode & node) override;

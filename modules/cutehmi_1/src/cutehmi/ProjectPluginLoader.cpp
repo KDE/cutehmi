@@ -1,5 +1,5 @@
 #include "../../include/cutehmi/ProjectPluginLoader.hpp"
-#include "../../include/cutehmi/IPlugin.hpp"
+#include "../../include/cutehmi/IProjectPlugin.hpp"
 #include "../../include/cutehmi/internal/PluginNodeData.hpp"
 #include "../../include/cutehmi/internal/PluginLoader.hpp"
 
@@ -21,9 +21,9 @@ ProjectNode * ProjectPluginLoader::addPluginNode(const QString & binary, int req
 #endif
 
 	Plugin * plugin = (m->pluginLoader->loadPlugin(binaryd, reqMinor));	// Note: loadPlugin() may throw exception.
-	IPlugin * pluginInstance = qobject_cast<IPlugin *>(plugin->instance());
+	IProjectPlugin * pluginInstance = qobject_cast<IProjectPlugin *>(plugin->instance());
 	if (pluginInstance == 0)
-		throw MissingInterfaceException(binaryd, plugin->version(), CUTEHMI_IPLUGIN_IID);
+		throw MissingInterfaceException(binaryd, plugin->version(), CUTEHMI_IPROJECTPLUGIN_IID);
 	ProjectNode * pluginNode;
 	if (!plugin->name().isEmpty())
 		pluginNode = parentNode.addChild(plugin->name(), ProjectNodeData(plugin->friendlyName()), false);

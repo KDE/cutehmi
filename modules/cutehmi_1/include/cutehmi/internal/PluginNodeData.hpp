@@ -7,7 +7,7 @@
 namespace cutehmi {
 
 class Plugin;
-class IPlugin;
+class IProjectPlugin;
 
 namespace internal {
 
@@ -21,7 +21,7 @@ class PluginNodeData:
 
 		int reqMinor() const;
 
-		IPlugin * pluginInstance() const;
+		IProjectPlugin * pluginInstance() const;
 
 	private:
 		struct Members

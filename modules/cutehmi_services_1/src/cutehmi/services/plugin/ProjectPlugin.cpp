@@ -1,4 +1,4 @@
-#include "Plugin.hpp"
+#include "ProjectPlugin.hpp"
 #include "PluginNodeData.hpp"
 
 #include <QtDebug>
@@ -7,7 +7,7 @@ namespace cutehmi {
 namespace services {
 namespace plugin {
 
-void Plugin::init(ProjectNode & node)
+void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> servicesNodeData(new PluginNodeData);
 	node.addExtension(servicesNodeData->serviceRegistry());

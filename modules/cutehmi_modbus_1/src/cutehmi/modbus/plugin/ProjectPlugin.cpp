@@ -1,4 +1,4 @@
-#include "Plugin.hpp"
+#include "ProjectPlugin.hpp"
 #include "PluginNodeData.hpp"
 #include "ModbusNodeData.hpp"
 #include "../../../../include/cutehmi/modbus/logging.hpp"
@@ -18,14 +18,14 @@ namespace cutehmi {
 namespace modbus {
 namespace plugin {
 
-void Plugin::init(ProjectNode & node)
+void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
 	node.addExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
-void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
+void ProjectPlugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 {
 	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_modbus_1' starts parsing its own portion of document...");
 
@@ -48,14 +48,14 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 	}
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false)
+void ProjectPlugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false)
 {
 	Q_UNUSED(xmlWriter);
 	Q_UNUSED(node);
 	throw Exception("cutehmi::modbus::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseModbus(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name)
+void ProjectPlugin::parseModbus(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name)
 {
 	xml::ParseHelper helper(& parentHelper);
 	helper << xml::ParseElement("client", 1, 1)
@@ -116,7 +116,7 @@ void Plugin::parseModbus(const xml::ParseHelper & parentHelper, ProjectNode & no
 	}
 }
 
-void Plugin::parseTCP(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
+void ProjectPlugin::parseTCP(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
 {
 	QString name;
 	QString service;
@@ -157,7 +157,7 @@ void Plugin::parseTCP(const xml::ParseHelper & parentHelper, std::unique_ptr<int
 	connection.reset(tcpConnection.release());
 }
 
-void Plugin::parseRTU(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
+void ProjectPlugin::parseRTU(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
 {
 	QString port;
 	int baudRate = 19200;
@@ -238,7 +238,7 @@ void Plugin::parseRTU(const xml::ParseHelper & parentHelper, std::unique_ptr<int
 	connection.reset(rtuConnection.release());
 }
 
-void Plugin::parseDummy(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
+void ProjectPlugin::parseDummy(const xml::ParseHelper & parentHelper, std::unique_ptr<internal::AbstractConnection> & connection)
 {
 	unsigned long latency = 0;
 	unsigned long connectLatency = 0;
@@ -276,7 +276,7 @@ void Plugin::parseDummy(const xml::ParseHelper & parentHelper, std::unique_ptr<i
 	connection.reset(dummyConnection.release());
 }
 
-bool Plugin::timeoutFromString(const QString & timeoutString, internal::LibmodbusConnection::Timeout & timeout)
+bool ProjectPlugin::timeoutFromString(const QString & timeoutString, internal::LibmodbusConnection::Timeout & timeout)
 {
 	unsigned long sec, usec;
 
@@ -289,7 +289,7 @@ bool Plugin::timeoutFromString(const QString & timeoutString, internal::Libmodbu
 	return false;
 }
 
-bool Plugin::secUsecFromString(const QString & timeoutString, unsigned long & sec, unsigned long & usec)
+bool ProjectPlugin::secUsecFromString(const QString & timeoutString, unsigned long & sec, unsigned long & usec)
 {
 	bool okSec, okUsec;
 

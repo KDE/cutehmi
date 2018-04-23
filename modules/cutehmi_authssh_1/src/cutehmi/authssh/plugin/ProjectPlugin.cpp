@@ -1,4 +1,4 @@
-#include "Plugin.hpp"
+#include "ProjectPlugin.hpp"
 #include "PluginNodeData.hpp"
 #include "AuthSSHNodeData.hpp"
 
@@ -19,14 +19,14 @@ namespace cutehmi {
 namespace authssh {
 namespace plugin {
 
-void Plugin::init(ProjectNode & node)
+void ProjectPlugin::init(ProjectNode & node)
 {
     std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
     node.addExtension(pluginNodeData->xmlBackendPlugin());
     node.data().append(std::move(pluginNodeData));
 }
 
-void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
+void ProjectPlugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 {
 	CUTEHMI_LOG_DEBUG("Plugin 'cutehmi_authssh_1' starts parsing its own portion of document...");
 
@@ -49,14 +49,14 @@ void Plugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
     }
 }
 
-void Plugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false)
+void ProjectPlugin::writeXML(QXmlStreamWriter & xmlWriter, ProjectNode & node) const noexcept(false)
 {
     Q_UNUSED(xmlWriter);
     Q_UNUSED(node);
     throw Exception("cutehmi::authssh::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void Plugin::parseClient(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name)
+void ProjectPlugin::parseClient(const xml::ParseHelper & parentHelper, ProjectNode & node, const QString & id, const QString & name)
 {
 	std::vector<std::unique_ptr<AbstractChannel>> channels;
 	std::unique_ptr<Client> client;
@@ -95,7 +95,7 @@ void Plugin::parseClient(const xml::ParseHelper & parentHelper, ProjectNode & no
 	}
 }
 
-void Plugin::parseChannels(const xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel>> & channels)
+void ProjectPlugin::parseChannels(const xml::ParseHelper & parentHelper, std::vector<std::unique_ptr<AbstractChannel>> & channels)
 {
 	xml::ParseHelper helper(& parentHelper);
 	helper << xml::ParseElement("channel", { xml::ParseAttribute("type", "forward")}, 0, -1);
@@ -111,7 +111,7 @@ void Plugin::parseChannels(const xml::ParseHelper & parentHelper, std::vector<st
 	}
 }
 
-void Plugin::parseForwardChannel(const xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel)
+void ProjectPlugin::parseForwardChannel(const xml::ParseHelper & parentHelper, std::unique_ptr<AbstractChannel> & channel)
 {
 	QHostAddress remoteHost;
 	uint remotePort = 0;

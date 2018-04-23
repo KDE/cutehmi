@@ -1,10 +1,10 @@
-#ifndef H_MODULES_CUTEHMI__APP__1_SRC_CUTEHMI_APP_PLUGIN_PLUGIN_HPP
-#define H_MODULES_CUTEHMI__APP__1_SRC_CUTEHMI_APP_PLUGIN_PLUGIN_HPP
+#ifndef H_MODULES_CUTEHMI__APP__1_SRC_CUTEHMI_APP_PLUGIN_PROJECTPLUGIN_HPP
+#define H_MODULES_CUTEHMI__APP__1_SRC_CUTEHMI_APP_PLUGIN_PROJECTPLUGIN_HPP
 
 #include <cutehmi/xml/IBackendPlugin.hpp>
 #include <cutehmi/xml/ParseHelper.hpp>
 
-#include <cutehmi/IPlugin.hpp>
+#include <cutehmi/IProjectPlugin.hpp>
 
 #include <QObject>
 
@@ -14,17 +14,17 @@ namespace cutehmi {
 namespace app {
 namespace plugin {
 
-class Plugin:
+class ProjectPlugin:
 	public QObject,
-	public IPlugin,
+	public IProjectPlugin,
 	public xml::IBackendPlugin
 {
 	Q_OBJECT
-	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "../../../../cutehmi.metadata.json")
-	Q_INTERFACES(cutehmi::IPlugin)
+	Q_PLUGIN_METADATA(IID CUTEHMI_IPROJECTPLUGIN_IID FILE "../../../../cutehmi.metadata.json")
+	Q_INTERFACES(cutehmi::IProjectPlugin)
 
 	public:
-		// IPlugin
+		// IProjectPlugin
 		void init(ProjectNode & node) override;
 
 		// xml::IBackendPlugin

@@ -1,12 +1,12 @@
-#ifndef H_MODULES_CUTEHMI__MODBUS__1_SRC_CUTEHMI_MODBUS_PLUGIN_PLUGIN_HPP
-#define H_MODULES_CUTEHMI__MODBUS__1_SRC_CUTEHMI_MODBUS_PLUGIN_PLUGIN_HPP
+#ifndef H_MODULES_CUTEHMI__MODBUS__1_SRC_CUTEHMI_MODBUS_PLUGIN_PROJECTPLUGIN_HPP
+#define H_MODULES_CUTEHMI__MODBUS__1_SRC_CUTEHMI_MODBUS_PLUGIN_PROJECTPLUGIN_HPP
 
 #include "../../../../include/cutehmi/modbus/internal/LibmodbusConnection.hpp"
 
 #include <cutehmi/xml/ParseHelper.hpp>
 #include <cutehmi/xml/BackendPlugin.hpp>
 
-#include <cutehmi/IPlugin.hpp>
+#include <cutehmi/IProjectPlugin.hpp>
 
 #include <QObject>
 
@@ -16,19 +16,19 @@ namespace cutehmi {
 namespace modbus {
 namespace plugin {
 
-class Plugin:
+class ProjectPlugin:
 	public QObject,
-	public IPlugin,
+	public IProjectPlugin,
 	public xml::IBackendPlugin
 {
 	Q_OBJECT
-	Q_PLUGIN_METADATA(IID CUTEHMI_IPLUGIN_IID FILE "../../../../cutehmi_modbus_1.json")
-	Q_INTERFACES(cutehmi::IPlugin)
+	Q_PLUGIN_METADATA(IID CUTEHMI_IPROJECTPLUGIN_IID FILE "../../../../cutehmi.metadata.json")
+	Q_INTERFACES(cutehmi::IProjectPlugin)
 
 	friend class PluginTest;
 
 	public:
-		// IPlugin
+		// IProjectPlugin
 		void init(ProjectNode & node) override;
 
 		// xml::IBackendPlugin

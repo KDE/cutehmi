@@ -1,5 +1,5 @@
-#ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_IPLUGIN_HPP
-#define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_IPLUGIN_HPP
+#ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_IPROJECTPLUGIN_HPP
+#define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_IPROJECTPLUGIN_HPP
 
 #include "internal/common.hpp"
 #include "ProjectNode.hpp"
@@ -11,21 +11,21 @@ namespace cutehmi {
 /**
  * Plugin interface.
  */
-class CUTEHMI_API IPlugin
+class CUTEHMI_API IProjectPlugin
 {
 	public:
 		virtual void init(ProjectNode & node) = 0;
 
 	protected:
-		virtual ~IPlugin() = default; // Making dtor virtual for plugin interface as in Qt docs.
+		virtual ~IProjectPlugin() = default; // Making dtor virtual for plugin interface as in Qt docs.
 
-		IPlugin() = default;
+		IProjectPlugin() = default;
 };
 
 }
 
-#define CUTEHMI_IPLUGIN_IID "cutehmi::IPlugin"
-Q_DECLARE_INTERFACE(cutehmi::IPlugin, CUTEHMI_IPLUGIN_IID)
+#define CUTEHMI_IPROJECTPLUGIN_IID "cutehmi::IProjectPlugin"
+Q_DECLARE_INTERFACE(cutehmi::IProjectPlugin, CUTEHMI_IPROJECTPLUGIN_IID)
 
 #endif
 
