@@ -27,8 +27,9 @@ cutehmi.Module {
         "include/cutehmi/ErrorInfo.hpp",
         "include/cutehmi/Exception.hpp",
         "include/cutehmi/ExceptionMixin.hpp",
-        "include/cutehmi/IPlugin.hpp",
+        "include/cutehmi/IMetadataPlugin.hpp",
         "include/cutehmi/IProjectBackend.hpp",
+        "include/cutehmi/IProjectPlugin.hpp",
         "include/cutehmi/MPtr.hpp",
         "include/cutehmi/NonCopyable.hpp",
         "include/cutehmi/NonMovable.hpp",
@@ -73,6 +74,7 @@ cutehmi.Module {
         "src/cutehmi/internal/PluginLoader.cpp",
         "src/cutehmi/internal/PluginNodeData.cpp",
         "src/cutehmi/logging.cpp",
+        "src/cutehmi/plugin/MetadataPlugin.hpp",
     ]
 
 	Depends { name: "Qt.core" }
