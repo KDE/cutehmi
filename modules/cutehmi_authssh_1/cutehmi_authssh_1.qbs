@@ -51,15 +51,15 @@ cutehmi.Module {
 //<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
 	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
 	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.version: "0.0"
-//</workaround>
 
 	Depends { name: "cutehmi.libssh" }
 
 	Export {
 		Depends { name: "Qt.network" }
 
-		Depends { name: "cutehmi_1" }
+		Depends { name: "cutehmi_1" } cutehmi_1.version: "0.0"
 
 		Depends { name: "cutehmi.libssh" }
 	}
+//</workaround>
 }
