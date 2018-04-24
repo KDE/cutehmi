@@ -1,6 +1,7 @@
 #ifndef H_MODULES_CUTEHMI__1_SRC_CUTEHMI_PLUGIN_METADATAPLUGIN_HPP
 #define H_MODULES_CUTEHMI__1_SRC_CUTEHMI_PLUGIN_METADATAPLUGIN_HPP
 
+#include "../../../cutehmi.metadata.hpp"
 #include "../../../include/cutehmi/IMetadataPlugin.hpp"
 
 #include <QObject>

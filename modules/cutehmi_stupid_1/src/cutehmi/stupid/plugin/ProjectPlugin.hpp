@@ -1,6 +1,7 @@
 #ifndef H_MODULES_CUTEHMI__STUPID__1_SRC_CUTEHMI_STUPID_PLUGIN_PROJECTPLUGIN_HPP
 #define H_MODULES_CUTEHMI__STUPID__1_SRC_CUTEHMI_STUPID_PLUGIN_PROJECTPLUGIN_HPP
 
+#include "../../../../cutehmi.metadata.hpp"
 #include "../../../../include/cutehmi/stupid/Client.hpp"
 #include "../../../../include/cutehmi/stupid/internal/DatabaseConnectionData.hpp"
 

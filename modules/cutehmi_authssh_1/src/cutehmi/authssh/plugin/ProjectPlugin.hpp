@@ -1,6 +1,7 @@
 #ifndef H_MODULES_CUTEHMI__AUTHSSH__1_SRC_CUTEHMI_AUTHSSH_PLUGIN_PROJECTPLUGIN_HPP
 #define H_MODULES_CUTEHMI__AUTHSSH__1_SRC_CUTEHMI_AUTHSSH_PLUGIN_PROJECTPLUGIN_HPP
 
+#include "../../../../cutehmi.metadata.hpp"
 #include "../../../../include/cutehmi/authssh/AbstractChannel.hpp"
 
 #include <cutehmi/xml/IBackendPlugin.hpp>

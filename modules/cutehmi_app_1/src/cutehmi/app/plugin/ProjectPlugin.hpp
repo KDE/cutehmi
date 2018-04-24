@@ -1,6 +1,8 @@
 #ifndef H_MODULES_CUTEHMI__APP__1_SRC_CUTEHMI_APP_PLUGIN_PROJECTPLUGIN_HPP
 #define H_MODULES_CUTEHMI__APP__1_SRC_CUTEHMI_APP_PLUGIN_PROJECTPLUGIN_HPP
 
+#include "../../../../cutehmi.metadata.hpp"
+
 #include <cutehmi/xml/IBackendPlugin.hpp>
 #include <cutehmi/xml/ParseHelper.hpp>
 

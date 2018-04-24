@@ -8,10 +8,7 @@ import qbs.Utilities
 /**
   This module collects properties defined within Qbs product and generates 'cutehmi.metadata.json' artifact.
 
-  Parameter 'cutehmi.depends.reqMinor' can be specified within dependencies. It denotes required minor version of the dependency.
-  The build will stop if minor version requirement is not satisfied. This is similar to 'versionAtLeast' parameter
-  functionality provided by Qbs, with a difference, that if 'cutehmi.depends.reqMinor' parameter is set, then dependency will be
-  added to the 'dependencies' list of 'cutehmi.metadata.json' artifact.
+  @note product may need to be recompiled in order to compile modified 'json' file into plugin, which uses Q_PLUGIN_METADATA macro.
 
   @warning generated artifact 'cutehmi.metadata.json' must not be added to the 'files' list of the product!
   Otherwise Qbs will not regenerate it automatically upon source 'qbs' modification.
@@ -19,6 +16,11 @@ import qbs.Utilities
 Module {
 //<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
 	Parameter { property bool add: false }
+
+//	Parameter 'cutehmi.depends.reqMinor' can be specified within dependencies. It denotes required minor version of the dependency.
+//	The build will stop if minor version requirement is not satisfied. This is similar to 'versionAtLeast' parameter
+//	functionality provided by Qbs, with a difference, that if 'cutehmi.depends.reqMinor' parameter is set, then dependency will be
+//	added to the 'dependencies' list of 'cutehmi.metadata.json' artifact.
 
 	//Depends { name: "cutehmi.depends" }
 //</workaround>
@@ -163,6 +165,11 @@ Module {
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.json"
+			fileTags: ["cutehmi.metadata"]
+		}
+
+		Artifact {
+			filePath: product.sourceDirectory + "/cutehmi.metadata.hpp"
 			fileTags: ["cutehmi.metadata"]
 		}
 	}

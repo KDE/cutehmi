@@ -1,6 +1,7 @@
 #ifndef H_MODULES_CUTEHMI__MODBUS__1_SRC_CUTEHMI_MODBUS_PLUGIN_PROJECTPLUGIN_HPP
 #define H_MODULES_CUTEHMI__MODBUS__1_SRC_CUTEHMI_MODBUS_PLUGIN_PROJECTPLUGIN_HPP
 
+#include "../../../../cutehmi.metadata.hpp"
 #include "../../../../include/cutehmi/modbus/internal/LibmodbusConnection.hpp"
 
 #include <cutehmi/xml/ParseHelper.hpp>

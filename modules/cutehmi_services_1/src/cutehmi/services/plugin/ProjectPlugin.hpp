@@ -1,6 +1,8 @@
 #ifndef H_MODULES_CUTEHMI__SERVICES__1_SRC_CUTEHMI_SERVICES_PLUGIN_PROJECTPLUGIN_HPP
 #define H_MODULES_CUTEHMI__SERVICES__1_SRC_CUTEHMI_SERVICES_PLUGIN_PROJECTPLUGIN_HPP
 
+#include "../../../../cutehmi.metadata.hpp"
+
 #include <cutehmi/IProjectPlugin.hpp>
 
 #include <QObject>
