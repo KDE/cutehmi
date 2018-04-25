@@ -3,7 +3,7 @@ import qbs
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: ["cutehmi.metadata", "dynamiclibrary"]
+	type: ["dynamiclibrary"]
 
 	buildDefines: base.concat([baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"])
 

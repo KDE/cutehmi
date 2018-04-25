@@ -14,6 +14,8 @@ import qbs.Utilities
   Otherwise Qbs will not regenerate it automatically upon source 'qbs' modification.
   */
 Module {
+	additionalProductTypes: ["cutehmi.metadata.json", "cutehmi.metadata.hpp"]
+
 //<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
 	Parameter { property bool add: false }
 
@@ -165,12 +167,12 @@ Module {
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.json"
-			fileTags: ["cutehmi.metadata"]
+			fileTags: ["cutehmi.metadata.json"]
 		}
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.hpp"
-			fileTags: ["cutehmi.metadata"]
+			fileTags: ["cutehmi.metadata.hpp"]
 		}
 	}
 }
