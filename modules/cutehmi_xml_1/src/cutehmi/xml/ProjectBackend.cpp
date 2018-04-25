@@ -101,20 +101,20 @@ void ProjectBackend::Loader1::parse(const ParseHelper & parentHelper)
 	CUTEHMI_LOG_DEBUG("Loader starts parsing a document...");
 
 	ParseHelper helper(& parentHelper);
-	helper << ParseElement("plugin", {ParseAttribute("binary", "[a-z|A-Z|0-9|_-]+"), ParseAttribute("req_minor", "-?[0-9]+")}, 0)
+	helper << ParseElement("plugin", {ParseAttribute("name", "[a-z|A-Z|0-9|_-]+"), ParseAttribute("req_minor", "-?[0-9]+")}, 0)
 		   << ParseElement("context_properties", 0);
 
 	const QXmlStreamReader & reader = helper.xmlReader();
 	while (helper.readNextRecognizedElement()) {
 		if (reader.name() == "plugin") {
-			QString binary = reader.attributes().value("binary").toString();
+			QString name = reader.attributes().value("name").toString();
 			bool reqMinorOk;
 			int reqMinor = reader.attributes().value("req_minor").toInt(& reqMinorOk);
 			if (!reqMinorOk) {
 				helper.raiseError(QObject::tr("Could not convert 'req_minor' attribute to integer."));
 				break;
 			}
-			ProjectNode * pluginNode = m_pluginLoader->addPluginNode(binary, reqMinor, *m_root);
+			ProjectNode * pluginNode = m_pluginLoader->addPluginNode(name, reqMinor, *m_root);
 			parsePlugin(helper, *pluginNode);
 		} else if (reader.name() == "context_properties")
 			parseNodeRef(helper, *m_root);

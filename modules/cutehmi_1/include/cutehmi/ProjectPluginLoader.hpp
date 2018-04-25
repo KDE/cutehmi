@@ -40,12 +40,12 @@ class CUTEHMI_API ProjectPluginLoader
 		 * Add plugin node to the given parent node. Beside creating a node, this function will load a plugin and
 		 * initialize it. Plugin object is accessible through an extension mechanism of newly created ProjectNode
 		 * (call `cutehmi::ProjectNode::extension(cutehmi::Plugin::staticMetaObject.className())` to access Plugin object).
-		 * @param binary name of the plugin binary. Suffix 'd' will be appended to the binary name in the debug mode.
+		 * @param name name of the plugin. Suffix 'd' will be appended to the binary name in the debug mode.
 		 * @param reqMinor minimal required minor version of the plugin.
 		 * @param parentNode node to which plugin node should be added.
 		 * @return newly created plugin node. Exception will be thrown in case of failure.
 		 */
-		ProjectNode * addPluginNode(const QString & binary, int reqMinor, ProjectNode & parentNode) const noexcept(false);
+		ProjectNode * addPluginNode(const QString & name, int reqMinor, ProjectNode & parentNode) const noexcept(false);
 
 	private:
 		explicit ProjectPluginLoader(internal::PluginLoader * pluginLoader);

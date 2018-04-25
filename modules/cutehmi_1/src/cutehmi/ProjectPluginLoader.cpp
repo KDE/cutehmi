@@ -12,18 +12,18 @@ ProjectPluginLoader::ProjectPluginLoader(internal::PluginLoader * pluginLoader):
 {
 }
 
-ProjectNode * ProjectPluginLoader::addPluginNode(const QString & binary, int reqMinor, ProjectNode & parentNode) const noexcept(false)
+ProjectNode * ProjectPluginLoader::addPluginNode(const QString & name, int reqMinor, ProjectNode & parentNode) const noexcept(false)
 {
-	QString binaryd(binary);
+	QString binary(name);
 #ifdef CUTEHMI_DEBUG
 	CUTEHMI_LOG_DEBUG("Suffix 'd' will be appended to the binary name, when loading plugin in debug mode.");
-	binaryd.append('d');
+	binary.append('d');
 #endif
 
-	Plugin * plugin = (m->pluginLoader->loadPlugin(binaryd, reqMinor));	// Note: loadPlugin() may throw exception.
+	Plugin * plugin = (m->pluginLoader->loadPlugin(binary, reqMinor));	// Note: loadPlugin() may throw exception.
 	IProjectPlugin * pluginInstance = qobject_cast<IProjectPlugin *>(plugin->instance());
 	if (pluginInstance == 0)
-		throw MissingInterfaceException(binaryd, plugin->version(), CUTEHMI_IPROJECTPLUGIN_IID);
+		throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_IPROJECTPLUGIN_IID);
 	ProjectNode * pluginNode;
 	if (!plugin->name().isEmpty())
 		pluginNode = parentNode.addChild(plugin->name(), ProjectNodeData(plugin->friendlyName()), false);
