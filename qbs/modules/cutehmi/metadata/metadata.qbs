@@ -175,4 +175,12 @@ Module {
 			fileTags: ["cutehmi.metadata.hpp"]
 		}
 	}
+
+//<workaround id="qbs.cutehmi.metadata-1" target="Qbs" cause="design">
+	Group {
+		name: "cutehmi.metadata"
+		fileTagsFilter: ["cutehmi.metadata.hpp", "cutehmi.metadata.json"]
+		fileTags: ["hpp"]
+	}
+//</workaround>
 }
