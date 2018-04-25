@@ -46,4 +46,10 @@ CommonProduct {
 		qbs.install: true
 		qbs.installDir: "bin"
 	}
+
+	Group {
+		name: "cutehmi.metadata"
+		fileTagsFilter: ["cutehmi.metadata.hpp", "cutehmi.metadata.json"]
+		fileTags: ["hpp"]
+	}
 }
