@@ -2,33 +2,86 @@
 
 namespace cutehmi {
 
-QVariantMap Plugin::Metadata::SanitizeMedatada(const QString & binaryd, const QVariantMap & metadata)
+QString Plugin::NameToBinary(const QString & name)
+{
+	QString binary(name);
+#ifdef CUTEHMI_DEBUG
+	binary.append('d');
+#endif
+	return binary;
+}
+
+QString Plugin::NameFromBinary(const QString & binary)
+{
+	QString name(binary);
+#ifdef CUTEHMI_DEBUG
+	name.chop(1);
+#endif
+	return name;
+}
+
+Plugin::Metadata Plugin::BinaryMetadata(const QString & binary)
+{
+	QPluginLoader loader(binary);
+	return Plugin::Metadata(binary, loader.metaData().value("MetaData").toObject().toVariantMap());
+}
+
+bool Plugin::BinaryExists(const QString & binary)
+{
+	QPluginLoader loader(binary);
+	return !loader.fileName().isEmpty();
+}
+
+int Plugin::CheckReqMinors(int reqMinor, QList<Metadata> & metadataList)
+{
+	if (metadataList.empty())
+		return 0;
+
+	Metadata metadata = metadataList.last();
+	if (metadata.minor() < reqMinor)
+		return reqMinor;
+
+	QVariantList dependencies = metadata.data().value("dependencies").toList();
+	for (auto dependency = dependencies.begin(); dependency != dependencies.end(); ++dependency) {
+		QMap<QString, QVariant> map = dependency->toMap();
+		QString name = map.value("name").toString();
+		reqMinor = map.value("reqMinor").toInt();
+		QString binary = NameToBinary(name);
+		Metadata depMetadata = BinaryMetadata(NameToBinary(name));
+		metadataList.append(depMetadata);
+		if (!BinaryExists(binary))
+			return -1;
+		if ((reqMinor = CheckReqMinors(reqMinor, metadataList)) != 0)
+			return reqMinor;
+	}
+	metadataList.removeLast();
+	return 0;
+}
+
+QVariantMap Plugin::Metadata::SanitizeMedatada(const QString & binary, const QVariantMap & metadata)
 {
 	QVariantMap sanitized(metadata);
 
 	if (!sanitized.contains("name")) {
-		QString fallback(binaryd);
-#ifdef CUTEHMI_DEBUG
-		fallback.chop(1);
-#endif
-		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'name' property in '" << binaryd << "' metadata.");
+		QString fallback(NameFromBinary(binary));
+		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'name' property in '" << binary << "' metadata.");
 		sanitized.insert("name", fallback);
 	}
 	if (!sanitized.contains("version")) {
 		QString fallback("0.-1");	// Micro version is ignored, so use '-1' to indicate that this is a fallback value.
-		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'version' property in '" << binaryd << "' metadata.");
+		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'version' property in '" << binary << "' metadata.");
 		sanitized.insert("version", fallback);
 	}
 
 //	QStringList unavailableMetaData;
 //	if (!unavailableMetaData.isEmpty())
-//		CUTEHMI_LOG_WARNING("Plugin '" << binaryd <<"' is missing '" << unavailableMetaData.join("', '") << "' metadata information.");
+//		CUTEHMI_LOG_WARNING("Plugin '" << binary <<"' is missing '" << unavailableMetaData.join("', '") << "' metadata information.");
 
 	return sanitized;
 }
 
-Plugin::Metadata::Metadata(const QString & binaryd, const QVariantMap & metadata):
-	m_data(SanitizeMedatada(binaryd, metadata))
+Plugin::Metadata::Metadata(const QString & binary, const QVariantMap & metadata):
+	m_data(SanitizeMedatada(binary, metadata))
 {
 }
 
@@ -47,23 +100,36 @@ int Plugin::Metadata::micro() const
 	return m_data.value("version").toString().split('.').value(1).toInt();
 }
 
-Plugin::Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const Metadata & metadata, QObject * parent):
+Plugin::Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, QObject * parent):
 	QObject(parent),
-	m(new Members{binary, std::move(loader), metadata})
+	m(new Members{binary, std::move(loader), implicitLoad, BinaryMetadata(binary)})
+{
+}
+
+Plugin::Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, const Metadata & metadata, QObject * parent):
+	QObject(parent),
+	m(new Members{binary, std::move(loader), implicitLoad, metadata})
 {
 }
 
 Plugin::~Plugin()
 {
-	if (m->loader->unload())
-		CUTEHMI_LOG_DEBUG("Unloaded plugin '" << binary() << "'.");
-	else
-		CUTEHMI_LOG_WARNING("Could not unload plugin '" << binary() << "'.");
+	if (!m->implicitLoad) {
+		if (m->loader->unload())
+			CUTEHMI_LOG_DEBUG("Unloaded plugin '" << binary() << "'.");
+		else
+			CUTEHMI_LOG_WARNING("Could not unload plugin '" << binary() << "'.");
+	}
 }
 
 const QString & Plugin::binary() const
 {
 	return m->binary;
+}
+
+bool Plugin::implicitLoad() const
+{
+	return m->implicitLoad;
 }
 
 const QVariantMap & Plugin::metadata() const

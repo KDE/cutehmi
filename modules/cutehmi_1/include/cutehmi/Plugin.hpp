@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 
 #include <QObject>
+#include <QList>
 #include <QVariantMap>
 #include <QPluginLoader>
 
@@ -20,6 +21,7 @@ class CUTEHMI_API Plugin:
 		Q_PROPERTY(QString binary READ binary CONSTANT)
 		Q_PROPERTY(QString fileName READ fileName CONSTANT)
 		Q_PROPERTY(QVariantMap metadata READ metadata CONSTANT)
+		Q_PROPERTY(bool implicitLoad READ implicitLoad CONSTANT)
 
 		class Metadata
 		{
@@ -27,15 +29,15 @@ class CUTEHMI_API Plugin:
 				/**
 				 * Sanitize metadata. Checks if all required metadata is present. Provide fallbacks
 				 * if required metadata is missing.
-				 * @param binaryd binary name. This can be used as a fallback, if metadata does not
+				 * @param binary binary name. This can be used as a fallback, if metadata does not
 				 * contain 'name' property. Function expects binary name to contain 'd' suffix
 				 * in debug mode, so in debug mode last character of the string will be chopped.
 				 * @param metadata metadata to sanitize.
 				 * @return sanitized metadata.
 				 */
-				static QVariantMap SanitizeMedatada(const QString & binaryd, const QVariantMap & metadata);
+				static QVariantMap SanitizeMedatada(const QString & binary, const QVariantMap & metadata);
 
-				Metadata(const QString & binaryd, const QVariantMap & metadata);
+				Metadata(const QString & binary, const QVariantMap & metadata);
 
 				const QVariantMap & data() const;
 
@@ -47,13 +49,27 @@ class CUTEHMI_API Plugin:
 				QVariantMap m_data;
 		};
 
-		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, const Metadata & metadata, QObject * parent = 0);
+		static QString NameToBinary(const QString & name);
+
+		static QString NameFromBinary(const QString & binary);
+
+		static Metadata BinaryMetadata(const QString & binary);
+
+		static bool BinaryExists(const QString & binary);
+
+		static int CheckReqMinors(int reqMinor, QList<Metadata> & metadataList);
+
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, QObject * parent = 0);
+
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, const Metadata & metadata, QObject * parent = 0);
 
 		~Plugin() override;
 
 		const QString & binary() const;
 
 		QString fileName() const;
+
+		bool implicitLoad() const;
 
 		const QVariantMap & metadata() const;
 
@@ -76,6 +92,7 @@ class CUTEHMI_API Plugin:
 		{
 			QString binary;
 			std::unique_ptr<QPluginLoader> loader;
+			bool implicitLoad;
 			Metadata metadata;
 		};
 

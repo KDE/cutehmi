@@ -21,24 +21,33 @@ PluginLoader::~PluginLoader()
 
 Plugin * PluginLoader::loadPlugin(const QString & binary, int reqMinor) noexcept(false)
 {
-	Plugin::Metadata meta = metadata(binary);
+	if (!Plugin::BinaryExists(binary))
+		throw BinaryAbsentException(binary);
 
-	if (meta.minor() < reqMinor)
-		throw WrongVersionException(binary, reqMinor, meta.minor());
+	Plugin::Metadata meta = Plugin::BinaryMetadata(binary);
+
+	QList<Plugin::Metadata> metaList{meta};
+	int checkMinor = Plugin::CheckReqMinors(reqMinor, metaList);
+
+	if (checkMinor == -1)
+		throw BinaryAbsentException(metaList.last().data().value("name").toString());
+
+	if (checkMinor != 0)
+		throw WrongVersionException(metaList.last().data().value("name").toString(), checkMinor, metaList.last().minor());
 
 	std::unique_ptr<QPluginLoader> loader(new QPluginLoader(binary));
-	if (!loader->isLoaded()) {
+	if (!plugin(binary)) {
 		if (loader->load()) {
-			Plugin * plugin = new Plugin(binary, std::move(loader), meta);
+			Plugin * plugin = new Plugin(binary, std::move(loader), false, meta);
 			CUTEHMI_LOG_DEBUG("Loaded plugin '" << binary << "' version '" << plugin->version() << "'.");
 			m->loadedPlugins.append(plugin);
+
+			// Dependant plugins should be implicitly loaded at this point.
+			handleImplicitLoads(*plugin);
 		} else
 			throw FailedLoadException(binary);
-	} else {
-		CUTEHMI_LOG_DEBUG("Plugin '" << binary << "' already loaded.");
-		if (!plugin(binary))
-			m->loadedPlugins.append(new Plugin(binary, std::move(loader), meta));
-	}
+	} else
+		throw LoadPrecedenceException(binary);
 	return plugin(binary);
 }
 
@@ -61,10 +70,19 @@ const PluginLoader::LoadedPluginsContainer * PluginLoader::loadedPlugins() const
 	return & m->loadedPlugins;
 }
 
-Plugin::Metadata PluginLoader::metadata(const QString & binary) const
+void PluginLoader::handleImplicitLoads(const Plugin & plugin) noexcept(false)
 {
-	QPluginLoader loader(binary);
-	return Plugin::Metadata(binary, loader.metaData().value("MetaData").toObject().toVariantMap());
+	QVariantList dependencies = plugin.metadata().value("dependencies").toList();
+	for (auto dependency = dependencies.begin(); dependency != dependencies.end(); ++dependency) {
+		QString depBinary = Plugin::NameToBinary(dependency->toMap().value("name").toString());
+		if (!PluginLoader::plugin(depBinary)) {
+			std::unique_ptr<QPluginLoader> depLoader(new QPluginLoader(depBinary));
+			Plugin * depPlugin = new Plugin(depBinary, std::move(depLoader), true);
+			CUTEHMI_LOG_DEBUG("Plugin '" << depBinary << "' version '" << depPlugin->version() << "' has been implicitly loaded.");
+			m->loadedPlugins.append(depPlugin);
+			handleImplicitLoads(*depPlugin);
+		}
+	}
 }
 
 }

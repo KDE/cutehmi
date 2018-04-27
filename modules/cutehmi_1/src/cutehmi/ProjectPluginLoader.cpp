@@ -14,11 +14,7 @@ ProjectPluginLoader::ProjectPluginLoader(internal::PluginLoader * pluginLoader):
 
 ProjectNode * ProjectPluginLoader::addPluginNode(const QString & name, int reqMinor, ProjectNode & parentNode) const noexcept(false)
 {
-	QString binary(name);
-#ifdef CUTEHMI_DEBUG
-	CUTEHMI_LOG_DEBUG("Suffix 'd' will be appended to the binary name, when loading plugin in debug mode.");
-	binary.append('d');
-#endif
+	QString binary(Plugin::NameToBinary(name));
 
 	Plugin * plugin = (m->pluginLoader->loadPlugin(binary, reqMinor));	// Note: loadPlugin() may throw exception.
 	IProjectPlugin * pluginInstance = qobject_cast<IProjectPlugin *>(plugin->instance());
