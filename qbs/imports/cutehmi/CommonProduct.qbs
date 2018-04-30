@@ -23,6 +23,8 @@ Product {
 
 	property int minor
 
+	property int micro
+
 	Properties {
 		condition: qbs.buildVariant.contains("debug")
 		cpp.defines: outer.concat(["CUTEHMI_DEBUG"]).concat(buildDefines)
