@@ -7,6 +7,14 @@ CommonProduct {
 
 	targetName: qbs.buildVariant.contains("debug") ? name + "_debug" : name
 
+	baseName: name
+
+	minor: Number(String(version).split('.')[0])
+
+	micro: Number(String(version).split('.')[1])
+
+	Depends { name: "cutehmi.metadata" }
+
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN"
