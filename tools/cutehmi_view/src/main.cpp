@@ -1,4 +1,4 @@
-#include "version.hpp"
+#include "../cutehmi.metadata.hpp"
 
 #include <cutehmi/CuteHMI.hpp>
 #include <cutehmi/ProjectModel.hpp>
@@ -25,6 +25,7 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QFile>
+#include <QJsonDocument>
 
 namespace cutehmi {
 namespace view {
@@ -58,9 +59,9 @@ void loadXMLFile(const QString & filePath, Project & project, QQmlContext & qmlC
 
 int main(int argc, char * argv[])
 {
-	QCoreApplication::setOrganizationDomain("cutehmi");
-	QCoreApplication::setApplicationName("CuteHMI");
-	QCoreApplication::setApplicationVersion(CUTEHMI_VIEW_VERSION);
+	QCoreApplication::setOrganizationDomain(QString(CUTEHMI_VIEW_VENDOR).toLower());
+	QCoreApplication::setApplicationName(CUTEHMI_VIEW_VENDOR " " CUTEHMI_VIEW_FRIENDLY_NAME);
+	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_VIEW_MAJOR).arg(CUTEHMI_VIEW_MINOR).arg(CUTEHMI_VIEW_MICRO));
 
 	if (qgetenv("QT_IM_MODULE").isEmpty())
 		qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
@@ -86,8 +87,17 @@ int main(int argc, char * argv[])
 	//<workaround>
 	app.setWindowIcon(QIcon(":/img/icon.png"));
 
+	QJsonDocument metadataJson;
+	{
+		QFile metadataFile(":/cutehmi.metadata.json");
+		if (metadataFile.open(QFile::ReadOnly)) {
+			metadataJson = QJsonDocument::fromJson(metadataFile.readAll());
+		} else
+			qFatal("Could not open ':/cutehmi.metadata.json' file.");
+	}
+
 	QCommandLineParser cmd;
-	cmd.setApplicationDescription("CuteHMI");
+	cmd.setApplicationDescription(QCoreApplication::applicationName() + "\n" + metadataJson.object().value("description").toString());
 	cmd.addHelpOption();
 	cmd.addVersionOption();
 	QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
