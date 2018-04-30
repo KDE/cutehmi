@@ -3,7 +3,21 @@ import qbs
 import cutehmi
 
 cutehmi.QMLPlugin {
-	name: "cutehmi_lockscreen_1_qml"
+	name: "cutehmi_lockscreen_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "Lock Screen QML"
+
+	description: "QML components, which allow to set up screen locking."
+
+	author: "Wojciech Zygmuntowicz, Michal Policht"
+
+	copyright: "Wojciech Zygmuntowicz, Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
         "ChangePasswordWizard.qml",

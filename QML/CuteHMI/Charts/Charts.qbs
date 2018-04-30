@@ -3,7 +3,21 @@ import qbs
 import cutehmi
 
 cutehmi.QMLPlugin {
-	name: "cutehmi_charts_1_qml"
+	name: "cutehmi_charts_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "Charts QML"
+
+	description: "QML components for data visualization with charts."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
         "plugins.qmltypes",

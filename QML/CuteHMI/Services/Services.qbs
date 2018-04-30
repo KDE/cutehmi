@@ -3,7 +3,21 @@ import qbs
 import cutehmi
 
 cutehmi.QMLPlugin {
-	name: "cutehmi_services_1_qml"
+	name: "cutehmi_services_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "Services QML"
+
+	description: "QML components for services."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
         "designer/Services.metainfo",

@@ -9,7 +9,7 @@ cutehmi.Module {
 
 	vendor: "CuteHMI"
 
-	friendlyName: "CuteHMI"
+	friendlyName: "Base"
 
 	description: "Base module for all CuteHMI applications."
 

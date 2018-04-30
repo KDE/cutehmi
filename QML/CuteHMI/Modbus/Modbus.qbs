@@ -3,7 +3,21 @@ import qbs
 import cutehmi
 
 cutehmi.QMLPlugin {
-	name: "cutehmi_modbus_1_qml"
+	name: "cutehmi_modbus_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "Modbus QML"
+
+	description: "QML components for dealing with Modbus protocol."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
 		"CoilItem.js",

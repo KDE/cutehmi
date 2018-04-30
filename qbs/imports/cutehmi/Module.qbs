@@ -7,23 +7,11 @@ CommonProduct {
 
 	buildDefines: base.concat([baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"])
 
-	property string vendor					///< Product vendor.
+	baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
 
-	property string friendlyName			///< Descriptive product name for ordinary humans.
+	major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
 
-	property string description				///< Product description.
-
-	property string author					///< Author(s).
-
-	property string copyright				///< Copyright holder(s).
-
-	property string license					///< License(s).
-
-	property string baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
-
-	property int major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
-
-	property int minor: Number(String(version).split('.')[0])
+	minor: Number(String(version).split('.')[0])
 
 	Depends { name: "cutehmi.metadata" }
 

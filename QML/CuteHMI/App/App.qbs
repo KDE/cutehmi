@@ -3,7 +3,21 @@ import qbs
 import cutehmi
 
 cutehmi.QMLPlugin {
-	name: "cutehmi_app_1_qml"
+	name: "cutehmi_app_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "Application QML"
+
+	description: "Provides QML components for client applications."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
         "designer/App.metainfo",

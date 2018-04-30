@@ -3,7 +3,21 @@ import qbs
 import cutehmi
 
 cutehmi.QMLPlugin {
-	name: "cutehmi_stupid_1_qml"
+	name: "cutehmi_stupid_qml_1"
+
+	version: "0.0"
+
+	vendor: "CuteHMI"
+
+	friendlyName: "STUPiD QML"
+
+	description: "QML extension of STUPiD (Store Temperature Using Pi Daemon)."
+
+	author: "Michal Policht"
+
+	copyright: "Michal Policht"
+
+	license: "Mozilla Public License, v. 2.0"
 
 	files: [
         "DS18B20Controller.js",

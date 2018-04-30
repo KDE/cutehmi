@@ -11,7 +11,7 @@ cutehmi.Module {
 
 	vendor: "CuteHMI"
 
-	description: "Charts for data visualization."
+	description: "Data visualization charts."
 
 	author: "Michal Policht"
 
