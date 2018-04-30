@@ -132,8 +132,12 @@ Module {
 					f.writeLine("")
 
 					f.writeLine("#define " + shortPrefix + "_NAME \"" + product.name + "\"")
+					f.writeLine("#define " + shortPrefix + "_FRIENDLY_NAME \"" + product.friendlyName + "\"")
+					f.writeLine("#define " + shortPrefix + "_VENDOR \"" + product.vendor + "\"")
 					f.writeLine("#define " + shortPrefix + "_VERSION \"" + product.version + "\"")
 					f.writeLine("#define " + shortPrefix + "_MAJOR " + product.major + "")
+					f.writeLine("#define " + shortPrefix + "_MINOR " + product.minor + "")
+					f.writeLine("#define " + shortPrefix + "_MICRO " + product.micro + "")
 
 					f.writeLine("")
 					f.writeLine("#ifdef " + product.baseName.toUpperCase() + "_BUILD")
