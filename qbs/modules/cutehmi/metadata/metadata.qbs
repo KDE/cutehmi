@@ -170,24 +170,12 @@ Module {
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.json"
-			fileTags: ["cutehmi.metadata.json"]
+			fileTags: ["cutehmi.metadata.json", "qt.core.resource_data", "qt_plugin_metadata"]
 		}
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.hpp"
-			fileTags: ["cutehmi.metadata.hpp"]
+			fileTags: ["cutehmi.metadata.hpp", "hpp"]
 		}
-	}
-
-	Group {
-		name: "cutehmi.metadata.hpp"
-		fileTagsFilter: ["cutehmi.metadata.hpp"]
-		fileTags: ["hpp"]
-	}
-
-	Group {
-		name: "cutehmi.metadata.json"
-		fileTagsFilter: ["cutehmi.metadata.json"]
-		fileTags: ["qt.core.resource_data", "qt_plugin_metadata"]
 	}
 }
