@@ -179,11 +179,15 @@ Module {
 		}
 	}
 
-//<workaround id="qbs.cutehmi.metadata-1" target="Qbs" cause="design">
 	Group {
-		name: "cutehmi.metadata"
-		fileTagsFilter: ["cutehmi.metadata.hpp", "cutehmi.metadata.json"]
+		name: "cutehmi.metadata.hpp"
+		fileTagsFilter: ["cutehmi.metadata.hpp"]
 		fileTags: ["hpp"]
 	}
-//</workaround>
+
+	Group {
+		name: "cutehmi.metadata.json"
+		fileTagsFilter: ["cutehmi.metadata.json"]
+		fileTags: ["qt.core.resource_data", "qt_plugin_metadata"]
+	}
 }
