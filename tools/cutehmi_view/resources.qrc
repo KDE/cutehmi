@@ -5,6 +5,5 @@
         <file>qml/DefaultScreen.qml</file>
         <file>qml/PromptDialog.qml</file>
         <file>qml/NotificationListView.qml</file>
-        <file>cutehmi.metadata.json</file>
     </qresource>
 </RCC>

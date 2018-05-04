@@ -24,8 +24,8 @@ cutehmi.Tool {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
-        "cutehmi_view.qrc",
-        "cutehmi_view.rc",
+        "resources.qrc",
+        "resources.rc",
         "src/main.cpp",
     ]
 
