@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Root element. CuteHMI projects live in a tree. This tree is (more or less) reflected by the structure of XML document. 
-     The task of parsing XML document is delegated to 'cutehmi_base' library. This library loads plugins and feeds them 
-     with relevant XML data. It can also expose extensions provided by plugins as QML context properties.
+     The task of parsing XML document is delegated to 'cutehmi_xml_1' library. This library acts as a backend of a project,
+     together with plugins, which provide cutehmi::xml::BackendPlugin extension.
      name - project name.
      xmlns - XML namespace, which denotes document format.
      -->
-<cutehmi_project name="Sample Project" xmlns="http://michpolicht.github.io/CuteHMI/cutehmi_base_1_lib/xsd/1.0/">
+<cutehmi_project name="Sample Project" xmlns="http://michpolicht.github.io/CuteHMI/cutehmi_1/xsd/1.0/">
   <!-- Plugin section. Plugin 'cutehmi_services_1' is required by 'cutehmi_modbus_1'.
        binary - name of the plugin binary to load (file name without a file extension).
        req_minor - required minor version of a plugin.
   -->
-  <plugin binary="cutehmi_services_1" req_minor="0" />
+  <plugin name="cutehmi_services_1" req_minor="0" />
 
   <!-- Plugin 'cutehmi_modbus_1' provides a way to interact with Modbus devices. -->
-  <plugin binary="cutehmi_modbus_1" req_minor="0">
+  <plugin name="cutehmi_modbus_1" req_minor="0">
     <!-- Extension section. Extension points can be provided by plugins or libraries.
-         In this case plugin 'cutehmi_modbus_1' provides instance of 'cutehmi::base::XMLBackendPlugin'
-         class and 'cutehmi_base' library uses this object to pass XML data to the plugin.
-         object - extension object (instance of cutehmi::base::XMLBackendPlugin in this case). 
+         In this case plugin 'cutehmi_modbus_1' provides instance of 'cutehmi::xml::BackendPlugin'
+         class and 'cutehmi_xml_1' library uses this object to pass XML data to the plugin.
+         object - extension object (instance of cutehmi::xml::BackendPlugin in this case). 
     -->
-    <extension object="cutehmi::base::XMLBackendPlugin">
+    <extension object="cutehmi::xml::BackendPlugin">
         <!-- Section of 'cutehmi_modbus_1' plugin. This is where plugin 'cutehmi_modbus_1' starts
              parsing its own portion of document.
              xmlns - XML namespace. It denotes section format.
@@ -74,13 +74,13 @@
   </plugin>
 
   <!-- Plugin 'cutehmi_app_1' provides a way to interact with frontend application. -->
-  <plugin binary="cutehmi_app_1" req_minor="0">
-    <extension object="cutehmi::base::XMLBackendPlugin">
+  <plugin name="cutehmi_app_1" req_minor="0">
+    <extension object="cutehmi::xml::BackendPlugin">
       <cutehmi_app_1 xmlns="http://michpolicht.github.io/CuteHMI/cutehmi_app_1/xsd/1.0/">
         <!-- Screens section. -->
         <screens>
           <!-- Points to QML, which should be loaded and shown instead of default, empty screen. -->
-          <main_screen source="QML/Screens/SampleProject/_Main.ui.qml" />
+          <main_screen source="examples/SampleProject/_Main.ui.qml" />
         </screens>
       </cutehmi_app_1>
     </extension>
@@ -93,8 +93,8 @@
       <!-- Element 'extension_ref' points to an extension.
            context_property - context property name.
 
-           In C++ this will make somewhat long reference: cutehmi::base::CuteHMI::Instance().project()->model()->root().child("cutehmi_services_1")->extension("cutehmi::services::ServiceRegistry").
-           This reference will be turned to context property with Qt setContextProperty() function. From now on instance of "cutehmi::services::ServiceRegistry" class will be available in QML as 'serviceRegistry'.
+           In C++ this would make somewhat long reference: cutehmi::CuteHMI::Instance()->project()->model()->root().child("cutehmi_services_1")->extension("cutehmi::services::ServiceRegistry").
+           This reference will be turned to context property with Qt setContextProperty() function. From now, instance of "cutehmi::services::ServiceRegistry" class will be available in QML as 'serviceRegistry'.
       --> 
       <extension_ref object="cutehmi::services::ServiceRegistry" context_property="serviceRegistry" />
     </node_ref>
