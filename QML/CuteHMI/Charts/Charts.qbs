@@ -5,7 +5,9 @@ import cutehmi
 cutehmi.QMLPlugin {
 	name: "cutehmi_charts_qml_1"
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 
@@ -41,7 +43,7 @@ cutehmi.QMLPlugin {
     ]
 
 	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
-	Depends { name: "cutehmi_charts_1" } cutehmi_charts_1.version: "0.0"
+	Depends { name: "cutehmi_charts_1" } cutehmi_charts_1.reqMinor: 0
 	//</workaround>
 
 	Depends { name: "Qt.quick" }

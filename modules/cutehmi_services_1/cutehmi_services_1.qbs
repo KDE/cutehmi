@@ -5,7 +5,9 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_services_1"
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	friendlyName: "Services"
 
@@ -37,10 +39,10 @@ cutehmi.Module {
 
 //<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
 
-	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
+	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
 
 	Export {
-		Depends { name: "cutehmi_1" } cutehmi_1.version: "0.0"
+		Depends { name: "cutehmi_1" } cutehmi_1.reqMinor: 0
 	}
 
 //</workaround>

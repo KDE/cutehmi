@@ -10,10 +10,6 @@ CommonProduct {
 
 	major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
 
-	minor: Number(String(version).split('.')[0])
-
-	micro: Number(String(version).split('.')[1])
-
 	property string installDir: FileInfo.relativePath(path + "/../../..", sourceDirectory)
 
 	Depends { name: "cutehmi.metadata" }

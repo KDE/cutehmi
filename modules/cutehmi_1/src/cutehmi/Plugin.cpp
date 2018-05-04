@@ -67,10 +67,15 @@ QVariantMap Plugin::Metadata::SanitizeMedatada(const QString & binary, const QVa
 		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'name' property in '" << binary << "' metadata.");
 		sanitized.insert("name", fallback);
 	}
-	if (!sanitized.contains("version")) {
-		QString fallback("0.-1");	// Micro version is ignored, so use '-1' to indicate that this is a fallback value.
-		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'version' property in '" << binary << "' metadata.");
-		sanitized.insert("version", fallback);
+	if (!sanitized.contains("minor")) {
+		int fallback = -1;
+		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'minor' property in '" << binary << "' metadata.");
+		sanitized.insert("minor", fallback);
+	}
+	if (!sanitized.contains("micro")) {
+		int fallback = -1;
+		CUTEHMI_LOG_WARNING("Using '" << fallback << "' as a fallback for missing 'micro' property in '" << binary << "' metadata.");
+		sanitized.insert("micro", fallback);
 	}
 
 //	QStringList unavailableMetaData;
@@ -90,14 +95,19 @@ const QVariantMap & Plugin::Metadata::data() const
 	return m_data;
 }
 
+int Plugin::Metadata::major() const
+{
+	return m_data.value("major").toInt();
+}
+
 int Plugin::Metadata::minor() const
 {
-	return m_data.value("version").toString().split('.').value(0).toInt();
+	return m_data.value("minor").toInt();
 }
 
 int Plugin::Metadata::micro() const
 {
-	return m_data.value("version").toString().split('.').value(1).toInt();
+	return m_data.value("micro").toInt();
 }
 
 Plugin::Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, QObject * parent):
@@ -159,22 +169,12 @@ QString Plugin::friendlyName() const
 
 QString Plugin::version() const
 {
-	return m->metadata.data().value("version").toString();
+	return QString::number(m->metadata.major()) + '.', QString::number(m->metadata.minor()) + '.' + QString::number(m->metadata.micro());
 }
 
 QString Plugin::fileName() const
 {
 	return m->loader->fileName();
-}
-
-int Plugin::minor() const
-{
-	return m->metadata.minor();
-}
-
-int Plugin::micro() const
-{
-	return m->metadata.micro();
 }
 
 }

@@ -5,7 +5,9 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_1"
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 

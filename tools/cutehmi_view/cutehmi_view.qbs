@@ -7,7 +7,9 @@ cutehmi.Tool {
 
 	major: 1
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 
@@ -27,7 +29,7 @@ cutehmi.Tool {
         "src/main.cpp",
     ]
 
-	Depends { name: "cutehmi_1" } cutehmi_1.version: "0.0"
-	Depends { name: "cutehmi_xml_1" } cutehmi_xml_1.version: "0.0"
-	Depends { name: "cutehmi_app_1" } cutehmi_app_1.version: "0.0"
+	Depends { name: "cutehmi_1" } cutehmi_1.reqMinor: 0
+	Depends { name: "cutehmi_xml_1" } cutehmi_xml_1.reqMinor: 0
+	Depends { name: "cutehmi_app_1" } cutehmi_app_1.reqMinor: 0
 }

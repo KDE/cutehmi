@@ -20,6 +20,7 @@ class CUTEHMI_API Plugin:
 	public:
 		Q_PROPERTY(QString binary READ binary CONSTANT)
 		Q_PROPERTY(QString fileName READ fileName CONSTANT)
+		Q_PROPERTY(QString version READ version CONSTANT)
 		Q_PROPERTY(QVariantMap metadata READ metadata CONSTANT)
 		Q_PROPERTY(bool implicitLoad READ implicitLoad CONSTANT)
 
@@ -41,8 +42,25 @@ class CUTEHMI_API Plugin:
 
 				const QVariantMap & data() const;
 
+				/**
+				 * Get major version number. This function is provided for convenience. It converts value of 'major' field accessible through data() function
+				 * to @p int value.
+				 * @return major version number.
+				 */
+				int major() const;
+
+				/**
+				 * Get minor version number. This function is provided for convenience. It converts value of 'minor' field accessible through data() function
+				 * to @p int value.
+				 * @return minor version number.
+				 */
 				int minor() const;
 
+				/**
+				 * Get micro version number. This function is provided for convenience. It converts value of 'micro' field accessible through data() function
+				 * to @p int value.
+				 * @return micro version number.
+				 */
 				int micro() const;
 
 			private:
@@ -82,10 +100,6 @@ class CUTEHMI_API Plugin:
 		QString friendlyName() const;
 
 		QString version() const;
-
-		int minor() const;
-
-		int micro() const;
 
 	private:
 		struct Members

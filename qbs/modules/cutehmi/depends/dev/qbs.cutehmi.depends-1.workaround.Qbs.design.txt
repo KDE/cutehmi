@@ -10,7 +10,8 @@ Another possible solution would be to extend 'Depends' item, add custom property
 
 Workaround:
 
-A workaround is to use 'version' property instead of dependency parameters. Property 'version' has to be used, because custom properties are not supported. Imported module can see 'version' property through 'importingProduct' property, which is defined by 'Export' item.
+A workaround is to use 'reqMinor' property instead of dependency parameters. Property 'reqMinor' is provided by 'Export' item belonging
+to 'cutehmi.Module'.
 
 Snippet:
 
@@ -21,6 +22,6 @@ Depends { name: "cutehmi_xml_1"; cutehmi.depends.reqMinor: 0 }
 Above code has to be replaced by the code below.
 
 ```qml
-Depends { name: "cutehmi_xml_1" } cutehmi_xml_1.version: "0.0"
+Depends { name: "cutehmi_xml_1" } cutehmi_xml_1.reqMinor: 0
 ```
 

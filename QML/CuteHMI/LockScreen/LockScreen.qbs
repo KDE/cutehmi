@@ -5,7 +5,9 @@ import cutehmi
 cutehmi.QMLPlugin {
 	name: "cutehmi_lockscreen_qml_1"
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 

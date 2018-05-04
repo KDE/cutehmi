@@ -9,10 +9,6 @@ CommonProduct {
 
 	baseName: name
 
-	minor: Number(String(version).split('.')[0])
-
-	micro: Number(String(version).split('.')[1])
-
 	Depends { name: "cutehmi.metadata" }
 
 	Properties {

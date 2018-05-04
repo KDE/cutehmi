@@ -5,7 +5,9 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_xml_1"
 
-	version: "0.0"
+	minor: 0
+
+	micro: 0
 
 	vendor: "CuteHMI"
 
@@ -47,7 +49,7 @@ cutehmi.Module {
 	Depends { name: "Qt.qml" }
 
 //<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
-	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.version: "0.0"
+	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
 //</workaround>
 
 	Export {
