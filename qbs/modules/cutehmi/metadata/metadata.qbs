@@ -6,9 +6,7 @@ import qbs.TextFile
 import qbs.Utilities
 
 /**
-  This module collects properties defined within Qbs product and generates 'cutehmi.metadata.json' artifact.
-
-  @note product may need to be recompiled in order to compile modified 'json' file into plugin, which uses Q_PLUGIN_METADATA macro.
+  This module collects properties defined within Qbs product and generates 'cutehmi.metadata.json' and 'cutehmi.metadata.hpp' artifacts.
 
   @warning generated artifact 'cutehmi.metadata.json' must not be added to the 'files' list of the product!
   Otherwise Qbs will not regenerate it automatically upon source 'qbs' modification.
