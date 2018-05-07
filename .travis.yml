@@ -11,7 +11,7 @@ env:
   - QBS_ENV="debug"
 
 before_install:
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt594-xenial
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt595-xenial
   - sudo apt-get update -qq
 
 install:
