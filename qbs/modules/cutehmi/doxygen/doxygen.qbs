@@ -24,7 +24,7 @@ Module {
 			doxCmd.sourceCode = function() {
 				console.info("Regenerating file " + product.sourceDirectory + "/Doxyfile")
 
-				var docDir = project.sourceDirectory + '/doc'
+				var docDir = project.sourceDirectory + '/doc/Doxygen'
 				var outputDir = docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory) // Absolute.
 				var doxygenOptions = {
 					'PROJECT_NAME': product.vendor + ' ' + product.friendlyName + ' (' + product.name + ')',
