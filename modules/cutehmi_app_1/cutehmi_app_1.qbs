@@ -47,6 +47,8 @@ cutehmi.Module {
 	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
 	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.reqMinor: 0
 
+	Depends { name: "cutehmi.doxygen" }
+
 	Export {
 		Depends { name: "Qt.widgets" }
 

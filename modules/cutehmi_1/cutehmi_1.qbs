@@ -13,7 +13,7 @@ cutehmi.Module {
 
 	friendlyName: "Base"
 
-	description: "Base module for all CuteHMI applications."
+	description: "Base module."
 
 	author: "Michal Policht"
 
@@ -81,6 +81,8 @@ cutehmi.Module {
 
 	Depends { name: "Qt.core" }
 	Depends { name: "Qt.qml" }
+
+	Depends { name: "cutehmi.doxygen" }
 
 	Export {
 		Depends { name: "Qt.core" }
