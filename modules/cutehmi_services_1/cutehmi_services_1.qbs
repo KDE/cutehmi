@@ -37,7 +37,7 @@ cutehmi.Module {
         "src/cutehmi/services/plugin/ProjectPlugin.hpp",
     ]
 
-//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 
 	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
 

@@ -29,7 +29,7 @@ cutehmi.QMLPlugin {
         "src/CuteHMIServicesQMLPlugin.hpp",
     ]
 
-	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 	Depends { name: "cutehmi_services_1" } cutehmi_services_1.reqMinor: 0
 	//</workaround>
 }

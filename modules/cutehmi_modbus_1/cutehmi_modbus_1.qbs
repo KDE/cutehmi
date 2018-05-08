@@ -68,7 +68,7 @@ cutehmi.Module {
 
 	Depends { name: "Qt.concurrent" }
 
-//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 
 //	cutehmi.depends.reqMinors
 	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0

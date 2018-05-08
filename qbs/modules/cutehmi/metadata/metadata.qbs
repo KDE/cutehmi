@@ -14,7 +14,7 @@ import qbs.Utilities
 Module {
 	additionalProductTypes: ["cutehmi.metadata.json", "cutehmi.metadata.hpp"]
 
-//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 	Parameter { property bool add: false }
 
 //	Parameter 'cutehmi.depends.reqMinor' can be specified within dependencies. It denotes required minor version of the dependency.
@@ -82,7 +82,7 @@ Module {
 					} else
 						continue
 
-//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 					var reqMinor = product[dependency.name].reqMinor
 					// Instead of:
 					//	var reqMinor = dependency.parameters.cutehmi.depends.reqMinor

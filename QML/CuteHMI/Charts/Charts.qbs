@@ -42,7 +42,7 @@ cutehmi.QMLPlugin {
         "src/cutehmi/charts/qml/ValueAxis.hpp",
     ]
 
-	//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+	//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 	Depends { name: "cutehmi_charts_1" } cutehmi_charts_1.reqMinor: 0
 	//</workaround>
 

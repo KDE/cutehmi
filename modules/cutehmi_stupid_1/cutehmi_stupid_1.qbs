@@ -59,7 +59,7 @@ cutehmi.Module {
 	Depends { name: "Qt.concurrent" }
 	Depends { name: "Qt.sql" }
 
-//<workaround id="qbs.cutehmi.depends-1" target="Qbs" cause="design">
+//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 
 	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
 	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.reqMinor: 0
