@@ -1,0 +1,3 @@
+[submodule "doc/Doxygen"]
+	path = doc/Doxygen
+	url = git@github.com:michpolicht/CuteHMI_Doxygen.git

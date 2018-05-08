@@ -4,3 +4,7 @@ Doxyfile -crlf
 # Localization files.
 modules/*/locale/* -crlf
 tools/*/locale/* -crlf
+
+# Git file defining properties of submodules.
+.gitmodules -crlf
+
