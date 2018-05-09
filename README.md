@@ -32,3 +32,22 @@ If anything goes wrong during loading, first check debug output and verify that 
 Something similar to this should show up on screen.
 
 ![SampleProject screenshot](doc/images/examples/SampleProject/screenshot.png)
+
+
+## Internals
+
+Directory structure of the project is organized as follows.
+
+- *awkgward* - code maintanance scripts (don't bother).
+- *dev* - development notes (irrelevant).
+- *doc* - place where documentation shall be.
+- *examples* - self-explanatory.
+- *extra* - various stuff related to the project, such as T-shirts.
+- [modules](modules) - the heart of the project.
+- *qbs* - Qbs modules and imports.
+- *QML* - QML extensions (secondary heart of the project).
+- *tools* - end-user applications (tertiary heart of the project).
+
+![Tools-modules-QML dependency diagram](doc/images/tools_modules_QML_dependency.png)
+
+The concept is simple. Three most important directories are [modules](modules), *QML* and *tools*. Modules are basically libraries, which provide various functionalities in modular fashion. These can be utilized by QML extensions or end-user applications. End-user applications may of course utilize QML extensions also, as this is one of the main features offered by Qt.
