@@ -50,4 +50,4 @@ Directory structure of the project is organized as follows.
 
 ![Tools-modules-QML dependency diagram](doc/images/tools_modules_QML_dependency.png)
 
-The concept is simple. Three most important directories are [modules](modules), [QML](QML) and [tools](tools). Modules are basically libraries, which provide various functionalities in modular fashion. These can be utilized by QML extensions or end-user applications. End-user applications may of course utilize QML extensions also, as this is one of the main features offered by Qt. Everything works in Qt environment.
+The concept is simple. Three most important directories are [modules](modules), [QML](QML) and [tools](tools). Modules are basically libraries, which provide various functionalities in modular fashion. These can be utilized by QML extensions or end-user applications. End-user applications may of course utilize QML extensions also, as this is one of the main features offered by Qt.
