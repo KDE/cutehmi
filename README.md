@@ -1,14 +1,12 @@
 # CuteHMI
 
-<span class="doxygen_github_hack">
+<div class="doxygen_github_hack" style="font-size: 0px">
 
 [//]: # (\htmlonly)
-
 <a href="https://travis-ci.org/michpolicht/CuteHMI" style="visibility: visible"><img src="https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master" /></a>
 
 [//]: # (\endhtmlonly)
-
-</span>
+</div>
 
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++ and QML, using Qt library as a framework.
 
