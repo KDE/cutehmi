@@ -1,6 +1,14 @@
 # CuteHMI
 
-[![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master)](https://travis-ci.org/michpolicht/CuteHMI)
+<span class="doxygen_github_hack">
+
+[//]: # (\htmlonly)
+
+<a href="https://travis-ci.org/michpolicht/CuteHMI" style="visibility: visible"><img src="https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master" /></a>
+
+[//]: # (\endhtmlonly)
+
+</span>
 
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++ and QML, using Qt library as a framework.
 
@@ -31,7 +39,7 @@ If anything goes wrong during loading, first check debug output and verify that 
 
 Something similar to this should show up on screen.
 
-![SampleProject screenshot](doc/images/examples/SampleProject/screenshot.png)
+![SampleProject screenshot](doc/images/examples_SampleProject.png)
 
 
 ## Internals
