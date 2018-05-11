@@ -120,13 +120,18 @@ guards:
 		\( -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in' \) \
 		-exec $(SH) awkgward/awkgward.sh $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(ORS) \;
 
-doc: doc_qdoc doc_doxygen
+doc: doc_doxygen
 
 doc_qdoc: $(DOC_QDOC_FILES)
 		@$(foreach file, $^, $(QDOC) $(file);) 
 
-doc_doxygen: $(DOC_DOXYGEN_FILES)
-		@$(foreach file, $^, $(DOXYGEN) $(file);) 
+doc_doxygen:
+		@$(FIND) $(DOXYGEN_DIRS) \
+		\( -name 'Doxyfile' -o -name '*.Doxyfile' \) \
+		-execdir $(DOXYGEN) {} \;
+
+clean_doc:
+		@$(FIND) $(DOXYGEN_OUTPUT_DIRS) -type f -delete
 
 qmltypes:
 		@$(SH) awkgward/qmltypes.sh $(QMLPLUGINDUMP) $(QMLTYPES_DUMPS) $(QMLTYPES_EXTRAPATH)

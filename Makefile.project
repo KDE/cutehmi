@@ -2,7 +2,7 @@ HELP_MESSAGE = "Use qmake if you wish to build the software."
 
 INCLUDE_GUARD_PREFIX = "H_"
 
-SOURCE_DIRS = tools/cutehmi_cutehmi_1/src \
+SOURCE_DIRS = tools/cutehmi_view_1/src \
 			  modules/cutehmi_1/src \
 			  modules/cutehmi_app_1/src \
 			  modules/cutehmi_authssh_1/src \
@@ -20,7 +20,7 @@ SOURCE_DIRS = tools/cutehmi_cutehmi_1/src \
 			  QML/CuteHMI/Services/src \
 			  QML/CuteHMI/Stupid/src
 
-INCLUDE_DIRS = tools/cutehmi_cutehmi_1/src \
+INCLUDE_DIRS = tools/cutehmi_view_1/src \
 			   modules/cutehmi_1/src \
 			   modules/cutehmi_1/include \
 			   modules/cutehmi_app_1/src \
@@ -58,7 +58,9 @@ QML_DIRS = QML/CuteHMI.1 \
 DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
 				 QML/CuteHMI.1/CuteHMI.1.qdocconf
 
-DOC_DOXYGEN_FILES =
+DOXYGEN_INPUT_DIRS = .
+
+DOXYGEN_OUTPUT_DIRS = doc/Doxygen/html
 
 PWD_DIR := $(shell $(PWD))
 
