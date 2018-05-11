@@ -1,5 +1,7 @@
 # CuteHMI
 
+<!-- CUT HERE -->
+<!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
 <div class="doxygen_github_hack" style="font-size: 0px">
 
 [//]: # (\htmlonly)
@@ -7,6 +9,7 @@
 
 [//]: # (\endhtmlonly)
 </div>
+<!-- CUT HERE -->
 
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++ and QML, using Qt library as a framework.
 
@@ -49,11 +52,12 @@ Directory structure of the project is organized as follows.
 - *doc* - place where documentation shall be.
 - *examples* - self-explanatory.
 - *extra* - various stuff related to the project, such as T-shirts.
-- [modules](modules) - the heart of the project.
+- [modules](modules/README.md) - the heart of the project.
 - *qbs* - Qbs modules and imports.
-- [QML](QML) - QML extensions (secondary heart of the project).
-- [tools](tools) - end-user applications (tertiary heart of the project).
+- [QML](QML/README.md) - QML extensions (secondary heart of the project).
+- [tools](tools/README.md) - end-user applications (tertiary heart of the project).
 
 ![Tools-modules-QML dependency diagram](doc/images/tools_modules_QML_dependency.png)
 
-The concept is simple. Three most important directories are [modules](modules), [QML](QML) and [tools](tools). Modules are basically libraries, which provide various functionalities in modular fashion. These can be utilized by QML extensions or end-user applications. End-user applications may of course utilize QML extensions also, as this is one of the main features offered by Qt.
+The concept is simple. Three most important directories are [modules](modules/README.md), [QML](QML/README.md) and [tools](tools/README.md). Modules are basically libraries, which provide various functionalities in modular fashion. These can be utilized by QML extensions or end-user applications. End-user applications may of course utilize QML extensions also, as this is one of the main features offered by Qt.
+
