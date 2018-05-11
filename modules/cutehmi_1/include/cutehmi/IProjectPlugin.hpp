@@ -9,7 +9,7 @@
 namespace cutehmi {
 
 /**
- * Plugin interface.
+ * Project plugin interface.
  */
 class CUTEHMI_API IProjectPlugin
 {
