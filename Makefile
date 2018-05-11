@@ -130,7 +130,7 @@ doc_doxygen:
 		\( -name 'Doxyfile' -o -name '*.Doxyfile' \) \
 		-execdir $(DOXYGEN) {} \;
 
-clean_doc:
+doc_clean:
 		@$(FIND) $(DOXYGEN_OUTPUT_DIRS) -type f -delete
 
 qmltypes:
