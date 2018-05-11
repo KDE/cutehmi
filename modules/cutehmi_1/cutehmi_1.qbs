@@ -22,6 +22,7 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
+        "README.md",
         "include/cutehmi/CuteHMI.hpp",
         "include/cutehmi/DataBlock.hpp",
         "include/cutehmi/Error.hpp",
