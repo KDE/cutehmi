@@ -52,6 +52,8 @@ cutehmi.Module {
 	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
 //</workaround>
 
+	Depends { name: "cutehmi.doxygen" }
+
 	Export {
 		Depends { name: "Qt.core" }
 		Depends { name: "Qt.qml" }
