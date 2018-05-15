@@ -60,7 +60,7 @@ DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
 
 DOXYGEN_INPUT_DIRS = .
 
-DOXYGEN_OUTPUT_DIRS = doc/Doxygen/html
+DOXYGEN_OUTPUT_DIRS = doc/Doxygen/docs
 
 PWD_DIR := $(shell $(PWD))
 

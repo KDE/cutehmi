@@ -26,7 +26,7 @@ Module {
 			doxCmd.sourceCode = function() {
 				console.info('Regenerating file ' + product.sourceDirectory + '/Doxyfile')
 
-				var docDir = project.sourceDirectory + '/doc/Doxygen/html'
+				var docDir = project.sourceDirectory + '/doc/Doxygen/docs'
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
 				// To make relative links work properly first directory of the product location has to be stripped (e.g., 'cutehmi_1' instead of 'modules/cutehmi_1').
 				var outputDir = docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory).split('/').slice(1).join('/') // Absolute.
@@ -102,7 +102,7 @@ Module {
 				indexCmd.description = 'generating ' + product.sourceDirectory + '/index.html'
 				indexCmd.highlight = 'codegen';
 				indexCmd.sourceCode = function() {
-					var docDir = project.sourceDirectory + '/doc/Doxygen/html'
+					var docDir = project.sourceDirectory + '/doc/Doxygen/docs'
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
 					// To make relative links work properly first directory of the product location has to be stripped (e.g., 'cutehmi_1' instead of 'modules/cutehmi_1').
 					var outputDir = docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory).split('/').slice(1).join('/') // Absolute.
