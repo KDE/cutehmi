@@ -11,13 +11,13 @@
 </div>
 <!-- CUT HERE -->
 
-CuteHMI is an open-source HMI (Human Machine Interface) software written in C++ and QML, using Qt library as a framework.
+CuteHMI is an open-source HMI (Human Machine Interface) software written in C++ and QML, using Qt libraries as a framework.
 
 Note: While most of the project uses Mozilla Public License, v. 2.0, some files are distributed under different licenses.
 
 ## Compiling
 
-1. Get the Qt framework. Open-source and commercial editions can be obtained from https://www.qt.io/. Qt can also be shipped with Linux distribution.
+1. Get the Qt toolkit. Open-source and commercial editions can be obtained from https://www.qt.io/. Qt can also be shipped with Linux distribution.
 
 2. Modbus components still use libmodbus library (http://libmodbus.org/). On Linux one can run following commands.
 ```  
