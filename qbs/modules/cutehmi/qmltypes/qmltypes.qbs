@@ -10,11 +10,11 @@ import "functions.js" as Functions
 Module {
 	additionalProductTypes: ["qmltypes"]
 
-	condition: qbs.targetOS.contains("windows")
-
 	Depends { name: "Qt.core" }
 
 	Rule {
+		condition: qbs.targetOS.contains("windows")
+
 		multiplex: true
 		inputs: ["qml", "dynamiclibrary"]
 
