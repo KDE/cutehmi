@@ -1,5 +1,6 @@
 import qbs
 import qbs.Environment
+import qbs.Utilities
 
 import "functions.js" as Functions
 
@@ -9,6 +10,8 @@ import "functions.js" as Functions
 Module {
 	additionalProductTypes: ["qmltypes"]
 
+	condition: qbs.targetOS.contains("windows")
+
 	Depends { name: "Qt.core" }
 
 	Rule {
@@ -16,7 +19,7 @@ Module {
 		inputs: ["qml", "dynamiclibrary"]
 
 		prepare: {
-			var dumpCmd= new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.name, product.major + "." + product.minor, "QML"]);
+			var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.name, product.major + "." + product.minor, "QML"]);
 			dumpCmd.workingDirectory = product.qbs.installRoot
 			dumpCmd.description = "invoking 'qmlplugindump' program to generate " + product.sourceDirectory + "/plugins.qmltypes";
 			dumpCmd.highlight = "codegen"
