@@ -2,8 +2,10 @@ import qbs
 
 import cutehmi
 
-cutehmi.QMLPlugin {
-	name: "cutehmi_services_qml_1"
+cutehmi.QMLExtension {
+	name: "CuteHMI.Services"
+
+	major: 1
 
 	minor: 0
 
@@ -23,7 +25,6 @@ cutehmi.QMLPlugin {
 
 	files: [
         "designer/Services.metainfo",
-        "plugins.qmltypes",
         "qmldir",
         "src/CuteHMIServicesQMLPlugin.cpp",
         "src/CuteHMIServicesQMLPlugin.hpp",

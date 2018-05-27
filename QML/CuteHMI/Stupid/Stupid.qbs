@@ -2,8 +2,10 @@ import qbs
 
 import cutehmi
 
-cutehmi.QMLPlugin {
-	name: "cutehmi_stupid_qml_1"
+cutehmi.QMLExtension {
+	name: "CuteHMI.Stupid"
+
+	major: 1
 
 	minor: 0
 
@@ -24,7 +26,6 @@ cutehmi.QMLPlugin {
 	files: [
         "DS18B20Controller.js",
         "DS18B20Controller.qml",
-        "plugins.qmltypes",
         "qmldir",
         "src/CuteHMIStupidQMLPlugin.cpp",
         "src/CuteHMIStupidQMLPlugin.hpp",

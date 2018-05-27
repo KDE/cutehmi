@@ -2,8 +2,10 @@ import qbs
 
 import cutehmi
 
-cutehmi.QMLPlugin {
-	name: "cutehmi_lockscreen_qml_1"
+cutehmi.QMLExtension {
+	name: "CuteHMI.LockScreen"
+
+	major: 1
 
 	minor: 0
 
@@ -27,7 +29,6 @@ cutehmi.QMLPlugin {
         "LockScreen.qml",
         "LockScreenPopup.qml",
         "LockScreenSettings.qml",
-        "plugins.qmltypes",
         "qmldir",
         "src/CuteHMILockScreenQMLPlugin.cpp",
         "src/CuteHMILockScreenQMLPlugin.hpp",

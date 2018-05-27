@@ -6,17 +6,17 @@ import "CommonProduct.qbs" as CommonProduct
 CommonProduct {
 	type: "dynamiclibrary"
 
-	baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
+	targetName: baseName + "_" + major + (qbs.buildVariant.contains("debug") ? "d" : "")
 
-	major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
+	baseName: name.toLowerCase().replace(/\./g, '_') + "_qml"
 
-	property string installDir: FileInfo.relativePath(path + "/../../..", sourceDirectory)
+	property string installDir: FileInfo.relativePath(project.sourceDirectory, sourceDirectory)
 
 	Depends { name: "cutehmi.metadata" }
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		targetName: name
+		targetName: baseName + "_" + major
 	}
 
 	FileTagger {
@@ -35,7 +35,7 @@ CommonProduct {
 	}
 
 	FileTagger {
-		patterns: "plugins.qmltypes"
+		patterns: "*.qmltypes"
 		fileTags: ["qmltypes"]
 	}
 
@@ -45,6 +45,8 @@ CommonProduct {
 	}
 
 	Depends { name: "cpp" }
+
+	Depends { name: "cutehmi.qmltypes" }
 
 	Group {
 		name: "Library"
@@ -59,5 +61,5 @@ CommonProduct {
 		qbs.install: true
 		qbs.installSourceBase: sourceDirectory
 		qbs.installDir: installDir
-	}
+	}	
 }

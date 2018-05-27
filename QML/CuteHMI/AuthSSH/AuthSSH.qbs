@@ -2,8 +2,10 @@ import qbs
 
 import cutehmi
 
-cutehmi.QMLPlugin {
-	name: "cutehmi_authssh_qml_1"
+cutehmi.QMLExtension {
+	name: "CuteHMI.AuthSSH"
+
+	major: 1
 
 	minor: 0
 
@@ -22,7 +24,6 @@ cutehmi.QMLPlugin {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
-        "plugins.qmltypes",
         "qmldir",
         "src/CuteHMIAuthSSHQMLPlugin.cpp",
         "src/CuteHMIAuthSSHQMLPlugin.hpp",
