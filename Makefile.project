@@ -64,13 +64,3 @@ DOXYGEN_OUTPUT_DIRS = doc/Doxygen/docs
 
 PWD_DIR := $(shell $(PWD))
 
-QMLTYPES_EXTRAPATH = $(PWD_DIR)/../bin:$(PWD_DIR)/../lib
-
-QMLTYPES_DUMPS = "-nonrelocatable CuteHMI 1.0 ../QML > QML/CuteHMI.1/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.App 1.0 ../QML > QML/CuteHMI/App/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.AuthSSH 1.0 ../QML > QML/CuteHMI/AuthSSH/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.Charts 1.0 ../QML > QML/CuteHMI/Charts/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.LockScreen 1.0 ../QML > QML/CuteHMI/LockScreen/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.Modbus 1.0 ../QML > QML/CuteHMI/Modbus/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.Services 1.0 ../QML > QML/CuteHMI/Services/plugins.qmltypes; \
-				 -nonrelocatable CuteHMI.Stupid 1.0 ../QML > QML/CuteHMI/Stupid/plugins.qmltypes"

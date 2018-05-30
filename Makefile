@@ -99,7 +99,7 @@ help:
 		@echo "sources - generate list of sources and put them into CMakeLists.txt."
 		@echo "guards - update include guards."
 		@echo "doc - generate documentation (subtargets are doc_qdoc and doc_doxygen)."
-		@echo "qmltypes - generate QML typeinfo files."
+		@echo "qmltypes - generate QML typeinfo files (obsolete; replaced by Qbs module)."
 		@echo "newlines - remove carriage return characters (obsolete; use dos2unix instead)."
 
 license:
@@ -134,6 +134,8 @@ doc_clean:
 		@$(FIND) $(DOXYGEN_OUTPUT_DIRS) -type f -delete
 
 qmltypes:
+		@echo "This make target is obsolete. Use 'cutehmi.qmltypes' Qbs module instead."
+		@echo ""
 		@$(SH) awkgward/qmltypes.sh $(QMLPLUGINDUMP) $(QMLTYPES_DUMPS) $(QMLTYPES_EXTRAPATH)
 
 newlines:
