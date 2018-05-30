@@ -12,6 +12,7 @@ CommonProduct {
 	major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
 
 	Depends { name: "cutehmi.metadata" }
+	Depends { name: "cutehmi.dirs" }
 
 	Depends { name: "cpp" }
 
@@ -25,12 +26,14 @@ CommonProduct {
 		// cpp.defines: [product.baseName.toUpperCase() + "_DYNAMIC", product.baseName.toUpperCase() + "_" + product.major + "_" + cutehmi.depends.reqMinor]
 //</workaround>
 		cpp.includePaths: [product.sourceDirectory + "/include"]
+
+		cpp.libraryPaths: importingProduct.cpp.libraryPaths.uniqueConcat(product.cpp.libraryPaths)
 	}
 
 	Group {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"
 		qbs.install: true
-		qbs.installDir: "bin"
+		qbs.installDir: cutehmi.dirs.moduleInstallDir
 	}
 }
