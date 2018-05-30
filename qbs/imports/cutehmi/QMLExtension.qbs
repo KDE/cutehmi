@@ -12,12 +12,16 @@ CommonProduct {
 
 	property string installDir: FileInfo.relativePath(project.sourceDirectory, sourceDirectory)
 
-	Depends { name: "cutehmi.metadata" }
-
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		targetName: baseName + "_" + major
 	}
+
+	Depends { name: "cutehmi.metadata" }
+	Depends { name: "cutehmi.dirs" }
+	Depends { name: "cutehmi.qmltypes" }
+
+	Depends { name: "cpp" }
 
 	FileTagger {
 		patterns: "*.qml"
@@ -44,15 +48,11 @@ CommonProduct {
 		fileTags: ["metainfo"]
 	}
 
-	Depends { name: "cpp" }
-
-	Depends { name: "cutehmi.qmltypes" }
-
 	Group {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"
 		qbs.install: true
-		qbs.installDir: installDir + "/plugins"
+		qbs.installDir: installDir + "/" + cutehmi.dirs.qmlPluginInstallDir
 	}
 
 	Group {

@@ -9,12 +9,13 @@ CommonProduct {
 
 	baseName: name
 
-	Depends { name: "cutehmi.metadata" }
-
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN"
 	}
+
+	Depends { name: "cutehmi.metadata" }
+	Depends { name: "cutehmi.dirs" }
 
 	Depends { name: "cpp" }
 
@@ -26,6 +27,6 @@ CommonProduct {
 		name: "Application"
 		fileTagsFilter: "application"
 		qbs.install: true
-		qbs.installDir: "bin"
+		qbs.installDir: cutehmi.dirs.toolInstallDir
 	}
 }
