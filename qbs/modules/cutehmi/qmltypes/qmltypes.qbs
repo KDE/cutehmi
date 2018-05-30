@@ -15,7 +15,9 @@ Module {
 	Depends { name: "cutehmi.dirs" }
 
 	Rule {
+//<workaround id="qbs-cutehmi-qmltypes-1" target="qmlplugindump" cuase="QTBUG-66669">
 		condition: qbs.targetOS.contains("windows")
+//</workaround>
 
 		multiplex: true
 		inputs: ["qml", "dynamiclibrary"]
