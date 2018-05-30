@@ -80,7 +80,7 @@ cutehmi.Module {
 	Export {
 		Depends { name: "Qt.concurrent" }
 
-		Depends { name: "cutehmi_1" } cutehmi_1.reqMinor: 0
+		Depends { name: "cutehmi_1" } cutehmi_1.reqMinor: 0		
 	}
 
 //</workaround>
