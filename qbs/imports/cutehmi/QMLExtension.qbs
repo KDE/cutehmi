@@ -12,6 +12,8 @@ CommonProduct {
 
 	property string installDir: FileInfo.relativePath(project.sourceDirectory, sourceDirectory)
 
+	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.qmlExtensionInstallDir]	// QML import paths for QtCreator.
+
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		targetName: baseName + "_" + major
