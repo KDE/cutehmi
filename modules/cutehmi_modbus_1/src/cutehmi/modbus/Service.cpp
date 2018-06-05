@@ -81,7 +81,7 @@ void Service::setSleep(unsigned long sleep)
 	m->thread->setSleep(sleep);
 }
 
-Service::state_t Service::customStart()
+Service::State Service::customStart()
 {
 	setState(STARTING);
 	if (m->sm.isRunning())
@@ -91,7 +91,7 @@ Service::state_t Service::customStart()
 	return state();
 }
 
-Service::state_t Service::customStop()
+Service::State Service::customStop()
 {
 	setState(STOPPING);
 	emit customStopRequested();

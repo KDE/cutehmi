@@ -44,7 +44,7 @@ CuteHMI::CuteHMI():
 	  std::unique_ptr<Project>(new Project)})
 {
 	qRegisterMetaType<cutehmi::ErrorInfo>();
-	qRegisterMetaType<cutehmi::Prompt::button_t>();
+	qRegisterMetaType<cutehmi::Prompt::Button>();
 	qRegisterMetaType<const cutehmi::ProjectNode *>();
 }
 

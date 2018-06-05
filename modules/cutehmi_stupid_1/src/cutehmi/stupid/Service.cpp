@@ -32,14 +32,14 @@ void Service::setSleep(unsigned long sleep)
 	m->thread->setSleep(sleep);
 }
 
-Service::state_t Service::customStart()
+Service::State Service::customStart()
 {
 	setState(STARTING);
 	m->client->connect();	// onClientConnected() is connected to m->client->connected() signal.
 	return state();
 }
 
-Service::state_t Service::customStop()
+Service::State Service::customStop()
 {
 	if (m->thread->isRunning()) {
 		CUTEHMI_LOG_DEBUG("Stopping STUPiD client thread...");

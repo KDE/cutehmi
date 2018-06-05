@@ -38,9 +38,9 @@ class CUTEHMI_MODBUS_API Service:
 		void brokenTimeoutTriggered();
 
 	protected:
-		state_t customStart() override;
+		State customStart() override;
 
-		state_t customStop() override;
+		State customStop() override;
 
 	private slots:
 		void startServiceThread();

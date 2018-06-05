@@ -71,12 +71,12 @@ void InputRegisterController::setValueScale(qreal valueScale)
 	}
 }
 
-InputRegister::encoding_t InputRegisterController::encoding() const
+InputRegister::Encoding InputRegisterController::encoding() const
 {
 	return m_encoding;
 }
 
-void InputRegisterController::setEncoding(InputRegister::encoding_t encoding)
+void InputRegisterController::setEncoding(InputRegister::Encoding encoding)
 {
 	if (m_encoding != encoding) {
 		m_encoding = encoding;

@@ -72,7 +72,7 @@ void ServiceRegistry::stop()
 		service->stop();
 }
 
-void ServiceRegistry::stateChangeHandler(Service::state_t oldState, Service::state_t newState)
+void ServiceRegistry::stateChangeHandler(Service::State oldState, Service::State newState)
 {
 	if (oldState == Service::STOPPED)
 		decStopped();

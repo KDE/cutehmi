@@ -17,7 +17,7 @@ class AsyncConnector:
 	Q_OBJECT
 
 	public:
-		enum status_t {
+		enum Status {
 			INIT,
 			ENUMERATE_DEVICES,
 			LOAD_DAEMON_SLEEP,
@@ -31,7 +31,7 @@ class AsyncConnector:
 
 		unsigned long daemonSleep() const;
 
-		status_t status() const;
+		Status status() const;
 
 	public slots:
 		void connect();
@@ -44,7 +44,7 @@ class AsyncConnector:
 		Worker m_dbWorker;
 		unsigned long m_daemonSleep;
 		QStringList m_w1Ids;
-		status_t m_status;
+		Status m_status;
 };
 
 }

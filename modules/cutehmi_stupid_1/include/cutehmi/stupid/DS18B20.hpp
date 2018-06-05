@@ -19,7 +19,7 @@ class CUTEHMI_STUPID_API DS18B20:
 	public:
 		Q_PROPERTY(int error READ error NOTIFY errorChanged)
 
-		enum valueType_t : int {
+		enum ValueType : int {
 			PLUGGED = 1,
 			TEMPERATURE = 2,
 			CRC = 4,
@@ -27,15 +27,15 @@ class CUTEHMI_STUPID_API DS18B20:
 			TIMESTAMP = 16,
 			EXPIRE = 32
 		};
-		Q_ENUM(valueType_t)
+		Q_ENUM(ValueType)
 
-		enum error_t : int {
+		enum Error : int {
 			ERROR_OK = 0,
 			ERROR_UNPLUGGED = 1,
 			ERROR_WRONG_CRC = 2,
 			ERROR_DATA_STALL = 4
 		};
-		Q_ENUM(error_t)
+		Q_ENUM(Error)
 
 		struct Data
 		{
@@ -84,7 +84,7 @@ class CUTEHMI_STUPID_API DS18B20:
 	signals:
 		/**
 		 * Value updated. Indicates whether one or more data values have been updated.
-		 * @param valueTypes value type flags. Parameter is a binary combination of @p valueType_t flags.
+		 * @param valueTypes value type flags. Parameter is a binary combination of @p ValueType flags.
 		 */
 		void valueUpdated(int valueTypes);
 

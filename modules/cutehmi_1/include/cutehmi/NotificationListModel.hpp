@@ -15,7 +15,7 @@ class NotificationListModel:
 	typedef QAbstractListModel Parent;
 
 	public:
-		enum role_t {
+		enum Role {
 			TYPE_ROLE = Qt::UserRole,
 			DATE_TIME_ROLE
 		};

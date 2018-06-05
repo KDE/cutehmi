@@ -14,7 +14,7 @@ int DS18B20::error() const
 	return m->error.load();
 }
 
-//QVariant DS18B20::value(valueType_t type) const
+//QVariant DS18B20::value(ValueType type) const
 //{
 //	QReadLocker locker(& m->dataLock);
 //	switch (type) {

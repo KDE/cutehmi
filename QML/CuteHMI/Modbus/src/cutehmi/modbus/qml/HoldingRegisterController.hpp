@@ -19,7 +19,7 @@ class HoldingRegisterController:
 		Q_PROPERTY(int address READ address WRITE setAddress NOTIFY addressChanged)
 		Q_PROPERTY(qreal value READ value WRITE setValue NOTIFY valueChanged)
 		Q_PROPERTY(qreal valueScale READ valueScale WRITE setValueScale NOTIFY valueScaleChanged)
-		Q_PROPERTY(HoldingRegister::encoding_t encoding READ encoding WRITE setEncoding NOTIFY encodingChanged)
+		Q_PROPERTY(HoldingRegister::Encoding encoding READ encoding WRITE setEncoding NOTIFY encodingChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
 		HoldingRegisterController(QObject * parent = 0);
@@ -43,9 +43,9 @@ class HoldingRegisterController:
 
 		void setValueScale(qreal valueScale);
 
-		HoldingRegister::encoding_t encoding() const;
+		HoldingRegister::Encoding encoding() const;
 
-		void setEncoding(HoldingRegister::encoding_t encoding);
+		void setEncoding(HoldingRegister::Encoding encoding);
 
 		bool busy() const;
 
@@ -84,7 +84,7 @@ class HoldingRegisterController:
 		int m_address;
 		qreal m_value;
 		qreal m_valueScale;
-		HoldingRegister::encoding_t m_encoding;
+		HoldingRegister::Encoding m_encoding;
 		bool m_busy;
 		HoldingRegister * m_register;
 };

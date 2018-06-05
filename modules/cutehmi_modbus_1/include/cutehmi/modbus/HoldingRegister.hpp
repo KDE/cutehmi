@@ -27,10 +27,10 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 	Q_OBJECT
 
 	public:
-		enum encoding_t {
+		enum Encoding {
 			INT16
 		};
-		Q_ENUM(encoding_t)
+		Q_ENUM(Encoding)
 
 		/**
 		 * Constructor.
@@ -39,7 +39,7 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		 */
 		explicit HoldingRegister(uint16_t value = 0, QObject * parent = 0);
 
-		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const noexcept(false);
+		Q_INVOKABLE QVariant value(Encoding encoding = INT16) const noexcept(false);
 
 		Q_INVOKABLE uint16_t requestedValue() const noexcept(false);
 
@@ -52,7 +52,7 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		Q_INVOKABLE int pendingRequests() const;
 
 	public slots:
-		void requestValue(QVariant value, encoding_t encoding = INT16);
+		void requestValue(QVariant value, Encoding encoding = INT16);
 
 		/**
 		 * Update value.

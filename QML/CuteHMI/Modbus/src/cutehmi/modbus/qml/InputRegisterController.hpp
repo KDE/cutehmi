@@ -19,7 +19,7 @@ class InputRegisterController:
 		Q_PROPERTY(int address READ address WRITE setAddress NOTIFY addressChanged)
 		Q_PROPERTY(qreal value READ value NOTIFY valueChanged)
 		Q_PROPERTY(qreal valueScale READ valueScale WRITE setValueScale NOTIFY valueScaleChanged)
-		Q_PROPERTY(InputRegister::encoding_t encoding READ encoding WRITE setEncoding NOTIFY encodingChanged)
+		Q_PROPERTY(InputRegister::Encoding encoding READ encoding WRITE setEncoding NOTIFY encodingChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
 		InputRegisterController(QObject * parent = 0);
@@ -41,9 +41,9 @@ class InputRegisterController:
 
 		void setValueScale(qreal valueScale);
 
-		InputRegister::encoding_t encoding() const;
+		InputRegister::Encoding encoding() const;
 
-		void setEncoding(InputRegister::encoding_t encoding);
+		void setEncoding(InputRegister::Encoding encoding);
 
 		bool busy() const;
 
@@ -80,7 +80,7 @@ class InputRegisterController:
 		int m_address;
 		qreal m_value;
 		qreal m_valueScale;
-		InputRegister::encoding_t m_encoding;
+		InputRegister::Encoding m_encoding;
 		bool m_busy;
 		InputRegister * m_register;
 };

@@ -3,7 +3,7 @@
 
 namespace cutehmi {
 
-Notification::Notification(type_t type, const QString & text, QObject * parent):
+Notification::Notification(Type type, const QString & text, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, QDateTime::currentDateTime()})
 {
@@ -32,12 +32,12 @@ void Notification::Critical(const ErrorInfo & errorInfo)
 	return Critical(errorInfo.toString());
 }
 
-Notification::type_t Notification::type() const
+Notification::Type Notification::type() const
 {
 	return m->type;
 }
 
-void Notification::setType(type_t type)
+void Notification::setType(Type type)
 {
 	if (m->type != type) {
 		m->type = type;

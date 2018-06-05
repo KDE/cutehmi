@@ -18,7 +18,7 @@ class DateTimeAxis:
 		 * Enum values are stored from smallest to largest intervals and are guaranteed to be contiguous.
 		 * </principle>
 		 */
-		enum interval_t {
+		enum Interval {
 			//<principle_ref id="cutehmi::charts::DateTimeAxis-ordered_interval_enum">
 			MILLISECONDS,
 			SECONDS,
@@ -30,23 +30,23 @@ class DateTimeAxis:
 			YEARS
 			//</prinicple_ref>
 		};
-		Q_ENUM(interval_t)
+		Q_ENUM(Interval)
 
-		Q_PROPERTY(interval_t tickInterval READ tickInterval WRITE setTickInterval NOTIFY tickIntervalChanged)
-		Q_PROPERTY(interval_t minorTickInterval READ minorTickInterval WRITE setMinorTickInterval NOTIFY minorTickIntervalChanged)
+		Q_PROPERTY(Interval tickInterval READ tickInterval WRITE setTickInterval NOTIFY tickIntervalChanged)
+		Q_PROPERTY(Interval minorTickInterval READ minorTickInterval WRITE setMinorTickInterval NOTIFY minorTickIntervalChanged)
 
-		static constexpr interval_t INITIAL_TICK_INTERVAL = DAYS;
-		static constexpr interval_t INITIAL_MINOR_TICK_INTERVAL = HOURS;
+		static constexpr Interval INITIAL_TICK_INTERVAL = DAYS;
+		static constexpr Interval INITIAL_MINOR_TICK_INTERVAL = HOURS;
 
 		DateTimeAxis(QQuickItem * parent = 0);
 
-		interval_t tickInterval() const;
+		Interval tickInterval() const;
 
-		void setTickInterval(interval_t interval);
+		void setTickInterval(Interval interval);
 
-		interval_t minorTickInterval() const;
+		Interval minorTickInterval() const;
 
-		void setMinorTickInterval(interval_t interval);
+		void setMinorTickInterval(Interval interval);
 
 		qreal mapToPlotArea(qreal value) const override;
 
@@ -76,14 +76,14 @@ class DateTimeAxis:
 	private:
 		qreal tickMax() const;
 
-		qreal approxTickIntervalToMSec(interval_t interval) const;
+		qreal approxTickIntervalToMSec(Interval interval) const;
 
-		QDateTime roundTick(qreal tick, interval_t tickInterval) const;
+		QDateTime roundTick(qreal tick, Interval tickInterval) const;
 
-		void advanceTickDateTime(QDateTime & tickDT, interval_t tickInterval) const;
+		void advanceTickDateTime(QDateTime & tickDT, Interval tickInterval) const;
 
-		interval_t m_tickInterval;
-		interval_t m_minorTickInterval;
+		Interval m_tickInterval;
+		Interval m_minorTickInterval;
 		qreal m_screenScaleRatio;
 };
 

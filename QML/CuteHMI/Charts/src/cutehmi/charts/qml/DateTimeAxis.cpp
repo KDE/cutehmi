@@ -7,8 +7,8 @@ namespace cutehmi {
 namespace charts {
 namespace qml {
 
-constexpr DateTimeAxis::interval_t DateTimeAxis::INITIAL_TICK_INTERVAL;
-constexpr DateTimeAxis::interval_t DateTimeAxis::INITIAL_MINOR_TICK_INTERVAL;
+constexpr DateTimeAxis::Interval DateTimeAxis::INITIAL_TICK_INTERVAL;
+constexpr DateTimeAxis::Interval DateTimeAxis::INITIAL_MINOR_TICK_INTERVAL;
 
 DateTimeAxis::DateTimeAxis(QQuickItem * parent):
 	TickedAxis(parent),
@@ -45,12 +45,12 @@ DateTimeAxis::DateTimeAxis(QQuickItem * parent):
 	connect(this, & ValueAxis::plotAreaChanged, this, & QQuickItem::update);
 }
 
-DateTimeAxis::interval_t DateTimeAxis::tickInterval() const
+DateTimeAxis::Interval DateTimeAxis::tickInterval() const
 {
 	return m_tickInterval;
 }
 
-void DateTimeAxis::setTickInterval(interval_t interval)
+void DateTimeAxis::setTickInterval(Interval interval)
 {
 	if (m_tickInterval != interval) {
 		m_tickInterval = interval;
@@ -58,12 +58,12 @@ void DateTimeAxis::setTickInterval(interval_t interval)
 	}
 }
 
-DateTimeAxis::interval_t DateTimeAxis::minorTickInterval() const
+DateTimeAxis::Interval DateTimeAxis::minorTickInterval() const
 {
 	return m_minorTickInterval;
 }
 
-void DateTimeAxis::setMinorTickInterval(interval_t interval)
+void DateTimeAxis::setMinorTickInterval(Interval interval)
 {
 	if (m_minorTickInterval != interval) {
 		m_minorTickInterval = interval;
@@ -212,7 +212,7 @@ qreal DateTimeAxis::tickMax() const
 	return (orientation() == Qt::Horizontal) ? width() : height();
 }
 
-qreal DateTimeAxis::approxTickIntervalToMSec(interval_t interval) const
+qreal DateTimeAxis::approxTickIntervalToMSec(Interval interval) const
 {
 	qreal result = 0.0;
 	switch (interval) {
@@ -236,7 +236,7 @@ qreal DateTimeAxis::approxTickIntervalToMSec(interval_t interval) const
 	return result;
 }
 
-QDateTime DateTimeAxis::roundTick(qreal tick, interval_t tickInterval) const
+QDateTime DateTimeAxis::roundTick(qreal tick, Interval tickInterval) const
 {
 	QDate d = QDateTime::fromMSecsSinceEpoch(tick).date();
 	QTime t = QDateTime::fromMSecsSinceEpoch(tick).time();
@@ -276,7 +276,7 @@ QDateTime DateTimeAxis::roundTick(qreal tick, interval_t tickInterval) const
 	return roundTick;
 }
 
-void DateTimeAxis::advanceTickDateTime(QDateTime & tickDT, interval_t tickInterval) const
+void DateTimeAxis::advanceTickDateTime(QDateTime & tickDT, Interval tickInterval) const
 {
 	switch (tickInterval) {
 		case MILLISECONDS:

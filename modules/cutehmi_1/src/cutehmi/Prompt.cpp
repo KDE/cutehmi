@@ -6,63 +6,63 @@
 
 namespace cutehmi {
 
-Prompt::Prompt(type_t type, const QString & text, buttons_t buttons, QObject * parent):
+Prompt::Prompt(Type type, const QString & text, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, {}, {}, buttons, NO_BUTTON})
 {
 }
 
-Prompt::Prompt(type_t type, const QString & text, const QString & informativeText, buttons_t buttons, QObject * parent):
+Prompt::Prompt(Type type, const QString & text, const QString & informativeText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, {}, buttons, NO_BUTTON})
 {
 }
 
-Prompt::Prompt(type_t type, const QString & text, const QString & informativeText, const QString & detailedText, buttons_t buttons, QObject * parent):
+Prompt::Prompt(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, detailedText, buttons, NO_BUTTON})
 {
 }
 
-std::unique_ptr<Prompt> Prompt::Note(const QString & text, buttons_t buttons)
+std::unique_ptr<Prompt> Prompt::Note(const QString & text, Buttons buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(NOTE, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
 	return result;
 }
 
-std::unique_ptr<Prompt> Prompt::Warning(const QString & text, buttons_t buttons)
+std::unique_ptr<Prompt> Prompt::Warning(const QString & text, Buttons buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(WARNING, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
 	return result;
 }
 
-std::unique_ptr<Prompt> Prompt::Question(const QString & text, buttons_t buttons)
+std::unique_ptr<Prompt> Prompt::Question(const QString & text, Buttons buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(QUESTION, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
 	return result;
 }
 
-std::unique_ptr<Prompt> Prompt::Critical(const QString & text, buttons_t buttons)
+std::unique_ptr<Prompt> Prompt::Critical(const QString & text, Buttons buttons)
 {
 	std::unique_ptr<Prompt> result(new Prompt(CRITICAL, text, buttons));
 	CuteHMI::Instance().popupBridge()->advertise(result.get());
 	return result;
 }
 
-std::unique_ptr<Prompt> Prompt::Critical(const ErrorInfo & errorInfo, buttons_t buttons)
+std::unique_ptr<Prompt> Prompt::Critical(const ErrorInfo & errorInfo, Buttons buttons)
 {
 	return Critical(errorInfo.toString(), buttons);
 }
 
-Prompt::type_t Prompt::type() const
+Prompt::Type Prompt::type() const
 {
 	return m->type;
 }
 
-void Prompt::setType(type_t type)
+void Prompt::setType(Type type)
 {
 	if (m->type != type) {
 		m->type = type;
@@ -109,12 +109,12 @@ void Prompt::setDetailedText(const QString & detailedText)
 	}
 }
 
-Prompt::buttons_t Prompt::buttons() const
+Prompt::Buttons Prompt::buttons() const
 {
 	return m->buttons;
 }
 
-void Prompt::setButtons(buttons_t buttons)
+void Prompt::setButtons(Buttons buttons)
 {
 	if (m->buttons != buttons) {
 		m->buttons = buttons;
@@ -122,12 +122,12 @@ void Prompt::setButtons(buttons_t buttons)
 	}
 }
 
-Prompt::button_t Prompt::response() const
+Prompt::Button Prompt::response() const
 {
 	return m->response;
 }
 
-void Prompt::acceptResponse(button_t response)
+void Prompt::acceptResponse(Button response)
 {
 	if (m->response != NO_BUTTON)
 		CUTEHMI_LOG_WARNING("Response has been already accepted.");
@@ -144,7 +144,7 @@ std::unique_ptr<Prompt> Prompt::clone() const
 	return clone;
 }
 
-Prompt::button_t Prompt::exec()
+Prompt::Button Prompt::exec()
 {
 	QEventLoop loop;
 	QObject::connect(this, & Prompt::responseArrived, & loop, & QEventLoop::quit);

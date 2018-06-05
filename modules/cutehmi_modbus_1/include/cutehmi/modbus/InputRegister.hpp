@@ -23,10 +23,10 @@ class CUTEHMI_MODBUS_API InputRegister:
 	Q_OBJECT
 
 	public:
-		enum encoding_t {
+		enum Encoding {
 			INT16
 		};
-		Q_ENUM(encoding_t)
+		Q_ENUM(Encoding)
 
 		/**
 		 * Constructor.
@@ -35,7 +35,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 		 */
 		explicit InputRegister(uint16_t value = 0, QObject * parent = 0);
 
-		Q_INVOKABLE QVariant value(encoding_t encoding = INT16) const noexcept(false);
+		Q_INVOKABLE QVariant value(Encoding encoding = INT16) const noexcept(false);
 
 		Q_INVOKABLE void rest();
 

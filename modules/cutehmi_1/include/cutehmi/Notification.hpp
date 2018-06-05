@@ -14,17 +14,17 @@ class CUTEHMI_API Notification:
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(type_t type READ type WRITE setType NOTIFY typeChanged)
+		Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)
 		Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
-		enum type_t {
+		enum Type {
 			NOTE = 1,
 			WARNING = 2,
 			CRITICAL = 3
 		};
-		Q_ENUM(type_t)
+		Q_ENUM(Type)
 
-		explicit Notification(type_t type = NOTE, const QString & text = QString(), QObject * parent = 0);
+		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = 0);
 
 		static void Note(const QString & text);
 
@@ -34,9 +34,9 @@ class CUTEHMI_API Notification:
 
 		static void Critical(const ErrorInfo & errorInfo);
 
-		type_t type() const;
+		Type type() const;
 
-		void setType(type_t type);
+		void setType(Type type);
 
 		QString text() const;
 
@@ -54,7 +54,7 @@ class CUTEHMI_API Notification:
 	private:
 		struct Members
 		{
-			type_t type;
+			Type type;
 			QString text;
 			QDateTime dateTime;
 		};

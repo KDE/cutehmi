@@ -52,7 +52,7 @@ class CUTEHMI_SERVICES_API ServiceRegistry:
 		void stoppedChanged();
 
 	protected slots:
-		void stateChangeHandler(Service::state_t oldState, Service::state_t newState);
+		void stateChangeHandler(Service::State oldState, Service::State newState);
 
 	private:
 		typedef QList<Service *> ServicesContainer;

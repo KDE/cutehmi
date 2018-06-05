@@ -77,12 +77,12 @@ void HoldingRegisterController::setValueScale(qreal valueScale)
 	}
 }
 
-HoldingRegister::encoding_t HoldingRegisterController::encoding() const
+HoldingRegister::Encoding HoldingRegisterController::encoding() const
 {
 	return m_encoding;
 }
 
-void HoldingRegisterController::setEncoding(HoldingRegister::encoding_t encoding)
+void HoldingRegisterController::setEncoding(HoldingRegister::Encoding encoding)
 {
 	if (m_encoding != encoding) {
 		m_encoding = encoding;

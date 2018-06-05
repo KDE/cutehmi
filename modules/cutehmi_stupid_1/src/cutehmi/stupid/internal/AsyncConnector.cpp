@@ -27,7 +27,7 @@ unsigned long AsyncConnector::daemonSleep() const
 	return m_daemonSleep;
 }
 
-AsyncConnector::status_t AsyncConnector::status() const
+AsyncConnector::Status AsyncConnector::status() const
 {
 	return m_status;
 }
