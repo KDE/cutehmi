@@ -5,7 +5,8 @@
 <div class="doxygen_github_hack" style="font-size: 0px">
 
 [//]: # (\htmlonly)
-<a href="https://travis-ci.org/michpolicht/CuteHMI" style="visibility: visible"><img src="https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master" /></a>
+
+[![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master)](https://travis-ci.org/michpolicht/CuteHMI)
 
 [//]: # (\endhtmlonly)
 </div>
