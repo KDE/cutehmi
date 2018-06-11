@@ -54,7 +54,11 @@ void Client::moveDatabaseConnectionData(std::unique_ptr<stupid::DatabaseConnecti
 
 void Client::checkDatabaseConnectionStatus()
 {
-	m->sqlErrors.push_back(QSqlDatabase::database(m->dbThread.dbData()->connectionName, false).lastError());
+	internal::Worker dbWorker([this]() {
+		m->sqlErrors.push_back(QSqlDatabase::database(m->dbThread.dbData()->connectionName, false).lastError());
+	});
+	dbWorker.employ(m->dbThread);
+	dbWorker.wait();
 	processSQLErrors();
 }
 
