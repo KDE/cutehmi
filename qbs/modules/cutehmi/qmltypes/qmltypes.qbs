@@ -16,7 +16,7 @@ Module {
 
 	Rule {
 //<workaround id="qbs-cutehmi-qmltypes-1" target="qmlplugindump" cuase="QTBUG-66669">
-		condition: qbs.targetOS.contains("windows")
+		condition: qbs.targetOS.contains("windows") && qbs.buildVariant == "release"
 //</workaround>
 
 		multiplex: true
