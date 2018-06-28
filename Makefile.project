@@ -1,6 +1,46 @@
-HELP_MESSAGE = "Use qmake if you wish to build the software."
+# Copyright (c) 2018, Michal Policht. This file is dually licensed under terms
+# of either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or 
+# BEER-WARE LICENSE by googling, binging, yahooing or downloading it from pirate
+# bay. NO WARRANTY.
+
+# This Makefile defines various project-specific variables.
+
+HELP_MESSAGE = Use Qbs if you wish to build the project itself.
+
+# C compiler (GCC-compatible is required in many cases).
+CC = gcc
 
 INCLUDE_GUARD_PREFIX = "H_"
+
+# Project directory (without trailing slash).
+PROJECT_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
+# Root directory of external artifacts.
+EXTERNAL_ROOT = $(PROJECT_DIR)/external
+
+# Directory for temporaries.
+TEMP_DIR = $(EXTERNAL_ROOT)/_temp/$(TARGET_MACHINE)
+
+# A place where external source code archives are stored.
+ARCHIVE_DIR = $(TEMP_DIR)/archive
+
+# Sources directory.
+SOURCE_DIR = $(TEMP_DIR)/source
+
+# Port directory.
+PORT_DIR = $(TEMP_DIR)/port
+
+# Build directory.
+BUILD_DIR = $(TEMP_DIR)/build
+
+# Installation directory.
+INSTALL_DIR = $(TEMP_DIR)/install
+
+# Root directory for deployments.
+DEPLOY_DIR = $(EXTERNAL_ROOT)/deploy/$(TARGET_MACHINE)
+
+# Recipes directory.
+RECIPES_DIR = $(EXTERNAL_ROOT)/recipes/$(TARGET_MACHINE) 
 
 SOURCE_DIRS = tools/cutehmi_view_1/src \
 			  modules/cutehmi_1/src \
@@ -55,12 +95,12 @@ QML_DIRS = QML/CuteHMI.1 \
 			   QML/CuteHMI/Services \
 			   QML/CuteHMI/Stupid
 
-DOC_QDOC_FILES = QML/CuteHMI/Modbus/Modbus.qdocconf \
-				 QML/CuteHMI.1/CuteHMI.1.qdocconf
-
-DOXYGEN_INPUT_DIRS = .
+DOXYGEN_INPUT_DIRS = Doxyfile modules tools QML
 
 DOXYGEN_OUTPUT_DIRS = doc/Doxygen/docs
 
-PWD_DIR := $(shell $(PWD))
+include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.toolchain
+
+# Makefile.user may override variables defined elsewhere.
+-include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.user
 

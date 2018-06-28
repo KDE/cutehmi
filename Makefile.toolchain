@@ -1,0 +1,84 @@
+# Copyright (c) 2018, Michal Policht. This file is dually licensed under terms
+# of either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or 
+# BEER-WARE LICENSE by googling, binging, yahooing or downloading it from pirate
+# bay. NO WARRANTY.
+
+# This makefile defines variables for required tools and commands used by
+# various targets.
+
+# Modify PATH variable to prevent interference with other tools/libraries!
+
+C_DIR := $(patsubst %/,%,$(realpath C:/))
+
+# Target machine triplet.
+TARGET_MACHINE := $(shell $(CC) -dumpmachine)
+
+# Build machine triplet.
+BUILD_MACHINE := $(TARGET_MACHINE)
+
+# Host machine triplet.
+HOST_MACHINE := $(TARGET_MACHINE)
+
+ifeq "$(OS)" "Windows_NT"
+  NATIVE_PATH_SEPARATOR := $(join \,)
+  NATIVE_EXECUTABLE_SUFFIX := .exe
+  NATIVE_ORS = "\r\n"  	# Output Record Separator used by AWK.
+else
+  NATIVE_PATH_SEPARATOR := /
+  NATIVE_EXECUTABLE_SUFFIX :=
+  NATIVE_ORS = "\n"		# Output Record Separator used by AWK.
+endif
+
+# Shell builtins.
+
+CD = cd
+
+$(CD):
+
+
+# Qt programs are assumed to be in PATH.
+
+QDOC = qdoc
+QMLPLUGINDUMP = qmlplugindump
+
+$(QDOC) $(QMLPLUGINDUMP):
+
+# Doxygen.
+
+ifeq "$(OS)" "Windows_NT"
+  DOXYGEN_DIR = $(C_DIR)/Program\ Files/doxygen
+else
+  DOXYGEN_DIR = /usr/bin
+endif
+DOXYGEN_BIN_DIR = $(DOXYGEN_DIR)/bin
+DOXYGEN = $(DOXYGEN_BIN_DIR)/doxygen$(NATIVE_EXECUTABLE_SUFFIX)
+
+$(DOXYGEN):
+	$(info --------------------------------------------------------------------------------)
+	$(info Program 'doxygen' not found!)
+	$(info Download it from: http://www.stack.nl/~dimitri/doxygen/download.html.)
+	$(info If 'doxygen' is installed in custom location, override DOXYGEN_DIR variable.)
+	$(info DOXYGEN_DIR = "$(DOXYGEN_DIR)")
+	$(error DOXYGEN = $(DOXYGEN) not found)
+
+# CMake.
+
+ifeq "$(OS)" "Windows_NT"
+  CMAKE_DIR = $(C_DIR)/Program\ Files/CMake
+else
+  CMAKE_DIR = /usr/bin
+endif
+CMAKE_BIN_DIR = $(CMAKE_DIR)/bin
+CMAKE = $(CMAKE_BIN_DIR)/cmake$(NATIVE_EXECUTABLE_SUFFIX)
+
+$(CMAKE):
+	$(info --------------------------------------------------------------------------------)
+	$(info Program 'cmake' not found!)
+	$(info Download it from: https://cmake.org/download/.)
+	$(info If 'cmake' is installed in custom location, override CMAKE_DIR variable.)
+	$(info CMAKE_DIR = "$(CMAKE_DIR)")
+	$(error CMAKE = $(CMAKE) not found)
+
+# Include platform specific toolchain file.
+include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.$(BUILD_MACHINE).toolchain
+
