@@ -36,13 +36,16 @@
 # Awkgward user files.
 Makefile.user
 
-# Convenient Windows binaries.
-make.exe
-awkgward/find.exe
-
 # Customized project files.
 Custom.pro
 Custom.qbs
 
 # Test modules.
 modules/test_*
+
+# Temporary external artifacts and deployment (may become submodule).
+external/_temp
+external/deploy
+
+# Batch file, which sets up custom environment.
+userEnv.bat
