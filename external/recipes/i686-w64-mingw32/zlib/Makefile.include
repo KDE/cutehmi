@@ -1,0 +1,6 @@
+ZLIB_DEPLOY_DIR = $(DEPLOY_DIR)/zlib
+ZLIB_INSTALL_DIR = $(INSTALL_DIR)/zlib
+
+$(ZLIB_INSTALL_DIR):
+	$(MAKE) -C ../zlib buildinstall
+

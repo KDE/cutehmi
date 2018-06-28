@@ -1,0 +1,6 @@
+LIBGPG-ERROR_DEPLOY_DIR = $(DEPLOY_DIR)/libgpg-error
+LIBGPG-ERROR_INSTALL_DIR = $(INSTALL_DIR)/libgpg-error
+
+$(LIBGPG-ERROR_INSTALL_DIR):
+	$(MAKE) -C ../libgpg-error buildinstall
+

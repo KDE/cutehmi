@@ -1,0 +1,5 @@
+sourcedir $(PRODUCT_SOURCE_DIR): $(PRODUCT_ARCHIVE_PATH) | $(MKDIR) $(CD) $(TAR) $(TOUCH)
+	$(MKDIR) -p $(SOURCE_DIR)
+	$(CD) $(SOURCE_DIR) && $(TAR) xvfz $(PRODUCT_ARCHIVE_PATH) --force-local
+	$(TOUCH) $(PRODUCT_SOURCE_DIR)
+

@@ -1,0 +1,6 @@
+POSTGRESQL_DEPLOY_DIR = $(DEPLOY_DIR)/postgresql
+POSTGRESQL_INSTALL_DIR = $(INSTALL_DIR)/postgresql
+
+$(POSTGRESQL_INSTALL_DIR):
+	$(MAKE) -C ../postgresql buildinstall
+

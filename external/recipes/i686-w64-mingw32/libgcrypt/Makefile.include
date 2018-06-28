@@ -1,0 +1,6 @@
+LIBGCRYPT_DEPLOY_DIR = $(DEPLOY_DIR)/libgcrypt
+LIBGCRYPT_INSTALL_DIR = $(INSTALL_DIR)/libgcrypt
+
+$(LIBGCRYPT_INSTALL_DIR):
+	$(MAKE) -C ../libgcrypt buildinstall
+

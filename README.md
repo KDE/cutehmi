@@ -53,6 +53,7 @@ Directory structure of the project is organized as follows.
 - *dev* - development notes (irrelevant).
 - *doc* - place where documentation shall be.
 - *examples* - self-explanatory.
+- [external](external/README.md) - directory containing "external" libraries.
 - *extra* - various stuff related to the project, such as T-shirts.
 - [modules](modules/README.md) - the heart of the project.
 - *qbs* - Qbs modules and imports.

@@ -1,0 +1,6 @@
+LIBICONV_DEPLOY_DIR = $(DEPLOY_DIR)/libiconv
+LIBICONV_INSTALL_DIR = $(INSTALL_DIR)/libiconv
+
+$(LIBICONV_INSTALL_DIR):
+	$(MAKE) -C ../libiconv buildinstall
+
