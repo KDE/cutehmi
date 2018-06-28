@@ -1,4 +1,4 @@
-MinGW port of [GNU gettext][gettext-www].
+# MinGW port of [GNU gettext][gettext-www].
 
 This port uses [gettext source code][gettext-ftp] as provided by GNU and patches
 provided by [Michele Locati].

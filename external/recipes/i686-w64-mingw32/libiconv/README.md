@@ -1,4 +1,4 @@
-MinGW port of [GNU libiconv][libiconv-www].
+# MinGW port of [GNU libiconv][libiconv-www].
 
 This port uses [libiconv source code][libiconv-ftp] as provided by GNU and
 patches provided by [Michele Locati].
