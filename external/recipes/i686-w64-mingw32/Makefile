@@ -16,6 +16,7 @@ all: | $(MAKE)
 	$(MAKE) -C zlib
 	$(MAKE) -C libssh
 	$(MAKE) -C postgresql
+	$(MAKE) -C libmodbus
 
 clean: mostlyclean | $(RM)
 	$(RM) -Rf $(SOURCE_DIR)
