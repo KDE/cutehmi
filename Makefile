@@ -64,7 +64,6 @@ help: description path
 
 description:
 		@echo --------------------------------------------------------------------------------
-		@echo This Makefile is responsible for code maintenance, not building the project.
 		@echo $(HELP_MESSAGE)
 
 # Double quotes are required for printing path reliably with raw mingw32-make (without MSYS shell).

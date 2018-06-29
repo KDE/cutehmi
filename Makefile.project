@@ -37,7 +37,7 @@ BUILD_DIR = $(TEMP_DIR)/build
 INSTALL_DIR = $(TEMP_DIR)/install
 
 # Root directory for deployments.
-DEPLOY_DIR = $(EXTERNAL_ROOT)/deploy/$(TARGET_MACHINE)
+DEPLOY_DIR = $(EXTERNAL_ROOT)/deploy
 
 # Recipes directory.
 RECIPES_DIR = $(EXTERNAL_ROOT)/recipes/$(TARGET_MACHINE) 
