@@ -28,7 +28,7 @@ Module {
 	Probes.PathProbe {
 		id: libgcryptProbe
 
-		names: ["libgcrypt-20"]
+        names: qbs.targetOS.contains("windows") ? ["libgcrypt-20"] : ["libgcrypt"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])

@@ -19,7 +19,7 @@ Module {
 
 	property bool found: libpqProbe.found && libpq_feHeaderProbe.found
 
-	property bool available: found && cutehmi.libintl.available
+    property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.libintl.available : true)
 
 	property string libpqPath: libpqProbe.filePath
 
@@ -28,7 +28,7 @@ Module {
 	Probes.PathProbe {
 		id: libpqProbe
 
-		names: ["libpq"]
+        names: ["libpq"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
@@ -45,6 +45,7 @@ Module {
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
 							.concat([cutehmi.dirs.externalLibDir + "/postgresql/include"])
+        pathSuffixes: ["postgresql"]
 	}
 
 	Group {

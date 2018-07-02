@@ -14,7 +14,7 @@ Module {
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["zlib"]
+        cpp.dynamicLibraries: ["z"]
 	}
 
 	property bool found: zlibProbe.found && zlibHeaderProbe.found
@@ -28,8 +28,8 @@ Module {
 	Probes.PathProbe {
 		id: zlibProbe
 
-		names: ["zlib1"]
-		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
+        names: qbs.targetOS.contains("windows") ? ["zlib1"] : ["libz"]
+        nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
@@ -50,7 +50,7 @@ Module {
 		name: "Zlib"
 		files: cutehmi.zlib.zlibPath
 		condition: cutehmi.zlib.zlibPath
-		qbs.install: true
+        qbs.install: true
 		qbs.installDir: cutehmi.dirs.moduleInstallDir
 	}
 

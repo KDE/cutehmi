@@ -16,7 +16,7 @@ Module {
 	}
 
 	Properties {
-		condition: qbs.targetOS.contains("linux")
+        condition: qbs.targetOS.contains("linux")
 		cpp.dynamicLibraries: ["intl"]
 	}
 
@@ -31,7 +31,7 @@ Module {
 	Probes.PathProbe {
 		id: libintlProbe
 
-		names: ["libintl-8"]
+        names: qbs.targetOS.contains("windows") ? ["libintl-8"] : ["libintl"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])

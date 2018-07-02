@@ -28,7 +28,7 @@ Module {
 	Probes.PathProbe {
 		id: libmodbusProbe
 
-		names: ["libmodbus-5"]
+        names: qbs.targetOS.contains("windows") ? ["libmodbus-5"] : ["libmodbus"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])

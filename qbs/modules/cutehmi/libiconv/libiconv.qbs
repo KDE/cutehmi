@@ -28,7 +28,7 @@ Module {
 	Probes.PathProbe {
 		id: libiconvProbe
 
-		names: ["libiconv-2"]
+        names: qbs.targetOS.contains("windows") ? ["libiconv-2"] : ["libiconv"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])

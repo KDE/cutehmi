@@ -28,7 +28,7 @@ Module {
 	Probes.PathProbe {
 		id: libgpg_errorProbe
 
-		names: ["libgpg-error-0"]
+        names: qbs.targetOS.contains("windows") ? ["libgpg-error-0"] : ["libgpg-error"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
