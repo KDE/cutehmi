@@ -5,6 +5,8 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_modbus_1"
 
+	condition: cutehmi.libmodbus.available
+
 	minor: 0
 
 	micro: 0

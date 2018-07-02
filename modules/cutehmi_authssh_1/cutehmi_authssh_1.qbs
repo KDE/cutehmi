@@ -5,6 +5,8 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_authssh_1"
 
+	condition: cutehmi.libssh.available
+
 	minor: 0
 
 	micro: 0

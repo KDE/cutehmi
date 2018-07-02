@@ -5,6 +5,8 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_stupid_1"
 
+	condition: cutehmi.libpq.available
+
 	minor: 0
 
 	micro: 0
@@ -58,6 +60,8 @@ cutehmi.Module {
 
 	Depends { name: "Qt.concurrent" }
 	Depends { name: "Qt.sql" }
+
+	Depends { name: "cutehmi.libpq" }
 
 //<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 
