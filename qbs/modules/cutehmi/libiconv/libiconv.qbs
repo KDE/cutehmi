@@ -3,53 +3,53 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libsshProbe.path)
+	cpp.libraryPaths: FileInfo.cleanPath(libiconvProbe.path)
 
-	cpp.includePaths: FileInfo.cleanPath(libsshHeaderProbe.path)
+	cpp.includePaths: FileInfo.cleanPath(iconvHeaderProbe.path)
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libssh"]
+		cpp.dynamicLibraries: ["libiconv-2"]
 	}
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["ssh"]
+		cpp.dynamicLibraries: ["iconv"]
 	}
 
-	property bool found: libsshProbe.found && libsshHeaderProbe.found
+	property bool found: libiconvProbe.found && iconvHeaderProbe.found
 
-	property bool available: found && cutehmi.zlib.available && cutehmi.libgcrypt.available
+	property bool available: found
 
-	property string libsshPath: libsshProbe.filePath
+	property string libiconvPath: libiconvProbe.filePath
 
-	property string includePath: libsshHeaderProbe.path
+	property string includePath: iconvHeaderProbe.path
 
 	Probes.PathProbe {
-		id: libsshProbe
+		id: libiconvProbe
 
-		names: ["libssh"]
+		names: ["libiconv-2"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/lib"])
+							.concat([cutehmi.dirs.externalLibDir + "/libiconv/lib"])
 	}
 
 	Probes.PathProbe {
-		id: libsshHeaderProbe
+		id: iconvHeaderProbe
 
-		names: ["libssh/libssh.h"]
+		names: ["iconv.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/include"])
+							.concat([cutehmi.dirs.externalLibDir + "/libiconv/include"])
 	}
 
 	Group {
-		name: "Libssh"
-		files: cutehmi.libssh.libsshPath
-		condition: cutehmi.libssh.libsshPath
+		name: "Libiconv"
+		files: cutehmi.libiconv.libiconvPath
+		condition: cutehmi.libiconv.libiconvPath
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.moduleInstallDir
 	}
@@ -57,7 +57,4 @@ Module {
 	Depends { name: "cpp" }
 
 	Depends { name: "cutehmi.dirs" }
-
-	Depends { name: "cutehmi.zlib" }
-	Depends { name: "cutehmi.libgcrypt" }
 }

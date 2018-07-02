@@ -2,54 +2,57 @@ import qbs 1.0
 import qbs.Probes
 import qbs.FileInfo
 
+/**
+  Library for native language support (part of gettext).
+  */
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libsshProbe.path)
+	cpp.libraryPaths: FileInfo.cleanPath(libintlProbe.path)
 
-	cpp.includePaths: FileInfo.cleanPath(libsshHeaderProbe.path)
+	cpp.includePaths: FileInfo.cleanPath(libintlHeaderProbe.path)
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libssh"]
+		cpp.dynamicLibraries: ["libintl-8"]
 	}
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["ssh"]
+		cpp.dynamicLibraries: ["intl"]
 	}
 
-	property bool found: libsshProbe.found && libsshHeaderProbe.found
+	property bool found: libintlProbe.found && libintlHeaderProbe.found
 
-	property bool available: found && cutehmi.zlib.available && cutehmi.libgcrypt.available
+	property bool available: found && cutehmi.libiconv.available
 
-	property string libsshPath: libsshProbe.filePath
+	property string libintlPath: libintlProbe.filePath
 
-	property string includePath: libsshHeaderProbe.path
+	property string includePath: libintlHeaderProbe.path
 
 	Probes.PathProbe {
-		id: libsshProbe
+		id: libintlProbe
 
-		names: ["libssh"]
+		names: ["libintl-8"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/lib"])
+							.concat([cutehmi.dirs.externalLibDir + "/gettext/lib"])
 	}
 
 	Probes.PathProbe {
-		id: libsshHeaderProbe
+		id: libintlHeaderProbe
 
-		names: ["libssh/libssh.h"]
+		names: ["libintl.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/include"])
+							.concat([cutehmi.dirs.externalLibDir + "/gettext/include"])
 	}
 
 	Group {
-		name: "Libssh"
-		files: cutehmi.libssh.libsshPath
-		condition: cutehmi.libssh.libsshPath
+		name: "Libintl"
+		files: cutehmi.libintl.libintlPath
+		condition: cutehmi.libintl.libintlPath
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.moduleInstallDir
 	}
@@ -58,6 +61,5 @@ Module {
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.zlib" }
-	Depends { name: "cutehmi.libgcrypt" }
+	Depends { name: "cutehmi.libiconv" }
 }

@@ -3,53 +3,54 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libsshProbe.path)
+	cpp.libraryPaths: FileInfo.cleanPath(libpqProbe.path)
 
-	cpp.includePaths: FileInfo.cleanPath(libsshHeaderProbe.path)
+	cpp.includePaths: FileInfo.cleanPath(libpq_feHeaderProbe.path)
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libssh"]
+		cpp.dynamicLibraries: ["libpq"]
 	}
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["ssh"]
+		cpp.dynamicLibraries: ["pq"]
 	}
 
-	property bool found: libsshProbe.found && libsshHeaderProbe.found
+	property bool found: libpqProbe.found && libpq_feHeaderProbe.found
 
-	property bool available: found && cutehmi.zlib.available && cutehmi.libgcrypt.available
+	property bool available: found && cutehmi.libintl.available
 
-	property string libsshPath: libsshProbe.filePath
+	property string libpqPath: libpqProbe.filePath
 
-	property string includePath: libsshHeaderProbe.path
+	property string includePath: libpq_feHeaderProbe.path
 
 	Probes.PathProbe {
-		id: libsshProbe
+		id: libpqProbe
 
-		names: ["libssh"]
+		names: ["libpq"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/lib"])
+							.concat([cutehmi.dirs.externalLibDir + "/postgresql/lib"])
 	}
 
 	Probes.PathProbe {
-		id: libsshHeaderProbe
+		id: libpq_feHeaderProbe
 
-		names: ["libssh/libssh.h"]
+		names: ["libpq-fe"]
+		nameSuffixes: [".h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/include"])
+							.concat([cutehmi.dirs.externalLibDir + "/postgresql/include"])
 	}
 
 	Group {
-		name: "Libssh"
-		files: cutehmi.libssh.libsshPath
-		condition: cutehmi.libssh.libsshPath
+		name: "PostgreSQL client library"
+		files: cutehmi.libpq.libpqPath
+		condition: cutehmi.libpq.libpqPath
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.moduleInstallDir
 	}
@@ -58,6 +59,5 @@ Module {
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.zlib" }
-	Depends { name: "cutehmi.libgcrypt" }
+	Depends { name: "cutehmi.libintl" }
 }

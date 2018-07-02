@@ -3,53 +3,53 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libsshProbe.path)
+	cpp.libraryPaths: FileInfo.cleanPath(libgpg_errorProbe.path)
 
-	cpp.includePaths: FileInfo.cleanPath(libsshHeaderProbe.path)
+	cpp.includePaths: FileInfo.cleanPath(gpg_errorHeaderProbe.path)
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libssh"]
+		cpp.dynamicLibraries: ["libgpg-error-0"]
 	}
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["ssh"]
+		cpp.dynamicLibraries: ["libgpg-error"]
 	}
 
-	property bool found: libsshProbe.found && libsshHeaderProbe.found
+	property bool found: libgpg_errorProbe.found && gpg_errorHeaderProbe.found
 
-	property bool available: found && cutehmi.zlib.available && cutehmi.libgcrypt.available
+	property bool available: found
 
-	property string libsshPath: libsshProbe.filePath
+	property string libgpg_errorPath: libgpg_errorProbe.filePath
 
-	property string includePath: libsshHeaderProbe.path
+	property string includePath: gpg_errorHeaderProbe.path
 
 	Probes.PathProbe {
-		id: libsshProbe
+		id: libgpg_errorProbe
 
-		names: ["libssh"]
+		names: ["libgpg-error-0"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/lib"])
+							.concat([cutehmi.dirs.externalLibDir + "/libgpg-error/lib"])
 	}
 
 	Probes.PathProbe {
-		id: libsshHeaderProbe
+		id: gpg_errorHeaderProbe
 
-		names: ["libssh/libssh.h"]
+		names: ["gpg-error.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/libssh/include"])
+							.concat([cutehmi.dirs.externalLibDir + "/libgpg-error/include"])
 	}
 
 	Group {
-		name: "Libssh"
-		files: cutehmi.libssh.libsshPath
-		condition: cutehmi.libssh.libsshPath
+		name: "Libgpg-error"
+		files: cutehmi.libgpg_error.libgpg_errorPath
+		condition: cutehmi.libgpg_error.libgpg_errorPath
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.moduleInstallDir
 	}
@@ -57,7 +57,4 @@ Module {
 	Depends { name: "cpp" }
 
 	Depends { name: "cutehmi.dirs" }
-
-	Depends { name: "cutehmi.zlib" }
-	Depends { name: "cutehmi.libgcrypt" }
 }
