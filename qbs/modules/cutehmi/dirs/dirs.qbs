@@ -11,6 +11,9 @@ Module {
 	property string externalIncludeDir: externalDeployDir + "/include"
 
 	setupRunEnvironment: {
-		Environment.putEnv("PATH", externalLibDir + qbs.pathListSeparator + Environment.getEnv("PATH"))
+        if (qbs.targetOS.contains("windows"))
+            Environment.putEnv("PATH", externalLibDir + qbs.pathListSeparator + Environment.getEnv("PATH"))
+        else
+            Environment.putEnv("LD_LIBRARY_PATH", externalLibDir + qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
 	}
 }

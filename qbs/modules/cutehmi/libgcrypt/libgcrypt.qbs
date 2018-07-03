@@ -14,7 +14,7 @@ Module {
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["libgcrypt"]
+        cpp.dynamicLibraries: ["gcrypt"]
 	}
 
 	property bool found: libgcryptProbe.found && gcryptHeaderProbe.found

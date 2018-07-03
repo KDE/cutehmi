@@ -14,7 +14,7 @@ Module {
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["libgpg-error"]
+        cpp.dynamicLibraries: ["gpg-error"]
 	}
 
 	property bool found: libgpg_errorProbe.found && gpg_errorHeaderProbe.found

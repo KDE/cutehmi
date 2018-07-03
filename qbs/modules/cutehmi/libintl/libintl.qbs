@@ -16,7 +16,7 @@ Module {
 	}
 
 	Properties {
-        condition: qbs.targetOS.contains("linux")
+        condition: qbs.targetOS.contains("linux") && found
 		cpp.dynamicLibraries: ["intl"]
 	}
 
