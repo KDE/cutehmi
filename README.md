@@ -13,15 +13,25 @@
 </div>
 <!-- CUT HERE -->
 
-CuteHMI is an open-source HMI (Human Machine Interface) software written in C++ and QML, using Qt libraries as a framework.
+CuteHMI is an open-source HMI (Human Machine Interface) software written in C++
+and QML, using Qt libraries as a framework.
 
-Note: While most of the project uses Mozilla Public License, v. 2.0, some files are distributed under different licenses.
+Note: While most of the project uses Mozilla Public License, v. 2.0, some files
+are distributed under different licenses.
 
 ## Compiling
 
-1. Get the Qt toolkit. Open-source and commercial editions can be obtained from https://www.qt.io/. Qt can also be shipped with Linux distribution.
+1. Get the Qt toolkit. Open-source and commercial editions can be obtained from
+https://www.qt.io/. Qt can also be shipped with Linux distribution.
 
-2. Modbus components still use libmodbus library (http://libmodbus.org/). On Linux one can run following commands.
+2. Open `CuteHMI.qbs` file with *QtCreator* and simply build it.
+
+3. All modules dependent on external libraries will be disabled, if these
+libraries could not be found. To make the process of finding the libraries
+and installing them under Windows easier, a set of Makefiles is provided, which
+allow the libraries to be build from sources.
+
+Under Linux one can run following commands to compile libmodbus library.
 ```  
 git clone git://github.com/stephane/libmodbus.git
 cd libmodbus
@@ -29,16 +39,31 @@ git checkout f9358460ee1f62bcac716ad0444b3bbe7628b204
 ./autogen.sh
 ./configure
 make && sudo make install
-```  
-Compiling libmodbus on Windows can be a bit more tricky. I won't write the instructions here, because if project prevails, it should use *QtSerialBus* module.
+```
 
-3. Open `CuteHMI.qbs` file with *QtCreator* and build it. When apllication starts it shows empty screen.
+To install libssh on a Ubuntu-based system.
+```
+sudo apt-get -y install libssh-dev
+```
+
+On Arch-based system.
+```
+pacman -S libssh
+```
+
+Remember that Qbs caches Probe items' results, so if the library is installed
+after the project has been configured with Qbs, it will not show up. You can use
+`--force-probe-execution` option to force Qbs to not use cached results.
+
 
 ## Running example
 
-To run *SampleProject* example with *QtCreator* click "Projects" -> "Build & Run" -> "Run" and in the "Command line arguments" box type: `--project="examples/SampleProject/SampleProject.cutehmi.xml"`.
+To run *SampleProject* example with *QtCreator* click 
+"Projects" -> "Build & Run" -> "Run" and in the "Command line arguments" box 
+type: `--project="examples/SampleProject/SampleProject.cutehmi.xml"`.
 
-If anything goes wrong during loading, first check debug output and verify that paths are correct.
+If anything goes wrong during loading, first check debug output and verify that
+paths are correct.
 
 Something similar to this should show up on screen.
 
@@ -60,9 +85,16 @@ Directory structure of the project is organized as follows.
 - [QML](QML/README.md) - QML extensions (secondary heart of the project).
 - [tools](tools/README.md) - end-user applications (tertiary heart of the project).
 
-![Tools-modules-QML dependency diagram](doc/images/tools_modules_QML_dependency.png)
+![Tools-modules-QML dependency diagram](doc/images/general_dependencies.png)
 
-The concept is simple. Three most important directories are [modules](modules/README.md), [QML](QML/README.md) and [tools](tools/README.md). Modules are basically libraries, which provide various functionalities in modular fashion. These can be utilized by QML extensions or end-user applications. End-user applications may of course utilize QML extensions also, as this is one of the main features offered by Qt.
+The concept is simple. Three most important directories are
+[modules](modules/README.md), [QML](QML/README.md) and [tools](tools/README.md).
+Modules are basically libraries, which provide various functionalities in modular
+fashion. These can be utilized by QML extensions or end-user applications.
+End-user applications may of course utilize QML extensions also, as this is one
+of the main features offered by Qt. Some modules may depend on
+[external](external/README.md) libraries.
+
 
 ## Quick links
 
