@@ -29,7 +29,8 @@ https://www.qt.io/. Qt can also be shipped with Linux distribution.
 3. All modules dependent on external libraries will be disabled, if these
 libraries could not be found. To make the process of finding the libraries
 and installing them under Windows easier, a set of Makefiles is provided, which
-allow the libraries to be build from sources.
+allows the libraries to be build from sources. Check out 
+[external](external/README.md) for more details.
 
 Under Linux one can run following commands to compile and install libmodbus
 library.

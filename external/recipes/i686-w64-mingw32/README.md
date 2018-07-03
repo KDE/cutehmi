@@ -15,3 +15,11 @@ error message will be printed.
 
 Some recipes may ask for CMake, so it also has to be installed.
 
+To compile the libraries open command prompt, `cd` to CuteHMI top directory and 
+execute commands.
+```
+set PATH=C:\Qt\Tools\mingw530_32\bin
+mingw32-make ports
+```
+Modify PATH accordingly, if Qt/MinGW is installed to different location.
+
