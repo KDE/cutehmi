@@ -29,11 +29,31 @@ else
   NATIVE_ORS = "\n"		# Output Record Separator used by AWK.
 endif
 
-# Shell builtins.
+
+# Shell and its builtins.
 
 CD = cd
+SH = sh
 
-$(CD):
+$(CD) $(SH):
+
+
+# Make.
+
+MAKE = make
+$(MAKE):
+
+
+# Findutils
+
+FIND = find
+$(FIND):
+
+
+# AWK
+
+AWK = awk
+$(AWK):
 
 
 # Qt programs are assumed to be in PATH.
