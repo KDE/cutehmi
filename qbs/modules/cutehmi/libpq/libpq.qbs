@@ -1,6 +1,7 @@
 import qbs 1.0
 import qbs.Probes
 import qbs.FileInfo
+import qbs.Environment
 
 Module {
 	cpp.libraryPaths: FileInfo.cleanPath(libpqProbe.path)
@@ -33,7 +34,7 @@ Module {
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/postgresql/lib"])
+							.concat([cutehmi.dirs.externalLibDir])
 	}
 
 	Probes.PathProbe {
@@ -44,16 +45,8 @@ Module {
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
-							.concat([cutehmi.dirs.externalLibDir + "/postgresql/include"])
+							.concat([cutehmi.dirs.externalIncludeDir])
         pathSuffixes: ["postgresql"]
-	}
-
-	Group {
-		name: "PostgreSQL client library"
-		files: cutehmi.libpq.libpqPath
-		condition: cutehmi.libpq.libpqPath
-		qbs.install: true
-		qbs.installDir: cutehmi.dirs.moduleInstallDir
 	}
 
 	Depends { name: "cpp" }
