@@ -48,7 +48,7 @@ $(QDOC) $(QMLPLUGINDUMP):
 ifeq "$(OS)" "Windows_NT"
   DOXYGEN_DIR = $(C_DIR)/Program\ Files/doxygen
 else
-  DOXYGEN_DIR = /usr/bin
+  DOXYGEN_DIR = /usr
 endif
 DOXYGEN_BIN_DIR = $(DOXYGEN_DIR)/bin
 DOXYGEN = $(DOXYGEN_BIN_DIR)/doxygen$(NATIVE_EXECUTABLE_SUFFIX)
