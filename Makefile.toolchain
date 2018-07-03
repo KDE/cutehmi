@@ -80,5 +80,5 @@ $(CMAKE):
 	$(error CMAKE = $(CMAKE) not found)
 
 # Include platform specific toolchain file.
-include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.$(BUILD_MACHINE).toolchain
+-include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.$(BUILD_MACHINE).toolchain
 
