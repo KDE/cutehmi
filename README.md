@@ -30,7 +30,7 @@ https://www.qt.io/. Qt can also be shipped with Linux distribution.
 libraries could not be found. To make the process of finding the libraries
 and installing them under Windows easier, a set of Makefiles is provided, which
 allows the libraries to be build from sources. Check out 
-[external](external/README.md) for more details.
+[external](external/README.md) libraries for more details.
 
 Under Linux one can run following commands to compile and install libmodbus
 library.
@@ -58,9 +58,10 @@ To install PostgreSQL client library on Ubuntu-based system.
 sudo apt-get -y install libpq-dev
 ```
 
-Remember that Qbs caches Probe items' results, so if the library is installed
-after the project has been configured with Qbs, it will not show up. You can use
-`--force-probe-execution` option to force Qbs to not use cached results.
+Remember that Qbs caches [Probe](http://doc.qt.io/qbs/qml-qbslanguageitems-probe.html)
+items' results, so if the library is installed after the project has been 
+configured with Qbs, it will not show up. You can use `--force-probe-execution`
+option to force Qbs to not use cached results.
 
 
 ## Running example
