@@ -31,7 +31,8 @@ libraries could not be found. To make the process of finding the libraries
 and installing them under Windows easier, a set of Makefiles is provided, which
 allow the libraries to be build from sources.
 
-Under Linux one can run following commands to compile libmodbus library.
+Under Linux one can run following commands to compile and install libmodbus
+library.
 ```  
 git clone git://github.com/stephane/libmodbus.git
 cd libmodbus
@@ -49,6 +50,11 @@ sudo apt-get -y install libssh-dev
 On Arch-based system.
 ```
 pacman -S libssh
+```
+
+To install PostgreSQL client library on Ubuntu-based system.
+```
+sudo apt-get -y install libpq-dev
 ```
 
 Remember that Qbs caches Probe items' results, so if the library is installed
