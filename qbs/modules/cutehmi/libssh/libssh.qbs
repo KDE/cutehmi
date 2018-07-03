@@ -50,6 +50,6 @@ Module {
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.zlib" }
-	Depends { name: "cutehmi.libgcrypt" }
+	Depends { name: "cutehmi.zlib"; condition: qbs.targetOS.contains("windows")}
+	Depends { name: "cutehmi.libgcrypt"; condition: qbs.targetOS.contains("windows")}
 }
