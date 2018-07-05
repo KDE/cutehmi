@@ -1,4 +1,6 @@
-# __Possible__ MinGW port of [GNU libiconv] with native language support.
+# GNU libiconv (internationalized)
+
+__Possible__ MinGW port of [GNU libiconv] with native language support.
 
 According to [libiconv website][libiconv-www] iconv program should be
 recompiled for the second time and linked against gettext.

@@ -791,7 +791,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = README.md \
-                         external \
+                         external/README.md \
                          modules/README.md \
                          QML/README.md \
                          tools/README.md
@@ -949,6 +949,9 @@ IMAGE_PATH             = . \
 # need to set EXTENSION_MAPPING for the extension otherwise the files are not
 # properly processed by doxygen.
 
+# Dirty sed filter that appends `index.html` to Markdown links which end with
+# slash (/). This is required for offline documentation. Web browser won't load
+# `index.html` without the aid of HTTP.
 INPUT_FILTER           = "sed 's/\(\[[[:alnum:][:blank:]\/.:_@#-]*\]([[:alnum:]\/.:_@#-]*\/\)\()\)/\1index.html\2/g'"
 
 # The FILTER_PATTERNS tag can be used to specify filters on a per file pattern

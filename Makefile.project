@@ -95,7 +95,7 @@ QML_DIRS = QML/CuteHMI.1 \
 			   QML/CuteHMI/Services \
 			   QML/CuteHMI/Stupid
 
-DOXYGEN_INPUT_DIRS = Doxyfile modules tools QML
+DOXYGEN_INPUT_DIRS = Doxyfile modules tools QML external/recipes
 
 DOXYGEN_OUTPUT_DIRS = doc/Doxygen/docs
 

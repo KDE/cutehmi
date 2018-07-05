@@ -7,5 +7,5 @@ the Qt plugins (e.g., SQL drivers).
 
 By default only Make recipes are kept in the repository. To build the libraries
 one has to evaluate recipes with a suitable toolchain. Check out
-[recipes](recipes/README.md) directory for further details.
+[recipes](recipes/) directory for further details.
 

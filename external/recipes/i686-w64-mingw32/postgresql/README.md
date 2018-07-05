@@ -1,4 +1,6 @@
-# MinGW port of [PostgreSQL][postgresql-www].
+# PostgreSQL
+
+MinGW port of [PostgreSQL][postgresql-www].
 
 [postgresql-www]: https://www.postgresql.org/
 
