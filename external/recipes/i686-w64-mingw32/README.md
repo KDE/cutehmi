@@ -21,5 +21,5 @@ execute commands.
 set PATH=C:\Qt\Tools\mingw530_32\bin
 mingw32-make ports
 ```
-Modify PATH accordingly, if Qt/MinGW is installed to different location.
+Modify PATH accordingly, if Qt/MinGW is installed in different location.
 
