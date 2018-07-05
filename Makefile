@@ -87,6 +87,8 @@ guards: | $(FIND) $(SH) $(AWK)
 doc: doc_doxygen
 
 doc_doxygen: | $(FIND) $(SED) $(DOXYGEN)
+		@echo Doxygen path: "$(DOXYGEN)"
+		@echo Doxygen version: $(shell $(DOXYGEN) -v)
 		@$(FIND) $(DOXYGEN_INPUT_DIRS) \
 		\( -name 'Doxyfile' -o -name '*.Doxyfile' \) \
 		-execdir $(DOXYGEN) {} \;
