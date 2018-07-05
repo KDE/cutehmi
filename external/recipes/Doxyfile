@@ -2,6 +2,7 @@ PROJECT_NAME = "External libraries recipes"
 PROJECT_LOGO = "doc/project_logo.png"
 OUTPUT_DIRECTORY = "../../doc/Doxygen/docs/recipes"
 HTML_OUTPUT = "."
+HTML_DYNAMIC_MENUS = NO
 ALWAYS_DETAILED_SEC = YES
 JAVADOC_AUTOBRIEF = YES
 EXTRACT_ALL = YES

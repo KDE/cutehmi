@@ -39,6 +39,7 @@ Module {
 					'PROJECT_LOGO': 'doc/project_logo.png',
 					'OUTPUT_DIRECTORY': FileInfo.relativePath(product.sourceDirectory, outputDir),
 					'HTML_OUTPUT': '.',
+					'HTML_DYNAMIC_MENUS': false,
 					'ALWAYS_DETAILED_SEC': true,
 					'JAVADOC_AUTOBRIEF': true,
 					'EXTRACT_ALL': true,
