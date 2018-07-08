@@ -93,7 +93,7 @@ Directory structure of the project is organized as follows.
 - [QML](QML/README.md) - QML extensions (secondary heart of the project).
 - [tools](tools/README.md) - end-user applications (tertiary heart of the project).
 
-![Tools-modules-QML dependency diagram](doc/images/general_dependencies.png)
+![Dependencies between tools, modules, QML and external libraries](doc/images/general_dependencies.png)
 
 The concept is simple. Three most important directories are
 [modules](modules/README.md), [QML](QML/README.md) and [tools](tools/README.md).
