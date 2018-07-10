@@ -82,6 +82,56 @@ UNAME = $(MSYS_BIN_DIR)/uname.exe
 UNIQ = $(MSYS_BIN_DIR)/uniq.exe
 WC = $(MSYS_BIN_DIR)/wc.exe
 
+# msys-coreutils-ext
+[ = $(MSYS_BIN_DIR)/[.exe
+CHGRP = $(MSYS_BIN_DIR)/chgrp.exe
+CHOWN = $(MSYS_BIN_DIR)/chown.exe
+CHROOT = $(MSYS_BIN_DIR)/chroot.exe
+CKSUM = $(MSYS_BIN_DIR)/cksum.exe
+CSPLIT = $(MSYS_BIN_DIR)/csplit.exe
+DD = $(MSYS_BIN_DIR)/dd.exe
+DF = $(MSYS_BIN_DIR)/df.exe
+DIR = $(MSYS_BIN_DIR)/dir.exe
+DIRCOLORS = $(MSYS_BIN_DIR)/dircolors.exe
+DU = $(MSYS_BIN_DIR)/du.exe
+EXPAND = $(MSYS_BIN_DIR)/expand.exe
+FACTOR = $(MSYS_BIN_DIR)/factor.exe
+FMT = $(MSYS_BIN_DIR)/fmt.exe
+GROUPS = $(MSYS_BIN_DIR)/groups
+HOSTNAME = $(MSYS_BIN_DIR)/hostname.exe
+KILL = $(MSYS_BIN_DIR)/kill.exe
+LINK = $(MSYS_BIN_DIR)/link.exe
+LOGNAME = $(MSYS_BIN_DIR)/logname.exe
+MKFIFO = $(MSYS_BIN_DIR)/mkfifo.exe
+MKNOD = $(MSYS_BIN_DIR)/mknod.exe
+NICE = $(MSYS_BIN_DIR)/nice.exe
+NL = $(MSYS_BIN_DIR)/nl.exe
+NOHUP = $(MSYS_BIN_DIR)/nohup.exe
+PATHCHK = $(MSYS_BIN_DIR)/pathchk.exe
+PINKY = $(MSYS_BIN_DIR)/pinky.exe
+PR = $(MSYS_BIN_DIR)/pr.exe
+PRINTENV = $(MSYS_BIN_DIR)/printenv.exe
+PTX = $(MSYS_BIN_DIR)/ptx.exe
+READLINK = $(MSYS_BIN_DIR)/readlink.exe
+SEQ = $(MSYS_BIN_DIR)/seq.exe
+SHA1SUM = $(MSYS_BIN_DIR)/sha1sum.exe
+SHRED = $(MSYS_BIN_DIR)/shred.exe
+STAT = $(MSYS_BIN_DIR)/stat.exe
+SU = $(MSYS_BIN_DIR)/su.exe
+SUM = $(MSYS_BIN_DIR)/sum.exe
+SYNC = $(MSYS_BIN_DIR)/sync.exe
+TAC = $(MSYS_BIN_DIR)/tac.exe
+TEST = $(MSYS_BIN_DIR)/test.exe
+TSORT = $(MSYS_BIN_DIR)/tsort.exe
+TTY = $(MSYS_BIN_DIR)/tty.exe
+UNEXPAND = $(MSYS_BIN_DIR)/unexpand.exe
+UNLINK = $(MSYS_BIN_DIR)/unlink.exe
+USERS = $(MSYS_BIN_DIR)/users.exe
+VDIR = $(MSYS_BIN_DIR)/vdir.exe
+WHO = $(MSYS_BIN_DIR)/who.exe
+WHOAMI = $(MSYS_BIN_DIR)/whoami.exe
+YES = $(MSYS_BIN_DIR)/yes.exe
+
 # msys-diffutils-bin
 CMP = $(MSYS_BIN_DIR)/cmp.exe
 DIFF = $(MSYS_BIN_DIR)/diff.exe
@@ -152,9 +202,10 @@ XZDEC = $(MSYS_BIN_DIR)/xzdec.exe
 
 
 .PHONY: msys-awk-bin msys-bash-bin msys-bzip2-bin msys-coreutils-bin \
-msys-diffutils-bin msys-file-bin msys-findutils-bin msys-grep-bin msys-groff-bin \
-msys-gzip-bin msys-less-bin msys-make-bin msys-patch-bin msys-perl-bin \
-msys-sed-bin msys-tar-bin msys-wget-bin msys-xz-bin msysCORE-bin
+msys-coreutils-ext msys-diffutils-bin msys-file-bin msys-findutils-bin \
+msys-grep-bin msys-groff-bin msys-gzip-bin msys-less-bin msys-make-bin \
+msys-patch-bin msys-perl-bin msys-sed-bin msys-tar-bin msys-wget-bin \
+msys-xz-bin msysCORE-bin
 
 $(MINGW_GET):
 	$(info --------------------------------------------------------------------------------)
@@ -179,6 +230,14 @@ $(LS) $(MD5SUM) $(MKDIR) $(MV) $(PASTE) $(PRINTF) $(PWD) $(RM) $(RMDIR) \
 $(SLEEP) $(SORT) $(SPLIT) $(STTY) $(TAIL) $(TEE) $(TOUCH) $(TR) $(TRUE) \
 $(UNAME) $(UNIQ) $(WC): | $(MINGW_GET)
 	$(MINGW_GET) install msys-coreutils-bin
+
+msys-coreutils-ext $([) $(CHGRP) $(CHOWN) $(CHROOT) $(CKSUM) $(CSPLIT) $(DD) \
+$(DF) $(DIR) $(DIRCOLORS) $(DU) $(EXPAND) $(FACTOR) $(FMT) $(GROUPS) \
+$(HOSTNAME) $(KILL) $(LINK) $(LOGNAME) $(MKFIFO) $(MKNOD) $(NICE) $(NL) \
+$(NOHUP) $(PATHCHK) $(PINKY) $(PR) $(PRINTENV) $(PTX) $(READLINK) $(SEQ) \
+$(SHA1SUM) $(SHRED) $(STAT) $(SU) $(SUM) $(SYNC) $(TAC) $(TEST) $(TSORT) \
+$(TTY) $(UNEXPAND) $(UNLINK) $(USERS) $(VDIR) $(WHO) $(WHOAMI) $(YES): | $(MINGW_GET)
+	$(MINGW_GET) install msys-coreutils-ext
 
 msys-diffutils-bin $(CMP) $(DIFF) $(DIFF3) $(SDIFF): | $(MINGW_GET)
 	$(MINGW_GET) install msys-diffutils-bin
