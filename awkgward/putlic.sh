@@ -22,7 +22,7 @@
 # required tools: sh, stat, cut, grep, touch, awk, sed, echo, find (findutils), cat, rm, striplic.awk.
 
 
-function usage()
+usage()
 {
     echo "usage: $0 target_file license_file [comment] [qualifier] [IORS] [find_program]"
     echo "note: working directory from which this script is called"

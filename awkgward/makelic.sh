@@ -25,7 +25,7 @@ file_types=$3
 IORS=$4
 find_program=$5
 
-function usage()
+usage()
 {
     echo "usage: $0 lic_file comment file_types IORS find_program"
 }
