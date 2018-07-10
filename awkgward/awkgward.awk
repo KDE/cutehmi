@@ -41,9 +41,11 @@
 function create_guard_macro(prefix, filename)
 {
     # just in case, double single underscores
-    double_underscore = gensub(/_/, "__", "g", toupper(filename));
+    double_underscore = toupper(filename);
+    gsub(/_/, "__", double_underscore);
     # \/ = slash (/), \. = dot (.), \\ = backslash (\) - replace them with underscore.
-    return prefix gensub(/[\/\.\\]/, "_", "g", double_underscore);
+    gsub(/[\/\.\\]/, "_", double_underscore);
+    return prefix double_underscore;
 }
 
 function create_guard(prefix, filename)

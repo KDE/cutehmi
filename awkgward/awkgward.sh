@@ -18,7 +18,7 @@
 # required tools: sh, cut, grep, touch, stat, awk, echo, mv, awkgward.awk
 
 
-function usage()
+usage()
 {
     echo "usage: $0 awk_program header_file [prefix] [IORS]"
     echo "note: working directory from which this script is called"
