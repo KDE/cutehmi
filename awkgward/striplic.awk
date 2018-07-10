@@ -1,6 +1,6 @@
 #!/bin/awk
 #
-# Copyright (c) 2010, Michal Policht. This file is dually licensed under terms of 
+# Copyright (c) 2018, Michal Policht. This file is dually licensed under terms of 
 # either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or BEER-WARE
 # LICENSE by googling it. NO WARRANTY. YOU WILL PAY ALL COSTS FOR ANY REPAIRS.
 #
@@ -15,12 +15,15 @@
 # comment - comment type. Following values are available: 
 #           "dslash" - "//(c):QUALIFIER" pattern is used (default).
 #           "hash" - "#(c):QUALIFIER" pattern is used.
+#           "xml" - "<!--(c):QUALIFIER" pattern is used.
 #
 # required tools: awk.
 
 BEGIN {
     if (comment == "hash")
         lic_comment = "^#\\(c\\)" qualifier ":"
+    else if (comment == "xml")
+        lic_comment = "^<!--\\(c\\)" qualifier ":"
     else
         lic_comment = "^//\\(c\\)" qualifier ":"
     nl_buf = ""; #new lines buffer

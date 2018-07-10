@@ -11,34 +11,55 @@ first: help
 HELP_MESSAGE =
 
 # [license] Names of files containing license text to be appended to files, commented out with double slash.
-LIC_DSLASH = LICENSE.dslash.inc
+LIC_DSLASH = *.LICENSE.dslash.inc
 
 # [license] Names of files containing license text to be appended to files, commented out with hash.
-LIC_HASH = LICENSE.hash.inc
+LIC_HASH = *.LICENSE.hash.inc
+
+# [license] Names of files containing license text to be appended to files, commented out with XML comment.
+LIC_XML = *.LICENSE.xml.inc
 
 # [license] Directories containing CMake files.
 CMAKE_DIRS =
 
 # [license] CMake file types.
-CMAKE_FILE_TYPES = "*.cmake CMakeLists.txt"
+CMAKE_FILE_TYPES = -name '*.cmake' -o -name 'CMakeLists.txt'
+
+# [license] Directories containing qbs files.
+QBS_DIRS = 
+
+# [license] Qbs file types.
+QBS_FILE_TYPES = -name '*.qbs'
 
 # [license] Directories containing QML files.
 QML_DIRS =
 
 # [license] QML file types.
-QML_FILE_TYPES = "*.qml"
+QML_FILE_TYPES = -name '*.qml'
+
+# [license] Directories containing JavaScript files.
+JS_DIRS = 
+
+# [license] JavaScript file types.
+JS_FILE_TYPES = -name '*.js'
+
+# [license] XML file types.
+XML_FILE_TYPES = -name '*.xml'
+
+# [license] Directories containing XML files.
+XML_DIRS = 
 
 # [license, sources] Directories containing source files.
 SOURCE_DIRS =
 
 # [license] Source file types.
-SOURCE_FILE_TYPES = "*.cpp *.c *.cpp.in"
+SOURCE_FILE_TYPES = -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in'
 
 # [license, guards] Directories containing header files.
 INCLUDE_DIRS =
 
-# [license] Include file types.
-INCLUDE_FILE_TYPES = "*.hpp *.h hpp.in"
+# [license, guards] Include file types.
+INCLUDE_FILE_TYPES = -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in'
 
 # [guards] A prefix used for include guards.
 INCLUDE_GUARD_PREFIX = "AWKGWARD_"
@@ -48,6 +69,10 @@ DOC_DOXYGEN_FILES =
 
 # [doc_qdoc] List of qdoc files.
 DOC_QDOC_FILES =
+
+# [license] Make license script.
+MAKELIC = awkgward/makelic.sh
+
 
 include Makefile.project
 
@@ -61,6 +86,8 @@ help: description path
 		@echo guards - update include guards.
 		@echo doc[_clean] - generate [or clean] documentation.
 		@echo ports[_clean][_jobs] - make [clean][build jobs of] external libraries.
+		@echo --------------------------------------------------------------------------------
+		@echo Note: you can create Makefile.user file to override Make variables.
 
 description:
 		@echo --------------------------------------------------------------------------------
@@ -71,18 +98,19 @@ path:
 		@echo --------------------------------------------------------------------------------
 		@echo PATH = "$(PATH)"
 
-license:
+license: | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
 		@echo Putting license...
-		@$(foreach directory, $(INCLUDE_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(INCLUDE_FILE_TYPES) $(NATIVE_ORS) $(FIND); )
-		@$(foreach directory, $(SOURCE_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(SOURCE_FILE_TYPES) $(NATIVE_ORS) $(FIND); )
-		@$(foreach directory, $(CMAKE_DIRS), awkgward/makelic.sh $(LIC_HASH) hash $(directory) $(CMAKE_FILE_TYPES) $(NATIVE_ORS) $(FIND); )
-		@$(foreach directory, $(QML_DIRS), awkgward/makelic.sh $(LIC_DSLASH) dslash $(directory) $(QML_FILE_TYPES) $(NATIVE_ORS) $(FIND); )
+		@$(FIND) $(INCLUDE_DIRS) -type f -name $(LIC_DSLASH) -exec $(SH) -c '$(MAKELIC) {} dslash "$(INCLUDE_FILE_TYPES)" $(NATIVE_IORS) $(FIND)' \;
+		@$(FIND) $(SOURCE_DIRS) -type f -name $(LIC_DSLASH) -exec $(SH) -c '$(MAKELIC) {} dslash "$(SOURCE_FILE_TYPES)" $(NATIVE_IORS) $(FIND)' \;
+		@$(FIND) $(QML_DIRS) -type f -name $(LIC_DSLASH) -exec $(SH) -c '$(MAKELIC) {} dslash "$(QML_FILE_TYPES)" $(NATIVE_IORS) $(FIND)' \;
+		@$(FIND) $(QBS_DIRS) -type f -name $(LIC_DSLASH) -exec $(SH) -c '$(MAKELIC) {} dslash "$(QBS_FILE_TYPES)" $(NATIVE_IORS) $(FIND)' \;
+		@$(FIND) $(QBS_DIRS) -type f -name $(LIC_DSLASH) -exec $(SH) -c '$(MAKELIC) {} dslash "$(QBS_FILE_TYPES)" $(NATIVE_IORS) $(FIND)' \;
+		@$(FIND) $(JS_DIRS) -type f -name $(LIC_DSLASH) -exec $(SH) -c '$(MAKELIC) {} dslash "$(JS_FILE_TYPES)" $(NATIVE_IORS) $(FIND)' \;
+		@$(FIND) $(XML_DIRS) -type f -name $(LIC_XML) -exec $(SH) -c '$(MAKELIC) {} xml "$(XML_FILE_TYPES)" $(NATIVE_IORS) $(FIND)' \;
 
-guards: | $(FIND) $(SH) $(AWK)
+guards: awkgward/awkgward.sh | $(FIND) $(SH) $(AWK) $(CUT) $(GREP) $(TOUCH) $(STAT) $(AWK) $(ECHO) $(MV)
 	    @echo Updating include guards...
-		@$(FIND) $(INCLUDE_DIRS) \
-		\( -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in' \) \
-		-exec $(SH) awkgward/awkgward.sh $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_ORS) \;
+		@$(FIND) $(INCLUDE_DIRS) -type f \( $(INCLUDE_FILE_TYPES) \) -exec $(SH) awkgward/awkgward.sh $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_IORS) \;
 
 doc: doc_doxygen
 

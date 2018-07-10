@@ -42,58 +42,17 @@ DEPLOY_DIR = $(EXTERNAL_ROOT)/deploy
 # Recipes directory.
 RECIPES_DIR = $(EXTERNAL_ROOT)/recipes/$(TARGET_MACHINE) 
 
-SOURCE_DIRS = tools/cutehmi_view_1/src \
-			  modules/cutehmi_1/src \
-			  modules/cutehmi_app_1/src \
-			  modules/cutehmi_authssh_1/src \
-			  modules/cutehmi_charts_1/src \
-			  modules/cutehmi_modbus_1/src \
-			  modules/cutehmi_services_1/src \
-			  modules/cutehmi_stupid_1/src \
-			  modules/cutehmi_xml_1/src \
-			  QML/CuteHMI.1/src \
-			  QML/CuteHMI/App/src \
-			  QML/CuteHMI/AuthSSH/src \
-			  QML/CuteHMI/Charts/src \
-			  QML/CuteHMI/LockScreen/src \
-			  QML/CuteHMI/Modbus/src \
-			  QML/CuteHMI/Services/src \
-			  QML/CuteHMI/Stupid/src
+SOURCE_DIRS = QML examples modules tools
 
-INCLUDE_DIRS = tools/cutehmi_view_1/src \
-			   modules/cutehmi_1/src \
-			   modules/cutehmi_1/include \
-			   modules/cutehmi_app_1/src \
-			   modules/cutehmi_app_1/include \
-			   modules/cutehmi_authssh_1/src \
-			   modules/cutehmi_authssh_1/include \
-			   modules/cutehmi_charts_1/src \
-			   modules/cutehmi_charts_1/include \
-			   modules/cutehmi_modbus_1/src \
-			   modules/cutehmi_modbus_1/include \
-			   modules/cutehmi_services_1/src \
-			   modules/cutehmi_services_1/include \
-			   modules/cutehmi_stupid_1/src \
-			   modules/cutehmi_stupid_1/include \
-			   modules/cutehmi_xml_1/src \
-			   modules/cutehmi_xml_1/include \
-			   QML/CuteHMI.1/src \
-			   QML/CuteHMI/App/src \
-			   QML/CuteHMI/AuthSSH/src \
-			   QML/CuteHMI/Charts/src \
-			   QML/CuteHMI/LockScreen/src \
-			   QML/CuteHMI/Modbus/src \
-			   QML/CuteHMI/Services/src \
-			   QML/CuteHMI/Stupid/src
+INCLUDE_DIRS = QML examples modules tools
 
-QML_DIRS = QML/CuteHMI.1 \
-		       QML/CuteHMI/App \
-		       QML/CuteHMI/AuthSSH \
-			   QML/CuteHMI/Charts \
-			   QML/CuteHMI/LockScreen \
-			   QML/CuteHMI/Modbus \
-			   QML/CuteHMI/Services \
-			   QML/CuteHMI/Stupid
+QBS_DIRS = qbs QML examples modules tools
+
+QML_DIRS = QML examples
+
+JS_DIRS = qbs QML examples
+
+XML_DIRS = examples
 
 DOXYGEN_INPUT_DIRS = Doxyfile modules tools QML external/recipes
 
