@@ -22,12 +22,19 @@ HOST_MACHINE := $(TARGET_MACHINE)
 ifeq "$(OS)" "Windows_NT"
   NATIVE_PATH_SEPARATOR := $(join \,)
   NATIVE_EXECUTABLE_SUFFIX := .exe
-  NATIVE_ORS = "\r\n"  	# Output Record Separator used by AWK.
+  NATIVE_IORS = "\r\n"  	# Input/Output Record Separator used by AWK.
 else
   NATIVE_PATH_SEPARATOR := /
   NATIVE_EXECUTABLE_SUFFIX :=
-  NATIVE_ORS = "\n"		# Output Record Separator used by AWK.
+  NATIVE_IORS = "\n"		# Input/Output Record Separator used by AWK.
 endif
+
+
+# AWK
+
+AWK = awk
+
+$(AWK):
 
 
 # Shell and its builtins.
@@ -38,22 +45,47 @@ SH = sh
 $(CD) $(SH):
 
 
-# Make.
+# Coreutils
 
-MAKE = make
-$(MAKE):
+CAT = cat
+CUT = cut
+CP = cp
+DIRNAME = dirname
+ECHO = echo
+MV = mv
+RM = rm
+TR = tr
+STAT = stat
+TOUCH = touch
+
+$(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MV) $(RM) $(TR) $(STAT) $(TOUCH):
 
 
 # Findutils
 
 FIND = find
+
 $(FIND):
 
 
-# AWK
+# Grep
 
-AWK = awk
-$(AWK):
+GREP = grep
+
+$(GREP):
+
+
+# Make.
+
+MAKE = make
+
+$(MAKE):
+
+# sed.
+
+SED = sed
+
+$(SED):
 
 
 # Qt programs are assumed to be in PATH.
