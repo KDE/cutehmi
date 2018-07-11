@@ -135,7 +135,7 @@ modules.
 #### `include/templates/minimal/logging.hpp`
 
 This header and corresponding source file enable Qt logging capabilities for the
-module. Check
+module. Check Qt documentation on
 [QLoggingCategory Class](http://doc.qt.io/qt-5/qloggingcategory.html) for more
 information.
 
@@ -153,7 +153,7 @@ accordingly.
 #### `src/templates/minimal/logging.cpp`
 
 This source file and corresponding header enable Qt logging capabilities for the
-module. Check
+module. Check Qt documentation on
 [QLoggingCategory Class](http://doc.qt.io/qt-5/qloggingcategory.html) for more
 information.
 
