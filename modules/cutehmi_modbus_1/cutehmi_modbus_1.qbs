@@ -73,16 +73,22 @@ cutehmi.Module {
 //<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 
 //	cutehmi.depends.reqMinors
-	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
-	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.reqMinor: 0
-	Depends { name: "cutehmi_services_1"; cutehmi.metadata.add: true } cutehmi_services_1.reqMinor: 0
+	Depends { name: "cutehmi_1" }
+	cutehmi_1.reqMinor: 0
+
+	Depends { name: "cutehmi_xml_1" }
+	cutehmi_xml_1.reqMinor: 0
+
+	Depends { name: "cutehmi_services_1" }
+	cutehmi_services_1.reqMinor: 0
 
 	Depends { name: "cutehmi.libmodbus" }
 
 	Export {
 		Depends { name: "Qt.concurrent" }
 
-		Depends { name: "cutehmi_1" } cutehmi_1.reqMinor: 0		
+		Depends { name: "cutehmi_1" }
+		cutehmi_1.reqMinor: 0
 	}
 
 //</workaround>

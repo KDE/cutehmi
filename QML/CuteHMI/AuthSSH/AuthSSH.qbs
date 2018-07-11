@@ -30,7 +30,8 @@ cutehmi.QMLExtension {
     ]
 
 	//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
-	Depends { name: "cutehmi_authssh_1" } cutehmi_authssh_1.reqMinor: 0
+	Depends { name: "cutehmi_authssh_1" }
+	cutehmi_authssh_1.reqMinor: 0
 	//</workaround>
 }
 

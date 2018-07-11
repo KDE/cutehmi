@@ -44,7 +44,8 @@ cutehmi.QMLExtension {
     ]
 
 	//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
-	Depends { name: "cutehmi_charts_1" } cutehmi_charts_1.reqMinor: 0
+	Depends { name: "cutehmi_charts_1" }
+	cutehmi_charts_1.reqMinor: 0
 	//</workaround>
 
 	Depends { name: "Qt.quick" }

@@ -44,13 +44,17 @@ cutehmi.Module {
 //</workaround>
 
 //<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
-	Depends { name: "cutehmi_1"; cutehmi.metadata.add: true } cutehmi_1.reqMinor: 0
-	Depends { name: "cutehmi_xml_1"; cutehmi.metadata.add: true } cutehmi_xml_1.reqMinor: 0
+	Depends { name: "cutehmi_1" }
+	cutehmi_1.reqMinor: 0
+
+	Depends { name: "cutehmi_xml_1"}
+	cutehmi_xml_1.reqMinor: 0
 
 	Export {
 		Depends { name: "Qt.widgets" }
 
-		Depends { name: "cutehmi_1" } cutehmi_1.reqMinor: 0
+		Depends { name: "cutehmi_1" }
+		cutehmi_1.reqMinor: 0
 	}
 
 //</workaround>

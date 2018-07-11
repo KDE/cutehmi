@@ -29,9 +29,14 @@ cutehmi.Tool {
         "src/main.cpp",
     ]
 
-	Depends { name: "cutehmi_1" } cutehmi_1.reqMinor: 0
-	Depends { name: "cutehmi_xml_1" } cutehmi_xml_1.reqMinor: 0
-	Depends { name: "cutehmi_app_1" } cutehmi_app_1.reqMinor: 0
+	Depends { name: "cutehmi_1" }
+	cutehmi_1.reqMinor: 0
+
+	Depends { name: "cutehmi_xml_1" }
+	cutehmi_xml_1.reqMinor: 0
+
+	Depends { name: "cutehmi_app_1" }
+	cutehmi_app_1.reqMinor: 0
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
