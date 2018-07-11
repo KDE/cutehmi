@@ -30,4 +30,6 @@ cutehmi.Module {
 
 	Depends { name: "cutehmi_1" }
 	cutehmi_1.reqMinor: 0
+
+	Depends { name: "cutehmi.doxygen" }				// Edit! You may comment out this line to turn off generation of Doxygen artifacts.
 }
