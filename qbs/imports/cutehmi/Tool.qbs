@@ -5,6 +5,8 @@ import "CommonProduct.qbs" as CommonProduct
 CommonProduct {
 	type: "application"
 
+	cutehmiType: "tool"
+
 	targetName: qbs.buildVariant.contains("debug") ? name + "_debug" : name
 
 	baseName: name

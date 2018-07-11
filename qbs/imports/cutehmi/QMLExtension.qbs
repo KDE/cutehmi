@@ -6,6 +6,8 @@ import "CommonProduct.qbs" as CommonProduct
 CommonProduct {
 	type: "dynamiclibrary"
 
+	cutehmiType: "qmlExtension"
+
 	targetName: baseName + "_" + major + (qbs.buildVariant.contains("debug") ? "d" : "")
 
 	baseName: name.toLowerCase().replace(/\./g, '_') + "_qml"

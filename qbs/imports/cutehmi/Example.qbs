@@ -6,6 +6,8 @@ import "CommonProduct.qbs" as CommonProduct
 CommonProduct {
 	type: "dynamiclibrary"
 
+	cutehmiType: "example"
+
 	baseName: name
 
 	property string installDir: FileInfo.relativePath(path + "/../../..", sourceDirectory)

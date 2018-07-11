@@ -3,6 +3,8 @@ import qbs
 Product {
 	targetName: qbs.buildVariant.contains("debug") ? name + "d" : name
 
+	property string cutehmiType: "product"	///< CuteHMI product type.
+
 	property stringList buildDefines: ["QT_DEPRECATED_WARNINGS"]
 
 	property string vendor					///< Product vendor.
@@ -19,11 +21,11 @@ Product {
 
 	property string baseName				///< Base name of the product (without the major version suffix).
 
-	property int major
+	property int major						///< Major version number.
 
-	property int minor
+	property int minor						///< Minor version number.
 
-	property int micro
+	property int micro						///< Micro version number.
 
 	Properties {
 		condition: qbs.buildVariant.contains("debug")
