@@ -8,3 +8,7 @@ tools/*/locale/* -crlf
 # Git file defining properties of submodules.
 .gitmodules -crlf
 
+# Project logo.
+extra/logo/*.svg -crlf
+extra/logo/*.png -crlf
+extra/logo/*.ico -crlf
