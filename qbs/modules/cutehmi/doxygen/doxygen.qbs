@@ -34,7 +34,7 @@ Module {
 				// var outputDir = docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory) // Absolute.
 //</workaround>
 				var doxygenOptions = {
-					'PROJECT_NAME': product.vendor + ' ' + product.friendlyName + ' (' + product.name + ')',
+					'PROJECT_NAME': product.vendor + ' - ' + product.friendlyName + ' (' + product.name + ')',
 					'PROJECT_NUMBER': product.major + '.' + product.minor + '.' + product.micro,
 					'PROJECT_LOGO': 'doc/project_logo.png',
 					'OUTPUT_DIRECTORY': FileInfo.relativePath(product.sourceDirectory, outputDir),
