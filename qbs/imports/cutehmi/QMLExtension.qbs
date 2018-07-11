@@ -25,8 +25,6 @@ CommonProduct {
 	Depends { name: "cutehmi.dirs" }
 	Depends { name: "cutehmi.qmltypes" }
 
-	Depends { name: "cpp" }
-
 	FileTagger {
 		patterns: "*.qml"
 		fileTags: ["qml"]

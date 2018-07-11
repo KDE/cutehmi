@@ -3,9 +3,9 @@ import qbs
 Product {
 	targetName: qbs.buildVariant.contains("debug") ? name + "d" : name
 
-	property string cutehmiType: "product"	///< CuteHMI product type.
+	cpp.defines: ["QT_DEPRECATED_WARNINGS"]
 
-	property stringList buildDefines: ["QT_DEPRECATED_WARNINGS"]
+	property string cutehmiType: "product"	///< CuteHMI product type.
 
 	property string vendor					///< Product vendor.
 
@@ -29,13 +29,15 @@ Product {
 
 	Properties {
 		condition: qbs.buildVariant.contains("debug")
-		cpp.defines: outer.concat(["CUTEHMI_DEBUG"]).concat(buildDefines)
+		cpp.defines: outer.concat(["CUTEHMI_DEBUG"])
 	}
 
 	Properties {
 		condition: !qbs.buildVariant.contains("debug")
-		cpp.defines: outer.concat(["CUTEHMI_RELEASE", "QT_NO_DEBUG_OUTPUT"]).concat(buildDefines)
+		cpp.defines: outer.concat(["CUTEHMI_RELEASE", "QT_NO_DEBUG_OUTPUT"])
 	}
+
+	Depends { name: "cpp" }
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.

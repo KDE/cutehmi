@@ -19,8 +19,6 @@ CommonProduct {
 	Depends { name: "cutehmi.metadata" }
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cpp" }
-
 	Export {
 		Depends { name: "cpp" }
 	}

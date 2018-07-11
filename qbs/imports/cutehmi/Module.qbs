@@ -7,7 +7,7 @@ CommonProduct {
 
 	cutehmiType: "module"
 
-	buildDefines: base.concat([baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"])
+	cpp.defines: [baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"]
 
 	baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
 
@@ -15,8 +15,6 @@ CommonProduct {
 
 	Depends { name: "cutehmi.metadata" }
 	Depends { name: "cutehmi.dirs" }
-
-	Depends { name: "cpp" }
 
 	Export {
 		property int reqMinor: minor
