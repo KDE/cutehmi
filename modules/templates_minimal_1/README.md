@@ -10,7 +10,8 @@ this module is named `templates_minimal_1`.
 
 Fully qualified __name__ consists of __base name__ (`templates_minimal`) and __major
 version suffix__ (`_1`). __Base name__ also consists of two parts: __vendor id__
-(`templates`) and __module id__ (`minimal`).
+(`templates`) and __module id__ (`minimal`). It is allowed to omit __module id__
+for a single module from a specific vendor.
 
 Typically each module will have directory structure similar to this one.
 
