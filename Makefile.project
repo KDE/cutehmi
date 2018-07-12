@@ -42,17 +42,11 @@ DEPLOY_DIR = $(EXTERNAL_ROOT)/deploy
 # Recipes directory.
 RECIPES_DIR = $(EXTERNAL_ROOT)/recipes/$(TARGET_MACHINE) 
 
-SOURCE_DIRS = QML examples modules tools
+LICENSE_DSLASH_DIRS = QML examples modules qbs tools
 
-INCLUDE_DIRS = QML examples modules tools
+LICENSE_XML_DIRS = examples
 
-QBS_DIRS = qbs QML examples modules tools
-
-QML_DIRS = QML examples
-
-JS_DIRS = qbs QML examples
-
-XML_DIRS = examples
+INCLUDE_GUARDS_DIRS = QML examples modules tools
 
 DOXYGEN_INPUT_DIRS = Doxyfile modules tools QML external/recipes
 

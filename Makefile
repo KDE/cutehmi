@@ -11,34 +11,22 @@ first: help
 HELP_MESSAGE =
 
 # [license] Names of files containing license text to be appended to files, commented out with double slash.
-LIC_DSLASH = *.LICENSE.dslash.inc
+LICENSE_DSLASH = '*.LICENSE.dslash.inc'
 
 # [license] Names of files containing license text to be appended to files, commented out with hash.
-LIC_HASH = *.LICENSE.hash.inc
+LICENSE_HASH = '*.LICENSE.hash.inc'
 
 # [license] Names of files containing license text to be appended to files, commented out with XML comment.
-LIC_XML = *.LICENSE.xml.inc
-
-# [license] Directories containing CMake files.
-CMAKE_DIRS = /dev/null
+LICENSE_XML = '*.LICENSE.xml.inc'
 
 # [license] CMake file types.
 CMAKE_FILE_TYPES = -name '*.cmake' -o -name 'CMakeLists.txt'
 
-# [license] Directories containing qbs files.
-QBS_DIRS = /dev/null
-
 # [license] Qbs file types.
 QBS_FILE_TYPES = -name '*.qbs'
 
-# [license] Directories containing QML files.
-QML_DIRS = /dev/null
-
 # [license] QML file types.
 QML_FILE_TYPES = -name '*.qml'
-
-# [license] Directories containing JavaScript files.
-JS_DIRS = /dev/null
 
 # [license] JavaScript file types.
 JS_FILE_TYPES = -name '*.js'
@@ -46,17 +34,8 @@ JS_FILE_TYPES = -name '*.js'
 # [license] XML file types.
 XML_FILE_TYPES = -name '*.xml'
 
-# [license] Directories containing XML files.
-XML_DIRS = /dev/null
-
-# [license, sources] Directories containing source files.
-SOURCE_DIRS = /dev/null
-
 # [license] Source file types.
 SOURCE_FILE_TYPES = -name '*.cpp' -o -name '*.c' -o -name '*.cpp.in'
-
-# [license, guards] Directories containing header files.
-INCLUDE_DIRS = /dev/null
 
 # [license, guards] Include file types.
 INCLUDE_FILE_TYPES = -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in'
@@ -76,24 +55,26 @@ INCLUDE_GUARDS_DIRS = $(INCLUDE_DIRS)
 # [guards] Find expression that can be used to exclude some directories.
 INCLUDE_GUARDS_EXCLUDE =
 
+# [guards] Shell script that invokes 'awkgward.awk'.
+AWKGWARD = awkgward/awkgward.sh
+
 # [license_dslash] Directories, where licenses with double slash comments should be applied.
-LICENSE_DSLASH_DIRS = $(INCLUDE_DIRS) $(SOURCE_DIRS) $(QML_DIRS) $(QBS_DIRS) $(JS_DIRS)
+LICENSE_DSLASH_DIRS = /dev/null
 
 # [license_dslash] File types for which licenses with double slash comments should be applied.
 LICENSE_DSLASH_FILE_TYPES = $(INCLUDE_FILE_TYPES) -o $(SOURCE_FILE_TYPES) -o $(QML_FILE_TYPES) -o $(QBS_FILE_TYPES) -o $(JS_FILE_TYPES)
 
 # [license_hash] Directories, where licenses with hash comments should be applied.
-LICENSE_HASH_DIRS = $(CMAKE_DIRS)
+LICENSE_HASH_DIRS = /dev/null
 
 # [license_hash] File types for which licenses with hash comments should be applied.
 LICENSE_HASH_FILE_TYPES = $(CMAKE_FILE_TYPES)
 
 # [license_xml] Directories, where licenses with XML comments should be applied.
-LICENSE_XML_DIRS = $(XML_DIRS)
+LICENSE_XML_DIRS = /dev/null
 
 # [license_xml] File types for which licenses with XML comments should be applied.
 LICENSE_XML_FILE_TYPES = $(XML_FILE_TYPES)
-
 
 # [license] Make license script.
 MAKELIC = awkgward/makelic.sh
@@ -125,21 +106,21 @@ path:
 
 license: license_dslash license_hash license_xml
 
-license_dslash: | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+license_dslash: $(MAKELIC) $(LICENSE_DSLASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
 		@echo Applying licenses using double slash comment...
-		@$(FIND) $(LICENSE_DSLASH_DIRS) -type f -name $(LIC_DSLASH) -exec $(SH) $(MAKELIC) {} dslash '$(LICENSE_DSLASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
+		@$(FIND) $(LICENSE_DSLASH_DIRS) -type f -name $(LICENSE_DSLASH) -exec $(SH) $(MAKELIC) {} dslash '$(LICENSE_DSLASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
 
-license_hash: | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+license_hash: $(MAKELIC) $(LICENSE_HASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
 		@echo Applying licenses using hash comment...
-		@$(FIND) $(LICENSE_HASH_DIRS) -type f -name $(LIC_HASH) -exec $(SH) $(MAKELIC) {} hash '$(LICENSE_HASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
+		@$(FIND) $(LICENSE_HASH_DIRS) -type f -name $(LICENSE_HASH) -exec $(SH) $(MAKELIC) {} hash '$(LICENSE_HASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
 
-license_xml: | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+license_xml: $(MAKELIC) $(LICENSE_XML_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
 		@echo Applying licenses using XML comment...
-		@$(FIND) $(LICENSE_XML_DIRS) -type f -name $(LIC_XML) -exec $(SH) $(MAKELIC) {} xml '$(LICENSE_XML_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
+		@$(FIND) $(LICENSE_XML_DIRS) -type f -name $(LICENSE_XML) -exec $(SH) $(MAKELIC) {} xml '$(LICENSE_XML_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
 
-guards: awkgward/awkgward.sh | $(FIND) $(SH) $(AWK) $(CUT) $(GREP) $(TOUCH) $(STAT) $(AWK) $(ECHO) $(MV)
+guards: $(AWKGWARD) $(INCLUDE_GUARDS_DIRS) | $(FIND) $(SH) $(AWK) $(CUT) $(GREP) $(TOUCH) $(STAT) $(AWK) $(ECHO) $(MV)
 	    @echo Updating include guards...
-		@$(FIND) $(INCLUDE_GUARDS_DIRS) -type f \( $(INCLUDE_FILE_TYPES) \) $(INCLUDE_GUARDS_EXCLUDE) -exec $(SH) awkgward/awkgward.sh $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_IORS) \;
+		@$(FIND) $(INCLUDE_GUARDS_DIRS) -type f \( $(INCLUDE_FILE_TYPES) \) $(INCLUDE_GUARDS_EXCLUDE) -exec $(SH) $(AWKGWARD) $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_IORS) \;
 
 doc: doc_doxygen
 
