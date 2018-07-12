@@ -5,10 +5,10 @@ Minimalistic module, that can be used as a template for writing modules.
 
 ## Directories
 
-Directory name of the module defines __module name__. Therefore this 
-module is named `templates_minimal_1`.
+Directory name of the module defines fully qualified module __name__. Therefore
+this module is named `templates_minimal_1`.
 
-Module name consists of __base name__ (`templates_minimal`) and __major
+Fully qualified __name__ consists of __base name__ (`templates_minimal`) and __major
 version suffix__ (`_1`). __Base name__ also consists of two parts: __vendor id__
 (`templates`) and __module id__ (`minimal`).
 
@@ -75,8 +75,8 @@ extracted from properties of the Qbs file.
 ```qbs
 name: "templates_minimal_1"
 ```
-Product name is the same as __module name__. This is also the same as directory
-name of the module.
+Product name is the same as fully qualified __name__. This is also the same as
+directory name of the module.
 
 ```qbs
 minor: 0
