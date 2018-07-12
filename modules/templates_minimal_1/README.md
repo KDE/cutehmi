@@ -65,8 +65,8 @@ This line is required to import `cutehmi` Qbs items.
 cutehmi.Module {
 ```
 All modules inherit after cutehmi.Module item, which itself inherits after
-cutehmi.CommonProduct. You can find definitions of these items in `qbs`
-directory.
+cutehmi.CommonProduct. You can find definitions of these items in
+[qbs directory](https://github.com/michpolicht/CuteHMI/tree/master/qbs/imports/cutehmi).
 
 One of the noticeable things is that cutehmi.Module item depends on
 cutehmi.metadata Qbs module, which will generate `cutehmi.metadata.json` and
