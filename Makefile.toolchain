@@ -22,11 +22,11 @@ HOST_MACHINE := $(TARGET_MACHINE)
 ifeq "$(OS)" "Windows_NT"
   NATIVE_PATH_SEPARATOR := $(join \,)
   NATIVE_EXECUTABLE_SUFFIX := .exe
-  NATIVE_IORS = "\r\n"  	# Input/Output Record Separator used by AWK.
+  NATIVE_IORS = '\r\n'  	# Input/Output Record Separator used by AWK.
 else
   NATIVE_PATH_SEPARATOR := /
   NATIVE_EXECUTABLE_SUFFIX :=
-  NATIVE_IORS = "\n"		# Input/Output Record Separator used by AWK.
+  NATIVE_IORS = '\n'		# Input/Output Record Separator used by AWK.
 endif
 
 

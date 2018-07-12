@@ -10,7 +10,7 @@ HELP_MESSAGE = Use Qbs if you wish to build the project itself.
 # C compiler (GCC-compatible is required in many cases).
 CC = gcc
 
-INCLUDE_GUARD_PREFIX = "H_"
+INCLUDE_GUARD_PREFIX = 'H_'
 
 # Project directory (without trailing slash).
 PROJECT_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
@@ -57,6 +57,8 @@ XML_DIRS = examples
 DOXYGEN_INPUT_DIRS = Doxyfile modules tools QML external/recipes
 
 DOXYGEN_OUTPUT_DIRS = doc/Doxygen/docs
+
+INCLUDE_GUARDS_EXCLUDE = ! -path 'modules/templates_*'
 
 include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.toolchain
 
