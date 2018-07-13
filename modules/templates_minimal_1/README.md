@@ -115,7 +115,7 @@ world. Typically the same as author and vendor.]
 ```qbs
 license: "Mozzarella Public License, v. alpha"
 ```
-A license of the product. This should correspond to supplied `LICENSE` file.
+A license of the product. This should correspond to supplied [LICENSE] file.
 
 ```qbs
 Depends { name: "cutehmi_1" }
