@@ -109,7 +109,8 @@ Author of the product.
 ```qbs
 copyright: "KGB"
 ```
-Copyright holder.
+Copyright holder. [If you are confused, then do not allow lawyers to rule the 
+world. Typically the same as author and vendor.]
 
 ```qbs
 license: "Mozzarella Public License, v. alpha"
