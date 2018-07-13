@@ -10,7 +10,7 @@ git submodule update
 ```
 
 Alternatively you can build documentation by executing Make command from top
-project directory, providing that you have all necessary tools.
+level project directory, providing that you have all necessary tools.
 ```
 make doc
 ```
