@@ -1,5 +1,5 @@
-#ifndef H_MODULES_TEMPLATES__MINIMAL__1_INCLUDE_TEMPLATES_MINIMAL_INTERNAL_COMMON_HPP	// Edit! Modify include guards.
-#define H_MODULES_TEMPLATES__MINIMAL__1_INCLUDE_TEMPLATES_MINIMAL_INTERNAL_COMMON_HPP	// Edit! Modify include guards.
+#ifndef H_MODULES_TEMPLATES__MINIMAL__1_INCLUDE_TEMPLATES_MINIMAL_INTERNAL_COMMON_HPP    // Edit! Modify include guards.
+#define H_MODULES_TEMPLATES__MINIMAL__1_INCLUDE_TEMPLATES_MINIMAL_INTERNAL_COMMON_HPP    // Edit! Modify include guards.
 
 #include "../metadata.hpp"
 #include "../logging.hpp"
@@ -8,16 +8,16 @@
 
 #include <QtGlobal>
 
-#ifdef TEMPLATES_MINIMAL_DYNAMIC					// Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
-	#ifdef TEMPLATES_MINIMAL_BUILD					// Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
-		//export symbols to dll
-		#define TEMPLATES_MINIMAL_API Q_DECL_EXPORT	// Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
-	#else
-		//using functions from dll
-		#define TEMPLATES_MINIMAL_API Q_DECL_IMPORT	// Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
-	#endif
+#ifdef TEMPLATES_MINIMAL_DYNAMIC                    // Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
+    #ifdef TEMPLATES_MINIMAL_BUILD                  // Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
+        //export symbols to dll
+        #define TEMPLATES_MINIMAL_API Q_DECL_EXPORT // Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
+    #else
+        //using functions from dll
+        #define TEMPLATES_MINIMAL_API Q_DECL_IMPORT // Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
+    #endif
 #else
-	#define TEMPLATES_MINIMAL_API					// Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
+    #define TEMPLATES_MINIMAL_API                   // Edit! Replace 'TEMPLATES_MINIMAL' with custom 'VENDOR_MODULE'.
 #endif
 
 #endif
