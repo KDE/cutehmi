@@ -9,6 +9,15 @@ import qbs.TextFile
 Module {
 	property bool generateRedirectionFile: false
 
+	/**
+	  Whether to use input filter. If this property is set to true a _sed_
+	  script will be used for _Doxygen_ `INPUT_FILTER`. This script appends
+	  `index.html` to Markdown links which end with slash (/). This is required
+	  for offline documentation. Web browser won't load index.html` without the
+	  aid of HTTP.
+	  */
+	property bool useInputFilter: true
+
 	additionalProductTypes: ["Doxyfile"]
 
 	FileTagger {
@@ -49,7 +58,8 @@ Module {
 					'GENERATE_LATEX': false,
 					'GENERATE_TREEVIEW': true,
 					'QUIET': true,
-					'GENERATE_TAGFILE': 'doxygen.tag'
+					'GENERATE_TAGFILE': 'doxygen.tag',
+					'INPUT_FILTER' : product.cutehmi.doxygen.useInputFilter ? 'sed \'s/\\(\\[[[:alnum:][:blank:]\\/.:_@#-]*\\]([[:alnum:]\\/.:_@#-]*\\/\\)\\()\\)/\\1index.html\\2/g\'' : ''
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
