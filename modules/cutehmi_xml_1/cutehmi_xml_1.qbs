@@ -22,6 +22,7 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
+        "README.md",
         "include/cutehmi/xml/BackendPlugin.hpp",
         "include/cutehmi/xml/IBackendPlugin.hpp",
         "include/cutehmi/xml/ParseAttribute.hpp",
@@ -43,7 +44,7 @@ cutehmi.Module {
         "src/cutehmi/xml/internal/functions.cpp",
         "src/cutehmi/xml/logging.cpp",
         "src/cutehmi/xml/plugin/MetadataPlugin.hpp",
-	]
+    ]
 
 	Depends { name: "Qt.core" }
 	Depends { name: "Qt.qml" }
