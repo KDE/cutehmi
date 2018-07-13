@@ -123,10 +123,10 @@ cutehmi_1.reqMinor: 0
 ```
 Tho' it is possible to create module that is independent from all other
 modules, it is desirable to "glue" it with the rest of the framework
-using `cutehmi_1` module.
+using [cutehmi_1](../cutehmi_1/) module.
 
 Property `cutehmi_1.reqMinor` specifies required, minimal, minor version of
-`cutehmi_1` module.
+[cutehmi_1](../cutehmi_1/) module.
 
 ```qbs
 Depends { name: "cutehmi.doxygen" }
