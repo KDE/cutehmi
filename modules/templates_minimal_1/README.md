@@ -204,6 +204,13 @@ According to [Doxygen documentation]( https://www.stack.nl/~dimitri/doxygen/manu
 > width should not exceed 200 pixels.
 
 
+## Extended template
+
+This template can be used as a base to create modules.
+[Project Plugin Template](../templates_projectplugin_1/) has some additional
+files, suitable to use it as a base to create plugins.
+
+
 [LICENSE]: ../../modules/templates_minimal_1/LICENSE
 [templates_minimal_1.qbs]: ../../modules/templates_minimal_1/templates_minimal_1.qbs
 [include/templates/minimal/metadata.hpp]: ../../modules/templates_minimal_1/include/templates/minimal/metadata.hpp
