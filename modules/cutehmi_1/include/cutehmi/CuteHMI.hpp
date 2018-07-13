@@ -11,11 +11,13 @@
 namespace cutehmi {
 
 /**
- * %CuteHMI singleton. This is a cornerstone object, which acts as a bridge between various parts of the framework.
- * It exposes essential properties to frontend applications, plugins and QML components.
+ * %CuteHMI singleton. This is a cornerstone object, which acts as a bridge
+ * between various parts of the framework. It exposes essential properties to
+ * frontend applications, plugins and QML components.
  *
- * To retrieve singleton use Instance() function. Frontend applications may need to call Destroy() function to
- * satisfy destruction order requirements.
+ * To retrieve singleton use Instance() function. Frontend applications (tools)
+ * may need to call Destroy() function to satisfy destruction order
+ * requirements.
  */
 class CUTEHMI_API CuteHMI:
 	public QObject

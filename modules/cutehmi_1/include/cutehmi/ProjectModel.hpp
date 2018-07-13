@@ -12,15 +12,17 @@
 namespace cutehmi {
 
 /**
- * Project model. Project model is technically a tree, which uses ProjectNode instances as underlying data structure for its nodes.
- * Various aspects of the model are exposed as QAbstractItemModel, so that it can be used with standard Qt views.
+ * Project model. Project model is technically a tree, which uses ProjectNode
+ * instances as underlying data structure for its nodes. Various aspects of the
+ * model are exposed as QAbstractItemModel, so that it can be used with standard
+ * Qt views.
  *
  * @principles
  *
- * <principle id="cutehmi::ProjectModel-internalPoiner">
- * For all valid items in the model, QModelIndex::internalPointer() is always associated with pointer
- * to object of type @p ProjectModel::Node, so that neither @p nullptr nor a pointer to any other object
- * type can be returned.
+ * <principle id="cutehmi::ProjectModel::internalPointer">
+ * For all valid items in the model, QModelIndex::internalPointer() is always
+ * associated with pointer to object of type @p ProjectModel::Node, so that
+ * neither @p nullptr nor a pointer to any other object type can be returned.
  * </principle>
  *
  * @endprinciples

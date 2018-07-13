@@ -9,10 +9,12 @@
 namespace cutehmi {
 
 /**
- * Data block. Data block is meant to act as a container, which serves its purpose through inheritance. It provides
- * interface, which gives derived classes the ability to be chained together. Each DataBlock object can have a DataBlock
- * child appended to it. This functionality is similar to singly linked list, however the objective is to make data block
- * extensible, rather than manipulative. Instances of this class are non-copyable, but movable.
+ * Data block. Data block is meant to act as a container, which serves its
+ * purpose through inheritance. It provides interface, which gives derived
+ * classes the ability to be chained together. Each DataBlock object can have
+ * a DataBlock child appended to it. This functionality is similar to singly
+ * linked list, however the objective is to make data block extensible, rather
+ * than manipulative. Instances of this class are non-copyable, but movable.
  *
  * <principle id="cutehmi::DataBlock-determined_destruction_order">
  * Child objects are destroyed in the reverse order as they were appended.
