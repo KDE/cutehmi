@@ -4,7 +4,7 @@ namespace templates {        // Edit! Replace 'templates' with custom vendor id.
 namespace projectplugin {    // Edit! Replace 'projectplugin' with custom module id.
 namespace plugin {
 
-PluginNodeData::PluginNodeData():
+PluginNodeData::PluginNodeData()
 {
 }
 
@@ -13,5 +13,6 @@ PluginNodeData::PluginNodeData():
 //	return m_yourData.get();
 //}
 
+}
 }
 }
