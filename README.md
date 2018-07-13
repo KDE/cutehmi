@@ -84,7 +84,7 @@ Directory structure of the project is organized as follows.
 
 - *awkgward* - code maintanance scripts (don't bother).
 - *dev* - development notes (irrelevant).
-- *doc* - place where documentation shall be.
+- [doc](doc/README.md) - a place where documentation shall be.
 - *examples* - self-explanatory.
 - [external](external/README.md) - directory containing "external" libraries.
 - *extra* - various stuff related to the project, such as T-shirts.
