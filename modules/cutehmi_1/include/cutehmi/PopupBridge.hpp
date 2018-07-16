@@ -22,7 +22,7 @@ class CUTEHMI_API PopupBridge:
 		 * @param prompt_l prompt to advertise. Parameter will be used locally by this function.
 		 * It's passed by a pointer instead of a reference for easier integration with QML.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		Q_INVOKABLE void advertise(Prompt * prompt_l);
 

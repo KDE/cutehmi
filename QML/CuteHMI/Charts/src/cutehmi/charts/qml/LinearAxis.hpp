@@ -14,7 +14,7 @@ namespace qml {
 /**
  * Linear axis.
  *
- * @note currently LinearAxis does not care about repainting, when size or position of @a plotArea is being modified.
+ * @note Currently LinearAxis does not care about repainting, when size or position of @a plotArea is being modified.
  * So, if LinearAxis has not been moved along with PlotArea it may not be repainted.
  *
  * @todo use QSG*.

@@ -47,8 +47,9 @@ class CUTEHMI_STUPID_API Client:
 		 * Check if client is connected.
 		 * @return @p true when client is connected. @p false otherwise.
 		 *
-		 * @note because connection is established in asynchronous way, client can be in a sloppy state before it gets connected, thus
-		 * this function and disconnected() may both return @p false at the same time.
+		 * @note Because connection is established in asynchronous way, client
+		 * can be in a sloppy state before it gets connected, thus this function
+		 * and disconnected() may both return @p false at the same time.
 		 */
 		bool isConnected() const;
 

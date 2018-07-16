@@ -14,7 +14,7 @@ namespace cutehmi {
  */
 struct CUTEHMI_API Error
 {
-    Q_DECLARE_TR_FUNCTIONS(cutehmi::Error) // This macro ends with "private:" specifier :o !!!
+	Q_DECLARE_TR_FUNCTIONS(cutehmi::Error) // This macro ends with "private:" specifier :o !!!
 
 	public:
 		enum : int {
@@ -22,7 +22,7 @@ struct CUTEHMI_API Error
 			FAIL = -1,
 			OK = 0,
 			SUBCLASS_BEGIN = 1
-        };
+		};
 
 		/**
 		 * Default constructor.
@@ -55,7 +55,7 @@ struct CUTEHMI_API Error
 		 * its own error descriptions.
 		 * @return error message.
 		 *
-		 * @note this function is non-virtual. When calling this function on down-casted
+		 * @note This function is non-virtual. When calling this function on down-casted
 		 * instance of derived class, it may not recognize error code and return
 		 * generic message.
 		 */

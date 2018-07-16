@@ -14,7 +14,7 @@ namespace modbus {
 /**
  * Modbus input register.
  *
- * @note to make this class accessible from QML it must inherit after QObject,
+ * @note To make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
  */
 class CUTEHMI_MODBUS_API InputRegister:
@@ -48,7 +48,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 		 * Update value.
 		 * @param value new value.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void updateValue(uint16_t value);
 

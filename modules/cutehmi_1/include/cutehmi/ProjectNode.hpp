@@ -46,49 +46,49 @@ class CUTEHMI_API ProjectNode:
 		/**
 		 * Access extension.
 		 * @param extensionId extension id.
-         * @return extension object or @p nullptr if no extension was found for
-         * the given extension id.
+		 * @return extension object or @p nullptr if no extension was found for
+		 * the given extension id.
 		 */
 		Q_INVOKABLE QObject * extension(const QString & extensionId) const;
 
 		/**
-         * Register extension.
-         * @param extensionId extension id. Given id can be used later to access
-         * extension object via extension() function. Id should be unique within
-         * the node.
+		 * Register extension.
+		 * @param extensionId extension id. Given id can be used later to access
+		 * extension object via extension() function. Id should be unique within
+		 * the node.
 		 * @param extension extension object.
 		 *
-		 * @note extension object won't be owned by Node.
+		 * @note Extension object won't be owned by Node.
 		 *
-         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
-         * "sets" QQmlEngine ownership of @a extension object to
-         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
-         * collector.
+		 * @note This function explicitly @ref QQmlEngine::setObjectOwnership
+		 * "sets" QQmlEngine ownership of @a extension object to
+		 * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+		 * collector.
 		 */
-        void registerExtension(const QString & extensionId, QObject * extension);
+		void registerExtension(const QString & extensionId, QObject * extension);
 
 		/**
-         * Register extension. Convenient function, which will use class name
-         * obtained from QObject meta-data as an extension id.
-         * Class name is obtained by QMetaObject::className() function and
-         * contains fully qualified name (with namespace).
-         * @param extension extension object. Same object should not be used for
-         * the second call of this function for the particular node.
+		 * Register extension. Convenient function, which will use class name
+		 * obtained from QObject meta-data as an extension id.
+		 * Class name is obtained by QMetaObject::className() function and
+		 * contains fully qualified name (with namespace).
+		 * @param extension extension object. Same object should not be used for
+		 * the second call of this function for the particular node.
 		 *
-         * @note with this method only one instance of particular class can be
-         * added to the node. To register more objects of the same class one may
-         * use registerExtension(const QString & extensionId, QObject * extension)
-         * variant. Consider however, appending child nodes instead.
+		 * @note With this method only one instance of particular class can be
+		 * added to the node. To register more objects of the same class one may
+		 * use registerExtension(const QString & extensionId, QObject * extension)
+		 * variant. Consider however, appending child nodes instead.
 		 *
-		 * @note this class will not take ownership of extension object.
+		 * @note This class will not take ownership of extension object.
 		 *
-         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
-         * "sets" QQmlEngine ownership of @a extension object to
-         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
-         * collector.
-         */
-         */
-        void registerExtension(QObject * extension);
+		 * @note This function explicitly @ref QQmlEngine::setObjectOwnership
+		 * "sets" QQmlEngine ownership of @a extension object to
+		 * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+		 * collector.
+		 */
+		 */
+		void registerExtension(QObject * extension);
 
 		/**
 		 * Get list of extension ids.
@@ -139,40 +139,40 @@ class CUTEHMI_API ProjectNode:
 		Q_INVOKABLE QString id() const;
 
 		/**
-         * Append child node.
-         * @param id node id. Node id must be unique with respect to its
-         * siblings. Nodes, which have different parents may have the same id.
-         * Results of using the same id for nodes, which are children of the
-         * same parent are undefined.
+		 * Append child node.
+		 * @param id node id. Node id must be unique with respect to its
+		 * siblings. Nodes, which have different parents may have the same id.
+		 * Results of using the same id for nodes, which are children of the
+		 * same parent are undefined.
 		 * @param data node data.
-         * @param leaf indicates if child node is a leaf. Leaf is a node that do
-         * not have any children.
-         * @return pointer to newly created child. Child is owned by instance of
-         * this class.
+		 * @param leaf indicates if child node is a leaf. Leaf is a node that do
+		 * not have any children.
+		 * @return pointer to newly created child. Child is owned by instance of
+		 * this class.
 		 *
-         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
-         * "sets" QQmlEngine ownership of created object to
-         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
-         * collector.
-         */
-        ProjectNode * appendChild(const QString & id, ProjectNodeData && data, bool leaf = true);
+		 * @note This function explicitly @ref QQmlEngine::setObjectOwnership
+		 * "sets" QQmlEngine ownership of created object to
+		 * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+		 * collector.
+		 */
+		ProjectNode * appendChild(const QString & id, ProjectNodeData && data, bool leaf = true);
 
 		/**
-         * Append child node. This version is provided for convenience. Random
-         * node id is generated automatically.
+		 * Append child node. This version is provided for convenience. Random
+		 * node id is generated automatically.
 		 * @param data node data.
-         * @param leaf indicates if child node is a leaf. Leaf is a node that do
-         * not have
+		 * @param leaf indicates if child node is a leaf. Leaf is a node that do
+		 * not have
 		 * any children.
-         * @return pointer to newly created child. Child is owned by instance of
-         * this class.
-         *
-         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
-         * "sets" QQmlEngine ownership of created object to
-         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
-         * collector.
-         */
-        ProjectNode * appendChild(ProjectNodeData && data, bool leaf = true);
+		 * @return pointer to newly created child. Child is owned by instance of
+		 * this class.
+		 *
+		 * @note This function explicitly @ref QQmlEngine::setObjectOwnership
+		 * "sets" QQmlEngine ownership of created object to
+		 * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+		 * collector.
+		 */
+		ProjectNode * appendChild(ProjectNodeData && data, bool leaf = true);
 
 		/**
 		 * Get child at specified index (const version).
@@ -193,7 +193,7 @@ class CUTEHMI_API ProjectNode:
 		 * @param id id of the child.
 		 * @return child identified by specified @a id or @p nullptr if child with specified @a id does not exist.
 		 *
-		 * @note this function searches all children for the specified @a id. For frequent access use child(int index) variant.
+		 * @note This function searches all children for the specified @a id. For frequent access use child(int index) variant.
 		 */
 		Q_INVOKABLE const cutehmi::ProjectNode * child(const QString & id) const;
 
@@ -202,7 +202,7 @@ class CUTEHMI_API ProjectNode:
 		 * @param id id of the child.
 		 * @return child identified by specified @a id or @p nullptr if child with specified @a id does not exist.
 		 *
-		 * @note this function searches all children for the specified @a id. For frequent access use child(int index) variant.
+		 * @note This function searches all children for the specified @a id. For frequent access use child(int index) variant.
 		 */
 		cutehmi::ProjectNode * child(const QString & id);
 
@@ -217,7 +217,7 @@ class CUTEHMI_API ProjectNode:
 		 * Get list of child ids.
 		 * @return list of child ids.
 		 *
-		 * @note this function iterates over all children to produce the list, thus it should not be used frequently.
+		 * @note This function iterates over all children to produce the list, thus it should not be used frequently.
 		 */
 		Q_INVOKABLE QStringList childIds() const;
 
@@ -285,7 +285,7 @@ class CUTEHMI_API ProjectNode:
 		 * Each node is initally a leaf to avoid unnecessary allocation of children container.
 		 * @return @p true if node is a leaf, @p false otherwise.
 		 *
-		 * @note this function is focused on capability to store children. It may return @p true even
+		 * @note This function is focused on capability to store children. It may return @p true even
 		 * if node does not have any child.
 		 */
 		bool isLeaf() const;

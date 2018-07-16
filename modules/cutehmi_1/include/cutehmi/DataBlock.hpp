@@ -46,7 +46,7 @@ class CUTEHMI_API DataBlock:
 		 * Append data block. Data block is appended to the last child in the chain.
 		 * @param block data block to be appended.
 		 *
-		 * @note this class is not intended to be used with long data chains. The amount of time used by append operation is linearly
+		 * @note This class is not intended to be used with long data chains. The amount of time used by append operation is linearly
 		 * proportional to the size of the chain; O(n) in terms of algorithmic complexity.
 		 */
 		void append(std::unique_ptr<DataBlock> block);

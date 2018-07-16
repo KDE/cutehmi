@@ -59,7 +59,7 @@ class CUTEHMI_API CuteHMI:
 		 * QApplication has to be first created and last destroyed QObject.
 		 * Once this function is called singleton becomes unusable.
 		 *
-		 * @note only frontend applications, which instantiate QApplication should take care about
+		 * @note Only frontend applications, which instantiate QApplication should take care about
 		 * this function.
 		 */
 		static void Destroy();
@@ -92,7 +92,7 @@ class CUTEHMI_API CuteHMI:
 		 * Get instance pointer.
 		 * @return instance pointer.
 		 *
-		 * @note this is provided as a workaround (id="cutehmi_1-2").
+		 * @note This is provided as a workaround (id="cutehmi_1-2").
 		 */
 		static std::unique_ptr<CuteHMI> & InstancePtr();
 
