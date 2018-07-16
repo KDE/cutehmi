@@ -1,4 +1,4 @@
-# External libraries.
+# External libraries directory.
 
 This directory is designated to keep "external" libraries used by some of the
 modules. "External" means any non-Qt, non-CuteHMI libraries. They are either
