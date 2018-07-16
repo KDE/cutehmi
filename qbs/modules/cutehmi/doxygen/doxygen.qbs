@@ -99,7 +99,14 @@ Module {
 							f.writeLine(option + ' = ' + val)
 					}
 
-					// Append tag files to TAGFILES from dependencies.
+					// Append Qt '.tags' files to TAGILES.
+					for (var qtSubmodule in product.Qt) {
+						var docSubmoduleName = 'qt' + qtSubmodule;	// Names of Qt modules in 'C:/Qt/Docs' directory start with 'qt' prefix (this applies to directories and '.tags' files).
+						f.writeLine('TAGFILES += ' + product.Qt.core.docPath + '/' + docSubmoduleName + '/' + docSubmoduleName + '.tags'
+									+ '=http://doc.qt.io/qt-' + product.Qt.core.versionMajor + '.' + product.Qt.core.versionMinor)
+					}
+
+					// Append '.tags' files to TAGFILES from dependencies.
 					for (i in product.dependencies) {
 						var dependency = product.dependencies[i]
 						if ('cutehmi' in dependency && 'doxygen' in dependency.cutehmi) {
