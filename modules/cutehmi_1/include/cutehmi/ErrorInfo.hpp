@@ -10,16 +10,18 @@
 namespace cutehmi {
 
 /**
- * Error info.
+ * %Error info.
+ *
+ * @see errorInfo()
  */
 struct ErrorInfo
 {
-	int code;				///< Error code.
-	const char * errClass;	///< Error class.
-	QString str;			///< Error string.
+	int code;				///< %Error code.
+	const char * errClass;	///< %Error class.
+	QString str;			///< %Error string.
 
 	/**
-	 * Error info to string.
+	 * %Error info to string.
 	 * @return multi-line string containing information extracted from ErrorInfo struct.
 	 */
 	QString toString() const;
