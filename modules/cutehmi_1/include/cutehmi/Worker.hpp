@@ -51,9 +51,10 @@ class CUTEHMI_API Worker:
          * Worker's job. This function is called when worker receives WorkEvent
          * event. Use employ() function to run job in a specified thread. This
          * function can be reimplemented. Default implementation calls @a task
-         * function (it can be passed to the constructor or set via setTask()),
-         * if it has been set. Default implementation does nothing if @a task
-         * has not been set (i.e. @a task = @p nullptr).
+         * function if it has been set (it can be passed to the
+         * \ref Worker(std::function<void()>) "constructor" or set via setTask()
+         * function). Default implementation does nothing if @a task has not
+         * been set (i.e. @a task = @p nullptr).
 		 */
 		virtual void job();
 
