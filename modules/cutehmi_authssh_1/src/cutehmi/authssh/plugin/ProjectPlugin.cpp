@@ -22,7 +22,7 @@ namespace plugin {
 void ProjectPlugin::init(ProjectNode & node)
 {
     std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-    node.addExtension(pluginNodeData->xmlBackendPlugin());
+    node.registerExtension(pluginNodeData->xmlBackendPlugin());
     node.data().append(std::move(pluginNodeData));
 }
 
@@ -88,8 +88,8 @@ void ProjectPlugin::parseClient(const xml::ParseHelper & parentHelper, ProjectNo
 		for (auto it = channels.begin(); it != channels.end(); ++it)
 			client->addChannel(std::move(*it));
 
-		ProjectNode * authsshNode = node.addChild(id, ProjectNodeData(name));
-		authsshNode->addExtension(client.get());
+		ProjectNode * authsshNode = node.appendChild(id, ProjectNodeData(name));
+		authsshNode->registerExtension(client.get());
 
 		authsshNode->data().append(std::unique_ptr<AuthSSHNodeData>(new AuthSSHNodeData(std::move(client))));
 	}

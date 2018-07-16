@@ -22,11 +22,11 @@ ProjectNode * ProjectPluginLoader::addPluginNode(const QString & name, int reqMi
 		throw MissingInterfaceException(binary, plugin->version(), CUTEHMI_IPROJECTPLUGIN_IID);
 	ProjectNode * pluginNode;
 	if (!plugin->name().isEmpty())
-		pluginNode = parentNode.addChild(plugin->name(), ProjectNodeData(plugin->friendlyName()), false);
+        pluginNode = parentNode.appendChild(plugin->name(), ProjectNodeData(plugin->friendlyName()), false);
 	else
-		pluginNode = parentNode.addChild(ProjectNodeData(plugin->friendlyName()), false);
+        pluginNode = parentNode.appendChild(ProjectNodeData(plugin->friendlyName()), false);
 	pluginNode->data().append(std::unique_ptr<DataBlock>(new internal::PluginNodeData(plugin, reqMinor)));
-	pluginNode->addExtension(plugin);
+    pluginNode->registerExtension(plugin);
 	pluginInstance->init(*pluginNode);
 	return pluginNode;
 }

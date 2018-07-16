@@ -15,7 +15,7 @@ namespace cutehmi {
 /**
  * Project model node. Represents a node of tree-like structure of project.
  * Objects of this class can not be instantiated directly. It is only possible
- * to add nodes to existing ProjectModel using addChild() function.
+ * to add nodes to existing ProjectModel using appendChild() function.
  *
  * Nodes serve several purposes. They reflect dependencies in the project,
  * control lifetime of injected data and serve as extension points, allowing
@@ -47,39 +47,45 @@ class CUTEHMI_API ProjectNode:
 		/**
 		 * Access extension.
 		 * @param extensionId extension id.
-		 * @return extension object or @p nullptr if no extension was found for the given extension id.
+         * @return extension object or @p nullptr if no extension was found for
+         * the given extension id.
 		 */
 		Q_INVOKABLE QObject * extension(const QString & extensionId) const;
 
 		/**
-		 * Add extension.
-		 * @param extensionId extension id. Given id can be used later to access extension object via extension() function.
-		 * Id should be unique within the node.
+         * Register extension.
+         * @param extensionId extension id. Given id can be used later to access
+         * extension object via extension() function. Id should be unique within
+         * the node.
 		 * @param extension extension object.
 		 *
 		 * @note extension object won't be owned by Node.
 		 *
-		 * @note this function explicitly sets QQmlEngine ownership of @a extension object to QQmlEngine::CppOwnership, to prevent deletion
+         * @note this function explicitly sets QQmlEngine ownership of
+         * @a extension object to QQmlEngine::CppOwnership, to prevent deletion
 		 * from QML by garbage collector.
 		 */
-		void addExtension(const QString & extensionId, QObject * extension);
+        void registerExtension(const QString & extensionId, QObject * extension);
 
 		/**
-		 * Add extension. Convenient function, which will use class name obtained from QObject meta-data as an extension id.
-		 * Class name is obtained by QMetaObject::className() function and contains fully qualified name (with namespace).
-		 * @param extension extension object. Same object should not be used for the second call of this function for the
-		 * particular node.
+         * Register extension. Convenient function, which will use class name
+         * obtained from QObject meta-data as an extension id.
+         * Class name is obtained by QMetaObject::className() function and
+         * contains fully qualified name (with namespace).
+         * @param extension extension object. Same object should not be used for
+         * the second call of this function for the particular node.
 		 *
-		 * @note with this method only one instance of particular class can be added to the node. To add more objects of the
-		 * same class one may use addExtension(const QString & extensionId, QObject * extension) variant. Consider however,
-		 * adding child nodes instead.
+         * @note with this method only one instance of particular class can be
+         * added to the node. To register more objects of the same class one may
+         * use registerExtension(const QString & extensionId, QObject * extension)
+         * variant. Consider however, appending child nodes instead.
 		 *
 		 * @note this class will not take ownership of extension object.
 		 *
 		 * @note this function explicitly sets QQmlEngine ownership of @a extension object to QQmlEngine::CppOwnership, to prevent deletion
 		 * from QML by garbage collector.
 		 */
-		void addExtension(QObject * extension);
+        void registerExtension(QObject * extension);
 
 		/**
 		 * Get list of extension ids.
@@ -130,27 +136,34 @@ class CUTEHMI_API ProjectNode:
 		Q_INVOKABLE QString id() const;
 
 		/**
-		 * Add child node.
-		 * @param id node id. Node id must be unique with respect to its siblings. Nodes, which have different parents may have the same id.
-		 * Results of using the same id for nodes, which are children of the same parent are undefined.
+         * Append child node.
+         * @param id node id. Node id must be unique with respect to its
+         * siblings. Nodes, which have different parents may have the same id.
+         * Results of using the same id for nodes, which are children of the
+         * same parent are undefined.
 		 * @param data node data.
-		 * @param leaf indicates if child node is a leaf. Leaf is a node that do not have
-		 * any children.
-		 * @return pointer to newly created child. Child is owned by instance of this class.
+         * @param leaf indicates if child node is a leaf. Leaf is a node that do
+         * not have any children.
+         * @return pointer to newly created child. Child is owned by instance of
+         * this class.
 		 *
-		 * @note this function explicitly sets QQmlEngine ownership of created object to QQmlEngine::CppOwnership, to prevent deletion
-		 * from QML by garbage collector.
+         * @note this function explicitly sets QQmlEngine ownership of created
+         * object to QQmlEngine::CppOwnership, to prevent deletion from QML by
+         * garbage collector.
 		 */
-		ProjectNode * addChild(const QString & id, ProjectNodeData && data, bool leaf = true);
+        ProjectNode * appendChild(const QString & id, ProjectNodeData && data, bool leaf = true);
 
 		/**
-		 * Add child node. This version is provided for convenience. Random node id is generated automatically.
+         * Add child node. This version is provided for convenience. Random node
+         * id is generated automatically.
 		 * @param data node data.
-		 * @param leaf indicates if child node is a leaf. Leaf is a node that do not have
+         * @param leaf indicates if child node is a leaf. Leaf is a node that do
+         * not have
 		 * any children.
-		 * @return pointer to newly created child. Child is owned by instance of this class.
+         * @return pointer to newly created child. Child is owned by instance of
+         * this class.
 		 */
-		ProjectNode * addChild(ProjectNodeData && data, bool leaf = true);
+        ProjectNode * appendChild(ProjectNodeData && data, bool leaf = true);
 
 		/**
 		 * Get child at specified index (const version).

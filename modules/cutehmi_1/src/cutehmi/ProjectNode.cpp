@@ -12,15 +12,15 @@ QObject * ProjectNode::extension(const QString & extensionId) const
 	return extensions()->value(extensionId, nullptr);
 }
 
-void ProjectNode::addExtension(const QString & extensionId, QObject * extension)
+void ProjectNode::registerExtension(const QString & extensionId, QObject * extension)
 {
 	QQmlEngine::setObjectOwnership(extension, QQmlEngine::CppOwnership);
 	extensions()->insert(extensionId, extension);
 }
 
-void ProjectNode::addExtension(QObject * extension)
+void ProjectNode::registerExtension(QObject * extension)
 {
-	addExtension(extension->metaObject()->className(), extension);
+    registerExtension(extension->metaObject()->className(), extension);
 }
 
 QStringList ProjectNode::extensionIds() const
@@ -66,7 +66,7 @@ QString ProjectNode::id() const
 	return m->id;
 }
 
-ProjectNode * ProjectNode::addChild(const QString & id, ProjectNodeData && data, bool leaf)
+ProjectNode * ProjectNode::appendChild(const QString & id, ProjectNodeData && data, bool leaf)
 {
 	CUTEHMI_ASSERT(child(id) == nullptr, QString("child with specified id '%1' already exists").arg(id).toLocal8Bit().constData());
 
@@ -78,9 +78,9 @@ ProjectNode * ProjectNode::addChild(const QString & id, ProjectNodeData && data,
 	return child;
 }
 
-ProjectNode * ProjectNode::addChild(ProjectNodeData && data, bool leaf)
+ProjectNode * ProjectNode::appendChild(ProjectNodeData && data, bool leaf)
 {
-	return addChild(QUuid::createUuid().toString(), std::move(data), leaf);
+    return appendChild(QUuid::createUuid().toString(), std::move(data), leaf);
 }
 
 const ProjectNode * ProjectNode::child(int index) const
