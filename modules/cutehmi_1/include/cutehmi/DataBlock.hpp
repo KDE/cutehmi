@@ -16,9 +16,8 @@ namespace cutehmi {
  * linked list, however the objective is to make data block extensible, rather
  * than manipulative. Instances of this class are non-copyable, but movable.
  *
- * <principle id="cutehmi::DataBlock-determined_destruction_order">
+ * @principle{cutehmi::DataBlock-determined_destruction_order}
  * Child objects are destroyed in the reverse order as they were appended.
- * </principle>
  */
 class CUTEHMI_API DataBlock:
 	public NonCopyable

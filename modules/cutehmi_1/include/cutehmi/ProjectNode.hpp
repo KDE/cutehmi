@@ -22,7 +22,7 @@ namespace cutehmi {
  * various parts of application to communicate with each other. Each node has
  * an id by which it may be referred.
  *
- * <principle id="cutehmi::ProjectNode-determined_destruction_order">
+ * @principle{cutehmi::ProjectNode-determined_destruction_order}
  * Destruction order of exposed data members is determined. The order is as
  * follows:
  *		- child nodes (children()) in reverse order as they were added.
@@ -30,7 +30,6 @@ namespace cutehmi {
  *		- extensions.
  *		- node data (data()).
  *		.
- * </principle>
  */
 class CUTEHMI_API ProjectNode:
 	public QObject

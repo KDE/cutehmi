@@ -80,7 +80,7 @@ class PluginLoader:
 		/**
 		 * Load plugin.
 		 * @param binary name of plugin binary.
-		 * @param minor minimal required minor version.
+         * @param reqMinor minimal required minor version.
 		 * @return plugin object or @p nullptr if plugin has not been loaded.
 		 *
 		 * @throws WrongVersionException
