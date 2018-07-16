@@ -59,7 +59,15 @@ Module {
 					'GENERATE_TREEVIEW': true,
 					'QUIET': true,
 					'GENERATE_TAGFILE': 'doxygen.tag',
-					'INPUT_FILTER' : product.cutehmi.doxygen.useInputFilter ? 'sed \'s/\\(\\[[[:alnum:][:blank:]\\/.:_@#-]*\\]([[:alnum:]\\/.:_@#-]*\\/\\)\\()\\)/\\1index.html\\2/g\'' : ''
+					'INPUT_FILTER' : product.cutehmi.doxygen.useInputFilter ? 'sed \'s/\\(\\[[[:alnum:][:blank:]\\/.:_@#-]*\\]([[:alnum:]\\/.:_@#-]*\\/\\)\\()\\)/\\1index.html\\2/g\'' : '',
+					'ALIASES': ['principle{1}=\\xrefitem principles \\"Principle\\" \\"Principles\\" \\b \\"\\1\\" \\n',
+								'threadsafe=\\remark This method is thread-safe.'
+					],
+					'MACRO_EXPANSION': true,
+					'EXPAND_ONLY_PREDEF': true,
+					'PREDEFINED': ['DOXYGEN_WORKAROUND',
+								   'Q_DECLARE_TR_FUNCTIONS()='
+					]
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
@@ -83,7 +91,11 @@ Module {
 							else
 								val = 'NO'
 						}
-						f.writeLine(option + ' = ' + val)
+						if (Array.isArray(val)) {
+							for (var i = 0; i < val.length; i++)
+								f.writeLine(option + ' += "' + val[i] + '"')
+						} else
+							f.writeLine(option + ' = ' + val)
 					}
 
 					// Append tag files to TAGFILES from dependencies.
