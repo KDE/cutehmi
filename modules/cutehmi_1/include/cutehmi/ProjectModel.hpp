@@ -12,7 +12,7 @@
 namespace cutehmi {
 
 /**
- * Project model. Project model is technically a tree, which uses ProjectNode
+ * %Project model. Project model is technically a tree, which uses ProjectNode
  * instances as underlying data structure for its nodes. Various aspects of the
  * model are exposed as QAbstractItemModel, so that it can be used with standard
  * Qt views.

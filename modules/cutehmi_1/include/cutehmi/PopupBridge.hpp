@@ -9,6 +9,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Popup bridge.
+ */
 class CUTEHMI_API PopupBridge:
 	public QObject
 {

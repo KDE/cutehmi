@@ -7,7 +7,7 @@
 namespace cutehmi {
 
 /**
- * Backend interface.
+ * %Project backend interface.
  */
 class CUTEHMI_API IProjectBackend
 {

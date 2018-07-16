@@ -8,6 +8,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Notification list model.
+ */
 class NotificationListModel:
 	public QAbstractListModel
 {

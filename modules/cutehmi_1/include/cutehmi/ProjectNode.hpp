@@ -13,7 +13,7 @@
 namespace cutehmi {
 
 /**
- * Project model node. Represents a node of tree-like structure of project.
+ * %Project model node. Represents a node of tree-like structure of project.
  * Objects of this class can not be instantiated directly. It is only possible
  * to add nodes to existing ProjectModel using appendChild() function.
  *

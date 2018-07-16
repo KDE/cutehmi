@@ -8,6 +8,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Exception mixin.
+ */
 template <class DERIVED>
 class ExceptionMixin:
 	public Exception

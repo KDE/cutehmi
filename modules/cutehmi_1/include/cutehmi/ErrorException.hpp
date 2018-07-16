@@ -6,6 +6,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Error exception.
+ */
 class CUTEHMI_API ErrorException:
 	public ExceptionMixin<ErrorException>
 {

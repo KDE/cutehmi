@@ -11,6 +11,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Notification manager.
+ */
 class CUTEHMI_API NotificationManager:
 	public QObject
 {
