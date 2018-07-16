@@ -58,7 +58,7 @@ class CUTEHMI_API ProjectNode:
 		 * the node.
 		 * @param extension extension object.
 		 *
-		 * @note Extension object won't be owned by Node.
+		 * @note This function will not take ownership of @a extension object.
 		 *
 		 * @note This function explicitly @ref QQmlEngine::setObjectOwnership
 		 * "sets" QQmlEngine ownership of @a extension object to
@@ -80,13 +80,12 @@ class CUTEHMI_API ProjectNode:
 		 * use registerExtension(const QString & extensionId, QObject * extension)
 		 * variant. Consider however, appending child nodes instead.
 		 *
-		 * @note This class will not take ownership of extension object.
+		 * @note This function will not take ownership of @a extension object.
 		 *
 		 * @note This function explicitly @ref QQmlEngine::setObjectOwnership
 		 * "sets" QQmlEngine ownership of @a extension object to
 		 * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
 		 * collector.
-		 */
 		 */
 		void registerExtension(QObject * extension);
 
