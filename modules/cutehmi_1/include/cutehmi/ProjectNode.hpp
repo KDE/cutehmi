@@ -60,9 +60,10 @@ class CUTEHMI_API ProjectNode:
 		 *
 		 * @note extension object won't be owned by Node.
 		 *
-         * @note this function explicitly sets QQmlEngine ownership of
-         * @a extension object to QQmlEngine::CppOwnership, to prevent deletion
-		 * from QML by garbage collector.
+         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
+         * "sets" QQmlEngine ownership of @a extension object to
+         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+         * collector.
 		 */
         void registerExtension(const QString & extensionId, QObject * extension);
 
@@ -81,9 +82,12 @@ class CUTEHMI_API ProjectNode:
 		 *
 		 * @note this class will not take ownership of extension object.
 		 *
-		 * @note this function explicitly sets QQmlEngine ownership of @a extension object to QQmlEngine::CppOwnership, to prevent deletion
-		 * from QML by garbage collector.
-		 */
+         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
+         * "sets" QQmlEngine ownership of @a extension object to
+         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+         * collector.
+         */
+         */
         void registerExtension(QObject * extension);
 
 		/**
@@ -146,22 +150,28 @@ class CUTEHMI_API ProjectNode:
          * @return pointer to newly created child. Child is owned by instance of
          * this class.
 		 *
-         * @note this function explicitly sets QQmlEngine ownership of created
-         * object to QQmlEngine::CppOwnership, to prevent deletion from QML by
-         * garbage collector.
-		 */
+         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
+         * "sets" QQmlEngine ownership of created object to
+         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+         * collector.
+         */
         ProjectNode * appendChild(const QString & id, ProjectNodeData && data, bool leaf = true);
 
 		/**
-         * Add child node. This version is provided for convenience. Random node
-         * id is generated automatically.
+         * Append child node. This version is provided for convenience. Random
+         * node id is generated automatically.
 		 * @param data node data.
          * @param leaf indicates if child node is a leaf. Leaf is a node that do
          * not have
 		 * any children.
          * @return pointer to newly created child. Child is owned by instance of
          * this class.
-		 */
+         *
+         * @note this function explicitly @ref QQmlEngine::setObjectOwnership
+         * "sets" QQmlEngine ownership of created object to
+         * QQmlEngine::CppOwnership, to prevent deletion from QML by garbage
+         * collector.
+         */
         ProjectNode * appendChild(ProjectNodeData && data, bool leaf = true);
 
 		/**
