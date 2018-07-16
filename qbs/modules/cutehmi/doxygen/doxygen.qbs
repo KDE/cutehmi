@@ -51,6 +51,7 @@ Module {
 					'HTML_DYNAMIC_MENUS': false,
 					'ALWAYS_DETAILED_SEC': true,
 					'JAVADOC_AUTOBRIEF': true,
+					'BRIEF_MEMBER_DESC': false,
 					'EXTRACT_ALL': true,
 					'INPUT': '.',
 					'RECURSIVE': true,
