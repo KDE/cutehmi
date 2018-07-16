@@ -14,9 +14,10 @@
 namespace cutehmi {
 
 /**
- * Worker. This class acts as a container that allows specified code to be run
+ * %Worker. This class acts as a container that allows specified code to be run
  * in a specified thread.
  */
+
 class CUTEHMI_API Worker:
 	public QObject
 {
@@ -32,14 +33,14 @@ class CUTEHMI_API Worker:
 		Worker(std::function<void()> task = nullptr);
 
 		/**
-         * Constructor. This constructor acts as if employ(@a thread, false) was
-         * called immediately after
-		 * constructing default worker object.
+         * Constructor. This constructor acts as if @ref employ(QThread &, bool)
+         * "employ(@a thread, false)" was called immediately after constructing
+         * default worker object.
 		 * @param thread thread in which worker's job should be run.
 		 */
 		Worker(QThread & thread);
 
-		~Worker() override;
+        ~Worker() override;
 
 		/**
 		 * Set task.
@@ -48,7 +49,7 @@ class CUTEHMI_API Worker:
 		void setTask(std::function<void()> task);
 
 		/**
-         * Worker's job. This function is called when worker receives WorkEvent
+         * %Worker's job. This function is called when worker receives WorkEvent
          * event. Use employ() function to run job in a specified thread. This
          * function can be reimplemented. Default implementation calls @a task
          * function if it has been set (it can be passed to the
@@ -96,7 +97,7 @@ class CUTEHMI_API Worker:
 		void employ(QThread & thread, bool start = true);
 
 		/**
-         * Work. This function posts WorkEvent, which tells worker to process
+         * Do work. This function posts WorkEvent, which tells worker to process
          * the job() inside the thread in which it is employed.
 		 *
 		 * @threadsafe
