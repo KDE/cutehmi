@@ -1,2 +1,3 @@
-This module provides XML facilities to other modules.
+# XML
 
+This module provides XML facilities to other modules.
