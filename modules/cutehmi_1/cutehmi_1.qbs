@@ -84,6 +84,7 @@ cutehmi.Module {
 	Depends { name: "Qt.qml" }
 
 	Depends { name: "cutehmi.doxygen" }
+	cutehmi.doxygen.warnIfUndocumented: false
 
 	Export {
 		Depends { name: "Qt.core" }

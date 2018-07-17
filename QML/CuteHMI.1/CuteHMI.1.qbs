@@ -42,6 +42,7 @@ cutehmi.QMLExtension {
 	//</workaround>
 
 	Depends { name: "cutehmi.doxygen" }
+	cutehmi.doxygen.warnIfUndocumented: false
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.

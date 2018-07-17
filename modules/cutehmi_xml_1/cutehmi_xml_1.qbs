@@ -55,6 +55,7 @@ cutehmi.Module {
 //</workaround>
 
 	Depends { name: "cutehmi.doxygen" }
+	cutehmi.doxygen.warnIfUndocumented: false
 
 	Export {
 		Depends { name: "Qt.core" }
