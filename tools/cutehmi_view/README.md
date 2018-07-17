@@ -10,4 +10,3 @@ cutehmi_view --project="examples/SampleProject/SampleProject.cutehmi.xml"
 
 You can use `--help` command line argument to see a list of all possible command
 line options.
-

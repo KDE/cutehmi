@@ -103,6 +103,9 @@ Module {
 							f.writeLine(option + ' = ' + val)
 					}
 
+					// Append cppreference.com '.tags' file to TAGFILES.
+					f.writeLine('TAGFILES += ../../doc/tags/cppreference.com/cppreference-doxygen-web.tag.xml=https://en.cppreference.com/w')
+
 					// Append Qt '.tags' files to TAGILES.
 					for (var qtSubmodule in product.Qt) {
 						var docSubmoduleName = 'qt' + qtSubmodule;	// Names of Qt modules in 'C:/Qt/Docs' directory start with 'qt' prefix (this applies to directories and '.tags' files).
