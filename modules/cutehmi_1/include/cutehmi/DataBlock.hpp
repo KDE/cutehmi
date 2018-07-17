@@ -26,8 +26,8 @@ class CUTEHMI_API DataBlock:
 	struct Iterator;
 
 	public:
-		typedef Iterator<DataBlock> iterator;
-		typedef Iterator<const DataBlock> const_iterator;
+		typedef Iterator<DataBlock> iterator;	///< Iterator.
+		typedef Iterator<const DataBlock> const_iterator;	///< Const iterator.
 
 		/**
 		 * Default constructor.
