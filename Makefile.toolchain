@@ -57,11 +57,12 @@ MKDIR = mkdir
 MV = mv
 RM = rm
 TR = tr
+SORT = sort
 STAT = stat
 TOUCH = touch
 
 $(BASENAME) $(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MKDIR) $(MV) $(RM) $(TR) \
-$(STAT) $(TOUCH):
+$(SORT) $(STAT) $(TOUCH):
 
 
 # Findutils
