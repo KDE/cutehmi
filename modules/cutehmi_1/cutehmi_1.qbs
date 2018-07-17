@@ -11,9 +11,9 @@ cutehmi.Module {
 
 	vendor: "CuteHMI"
 
-	friendlyName: "Base"
+	friendlyName: "[Core]"
 
-	description: "Base module."
+	description: "Provides core functionality to other modules."
 
 	author: "Michal Policht"
 
