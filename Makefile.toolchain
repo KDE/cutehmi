@@ -93,6 +93,12 @@ SED = sed
 
 $(SED):
 
+# wget.
+
+WGET = wget
+
+$(WGET):
+
 
 # Qt programs are assumed to be in PATH.
 
