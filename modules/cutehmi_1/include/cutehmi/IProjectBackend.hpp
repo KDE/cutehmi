@@ -12,6 +12,11 @@ namespace cutehmi {
 class CUTEHMI_API IProjectBackend
 {
 	public:
+		/**
+		 * Load project.
+		 * @param pluginLoader plugin loader.
+		 * @param rootNode root project model node.
+		 */
 		virtual void load(const ProjectPluginLoader & pluginLoader, ProjectNode & rootNode) noexcept(false) = 0;
 
 	protected:
