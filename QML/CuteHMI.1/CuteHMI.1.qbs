@@ -29,6 +29,7 @@ cutehmi.QMLExtension {
         "NumberDisplay.qml",
         "Palette.qml",
         "PropItem.qml",
+        "README.md",
         "designer/CuteHMI.metainfo",
         "qmldir",
         "src/CuteHMIQMLPlugin.cpp",
