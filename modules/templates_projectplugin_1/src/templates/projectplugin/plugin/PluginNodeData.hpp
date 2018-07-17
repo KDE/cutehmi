@@ -7,6 +7,9 @@ namespace templates {       // Edit! Replace 'templates' with custom vendor id.
 namespace projectplugin {   // Edit! Replace 'projectplugin' with custom module id.
 namespace plugin {
 
+/**
+ * Plugin node data.
+ */
 class PluginNodeData:
     public cutehmi::DataBlock
 {
