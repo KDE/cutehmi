@@ -49,6 +49,9 @@ DOC_DOXYGEN_FILES =
 # [doc_qdoc] List of qdoc files.
 DOC_QDOC_FILES =
 
+# [doc] Project-specific targets.
+DOC_PROJECT_TARGETS = 
+
 # [guards] Directories, where include guards should be updated.
 INCLUDE_GUARDS_DIRS = $(INCLUDE_DIRS)
 
@@ -122,7 +125,7 @@ guards: $(AWKGWARD) $(INCLUDE_GUARDS_DIRS) | $(FIND) $(SH) $(AWK) $(CUT) $(GREP)
 	    @echo Updating include guards...
 		@$(FIND) $(INCLUDE_GUARDS_DIRS) -type f \( $(INCLUDE_FILE_TYPES) \) $(INCLUDE_GUARDS_EXCLUDE) -exec $(SH) $(AWKGWARD) $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_IORS) \;
 
-doc: doc_doxygen
+doc: doc_project_targets doc_doxygen
 
 doc_doxygen: | $(FIND) $(SED) $(DOXYGEN)
 		@echo Doxygen path: "$(DOXYGEN)"
@@ -133,6 +136,8 @@ doc_doxygen: | $(FIND) $(SED) $(DOXYGEN)
 
 doc_clean: | $(FIND)
 		@$(FIND) $(DOXYGEN_OUTPUT_DIRS) -type f -delete
+
+doc_project_targets: $(DOC_PROJECT_TARGETS)
 
 ports: | $(MAKE)
 		$(MAKE) -C external/recipes/$(BUILD_MACHINE)

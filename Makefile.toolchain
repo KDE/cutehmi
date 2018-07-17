@@ -47,6 +47,7 @@ $(CD) $(SH):
 
 # Coreutils
 
+BASENAME = basename
 CAT = cat
 CUT = cut
 CP = cp
@@ -58,14 +59,16 @@ TR = tr
 STAT = stat
 TOUCH = touch
 
-$(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MV) $(RM) $(TR) $(STAT) $(TOUCH):
+$(BASENAME) $(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MV) $(RM) $(TR) $(STAT) $(TOUCH):
 
 
 # Findutils
 
 FIND = find
+OLDFIND = oldfind
+XARGS = xargs
 
-$(FIND):
+$(FIND) $(OLDFIND) $(XARGS):
 
 
 # Grep
