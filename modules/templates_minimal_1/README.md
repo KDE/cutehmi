@@ -1,4 +1,4 @@
-# Minimal Module Template
+# The Secret Order of Templates - Minimal Module Template
 
 Minimalistic module, that can be used as a template for writing modules.
 

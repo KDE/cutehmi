@@ -1,4 +1,4 @@
-# Project Plugin Template
+# The Secret Order of Templates - Project Plugin Template
 
 Minimalistic plugin, that can be used as a template for writing plugins.
 
