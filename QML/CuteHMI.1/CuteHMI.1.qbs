@@ -13,13 +13,13 @@ cutehmi.QMLExtension {
 
 	vendor: "CuteHMI"
 
-	friendlyName: "Base QML"
+	friendlyName: "[Core] QML"
 
 	description: "Base CuteHMI extension for all QML applications."
 
-	author: "Wojciech Zygmuntowicz, Michal Policht"
+	author: "Michal Policht"
 
-	copyright: "Wojciech Zygmuntowicz, Michal Policht"
+	copyright: "Michal Policht"
 
 	license: "Mozilla Public License, v. 2.0"
 
@@ -39,6 +39,8 @@ cutehmi.QMLExtension {
 	Depends { name: "cutehmi_1" }
 	cutehmi_1.reqMinor: 0
 	//</workaround>
+
+	Depends { name: "cutehmi.doxygen" }
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
