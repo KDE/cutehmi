@@ -7,16 +7,6 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(gcryptHeaderProbe.path)
 
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libgcrypt-20"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-        cpp.dynamicLibraries: ["gcrypt"]
-	}
-
 	property bool found: libgcryptProbe.found && gcryptHeaderProbe.found
 
 	property bool available: found && cutehmi.libgpg_error.available
@@ -24,6 +14,16 @@ Module {
 	property string libgcryptPath: libgcryptProbe.filePath
 
 	property string includePath: gcryptHeaderProbe.path
+
+	Properties {
+		condition: qbs.targetOS.contains("windows")
+		cpp.dynamicLibraries: ["libgcrypt-20"]
+	}
+
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.dynamicLibraries: ["gcrypt"]
+	}
 
 	Probes.PathProbe {
 		id: libgcryptProbe

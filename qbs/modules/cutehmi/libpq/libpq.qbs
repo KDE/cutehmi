@@ -8,6 +8,14 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(libpq_feHeaderProbe.path)
 
+	property bool found: libpqProbe.found && libpq_feHeaderProbe.found
+
+    property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.libintl.available : true)
+
+	property string libpqPath: libpqProbe.filePath
+
+	property string includePath: libpq_feHeaderProbe.path
+
 	Properties {
 		condition: qbs.targetOS.contains("windows")
 		cpp.dynamicLibraries: ["libpq"]
@@ -17,14 +25,6 @@ Module {
 		condition: qbs.targetOS.contains("linux")
 		cpp.dynamicLibraries: ["pq"]
 	}
-
-	property bool found: libpqProbe.found && libpq_feHeaderProbe.found
-
-    property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.libintl.available : true)
-
-	property string libpqPath: libpqProbe.filePath
-
-	property string includePath: libpq_feHeaderProbe.path
 
 	Probes.PathProbe {
 		id: libpqProbe

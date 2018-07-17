@@ -10,16 +10,6 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(libintlHeaderProbe.path)
 
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libintl-8"]
-	}
-
-	Properties {
-        condition: qbs.targetOS.contains("linux") && found
-		cpp.dynamicLibraries: ["intl"]
-	}
-
 	property bool found: libintlProbe.found && libintlHeaderProbe.found
 
 	property bool available: found && cutehmi.libiconv.available
@@ -27,6 +17,16 @@ Module {
 	property string libintlPath: libintlProbe.filePath
 
 	property string includePath: libintlHeaderProbe.path
+
+	Properties {
+		condition: qbs.targetOS.contains("windows")
+		cpp.dynamicLibraries: ["libintl-8"]
+	}
+
+	Properties {
+		condition: qbs.targetOS.contains("linux") && found
+		cpp.dynamicLibraries: ["intl"]
+	}
 
 	Probes.PathProbe {
 		id: libintlProbe
