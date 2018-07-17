@@ -64,12 +64,12 @@ This line is required to import `cutehmi` Qbs items.
 ```qbs
 cutehmi.Module {
 ```
-All modules inherit after cutehmi.Module item, which itself inherits after
-cutehmi.CommonProduct. You can find definitions of these items in
+All modules inherit after `cutehmi.Module` item, which itself inherits after
+`cutehmi.CommonProduct`. You can find definitions of these items in
 [qbs directory](https://github.com/michpolicht/CuteHMI/tree/master/qbs/imports/cutehmi).
 
-One of the noticeable things is that cutehmi.Module item depends on
-cutehmi.metadata Qbs module, which will generate `cutehmi.metadata.json` and
+One of the noticeable things is that `cutehmi.Module` item depends on
+`cutehmi.metadata` Qbs module, which will generate `cutehmi.metadata.json` and
 `cutehmi.metadata.hpp` files. These files will contain the meta-information
 extracted from properties of the `.qbs` file.
 
@@ -131,7 +131,7 @@ Property `cutehmi_1.reqMinor` specifies required, minimal, minor version of
 ```qbs
 Depends { name: "cutehmi.doxygen" }
 ```
-Qbs module cutehmi.doxygen will generate Doxygen configuration file for the
+Qbs module `cutehmi.doxygen` will generate Doxygen configuration file for the
 module. Doxygen can then be used to generate documentation. Makefile in top 
 project directory scans `modules` subdirectory for Doxygen configuration files
 and mass-builds documentation. To avoid a flood of Doxygen warnings it may be
