@@ -1,6 +1,9 @@
 # Doxygen configuration file.
 Doxyfile -crlf
 
+# Doxygen layouts.
+doc/layout/*.xml -crlf
+
 # Localization files.
 modules/*/locale/* -crlf
 tools/*/locale/* -crlf
