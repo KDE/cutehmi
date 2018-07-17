@@ -4,9 +4,9 @@
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
     <tab type="pages" visible="no" title="" intro=""/>
-    <tab type="user" url="@ref modulesList" title="List of modules"/>
-    <tab type="user" url="@ref toolsList" title="List of tools"/>
-    <tab type="user" url="@ref qmlList" title="List of QML modules"/>
+    <tab type="user" url="@ref modulesList" title="Modules"/>
+    <tab type="user" url="@ref toolsList" title="Tools"/>
+    <tab type="user" url="@ref qmlList" title="QML modules"/>
     <tab type="modules" visible="yes" title="" intro=""/>
     <tab type="namespaces" visible="yes" title="">
       <tab type="namespacelist" visible="yes" title="" intro=""/>

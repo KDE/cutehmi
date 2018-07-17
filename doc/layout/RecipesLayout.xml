@@ -3,6 +3,9 @@
   <!-- Navigation index tabs for HTML output -->
   <navindex>
     <tab type="user" url="../index.html" title="Main Page"/>
+    <tab type="user" url="../modules_list.html" title="Modules"/>
+    <tab type="user" url="../tools_list.html" title="Tools"/>
+    <tab type="user" url="../qml_list.html" title="QML modules"/>
     <tab type="mainpage" visible="yes" title="Overview"/>
     <tab type="pages" visible="yes" title="" intro=""/>
     <tab type="modules" visible="yes" title="" intro=""/>
