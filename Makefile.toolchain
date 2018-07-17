@@ -53,13 +53,15 @@ CUT = cut
 CP = cp
 DIRNAME = dirname
 ECHO = echo
+MKDIR = mkdir
 MV = mv
 RM = rm
 TR = tr
 STAT = stat
 TOUCH = touch
 
-$(BASENAME) $(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MV) $(RM) $(TR) $(STAT) $(TOUCH):
+$(BASENAME) $(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MKDIR) $(MV) $(RM) $(TR) \
+$(STAT) $(TOUCH):
 
 
 # Findutils
