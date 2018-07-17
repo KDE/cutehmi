@@ -7,6 +7,8 @@ import qbs.TextFile
   This module generates 'Doxyfile' artifact, which can be used by Doxygen tool to generate documentation.
   */
 Module {
+	additionalProductTypes: ["Doxyfile"]
+
 	property bool generateRedirectionFile: false
 
 	/**
@@ -18,7 +20,7 @@ Module {
 	  */
 	property bool useInputFilter: true
 
-	additionalProductTypes: ["Doxyfile"]
+	property bool warnIfUndocumented: true
 
 	FileTagger {
 		patterns: ["*.qbs"]
@@ -72,6 +74,7 @@ Module {
 					'LAYOUT_FILE': '../../doc/layout/ProductLayout.xml',
 					'SHOW_FILES': false,
 					'SHOW_USED_FILES': false,
+					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,
 					'WARN_NO_PARAMDOC': true
 				}
 
