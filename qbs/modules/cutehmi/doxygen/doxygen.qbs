@@ -106,7 +106,7 @@ Module {
 					for (var qtSubmodule in product.Qt) {
 						var docSubmoduleName = 'qt' + qtSubmodule;	// Names of Qt modules in 'C:/Qt/Docs' directory start with 'qt' prefix (this applies to directories and '.tags' files).
 						f.writeLine('TAGFILES += ' + product.Qt.core.docPath + '/' + docSubmoduleName + '/' + docSubmoduleName + '.tags'
-									+ '=http://doc.qt.io/qt-' + product.Qt.core.versionMajor + '.' + product.Qt.core.versionMinor)
+									+ '=http://doc.qt.io/qt-' + product.Qt.core.versionMajor)
 					}
 
 					// Append '.tags' files to TAGFILES from dependencies.
