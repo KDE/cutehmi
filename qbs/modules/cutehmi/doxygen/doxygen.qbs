@@ -66,8 +66,12 @@ Module {
 					'MACRO_EXPANSION': true,
 					'EXPAND_ONLY_PREDEF': true,
 					'PREDEFINED': ['DOXYGEN_WORKAROUND',
-								   'Q_DECLARE_TR_FUNCTIONS()='
-					]
+								   'Q_DECLARE_TR_FUNCTIONS()=',
+								   'QT_RCC_MANGLE_NAMESPACE()='
+					],
+					'LAYOUT_FILE': '../../doc/layout/ProductLayout.xml',
+					'SHOW_FILES': false,
+					'SHOW_USED_FILES': false
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
