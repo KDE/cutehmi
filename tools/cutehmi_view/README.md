@@ -1,4 +1,4 @@
-# View
+# CuteHMI - View
 
 Client, GUI application, which allows one to run CuteHMI project in a window.
 
