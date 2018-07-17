@@ -51,7 +51,7 @@ Module {
 					'HTML_DYNAMIC_MENUS': false,
 					'ALWAYS_DETAILED_SEC': true,
 					'JAVADOC_AUTOBRIEF': true,
-					'EXTRACT_ALL': true,
+					'EXTRACT_ALL': false,
 					'INPUT': '.',
 					'RECURSIVE': true,
 					'USE_MDFILE_AS_MAINPAGE': 'README.md',
@@ -71,7 +71,8 @@ Module {
 					],
 					'LAYOUT_FILE': '../../doc/layout/ProductLayout.xml',
 					'SHOW_FILES': false,
-					'SHOW_USED_FILES': false
+					'SHOW_USED_FILES': false,
+					'WARN_NO_PARAMDOC': true
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
