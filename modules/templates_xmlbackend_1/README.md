@@ -35,7 +35,7 @@ interface.
 
         void writeXML(QXmlStreamWriter & xmlWriter, cutehmi::ProjectNode & node) const noexcept(false) override;
 ```
-There are two additional functions, which belong to cutehmi::xml::IBackendPlugin
+These are two additional functions, which belong to cutehmi::xml::IBackendPlugin
 interface.
 
 
