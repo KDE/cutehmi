@@ -23,14 +23,14 @@ cutehmi.Module {
 
 	files: [
         "README.md",
-        "include/templates/projectplugin/internal/common.hpp",
-        "include/templates/projectplugin/logging.hpp",
-        "include/templates/projectplugin/metadata.hpp",
-        "src/templates/projectplugin/logging.cpp",
-        "src/templates/projectplugin/plugin/PluginNodeData.cpp",
-        "src/templates/projectplugin/plugin/PluginNodeData.hpp",
-        "src/templates/projectplugin/plugin/ProjectPlugin.cpp",
-        "src/templates/projectplugin/plugin/ProjectPlugin.hpp",
+		"include/templates/projectplugin/internal/common.hpp",      // Edit! Fix path.
+		"include/templates/projectplugin/logging.hpp",              // Edit! Fix path.
+		"include/templates/projectplugin/metadata.hpp",             // Edit! Fix path.
+		"src/templates/projectplugin/logging.cpp",                  // Edit! Fix path.
+		"src/templates/projectplugin/plugin/PluginNodeData.cpp",    // Edit! Fix path.
+		"src/templates/projectplugin/plugin/PluginNodeData.hpp",    // Edit! Fix path.
+		"src/templates/projectplugin/plugin/ProjectPlugin.cpp",     // Edit! Fix path.
+		"src/templates/projectplugin/plugin/ProjectPlugin.hpp",     // Edit! Fix path.
     ]
 
 	Depends { name: "cutehmi_1" }
