@@ -7,9 +7,20 @@ import qbs.TextFile
   This module generates 'Doxyfile' artifact, which can be used by Doxygen tool to generate documentation.
   */
 Module {
+	additionalProductTypes: ["Doxyfile"]
+
 	property bool generateRedirectionFile: false
 
-	additionalProductTypes: ["Doxyfile"]
+	/**
+	  Whether to use input filter. If this property is set to true a _sed_
+	  script will be used for _Doxygen_ `INPUT_FILTER`. This script appends
+	  `index.html` to Markdown links which end with slash (/). This is required
+	  for offline documentation. Web browser won't load index.html` without the
+	  aid of HTTP.
+	  */
+	property bool useInputFilter: true
+
+	property bool warnIfUndocumented: true
 
 	FileTagger {
 		patterns: ["*.qbs"]
@@ -42,14 +53,29 @@ Module {
 					'HTML_DYNAMIC_MENUS': false,
 					'ALWAYS_DETAILED_SEC': true,
 					'JAVADOC_AUTOBRIEF': true,
-					'EXTRACT_ALL': true,
+					'EXTRACT_ALL': false,
 					'INPUT': '.',
 					'RECURSIVE': true,
 					'USE_MDFILE_AS_MAINPAGE': 'README.md',
 					'GENERATE_LATEX': false,
 					'GENERATE_TREEVIEW': true,
 					'QUIET': true,
-					'GENERATE_TAGFILE': 'doxygen.tag'
+					'GENERATE_TAGFILE': 'doxygen.tag',
+					'INPUT_FILTER' : product.cutehmi.doxygen.useInputFilter ? 'sed \'s/\\(\\[[[:alnum:][:blank:]\\/.:_@#-]*\\]([[:alnum:]\\/.:_@#-]*\\/\\)\\()\\)/\\1index.html\\2/g\'' : '',
+					'ALIASES': ['principle{1}=\\xrefitem principles \\"Principle\\" \\"Principles\\" \\b \\"\\1\\" \\n',
+								'threadsafe=\\remark This method is thread-safe.'
+					],
+					'MACRO_EXPANSION': true,
+					'EXPAND_ONLY_PREDEF': true,
+					'PREDEFINED': ['DOXYGEN_WORKAROUND',
+								   'Q_DECLARE_TR_FUNCTIONS()=',
+								   'QT_RCC_MANGLE_NAMESPACE()='
+					],
+					'LAYOUT_FILE': '../../doc/layout/ProductLayout.xml',
+					'SHOW_FILES': false,
+					'SHOW_USED_FILES': false,
+					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,
+					'WARN_NO_PARAMDOC': true
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
@@ -73,10 +99,24 @@ Module {
 							else
 								val = 'NO'
 						}
-						f.writeLine(option + ' = ' + val)
+						if (Array.isArray(val)) {
+							for (var i = 0; i < val.length; i++)
+								f.writeLine(option + ' += "' + val[i] + '"')
+						} else
+							f.writeLine(option + ' = ' + val)
 					}
 
-					// Append tag files to TAGFILES from dependencies.
+					// Append cppreference.com '.tags' file to TAGFILES.
+					f.writeLine('TAGFILES += ../../doc/tags/cppreference.com/cppreference-doxygen-web.tag.xml=https://en.cppreference.com/w')
+
+					// Append Qt '.tags' files to TAGILES.
+					for (var qtSubmodule in product.Qt) {
+						var docSubmoduleName = 'qt' + qtSubmodule;	// Names of Qt modules in 'C:/Qt/Docs' directory start with 'qt' prefix (this applies to directories and '.tags' files).
+						f.writeLine('TAGFILES += ' + product.Qt.core.docPath + '/' + docSubmoduleName + '/' + docSubmoduleName + '.tags'
+									+ '=http://doc.qt.io/qt-' + product.Qt.core.versionMajor)
+					}
+
+					// Append '.tags' files to TAGFILES from dependencies.
 					for (i in product.dependencies) {
 						var dependency = product.dependencies[i]
 						if ('cutehmi' in dependency && 'doxygen' in dependency.cutehmi) {

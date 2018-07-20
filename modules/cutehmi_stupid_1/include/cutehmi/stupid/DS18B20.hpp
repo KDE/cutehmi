@@ -77,7 +77,7 @@ class CUTEHMI_STUPID_API DS18B20:
 		 * Update data. Appropriate error flags will be set.
 		 * @param data new data.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void updateData(const Data & data);
 

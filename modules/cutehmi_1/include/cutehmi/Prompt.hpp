@@ -11,6 +11,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Prompt message.
+ */
 class CUTEHMI_API Prompt:
 	public QObject
 {

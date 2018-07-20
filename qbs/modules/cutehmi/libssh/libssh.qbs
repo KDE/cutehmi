@@ -7,6 +7,14 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(libsshHeaderProbe.path)
 
+	property bool found: libsshProbe.found && libsshHeaderProbe.found
+
+	property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.zlib.available && cutehmi.libgcrypt.available : true)
+
+	property string libsshPath: libsshProbe.filePath
+
+	property string includePath: libsshHeaderProbe.path
+
 	Properties {
 		condition: qbs.targetOS.contains("windows")
 		cpp.dynamicLibraries: ["libssh"]
@@ -16,14 +24,6 @@ Module {
 		condition: qbs.targetOS.contains("linux")
 		cpp.dynamicLibraries: ["ssh"]
 	}
-
-	property bool found: libsshProbe.found && libsshHeaderProbe.found
-
-	property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.zlib.available && cutehmi.libgcrypt.available : true)
-
-	property string libsshPath: libsshProbe.filePath
-
-	property string includePath: libsshHeaderProbe.path
 
 	Probes.PathProbe {
 		id: libsshProbe

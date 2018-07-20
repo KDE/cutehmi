@@ -11,6 +11,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Notification manager.
+ */
 class CUTEHMI_API NotificationManager:
 	public QObject
 {
@@ -34,7 +37,7 @@ class CUTEHMI_API NotificationManager:
 		 * @param notification_l notification to add. Parameter will be used locally by this function.
 		 * It's passed by a pointer instead of a reference for easier integration with QML.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void add(Notification * notification_l);
 

@@ -1,0 +1,9 @@
+/**
+
+@page modulesList List of modules
+
+Here's a list of documented modules.
+
+@includedoc Makefile.project/ModulesList.inc.dox
+
+*/

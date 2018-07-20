@@ -8,6 +8,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Notification.
+ */
 class CUTEHMI_API Notification:
 	public QObject
 {

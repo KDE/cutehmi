@@ -1,6 +1,12 @@
 # Doxygen configuration file.
 Doxyfile -crlf
 
+# Doxygen layouts.
+doc/layout/*.xml -crlf
+
+# Tags file from 'cppreference.com'.
+doc/tags/cppreference.com/cppreference-doxygen-web.tag.xml -crlf
+
 # Localization files.
 modules/*/locale/* -crlf
 tools/*/locale/* -crlf

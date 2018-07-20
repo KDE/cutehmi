@@ -49,3 +49,6 @@ external/deploy
 
 # Batch file, which sets up custom environment.
 userEnv.bat
+
+# Temporary documentation artifacts.
+doc/_temp

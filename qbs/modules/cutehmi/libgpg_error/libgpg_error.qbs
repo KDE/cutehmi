@@ -7,16 +7,6 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(gpg_errorHeaderProbe.path)
 
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libgpg-error-0"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-        cpp.dynamicLibraries: ["gpg-error"]
-	}
-
 	property bool found: libgpg_errorProbe.found && gpg_errorHeaderProbe.found
 
 	property bool available: found
@@ -24,6 +14,16 @@ Module {
 	property string libgpg_errorPath: libgpg_errorProbe.filePath
 
 	property string includePath: gpg_errorHeaderProbe.path
+
+	Properties {
+		condition: qbs.targetOS.contains("windows")
+		cpp.dynamicLibraries: ["libgpg-error-0"]
+	}
+
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.dynamicLibraries: ["gpg-error"]
+	}
 
 	Probes.PathProbe {
 		id: libgpg_errorProbe

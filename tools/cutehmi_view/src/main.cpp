@@ -30,6 +30,12 @@
 namespace cutehmi {
 namespace view {
 
+/**
+ * Load XML file.
+ * @param filePath file path.
+ * @param project project.
+ * @param qmlContext QML context.
+ */
 void loadXMLFile(const QString & filePath, Project & project, QQmlContext & qmlContext)
 {
 	if (filePath.isEmpty()) {
@@ -57,6 +63,12 @@ void loadXMLFile(const QString & filePath, Project & project, QQmlContext & qmlC
 }
 }
 
+/**
+ * Main function.
+ * @param argc number of arguments passed to the program.
+ * @param argv list of arguments passed to the program.
+ * @return return code.
+ */
 int main(int argc, char * argv[])
 {
 	QCoreApplication::setOrganizationDomain(QString(CUTEHMI_VIEW_VENDOR).toLower());

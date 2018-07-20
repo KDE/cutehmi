@@ -11,9 +11,9 @@ cutehmi.Module {
 
 	vendor: "CuteHMI"
 
-	friendlyName: "Base"
+	friendlyName: "[Core]"
 
-	description: "Base module."
+	description: "Provides core functionality to other modules."
 
 	author: "Michal Policht"
 
@@ -84,6 +84,7 @@ cutehmi.Module {
 	Depends { name: "Qt.qml" }
 
 	Depends { name: "cutehmi.doxygen" }
+	cutehmi.doxygen.warnIfUndocumented: false
 
 	Export {
 		Depends { name: "Qt.core" }

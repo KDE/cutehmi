@@ -7,6 +7,14 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(modbusHeaderProbe.path)
 
+	property bool found: libmodbusProbe.found && modbusHeaderProbe.found
+
+	property bool available: found
+
+	property string libmodbusPath: libmodbusProbe.filePath
+
+	property string includePath: modbusHeaderProbe.path
+
 	Properties {
 		condition: qbs.targetOS.contains("windows")
 		cpp.dynamicLibraries: ["libmodbus-5"]
@@ -16,14 +24,6 @@ Module {
 		condition: qbs.targetOS.contains("linux")
 		cpp.dynamicLibraries: ["modbus"]
 	}
-
-	property bool found: libmodbusProbe.found && modbusHeaderProbe.found
-
-	property bool available: found
-
-	property string libmodbusPath: libmodbusProbe.filePath
-
-	property string includePath: modbusHeaderProbe.path
 
 	Probes.PathProbe {
 		id: libmodbusProbe

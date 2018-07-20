@@ -36,7 +36,7 @@ class CUTEHMI_MODBUS_API DiscreteInput:
 		 * Update value.
 		 * @param value new value.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void updateValue(bool value);
 

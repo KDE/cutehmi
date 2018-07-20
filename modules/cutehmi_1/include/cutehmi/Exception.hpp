@@ -8,6 +8,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Exception.
+ */
 class CUTEHMI_API Exception:
 	public QException
 {

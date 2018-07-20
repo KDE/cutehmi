@@ -13,3 +13,4 @@ GENERATE_LATEX = NO
 GENERATE_TREEVIEW = YES
 QUIET = YES
 GENERATE_TAGFILE = "doxygen.tag"
+LAYOUT_FILE = ../../doc/layout/RecipesLayout.xml

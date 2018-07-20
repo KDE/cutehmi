@@ -66,12 +66,7 @@ class CUTEHMI_XML_API ProjectBackend:
 		 */
 		ProjectBackend(QIODevice * device, QQmlContext * qmlContext);
 
-		/**
-		 * Load project.
-		 * @param pluginLoader plugin loader.
-		 * @param rootNode root project model node.
-		 */
-		void load(const ProjectPluginLoader & pluginLoader, ProjectNode & rootNode) noexcept(false);
+		void load(const ProjectPluginLoader & pluginLoader, ProjectNode & rootNode) noexcept(false) override;
 
 //		void save(QIODevice * device);
 

@@ -4,8 +4,8 @@
 namespace cutehmi {
 
 /**
- * Non-copyable object. This class just locks copy constructor and assignment operator for
- * derived classes.
+ * Non-copyable object. This class just locks copy constructor and assignment
+ * operator for derived classes.
  */
 class NonCopyable
 {

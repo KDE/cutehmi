@@ -17,7 +17,13 @@ class ProjectNode;
 namespace internal { class PluginLoader; }
 
 /**
- * Project plugin loader. Objects of this class can not be instantiated directly.
+ * %Project plugin loader.
+ *
+ * Objects of this class can not be instantiated directly. Instance of
+ * ProjectPluginLoader is passed to the class implementing IProjectBackend
+ * interface.
+ *
+ * @internal Internally it can be instantiated by Project class.
  */
 class CUTEHMI_API ProjectPluginLoader
 {

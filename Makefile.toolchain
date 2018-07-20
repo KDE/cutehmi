@@ -47,25 +47,31 @@ $(CD) $(SH):
 
 # Coreutils
 
+BASENAME = basename
 CAT = cat
 CUT = cut
 CP = cp
 DIRNAME = dirname
 ECHO = echo
+MKDIR = mkdir
 MV = mv
 RM = rm
 TR = tr
+SORT = sort
 STAT = stat
 TOUCH = touch
 
-$(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MV) $(RM) $(TR) $(STAT) $(TOUCH):
+$(BASENAME) $(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MKDIR) $(MV) $(RM) $(TR) \
+$(SORT) $(STAT) $(TOUCH):
 
 
 # Findutils
 
 FIND = find
+OLDFIND = oldfind
+XARGS = xargs
 
-$(FIND):
+$(FIND) $(OLDFIND) $(XARGS):
 
 
 # Grep
@@ -86,6 +92,12 @@ $(MAKE):
 SED = sed
 
 $(SED):
+
+# wget.
+
+WGET = wget
+
+$(WGET):
 
 
 # Qt programs are assumed to be in PATH.

@@ -7,16 +7,6 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(zlibHeaderProbe.path)
 
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["zlib1"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-        cpp.dynamicLibraries: ["z"]
-	}
-
 	property bool found: zlibProbe.found && zlibHeaderProbe.found
 
 	property bool available: found
@@ -24,6 +14,16 @@ Module {
 	property string zlibPath: zlibProbe.filePath
 
 	property string includePath: zlibHeaderProbe.path
+
+	Properties {
+		condition: qbs.targetOS.contains("windows")
+		cpp.dynamicLibraries: ["zlib1"]
+	}
+
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.dynamicLibraries: ["z"]
+	}
 
 	Probes.PathProbe {
 		id: zlibProbe

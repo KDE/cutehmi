@@ -15,7 +15,7 @@ cutehmi.Tool {
 
 	friendlyName: "View"
 
-	description: "Client application, which allows for opening and viewing CuteHMI projects."
+	description: "Client, GUI application, which allows one to run CuteHMI project in a window."
 
 	author: "Michal Policht"
 
@@ -24,6 +24,7 @@ cutehmi.Tool {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
+        "README.md",
         "resources.qrc",
         "resources.rc",
         "src/main.cpp",
@@ -37,6 +38,8 @@ cutehmi.Tool {
 
 	Depends { name: "cutehmi_app_1" }
 	cutehmi_app_1.reqMinor: 0
+
+	Depends { name: "cutehmi.doxygen" }
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.

@@ -12,6 +12,9 @@
 
 namespace cutehmi {
 
+/**
+ * %Plugin.
+ */
 class CUTEHMI_API Plugin:
 	public QObject
 {

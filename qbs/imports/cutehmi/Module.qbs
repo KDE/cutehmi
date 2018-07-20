@@ -7,7 +7,7 @@ CommonProduct {
 
 	cutehmiType: "module"
 
-	cpp.defines: [baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"]
+	cpp.defines: base.concat([baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"])
 
 	baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
 

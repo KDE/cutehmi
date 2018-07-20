@@ -10,7 +10,7 @@ namespace plugin {
 void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> servicesNodeData(new PluginNodeData);
-	node.addExtension(servicesNodeData->serviceRegistry());
+	node.registerExtension(servicesNodeData->serviceRegistry());
 	node.data().append(std::move(servicesNodeData));
 }
 

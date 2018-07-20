@@ -15,10 +15,10 @@ namespace modbus {
 /**
  * Modbus holding register. This class represents Modbus holding registers.
  * According to Modbus specification each holding register holds 16 bit data.
- * Objects of this class act as a convenient proxy between instances of QML HoldingRegisterItem and Client.
- * Methods of this class are thread-safe.
+ * Objects of this class act as a convenient proxy between instances of QML
+ * HoldingRegisterItem and Client. Methods of this class are thread-safe.
  *
- * @note to make this class accessible from QML it must inherit after QObject,
+ * @note To make this class accessible from QML it must inherit after QObject,
  * thus keep in mind that this class is relatively heavy.
  */
 class CUTEHMI_MODBUS_API HoldingRegister:
@@ -58,7 +58,7 @@ class CUTEHMI_MODBUS_API HoldingRegister:
 		 * Update value.
 		 * @param value new value.
 		 *
-		 * @note this function is thread-safe.
+		 * @threadsafe
 		 */
 		void updateValue(uint16_t value);
 

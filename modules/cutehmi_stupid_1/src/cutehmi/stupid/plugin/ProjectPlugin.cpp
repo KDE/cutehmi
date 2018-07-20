@@ -21,7 +21,7 @@ namespace plugin {
 void ProjectPlugin::init(ProjectNode & node)
 {
 	std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
-	node.addExtension(pluginNodeData->xmlBackendPlugin());
+	node.registerExtension(pluginNodeData->xmlBackendPlugin());
 	node.data().append(std::move(pluginNodeData));
 }
 
@@ -110,9 +110,9 @@ void ProjectPlugin::parseStupid(const xml::ParseHelper & parentHelper, ProjectNo
 		service.reset(new Service(name, client.get()));
 		service->setSleep(serviceSleep);
 
-		ProjectNode * stupidNode = node.addChild(id, ProjectNodeData(name));
-		stupidNode->addExtension(client.get());
-		stupidNode->addExtension(service.get());
+		ProjectNode * stupidNode = node.appendChild(id, ProjectNodeData(name));
+		stupidNode->registerExtension(client.get());
+		stupidNode->registerExtension(service.get());
 
 		if (node.root()->child("cutehmi_services_1")) {
 			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));

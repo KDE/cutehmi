@@ -9,11 +9,18 @@
 namespace cutehmi {
 
 /**
- * Project plugin interface.
+ * %Project plugin interface.
  */
 class CUTEHMI_API IProjectPlugin
 {
 	public:
+		/**
+		 * Initialize plugin.
+		 * @param node node of the plugin. Each plugin receives its own node in
+		 * a project tree. %Plugin is free to use this node for its own purposes.
+		 * It can register extensions, put some data into it or append child
+		 * nodes. The node will live as long as a plugin inside a project tree.
+		 */
 		virtual void init(ProjectNode & node) = 0;
 
 	protected:

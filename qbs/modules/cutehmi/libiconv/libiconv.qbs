@@ -7,16 +7,6 @@ Module {
 
 	cpp.includePaths: FileInfo.cleanPath(iconvHeaderProbe.path)
 
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libiconv-2"]
-	}
-
-	Properties {
-        condition: qbs.targetOS.contains("linux") && found
-		cpp.dynamicLibraries: ["iconv"]
-	}
-
 	property bool found: libiconvProbe.found && iconvHeaderProbe.found
 
 	property bool available: found
@@ -24,6 +14,16 @@ Module {
 	property string libiconvPath: libiconvProbe.filePath
 
 	property string includePath: iconvHeaderProbe.path
+
+	Properties {
+		condition: qbs.targetOS.contains("windows")
+		cpp.dynamicLibraries: ["libiconv-2"]
+	}
+
+	Properties {
+		condition: qbs.targetOS.contains("linux") && found
+		cpp.dynamicLibraries: ["iconv"]
+	}
 
 	Probes.PathProbe {
 		id: libiconvProbe

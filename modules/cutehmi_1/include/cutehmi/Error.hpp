@@ -55,7 +55,7 @@ struct CUTEHMI_API Error
 		 * its own error descriptions.
 		 * @return error message.
 		 *
-		 * @note this function is non-virtual. When calling this function on down-casted
+		 * @note This function is non-virtual. When calling this function on down-casted
 		 * instance of derived class, it may not recognize error code and return
 		 * generic message.
 		 */

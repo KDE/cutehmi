@@ -13,7 +13,8 @@ class QIODevice;
 namespace cutehmi {
 
 /**
- * Project. Encapsulates objects related to a project and provides neat interface to deal with projects.
+ * %Project. Encapsulates objects related to a project and provides neat
+ * interface to deal with projects.
  */
 class CUTEHMI_API Project:
 	public QObject

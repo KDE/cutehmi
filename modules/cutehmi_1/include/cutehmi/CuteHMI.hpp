@@ -11,11 +11,13 @@
 namespace cutehmi {
 
 /**
- * %CuteHMI singleton. This is a cornerstone object, which acts as a bridge between various parts of the framework.
- * It exposes essential properties to frontend applications, plugins and QML components.
+ * %CuteHMI singleton. This is a cornerstone object, which acts as a bridge
+ * between various parts of the framework. It exposes essential properties to
+ * frontend applications, plugins and QML components.
  *
- * To retrieve singleton use Instance() function. Frontend applications may need to call Destroy() function to
- * satisfy destruction order requirements.
+ * To retrieve singleton use Instance() function. Frontend applications (tools)
+ * may need to call Destroy() function to satisfy destruction order
+ * requirements.
  */
 class CUTEHMI_API CuteHMI:
 	public QObject
@@ -57,7 +59,7 @@ class CUTEHMI_API CuteHMI:
 		 * QApplication has to be first created and last destroyed QObject.
 		 * Once this function is called singleton becomes unusable.
 		 *
-		 * @note only frontend applications, which instantiate QApplication should take care about
+		 * @note Only frontend applications, which instantiate QApplication should take care about
 		 * this function.
 		 */
 		static void Destroy();
@@ -90,7 +92,7 @@ class CUTEHMI_API CuteHMI:
 		 * Get instance pointer.
 		 * @return instance pointer.
 		 *
-		 * @note this is provided as a workaround (id="cutehmi_1-2").
+		 * @note This is provided as a workaround (id="cutehmi_1-2").
 		 */
 		static std::unique_ptr<CuteHMI> & InstancePtr();
 
