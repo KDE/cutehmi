@@ -13,7 +13,7 @@ namespace cutehmi {
 namespace xml {
 
 /**
- * Plugin interface.
+ * %XML backend plugin interface.
  */
 class CUTEHMI_XML_API IBackendPlugin
 {
