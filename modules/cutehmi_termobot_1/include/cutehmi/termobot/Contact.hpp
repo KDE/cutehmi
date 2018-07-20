@@ -6,7 +6,7 @@ namespace termobot {
 
 class Contact {
 public:
-  Contact() {}
+  Contact();
 };
 
 } // namespace termobot

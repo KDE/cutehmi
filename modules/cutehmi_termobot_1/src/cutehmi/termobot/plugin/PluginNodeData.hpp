@@ -16,11 +16,11 @@ public:
   xml::BackendPlugin *xmlBackendPlugin() const;
 
 private:
-  std::unique_ptr<xml::BackendPlugin> x_xmlBackendPlugin;
+  std::unique_ptr<xml::BackendPlugin> m_xmlBackendPlugin;
 };
 
 } // namespace plugin
 } // namespace termobot
 } // namespace cutehmi
 
-#endif // PLUGINNODEDATA_HPP
+#endif

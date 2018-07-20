@@ -21,16 +21,10 @@ cutehmi.Module {
 
 	license: "Mozzarella Public License, v. alpha"
 
-	files: [
-        "include/cutehmi/termobot/Contact.hpp",
-        "include/cutehmi/termobot/Email.hpp",
-        "include/cutehmi/termobot/PhoneNumber.hpp",
+    files: [
         "include/cutehmi/termobot/internal/common.hpp",
         "include/cutehmi/termobot/logging.hpp",
         "include/cutehmi/termobot/metadata.hpp",
-        "src/cutehmi/termobot/Contact.cpp",
-        "src/cutehmi/termobot/Email.cpp",
-        "src/cutehmi/termobot/PhoneNumber.cpp",
         "src/cutehmi/termobot/logging.cpp",
         "src/cutehmi/termobot/plugin/PluginNodeData.cpp",
         "src/cutehmi/termobot/plugin/PluginNodeData.hpp",
@@ -43,4 +37,7 @@ cutehmi.Module {
 
     Depends { name: "cutehmi_xml_1" }
     cutehmi_xml_1.reqMinor: 0
+
+//    Depends { name: "cutehmi_services_1" }
+//    cutehmi_services_1.reqMinor: 0
 }
