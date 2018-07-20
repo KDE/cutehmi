@@ -6,7 +6,7 @@
     <tab type="pages" visible="no" title="" intro=""/>
     <tab type="user" url="@ref modulesList" title="Modules"/>
     <tab type="user" url="@ref toolsList" title="Tools"/>
-    <tab type="user" url="@ref qmlList" title="QML modules"/>
+    <tab type="user" url="@ref qmlList" title="QML extensions"/>
     <tab type="modules" visible="yes" title="" intro=""/>
     <tab type="namespaces" visible="yes" title="">
       <tab type="namespacelist" visible="yes" title="" intro=""/>
