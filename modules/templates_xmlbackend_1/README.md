@@ -1,4 +1,4 @@
-# XML Backend Template
+# The Secret Order of Templates - XML Backend Template
 
 Minimal XML plugin, that can be used as a template for writing plugins.
 
