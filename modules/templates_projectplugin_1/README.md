@@ -105,6 +105,12 @@ of PluginNodeData is then appended to the default node data, which is kept
 inside a project tree.
 
 
+## Extended template
+
+This template can be used as a base to create plugins.
+[XML Backend Template](../templates_xmlbackend_1/) is provided for plugins that
+can be configured with XML project file.
+
 [src/templates/projectplugin/plugin/ProjectPlugin.hpp]: ../../modules/templates_projectplugin_1/src/templates/projectplugin/plugin/ProjectPlugin.hpp
 [src/templates/projectplugin/plugin/ProjectPlugin.cpp]: ../../modules/templates_projectplugin_1/src/templates/projectplugin/plugin/ProjectPlugin.cpp
 [src/templates/projectplugin/plugin/PluginNodeData.hpp]: ../../modules/templates_projectplugin_1/src/templates/projectplugin/plugin/PluginNodeData.hpp
