@@ -94,7 +94,7 @@ exception.
 
 
 
-### [src/templates/xmlbackend/plugin/ProjectNodeData.hpp]
+### [src/templates/xmlbackend/plugin/PluginNodeData.hpp]
 
 ```cpp
 public:
@@ -107,7 +107,7 @@ private:
 ```
 Plugin node data stores extension object.
 
-### [src/templates/xmlbackend/plugin/ProjectNodeData.cpp]
+### [src/templates/xmlbackend/plugin/PluginNodeData.cpp]
 
 ```cpp
 PluginNodeData::PluginNodeData(cutehmi::xml::IBackendPlugin * implementation):
@@ -121,7 +121,7 @@ cutehmi::xml::BackendPlugin * PluginNodeData::xmlBackendPlugin() const
 }
 ```
 Notice that a wrapping object cutehmi::xml::BackendPlugin is created in the
-constructor to keep `implementation`.
+constructor to store `implementation` object within it.
 
 [templates_xmlbackend_1.qbs]: ../../modules/templates_xmlbackend_1/templates_xmlbackend_1.qbs
 [src/templates/xmlbackend/plugin/ProjectPlugin.hpp]: ../../modules/templates_xmlbackend_1/src/templates/xmlbackend/plugin/ProjectPlugin.hpp
