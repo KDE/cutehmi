@@ -49,11 +49,12 @@ void ProjectPlugin::init(cutehmi::ProjectNode & node)
         node.data().append(std::move(pluginNodeData));
 }
 ```
-ProjectPlugin implements cutehmi::xml::IBackendPlugin interface, so `this`
-pointer is passed to an instance of PluginNodeData. PluginNodeData will create
-wrapping object belonging to cutehmi::xml::BackendPlugin class. This object can
-be retrieved via PluginNodeData::xmlBackendPlugin() function. The object is
-registered as an extension and classes belonging to
+ProjectPlugin implements cutehmi::xml::IBackendPlugin
+interface, so `this` pointer is passed to an instance of PluginNodeData.
+PluginNodeData will create wrapping object belonging to
+cutehmi::xml::BackendPlugin class. This object can be retrieved via
+templates::xmlbackend::PluginNodeData::xmlBackendPlugin()
+function. The object is registered as an extension and classes belonging to
 [cutehmi_xml_1](../cutehmi_xml_1/) module will recognize this extension and a
 portion of XML document will be given to the plugin to parse.
 
