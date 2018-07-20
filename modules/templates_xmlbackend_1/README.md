@@ -22,7 +22,7 @@ cutehmi_xml_1.reqMinor: 0
 Dependency on [cutehmi_xml_1](../cutehmi_xml_1/) module has been added.
 
 
-### [src/templates/projectplugin/plugin/ProjectPlugin.hpp]
+### [src/templates/xmlbackend/plugin/ProjectPlugin.hpp]
 
 ```cpp
     public cutehmi::xml::IBackendPlugin
@@ -39,7 +39,7 @@ There are two additional functions, which belong to cutehmi::xml::IBackendPlugin
 interface.
 
 
-### [src/templates/projectplugin/plugin/ProjectPlugin.cpp]
+### [src/templates/xmlbackend/plugin/ProjectPlugin.cpp]
 
 ```cpp
 void ProjectPlugin::init(cutehmi::ProjectNode & node)
@@ -94,7 +94,7 @@ exception.
 
 
 
-### [src/templates/projectplugin/plugin/ProjectNodeData.hpp]
+### [src/templates/xmlbackend/plugin/ProjectNodeData.hpp]
 
 ```cpp
 public:
@@ -107,7 +107,7 @@ private:
 ```
 Plugin node data stores extension object.
 
-### [src/templates/projectplugin/plugin/ProjectNodeData.cpp]
+### [src/templates/xmlbackend/plugin/ProjectNodeData.cpp]
 
 ```cpp
 PluginNodeData::PluginNodeData(cutehmi::xml::IBackendPlugin * implementation):
@@ -122,3 +122,9 @@ cutehmi::xml::BackendPlugin * PluginNodeData::xmlBackendPlugin() const
 ```
 Notice that a wrapping object cutehmi::xml::BackendPlugin is created in the
 constructor to keep `implementation`.
+
+[templates_xmlbackend_1.qbs]: ../../modules/templates_xmlbackend_1/templates_xmlbackend_1.qbs
+[src/templates/xmlbackend/plugin/ProjectPlugin.hpp]: ../../modules/templates_xmlbackend_1/src/templates/xmlbackend/plugin/ProjectPlugin.hpp
+[src/templates/xmlbackend/plugin/ProjectPlugin.cpp]: ../../modules/templates_xmlbackend_1/src/templates/xmlbackend/plugin/ProjectPlugin.cpp
+[src/templates/xmlbackend/plugin/PluginNodeData.hpp]: ../../modules/templates_xmlbackend_1/src/templates/xmlbackend/plugin/PluginNodeData.hpp
+[src/templates/xmlbackend/plugin/PluginNodeData.cpp]: ../../modules/templates_xmlbackend_1/src/templates/xmlbackend/plugin/PluginNodeData.cpp
