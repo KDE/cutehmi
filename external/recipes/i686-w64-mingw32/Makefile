@@ -17,6 +17,9 @@ all: | $(MAKE)
 	$(MAKE) -C libssh
 	$(MAKE) -C postgresql
 	$(MAKE) -C libmodbus
+	$(MAKE) -C libssh2
+	$(MAKE) -C pkg-config-lite
+	$(MAKE) -C libgit2
 
 clean: mostlyclean | $(RM)
 	$(RM) -Rf $(SOURCE_DIR)
