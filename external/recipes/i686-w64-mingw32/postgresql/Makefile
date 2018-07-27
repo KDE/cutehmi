@@ -57,8 +57,9 @@ include ../Makefile.deploy
 buildinstall $(PRODUCT_LIB_FILES_INSTALL) $(PRODUCT_INCLUDE_FILES_INSTALL): $(PRODUCT_BUILD_TXT_PATH) | $(CD) $(MAKE)
 	$(CD) $(PRODUCT_BUILD_DIR) && $(MAKE) -j 1 install
 
+# Parallel build freezes for some reason, so disable it.
 build $(PRODUCT_BUILD_TXT_PATH): $(PRODUCT_BUILD_DIR)/GNUmakefile | $(CD) $(MAKE) $(TEE) $(CMD) $(PERL)
-	$(CD) $(PRODUCT_BUILD_DIR) && $(MAKE) -j $(MAKE_BUILD_JOBS) 2>&1 | $(TEE) $(PRODUCT_BUILD_TXT_PATH)
+	$(CD) $(PRODUCT_BUILD_DIR) && $(MAKE) -j 1 2>&1 | $(TEE) $(PRODUCT_BUILD_TXT_PATH)
 
 buildconfigure $(PRODUCT_BUILD_DIR)/GNUmakefile: $(PRODUCT_BUILD_DIR)/configure \
 		$(LIBICONV_INSTALL_DIR) \
