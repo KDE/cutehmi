@@ -9,9 +9,10 @@ Project {
 		"cutehmi_modbus_1",
 		"cutehmi_services_1",
 		"cutehmi_stupid_1",
-        "cutehmi_xml_1",
-        "cutehmi_termobot_1",
-        "templates_minimal_1",
-        "templates_projectplugin_1"
+		"cutehmi_xml_1",
+		"cutehmi_termobot_1",
+		"templates_minimal_1",
+		"templates_projectplugin_1",
+		"templates_xmlbackend_1"
 	]
 }

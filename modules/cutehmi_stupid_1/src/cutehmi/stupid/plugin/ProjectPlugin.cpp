@@ -39,7 +39,7 @@ void ProjectPlugin::readXML(QXmlStreamReader & xmlReader, ProjectNode & node)
 		if (xmlReader.name() == "cutehmi_stupid_1") {
 			xml::ParseHelper nodeHelper(& helper);
 			nodeHelper << xml::ParseElement("stupid", {xml::ParseAttribute("id"),
-															 xml::ParseAttribute("name")}, 0);
+													   xml::ParseAttribute("name")}, 0);
 			while (nodeHelper.readNextRecognizedElement()) {
 				if (xmlReader.name() == "stupid")
 					parseStupid(nodeHelper, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());

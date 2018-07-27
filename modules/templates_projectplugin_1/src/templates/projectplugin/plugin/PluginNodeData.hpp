@@ -14,7 +14,10 @@ class PluginNodeData:
     public cutehmi::DataBlock
 {
 	public:
-        PluginNodeData();   // Edit! Provide custom constructor if necessary.
+		/**
+		 * Default constructor.
+		 */
+		PluginNodeData();   // Edit! Provide custom constructor if necessary.
 
 //		YourData * yourData() const;            // Edit! Provide your own methods as necessary.
 
