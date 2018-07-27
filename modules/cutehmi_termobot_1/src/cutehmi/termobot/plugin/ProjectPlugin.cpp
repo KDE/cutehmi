@@ -1,24 +1,29 @@
-//#include "../../../../include/cutehmi/termobot/Service.hpp"
 #include "../../../../include/cutehmi/termobot/internal/common.hpp"
 
-//#include <cutehmi/services/ServiceRegistry.hpp>
-
 #include <cutehmi/Exception.hpp>
+#include <cutehmi/services/ServiceRegistry.hpp>
 
 #include "PluginNodeData.hpp"
 #include "ProjectPlugin.hpp"
+#include "TermobotNodeData.hpp"
+#include "../DatabaseConnectionData.hpp"
+#include "../DatabaseThread.hpp"
+#include "../../../../include/cutehmi/termobot/ContactsModel.hpp"
+#include "../Service.hpp"
 
 namespace cutehmi {
 namespace termobot {
 namespace plugin {
 
-void ProjectPlugin::init(ProjectNode &node) {
+void ProjectPlugin::init(ProjectNode &node)
+{
     std::unique_ptr<PluginNodeData> pluginNodeData(new PluginNodeData(this));
     node.registerExtension(pluginNodeData->xmlBackendPlugin());
     node.data().append(std::move(pluginNodeData));
 }
 
-void ProjectPlugin::readXML(QXmlStreamReader &xmlReader, ProjectNode &node) {
+void ProjectPlugin::readXML(QXmlStreamReader &xmlReader, ProjectNode &node)
+{
   CUTEHMI_LOG_DEBUG("Plugin " CUTEHMI_TERMOBOT_NAME " starts parsing its own "
                     "portion of document...");
 
@@ -32,33 +37,29 @@ void ProjectPlugin::readXML(QXmlStreamReader &xmlReader, ProjectNode &node) {
     while (helper.readNextRecognizedElement()) {
       if (xmlReader.name() == "cutehmi_termobot_1") {
         xml::ParseHelper nodeHelper(&helper);
-        nodeHelper << xml::ParseElement(
-            "termobot", {xml::ParseAttribute("id"),
-            xml::ParseAttribute("name")}, 0);
+        nodeHelper << xml::ParseElement("termobot", {xml::ParseAttribute("id"), xml::ParseAttribute("name")}, 0);
         while (nodeHelper.readNextRecognizedElement()) {
           if (xmlReader.name() == "termobot")
-            parseTermobot(nodeHelper, node,
-                          xmlReader.attributes().value("id").toString());
+            parseTermobot(nodeHelper, node, xmlReader.attributes().value("id").toString(), xmlReader.attributes().value("name").toString());
         }
       }
     }
 }
 
-void ProjectPlugin::writeXML(QXmlStreamWriter &xmlWriter,
-                             ProjectNode &node) const noexcept(false) {
+void ProjectPlugin::writeXML(QXmlStreamWriter &xmlWriter, ProjectNode &node) const noexcept(false)
+{
   Q_UNUSED(xmlWriter);
   Q_UNUSED(node);
   throw Exception(
       "cutehmi::termobot::plugin::Plugin::writeXML() not implemented yet.");
 }
 
-void ProjectPlugin::parseTermobot(const xml::ParseHelper &parentHelper,
-                                  ProjectNode &node, const QString &name) {
+void ProjectPlugin::parseTermobot(const xml::ParseHelper &parentHelper, ProjectNode &node, const QString & id, const QString &name)
+{
     xml::ParseHelper helper(&parentHelper);
     helper << xml::ParseElement("client", 1, 1);
 
-//    std::unique_ptr<Service> service;
-    //  std::unique_ptr<DatabaseConnectionData> dbData;
+    std::unique_ptr<DatabaseConnectionData> databaseConnectionData;
 
     const QXmlStreamReader &xmlReader = helper.xmlReader();
     while (helper.readNextRecognizedElement()) {
@@ -74,16 +75,42 @@ void ProjectPlugin::parseTermobot(const xml::ParseHelper &parentHelper,
                 "dbms", {xml::ParseAttribute("name", "PostgreSQL")}, 1, 1);
             while (sessionHelper.readNextRecognizedElement()) {
               if (xmlReader.name() == "dbms") {
-                  parsePostgres(sessionHelper);
+                  databaseConnectionData.reset(new DatabaseConnectionData);
+                  databaseConnectionData->connectionName = id;
+				  if (xmlReader.attributes().value("name") == "PostgreSQL") {
+					  databaseConnectionData->type = "QPSQL";
+					  parsePostgres(sessionHelper, *databaseConnectionData);
+				  }
               }
             }
           }
         }
       }
     }
+
+	if (!xmlReader.hasError()) {
+		ProjectNode * termobotNode = node.appendChild(id, ProjectNodeData(name));
+
+		std::unique_ptr<DatabaseThread> databaseThread(new DatabaseThread(std::move(databaseConnectionData)));
+
+		std::unique_ptr<Service> service(new Service(name, databaseThread.get()));
+
+		if (node.root()->child("cutehmi_services_1")) {
+			services::ServiceRegistry * serviceRegistry = qobject_cast<services::ServiceRegistry *>(node.root()->child("cutehmi_services_1")->extension(services::ServiceRegistry::staticMetaObject.className()));
+			CUTEHMI_ASSERT(serviceRegistry != nullptr, "pointer must not be nullptr");
+			serviceRegistry->add(service.get());
+		} else
+			CUTEHMI_LOG_WARNING("Plugin 'cutehmi_services_1' not available.");
+
+		std::unique_ptr<TermobotNodeData> termobotNodeData(new TermobotNodeData(std::move(service), std::move(databaseThread)));
+        termobotNode->registerExtension(termobotNodeData->contactsModel());
+
+        termobotNode->data().append(std::move(termobotNodeData));
+    }
 }
 
-void ProjectPlugin::parsePostgres(const xml::ParseHelper &parentHelper) {
+void ProjectPlugin::parsePostgres(const xml::ParseHelper &parentHelper, DatabaseConnectionData & databaseConnectionData)
+{
     xml::ParseHelper helper(&parentHelper);
     helper << xml::ParseElement("postgresql", 1, 1);
 
@@ -99,15 +126,20 @@ void ProjectPlugin::parsePostgres(const xml::ParseHelper &parentHelper) {
 
             while (postgresqlHelper.readNextRecognizedElement()) {
                 if (xmlReader.name() == "host")
-                    CUTEHMI_LOG_DEBUG("host: '" + helper.readElementText() + "'");
-                else if (xmlReader.name() == "port")
-                    CUTEHMI_LOG_DEBUG("port: '" + helper.readElementText() + "'");
+                    databaseConnectionData.hostName = helper.readElementText();
+                else if (xmlReader.name() == "port") {
+                    bool ok;
+                    int port =  helper.readElementText().toInt(&ok);
+                    if (!ok)
+                        helper.raiseError(QObject::tr("Could not convert 'port' data to integer."));
+                    databaseConnectionData.port = port;
+                }
                 else if (xmlReader.name() == "name")
-                    CUTEHMI_LOG_DEBUG("name: '" + helper.readElementText() + "'");
+                    databaseConnectionData.databaseName = helper.readElementText();
                 else if (xmlReader.name() == "user")
-                    CUTEHMI_LOG_DEBUG("user: '" + helper.readElementText() + "'");
+                    databaseConnectionData.userName = helper.readElementText();
                 else if (xmlReader.name() == "password")
-                    CUTEHMI_LOG_DEBUG("password: '" + helper.readElementText() + "'");
+                    databaseConnectionData.password = helper.readElementText();
             }
         }
     }

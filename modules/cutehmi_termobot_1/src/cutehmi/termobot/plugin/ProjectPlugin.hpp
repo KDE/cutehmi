@@ -3,6 +3,8 @@
 
 #include "../../../../cutehmi.metadata.hpp"
 
+#include "../DatabaseConnectionData.hpp"
+
 #include <cutehmi/xml/IBackendPlugin.hpp>
 #include <cutehmi/xml/ParseHelper.hpp>
 #include <cutehmi/IProjectPlugin.hpp>
@@ -33,8 +35,8 @@ public:
       noexcept(false); // override;
 
 private:
-  void parseTermobot(const xml::ParseHelper &parentHelper, ProjectNode &node, const QString &name);
-  void parsePostgres(const xml::ParseHelper &parentHelper);
+  void parseTermobot(const xml::ParseHelper &parentHelper, ProjectNode &node, const QString &id, const QString &name);
+  void parsePostgres(const xml::ParseHelper &parentHelper, DatabaseConnectionData & databaseConnectionData);
 };
 
 } // namespace plugin
