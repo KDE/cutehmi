@@ -19,7 +19,7 @@ cutehmi.Module {
 
 	copyright: "Wojciech Zygmuntowicz"
 
-	license: "Mozzarella Public License, v. alpha"
+    license: "Mozilla Public License, v. 2.0"
 
     files: [
         "include/cutehmi/termobot/ContactsModel.hpp",
@@ -55,3 +55,6 @@ cutehmi.Module {
     Depends { name: "cutehmi_services_1" }
     cutehmi_services_1.reqMinor: 0
 }
+
+//(c)WZ: Copyright © 2018, Wojciech Zygmuntowicz. All rights reserved.
+//(c)WZ: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
