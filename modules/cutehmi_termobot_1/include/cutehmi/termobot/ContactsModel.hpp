@@ -29,12 +29,23 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
 		bool busy() const;
 
-//      read implementation
-		QVariant data(const QModelIndex &index, int role) const override;
+		// read implementation
+		QVariant data(const QModelIndex & index, int role) const override;
 
-		int rowCount(const QModelIndex &parent) const override;
+		int rowCount(const QModelIndex & parent) const override;
 
-		bool removeRows(int row, int count, const QModelIndex &parent) override;
+		// update implementation
+		Q_INVOKABLE bool update(const QString & nick, const QString & newNick, const QString & newFirstName, const QString & lastName, const bool & newActive);
+
+//		bool setData(const QModelIndex & index, const QVariant & value, int role) override;
+
+		Qt::ItemFlags flags(const QModelIndex & index) const override;
+
+		// delete implementation
+		Q_INVOKABLE bool remove(QString nick);
+
+		// create implementation
+		Q_INVOKABLE bool insert(QString nick, QString firstName, QString lastName, bool enabled);
 
         QHash<int, QByteArray> roleNames() const override;
 
@@ -59,6 +70,21 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
 		typedef QList<ContactTuple> ContactsContainer;
 
+		class CreateWorker:
+				public Worker
+		{
+			public:
+				CreateWorker(DatabaseThread & databaseThread);
+
+				void job() override;
+
+				void contact(std::unique_ptr<ContactTuple> newContact);
+
+			private:
+				QString m_connectionName;
+				std::unique_ptr<ContactTuple> m_contact;
+		};
+
 		class ReadWorker:
 				public Worker
 		{
@@ -74,6 +100,46 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 				ContactsContainer m_contacts;
 		};
 
+		class UpdateWorker:
+				public Worker
+		{
+			public:
+				UpdateWorker(DatabaseThread & databaseThread);
+
+				void job() override;
+
+				const ContactTuple & contact() const;
+
+				void contact(std::unique_ptr<ContactTuple> newContact);
+
+				void nick(const QString & newNick);
+
+				const int & changedRow() const;
+
+				void changedRow(const int & newRow);
+
+			private:
+				int m_changedRow;
+				QString m_connectionName;
+				QString m_nick;
+				std::unique_ptr<ContactTuple> m_contact;
+		};
+
+		class DeleteWorker:
+				public Worker
+		{
+			public:
+				DeleteWorker(DatabaseThread & databaseThread);
+
+				void job() override;
+
+				void nick(const QString & newNick);
+
+			private:
+				QString m_connectionName;
+				QString m_nick;
+		};
+
 		class WorkingCounter
 		{
 			public:
@@ -85,9 +151,9 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
 				operator bool() const;
 
+				int m_counter;
 			private:
 				std::function<void()> m_busyChanged;
-				int m_counter;
 		};
 
         struct Members
@@ -95,7 +161,10 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
             QHash<int, QByteArray> roleNames;
 			DatabaseThread * databaseThread;
 			ContactsContainer contactsContainer;
+			mutable CreateWorker createWorker;
 			mutable ReadWorker readWorker;
+			mutable UpdateWorker updateWorker;
+			mutable DeleteWorker deleteWorker;
 			mutable WorkingCounter workingCounter;
         };
 
