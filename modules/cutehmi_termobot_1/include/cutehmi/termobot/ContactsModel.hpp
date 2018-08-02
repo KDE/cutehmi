@@ -158,6 +158,7 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
         struct Members
         {
+			bool modelIsResetting;
             QHash<int, QByteArray> roleNames;
 			DatabaseThread * databaseThread;
 			ContactsContainer contactsContainer;

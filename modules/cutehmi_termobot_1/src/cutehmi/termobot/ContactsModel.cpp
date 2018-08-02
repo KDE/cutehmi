@@ -9,7 +9,7 @@ namespace cutehmi {
 namespace termobot {
 
 ContactsModel::ContactsModel(DatabaseThread * databaseThread):
-	m(new Members{QAbstractListModel::roleNames(), databaseThread, {}, {*databaseThread}, {*databaseThread}, {*databaseThread}, {*databaseThread}, {std::bind(& ContactsModel::busyChanged, this)}})
+	m(new Members{false, QAbstractListModel::roleNames(), databaseThread, {}, {*databaseThread}, {*databaseThread}, {*databaseThread}, {*databaseThread}, {std::bind(& ContactsModel::busyChanged, this)}})
 {
     m->roleNames[static_cast<int>(Role::Nick)] = "nick";
     m->roleNames[static_cast<int>(Role::FirstName)] = "firstName";
@@ -24,8 +24,10 @@ ContactsModel::ContactsModel(DatabaseThread * databaseThread):
 	connect(& m->readWorker, & ReadWorker::ready, this, [this]() {
 		if (m->contactsContainer.length() != m->readWorker.contacts().length()) {
 			beginResetModel();
+			m->modelIsResetting = true;
 			m->contactsContainer = m->readWorker.contacts();
 			endResetModel();
+			m->modelIsResetting = false;
 		}
 		--m->workingCounter;
 	});
@@ -74,16 +76,19 @@ int ContactsModel::rowCount(const QModelIndex & parent) const
 {
 	Q_UNUSED(parent);
 
-	if (!m->databaseThread->isRunning()) {
-		CUTEHMI_LOG_WARNING("Ignoring request, because database thread is not running.");
-		return m->contactsContainer.count();
-	}
+	CUTEHMI_LOG_DEBUG("entering rowCount");
 
-	if (!m->readWorker.isWorking()) {
+
+	if (m->readWorker.isWorking())
+		CUTEHMI_LOG_WARNING("Ignoring request, because worker has not finished its previous job yet.");
+	else if (m->modelIsResetting)
+		CUTEHMI_LOG_WARNING("Ignoring request, because model is being reset.");
+	else if (!m->databaseThread->isRunning())
+		CUTEHMI_LOG_WARNING("Ignoring request, because database thread is not running.");
+	else {
 		++m->workingCounter;
 		m->readWorker.work();
-	} else
-		CUTEHMI_LOG_WARNING("Ignoring request, because worker has not finished its previous job yet.");
+	}
 
 	return m->contactsContainer.count();
 }
