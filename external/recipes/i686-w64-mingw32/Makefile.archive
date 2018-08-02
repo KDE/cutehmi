@@ -1,4 +1,4 @@
-archive $(PRODUCT_ARCHIVE_PATH): | $(MKDIR) $(CD) $(WGET) $(SH)
+archive $(PRODUCT_ARCHIVE_PATH): | doublequotes_bug_check $(MKDIR) $(CD) $(WGET) $(SH)
 	$(MKDIR) -p $(PRODUCT_ARCHIVE_DIR)
 	$(CD) $(PRODUCT_ARCHIVE_DIR) && $(WGET) --no-check-certificate $(PRODUCT_ARCHIVE_URL)
 

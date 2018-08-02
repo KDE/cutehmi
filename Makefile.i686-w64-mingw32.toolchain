@@ -262,7 +262,7 @@ msys-gzip-bin $(GZIP): | $(MINGW_GET)
 msys-less-bin $(LESS) $(LESSECHO) $(LESSKEY): | $(MINGW_GET)
 	$(MINGW_GET) install msys-less-bin
 	
-msys-make-bin $(MAKE): | doublequotes_bug_check $(MINGW_GET)
+msys-make-bin $(MAKE): | $(MINGW_GET)
 	$(MINGW_GET) install msys-make-bin
 
 msys-patch-bin $(PATCH): | $(MINGW_GET)

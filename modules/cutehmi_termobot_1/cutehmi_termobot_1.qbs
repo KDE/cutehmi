@@ -5,6 +5,8 @@ import cutehmi
 cutehmi.Module {
 	name: "cutehmi_termobot_1"
 
+	condition: cutehmi.libpq.available
+
 	minor: 0
 
 	micro: 0
