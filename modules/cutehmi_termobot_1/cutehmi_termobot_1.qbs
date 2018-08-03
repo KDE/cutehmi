@@ -25,6 +25,7 @@ cutehmi.Module {
 
     files: [
         "include/cutehmi/termobot/ContactsModel.hpp",
+        "include/cutehmi/termobot/internal/WorkingCounter.hpp",
         "include/cutehmi/termobot/internal/common.hpp",
         "include/cutehmi/termobot/logging.hpp",
         "include/cutehmi/termobot/metadata.hpp",
@@ -34,6 +35,7 @@ cutehmi.Module {
         "src/cutehmi/termobot/DatabaseThread.hpp",
         "src/cutehmi/termobot/Service.cpp",
         "src/cutehmi/termobot/Service.hpp",
+        "src/cutehmi/termobot/internal/WorkingCounter.cpp",
         "src/cutehmi/termobot/logging.cpp",
         "src/cutehmi/termobot/plugin/PluginNodeData.cpp",
         "src/cutehmi/termobot/plugin/PluginNodeData.hpp",

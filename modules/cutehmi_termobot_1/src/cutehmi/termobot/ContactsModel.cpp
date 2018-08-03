@@ -377,36 +377,6 @@ void ContactsModel::DeleteWorker::nick(const QString &newNick)
 	m_nick = newNick;
 }
 
-ContactsModel::WorkingCounter::WorkingCounter(std::function<void ()> busyChanged):
-	m_counter(0),
-	m_busyChanged(busyChanged)
-{
-}
-
-
-ContactsModel::WorkingCounter & ContactsModel::WorkingCounter::operator ++()
-{
-	m_counter++;
-	if (m_counter == 1)
-		emit m_busyChanged();
-
-	return *this;
-}
-
-ContactsModel::WorkingCounter & ContactsModel::WorkingCounter::operator --()
-{
-	m_counter--;
-	if (m_counter == 0)
-		emit m_busyChanged();
-
-	return *this;
-}
-
-ContactsModel::WorkingCounter::operator bool() const
-{
-	return static_cast<bool>(m_counter);
-}
-
 }
 }
 

@@ -2,6 +2,7 @@
 #define H_MODULES_CUTEHMI__TERMOBOT__1_INCLUDE_CUTEHMI_TERMOBOT_CONTACTSMODEL_HPP
 
 #include "internal/common.hpp"
+#include "internal/WorkingCounter.hpp"
 
 #include "../../../src/cutehmi/termobot/DatabaseThread.hpp"
 
@@ -140,22 +141,6 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 				QString m_nick;
 		};
 
-		class WorkingCounter
-		{
-			public:
-				WorkingCounter(std::function<void()> busyChanged);
-
-				WorkingCounter & operator ++();
-
-				WorkingCounter & operator --();
-
-				operator bool() const;
-
-				int m_counter;
-			private:
-				std::function<void()> m_busyChanged;
-		};
-
         struct Members
         {
 			bool modelIsResetting;
@@ -166,7 +151,7 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 			mutable ReadWorker readWorker;
 			mutable UpdateWorker updateWorker;
 			mutable DeleteWorker deleteWorker;
-			mutable WorkingCounter workingCounter;
+			mutable internal::WorkingCounter workingCounter;
         };
 
 		MPtr<Members> m;
