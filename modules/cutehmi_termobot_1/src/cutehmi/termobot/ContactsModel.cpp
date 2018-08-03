@@ -182,18 +182,11 @@ bool ContactsModel::insert(QString nick, QString firstName, QString lastName, bo
 		}
 	}
 
-	// Calculate insertion row.
-	int row = 0;
-	for (int i = 0; i < m->contactsContainer.length(); ++i) {
-		if (m->contactsContainer.at(i).nick > nick) {
-			row = i;
-			break;
-		}
-	}
-
+	// Append contact to the end of the list.
+	int endRow = m->contactsContainer.count();
 
 	++m->workingCounter;
-	beginInsertRows(QModelIndex(), row, row);
+	beginInsertRows(QModelIndex(), endRow, endRow);
 	m->createWorker.contact(std::move(contact));
 	m->createWorker.work();
 	return true;
@@ -249,7 +242,7 @@ void ContactsModel::ReadWorker::job()
 	m_contacts.clear();
 
 	QSqlQuery query(QSqlDatabase::database(m_connectionName, false));
-	query.exec("SELECT * FROM contacts ORDER BY nick");
+	query.exec("SELECT * FROM contacts");
 	QSqlRecord record = query.record();
 	while (query.next()) {
 		m_contacts.push_back(ContactTuple{
