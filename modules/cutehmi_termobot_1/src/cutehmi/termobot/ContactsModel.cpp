@@ -54,7 +54,6 @@ bool ContactsModel::busy() const
 	return static_cast<bool>(m->workingCounter) || !m->databaseThread->isRunning();
 }
 
-// TODO: implement error handling
 QVariant ContactsModel::data(const QModelIndex & index, int role) const
 {
 	if (index.isValid()) {
@@ -71,7 +70,6 @@ QVariant ContactsModel::data(const QModelIndex & index, int role) const
 	return QVariant();
 }
 
-// TODO: implement error handling
 int ContactsModel::rowCount(const QModelIndex & parent) const
 {
 	Q_UNUSED(parent);
@@ -93,7 +91,6 @@ int ContactsModel::rowCount(const QModelIndex & parent) const
 	return m->contactsContainer.count();
 }
 
-// TODO: implement error handling
 bool ContactsModel::update(const QString & nick, const QString & newNick, const QString & newFirstName, const QString & newLastName, const bool & newActive)
 {
 	if (!m->databaseThread->isRunning()) {
@@ -101,42 +98,33 @@ bool ContactsModel::update(const QString & nick, const QString & newNick, const 
 		return false;
 	}
 
-	// 1. Find a row number which changes
+	// Find a row number which changes.
 	int row = -1;
-
 	for (int i = 0; i < m->contactsContainer.length(); ++i) {
 		if (m->contactsContainer.at(i).nick == nick) {
 			row = i;
 			break;
 		}
 	}
-
 	if (row == -1)
 		return false;
 
-	// 2. Create new contact tuple
+	// Create new contact tuple.
 	std::unique_ptr<ContactTuple> contact(new ContactTuple{newNick, newFirstName, newLastName, newActive});
 
-	// 3. Prepare worker to work
+	// Prepare worker to work.
 	m->updateWorker.changedRow(row);
 	m->updateWorker.contact(std::move(contact));
 	m->updateWorker.nick(nick);
 
-
-	// 4. Increment workingCounter by one
+	// Increment workingCounter by one.
 	++m->workingCounter;
 
-	// 5. Start worker
+	// Start the worker.
 	m->updateWorker.work();
 
 	return true;
 }
-
-// TODO: implement setData function
-//bool ContactsModel::setData(const QModelIndex & index, const QVariant & value, int role)
-//{
-//	return false;
-//}
 
 Qt::ItemFlags ContactsModel::flags(const QModelIndex &index) const
 {
@@ -152,8 +140,6 @@ Qt::ItemFlags ContactsModel::flags(const QModelIndex &index) const
 	return flags;
 }
 
-// TODO: implement error handling
-// FIXME: synchronize cache with database state after removal
 bool ContactsModel::remove(QString nick)
 {
 	if (!m->databaseThread->isRunning()) {
@@ -161,21 +147,18 @@ bool ContactsModel::remove(QString nick)
 		return false;
 	}
 
+	// Find row number with a proper nick.
 	int row = -1;
-
-	// Find row number with a proper nick
 	for (int i = 0; i < m->contactsContainer.length(); ++i) {
 		if (m->contactsContainer.at(i).nick == nick) {
 			row = i;
 			break;
 		}
 	}
-
 	if (row == -1)
 		return false;
 
 	beginRemoveRows(QModelIndex(), row, row);
-
 	++m->workingCounter;
 	m->deleteWorker.nick(nick);
 	m->deleteWorker.work();
@@ -183,7 +166,6 @@ bool ContactsModel::remove(QString nick)
 	return true;
 }
 
-// TODO: implement error handling
 bool ContactsModel::insert(QString nick, QString firstName, QString lastName, bool enabled)
 {
 	if (!m->databaseThread->isRunning()) {
@@ -193,15 +175,15 @@ bool ContactsModel::insert(QString nick, QString firstName, QString lastName, bo
 
 	std::unique_ptr<ContactTuple> contact(new ContactTuple{nick, firstName, lastName, enabled});
 
-	// Check if nick is unique (if not then early return false)
+	// Check if nick is unique (if not then early return false).
 	for (int i = 0; i < m->contactsContainer.length(); ++i) {
 		if (m->contactsContainer.at(i).nick == nick) {
 			return false;
 		}
 	}
-	// Calculate insertion row
-	int row = 0;
 
+	// Calculate insertion row.
+	int row = 0;
 	for (int i = 0; i < m->contactsContainer.length(); ++i) {
 		if (m->contactsContainer.at(i).nick > nick) {
 			row = i;
@@ -230,10 +212,10 @@ ContactsModel::CreateWorker::CreateWorker(DatabaseThread &databaseThread):
 
 void ContactsModel::CreateWorker::job()
 {
-	CUTEHMI_LOG_DEBUG("CreateWorker starts its own job...");
+	CUTEHMI_LOG_DEBUG("Create worker starts its own job...");
 
 	if (m_contact == nullptr) {
-		CUTEHMI_LOG_WARNING("Started CreateWorker::job with empty m_contact.");
+		CUTEHMI_LOG_WARNING("Started create worker with empty m_contact.");
 		return;
 	}
 
@@ -247,7 +229,7 @@ void ContactsModel::CreateWorker::job()
 
 	m_contact.reset(nullptr);
 
-	CUTEHMI_LOG_DEBUG("CreateWorker finished.");
+	CUTEHMI_LOG_DEBUG("Create worker finished.");
 }
 
 void ContactsModel::CreateWorker::contact(std::unique_ptr<ContactTuple> newContact)
@@ -263,7 +245,7 @@ ContactsModel::ReadWorker::ReadWorker(DatabaseThread & databaseThread):
 
 void ContactsModel::ReadWorker::job()
 {
-	CUTEHMI_LOG_DEBUG("ReadWorker starts its own job...");
+	CUTEHMI_LOG_DEBUG("Read worker starts its own job...");
 	m_contacts.clear();
 
 	QSqlQuery query(QSqlDatabase::database(m_connectionName, false));
@@ -277,7 +259,7 @@ void ContactsModel::ReadWorker::job()
 								 query.value(record.indexOf("enabled")).toBool()
 							 });
 	}
-	CUTEHMI_LOG_DEBUG("ReadWorker finished.");
+	CUTEHMI_LOG_DEBUG("Read worker finished.");
 }
 
 const ContactsModel::ContactsContainer & ContactsModel::ReadWorker::contacts() const
@@ -293,15 +275,15 @@ ContactsModel::UpdateWorker::UpdateWorker(DatabaseThread &databaseThread):
 
 void ContactsModel::UpdateWorker::job()
 {
-	CUTEHMI_LOG_DEBUG("UpdateWorker starts its own job...");
+	CUTEHMI_LOG_DEBUG("Update worker starts its own job...");
 
 	if (m_contact == nullptr) {
-		CUTEHMI_LOG_WARNING("Started CreateWorker::job with empty m_contact.");
+		CUTEHMI_LOG_WARNING("Started update worker with empty m_contact.");
 		return;
 	}
 
 	if (m_nick.isNull()) {
-		CUTEHMI_LOG_WARNING("Started CreateWorker::job with null m_nick.");
+		CUTEHMI_LOG_WARNING("Started update worker with null m_nick.");
 		return;
 	}
 
@@ -314,12 +296,9 @@ void ContactsModel::UpdateWorker::job()
 	query.bindValue(":nick", m_nick);
 	query.exec();
 
-
-
-//	m_contact.reset(nullptr);
 	nick(QString());
 
-	CUTEHMI_LOG_DEBUG("UpdateWorker finished.");
+	CUTEHMI_LOG_DEBUG("Update worker finished.");
 }
 
 const ContactsModel::ContactTuple & ContactsModel::UpdateWorker::contact() const
@@ -355,10 +334,10 @@ ContactsModel::DeleteWorker::DeleteWorker(DatabaseThread & databaseThread):
 
 void ContactsModel::DeleteWorker::job()
 {
-	CUTEHMI_LOG_DEBUG("DeleteWorker starts its own job...");
+	CUTEHMI_LOG_DEBUG("Delete worker starts its own job...");
 
 	if (m_nick.isNull()) {
-		CUTEHMI_LOG_WARNING("Started DeleteWorker::job with null nick.");
+		CUTEHMI_LOG_WARNING("Started delete worker with null nick.");
 		return;
 	}
 
@@ -369,7 +348,7 @@ void ContactsModel::DeleteWorker::job()
 
 	nick(QString());
 
-	CUTEHMI_LOG_DEBUG("DeleteWorker finished.");
+	CUTEHMI_LOG_DEBUG("Delete worker finished.");
 }
 
 void ContactsModel::DeleteWorker::nick(const QString &newNick)
