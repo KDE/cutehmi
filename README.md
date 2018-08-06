@@ -1,4 +1,4 @@
-<img src="extra/logo/64x64.png" align="left" />
+<img src="extra/logo/64x64.png" align="right" />
 
 # CuteHMI
 
