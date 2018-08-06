@@ -36,14 +36,14 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 		int rowCount(const QModelIndex & parent) const override;
 
 		// update implementation
-		Q_INVOKABLE bool update(const QString & nick, const QString & newNick, const QString & newFirstName, const QString & lastName, const bool & newActive);
+		Q_INVOKABLE bool update(const unsigned int & databaseId, const QString & newNick, const QString & newFirstName, const QString & lastName, const bool & newActive);
 
 //		bool setData(const QModelIndex & index, const QVariant & value, int role) override;
 
 		Qt::ItemFlags flags(const QModelIndex & index) const override;
 
 		// delete implementation
-		Q_INVOKABLE bool remove(QString nick);
+		Q_INVOKABLE bool remove(unsigned int databaseId);
 
 		// create implementation
 		Q_INVOKABLE bool insert(QString nick, QString firstName, QString lastName, bool enabled);
@@ -55,7 +55,8 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
     private:		
 		enum Role : int {
-			Nick = Qt::UserRole,
+			DatabaseId = Qt::UserRole,
+			Nick,
 			FirstName,
 			LastName,
 			Active
@@ -63,6 +64,7 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
 		struct ContactTuple
 		{
+				unsigned int databaseId;
 				QString nick;
 				QString firstName;
 				QString lastName;
@@ -113,7 +115,7 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
 				void contact(std::unique_ptr<ContactTuple> newContact);
 
-				void nick(const QString & newNick);
+				void setDatabaseId(const unsigned int & databaseId);
 
 				const int & changedRow() const;
 
@@ -122,7 +124,7 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 			private:
 				int m_changedRow;
 				QString m_connectionName;
-				QString m_nick;
+				unsigned int m_databaseId;
 				std::unique_ptr<ContactTuple> m_contact;
 		};
 
@@ -134,11 +136,13 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
 				void job() override;
 
-				void nick(const QString & newNick);
+				void setDatabaseId(const unsigned int & databaseId);
+
+				const unsigned int & databaseId() const;
 
 			private:
 				QString m_connectionName;
-				QString m_nick;
+				unsigned int m_databaseId;
 		};
 
         struct Members
