@@ -125,7 +125,9 @@ guards: $(AWKGWARD) $(INCLUDE_GUARDS_DIRS) | $(FIND) $(SH) $(AWK) $(CUT) $(GREP)
 	    @echo Updating include guards...
 		@$(FIND) $(INCLUDE_GUARDS_DIRS) -type f \( $(INCLUDE_FILE_TYPES) \) $(INCLUDE_GUARDS_EXCLUDE) -exec $(SH) $(AWKGWARD) $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_IORS) \;
 
-doc: doc_project_targets doc_doxygen
+doc: | $(MAKE)
+		@$(MAKE) -C . doc_project_targets
+		@$(MAKE) -C . doc_doxygen
 
 doc_doxygen: | $(FIND) $(SED) $(DOXYGEN)
 		@echo Doxygen path: "$(DOXYGEN)"
