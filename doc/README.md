@@ -14,6 +14,8 @@ level project directory, providing that you have all necessary tools.
 ```
 make doc
 ```
+You have to build the project beforehand as Qbs module is responsible for
+generation of documentation artifacts!
 
 You can also view [documentation online](https://michpolicht.github.io/CuteHMI_Doxygen/docs/).
 
