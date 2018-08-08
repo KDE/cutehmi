@@ -82,6 +82,7 @@ Something similar to this should show up on screen.
 
 Directory structure of the project is organized as follows.
 
+- *_sass*, *_layouts* - directories used by GitHub Pages.
 - *awkgward* - code maintanance scripts (don't bother).
 - *dev* - development notes (irrelevant).
 - [doc](doc/README.md) - a place where documentation shall be.
