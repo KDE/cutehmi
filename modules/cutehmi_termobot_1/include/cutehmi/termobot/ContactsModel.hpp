@@ -8,13 +8,8 @@
 
 #include <QAbstractListModel>
 
-#include <functional>
-
 namespace cutehmi {
 namespace termobot {
-
-//ContactsModel_ReadWorker
-
 
 class CUTEHMI_TERMOBOT_API ContactsModel:
     public QAbstractListModel
@@ -36,7 +31,7 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 		int rowCount(const QModelIndex & parent) const override;
 
 		// update implementation
-		Q_INVOKABLE bool update(const unsigned int & databaseId, const QString & newNick, const QString & newFirstName, const QString & lastName, const bool & newActive);
+		Q_INVOKABLE bool update(const unsigned int & databaseId, const QString & newNick, const QString & newFirstName, const QString & lastName, const unsigned int & phoneId, const QString & newPhoneNumber, const unsigned int & emailId, const QString & newEmail, const bool & newActive);
 
 //		bool setData(const QModelIndex & index, const QVariant & value, int role) override;
 
@@ -46,7 +41,7 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 		Q_INVOKABLE bool remove(unsigned int databaseId);
 
 		// create implementation
-		Q_INVOKABLE bool insert(QString nick, QString firstName, QString lastName, bool enabled);
+		Q_INVOKABLE bool insert(const QString & nick, const QString & firstName, const QString & lastName, const QString & phoneNumber, const QString & email, const bool & enabled);
 
         QHash<int, QByteArray> roleNames() const override;
 
@@ -59,7 +54,11 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 			Nick,
 			FirstName,
 			LastName,
-			Active
+			Active,
+			PhoneId,
+			PhoneNumber,
+			EmailId,
+			Email
 		};
 
 		struct ContactTuple
@@ -68,6 +67,10 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 				QString nick;
 				QString firstName;
 				QString lastName;
+				unsigned int phoneId;
+				QString phoneNumber;
+				unsigned int emailId;
+				QString email;
 				bool enabled;
 		};
 
@@ -115,8 +118,6 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 
 				void contact(std::unique_ptr<ContactTuple> newContact);
 
-				void setDatabaseId(const unsigned int & databaseId);
-
 				const int & changedRow() const;
 
 				void changedRow(const int & newRow);
@@ -124,7 +125,6 @@ class CUTEHMI_TERMOBOT_API ContactsModel:
 			private:
 				int m_changedRow;
 				QString m_connectionName;
-				unsigned int m_databaseId;
 				std::unique_ptr<ContactTuple> m_contact;
 		};
 
