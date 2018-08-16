@@ -4,6 +4,7 @@
 #include <cutehmi/DataBlock.hpp>
 
 #include "../../../../include/cutehmi/termobot/ContactsModel.hpp"
+#include "../../../../include/cutehmi/termobot/DS18B20SettingsModel.hpp"
 #include "../Service.hpp"
 #include "../DatabaseConnectionData.hpp"
 #include "../DatabaseThread.hpp"
@@ -21,12 +22,15 @@ class TermobotNodeData : public DataBlock
 
         ContactsModel * contactsModel() const;
 
+		DS18B20SettingsModel * ds18b20SettingsModel() const;
+
 		Service * service() const;
 
     private:
 		std::unique_ptr<DatabaseThread> m_databaseThread;
 		std::unique_ptr<Service> m_service;
 		std::unique_ptr<ContactsModel> m_contactsModel;
+		std::unique_ptr<DS18B20SettingsModel> m_ds18b20SettingsModel;
 };
 
 }

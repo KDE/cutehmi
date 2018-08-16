@@ -14,7 +14,7 @@ ContactsModel::ContactsModel(DatabaseThread * databaseThread):
 {
 	m->roleNames[static_cast<int>(Role::DatabaseId)] = "databaseId";
     m->roleNames[static_cast<int>(Role::Nick)] = "nick";
-    m->roleNames[static_cast<int>(Role::FirstName)] = "firstName";
+	m->roleNames[static_cast<int>(Role::FirstName)] = "firstName";
     m->roleNames[static_cast<int>(Role::LastName)] = "lastName";
     m->roleNames[static_cast<int>(Role::Active)] = "active";
 	m->roleNames[static_cast<int>(Role::EmailId)] = "emailId";
