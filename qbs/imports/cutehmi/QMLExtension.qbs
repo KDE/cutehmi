@@ -10,7 +10,10 @@ CommonProduct {
 
 	targetName: baseName + "_" + major + (qbs.buildVariant.contains("debug") ? "d" : "")
 
-	baseName: name.toLowerCase().replace(/\./g, '_') + "_qml"
+	baseName: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? name.toLowerCase().replace(/\./g, '_') + "_qml"
+																			 : name.substring(0, name.lastIndexOf(".", name.length - 1)).toLowerCase().replace(/\./g, '_') + "_qml"
+
+	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
 	property string installDir: FileInfo.relativePath(project.sourceDirectory, sourceDirectory)
 
@@ -63,7 +66,7 @@ CommonProduct {
 		qbs.install: true
 		qbs.installSourceBase: sourceDirectory
 		qbs.installDir: installDir
-	}	
+	}
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.

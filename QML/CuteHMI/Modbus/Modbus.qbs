@@ -5,8 +5,6 @@ import cutehmi
 cutehmi.QMLExtension {
 	name: "CuteHMI.Modbus"
 
-	major: 1
-
 	minor: 0
 
 	micro: 0

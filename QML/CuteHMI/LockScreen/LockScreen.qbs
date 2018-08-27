@@ -5,8 +5,6 @@ import cutehmi
 cutehmi.QMLExtension {
 	name: "CuteHMI.LockScreen"
 
-	major: 1
-
 	minor: 0
 
 	micro: 0
