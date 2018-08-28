@@ -1,4 +1,5 @@
 #include "../cutehmi.metadata.hpp"
+#include "../cutehmi.dirs.hpp"
 
 #include <cutehmi/CuteHMI.hpp>
 #include <cutehmi/ProjectModel.hpp>
@@ -157,7 +158,7 @@ int main(int argc, char * argv[])
 	qDebug() << "Library paths: " << QCoreApplication::libraryPaths();
 
 	std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-	engine->addImportPath(baseDirPath + "QML");
+	engine->addImportPath(baseDirPath + CUTEHMI_DIRS_QML_EXTENSION_INSTALL_DIRNAME);
 	qDebug() << "QML import paths: " << engine->importPathList();
 	engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
 	engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));

@@ -30,6 +30,8 @@ cutehmi.Tool {
         "src/main.cpp",
     ]
 
+	cutehmi.dirs.generateHeaderFile: true
+
 	Depends { name: "cutehmi_1" }
 	cutehmi_1.reqMinor: 0
 
