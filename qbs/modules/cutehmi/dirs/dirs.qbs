@@ -1,10 +1,11 @@
 import qbs
 
 Module {
-	property string moduleInstallDir: "bin"
-	property string toolInstallDir: "bin"
-	property string qmlExtensionInstallDir: "QML"
-	property string qmlPluginInstallDir: "plugins"
+	property string moduleInstallDirname: "bin"
+	property string toolInstallDirname: "bin"
+	property string qmlExtensionInstallDirname: "QML"
+	property string qmlPluginInstallDirname: "plugins"
+	property string qmlSourceDir: project.sourceDirectory + "/QML"
 
 	property string externalDeployDir: project.sourceDirectory + "/external/deploy"
 	property string externalLibDir: externalDeployDir + "/lib"

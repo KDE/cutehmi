@@ -15,9 +15,9 @@ CommonProduct {
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
-	property string installDir: FileInfo.relativePath(project.sourceDirectory, sourceDirectory)
+	property string installDir: cutehmi.dirs.qmlExtensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.qmlSourceDir, sourceDirectory)
 
-	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.qmlExtensionInstallDir]	// QML import paths for QtCreator.
+	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.qmlExtensionInstallDirname]	// QML import paths for QtCreator.
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
@@ -57,7 +57,7 @@ CommonProduct {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"
 		qbs.install: true
-		qbs.installDir: installDir + "/" + cutehmi.dirs.qmlPluginInstallDir
+		qbs.installDir: installDir + "/" + cutehmi.dirs.qmlPluginInstallDirname
 	}
 
 	Group {

@@ -34,7 +34,7 @@ CommonProduct {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"
 		qbs.install: true
-		qbs.installDir: cutehmi.dirs.moduleInstallDir
+		qbs.installDir: cutehmi.dirs.moduleInstallDirname
 	}
 }
 
