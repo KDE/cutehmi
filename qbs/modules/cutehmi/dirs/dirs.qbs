@@ -9,6 +9,8 @@ Module {
 			Environment.putEnv("PATH", externalLibDir + qbs.pathListSeparator + Environment.getEnv("PATH"))
 		else
 			Environment.putEnv("LD_LIBRARY_PATH", externalLibDir + qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
+
+		Environment.putEnv("QML2_IMPORT_PATH", qbs.installRoot + "/" + qmlExtensionInstallDirname);
 	}
 
 	property bool generateHeaderFile: false
