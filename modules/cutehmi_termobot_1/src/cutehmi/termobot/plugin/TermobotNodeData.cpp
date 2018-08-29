@@ -8,7 +8,8 @@ namespace plugin {
 TermobotNodeData::TermobotNodeData(std::unique_ptr<Service> service, std::unique_ptr<DatabaseThread> databaseThread):
 	m_databaseThread(std::move(databaseThread)),
 	m_service(std::move(service)),
-	m_contactsModel(new ContactsModel(m_databaseThread.get()))
+	m_contactsModel(new ContactsModel(m_databaseThread.get())),
+	m_ds18b20SettingsModel(new DS18B20SettingsModel(m_databaseThread.get()))
 {}
 
 DatabaseThread * TermobotNodeData::databaseThread() const
@@ -19,6 +20,11 @@ DatabaseThread * TermobotNodeData::databaseThread() const
 ContactsModel * TermobotNodeData::contactsModel() const
 {
 	return m_contactsModel.get();
+}
+
+DS18B20SettingsModel * TermobotNodeData::ds18b20SettingsModel() const
+{
+	return m_ds18b20SettingsModel.get();
 }
 
 Service * TermobotNodeData::service() const

@@ -104,6 +104,7 @@ void ProjectPlugin::parseTermobot(const xml::ParseHelper &parentHelper, ProjectN
 
 		std::unique_ptr<TermobotNodeData> termobotNodeData(new TermobotNodeData(std::move(service), std::move(databaseThread)));
         termobotNode->registerExtension(termobotNodeData->contactsModel());
+		termobotNode->registerExtension(termobotNodeData->ds18b20SettingsModel());
 
         termobotNode->data().append(std::move(termobotNodeData));
     }
