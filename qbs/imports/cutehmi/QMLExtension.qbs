@@ -8,10 +8,9 @@ CommonProduct {
 
 	cutehmiType: "qmlExtension"
 
-	targetName: baseName + "_" + major + (qbs.buildVariant.contains("debug") ? "d" : "")
+	targetName: baseName.toLowerCase().replace(/\./g, '_') + "_qml_" + major + (qbs.buildVariant.contains("debug") ? "d" : "")
 
-	baseName: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? name.toLowerCase().replace(/\./g, '_') + "_qml"
-																			 : name.substring(0, name.lastIndexOf(".", name.length - 1)).toLowerCase().replace(/\./g, '_') + "_qml"
+	baseName: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? name : name.substring(0, name.lastIndexOf(".", name.length - 1))
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
@@ -21,7 +20,7 @@ CommonProduct {
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")
-		targetName: baseName + "_" + major
+		targetName: baseName.toLowerCase().replace(/\./g, '_') + "_qml_" + major
 	}
 
 	Depends { name: "cutehmi.metadata" }
