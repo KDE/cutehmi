@@ -113,8 +113,8 @@ Module {
 
 				var f = new TextFile(product.sourceDirectory + "/cutehmi.metadata.hpp", TextFile.WriteOnly);
 				try {
-					var shortPrefix = product.baseName.toUpperCase()
-					var prefix = product.name.toUpperCase()
+					var shortPrefix = product.baseName.toUpperCase().replace(/\./g, '_')
+					var prefix = product.name.toUpperCase().replace(/\./g, '_')
 
 					f.writeLine("#ifndef " + prefix + "_METADATA_HPP")
 					f.writeLine("#define " + prefix + "_METADATA_HPP")
