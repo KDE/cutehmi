@@ -17,6 +17,7 @@ Module {
 
 	property string moduleInstallDirname: "bin"
 	property string toolInstallDirname: "bin"
+	property string testInstallDirname: "bin"
 	property string qmlExtensionInstallDirname: "QML"
 	property string qmlPluginInstallDirname: "plugins"
 	property string qmlSourceDir: project.sourceDirectory + "/QML"
