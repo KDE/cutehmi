@@ -133,7 +133,7 @@ Module {
 					f.writeLine("#define " + shortPrefix + "_MICRO " + product.micro + "")
 
 					f.writeLine("")
-					f.writeLine("#ifdef " + product.baseName.toUpperCase() + "_BUILD")
+					f.writeLine("#ifdef " + shortPrefix + "_BUILD")
 					f.writeLine("  #define " + prefix + "_" + product.minor)
 					f.writeLine("#endif")
 
