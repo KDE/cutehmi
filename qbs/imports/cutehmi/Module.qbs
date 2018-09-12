@@ -9,6 +9,8 @@ CommonProduct {
 
 	cpp.defines: base.concat([baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"])
 
+	cpp.includePaths: [product.sourceDirectory + "/include"]
+
 	baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
 
 	major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
