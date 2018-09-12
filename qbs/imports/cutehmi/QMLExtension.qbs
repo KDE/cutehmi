@@ -4,7 +4,7 @@ import qbs.FileInfo
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: "dynamiclibrary"
+	type: project.buildTests ? ["dynamiclibrary", "staticlibrary"] : ["dynamiclibrary"]
 
 	cutehmiType: "qmlExtension"
 
