@@ -29,7 +29,7 @@ CommonProduct {
 //</workaround>
 		cpp.includePaths: [product.sourceDirectory + "/include"]
 
-		cpp.libraryPaths: if (product.cpp.libraryPaths) importingProduct.cpp.libraryPaths.uniqueConcat(product.cpp.libraryPaths)
+		cpp.libraryPaths: product.cpp.libraryPaths ? product.cpp.libraryPaths : []
 	}
 
 	Group {
