@@ -3,11 +3,11 @@ import qbs
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: project.buildTests ? ["dynamiclibrary", "staticlibrary"] : ["dynamiclibrary"]
+	type: project.staticLibs ? ["staticlibrary"] : ["dynamiclibrary"]
 
 	cutehmiType: "module"
 
-	cpp.defines: base.concat([baseName.toUpperCase() + "_BUILD", baseName.toUpperCase() + "_DYNAMIC"])
+	cpp.defines: base.concat([baseName.toUpperCase() + "_BUILD"])
 
 	cpp.includePaths: [product.sourceDirectory + "/include"]
 
@@ -18,18 +18,29 @@ CommonProduct {
 	Depends { name: "cutehmi.metadata" }
 	Depends { name: "cutehmi.dirs" }
 
+	Properties {
+		condition: !project.staticLibs
+		cpp.defines: outer.concat([baseName.toUpperCase() + "_DYNAMIC"])
+	}
+
 	Export {
 		property int reqMinor: minor
 
-		Depends { name: "cpp" }
 //<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
-		cpp.defines: [product.baseName.toUpperCase() + "_DYNAMIC", product.baseName.toUpperCase() + "_" + product.major + "_" + reqMinor]
+		cpp.defines: [product.baseName.toUpperCase() + "_" + product.major + "_" + reqMinor]
 		// Instead of somtehing like:
 		// cpp.defines: [product.baseName.toUpperCase() + "_DYNAMIC", product.baseName.toUpperCase() + "_" + product.major + "_" + cutehmi.depends.reqMinor]
 //</workaround>
 		cpp.includePaths: [product.sourceDirectory + "/include"]
 
-		cpp.libraryPaths: product.cpp.libraryPaths ? product.cpp.libraryPaths : []
+		cpp.libraryPaths: if (product.cpp.libraryPaths) product.cpp.libraryPaths
+
+		Properties {
+			condition: !project.staticLibs
+			cpp.defines: outer.concat([product.baseName.toUpperCase() + "_DYNAMIC"])
+		}
+
+		Depends { name: "cpp" }
 	}
 
 	Group {
