@@ -1,6 +1,8 @@
 #ifndef H_MODULES_CUTEHMI__TEST__1_INCLUDE_CUTEHMI_RANDOM_HPP
 #define H_MODULES_CUTEHMI__TEST__1_INCLUDE_CUTEHMI_RANDOM_HPP
 
+#include "IsIntType.hpp"
+
 #include <random>
 #include <chrono>
 #include <limits>
@@ -59,15 +61,71 @@ SeededEngine<E>::SeededEngine()
  * @tparam E random number generator engine.
  * @param from lower bound of a set of generated random numbers.
  * @param from upper bound of a set of generated random numbers.
+ * @return randomly generated integer.
  */
 template <typename T, typename E = SeededEngine<std::mt19937>>
-typename std::enable_if<std::is_integral<T>::value, T>::type rand(T from = std::numeric_limits<T>::min(), T to = std::numeric_limits<T>::max())
+typename std::enable_if<IsIntType<T>::value, T>::type rand(T from = std::numeric_limits<T>::min(), T to = std::numeric_limits<T>::max())
 {
 	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
 
 	std::uniform_int_distribution<T> distribution(from, to);
 
 	return distribution(engine);
+}
+
+/**
+ * Generate random floating point number using uniform distribution.
+ * @tparam T floating point number type.
+ * @tparam E random number generator engine.
+ * @param from lower bound of a set of generated random numbers.
+ * @param from upper bound of a set of generated random numbers.
+ * @return randomly generated floating point number.
+ */
+template <typename T, typename E = SeededEngine<std::mt19937>>
+typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(T from = std::numeric_limits<T>::min(), T to = std::numeric_limits<T>::max())
+{
+	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
+
+	std::uniform_real_distribution<T> distribution(from, to);
+
+	return distribution(engine);
+}
+
+/**
+ * Generate random Boolean value using Bernoulli distribution.
+ * @tparam T boolean type.
+ * @tparam E random number generator engine.
+ * @param p propbablity of generating @p true.
+ * @return one of the Boolean values: @p true or @p false.
+ */
+template <typename T, typename E = SeededEngine<std::mt19937>>
+typename std::enable_if<std::is_same<T, bool>::value, T>::type rand(double p = 0.5)
+{
+	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
+
+	std::bernoulli_distribution distribution(p);
+
+	return distribution(engine);
+}
+
+/**
+ * Randomize array.
+ * @tparam T type of array elements.
+ * @tparam E random number genererator engine.
+ * @tparam ARGS arguments to be passed to underlying rand() function.
+ * @param ptr array pointer.
+ * @param size array size.
+ * @param arguments to be passed to underlying rand() function for each array
+ * element.
+ */
+template <typename T, typename E = SeededEngine<std::mt19937>, typename... ARGS>
+void rand(T * ptr, std::size_t size, ARGS... args)
+{
+	while (size > 0) {
+		*ptr = rand<T, E>(args...);
+		ptr++;
+		size--;
+	}
 }
 
 }
