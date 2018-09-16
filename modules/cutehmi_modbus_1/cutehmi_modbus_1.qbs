@@ -72,7 +72,6 @@ cutehmi.Module {
 
 //<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
 
-//	cutehmi.depends.reqMinors
 	Depends { name: "cutehmi_1" }
 	cutehmi_1.reqMinor: 0
 
