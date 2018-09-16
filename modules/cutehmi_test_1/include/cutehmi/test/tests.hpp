@@ -6,6 +6,7 @@
 #include <QtTest/QtTest>
 
 #include <functional>
+#include <algorithm>
 
 namespace cutehmi {
 namespace test {
@@ -55,6 +56,75 @@ template <class CM, typename T>
 void testAccessors(T (CM::*getter)() const, void (CM::*setter)(T))
 {
 	testAccessors(getter, setter, CM());
+}
+
+/**
+ * Compare two arrays if their corresponding elements are equal.
+ * @tparam T type of array elements.
+ * @param arr1 first array.
+ * @param arr2 second array.
+ * @param size size of arrays.
+ * @return @p true if each element in the first array is equal to a
+ * corresponding element in the second array. Otherwise function returns @p false.
+ */
+template <typename T>
+bool arrEqual(const T * arr1, const T * arr2, std::size_t size)
+{
+	return std::equal(arr1, arr1 + size, arr2);
+}
+
+/**
+ * Compare two arrays if their corresponding elements are inequal.
+ * @tparam T type of array elements.
+ * @param arr1 first array.
+ * @param arr2 second array.
+ * @param size size of arrays.
+ * @return @p true if each element in the first array is different from a
+ * corresponding element in the second array. Otherwise function returns @p false.
+ */
+template <typename T>
+bool arrInequal(const T * arr1, const T * arr2, std::size_t size)
+{
+	for (std::size_t i = 0; i < size; i++)
+		if (*(arr1++) == *(arr2++))
+			return false;
+	return true;
+}
+
+/**
+ * Check if all array elements are equal to specified value.
+ * @tparam T type of array elements.
+ * @param arr array to check.
+ * @param size array size.
+ * @param T val value to compare array elements with.
+ * @return @p true if all elements of an array are equal to @a val, @p false
+ * otherwise.
+ */
+template <typename T>
+bool arrEqual(const T * arr, T val, std::size_t size)
+{
+	for (std::size_t i = 0; i < size; i++)
+		if (*(arr++) != val)
+			return false;
+	return true;
+}
+
+/**
+ * Check if all array elements are different than a specified value.
+ * @tparam T type of array elements.
+ * @param arr array to check.
+ * @param size array size.
+ * @param T val value to compare array elements with.
+ * @return @p true if all elements of an array are different than @a val,
+ * @p false otherwise.
+ */
+template <typename T>
+bool arrInequal(const T * arr, T val, std::size_t size)
+{
+	for (std::size_t i = 0; i < size; i++)
+		if (*(arr++) == val)
+			return false;
+	return true;
 }
 
 }
