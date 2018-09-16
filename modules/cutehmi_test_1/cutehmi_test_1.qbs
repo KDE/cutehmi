@@ -22,6 +22,8 @@ cutehmi.Module {
 	license: "Mozilla Public License, v. 2.0"
 
 	files: [
+        "include/cutehmi/test/IsAnyOfTypes.hpp",
+        "include/cutehmi/test/IsIntType.hpp",
         "include/cutehmi/test/internal/common.hpp",
         "include/cutehmi/test/internal/platform.hpp",
         "include/cutehmi/test/logging.hpp",
