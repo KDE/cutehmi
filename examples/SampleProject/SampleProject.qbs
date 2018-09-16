@@ -18,10 +18,12 @@ cutehmi.Example {
 	license: "WTFPL"
 
 	files: [
-        "SampleProject.cutehmi.xml",
-        "ServicesView.qml",
-        "_Main.ui.qml",
-    ]
+		"SampleProject.cutehmi.xml",
+		"ServicesView.qml",
+		"_Main.ui.qml",
+	]
+
+	Depends { name: "cutehmi_view" }
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
