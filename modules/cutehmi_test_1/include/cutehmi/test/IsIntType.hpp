@@ -1,5 +1,5 @@
-#ifndef ISINTTYPE_HPP
-#define ISINTTYPE_HPP
+#ifndef H_MODULES_CUTEHMI__TEST__1_INCLUDE_CUTEHMI_TEST_ISINTTYPE_HPP
+#define H_MODULES_CUTEHMI__TEST__1_INCLUDE_CUTEHMI_TEST_ISINTTYPE_HPP
 
 #include "IsAnyOfTypes.hpp"
 
@@ -21,4 +21,4 @@ struct IsIntType:
 }
 }
 
-#endif // ISINTTYPE_HPP
+#endif
