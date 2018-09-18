@@ -107,6 +107,7 @@ QMLPLUGINDUMP = qmlplugindump
 
 $(QDOC) $(QMLPLUGINDUMP):
 
+
 # Doxygen.
 
 ifeq "$(OS)" "Windows_NT"
@@ -124,6 +125,43 @@ $(DOXYGEN):
 	$(info If 'doxygen' is installed in custom location, override DOXYGEN_DIR variable.)
 	$(info DOXYGEN_DIR = "$(DOXYGEN_DIR)")
 	$(error DOXYGEN = $(DOXYGEN) not found)
+
+
+# Python
+
+ifeq "$(OS)" "Windows_NT"
+  PYTHON_DIR = $(C_DIR)/Python
+else
+  PYTHON_DIR = /usr/bin
+endif
+PYTHON = $(PYTHON_DIR)/python$(NATIVE_EXECUTABLE_SUFFIX)
+
+$(PYTHON):
+	$(info --------------------------------------------------------------------------------)
+	$(info Can not locate Python interpreter!)
+	$(info You can download it from: https://www.python.org/downloads/.)
+	$(info If Python is installed, override PYTHON_DIR variable.)
+	$(info PYTHON_DIR = "$(PYTHON_DIR)")
+	$(error PYTHON = $(PYTHON) not found)
+
+
+# Doxyqml.
+
+ifeq "$(OS)" "Windows_NT"
+  DOXYQML_DIR = $(PYTHON_DIR)/Scripts
+else
+  DOXYQML_DIR = /usr/bin
+endif
+DOXYQML = $(DOXYQML_DIR)/doxyqml
+
+$(DOXYQML): | $(PYTHON)
+	$(info --------------------------------------------------------------------------------) || \
+	$(info Program 'doxyqml' not found!)
+	$(info You can get it from: https://github.com/agateau/doxyqml.)
+	$(info If 'doxyqml' is installed, override DOXYQML_DIR variable.)
+	$(info DOXYQML_DIR = "$(DOXYQML_DIR)")
+	$(error DOXYQML = $(DOXYQML) not found)
+
 
 # CMake.
 
