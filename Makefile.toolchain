@@ -134,7 +134,7 @@ ifeq "$(OS)" "Windows_NT"
 else
   PYTHON_DIR = /usr/bin
 endif
-PYTHON = $(PYTHON_DIR)/python$(NATIVE_EXECUTABLE_SUFFIX)
+PYTHON = $(PYTHON_DIR)/python3$(NATIVE_EXECUTABLE_SUFFIX)
 
 $(PYTHON):
 	$(info --------------------------------------------------------------------------------)
