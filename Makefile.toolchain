@@ -118,14 +118,6 @@ endif
 DOXYGEN_BIN_DIR = $(DOXYGEN_DIR)/bin
 DOXYGEN = $(DOXYGEN_BIN_DIR)/doxygen$(NATIVE_EXECUTABLE_SUFFIX)
 
-$(DOXYGEN):
-	$(info --------------------------------------------------------------------------------)
-	$(info Program 'doxygen' not found!)
-	$(info Download it from: http://www.stack.nl/~dimitri/doxygen/download.html.)
-	$(info If 'doxygen' is installed in custom location, override DOXYGEN_DIR variable.)
-	$(info DOXYGEN_DIR = "$(DOXYGEN_DIR)")
-	$(error DOXYGEN = $(DOXYGEN) not found)
-
 
 # Python
 
@@ -137,14 +129,6 @@ else
   PYTHON = $(PYTHON_DIR)/python3$(NATIVE_EXECUTABLE_SUFFIX)
 endif
 
-$(PYTHON):
-	$(info --------------------------------------------------------------------------------)
-	$(info Can not locate Python interpreter!)
-	$(info You can download it from: https://www.python.org/downloads/.)
-	$(info If Python is installed, override PYTHON_DIR variable.)
-	$(info PYTHON_DIR = "$(PYTHON_DIR)")
-	$(error PYTHON = $(PYTHON) not found)
-
 
 # Doxyqml.
 
@@ -154,14 +138,6 @@ else
   DOXYQML_DIR = /usr/bin
 endif
 DOXYQML = $(DOXYQML_DIR)/doxyqml
-
-$(DOXYQML): | $(PYTHON)
-	$(info --------------------------------------------------------------------------------) || \
-	$(info Program 'doxyqml' not found!)
-	$(info You can get it from: https://github.com/agateau/doxyqml.)
-	$(info If 'doxyqml' is installed, override DOXYQML_DIR variable.)
-	$(info DOXYQML_DIR = "$(DOXYQML_DIR)")
-	$(error DOXYQML = $(DOXYQML) not found)
 
 
 # CMake.
@@ -174,6 +150,38 @@ endif
 CMAKE_BIN_DIR = $(CMAKE_DIR)/bin
 CMAKE = $(CMAKE_BIN_DIR)/cmake$(NATIVE_EXECUTABLE_SUFFIX)
 
+
+# Include platform specific toolchain file.
+-include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.$(BUILD_MACHINE).toolchain
+
+# Makefile.user may override variables defined elsewhere.
+-include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.user
+
+
+$(DOXYGEN):
+	$(info --------------------------------------------------------------------------------)
+	$(info Program 'doxygen' not found!)
+	$(info Download it from: http://www.stack.nl/~dimitri/doxygen/download.html.)
+	$(info If 'doxygen' is installed in custom location, override DOXYGEN_DIR variable.)
+	$(info DOXYGEN_DIR = "$(DOXYGEN_DIR)")
+	$(error DOXYGEN = $(DOXYGEN) not found)
+
+$(PYTHON):
+	$(info --------------------------------------------------------------------------------)
+	$(info Can not locate Python interpreter!)
+	$(info You can download it from: https://www.python.org/downloads/.)
+	$(info If Python is installed, override PYTHON_DIR variable.)
+	$(info PYTHON_DIR = "$(PYTHON_DIR)")
+	$(error PYTHON = $(PYTHON) not found)
+
+$(DOXYQML): | $(PYTHON)
+	$(info --------------------------------------------------------------------------------) || \
+	$(info Program 'doxyqml' not found!)
+	$(info You can get it from: https://github.com/agateau/doxyqml.)
+	$(info If 'doxyqml' is installed, override DOXYQML_DIR variable.)
+	$(info DOXYQML_DIR = "$(DOXYQML_DIR)")
+	$(error DOXYQML = $(DOXYQML) not found)
+
 $(CMAKE):
 	$(info --------------------------------------------------------------------------------)
 	$(info Program 'cmake' not found!)
@@ -181,7 +189,4 @@ $(CMAKE):
 	$(info If 'cmake' is installed in custom location, override CMAKE_DIR variable.)
 	$(info CMAKE_DIR = "$(CMAKE_DIR)")
 	$(error CMAKE = $(CMAKE) not found)
-
-# Include platform specific toolchain file.
--include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.$(BUILD_MACHINE).toolchain
 

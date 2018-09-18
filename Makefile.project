@@ -78,10 +78,9 @@ INCLUDE_GUARDS_EXCLUDE = ! -path 'modules/templates_*'
 # Add directory with doxyqml wrapper to the PATH, so that it can be seen by Doxygen.
 PATH := $(PATH):$(MAKEFILE_PROJECT_AUTOGEN_DIR)
 
+
 include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.toolchain
 
-# Makefile.user may override variables defined elsewhere.
--include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.user
 
 .PHONY: doc_project_doxyqml
 

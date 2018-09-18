@@ -201,6 +201,10 @@ XZCAT = $(MSYS_BIN_DIR)/xzcat.exe
 XZDEC = $(MSYS_BIN_DIR)/xzdec.exe
 
 
+# Makefile.user may override variables defined elsewhere.
+-include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.user
+
+
 .PHONY: msys-awk-bin msys-bash-bin msys-bzip2-bin msys-coreutils-bin \
 msys-coreutils-ext msys-diffutils-bin msys-file-bin msys-findutils-bin \
 msys-grep-bin msys-groff-bin msys-gzip-bin msys-less-bin msys-make-bin \
