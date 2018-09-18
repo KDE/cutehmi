@@ -131,10 +131,11 @@ $(DOXYGEN):
 
 ifeq "$(OS)" "Windows_NT"
   PYTHON_DIR = $(C_DIR)/Python
+  PYTHON = $(PYTHON_DIR)/python$(NATIVE_EXECUTABLE_SUFFIX)
 else
   PYTHON_DIR = /usr/bin
+  PYTHON = $(PYTHON_DIR)/python3$(NATIVE_EXECUTABLE_SUFFIX)
 endif
-PYTHON = $(PYTHON_DIR)/python3$(NATIVE_EXECUTABLE_SUFFIX)
 
 $(PYTHON):
 	$(info --------------------------------------------------------------------------------)
