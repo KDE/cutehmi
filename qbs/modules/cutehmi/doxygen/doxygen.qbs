@@ -58,7 +58,7 @@ Module {
 					'HTML_DYNAMIC_MENUS': false,
 					'ALWAYS_DETAILED_SEC': true,
 					'JAVADOC_AUTOBRIEF': true,
-					'EXTRACT_ALL': false,
+					'EXTRACT_ALL': true,
 					'INPUT': '.',
 					'RECURSIVE': true,
 					'USE_MDFILE_AS_MAINPAGE': 'README.md',
