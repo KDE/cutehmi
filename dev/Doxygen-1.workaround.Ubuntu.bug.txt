@@ -1,0 +1,16 @@
+Problem:
+
+Doxygen 1.8.14 is not available under Ubuntu (Sept. 2018). Compared to previous
+version Doxygen 1.8.14 brings some new configuration options. These options are
+not recognized by previous version of Doxygen. Building Doxygen from sources
+is an option, but unfortunately LLVM libraries are (were) messed up under 
+Ubuntu 18.04. CMake is not able to find LLVM libraries, even when manually 
+adjusted, some files are at wrong locations and it's a mess.
+
+Workaround:
+
+Compile Doxygen from sources, but turn off Clang assisted parsing and disable
+CLANG_* options for now.
+
+Snippet:
+
