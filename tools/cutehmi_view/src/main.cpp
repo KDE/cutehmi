@@ -160,7 +160,7 @@ int main(int argc, char * argv[])
 	std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
 	engine->addImportPath(baseDirPath + CUTEHMI_DIRS_QML_EXTENSION_INSTALL_DIRNAME);
 	qDebug() << "QML import paths: " << engine->importPathList();
-	engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
+	engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
 	engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
 	if (!cmd.value(projectOption).isNull()) {
@@ -184,7 +184,7 @@ int main(int argc, char * argv[])
 					if (sourceUrl.isLocalFile() && !QFile::exists(sourceUrl.toLocalFile()))
 						cutehmi::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
 					else
-						engine->rootContext()->setContextProperty("cutehmi_bin_mainScreenURL", sourceUrl.url());
+						engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", sourceUrl.url());
 				}
 			} else
 				cutehmi::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
