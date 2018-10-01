@@ -31,7 +31,7 @@ CommonProduct {
 		qbs.installDir: cutehmi.dirs.testInstallDirname
 	}
 
-	cpp.defines: base.concat("QUICK_TEST_SOURCE_DIR=\"" + path + "\"")
+	cpp.defines: base.concat("QUICK_TEST_SOURCE_DIR=\"" + sourceDirectory + "\"")
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
