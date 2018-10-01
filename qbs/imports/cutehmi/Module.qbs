@@ -3,7 +3,7 @@ import qbs
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: project.staticLibs ? ["staticlibrary"] : ["dynamiclibrary"]
+	type: project.staticModules ? ["staticlibrary"] : ["dynamiclibrary"]
 
 	cutehmiType: "module"
 
@@ -19,7 +19,7 @@ CommonProduct {
 	Depends { name: "cutehmi.dirs" }
 
 	Properties {
-		condition: !project.staticLibs
+		condition: !project.staticModules
 		cpp.defines: outer.concat([baseName.toUpperCase() + "_DYNAMIC"])
 	}
 
@@ -36,7 +36,7 @@ CommonProduct {
 		cpp.libraryPaths: if (product.cpp.libraryPaths) product.cpp.libraryPaths
 
 		Properties {
-			condition: !project.staticLibs
+			condition: !project.staticModules
 			cpp.defines: outer.concat([product.baseName.toUpperCase() + "_DYNAMIC"])
 		}
 

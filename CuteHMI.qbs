@@ -2,7 +2,8 @@ import qbs
 
 Project {
 	property bool buildTests: false
-	property bool staticLibs: buildTests
+	property bool staticQMLExtensions: false
+	property bool staticModules: false
 
 	qbsSearchPaths: ["qbs"]
 
