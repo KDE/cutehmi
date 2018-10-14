@@ -7,21 +7,21 @@ CommonProduct {
 
 	cutehmiType: "module"
 
-	cpp.defines: base.concat([baseName.toUpperCase() + "_BUILD"])
-
-	cpp.includePaths: [product.sourceDirectory + "/include"]
-
 	baseName: name.substring(0, name.lastIndexOf("_", name.length - 1))
 
 	major: Number(name.substr(name.lastIndexOf("_", name.length - 1) + 1))
 
-	Depends { name: "cutehmi.metadata" }
-	Depends { name: "cutehmi.dirs" }
+	cpp.defines: base.concat([baseName.toUpperCase() + "_BUILD"])
+
+	cpp.includePaths: [product.sourceDirectory + "/include"]
 
 	Properties {
 		condition: !project.staticModules
 		cpp.defines: outer.concat([baseName.toUpperCase() + "_DYNAMIC"])
 	}
+
+	Depends { name: "cutehmi.metadata" }
+	Depends { name: "cutehmi.dirs" }
 
 	Export {
 		property int reqMinor: minor
