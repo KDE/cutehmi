@@ -1,16 +1,17 @@
 import qbs
 import qbs.TextFile
+import qbs.Environment
 
 Module {
 	additionalProductTypes: ["cutehmi.dirs.hpp"]
 
 	setupRunEnvironment: {
-		if (qbs.targetOS.contains("windows"))
-			Environment.putEnv("PATH", externalLibDir + qbs.pathListSeparator + Environment.getEnv("PATH"))
+		if (product.qbs.targetOS.contains("windows"))
+			Environment.putEnv("PATH", product.cutehmi.dirs.externalLibDir + product.qbs.pathListSeparator + Environment.getEnv("PATH"))
 		else
-			Environment.putEnv("LD_LIBRARY_PATH", externalLibDir + qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
+			Environment.putEnv("LD_LIBRARY_PATH", product.cutehmi.dirs.externalLibDir + product.qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
 
-		Environment.putEnv("QML2_IMPORT_PATH", qbs.installRoot + "/" + qmlExtensionInstallDirname);
+		Environment.putEnv("QML2_IMPORT_PATH", product.qbs.installRoot + "/" + product.cutehmi.dirs.qmlExtensionInstallDirname);
 	}
 
 	property bool generateHeaderFile: false
