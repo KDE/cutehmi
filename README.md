@@ -19,6 +19,25 @@ and QML, using Qt libraries as a framework.
 Note: While most of the project uses Mozilla Public License, v. 2.0, some files
 are distributed under different licenses.
 
+## Branches
+
+Branch "master" is a development branch. Development branch may contain source code that is undergoing deep changes, rendering it unusable. Consecutive branch numbers denote successive iterations of the project.
+
+<!-- CUT HERE -->
+<!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
+<div class="doxygen_github_hack" style="font-size: 0px">
+
+[//]: # (\htmlonly)
+
+| Branch | Build status | Development status |
+|--------|--------------|--------------------|
+| [master](https://github.com/michpolicht/CuteHMI) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master)](https://travis-ci.org/michpolicht/CuteHMI/branches) | pre-alpha |
+| [1](https://github.com/michpolicht/CuteHMI/tree/1)      | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches) | alpha |
+
+[//]: # (\endhtmlonly)
+</div>
+<!-- CUT HERE -->
+
 ## Compiling
 
 1. Get the Qt toolkit. Open-source and commercial editions can be obtained from
