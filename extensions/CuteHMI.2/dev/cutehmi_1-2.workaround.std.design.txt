@@ -1,0 +1,11 @@
+Problem:
+
+Function std::unique_ptr::reset() sets internal pointer to nullptr and only after that it will
+delete its contents. This causes error, when managed object still needs to be accessed through 
+std::unique_ptr::get() function by members of managed object during their destruction.
+
+Workaround:
+
+Use additional raw pointer to return instance of managed object.
+
+Snippet:

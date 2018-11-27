@@ -1,0 +1,10 @@
+Problem:
+
+Singletons require explicit import to load qmldir file.
+
+Workaround:
+
+Add explicit import.
+
+Snippet:
+
