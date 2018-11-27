@@ -1,16 +1,16 @@
-#ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_LOGGING_HPP
-#define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_LOGGING_HPP
+#ifndef H_MODULES_CUTEHMI_u_2_INCLUDE_CUTEHMI_LOGGING_HPP
+#define H_MODULES_CUTEHMI_u_2_INCLUDE_CUTEHMI_LOGGING_HPP
 
 #include "loggingMacros.hpp"
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_1_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_2_loggingCategory)
 
 namespace cutehmi {
 
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_1_loggingCategory();
+	return cutehmi_2_loggingCategory();
 }
 
 }
