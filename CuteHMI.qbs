@@ -4,6 +4,7 @@ Project {
 	property bool buildTests: false
 	property bool staticQMLExtensions: false
 	property bool staticModules: false
+	property bool staticExtensions: false
 
 	qbsSearchPaths: ["qbs"]
 
@@ -11,6 +12,7 @@ Project {
 		"modules/modules.qbs",
 		"tools/tools.qbs",
 		"QML/QML.qbs",
+		"extensions/extensions.qbs",
 		"examples/examples.qbs"
 	]
 
