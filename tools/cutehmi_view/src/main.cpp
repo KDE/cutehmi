@@ -5,8 +5,6 @@
 #include <cutehmi/ProjectModel.hpp>
 #include <cutehmi/ErrorInfo.hpp>
 
-#include <cutehmi/xml/ProjectBackend.hpp>
-
 #include <cutehmi/app/CuteApp.hpp>
 
 //<workaround id="cutehmi_view-4" target="Qt" cause="bug">
@@ -27,42 +25,7 @@
 #include <QLibraryInfo>
 #include <QFile>
 #include <QJsonDocument>
-
-namespace cutehmi {
-namespace view {
-
-/**
- * Load XML file.
- * @param filePath file path.
- * @param project project.
- * @param qmlContext QML context.
- */
-void loadXMLFile(const QString & filePath, Project & project, QQmlContext & qmlContext)
-{
-	if (filePath.isEmpty()) {
-		Prompt::Warning(QObject::tr("Empty filename has been provided."));
-		return;
-	}
-
-	qDebug() << "Loading project file '" << filePath << "'...";
-
-	QFile file(filePath);
-	xml::ProjectBackend xmlBackend(& file, & qmlContext);
-	try {
-		project.load(xmlBackend);
-		Notification::Note(QObject::tr("Succesfuly loaded project file '%1'.").arg(filePath));
-	} catch (const xml::ProjectBackend::DeviceOpenReadException & ) {
-		if (!QFileInfo(filePath).exists())
-			Prompt::Warning(QObject::tr("Could not load project file. File '%1' does not exist.").arg(filePath));
-		else
-			Prompt::Warning(QObject::tr("Could not load project file. File '%1' could not be opened for reading.").arg(filePath));
-	} catch (const Exception & e) {
-		Prompt::Critical(QObject::tr("Error while parsing '%1' document.").arg(filePath) + "\n\n" + e.what());
-	}
-}
-
-}
-}
+#include <QJsonObject>
 
 /**
  * Main function.
@@ -115,7 +78,7 @@ int main(int argc, char * argv[])
 	cmd.addVersionOption();
 	QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
 	cmd.addOption(fullScreenOption);
-	QCommandLineOption projectOption({"p", "project"}, QCoreApplication::translate("main", "Load CuteHMI project <file>."), QCoreApplication::translate("main", "file"));
+	QCommandLineOption projectOption({"p", "project"}, QCoreApplication::translate("main", "Load QML project <URL>."), QCoreApplication::translate("main", "URL"));
 	cmd.addOption(projectOption);
 	QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
 	cmd.addOption(hideCursorOption);
@@ -145,8 +108,13 @@ int main(int argc, char * argv[])
 		QGuiApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
 	//<workaround id="cutehmi_view-5" target="Qt" cause="bug">
 	// When run on raw Xorg server application does not show up cursor unless some controls are hovered.
+	//<workaround id="cutehmi_view-6" target="Qt" cause="bug">
+	// On Windows cursor does not refresh properly when using QGuiApplication::setOverrideCursor().
+#ifndef Q_OS_WIN
 	else
 		QGuiApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
+#endif
+	//</workaround>
 	//</workaround>
 
 	QDir baseDir(QCoreApplication::applicationDirPath() + "/..");
@@ -164,32 +132,24 @@ int main(int argc, char * argv[])
 	engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
 	if (!cmd.value(projectOption).isNull()) {
-		cutehmi::CuteHMI & cuteHMI = cutehmi::CuteHMI::Instance();
-		cutehmi::view::loadXMLFile(baseDirPath + cmd.value(projectOption), *cuteHMI.project(), *engine->rootContext());
-
-		cutehmi::ProjectNode * appNode = cuteHMI.project()->model()->root().child("cutehmi_app_1");
-		if (appNode) {
-			QString source;
-			appNode->invoke("cutehmi::app::MainScreen", "source", Q_RETURN_ARG(QString, source));
-			QUrl sourceUrl(source);
-			if (sourceUrl.isValid()) {
-				// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
-				if (!sourceUrl.scheme().isEmpty() && QDir::isRelativePath(sourceUrl.path()))
-					cutehmi::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(sourceUrl.url()));
-				else {
-					// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
-					if (sourceUrl.isRelative())
-						sourceUrl = QUrl::fromLocalFile(baseDirPath).resolved(sourceUrl);
-					// Check if file exists and eventually set context property.
-					if (sourceUrl.isLocalFile() && !QFile::exists(sourceUrl.toLocalFile()))
-						cutehmi::Prompt::Critical(QObject::tr("Main screen file '%1' does not exist.").arg(sourceUrl.url()));
-					else
-						engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", sourceUrl.url());
-				}
-			} else
-				cutehmi::Prompt::Critical(QObject::tr("Invalid format of main screen URL '%1'.").arg(source));
+		qDebug() << "Project:" << cmd.value(projectOption);
+		QUrl projectUrl(cmd.value(projectOption));
+		if (projectUrl.isValid()) {
+			// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
+			if (!projectUrl.scheme().isEmpty() && QDir::isRelativePath(projectUrl.path()))
+				cutehmi::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(projectUrl.url()));
+			else {
+				// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
+				if (projectUrl.isRelative())
+					projectUrl = QUrl::fromLocalFile(baseDirPath).resolved(projectUrl);
+				// Check if file exists and eventually set context property.
+				if (projectUrl.isLocalFile() && !QFile::exists(projectUrl.toLocalFile()))
+					cutehmi::Prompt::Critical(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
+				else
+					engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", projectUrl.url());
+			}
 		} else
-			qInfo() << "Node 'cutehmi_app_1' has not been set in project model.";
+			cutehmi::Prompt::Critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
 	}
 
 	//<principle id="Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec">
@@ -206,9 +166,14 @@ int main(int argc, char * argv[])
 
 		if (cmd.isSet(hideCursorOption))
 			QGuiApplication::restoreOverrideCursor();
-		//<workaround ref="cutehmi_view-5">
+		//<workaround id="cutehmi_view-5">
+		//<workaround id="cutehmi_view-6" target="Qt" cause="bug">
+		// On Windows cursor does not refresh properly when using QGuiApplication::setOverrideCursor().
+#ifndef Q_OS_WIN
 		else
 			QGuiApplication::restoreOverrideCursor();
+#endif
+		//</workaround>
 		//</workaround>
 	});
 	//</principle>

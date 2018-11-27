@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Dialogs 1.2
 
-import CuteHMI 1.0
+import CuteHMI 2.0
 
 MessageDialog
 {

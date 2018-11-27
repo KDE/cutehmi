@@ -5,7 +5,7 @@ import cutehmi
 cutehmi.Tool {
 	name: "cutehmi_view"
 
-	major: 1
+	major: 2
 
 	minor: 0
 
@@ -31,12 +31,6 @@ cutehmi.Tool {
     ]
 
 	cutehmi.dirs.generateHeaderFile: true
-
-	Depends { name: "cutehmi_1" }
-	cutehmi_1.reqMinor: 0
-
-	Depends { name: "cutehmi_xml_1" }
-	cutehmi_xml_1.reqMinor: 0
 
 	Depends { name: "cutehmi_app_1" }
 	cutehmi_app_1.reqMinor: 0
