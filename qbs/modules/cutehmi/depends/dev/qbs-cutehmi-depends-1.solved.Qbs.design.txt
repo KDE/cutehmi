@@ -35,3 +35,8 @@ Above code has to be replaced by the code below.
 Depends { name: "cutehmi_xml_1" } cutehmi_xml_1.reqMinor: 0
 ```
 
+Solution:
+
+Binary parser should be used for ABI compatibility checks. This will apply to
+all newly created extensions.
+

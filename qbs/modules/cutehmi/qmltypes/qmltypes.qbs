@@ -23,7 +23,7 @@ Module {
 		inputs: ["qml", "dynamiclibrary"]
 
 		prepare: {
-			var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.qmlExtensionInstallDirname]);
+			var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
 			dumpCmd.workingDirectory = product.qbs.installRoot
 			var paths = product.cpp.libraryPaths.concat([product.qbs.installRoot + "/" + product.cutehmi.dirs.moduleInstallDirname]).join(product.qbs.pathListSeparator)
 			if (product.qbs.targetOS.contains("windows"))

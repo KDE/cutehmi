@@ -23,9 +23,9 @@ Product {
 
 	property int major						///< Major version number.
 
-	property int minor						///< Minor version number.
+	property int minor						///< Minor version number (deprecated).
 
-	property int micro						///< Micro version number.
+	property int micro						///< Micro version number (deprecated).
 
 	Properties {
 		condition: qbs.buildVariant.contains("debug")

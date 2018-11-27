@@ -22,6 +22,8 @@ Module {
 	property string qmlExtensionInstallDirname: "QML"
 	property string qmlPluginInstallDirname: "plugins"
 	property string qmlSourceDir: project.sourceDirectory + "/QML"
+	property string extensionInstallDirname: "bin"
+	property string extensionsSourceDir: project.sourceDirectory + "/extensions"
 
 	property string externalDeployDir: project.sourceDirectory + "/external/deploy"
 	property string externalLibDir: externalDeployDir + "/lib"
@@ -60,6 +62,7 @@ Module {
 					f.writeLine("#define " + prefix + "_TOOL_INSTALL_DIRNAME \"" + product.cutehmi.dirs.toolInstallDirname + "\"")
 					f.writeLine("#define " + prefix + "_QML_EXTENSION_INSTALL_DIRNAME \"" + product.cutehmi.dirs.qmlExtensionInstallDirname + "\"")
 					f.writeLine("#define " + prefix + "_QML_PLUGIN_INSTALL_DIRNAME \"" + product.cutehmi.dirs.qmlPluginInstallDirname + "\"")
+					f.writeLine("#define " + prefix + "_EXTENSION_INSTALL_DIRNAME \"" + product.cutehmi.dirs.extensionDirname + "\"")
 					f.writeLine("")
 					f.writeLine("#endif")
 				} finally {

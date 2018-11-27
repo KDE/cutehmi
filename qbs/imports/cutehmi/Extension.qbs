@@ -4,9 +4,9 @@ import qbs.FileInfo
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: project.staticQMLExtensions ? ["staticlibrary"] : ["dynamiclibrary"]
+	type: project.staticExtensions ? ["staticlibrary"] : ["dynamiclibrary"]
 
-	cutehmiType: "qmlExtension"
+	cutehmiType: "extension"
 
 	targetName: name
 
@@ -14,18 +14,48 @@ CommonProduct {
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
-	property string installDir: cutehmi.dirs.qmlExtensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.qmlSourceDir, sourceDirectory)
+	cpp.defines: {
+		var defines = [macroName + "_BUILD"]
+		if (!project.staticExtensions)
+			defines.push(macroName + "_DYNAMIC")
+		if (project.buildTests)
+			defines.push(macroName + "_TEST")
+		return base.concat(defines)
+	}
 
-	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.qmlExtensionInstallDirname]	// QML import paths for QtCreator.
+	cpp.includePaths: [product.sourceDirectory + "/include"]
+
+	property string installDir: cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
+
+	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.extensionInstallDirname]	// QML import paths for QtCreator.
+
+	property string macroName: baseName.toUpperCase().replace(/\./g, '_')
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
 		targetName: name + (qbs.buildVariant.contains("debug") ? "d" : "")
 	}
 
+	Export {
+		cpp.defines: {
+			var defines = [product.macroName + "_" + product.major + "_" + product.minor]
+			if (!project.staticExtensions)
+				defines.push(product.macroName + "_DYNAMIC")
+			if (project.buildTests)
+				defines.push(product.macroName + "_TEST")
+			return defines
+		}
+
+		cpp.includePaths: [product.sourceDirectory + "/include"]
+
+		cpp.libraryPaths: if (product.cpp.libraryPaths) product.cpp.libraryPaths
+
+		Depends { name: "cpp" }
+	}
+
 	Depends { name: "cutehmi.metadata" }
 	Depends { name: "cutehmi.dirs" }
-//	Depends { name: "cutehmi.qmltypes" }
+	Depends { name: "cutehmi.qmltypes" }
 
 	FileTagger {
 		patterns: "*.qml"
@@ -56,12 +86,20 @@ CommonProduct {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"
 		qbs.install: true
-		qbs.installDir: installDir + "/" + cutehmi.dirs.qmlPluginInstallDirname
+		qbs.installDir: cutehmi.dirs.extensionInstallDirname
 	}
 
 	Group {
 		name: "QML"
 		fileTagsFilter: ["qml", "js", "qmldir", "qmltypes", "metainfo"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
+	}
+
+	Group {
+		name: "Readme files"
+		fileTagsFilter: ["README.md", "LICENSE"]
 		qbs.install: true
 		qbs.installSourceBase: sourceDirectory
 		qbs.installDir: installDir
