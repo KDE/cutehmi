@@ -14,7 +14,7 @@ Module {
 	/**
 	  Whether to use Doxyqml.
 	  */
-	property bool useDoxyqml: product.cutehmiType === "qmlExtension"
+	property bool useDoxyqml: false
 
 	/**
 	  Whether to use input filter. If this property is set to true a _sed_

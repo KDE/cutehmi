@@ -1,0 +1,9 @@
+/**
+
+@page extensionsList List of extensions
+
+Here's a list of documented extensions.
+
+@includedoc Makefile.project/ExtensionsList.inc.dox
+
+*/
