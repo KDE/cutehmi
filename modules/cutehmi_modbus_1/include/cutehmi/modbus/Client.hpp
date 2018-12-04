@@ -46,7 +46,7 @@ class CUTEHMI_MODBUS_API Client:
 			QString str() const;
 		};
 
-		explicit Client(std::unique_ptr<internal::AbstractConnection> connection, QObject * parent = 0);
+		explicit Client(std::unique_ptr<internal::AbstractConnection> connection, QObject * parent = nullptr);
 
 		~Client() override;
 

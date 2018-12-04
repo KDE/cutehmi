@@ -36,7 +36,7 @@ class CUTEHMI_API ProjectModel:
 
 		Q_PROPERTY(const cutehmi::ProjectNode * root READ rootPtr CONSTANT)
 
-		explicit ProjectModel(QObject * parent = 0);
+		explicit ProjectModel(QObject * parent = nullptr);
 
 		// QAbstractItemModel read access, basic function.
 		QModelIndex index(int row, int column, const QModelIndex & parent) const override;

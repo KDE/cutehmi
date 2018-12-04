@@ -38,7 +38,7 @@ class DateTimeAxis:
 		static constexpr Interval INITIAL_TICK_INTERVAL = DAYS;
 		static constexpr Interval INITIAL_MINOR_TICK_INTERVAL = HOURS;
 
-		DateTimeAxis(QQuickItem * parent = 0);
+		DateTimeAxis(QQuickItem * parent = nullptr);
 
 		Interval tickInterval() const;
 

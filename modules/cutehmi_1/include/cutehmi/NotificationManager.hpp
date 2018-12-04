@@ -23,7 +23,7 @@ class CUTEHMI_API NotificationManager:
 		Q_PROPERTY(NotificationListModel * model READ model CONSTANT)
 		Q_PROPERTY(int maxNotifications READ maxNotifications WRITE setMaxNotifications NOTIFY maxNotificationsChanged)
 
-		explicit NotificationManager(QObject * parent = 0);
+		explicit NotificationManager(QObject * parent = nullptr);
 
 		NotificationListModel * model() const;
 

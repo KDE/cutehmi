@@ -20,7 +20,7 @@ class PlotArea:
 		Q_PROPERTY(qreal horizontalCenter READ horizontalCenter NOTIFY horizontalCenterChanged STORED false)
 		Q_PROPERTY(qreal verticalCenter READ verticalCenter NOTIFY verticalCenterChanged STORED false)
 
-		PlotArea(QQuickItem * parent = 0);
+		PlotArea(QQuickItem * parent = nullptr);
 
 		qreal left() const;
 

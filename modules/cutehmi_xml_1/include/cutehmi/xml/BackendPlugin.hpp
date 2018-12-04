@@ -29,7 +29,7 @@ class CUTEHMI_XML_API BackendPlugin:
 		 * @param implementation object implementing IBackendPlugin interface.
 		 * @param parent parent object.
 		 */
-		explicit BackendPlugin(IBackendPlugin * implementation, QObject * parent = 0);
+		explicit BackendPlugin(IBackendPlugin * implementation, QObject * parent = nullptr);
 
 		/**
 		 * Get object implementing IBackendPlugin interface.

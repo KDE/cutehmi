@@ -1,5 +1,5 @@
-#ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_POPUPBRIDGE_HPP
-#define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_POPUPBRIDGE_HPP
+#ifndef H_MODULES_CUTEHMI_u_1_INCLUDE_CUTEHMI_POPUPBRIDGE_HPP
+#define H_MODULES_CUTEHMI_u_1_INCLUDE_CUTEHMI_POPUPBRIDGE_HPP
 
 #include "internal/common.hpp"
 #include "Prompt.hpp"
@@ -18,7 +18,7 @@ class CUTEHMI_API PopupBridge:
 	Q_OBJECT
 
 	public:
-		explicit PopupBridge(QObject * parent = 0);
+		explicit PopupBridge(QObject * parent = nullptr);
 
 		/**
 		 * Advertise prompt.

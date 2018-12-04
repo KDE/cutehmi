@@ -27,7 +27,7 @@ class CUTEHMI_API Notification:
 		};
 		Q_ENUM(Type)
 
-		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = 0);
+		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = nullptr);
 
 		static void Note(const QString & text);
 

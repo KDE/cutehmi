@@ -20,7 +20,7 @@ class CoilController:
 		Q_PROPERTY(bool value READ value WRITE setValue NOTIFY valueChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
-		CoilController(QObject * parent = 0);
+		CoilController(QObject * parent = nullptr);
 
 		~CoilController() override;
 

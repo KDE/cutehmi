@@ -1,7 +1,9 @@
 #ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_NOTIFICATION_HPP
 #define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_NOTIFICATION_HPP
 
-#include "internal/common.hpp"
+#include "internal/platform.hpp"
+#include "ErrorInfo.hpp"
+#include "MPtr.hpp"
 
 #include <QObject>
 #include <QDateTime>
@@ -27,7 +29,7 @@ class CUTEHMI_API Notification:
 		};
 		Q_ENUM(Type)
 
-		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = 0);
+		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = nullptr);
 
 		static void Note(const QString & text);
 

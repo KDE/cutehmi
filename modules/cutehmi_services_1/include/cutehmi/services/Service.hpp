@@ -32,7 +32,7 @@ class CUTEHMI_SERVICES_API Service:
 		static constexpr const char * INITIAL_NAME = "Unnamed service";
 		static constexpr State INITIAL_STATE = STOPPED;
 
-		Service(const QString & name = INITIAL_NAME, QObject * parent = 0);
+		Service(const QString & name = INITIAL_NAME, QObject * parent = nullptr);
 
 		const QString & name() const;
 

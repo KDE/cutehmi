@@ -22,7 +22,7 @@ class CUTEHMI_MODBUS_API Coil:
 		 * @param value initial value.
 		 * @param parent parent object.
 		 */
-		explicit Coil(bool value = false, QObject * parent = 0);
+		explicit Coil(bool value = false, QObject * parent = nullptr);
 
 		Q_INVOKABLE bool value() const;
 

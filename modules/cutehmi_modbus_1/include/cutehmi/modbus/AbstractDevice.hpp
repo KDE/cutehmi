@@ -48,7 +48,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		virtual Coil * bAt(int index) = 0;
 
 	protected:
-		AbstractDevice(QObject * parent = 0);
+		AbstractDevice(QObject * parent = nullptr);
 
 		~AbstractDevice() override;
 };

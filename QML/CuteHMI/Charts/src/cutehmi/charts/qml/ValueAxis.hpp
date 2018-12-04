@@ -27,7 +27,7 @@ class ValueAxis:
 		Q_PROPERTY(qreal to READ to WRITE setTo NOTIFY toChanged)
 		Q_PROPERTY(PlotArea * plotArea READ plotArea WRITE setPlotArea NOTIFY plotAreaChanged)
 
-		ValueAxis(QQuickItem * parent = 0);
+		ValueAxis(QQuickItem * parent = nullptr);
 
 		qreal from() const;
 

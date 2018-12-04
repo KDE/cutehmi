@@ -25,7 +25,7 @@ class CUTEHMI_API Project:
 		Q_PROPERTY(ProjectModel * model READ model NOTIFY modelChanged)
 		Q_PROPERTY(QQmlListProperty<cutehmi::Plugin> plugins READ plugins NOTIFY pluginsChanged)
 
-		Project(QObject * parent = 0);
+		Project(QObject * parent = nullptr);
 
 		~Project() override;
 

@@ -14,7 +14,7 @@ class CUTEHMI_APP_API MainScreen:
 	Q_OBJECT
 
 	public:
-		MainScreen(const QString & source, QObject * parent = 0);
+		MainScreen(const QString & source, QObject * parent = nullptr);
 
 		Q_INVOKABLE QString source() const;
 

@@ -36,7 +36,7 @@ class LinearAxis:
 		static constexpr qreal INITIAL_AXIS_SCALE = 1.0;
 		static constexpr char TICK_LABEL_FORMAT = 'g';
 
-		LinearAxis(QQuickItem * parent = 0);
+		LinearAxis(QQuickItem * parent = nullptr);
 
 		qreal tickInterval() const;
 

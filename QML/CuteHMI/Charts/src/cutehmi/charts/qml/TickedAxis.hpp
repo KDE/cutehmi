@@ -40,7 +40,7 @@ class TickedAxis:
 		static constexpr bool INITIAL_TICKS = true;
 		static constexpr bool INITIAL_MINOR_TICKS = false;
 
-		TickedAxis(QQuickItem * parent = 0);
+		TickedAxis(QQuickItem * parent = nullptr);
 
 		qreal tickLabelOffset() const;
 

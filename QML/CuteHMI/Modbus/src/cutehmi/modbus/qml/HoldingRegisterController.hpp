@@ -22,7 +22,7 @@ class HoldingRegisterController:
 		Q_PROPERTY(HoldingRegister::Encoding encoding READ encoding WRITE setEncoding NOTIFY encodingChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
-		HoldingRegisterController(QObject * parent = 0);
+		HoldingRegisterController(QObject * parent = nullptr);
 
 		~HoldingRegisterController() override;
 

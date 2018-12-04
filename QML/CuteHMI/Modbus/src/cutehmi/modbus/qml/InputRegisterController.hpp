@@ -22,7 +22,7 @@ class InputRegisterController:
 		Q_PROPERTY(InputRegister::Encoding encoding READ encoding WRITE setEncoding NOTIFY encodingChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
-		InputRegisterController(QObject * parent = 0);
+		InputRegisterController(QObject * parent = nullptr);
 
 		~InputRegisterController() override;
 

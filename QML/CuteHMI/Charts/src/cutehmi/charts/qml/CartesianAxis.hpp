@@ -36,7 +36,7 @@ class CartesianAxis:
 		static constexpr qreal INITIAL_THICKNESS = 1.0;
 		static constexpr qreal INITIAL_AXIS_POSITION = 25.0;
 
-		CartesianAxis(QQuickItem * parent = 0);
+		CartesianAxis(QQuickItem * parent = nullptr);
 
 		Qt::Orientation orientation() const;
 

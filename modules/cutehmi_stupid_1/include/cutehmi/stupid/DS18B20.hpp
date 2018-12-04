@@ -52,7 +52,7 @@ class CUTEHMI_STUPID_API DS18B20:
 		 * @param value initial value.
 		 * @param parent parent object.
 		 */
-		explicit DS18B20(QObject * parent = 0);
+		explicit DS18B20(QObject * parent = nullptr);
 
 		int error() const;
 

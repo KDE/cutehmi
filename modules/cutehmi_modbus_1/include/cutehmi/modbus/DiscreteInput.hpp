@@ -21,7 +21,7 @@ class CUTEHMI_MODBUS_API DiscreteInput:
 		 * @param value initial value.
 		 * @param parent parent object.
 		 */
-		explicit DiscreteInput(bool value = false, QObject * parent = 0);
+		explicit DiscreteInput(bool value = false, QObject * parent = nullptr);
 
 		Q_INVOKABLE bool value() const;
 

@@ -80,9 +80,9 @@ class CUTEHMI_API Plugin:
 
 		static int CheckReqMinors(int reqMinor, QList<Metadata> & metadataList);
 
-		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, QObject * parent = 0);
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, QObject * parent = nullptr);
 
-		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, const Metadata & metadata, QObject * parent = 0);
+		Plugin(const QString & binary, std::unique_ptr<QPluginLoader> loader, bool implicitLoad, const Metadata & metadata, QObject * parent = nullptr);
 
 		~Plugin() override;
 

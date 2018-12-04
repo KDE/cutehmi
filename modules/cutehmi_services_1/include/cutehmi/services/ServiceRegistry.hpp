@@ -21,7 +21,7 @@ class CUTEHMI_SERVICES_API ServiceRegistry:
 		Q_PROPERTY(int started READ started NOTIFY startedChanged)
 		Q_PROPERTY(int stopped READ stopped NOTIFY stoppedChanged)
 
-		ServiceRegistry(QObject * parent = 0);
+		ServiceRegistry(QObject * parent = nullptr);
 
 		~ServiceRegistry() override;
 

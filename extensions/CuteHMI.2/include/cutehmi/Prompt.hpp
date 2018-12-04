@@ -1,7 +1,9 @@
-#ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_PROMPT_HPP
-#define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_PROMPT_HPP
+#ifndef H_MODULES_CUTEHMI_u_2_INCLUDE_CUTEHMI_PROMPT_HPP
+#define H_MODULES_CUTEHMI_u_2_INCLUDE_CUTEHMI_PROMPT_HPP
 
-#include "internal/common.hpp"
+#include "internal/platform.hpp"
+#include "MPtr.hpp"
+#include "ErrorInfo.hpp"
 
 #include <memory>
 
@@ -34,7 +36,7 @@ class CUTEHMI_API Prompt:
 		};
 		Q_ENUM(Type)
 
-		enum Button : qint32 {
+		enum Button: qint32 {
 			BUTTON_OK = 0x00000400,
 			BUTTON_OPEN = 0x00002000,
 			BUTTON_SAVE = 0x00000800,
@@ -59,11 +61,11 @@ class CUTEHMI_API Prompt:
 		Q_FLAG(Buttons)
 		Q_ENUM(Button)
 
-		explicit Prompt(Type type = NOTE, const QString & text = QString(), Buttons buttons = Prompt::NO_BUTTON, QObject * parent = 0);
+		explicit Prompt(Type type = NOTE, const QString & text = QString(), Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
 
-		Prompt(Type type, const QString & text, const QString & informativeText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = 0);
+		Prompt(Type type, const QString & text, const QString & informativeText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
 
-		Prompt(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = 0);
+		Prompt(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
 
 		~Prompt() override = default;
 

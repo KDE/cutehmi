@@ -26,7 +26,7 @@ class CUTEHMI_STUPID_API DS18B20History:
 		Q_PROPERTY(qint64 maximum READ maximum NOTIFY maximumChanged)
 		Q_PROPERTY(bool updating READ updating NOTIFY updatingChanged)
 
-		DS18B20History(std::unique_ptr<internal::DS18B20HistoryWorker> worker = nullptr, QObject * parent = 0);
+		DS18B20History(std::unique_ptr<internal::DS18B20HistoryWorker> worker = nullptr, QObject * parent = nullptr);
 
 		~DS18B20History() override;
 

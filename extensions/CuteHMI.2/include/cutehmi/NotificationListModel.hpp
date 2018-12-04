@@ -23,7 +23,7 @@ class NotificationListModel:
 			DATE_TIME_ROLE
 		};
 
-		NotificationListModel(QObject * parent = 0);
+		NotificationListModel(QObject * parent = nullptr);
 
 		~NotificationListModel() override;
 

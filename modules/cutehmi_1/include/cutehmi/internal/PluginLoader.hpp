@@ -73,7 +73,7 @@ class PluginLoader:
 
 		typedef QVector<Plugin *> LoadedPluginsContainer;
 
-		explicit PluginLoader(QObject * parent = 0);
+		explicit PluginLoader(QObject * parent = nullptr);
 
 		~PluginLoader() override;
 

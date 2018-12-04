@@ -22,7 +22,7 @@ class CUTEHMI_MODBUS_API Service:
 	Q_OBJECT
 
 	public:
-		Service(const QString & name, Client * client, QObject * parent = 0);
+		Service(const QString & name, Client * client, QObject * parent = nullptr);
 
 		~Service() override;
 

@@ -33,7 +33,7 @@ class CUTEHMI_STUPID_API Client:
 
 		typedef QList<QString> DS18B20IdsContainer;
 
-		explicit Client(QObject * parent = 0);
+		explicit Client(QObject * parent = nullptr);
 
 		~Client() override;
 

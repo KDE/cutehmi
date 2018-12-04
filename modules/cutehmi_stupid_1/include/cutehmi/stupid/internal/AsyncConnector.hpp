@@ -25,7 +25,7 @@ class AsyncConnector:
 			CONNECTED
 		};
 
-		AsyncConnector(DatabaseThread * dbThread, QObject * parent = 0);
+		AsyncConnector(DatabaseThread * dbThread, QObject * parent = nullptr);
 
 		const QStringList & w1Ids() const;
 

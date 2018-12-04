@@ -36,7 +36,7 @@ class ChannelsThread:
 //			QString str() const;
 //		};
 
-		explicit ChannelsThread(QObject * parent = 0);
+		explicit ChannelsThread(QObject * parent = nullptr);
 
 		~ChannelsThread() override;
 

@@ -18,7 +18,7 @@ class CUTEHMI_API PopupBridge:
 	Q_OBJECT
 
 	public:
-		explicit PopupBridge(QObject * parent = 0);
+		explicit PopupBridge(QObject * parent = nullptr);
 
 		/**
 		 * Advertise prompt.

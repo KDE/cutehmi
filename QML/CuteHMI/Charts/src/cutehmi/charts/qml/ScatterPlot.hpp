@@ -35,7 +35,7 @@ class ScatterPlot:
 		static const QColor INITIAL_COLOR;
 		static constexpr qreal INITIAL_POINT_SIZE = 3.0;
 
-		ScatterPlot(QQuickItem * parent = 0);
+		ScatterPlot(QQuickItem * parent = nullptr);
 
 		QColor color() const;
 

@@ -20,7 +20,7 @@ class DiscreteInputController:
 		Q_PROPERTY(bool value READ value NOTIFY valueChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
-		DiscreteInputController(QObject * parent = 0);
+		DiscreteInputController(QObject * parent = nullptr);
 
 		~DiscreteInputController() override;
 

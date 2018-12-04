@@ -33,7 +33,7 @@ class CUTEHMI_MODBUS_API InputRegister:
 		 * @param value initial value.
 		 * @param parent parent object.
 		 */
-		explicit InputRegister(uint16_t value = 0, QObject * parent = 0);
+		explicit InputRegister(uint16_t value = 0, QObject * parent = nullptr);
 
 		Q_INVOKABLE QVariant value(Encoding encoding = INT16) const noexcept(false);
 
