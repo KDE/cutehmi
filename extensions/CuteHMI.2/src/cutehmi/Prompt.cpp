@@ -130,8 +130,10 @@ Prompt::Button Prompt::response() const
 void Prompt::acceptResponse(Button response)
 {
 	if (m->response != NO_BUTTON)
-		CUTEHMI_LOG_WARNING("Response has been already accepted.");
+		CUTEHMI_LOG_WARNING("Ignoring new arrival '" << response << "', as response '" << m->response << "' has been already accepted.");
 	else {
+		if (!(response & buttons()))
+			CUTEHMI_LOG_WARNING("Forcibly accepting response '" << response << "', which should not be available.");
 		m->response = response;
 		emit responseArrived(response);
 	}
