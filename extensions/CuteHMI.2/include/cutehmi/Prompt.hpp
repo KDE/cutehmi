@@ -61,54 +61,168 @@ class CUTEHMI_API Prompt:
 		Q_FLAG(Buttons)
 		Q_ENUM(Button)
 
+		/**
+		 * Constructor.
+		 * @param type prompt type.
+		 * @param text message for the user.
+		 * @param buttons prompt buttons.
+		 * @param parent parent object.
+		 */
 		explicit Prompt(Type type = NOTE, const QString & text = QString(), Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
 
+		/**
+		 * Constructor.
+		 * @param type prompt type.
+		 * @param text message for the user.
+		 * @param informativeText informative message.
+		 * @param buttons prompt buttons.
+		 * @param parent parent object.
+		 */
 		Prompt(Type type, const QString & text, const QString & informativeText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
 
+		/**
+		 * Constructor.
+		 * @param type prompt type.
+		 * @param text message for the user.
+		 * @param informativeText informative message.
+		 * @param detailedText detailed message.
+		 * @param buttons prompt buttons.
+		 * @param parent parent object.
+		 */
 		Prompt(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
 
+		/**
+		 * Destructor.
+		 */
 		~Prompt() override = default;
 
+		/**
+		 * Notice message. Convenient function that creates informative prompt.
+		 * @param text message for the user.
+		 * @param buttons prompt buttons.
+		 * @return prompt.
+		 */
 		static std::unique_ptr<Prompt> Note(const QString & text, Buttons buttons = BUTTON_OK);
 
+		/**
+		 * Warning message. Convenient function that creates warning prompt.
+		 * @param text message for the user.
+		 * @param buttons prompt buttons.
+		 * @return prompt.
+		 */
 		static std::unique_ptr<Prompt> Warning(const QString & text, Buttons buttons = BUTTON_OK);
 
+		/**
+		 * Question. Convenient function that creates question prompt.
+		 * @param text message for the user.
+		 * @param buttons prompt buttons.
+		 * @return prompt.
+		 */
 		static std::unique_ptr<Prompt> Question(const QString & text, Buttons buttons = Buttons{BUTTON_YES, BUTTON_NO});
 
+		/**
+		 * Critical message. Convenient function that creates critical prompt.
+		 * @param text message for the user.
+		 * @param buttons prompt buttons.
+		 * @return prompt.
+		 */
 		static std::unique_ptr<Prompt> Critical(const QString & text, Buttons buttons = BUTTON_OK);
 
+		/**
+		* Critical message. Convenient function that creates critical prompt from ErrorInfo object.
+		* @param errorInfo error info object.
+		* @param buttons prompt buttons.
+		* @return prompt.
+		*/
 		static std::unique_ptr<Prompt> Critical(const ErrorInfo & errorInfo, Buttons buttons = BUTTON_OK);
 
+		/**
+		 * Get prompt type.
+		 * @return prompt type.
+		 */
 		Type type() const;
 
+		/**
+		 * Set prompt type.
+		 * @param type prompt type.
+		 */
 		void setType(Type type);
 
+		/**
+		 * Get text.
+		 * @return text message for the user.
+		 */
 		QString text() const;
 
+		/**
+		 * Set text.
+		 * @param text message for the user.
+		 */
 		void setText(const QString & text);
 
+		/**
+		 * Get informative text.
+		 * @return informative message for the user.
+		 */
 		QString informativeText() const;
 
+		/**
+		 * Set informative text.
+		 * @param informativeText informative message for the user.
+		 */
 		void setInformativeText(const QString & informativeText);
 
+		/**
+		 * Get detailed text.
+		 * @return detailed message for the user.
+		 */
 		QString detailedText() const;
 
+		/**
+		 * Set detailed text.
+		 * @param detailedText detailed message for the user.
+		 */
 		void setDetailedText(const QString & detailedText);
 
+		/**
+		 * Get prompt buttons.
+		 * @return prompt buttons available to the user.
+		 */
 		Buttons buttons() const;
 
+		/**
+		 * Set buttons.
+		 * @param buttons buttons that should be available to the user.
+		 */
 		void setButtons(Buttons buttons);
 
+		/**
+		  * Get prompt response.
+		  * @return button that has been pressed by the user or Prompt::NO_BUTTON if user didn't make a choice.
+		  */
 		Q_INVOKABLE Button response() const;
 
+		/**
+		 * Clone prompt.
+		 * @return prompt clone.
+		 */
 		std::unique_ptr<Prompt> clone() const;
 
+		/**
+		 * Block until user provides a response. This function creates local event loop and blocks until user provides a response.
+		 * Before calling exec() you have to connect some signal to acceptResponse() slot.
+		 * @return user response.
+		 *
+		 * @note nested event loops should be avoided in general.
+		 *
+		 * @return button that has been pressed by the user.
+		 */
 		Button exec();
 
 	public slots:
 		/**
-		 * Accept response. Normally a response can be accepted only once. Subsequent calls of this function with values other than
-		 * Prompt::NO_BUTTON will not change the value of @a response property and should be avoided.
+		 * Accept response. Normally a response can be accepted only once. Subsequent calls of this function will not change the
+		 * value of @a response property and should be avoided.
 		 * @param response response to be set.
 		 */
 		void acceptResponse(Button response);
@@ -124,7 +238,7 @@ class CUTEHMI_API Prompt:
 
 		void buttonsChanged();
 
-		void responseArrived(Button response);
+		void responseArrived(cutehmi::Prompt::Button response);
 
 	private:
 		struct Members
