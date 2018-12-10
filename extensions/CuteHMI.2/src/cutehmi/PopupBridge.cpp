@@ -3,7 +3,7 @@
 namespace cutehmi {
 
 PopupBridge::NoAdvertiserException::NoAdvertiserException(Prompt & prompt):
-	Parent(tr("No advertiser has been set.")),
+	Parent(tr("No advertiser has been set. Prompt message: ") + prompt.text()),
 	m(new Members{prompt.clone()})
 {
 }
