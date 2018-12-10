@@ -27,6 +27,7 @@ class CUTEHMI_API Prompt:
 		Q_PROPERTY(QString informativeText READ informativeText WRITE setInformativeText NOTIFY informativeTextChanged)
 		Q_PROPERTY(QString detailedText READ detailedText WRITE setDetailedText NOTIFY detailedTextChanged)
 		Q_PROPERTY(Buttons buttons READ buttons WRITE setButtons NOTIFY buttonsChanged)
+		Q_PROPERTY(Button response READ response NOTIFY responseChanged)
 
 		enum Type {
 			NOTE = 1,
@@ -200,7 +201,7 @@ class CUTEHMI_API Prompt:
 		  * Get prompt response.
 		  * @return button that has been pressed by the user or Prompt::NO_BUTTON if user didn't make a choice.
 		  */
-		Q_INVOKABLE Button response() const;
+		Button response() const;
 
 		/**
 		 * Clone prompt.
@@ -237,6 +238,8 @@ class CUTEHMI_API Prompt:
 		void detailedTextChanged();
 
 		void buttonsChanged();
+
+		void responseChanged();
 
 		void responseArrived(cutehmi::Prompt::Button response);
 

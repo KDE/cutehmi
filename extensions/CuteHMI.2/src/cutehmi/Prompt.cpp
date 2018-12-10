@@ -134,8 +134,9 @@ void Prompt::acceptResponse(Button response)
 	else {
 		if (!(response & buttons()))
 			CUTEHMI_LOG_WARNING("Forcibly accepting response '" << response << "', which should not be available.");
-		m->response = response;
 		emit responseArrived(response);
+		m->response = response;
+		emit responseChanged();
 	}
 }
 
