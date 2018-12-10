@@ -98,46 +98,6 @@ class CUTEHMI_API Prompt:
 		~Prompt() override = default;
 
 		/**
-		 * Notice message. Convenient function that creates informative prompt.
-		 * @param text message for the user.
-		 * @param buttons prompt buttons.
-		 * @return prompt.
-		 */
-		static std::unique_ptr<Prompt> Note(const QString & text, Buttons buttons = BUTTON_OK);
-
-		/**
-		 * Warning message. Convenient function that creates warning prompt.
-		 * @param text message for the user.
-		 * @param buttons prompt buttons.
-		 * @return prompt.
-		 */
-		static std::unique_ptr<Prompt> Warning(const QString & text, Buttons buttons = BUTTON_OK);
-
-		/**
-		 * Question. Convenient function that creates question prompt.
-		 * @param text message for the user.
-		 * @param buttons prompt buttons.
-		 * @return prompt.
-		 */
-		static std::unique_ptr<Prompt> Question(const QString & text, Buttons buttons = Buttons{BUTTON_YES, BUTTON_NO});
-
-		/**
-		 * Critical message. Convenient function that creates critical prompt.
-		 * @param text message for the user.
-		 * @param buttons prompt buttons.
-		 * @return prompt.
-		 */
-		static std::unique_ptr<Prompt> Critical(const QString & text, Buttons buttons = BUTTON_OK);
-
-		/**
-		* Critical message. Convenient function that creates critical prompt from ErrorInfo object.
-		* @param errorInfo error info object.
-		* @param buttons prompt buttons.
-		* @return prompt.
-		*/
-		static std::unique_ptr<Prompt> Critical(const ErrorInfo & errorInfo, Buttons buttons = BUTTON_OK);
-
-		/**
 		 * Get prompt type.
 		 * @return prompt type.
 		 */

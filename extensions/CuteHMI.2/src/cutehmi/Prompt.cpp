@@ -24,39 +24,6 @@ Prompt::Prompt(Type type, const QString & text, const QString & informativeText,
 {
 }
 
-std::unique_ptr<Prompt> Prompt::Note(const QString & text, Buttons buttons)
-{
-	std::unique_ptr<Prompt> result(new Prompt(NOTE, text, buttons));
-	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Prompt> Prompt::Warning(const QString & text, Buttons buttons)
-{
-	std::unique_ptr<Prompt> result(new Prompt(WARNING, text, buttons));
-	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Prompt> Prompt::Question(const QString & text, Buttons buttons)
-{
-	std::unique_ptr<Prompt> result(new Prompt(QUESTION, text, buttons));
-	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Prompt> Prompt::Critical(const QString & text, Buttons buttons)
-{
-	std::unique_ptr<Prompt> result(new Prompt(CRITICAL, text, buttons));
-	CuteHMI::Instance().popupBridge()->advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Prompt> Prompt::Critical(const ErrorInfo & errorInfo, Buttons buttons)
-{
-	return Critical(errorInfo.toString(), buttons);
-}
-
 Prompt::Type Prompt::type() const
 {
 	return m->type;
