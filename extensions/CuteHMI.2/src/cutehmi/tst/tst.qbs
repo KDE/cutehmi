@@ -33,8 +33,8 @@ Project {
 	TestCase {
 		name: "Prompt"
 		files: [
-         "tst_Prompt.cpp",
-     ]
+			"tst_Prompt.cpp",
+		]
 	}
 
 	TestCase {
@@ -44,15 +44,12 @@ Project {
 		]
 	}
 
-//	TestCase {
-//		name: "TestQML"
+	TestCase {
+		name: "PopupBridgeQML"
 
-////		Qt.core.pluginMetaData: ["uri=CuteHMI.Modbus"]	//temp
-////		Qt.core.mocFlags: ["-Muri=CuteHMI.Modbus"]	//temp
-
-//		files: [
-//         "TestQML.cpp",
-//         "tst_DummyConnection.qml",
-//     ]
-//	}
+		files: [
+         "tst_PopupBridge.qml",
+         "tst_PopupBridgeQML.cpp",
+     ]
+	}
 }
