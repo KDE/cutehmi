@@ -79,6 +79,7 @@ Project {
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
+		cutehmi.doxygen.exclude: ['src/cutehmi/tst']
 
 		Export {
 			Depends { name: "Qt.core" }
