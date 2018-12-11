@@ -29,7 +29,7 @@
 	#define CUTEHMI_LOG_CRITICAL(EXPR) (void)0
 #endif
 
-#ifdef CUTEHMI_DEBUG
+#ifndef CUTEHMI_NDEBUG
 	#define CUTEHMI_ASSERT(EXPR, MSG) Q_ASSERT_X(EXPR, __FILE__, MSG)
 #else
 	#define CUTEHMI_ASSERT(EXPR, MSG) (void)0

@@ -68,7 +68,7 @@ class CUTEHMI_AUTHSSH_API Session:
 		//</workaround>
 
 	private:
-#ifdef CUTEHMI_DEBUG
+#ifndef CUTEHMI_NDEBUG
 		static const int INITIAL_LIBSSH_VERBOSITY = SSH_LOG_FUNCTIONS;
 #else
 		static const int INITIAL_LIBSSH_VERBOSITY = SSH_LOG_NOLOG;
