@@ -24,12 +24,12 @@ class Daemon final
 //		void exec(int maxFails = 3);
 
 	protected:
-		static void MessageHandler(QtMsgType type, const QMessageLogContext & context, const QString & msg);
-
 		void terminate();
 
 	private:
 		void _init();
+
+		void _destroy();
 
 		void _watch();
 

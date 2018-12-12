@@ -1,5 +1,6 @@
 #include "Daemon.hpp"
 #include "logging.hpp"
+#include "../../../cutehmi.metadata.hpp"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -8,9 +9,52 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
-#include <syslog.h>
 #include <string.h>
 #include <signal.h>
+#include <syslog.h>
+
+namespace {
+
+	void syslogMessageHandler(QtMsgType type, const QMessageLogContext & context, const QString & msg)
+	{
+		QByteArray localMsg = msg.toLocal8Bit();
+		switch (type) {
+	#ifndef CUTEHMI_NDEBUG
+			case QtDebugMsg:
+				syslog(LOG_DEBUG, "%s: %s [%s:%u, %s]", context.category, localMsg.constData(), context.file, context.line, context.function);
+				break;
+			case QtInfoMsg:
+				syslog(LOG_INFO, "%s: %s [%s:%u, %s]", context.category, localMsg.constData(), context.file, context.line, context.function);
+				break;
+			case QtWarningMsg:
+				syslog(LOG_WARNING, "%s: %s [%s:%u, %s]", context.category, localMsg.constData(), context.file, context.line, context.function);
+				break;
+			case QtCriticalMsg:
+				syslog(LOG_CRIT, "%s: %s [%s:%u, %s]", context.category, localMsg.constData(), context.file, context.line, context.function);
+				break;
+			case QtFatalMsg:
+				syslog(LOG_ALERT, "%s: %s [%s:%u, %s]", context.category, localMsg.constData(), context.file, context.line, context.function);
+				break;
+	#else
+			case QtDebugMsg:
+				syslog(LOG_DEBUG, "%s: %s", context.category, localMsg.constData());
+				break;
+			case QtInfoMsg:
+				syslog(LOG_INFO, "%s: %s", context.category, localMsg.constData());
+				break;
+			case QtWarningMsg:
+				syslog(LOG_WARNING, "%s: %s", context.category, localMsg.constData());
+				break;
+			case QtCriticalMsg:
+				syslog(LOG_CRIT, "%s: %s", context.category, localMsg.constData());
+				break;
+			case QtFatalMsg:
+				syslog(LOG_ALERT, "%s: %s", context.category, localMsg.constData());
+				break;
+	#endif
+		}
+	}
+}
 
 namespace cutehmi {
 namespace daemon {
@@ -28,6 +72,10 @@ void sigHandler(int signal)
 
 void Daemon::_init()
 {
+	// Configure logging.
+	openlog(CUTEHMI_DAEMON_NAME, LOG_PID | LOG_NDELAY, LOG_USER);
+	qInstallMessageHandler(::syslogMessageHandler);
+
 	pid_t pid, sid;
 
 	// Detach from controlling tty (tty is given per session).
@@ -73,6 +121,11 @@ void Daemon::_init()
 	sigemptyset(& sigAct.sa_mask);
 	sigAct.sa_flags = 0;
 	sigaction(SIGTERM, & sigAct, NULL);
+}
+
+void Daemon::_destroy()
+{
+	closelog();	// "The use of closelog() is optional." -- SYSLOG(3).
 }
 
 void Daemon::_watch()
