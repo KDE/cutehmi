@@ -30,7 +30,7 @@ void tst_Exception::what()
 	try {
 		throw Exception(randomString);
 	} catch (Exception & e) {
-		QCOMPARE(e.what(), randomString);
+		QCOMPARE(e.what(), randomString.toLocal8Bit().constData());
 	}
 }
 
