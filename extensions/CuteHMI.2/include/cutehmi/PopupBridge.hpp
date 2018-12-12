@@ -22,7 +22,7 @@ class CUTEHMI_API PopupBridge:
 		/**
 		 * No advertiser exception.
 		 */
-		class NoAdvertiserException:
+		class CUTEHMI_API NoAdvertiserException:
 			public ExceptionMixin<NoAdvertiserException>
 		{
 			typedef ExceptionMixin<NoAdvertiserException> Parent;
