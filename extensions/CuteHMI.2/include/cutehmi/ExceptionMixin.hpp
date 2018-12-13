@@ -16,7 +16,7 @@ class ExceptionMixin:
 	public Exception
 {
 	public:
-		ExceptionMixin(const QString & what);
+		explicit ExceptionMixin(const QString & what);
 
 		void raise() const noexcept(false) override;
 

@@ -32,9 +32,8 @@ class CUTEHMI_API CuteHMI:
 		 * Calling this function for the first time will also result in registering
 		 * some types with qRegisterMetaType() function. Types that are registered:
 		 *	- cutehmi::ErrorInfo
-		 *  - cutehmi::Prompt::Button
-		 *	- const cutehmi::ProjectNode *
-		 *  .
+		 *	- cutehmi::Prompt::Button
+		 *	.
 		 *
 		 * @return a reference to the instance of the singleton class.
 		 *

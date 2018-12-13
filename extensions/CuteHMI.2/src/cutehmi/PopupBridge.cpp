@@ -2,6 +2,33 @@
 
 namespace cutehmi {
 
+PopupBridge::NoAdvertiserException::NoAdvertiserException(Prompt & prompt):
+	Parent(tr("No advertiser has been set. Prompt message: ") + prompt.text()),
+	m(new Members{prompt.clone()})
+{
+}
+
+PopupBridge::NoAdvertiserException::NoAdvertiserException(const PopupBridge::NoAdvertiserException & other):
+	Parent(other),
+	m(new Members{other.m->prompt->clone()})
+{
+}
+
+PopupBridge::NoAdvertiserException & PopupBridge::NoAdvertiserException::operator =(const PopupBridge::NoAdvertiserException & other)
+{
+	Parent::operator =(other);
+
+	// Self-assignment branch not required.
+	m->prompt = other.m->prompt->clone();
+
+	return *this;
+}
+
+const Prompt * PopupBridge::NoAdvertiserException::prompt() const
+{
+	return m->prompt.get();
+}
+
 PopupBridge::PopupBridge(QObject * parent):
 	QObject(parent),
 	m(new Members)
@@ -12,11 +39,8 @@ void PopupBridge::advertise(Prompt * prompt_l)
 {
 	QMutexLocker locker(& m->requestMutex);
 
-	if (m->advertiser == nullptr) {
-		CUTEHMI_LOG_CRITICAL("No advertiser has been set. Forcing 'Prompt::NO_BUTTON' response.");
-		prompt_l->acceptResponse(Prompt::NO_BUTTON);
-		return;
-	}
+	if (m->advertiser == nullptr)
+		throw NoAdvertiserException(*prompt_l);
 
 	Prompt * clone = prompt_l->clone().release();
 
@@ -31,8 +55,43 @@ void PopupBridge::advertise(Prompt * prompt_l)
 
 void PopupBridge::resetAdvertiser(QObject * advertiser)
 {
+	if (m->advertiser != nullptr)
+		QObject::disconnect(this, SIGNAL(promptRequested(QVariant)), m->advertiser, SLOT(createPrompt(QVariant)));
 	m->advertiser = advertiser;
 	QObject::connect(this, SIGNAL(promptRequested(QVariant)), advertiser, SLOT(createPrompt(QVariant)));
+}
+
+std::unique_ptr<Prompt> PopupBridge::note(const QString & text, Prompt::Buttons buttons)
+{
+	std::unique_ptr<Prompt> result(new Prompt(Prompt::NOTE, text, buttons));
+	advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Prompt> PopupBridge::warning(const QString & text, Prompt::Buttons buttons)
+{
+	std::unique_ptr<Prompt> result(new Prompt(Prompt::WARNING, text, buttons));
+	advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Prompt> PopupBridge::question(const QString & text, Prompt::Buttons buttons)
+{
+	std::unique_ptr<Prompt> result(new Prompt(Prompt::QUESTION, text, buttons));
+	advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Prompt> PopupBridge::critical(const QString & text, Prompt::Buttons buttons)
+{
+	std::unique_ptr<Prompt> result(new Prompt(Prompt::CRITICAL, text, buttons));
+	advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Prompt> PopupBridge::critical(const ErrorInfo & errorInfo, Prompt::Buttons buttons)
+{
+	return critical(errorInfo.toString(), buttons);
 }
 
 }

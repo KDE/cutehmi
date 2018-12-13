@@ -5,7 +5,7 @@ namespace cutehmi {
 QString Plugin::NameToBinary(const QString & name)
 {
 	QString binary(name);
-#ifdef CUTEHMI_DEBUG
+#ifndef CUTEHMI_NDEBUG
 	binary.append('d');
 #endif
 	return binary;
@@ -14,7 +14,7 @@ QString Plugin::NameToBinary(const QString & name)
 QString Plugin::NameFromBinary(const QString & binary)
 {
 	QString name(binary);
-#ifdef CUTEHMI_DEBUG
+#ifndef CUTEHMI_NDEBUG
 	name.chop(1);
 #endif
 	return name;

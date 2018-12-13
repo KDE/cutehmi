@@ -14,7 +14,7 @@ namespace cutehmi {
  *
  * @see errorInfo()
  */
-struct ErrorInfo
+struct CUTEHMI_API ErrorInfo
 {
 	int code;				///< %Error code.
 	const char * errClass;	///< %Error class.

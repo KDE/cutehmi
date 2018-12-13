@@ -28,13 +28,8 @@ Product {
 	property int micro						///< Micro version number (deprecated).
 
 	Properties {
-		condition: qbs.buildVariant.contains("debug")
-		cpp.defines: outer.concat(["CUTEHMI_DEBUG"])
-	}
-
-	Properties {
 		condition: !qbs.buildVariant.contains("debug")
-		cpp.defines: outer.concat(["CUTEHMI_RELEASE", "QT_NO_DEBUG_OUTPUT"])
+		cpp.defines: outer.concat(["CUTEHMI_NDEBUG", "QT_NO_DEBUG_OUTPUT"])
 	}
 
 	Depends { name: "cpp" }

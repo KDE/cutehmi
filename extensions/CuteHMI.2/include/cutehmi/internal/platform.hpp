@@ -1,5 +1,5 @@
-#ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_INTERNAL_PLATFORM_HPP
-#define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_INTERNAL_PLATFORM_HPP
+#ifndef H_MODULES_CUTEHMI_u_1_INCLUDE_CUTEHMI_INTERNAL_PLATFORM_HPP
+#define H_MODULES_CUTEHMI_u_1_INCLUDE_CUTEHMI_INTERNAL_PLATFORM_HPP
 
 #ifdef CUTEHMI_DYNAMIC
 	#ifdef CUTEHMI_BUILD
@@ -9,8 +9,17 @@
 		//using functions from dll
 		#define CUTEHMI_API Q_DECL_IMPORT
 	#endif
+
+	#ifdef CUTEHMI_TEST
+		//export symbols to dll
+		#define CUTEHMI_PRIVATE Q_DECL_EXPORT
+	#else
+		//using functions from dll
+		#define CUTEHMI_PRIVATE Q_DECL_IMPORT
+	#endif
 #else
 	#define CUTEHMI_API
+	#define CUTEHMI_PRIVATE
 #endif
 
 #endif

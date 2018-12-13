@@ -17,7 +17,7 @@ class CUTEHMI_API Exception:
 	Q_DECLARE_TR_FUNCTIONS(cutehmi::Exception) // This macro ends with "private:" specifier :o !!!
 
 	public:
-		Exception(const QString & what);
+		explicit Exception(const QString & what);
 
 		void raise() const noexcept(false) override;
 

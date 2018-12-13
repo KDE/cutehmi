@@ -14,7 +14,7 @@ Module {
 	/**
 	  Whether to use Doxyqml.
 	  */
-	property bool useDoxyqml: product.cutehmiType === "qmlExtension"
+	property bool useDoxyqml: false
 
 	/**
 	  Whether to use input filter. If this property is set to true a _sed_
@@ -26,6 +26,8 @@ Module {
 	property bool useInputFilter: true
 
 	property bool warnIfUndocumented: true
+
+	property var exclude: []
 
 	FileTagger {
 		patterns: ["*.qbs"]
@@ -83,7 +85,8 @@ Module {
 					'WARN_NO_PARAMDOC': true,
 					'FILTER_PATTERNS': product.cutehmi.doxygen.useDoxyqml ? ['*.qml=doxyqml'] : undefined,
 					'FILE_PATTERNS' : product.cutehmi.doxygen.useDoxyqml ? ['*.qml'] : undefined,
-					'EXTENSION_MAPPING' : product.cutehmi.doxygen.useDoxyqml ? ['qml=C++'] : undefined
+					'EXTENSION_MAPPING' : product.cutehmi.doxygen.useDoxyqml ? ['qml=C++'] : undefined,
+					'EXCLUDE': product.cutehmi.doxygen.exclude
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
