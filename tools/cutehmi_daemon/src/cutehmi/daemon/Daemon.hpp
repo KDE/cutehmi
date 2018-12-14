@@ -1,5 +1,5 @@
-#ifndef STUPID_SRC_DAEMON_HPP
-#define STUPID_SRC_DAEMON_HPP
+#ifndef H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
+#define H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
 
 //#include "platform.hpp"
 //#include "LogfileBuf.hpp"
