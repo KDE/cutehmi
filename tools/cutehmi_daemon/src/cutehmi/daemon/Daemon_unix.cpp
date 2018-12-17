@@ -108,7 +108,7 @@ void Daemon::_init()
 
 	// This is mainly to avoid locking former working directory.
 	if ((chdir("/")) < 0)
-		CUTEHMI_DIE("Failed to change working directory.");
+		CUTEHMI_DIE("Failed to change working directory to '/'.");
 
 	// Close file descriptors.
 	close(STDIN_FILENO);
