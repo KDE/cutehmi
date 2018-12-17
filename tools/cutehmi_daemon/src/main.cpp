@@ -114,25 +114,23 @@ int main(int argc, char * argv[])
 					else {
 						engine->moveToThread(& engineThread);
 						QObject::connect(& engineThread, SIGNAL(triggerLoad(const QString &)), engine.get(), SLOT(load(const QString &)));
+						QObject::connect(& engineThread, SIGNAL(triggerLoad(const QString &)), & engineThread, SLOT(start()));
 						QObject::connect(& app, & QCoreApplication::aboutToQuit, & engineThread, & QThread::quit);
-
 						// Delegate management of engine to EngineThread, so that it gets deleted after thread finishes execution.
-						QObject::connect(& engineThread, & QThread::finished, engine.get(), & QObject::deleteLater);
-						engine.release();
+						QObject::connect(& engineThread, & QThread::finished, engine.release(), & QObject::deleteLater);
 
 						emit engineThread.triggerLoad(projectUrl.url());
-						engineThread.start();
+						int result = app.exec();
+						engineThread.wait();
+						return result;
 					}
 				}
 			} else
 				cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
 		}
-
-		int result = app.exec();
-		engineThread.wait();
-		return result;
-
 		//</principle>
+
+		return EXIT_SUCCESS;
 
 	} catch (const cutehmi::PopupBridge::NoAdvertiserException & e) {
 		CUTEHMI_CRITICAL("Prompt message: " << e.prompt()->text());
