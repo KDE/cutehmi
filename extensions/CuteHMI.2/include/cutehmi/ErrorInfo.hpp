@@ -1,5 +1,5 @@
-#ifndef H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_ERRORINFO_HPP
-#define H_MODULES_CUTEHMI__1_INCLUDE_CUTEHMI_ERRORINFO_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_ERRORINFO_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_ERRORINFO_HPP
 
 #include <QString>
 
@@ -14,7 +14,7 @@ namespace cutehmi {
  *
  * @see errorInfo()
  */
-struct ErrorInfo
+struct CUTEHMI_API ErrorInfo
 {
 	int code;				///< %Error code.
 	const char * errClass;	///< %Error class.

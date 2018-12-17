@@ -1,9 +1,10 @@
-#ifndef H_MODULES_CUTEHMI_u_2_INCLUDE_CUTEHMI_LOGGING_HPP
-#define H_MODULES_CUTEHMI_u_2_INCLUDE_CUTEHMI_LOGGING_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_LOGGING_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_LOGGING_HPP
 
 #include "loggingMacros.hpp"
+#include "internal/platform.hpp"
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_2_loggingCategory)
+CUTEHMI_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_2_loggingCategory)
 
 namespace cutehmi {
 
