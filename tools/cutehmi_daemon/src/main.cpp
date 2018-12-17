@@ -2,6 +2,7 @@
 #include "../cutehmi.dirs.hpp"
 #include "cutehmi/daemon/logging.hpp"
 #include "cutehmi/daemon/Daemon.hpp"
+#include "cutehmi/daemon/EngineThread.hpp"
 
 #include <cutehmi/CuteHMI.hpp>
 //#include <cutehmi/ProjectModel.hpp>
@@ -91,36 +92,45 @@ int main(int argc, char * argv[])
 
 		CUTEHMI_DEBUG("Library paths: " << QCoreApplication::libraryPaths());
 
+		EngineThread engineThread;
 		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
 		engine->addImportPath(baseDirPath + CUTEHMI_DIRS_QML_EXTENSION_INSTALL_DIRNAME);
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 
-		auto core = [&]() {
-			if (!cmd.value(projectOption).isNull()) {
-				CUTEHMI_DEBUG("Project:" << cmd.value(projectOption));
-				QUrl projectUrl(cmd.value(projectOption));
-				if (projectUrl.isValid()) {
-					// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
-					if (!projectUrl.scheme().isEmpty() && QDir::isRelativePath(projectUrl.path()))
-						cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(projectUrl.url()));
+		if (!cmd.value(projectOption).isNull()) {
+			CUTEHMI_DEBUG("Project:" << cmd.value(projectOption));
+			QUrl projectUrl(cmd.value(projectOption));
+			if (projectUrl.isValid()) {
+				// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
+				if (!projectUrl.scheme().isEmpty() && QDir::isRelativePath(projectUrl.path()))
+					cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(projectUrl.url()));
+				else {
+					// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
+					if (projectUrl.isRelative())
+						projectUrl = QUrl::fromLocalFile(baseDirPath).resolved(projectUrl);
+					// Check if file exists and eventually set context property.
+					if (projectUrl.isLocalFile() && !QFile::exists(projectUrl.toLocalFile()))
+						cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
 					else {
-						// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
-						if (projectUrl.isRelative())
-							projectUrl = QUrl::fromLocalFile(baseDirPath).resolved(projectUrl);
-						// Check if file exists and eventually set context property.
-						if (projectUrl.isLocalFile() && !QFile::exists(projectUrl.toLocalFile()))
-							cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
-						else
-							engine->load(projectUrl.url());
+						engine->moveToThread(& engineThread);
+						QObject::connect(& engineThread, SIGNAL(triggerLoad(const QString &)), engine.get(), SLOT(load(const QString &)));
+						QObject::connect(& app, & QCoreApplication::aboutToQuit, & engineThread, & QThread::quit);
+
+						// Delegate management of engine to EngineThread, so that it gets deleted after thread finishes execution.
+						QObject::connect(& engineThread, & QThread::finished, engine.get(), & QObject::deleteLater);
+						engine.release();
+
+						emit engineThread.triggerLoad(projectUrl.url());
+						engineThread.start();
 					}
-				} else
-					cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
-			}
+				}
+			} else
+				cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
+		}
 
-			return app.exec();
-		};
-
-		return core();
+		int result = app.exec();
+		engineThread.wait();
+		return result;
 
 		//</principle>
 
