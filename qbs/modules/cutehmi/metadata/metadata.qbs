@@ -172,6 +172,9 @@ Module {
 			fileTags: ["cutehmi.metadata.hpp", "hpp"]
 		}
 	}
+
+	Depends { name: "Qt.core" }
+	Qt.core.resourcePrefix: product.name
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
