@@ -1,17 +1,11 @@
 #include "Daemon.hpp"
-//#include "Settings.hpp"
-//#include "Core.hpp"
-
-#include <thread>
-#include <chrono>
 
 namespace cutehmi {
 namespace daemon {
 
-//constexpr int Daemon::SLEEP_UNIT;
-
-Daemon::Daemon():
-	m_terminate(false)
+Daemon::Daemon(std::function<int(void)> & core):
+	m_core(core),
+	m_exitCode(EXIT_FAILURE)
 {
 	_init();
 }
@@ -21,14 +15,22 @@ Daemon::~Daemon()
 	_destroy();
 }
 
-void Daemon::terminate()
+int Daemon::exitCode() const
 {
-	m_terminate = true;
+	return m_exitCode;
 }
 
-//void Daemon::exec(int maxFails)
-//{
-//}
+void Daemon::setExitCode(int exitCode)
+{
+	m_exitCode = exitCode;
+}
+
+int Daemon::exec()
+{
+	_exec();
+	m_exitCode = m_core();
+	return m_exitCode;
+}
 
 }
 }

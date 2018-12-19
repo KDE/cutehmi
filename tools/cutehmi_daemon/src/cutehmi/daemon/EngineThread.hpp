@@ -2,9 +2,6 @@
 #define ENGINETHREAD_HPP
 
 #include <QThread>
-#include <QQmlApplicationEngine>
-
-#include <memory>
 
 namespace cutehmi {
 namespace daemon {
@@ -18,7 +15,7 @@ class EngineThread:
 		EngineThread(QObject * parent = nullptr);
 
 	signals:
-		void triggerLoad(const QString & project);
+		void loadRequested(const QString & project);
 };
 
 }

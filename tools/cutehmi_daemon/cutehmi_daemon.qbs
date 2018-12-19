@@ -46,6 +46,7 @@ cutehmi.Tool {
 		condition: qbs.targetOS.contains("linux")
 		files: [
 			"src/cutehmi/daemon/Daemon_unix.cpp",
+			"src/cutehmi/daemon/Daemon_unix.hpp"
 		]
 	}
 

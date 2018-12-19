@@ -1,15 +1,14 @@
 #include "Daemon.hpp"
+#include "Daemon_unix.hpp"
 #include "logging.hpp"
 #include "../../../cutehmi.metadata.hpp"
 
+#include <QCoreApplication>
+
 #include <sys/types.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <errno.h>
 #include <unistd.h>
-#include <string.h>
 #include <signal.h>
 #include <syslog.h>
 
@@ -54,21 +53,74 @@ namespace {
 	#endif
 		}
 	}
+
 }
 
 namespace cutehmi {
 namespace daemon {
 
-static volatile sig_atomic_t sigHandled = 0;
+static volatile sig_atomic_t sigCaptured = 0;
 
 void sigHandler(int signal)
 {
-	if (signal == SIGTERM) {
-		CUTEHMI_INFO("Termination requested by SIGTERM signal.");
-		sigHandled = signal;
-	} else
-		CUTEHMI_WARNING("Captured unhandled signal (" << signal << ").");
+	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
+
+	sigCaptured = signal;
+
+	if (signal == SIGTERM)
+		::write(_Daemon::sigtermFd[0], & signal, sizeof(signal));
+	else
+		::write(_Daemon::sigUnhandledFd[0], & signal, sizeof(signal));
 }
+
+int _Daemon::sigtermFd[2];
+int _Daemon::sigUnhandledFd[2];
+
+void _Daemon::initializeSignalHandling()
+{
+	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
+
+	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd))
+	   CUTEHMI_DIE("Could not create socket pair for SIGTERM signal.");
+	m_sigtermSocketNotifier.reset(new QSocketNotifier(sigtermFd[1], QSocketNotifier::Read));
+	connect(m_sigtermSocketNotifier.get(), & QSocketNotifier::activated, this, & _Daemon::handleSigterm);
+
+	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sigUnhandledFd))
+	   CUTEHMI_DIE("Could not create socket pair for detection of unhandled signals.");
+	m_unhandledSignalsSocketNotifier.reset(new QSocketNotifier(sigUnhandledFd[1], QSocketNotifier::Read));
+	connect(m_unhandledSignalsSocketNotifier.get(), & QSocketNotifier::activated, this, & _Daemon::handleUnhandledSignals);
+}
+
+void _Daemon::handleSigterm()
+{
+	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
+
+	m_sigtermSocketNotifier->setEnabled(false);
+
+	int signal;
+	::read(sigtermFd[1], & signal, sizeof(signal));
+
+	CUTEHMI_INFO("Termination requested by SIGTERM (" << signal << ") signal.");
+
+	emit terminateRequested();
+
+	m_sigtermSocketNotifier->setEnabled(true);
+}
+
+void _Daemon::handleUnhandledSignals()
+{
+	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
+
+	m_unhandledSignalsSocketNotifier->setEnabled(false);
+
+	int signal;
+	::read(sigUnhandledFd[1], & signal, sizeof(signal));
+
+	CUTEHMI_WARNING("Captured unhandled signal (" << signal << ").");
+
+	m_unhandledSignalsSocketNotifier->setEnabled(true);
+}
+
 
 void Daemon::_init()
 {
@@ -115,23 +167,39 @@ void Daemon::_init()
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
 
+	// Create helper class.
+	_daemon = new _Daemon;
+
+	// Create exit point through 'terminateRequested' signal.
+	if (QCoreApplication::instance())
+		QObject::connect(_daemon, & _Daemon::terminateRequested, QCoreApplication::instance(), & QCoreApplication::quit);
+	else
+		CUTEHMI_DIE("Could not obtain instance of QCoreApplication.");
+
+	// Initialize signal handling.
+	_daemon->initializeSignalHandling();
+
 	// Install signal handler.
 	struct sigaction sigAct;
 	sigAct.sa_handler = sigHandler;
 	sigemptyset(& sigAct.sa_mask);
 	sigAct.sa_flags = 0;
 	sigaction(SIGTERM, & sigAct, NULL);
+
+	// Execute core.
+	exec();
+}
+
+void Daemon::_exec()
+{
 }
 
 void Daemon::_destroy()
 {
-	closelog();	// "The use of closelog() is optional." -- SYSLOG(3).
-}
+	CUTEHMI_INFO("Daemon finished execution with exit code '" << exitCode() << "'.");
 
-void Daemon::_watch()
-{
-	if (sigHandled)
-		terminate();
+	_daemon->deleteLater();
+	closelog();	// "The use of closelog() is optional." -- SYSLOG(3).
 }
 
 }

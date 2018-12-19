@@ -1,39 +1,37 @@
 #ifndef H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
 #define H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
 
-//#include "platform.hpp"
-//#include "LogfileBuf.hpp"
-
-#include <QString>
-#include <QFile>
+#include <functional>
 
 namespace cutehmi {
 namespace daemon {
 
-//class Core;
+class _Daemon;
 
 class Daemon final
 {
 	public:
-//		static constexpr int SLEEP_UNIT = 1000;
-
-		Daemon();
+		Daemon(std::function<int(void)> & core);
 
 		~Daemon();	// Non-virtual destructor, but class is final.
 
-//		void exec(int maxFails = 3);
+		int exitCode() const;
 
 	protected:
-		void terminate();
+		void setExitCode(int exitCode);
+
+		int exec();
 
 	private:
 		void _init();
 
+		void _exec();
+
 		void _destroy();
 
-		void _watch();
-
-		bool m_terminate;
+		std::function<int(void)> & m_core;
+		int m_exitCode;
+		_Daemon * _daemon;
 };
 
 }
