@@ -2,6 +2,7 @@ Project {
 	minimumQbsVersion: "1.6"
 
 	references: [
-		"SampleProject"
+		"SampleProject",
+		"CountDaemon"
 	]
 }
