@@ -3,7 +3,8 @@
 namespace cutehmi {
 namespace daemon {
 
-Daemon::Daemon(std::function<int(void)> & core):
+Daemon::Daemon(CoreData * data, std::function<int(CoreData &)> & core):
+	m_data(data),
 	m_core(core),
 	m_exitCode(EXIT_FAILURE)
 {
@@ -28,8 +29,13 @@ void Daemon::setExitCode(int exitCode)
 int Daemon::exec()
 {
 	_exec();
-	m_exitCode = m_core();
+	m_exitCode = m_core(*m_data);
 	return m_exitCode;
+}
+
+CoreData * Daemon::data() const
+{
+	return m_data;
 }
 
 }

@@ -1,6 +1,8 @@
 #ifndef H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
 #define H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
 
+#include "CoreData.hpp"
+
 #include <functional>
 
 namespace cutehmi {
@@ -11,7 +13,7 @@ class _Daemon;
 class Daemon final
 {
 	public:
-		Daemon(std::function<int(void)> & core);
+		Daemon(CoreData * data, std::function<int(CoreData &)> & core);
 
 		~Daemon();	// Non-virtual destructor, but class is final.
 
@@ -22,6 +24,8 @@ class Daemon final
 
 		int exec();
 
+		CoreData * data() const;
+
 	private:
 		void _init();
 
@@ -29,7 +33,8 @@ class Daemon final
 
 		void _destroy();
 
-		std::function<int(void)> & m_core;
+		CoreData * m_data;
+		std::function<int(CoreData &)> & m_core;
 		int m_exitCode;
 		_Daemon * _daemon;
 };

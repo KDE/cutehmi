@@ -3,6 +3,7 @@
 #include "cutehmi/daemon/logging.hpp"
 #include "cutehmi/daemon/Daemon.hpp"
 #include "cutehmi/daemon/EngineThread.hpp"
+#include "cutehmi/daemon/CoreData.hpp"
 
 #include <cutehmi/CuteHMI.hpp>
 
@@ -62,34 +63,41 @@ int main(int argc, char * argv[])
 	cmd.setApplicationDescription(QCoreApplication::applicationName() + "\n" + metadataJson.object().value("description").toString());
 	cmd.addHelpOption();
 	cmd.addVersionOption();
-	QCommandLineOption projectOption({"p", "project"}, QCoreApplication::translate("main", "Load QML project <URL>."), QCoreApplication::translate("main", "URL"));
-	cmd.addOption(projectOption);
-	QCommandLineOption appOption("app", QCoreApplication::translate("main", "Run project in application mode."));
-	cmd.addOption(appOption);
-	QCommandLineOption langOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language"));
-	cmd.addOption(langOption);
-	QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
-	cmd.addOption(basedirOption);
+	CoreData::Options opt {
+		QCommandLineOption("app", QCoreApplication::translate("main", "Run project in application mode.")),
+		QCommandLineOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir")),
+		QCommandLineOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language")),
+		QCommandLineOption({"p", "project"}, QCoreApplication::translate("main", "Load QML project <URL>."), QCoreApplication::translate("main", "URL"))
+	};
+	cmd.addOption(opt.app);
+	cmd.addOption(opt.basedir);
+	cmd.addOption(opt.lang);
+	cmd.addOption(opt.project);
 	cmd.process(app);
 
 
 	// Prepare program core.
 
-	std::function<int(void)> core = [&]() {
+	CoreData data;
+	data.app = & app;
+	data.cmd = & cmd;
+	data.opt = & opt;
+
+	std::function<int(CoreData &)> core = [](CoreData & data) {
 		try {
 
 			CUTEHMI_DEBUG("Default locale: " << QLocale());
 
 			QTranslator qtTranslator;
-			if (cmd.isSet(langOption))
-				qtTranslator.load("qt_" + cmd.value(langOption), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+			if (data.cmd->isSet(data.opt->lang))
+				qtTranslator.load("qt_" + data.cmd->value(data.opt->lang), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 			else
 				qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-			app.installTranslator(& qtTranslator);
+			data.app->installTranslator(& qtTranslator);
 
 			QDir baseDir(QCoreApplication::applicationDirPath() + "/..");
-			if (cmd.isSet(basedirOption))
-				baseDir = cmd.value(basedirOption);
+			if (data.cmd->isSet(data.opt->basedir))
+				baseDir = data.cmd->value(data.opt->basedir);
 			QString baseDirPath = baseDir.absolutePath() + "/";
 			CUTEHMI_DEBUG("Base directory: " << baseDirPath);
 
@@ -100,9 +108,9 @@ int main(int argc, char * argv[])
 			engine->addImportPath(baseDirPath + CUTEHMI_DIRS_QML_EXTENSION_INSTALL_DIRNAME);
 			CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 
-			if (!cmd.value(projectOption).isNull()) {
-				CUTEHMI_DEBUG("Project:" << cmd.value(projectOption));
-				QUrl projectUrl(cmd.value(projectOption));
+			if (!data.cmd->value(data.opt->project).isNull()) {
+				CUTEHMI_DEBUG("Project: " << data.cmd->value(data.opt->project));
+				QUrl projectUrl(data.cmd->value(data.opt->project));
 				if (projectUrl.isValid()) {
 					// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
 					if (!projectUrl.scheme().isEmpty() && QDir::isRelativePath(projectUrl.path()))
@@ -118,18 +126,18 @@ int main(int argc, char * argv[])
 							engine->moveToThread(& engineThread);
 							QObject::connect(& engineThread, SIGNAL(loadRequested(const QString &)), engine.get(), SLOT(load(const QString &)));
 							QObject::connect(& engineThread, SIGNAL(loadRequested(const QString &)), & engineThread, SLOT(start()));
-							QObject::connect(& app, & QCoreApplication::aboutToQuit, & engineThread, & QThread::quit);
+							QObject::connect(data.app, & QCoreApplication::aboutToQuit, & engineThread, & QThread::quit);
 							// Delegate management of engine to EngineThread, so that it gets deleted after thread finishes execution.
 							QObject::connect(& engineThread, & QThread::finished, engine.release(), & QObject::deleteLater);
 
 							emit engineThread.loadRequested(projectUrl.url());
-							int result = app.exec();
+							int result = data.app->exec();
 							engineThread.wait();
 							return result;
 						}
 					}
 				} else
-					cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
+					cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Invalid format of project URL '%1'.").arg(data.cmd->value(data.opt->project)));
 			} else
 				cutehmi::CuteHMI::Instance().popupBridge()->note(QObject::tr("No project file has been specified."));
 
@@ -155,14 +163,14 @@ int main(int argc, char * argv[])
 
 	// Run program core in daemon or application mode.
 
-	if (!cmd.isSet(appOption)) {
-		Daemon daemon(core);	// At this point logging should be configured as daemon has been initialized.
+	if (!cmd.isSet(opt.app)) {
+		Daemon daemon(& data, core);	// At this point logging should be configured as daemon has been initialized.
 
 	//</principle>
 
 		return daemon.exitCode();
 	} else
-		return core();
+		return core(data);
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.

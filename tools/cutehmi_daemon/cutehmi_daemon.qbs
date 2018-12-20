@@ -15,7 +15,7 @@ cutehmi.Tool {
 
 	friendlyName: "Daemon"
 
-	description: "Daemon, which allows one to run CuteHMI project in a background."
+	description: "Daemon, which allows one to run QML project in a background."
 
 	author: "Michal Policht"
 
@@ -25,6 +25,7 @@ cutehmi.Tool {
 
 	files: [
         "README.md",
+        "src/cutehmi/daemon/CoreData.hpp",
         "src/cutehmi/daemon/Daemon.cpp",
         "src/cutehmi/daemon/Daemon.hpp",
         "src/cutehmi/daemon/EngineThread.cpp",
