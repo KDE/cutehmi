@@ -171,8 +171,8 @@ void Daemon::_init()
 	_daemon = new _Daemon;
 
 	// Create exit point through 'terminateRequested' signal.
-	if (QCoreApplication::instance())
-		QObject::connect(_daemon, & _Daemon::terminateRequested, QCoreApplication::instance(), & QCoreApplication::quit);
+	if (data()->app)
+		QObject::connect(_daemon, & _Daemon::terminateRequested, data()->app, & QCoreApplication::quit);
 	else
 		CUTEHMI_DIE("Could not obtain instance of QCoreApplication.");
 
