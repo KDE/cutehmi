@@ -1,3 +1,6 @@
 
 #(c)MP: Copyright © %YEAR%, Michal Policht. All rights reserved.
-#(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#(c)MP: This Source Code Form is subject to the terms of the DO WHAT THE FUCK YOU WANT TO BUT NO FUCKING WARRANTY PUBLIC LICENSE, Version 1.
+#(c)MP: DO WHAT THE FUCK YOU WANT TO BUT NO FUCKING WARRANTY PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+#(c)MP: 0. You just DO WHAT THE FUCK YOU WANT TO.
+#(c)MP: 1. NO FUCKING WARRANTY

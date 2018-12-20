@@ -15,7 +15,7 @@ cutehmi.Example {
 
 	copyright: "Michal Policht"
 
-	license: "WTFPL"
+	license: "WTFNWPL"
 
 	files: [
 		"SampleProject.cutehmi.xml",
