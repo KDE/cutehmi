@@ -11,7 +11,9 @@ Module {
 		else
 			Environment.putEnv("LD_LIBRARY_PATH", product.cutehmi.dirs.externalLibDir + product.qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
 
-		Environment.putEnv("QML2_IMPORT_PATH", product.qbs.installRoot + "/" + product.cutehmi.dirs.qmlExtensionInstallDirname);
+		Environment.putEnv("QML2_IMPORT_PATH", product.qbs.installRoot + "/" + product.cutehmi.dirs.qmlExtensionInstallDirname)
+
+		Environment.putEnv("CUTEHMI_INSTALL_ROOT", product.qbs.installRoot)
 	}
 
 	property bool generateHeaderFile: false
