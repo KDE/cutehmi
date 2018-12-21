@@ -1,5 +1,5 @@
-#ifndef DAEMON_UNIX_HPP
-#define DAEMON_UNIX_HPP
+#ifndef H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_u_UNIX_HPP
+#define H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_u_UNIX_HPP
 
 #include <QObject>
 #include <QSocketNotifier>
@@ -40,4 +40,4 @@ class _Daemon:
 }
 }
 
-#endif // DAEMON_UNIX_HPP
+#endif
