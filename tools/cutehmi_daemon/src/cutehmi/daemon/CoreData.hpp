@@ -17,6 +17,7 @@ struct CoreData
 		QCommandLineOption app;
 		QCommandLineOption basedir;
 		QCommandLineOption lang;
+		QCommandLineOption pidfile;
 		QCommandLineOption project;
 	} * opt;
 };

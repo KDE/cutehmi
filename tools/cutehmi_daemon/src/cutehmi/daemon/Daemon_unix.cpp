@@ -4,13 +4,17 @@
 #include "../../../cutehmi.metadata.hpp"
 
 #include <QCoreApplication>
+#include <QDir>
 
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <signal.h>
 #include <syslog.h>
+#include <string.h>
+#include <errno.h>
 
 namespace {
 
@@ -76,6 +80,11 @@ void sigHandler(int signal)
 int _Daemon::sigtermFd[2];
 int _Daemon::sigUnhandledFd[2];
 
+_Daemon::_Daemon(const QString & pidFile):
+	m_pidFile(pidFile)
+{
+}
+
 void _Daemon::initializeSignalHandling()
 {
 	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
@@ -89,6 +98,18 @@ void _Daemon::initializeSignalHandling()
 	   CUTEHMI_DIE("Could not create socket pair for detection of unhandled signals.");
 	m_unhandledSignalsSocketNotifier.reset(new QSocketNotifier(sigUnhandledFd[1], QSocketNotifier::Read));
 	connect(m_unhandledSignalsSocketNotifier.get(), & QSocketNotifier::activated, this, & _Daemon::handleUnhandledSignals);
+}
+
+void _Daemon::initializePidFile()
+{
+	m_pidFd = createPidFile();
+	lockPidFile();
+	writePidFile();
+}
+
+void _Daemon::destroyPidFile()
+{
+	removePidFile();
 }
 
 void _Daemon::handleSigterm()
@@ -121,12 +142,67 @@ void _Daemon::handleUnhandledSignals()
 	m_unhandledSignalsSocketNotifier->setEnabled(true);
 }
 
+int _Daemon::createPidFile()
+{
+	int fd = open(m_pidFile.toLocal8Bit().constData(), O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		CUTEHMI_DIE("Could not open PID file '%s'; %s.", m_pidFile.toLocal8Bit().constData(), strerror(errno));
+
+	// Set close-on-exec flag.
+	int flags = fcntl(fd, F_GETFD);
+	if (flags == -1)
+		CUTEHMI_DIE("Could not access flags of PID file '%s'; %s.", m_pidFile.toLocal8Bit().constData(), strerror(errno));
+	flags |= FD_CLOEXEC;
+	if (fcntl(fd, F_SETFD, flags) == -1)
+		CUTEHMI_DIE("Could not update flags of PID file '%s'; %s.", m_pidFile.toLocal8Bit().constData(), strerror(errno));
+
+	return fd;
+}
+
+void _Daemon::lockPidFile()
+{
+	struct flock fl;
+
+	fl.l_type = F_WRLCK;
+	fl.l_whence = SEEK_SET;
+	fl.l_start = 0;
+	fl.l_len = 0;
+
+	if (fcntl(m_pidFd, F_SETLK, & fl) == -1) {
+		if (errno  == EAGAIN || errno == EACCES)
+			CUTEHMI_DIE("PID file '%s' is already locked by another process. Ensure that another instance of '" CUTEHMI_DAEMON_NAME "' with the same 'pidfile' option is not already running.", m_pidFile.toLocal8Bit().constData());
+		else
+			CUTEHMI_DIE("Unable to lock PID file '%s'; %s.", m_pidFile.toLocal8Bit().constData(), strerror(errno));
+	}
+}
+
+void _Daemon::writePidFile()
+{
+	if (ftruncate(m_pidFd, 0) == -1)
+		CUTEHMI_DIE("Could not truncate PID file '%s'.", m_pidFile.toLocal8Bit().constData());
+
+	QByteArray buff = QByteArray::number(getpid());
+	if (static_cast<int>(write(m_pidFd, buff.constData(), static_cast<std::size_t>(buff.size()))) != buff.size())
+		CUTEHMI_DIE("Could not store PID in the PID file '%s'.", m_pidFile.toLocal8Bit().constData());
+}
+
+void _Daemon::removePidFile()
+{
+	if (close(m_pidFd) == -1)
+		CUTEHMI_DIE("Could not close descriptor of the PID file '%s'; %s.", m_pidFile.toLocal8Bit().constData(), strerror(errno));
+
+	if (unlink(m_pidFile.toLocal8Bit().constData()) == -1)
+		CUTEHMI_WARNING("Could not remove PID file '" << m_pidFile << "'; " << strerror(errno) << ".");
+}
+
 
 void Daemon::_init()
 {
 	// Configure logging.
 	openlog(CUTEHMI_DAEMON_NAME, LOG_PID | LOG_NDELAY, LOG_USER);
 	qInstallMessageHandler(::syslogMessageHandler);
+
+	CUTEHMI_INFO("Starting " << CUTEHMI_DAEMON_NAME << "...");
 
 	pid_t pid, sid;
 
@@ -168,7 +244,10 @@ void Daemon::_init()
 	close(STDERR_FILENO);
 
 	// Create helper class.
-	_daemon = new _Daemon;
+	QString pidFilePath = data()->cmd->value(data()->opt->pidfile);
+	if (QDir::isRelativePath(data()->cmd->value(data()->opt->pidfile)))
+		pidFilePath.prepend(QDir(data()->cmd->value(data()->opt->basedir)).absolutePath() + "/");
+	_daemon = new _Daemon(pidFilePath);
 
 	// Create exit point through 'terminateRequested' signal.
 	if (data()->app)
@@ -178,6 +257,9 @@ void Daemon::_init()
 
 	// Initialize signal handling.
 	_daemon->initializeSignalHandling();
+
+	// Initialize PID file.
+	_daemon->initializePidFile();
 
 	// Install signal handler.
 	struct sigaction sigAct;
@@ -198,7 +280,9 @@ void Daemon::_destroy()
 {
 	CUTEHMI_INFO("Daemon finished execution with exit code '" << exitCode() << "'.");
 
+	_daemon->destroyPidFile();
 	_daemon->deleteLater();
+
 	closelog();	// "The use of closelog() is optional." -- SYSLOG(3).
 }
 

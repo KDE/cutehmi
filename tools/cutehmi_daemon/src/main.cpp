@@ -67,11 +67,17 @@ int main(int argc, char * argv[])
 		QCommandLineOption("app", QCoreApplication::translate("main", "Run project in application mode.")),
 		QCommandLineOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir")),
 		QCommandLineOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language")),
+		QCommandLineOption("pidfile", QCoreApplication::translate("main", "PID file <path> (Unix-specific)."), QCoreApplication::translate("main", "path")),
 		QCommandLineOption({"p", "project"}, QCoreApplication::translate("main", "Load QML project <URL>."), QCoreApplication::translate("main", "URL"))
 	};
+	opt.pidfile.setDefaultValue(QString("/var/run/") + CUTEHMI_DAEMON_NAME ".pid");
+	opt.pidfile.setDescription(opt.pidfile.description() + "\nDefault value: '" + opt.pidfile.defaultValues().at(0) + "'.");
+	opt.basedir.setDefaultValue(QDir(QCoreApplication::applicationDirPath() + "/..").canonicalPath());
+	opt.basedir.setDescription(opt.basedir.description() + "\nDefault value: '" + opt.basedir.defaultValues().at(0) + "'.");
 	cmd.addOption(opt.app);
 	cmd.addOption(opt.basedir);
 	cmd.addOption(opt.lang);
+	cmd.addOption(opt.pidfile);
 	cmd.addOption(opt.project);
 	cmd.process(app);
 
@@ -95,9 +101,7 @@ int main(int argc, char * argv[])
 				qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 			data.app->installTranslator(& qtTranslator);
 
-			QDir baseDir(QCoreApplication::applicationDirPath() + "/..");
-			if (data.cmd->isSet(data.opt->basedir))
-				baseDir = data.cmd->value(data.opt->basedir);
+			QDir baseDir = data.cmd->value(data.opt->basedir);
 			QString baseDirPath = baseDir.absolutePath() + "/";
 			CUTEHMI_DEBUG("Base directory: " << baseDirPath);
 
