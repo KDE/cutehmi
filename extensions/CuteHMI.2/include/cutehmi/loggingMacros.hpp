@@ -27,14 +27,7 @@
 	#define CUTEHMI_CRITICAL(EXPR) (void)0
 #endif
 
-// Changes order of arguments so that CUTEHMI_DIE can be used with single or multiple arguments (__VA_ARGS__ can not be empty).
-template<typename ...ARGS>
-void cutehmiFatalWrapper(const char * category, const char * message, ARGS... args)
-{
-	qFatal(message, category, args...);
-}
-
-#define CUTEHMI_DIE(...) cutehmiFatalWrapper(loggingCategory().categoryName(), "%s [fatal]: " __VA_ARGS__)
+#define CUTEHMI_DIE(...) QMessageLogger(__FILE__, __LINE__, Q_FUNC_INFO, loggingCategory().categoryName()).fatal(__VA_ARGS__)
 
 #ifndef CUTEHMI_NDEBUG
 	#define CUTEHMI_ASSERT(EXPR, MSG) Q_ASSERT_X(EXPR, __FILE__, MSG)
