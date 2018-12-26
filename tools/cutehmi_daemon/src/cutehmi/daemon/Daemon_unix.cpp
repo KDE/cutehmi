@@ -63,22 +63,14 @@ namespace {
 namespace cutehmi {
 namespace daemon {
 
-static volatile sig_atomic_t sigCaptured = 0;
-
 void sigHandler(int signal)
 {
 	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
 
-	sigCaptured = signal;
-
-	if (signal == SIGTERM)
-		::write(_Daemon::sigtermFd[0], & signal, sizeof(signal));
-	else
-		::write(_Daemon::sigUnhandledFd[0], & signal, sizeof(signal));
+	::write(_Daemon::signalFd[0], & signal, sizeof(signal));
 }
 
-int _Daemon::sigtermFd[2];
-int _Daemon::sigUnhandledFd[2];
+int _Daemon::signalFd[2];
 
 _Daemon::_Daemon(const QString & pidFile):
 	m_pidFile(pidFile)
@@ -89,15 +81,11 @@ void _Daemon::initializeSignalHandling()
 {
 	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
 
-	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd))
-	   CUTEHMI_DIE("Could not create socket pair for SIGTERM signal.");
-	m_sigtermSocketNotifier.reset(new QSocketNotifier(sigtermFd[1], QSocketNotifier::Read));
-	connect(m_sigtermSocketNotifier.get(), & QSocketNotifier::activated, this, & _Daemon::handleSigterm);
+	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, signalFd))
+	   CUTEHMI_DIE("Could not create socket pair for signal handling.");
+	m_signalSocketNotifier.reset(new QSocketNotifier(signalFd[1], QSocketNotifier::Read));
+	connect(m_signalSocketNotifier.get(), & QSocketNotifier::activated, this, & _Daemon::handleSignal);
 
-	if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sigUnhandledFd))
-	   CUTEHMI_DIE("Could not create socket pair for detection of unhandled signals.");
-	m_unhandledSignalsSocketNotifier.reset(new QSocketNotifier(sigUnhandledFd[1], QSocketNotifier::Read));
-	connect(m_unhandledSignalsSocketNotifier.get(), & QSocketNotifier::activated, this, & _Daemon::handleUnhandledSignals);
 }
 
 void _Daemon::initializePidFile()
@@ -112,34 +100,35 @@ void _Daemon::destroyPidFile()
 	removePidFile();
 }
 
-void _Daemon::handleSigterm()
+void _Daemon::handleSignal()
 {
 	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
 
-	m_sigtermSocketNotifier->setEnabled(false);
+	m_signalSocketNotifier->setEnabled(false);
 
 	int signal;
-	::read(sigtermFd[1], & signal, sizeof(signal));
+	::read(signalFd[1], & signal, sizeof(signal));
 
-	CUTEHMI_INFO("Termination requested by SIGTERM (" << signal << ") signal.");
+	switch (signal) {
+		case SIGTERM:
+			CUTEHMI_INFO("Termination requested by SIGTERM (" << signal << ") signal.");
+			emit terminateRequested(EXIT_SUCCESS);
+			break;
+		case SIGINT:
+			CUTEHMI_INFO("Interrupt requested by SIGINT (" << signal << ") signal.");
+			emit terminateRequested(128 + signal);
+			break;
+		case SIGHUP:
+			CUTEHMI_INFO("Restarting due to SIGHUP (" << signal << ") signal.");
+			emit terminateRequested(Daemon::EXIT_AGAIN);
+			break;
+		case SIGQUIT:
+			CUTEHMI_DIE("Aborted due to SIGQUIT (%d) signal.", signal);
+		default:
+			CUTEHMI_WARNING("Captured unhandled signal (" << signal << ").");
+	}
 
-	emit terminateRequested();
-
-	m_sigtermSocketNotifier->setEnabled(true);
-}
-
-void _Daemon::handleUnhandledSignals()
-{
-	// Reference implementation: http://doc.qt.io/qt-5/unix-signals.html.
-
-	m_unhandledSignalsSocketNotifier->setEnabled(false);
-
-	int signal;
-	::read(sigUnhandledFd[1], & signal, sizeof(signal));
-
-	CUTEHMI_WARNING("Captured unhandled signal (" << signal << ").");
-
-	m_unhandledSignalsSocketNotifier->setEnabled(true);
+	m_signalSocketNotifier->setEnabled(true);
 }
 
 int _Daemon::createPidFile()
@@ -250,10 +239,7 @@ void Daemon::_init()
 	_daemon = new _Daemon(pidFilePath);
 
 	// Create exit point through 'terminateRequested' signal.
-	if (data()->app)
-		QObject::connect(_daemon, & _Daemon::terminateRequested, data()->app, & QCoreApplication::quit);
-	else
-		CUTEHMI_DIE("Could not obtain instance of QCoreApplication.");
+	QObject::connect(_daemon, & _Daemon::terminateRequested, [](int exitCode) { QCoreApplication::exit(exitCode); });
 
 	// Initialize signal handling.
 	_daemon->initializeSignalHandling();
@@ -266,7 +252,10 @@ void Daemon::_init()
 	sigAct.sa_handler = sigHandler;
 	sigemptyset(& sigAct.sa_mask);
 	sigAct.sa_flags = 0;
-	sigaction(SIGTERM, & sigAct, NULL);
+	sigaction(SIGTERM, & sigAct, nullptr);
+	sigaction(SIGINT, & sigAct, nullptr);
+	sigaction(SIGQUIT, & sigAct, nullptr);
+	sigaction(SIGHUP, & sigAct, nullptr);
 
 	// Execute core.
 	exec();

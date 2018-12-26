@@ -13,6 +13,8 @@ class _Daemon;
 class Daemon final
 {
 	public:
+		static constexpr int EXIT_AGAIN = 129;	// 128 + SIGHUP (1).
+
 		Daemon(CoreData * data, std::function<int(CoreData &)> & core);
 
 		~Daemon();	// Non-virtual destructor, but class is final.

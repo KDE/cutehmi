@@ -28,8 +28,10 @@ void Daemon::setExitCode(int exitCode)
 
 int Daemon::exec()
 {
-	_exec();
-	m_exitCode = m_core(*m_data);
+	do {
+		_exec();
+		m_exitCode = m_core(*m_data);
+	} while (m_exitCode == EXIT_AGAIN);
 	return m_exitCode;
 }
 

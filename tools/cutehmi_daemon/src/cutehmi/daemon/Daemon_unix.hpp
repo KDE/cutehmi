@@ -20,8 +20,7 @@ class _Daemon:
 	Q_OBJECT
 
 	public:
-		static int sigtermFd[2];
-		static int sigUnhandledFd[2];
+		static int signalFd[2];
 
 		_Daemon(const QString & pidFile);
 
@@ -32,12 +31,10 @@ class _Daemon:
 		void destroyPidFile();
 
 	signals:
-		void terminateRequested();
+		void terminateRequested(int exitCode);
 
 	private slots:
-		void handleSigterm();
-
-		void handleUnhandledSignals();
+		void handleSignal();
 
 	private:
 		int createPidFile();
@@ -51,7 +48,7 @@ class _Daemon:
 	private:
 		QString m_pidFile;
 		int m_pidFd;
-		std::unique_ptr<QSocketNotifier> m_sigtermSocketNotifier;
+		std::unique_ptr<QSocketNotifier> m_signalSocketNotifier;
 		std::unique_ptr<QSocketNotifier> m_unhandledSignalsSocketNotifier;
 };
 
