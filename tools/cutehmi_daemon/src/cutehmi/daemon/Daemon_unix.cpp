@@ -123,7 +123,7 @@ void _Daemon::handleSignal()
 			emit terminateRequested(Daemon::EXIT_AGAIN);
 			break;
 		case SIGQUIT:
-			CUTEHMI_DIE("Aborted due to SIGQUIT (%d) signal.", signal);
+			CUTEHMI_DIE("Aborting due to SIGQUIT (%d) signal.", signal);
 		default:
 			CUTEHMI_WARNING("Captured unhandled signal (" << signal << ").");
 	}
