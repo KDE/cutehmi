@@ -26,4 +26,4 @@ Under Unix daemon will respond to signals in a following way.
 - SIGTERM tells daemon to gracefully quit with exit code set to EXIT_SUCCESS (0 on almost all systems).
 - SIGINT tells daemon to gracefully quit, but exit code will be set to 128 + signal code.
 - SIGQUIT causes violent termination and exits via abort.
-- SIGHUP reloads the project as if daemon has been restarted.
+- SIGHUP attempts to reload the project as if daemon has been restarted.
