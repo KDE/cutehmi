@@ -23,7 +23,7 @@ You can use `--help` command line argument to see the list of all possible comma
 
 Under Unix daemon will respond to signals in a following way.
 
-- SIGTERM causes daemon to gracefully quit with exit code set to EXIT_SUCCESS (0 on almost all systems).
-- SIGINT causes daemon to gracefully quit, but exit code will be set to 128 + signal code.
+- SIGTERM tells daemon to gracefully quit with exit code set to EXIT_SUCCESS (0 on almost all systems).
+- SIGINT tells daemon to gracefully quit, but exit code will be set to 128 + signal code.
 - SIGQUIT causes violent termination and exits via abort.
 - SIGHUP reloads the project as if daemon has been restarted.
