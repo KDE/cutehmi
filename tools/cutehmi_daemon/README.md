@@ -3,12 +3,12 @@
 Non-GUI program, which allows one to run CuteHMI project in the background.
 
 Use `--project` command line option to specify the QML project file to open.
-For example to run 'CountDaemon' example use following command.
+For example to run *CountDaemon* example use following command.
 
 ```
 cutehmi_daemon --project="examples/CountDaemon/Main.qml"
 ```
-Read system logs to investigate whether daemon is running (e.g., `journalctl -n20` on a system with `systemd`).
+Read system logs to investigate whether daemon is running (e.g., `journalctl -n20` on a system with *systemd*).
 
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).
 
