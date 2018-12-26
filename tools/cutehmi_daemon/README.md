@@ -8,7 +8,7 @@ For example to run *CountDaemon* example use following command.
 ```
 cutehmi_daemon --project="examples/CountDaemon/Main.qml"
 ```
-Read system logs to investigate whether daemon is running (e.g., `journalctl -n20` on a system with *systemd*).
+Read system logs to investigate whether daemon is running (e.g. `journalctl -n20` on a system with *systemd*).
 
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).
 
@@ -16,7 +16,7 @@ One may use `--app` option to tell the program to work as a foreground process (
 cutehmi_daemon --project="examples/CountDaemon/Main.qml" --app
 ```
 
-You can use `--help` command line argument to see a list of all possible command line options.
+You can use `--help` command line argument to see the list of all possible command line options.
 
 
 ## Signals
