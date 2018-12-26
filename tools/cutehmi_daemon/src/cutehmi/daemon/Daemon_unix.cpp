@@ -112,15 +112,15 @@ void _Daemon::handleSignal()
 	switch (signal) {
 		case SIGTERM:
 			CUTEHMI_INFO("Termination requested by SIGTERM (" << signal << ") signal.");
-			emit terminateRequested(EXIT_SUCCESS);
+			emit exitRequested(EXIT_SUCCESS);
 			break;
 		case SIGINT:
 			CUTEHMI_INFO("Interrupt requested by SIGINT (" << signal << ") signal.");
-			emit terminateRequested(128 + signal);
+			emit exitRequested(128 + signal);
 			break;
 		case SIGHUP:
 			CUTEHMI_INFO("Restarting due to SIGHUP (" << signal << ") signal.");
-			emit terminateRequested(Daemon::EXIT_AGAIN);
+			emit exitRequested(Daemon::EXIT_AGAIN);
 			break;
 		case SIGQUIT:
 			CUTEHMI_DIE("Aborting due to SIGQUIT (%d) signal.", signal);
@@ -239,7 +239,7 @@ void Daemon::_init()
 	_daemon = new _Daemon(pidFilePath);
 
 	// Create exit point through 'terminateRequested' signal.
-	QObject::connect(_daemon, & _Daemon::terminateRequested, [](int exitCode) { QCoreApplication::exit(exitCode); });
+	QObject::connect(_daemon, & _Daemon::exitRequested, [](int exitCode) { QCoreApplication::exit(exitCode); });
 
 	// Initialize signal handling.
 	_daemon->initializeSignalHandling();

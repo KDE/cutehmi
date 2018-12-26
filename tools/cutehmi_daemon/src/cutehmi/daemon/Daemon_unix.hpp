@@ -31,7 +31,7 @@ class _Daemon:
 		void destroyPidFile();
 
 	signals:
-		void terminateRequested(int exitCode);
+		void exitRequested(int exitCode);
 
 	private slots:
 		void handleSignal();
