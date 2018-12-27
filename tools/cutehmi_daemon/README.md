@@ -1,6 +1,6 @@
 # CuteHMI - Daemon
 
-Non-GUI program, which allows one to run CuteHMI project in the background.
+Non-GUI program, which allows one to run QML project in the background.
 
 Use `--project` command line option to specify the QML project file to open.
 For example to run *CountDaemon* example use following command.
