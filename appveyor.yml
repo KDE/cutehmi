@@ -28,6 +28,7 @@ for:
     - qbs setup-qt --detect
     - cd %PROJECT_DIR%
   build_script:
+    - mingw32-make ports
     - qbs build -f CuteHMI.qbs -d build --command-echo-mode command-line profile:qt-5-11-2 config:%QBS_CONFIG%
 -
   matrix:
