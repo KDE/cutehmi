@@ -1,8 +1,6 @@
 import QtQuick 2.0
 
 QtObject {
-	property int test: 0
-
 	Component.onCompleted: {
 		console.log("Hello from counting daemon!")
 	}
