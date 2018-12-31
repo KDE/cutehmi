@@ -10,7 +10,6 @@ Item {
 	width: 320
 	height: 200
 
-
 	Dialog {
 		id: dialog
 
@@ -55,7 +54,7 @@ Item {
 	}
 
 	TestCase {
-		name: "tst_PopupBridgeQML"
+		name: "PopupBridge"
 		when: windowShown
 
 		function initTestCase() {

@@ -25,7 +25,7 @@ TestException::~TestException()
 {
 }
 
-class tst_ExceptionMixin:
+class test_ExceptionMixin:
 	public QObject
 {
 	Q_OBJECT
@@ -36,7 +36,7 @@ class tst_ExceptionMixin:
 		void concurrent();
 };
 
-void tst_ExceptionMixin::what()
+void test_ExceptionMixin::what()
 {
 	try {
 		throw TestException("Exception test.");
@@ -52,7 +52,7 @@ void tst_ExceptionMixin::what()
 	}
 }
 
-void tst_ExceptionMixin::concurrent()
+void test_ExceptionMixin::concurrent()
 {
 	try {
 		int arr[1];
@@ -64,8 +64,8 @@ void tst_ExceptionMixin::concurrent()
 
 }
 
-QTEST_MAIN(cutehmi::tst_ExceptionMixin)
-#include "tst_ExceptionMixin.moc"
+QTEST_MAIN(cutehmi::test_ExceptionMixin)
+#include "test_ExceptionMixin.moc"
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

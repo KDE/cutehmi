@@ -4,6 +4,8 @@ import cutehmi
 
 cutehmi.Test
 {
+	testNamePrefix: parent.parent.name
+
 	Depends { name: "CuteHMI.2" }
 	Depends { name: "CuteHMI.Test.0" }
 }

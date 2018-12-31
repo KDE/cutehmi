@@ -7,7 +7,7 @@
 
 namespace cutehmi {
 
-class tst_Prompt:
+class test_Prompt:
 	public QObject
 {
 	Q_OBJECT
@@ -22,12 +22,12 @@ class tst_Prompt:
 		void clone();
 };
 
-void tst_Prompt::initTestCase()
+void test_Prompt::initTestCase()
 {
 	qRegisterMetaType<cutehmi::Prompt::Button>();
 }
 
-void tst_Prompt::properties()
+void test_Prompt::properties()
 {
 	Prompt prompt(Prompt::WARNING, "Text.", "Informative text.", "Detailed text.", Prompt::BUTTON_ABORT);
 
@@ -62,7 +62,7 @@ void tst_Prompt::properties()
 	QCOMPARE(buttonsSpy.count(), 1);
 }
 
-void tst_Prompt::response()
+void test_Prompt::response()
 {
 	Prompt prompt(Prompt::WARNING, "Text", Prompt::BUTTON_ABORT | Prompt::BUTTON_APPLY);
 	QSignalSpy spy(& prompt, & Prompt::responseArrived);
@@ -90,7 +90,7 @@ void tst_Prompt::response()
 	QCOMPARE(promptAcceptUnavailable.response(), Prompt::BUTTON_CANCEL);
 }
 
-void tst_Prompt::clone()
+void test_Prompt::clone()
 {
 	Prompt prompt(Prompt::WARNING, "Text.", "Informative text.", "Detailed text.", Prompt::BUTTON_ABORT);
 	std::unique_ptr<Prompt> copy = prompt.clone();
@@ -104,8 +104,8 @@ void tst_Prompt::clone()
 
 }
 
-QTEST_MAIN(cutehmi::tst_Prompt)
-#include "tst_Prompt.moc"
+QTEST_MAIN(cutehmi::test_Prompt)
+#include "test_Prompt.moc"
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

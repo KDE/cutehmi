@@ -4,7 +4,7 @@
 namespace cutehmi {
 namespace daemon {
 
-class tst_cutehmi_daemon:
+class test_cutehmi_daemon:
 	public QObject
 {
 	Q_OBJECT
@@ -23,7 +23,7 @@ class tst_cutehmi_daemon:
 		QString m_programPath;
 };
 
-void tst_cutehmi_daemon::initTestCase()
+void test_cutehmi_daemon::initTestCase()
 {
 	QString m_installRoot = qEnvironmentVariable("CUTEHMI_INSTALL_ROOT");
 	QVERIFY(!m_installRoot.isEmpty());
@@ -34,7 +34,7 @@ void tst_cutehmi_daemon::initTestCase()
 #endif
 }
 
-void tst_cutehmi_daemon::helpOption()
+void test_cutehmi_daemon::helpOption()
 {
 	QList<QStringList> argumentsList;
 	argumentsList << QStringList({"--help"})
@@ -52,7 +52,7 @@ void tst_cutehmi_daemon::helpOption()
 	}
 }
 
-void tst_cutehmi_daemon::versionOption()
+void test_cutehmi_daemon::versionOption()
 {
 	QList<QStringList> argumentsList;
 	argumentsList << QStringList({"--version"})
@@ -70,7 +70,7 @@ void tst_cutehmi_daemon::versionOption()
 	}
 }
 
-void tst_cutehmi_daemon::countDaemonExample()
+void test_cutehmi_daemon::countDaemonExample()
 {
 	QProcess process;
 	QStringList arguments { {"--app"}, {"--project=examples/CountDaemon/Main.qml"} };
@@ -97,8 +97,8 @@ void tst_cutehmi_daemon::countDaemonExample()
 }
 }
 
-QTEST_MAIN(cutehmi::daemon::tst_cutehmi_daemon)
-#include "tst_cutehmi_daemon.moc"
+QTEST_MAIN(cutehmi::daemon::test_cutehmi_daemon)
+#include "test_cutehmi_daemon.moc"
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

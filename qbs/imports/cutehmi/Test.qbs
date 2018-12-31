@@ -5,11 +5,17 @@ import "CommonProduct.qbs" as CommonProduct
 CommonProduct {
 	type: ["application", "autotest"]
 
+	name: testNamePrefix + "." + testName
+
 	cutehmiType: "test"
 
 	baseName: name
 
 	condition: project.buildTests
+
+	property string testName
+
+	property string testNamePrefix
 
 	Properties {
 		condition: qbs.targetOS.contains("linux")

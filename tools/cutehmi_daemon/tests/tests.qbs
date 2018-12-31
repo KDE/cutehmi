@@ -2,14 +2,14 @@ import qbs
 
 import cutehmi
 
-import "TestCase.qbs" as TestCase
+import "Test.qbs" as Test
 
 Project {
-	TestCase {
-		name: "tst_cutehmi_daemon"
+	Test {
+		testName: "test_cutehmi_daemon"
 
 		files: [
-			"tst_cutehmi_daemon.cpp",
+			"test_cutehmi_daemon.cpp",
 		]
 	}
 }

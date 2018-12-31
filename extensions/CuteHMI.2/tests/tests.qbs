@@ -2,55 +2,60 @@ import qbs
 
 import cutehmi
 
-import "TestCase.qbs" as TestCase
+import "Test.qbs" as Test
 
 Project {
-	TestCase {
-		name: "logging"
+	Test {
+		testName: "test_logging"
+
 		files: [
-			"tst_logging.cpp",
+			"test_logging.cpp",
 		]
 	}
 
-	TestCase {
-		name: "Exception"
-		files: [
-			"tst_Exception.cpp"
-		]
+	Test {
+		testName: "test_Exception"
 
-		Depends { name: "Qt.concurrent" }
-	}
-
-	TestCase {
-		name: "ExceptionMixin"
 		files: [
-			"tst_ExceptionMixin.cpp"
+			"test_Exception.cpp",
 		]
 
 		Depends { name: "Qt.concurrent" }
 	}
 
-	TestCase {
-		name: "Prompt"
+	Test {
+		testName: "test_ExceptionMixin"
+
 		files: [
-			"tst_Prompt.cpp",
+			"test_ExceptionMixin.cpp",
+		]
+
+		Depends { name: "Qt.concurrent" }
+	}
+
+	Test {
+		testName: "test_Prompt"
+
+		files: [
+			"test_Prompt.cpp",
 		]
 	}
 
-	TestCase {
-		name: "PopupBridge"
+	Test {
+		testName: "test_PopupBridge"
+
 		files: [
-			"tst_PopupBridge.cpp",
+			"test_PopupBridge.cpp",
 		]
 	}
 
-	TestCase {
-		name: "PopupBridgeQML"
+	Test {
+		testName: "test_QML"
 
 		files: [
-         "tst_PopupBridge.qml",
-         "tst_PopupBridgeQML.cpp",
-     ]
+			"test_QML.cpp",
+			"tst_PopupBridge.qml",
+		]
 	}
 }
 

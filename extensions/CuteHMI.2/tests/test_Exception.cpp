@@ -7,7 +7,7 @@
 
 namespace cutehmi {
 
-class tst_Exception:
+class test_Exception:
 	public QObject
 {
 	Q_OBJECT
@@ -18,7 +18,7 @@ class tst_Exception:
 		void concurrent();
 };
 
-void tst_Exception::what()
+void test_Exception::what()
 {
 	try {
 		throw Exception("Exception test.");
@@ -34,7 +34,7 @@ void tst_Exception::what()
 	}
 }
 
-void tst_Exception::concurrent()
+void test_Exception::concurrent()
 {
 	try  {
 		int arr[1];
@@ -46,8 +46,8 @@ void tst_Exception::concurrent()
 
 }
 
-QTEST_MAIN(cutehmi::tst_Exception)
-#include "tst_Exception.moc"
+QTEST_MAIN(cutehmi::test_Exception)
+#include "test_Exception.moc"
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

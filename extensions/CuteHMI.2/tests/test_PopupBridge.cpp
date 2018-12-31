@@ -7,7 +7,7 @@
 
 namespace cutehmi {
 
-class tst_PopupBridge:
+class test_PopupBridge:
 	public QObject
 {
 	Q_OBJECT
@@ -40,12 +40,12 @@ class AdvertiserMock:
 		void createPrompt(QVariant prompt);
 };
 
-void tst_PopupBridge::initTestCase()
+void test_PopupBridge::initTestCase()
 {
 	qRegisterMetaType<cutehmi::Prompt::Button>();
 }
 
-void tst_PopupBridge::noAdvertiser()
+void test_PopupBridge::noAdvertiser()
 {
 	PopupBridge bridge;
 	Prompt prompt(Prompt::NOTE, "Message", Prompt::BUTTON_APPLY | Prompt::BUTTON_CANCEL);
@@ -58,7 +58,7 @@ void tst_PopupBridge::noAdvertiser()
 	}
 }
 
-void tst_PopupBridge::advertise()
+void test_PopupBridge::advertise()
 {
 	PopupBridge bridge;
 
@@ -70,7 +70,7 @@ void tst_PopupBridge::advertise()
 	QCOMPARE(prompt.response(), advertiserMock.response);
 }
 
-void tst_PopupBridge::note()
+void test_PopupBridge::note()
 {
 	PopupBridge bridge;
 	try {
@@ -82,7 +82,7 @@ void tst_PopupBridge::note()
 	}
 }
 
-void tst_PopupBridge::warning()
+void test_PopupBridge::warning()
 {
 	PopupBridge bridge;
 	try {
@@ -94,7 +94,7 @@ void tst_PopupBridge::warning()
 	}
 }
 
-void tst_PopupBridge::question()
+void test_PopupBridge::question()
 {
 	PopupBridge bridge;
 	try {
@@ -106,7 +106,7 @@ void tst_PopupBridge::question()
 	}
 }
 
-void tst_PopupBridge::critical()
+void test_PopupBridge::critical()
 {
 	PopupBridge bridge;
 	try {
@@ -136,8 +136,8 @@ void AdvertiserMock::createPrompt(QVariant prompt)
 
 }
 
-QTEST_MAIN(cutehmi::tst_PopupBridge)
-#include "tst_PopupBridge.moc"
+QTEST_MAIN(cutehmi::test_PopupBridge)
+#include "test_PopupBridge.moc"
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
 //(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

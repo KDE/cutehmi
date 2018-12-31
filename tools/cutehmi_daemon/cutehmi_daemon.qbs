@@ -3,8 +3,10 @@ import qbs 1.0
 import cutehmi
 
 Project {
+	name: "cutehmi_daemon"
+
 	cutehmi.Tool {
-		name: "cutehmi_daemon"
+		name: parent.name
 
 		major: 1
 
@@ -57,10 +59,11 @@ Project {
 		Depends { name: "CuteHMI.2" }
 
 		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.exclude: ['tests']
 	}
 
 	SubProject {
-		filePath: "src/cutehmi/daemon/tst/tst.qbs"
+		filePath: "tests/tests.qbs"
 
 		Properties {
 			condition: parent.buildTests
