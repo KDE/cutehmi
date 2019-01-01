@@ -19,7 +19,7 @@ CommonProduct {
 		if (!project.staticExtensions)
 			defines.push(macroName + "_DYNAMIC")
 		if (project.buildTests)
-			defines.push(macroName + "_TEST")
+			defines.push(macroName + "_TESTS")
 		return base.concat(defines)
 	}
 

@@ -10,7 +10,7 @@
 		#define CUTEHMI_API Q_DECL_IMPORT
 	#endif
 
-	#ifdef CUTEHMI_TEST
+	#ifdef CUTEHMI_TESTS
 		//export symbols to dll
 		#define CUTEHMI_PRIVATE Q_DECL_EXPORT
 	#else
