@@ -9,8 +9,17 @@
 		//using functions from dll
 		#define CUTEHMI_TEST_API Q_DECL_IMPORT
 	#endif
+
+	#ifdef CUTEHMI_TEST_TESTS
+		//export symbols to dll
+		#define CUTEHMI_TEST_PRIVATE Q_DECL_EXPORT
+	#else
+		//using functions from dll
+		#define CUTEHMI_TEST_PRIVATE Q_DECL_IMPORT
+	#endif
 #else
 	#define CUTEHMI_TEST_API
+	#define CUTEHMI_TEST_PRIVATE
 #endif
 
 #endif
