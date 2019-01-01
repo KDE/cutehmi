@@ -128,7 +128,8 @@ int main(int argc, char * argv[])
 							cutehmi::CuteHMI::Instance().popupBridge()->critical(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
 						else {
 							engine->moveToThread(& engineThread);
-							QObject::connect(& engineThread, SIGNAL(loadRequested(const QString &)), engine.get(), SLOT(load(const QString &)));
+
+							QObject::connect(& engineThread, & EngineThread::loadRequested, engine.get(), QOverload<const QString &>::of(& QQmlApplicationEngine::load));
 							QObject::connect(& engineThread, SIGNAL(loadRequested(const QString &)), & engineThread, SLOT(start()));
 							QObject::connect(data.app, & QCoreApplication::aboutToQuit, & engineThread, & QThread::quit);
 							// Delegate management of engine to EngineThread, so that it gets deleted after thread finishes execution.
