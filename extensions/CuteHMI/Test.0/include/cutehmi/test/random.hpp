@@ -141,6 +141,7 @@ typename std::enable_if<std::is_same<T, QChar>::value, QChar>::type rand(QChar::
  * @tparam T QString type.
  * @tparam E random number generator engine.
  * @param length string length.
+ * @param categories character categories of which string should be composed from.
  * @return randomly generated string.
  */
 template <typename T, typename E = SeededEngine<std::mt19937>>
@@ -151,6 +152,27 @@ typename std::enable_if<std::is_same<T, QString>::value, T>::type rand(int lengt
 	QString result("");
 	for (int i = 0; i < length; i++)
 		result.append(rand<QChar>(categories.at(rand(0, categories.size() - 1))));
+
+	return result;
+}
+
+/**
+ * Generate random string list.
+ * @tparam T QStringList type.
+ * @tparam E random number generator engine.
+ * @param size string list size.
+ * @param length strings length.
+ * @param categories character categories of which strings should be composed from.
+ * @return randomly generated string list.
+ */
+template <typename T, typename E = SeededEngine<std::mt19937>>
+typename std::enable_if<std::is_same<T, QStringList>::value, T>::type rand(int size = rand(0, 255), int length = rand(0, 255), QList<QChar::Category> categories = {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit})
+{
+	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
+
+	QStringList result;
+	for (int i = 0; i < size; i++)
+		result.append(rand<QString>(length, categories));
 
 	return result;
 }

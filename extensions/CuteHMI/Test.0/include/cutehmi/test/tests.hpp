@@ -42,9 +42,74 @@ void testAccessors(T (CM::* getter)() const, void (CM::* setter)(T), C && object
 }
 
 /**
- * Test accessors. This overloaded function uses default constructed object as
- * third argument to
- * testAccessors(T (CM::* getter)() const, void (CM::* setter)(T), C && object, T min = std::numeric_limits<T>::min(), T max = std::numeric_limits<T>::max()).
+ * Test accessors. Specialization for accessors that operate on boolean types.
+ *
+ * @tparam CM name of a class containing member access functions.
+ * @tparam C object class (this should be the same as @a CM). This template
+ * parameter is introduced to prevent deduction of conflicting types for
+ * function parameters.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ * @param object object to call "getter" and "setter" functions with.
+ * @param p propbablity of generating @p true.
+ */
+template <class CM, class C>
+void testAccessors(bool (CM::* getter)() const, void (CM::* setter)(bool), C && object, double p = 0.5)
+{
+	bool value = cutehmi::test::rand<bool>(p);
+	(object.*setter)(value);
+	QCOMPARE((object.*getter)(), value);
+}
+
+/**
+ * Test accessors. Specialization for accessors that operate on QString.
+ *
+ * @tparam CM name of a class containing member access functions.
+ * @tparam C object class (this should be the same as @a CM). This template
+ * parameter is introduced to prevent deduction of conflicting types for
+ * function parameters.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ * @param object object to call "getter" and "setter" functions with.
+ * @param length string length.
+ * @param categories character categories of which string should be composed from.
+ */
+template <class CM, class C>
+void testAccessors(QString (CM::* getter)() const, void (CM::* setter)(const QString &), C && object, int length = rand(0, 255), QList<QChar::Category> categories = {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit})
+{
+	QString str = cutehmi::test::rand<QString>(length, categories);
+	(object.*setter)(str);
+	QCOMPARE((object.*getter)(), str);
+}
+
+/**
+ * Test accessors. Specialization for accessors that operate on QStringList.
+ *
+ * @tparam CM name of a class containing member access functions.
+ * @tparam C object class (this should be the same as @a CM). This template
+ * parameter is introduced to prevent deduction of conflicting types for
+ * function parameters.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ * @param object object to call "getter" and "setter" functions with.
+ * @param size string list size.
+ * @param length strings length.
+ * @param categories character categories of which strings should be composed from.
+ */
+template <class CM, class C>
+void testAccessors(QStringList (CM::* getter)() const, void (CM::* setter)(const QStringList &), C && object, int size = rand(0, 255), int length = rand(0, 255), QList<QChar::Category> categories = {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit})
+{
+	QStringList list = cutehmi::test::rand<QStringList>(size, length, categories);
+	(object.*setter)(list);
+	QCOMPARE((object.*getter)(), list);
+}
+
+/**
+ * Test accessors. This overloaded function uses default constructed object as third argument to
+ * testAccessors(T (CM::* getter)() const, void (CM::* setter)(T), C && object, T min, T max).
  *
  * @tparam CM name of a class containing member access functions.
  * @tparam T type of value to set or get by access functions.
@@ -54,6 +119,22 @@ void testAccessors(T (CM::* getter)() const, void (CM::* setter)(T), C && object
  */
 template <class CM, typename T>
 void testAccessors(T (CM::*getter)() const, void (CM::*setter)(T))
+{
+	testAccessors(getter, setter, CM());
+}
+
+/**
+ * Test accessors. This overloaded function uses default constructed object as third argument to
+ * testAccessors(T (CM::* getter)() const, void (CM::* setter)(T), C && object, int length, QList<QChar::Category> categories).
+ *
+ * @tparam CM name of a class containing member access functions.
+ * @tparam T type of value to set or get by access functions.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ */
+template <class CM, typename T>
+void testAccessors(T (CM::*getter)() const, void (CM::*setter)(const T &))
 {
 	testAccessors(getter, setter, CM());
 }
