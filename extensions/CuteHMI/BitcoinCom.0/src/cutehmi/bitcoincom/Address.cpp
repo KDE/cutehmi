@@ -1,4 +1,4 @@
-#include "../../../../include/cutehmi/bitcoincom/Address.hpp"
+#include "../../../include/cutehmi/bitcoincom/Address.hpp"
 
 #include <QNetworkReply>
 #include <QJsonDocument>

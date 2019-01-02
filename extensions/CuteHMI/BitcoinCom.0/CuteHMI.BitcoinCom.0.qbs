@@ -30,7 +30,7 @@ Project {
 			"include/cutehmi/bitcoincom/internal/platform.hpp",
 			"include/cutehmi/bitcoincom/logging.hpp",
 			"include/cutehmi/bitcoincom/metadata.hpp",
-			"src/cutehmi/bitcoincom/internal/Address.cpp",
+			"src/cutehmi/bitcoincom/Address.cpp",
 			"src/cutehmi/bitcoincom/internal/QMLPlugin.cpp",
 			"src/cutehmi/bitcoincom/internal/QMLPlugin.hpp",
 			"src/cutehmi/bitcoincom/logging.cpp",
