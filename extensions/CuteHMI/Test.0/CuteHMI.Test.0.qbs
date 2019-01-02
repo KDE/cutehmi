@@ -2,40 +2,52 @@ import qbs
 
 import cutehmi
 
-cutehmi.Extension {
+Project {
 	name: "CuteHMI.Test.0"
 
-	minor: 0
+	cutehmi.Extension {
+		name: parent.name
 
-	micro: 0
+		minor: 0
 
-	friendlyName: "Test"
+		micro: 0
 
-	vendor: "CuteHMI"
+		friendlyName: "Test"
 
-	description: "Testing helpers."
+		vendor: "CuteHMI"
 
-	author: "Michal Policht"
+		description: "Testing helpers."
 
-	copyright: "Michal Policht"
+		author: "Michal Policht"
 
-	license: "Mozilla Public License, v. 2.0"
+		copyright: "Michal Policht"
 
-	files: [
-        "include/cutehmi/test/IsAnyOfTypes.hpp",
-        "include/cutehmi/test/IsIntType.hpp",
-        "include/cutehmi/test/internal/common.hpp",
-        "include/cutehmi/test/internal/platform.hpp",
-        "include/cutehmi/test/logging.hpp",
-        "include/cutehmi/test/metadata.hpp",
-        "include/cutehmi/test/random.hpp",
-        "include/cutehmi/test/tests.hpp",
-        "src/cutehmi/test/logging.cpp",
-    ]
+		license: "Mozilla Public License, v. 2.0"
 
-	Depends { name: "Qt.testlib" }
+		files: [
+			"include/cutehmi/test/IsAnyOfTypes.hpp",
+			"include/cutehmi/test/IsIntType.hpp",
+			"include/cutehmi/test/internal/common.hpp",
+			"include/cutehmi/test/internal/platform.hpp",
+			"include/cutehmi/test/logging.hpp",
+			"include/cutehmi/test/metadata.hpp",
+			"include/cutehmi/test/random.hpp",
+			"include/cutehmi/test/tests.hpp",
+			"src/cutehmi/test/logging.cpp",
+		]
 
-	Depends { name: "CuteHMI.2" }
+		Depends { name: "Qt.testlib" }
+
+		Depends { name: "CuteHMI.2" }
+	}
+
+	SubProject {
+		filePath: "tests/tests.qbs"
+
+		Properties {
+			condition: parent.buildTests
+		}
+	}
 }
 
 //(c)MP: Copyright © 2019, Michal Policht. All rights reserved.
