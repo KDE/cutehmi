@@ -14,6 +14,10 @@ CommonProduct {
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
+	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
+
 	property string installDir: cutehmi.dirs.qmlExtensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.qmlSourceDir, sourceDirectory)
 
 	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.qmlExtensionInstallDirname]	// QML import paths for QtCreator.

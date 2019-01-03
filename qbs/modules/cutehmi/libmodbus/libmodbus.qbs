@@ -3,10 +3,6 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libmodbusProbe.path)
-
-	cpp.includePaths: FileInfo.cleanPath(modbusHeaderProbe.path)
-
 	property bool found: libmodbusProbe.found && modbusHeaderProbe.found
 
 	property bool available: found

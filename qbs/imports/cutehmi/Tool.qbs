@@ -11,6 +11,10 @@ CommonProduct {
 
 	baseName: name
 
+	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
+
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN"

@@ -23,7 +23,9 @@ CommonProduct {
 		return base.concat(defines)
 	}
 
-	cpp.includePaths: [product.sourceDirectory + "/include"]
+	cpp.includePaths: [product.sourceDirectory + "/include", cutehmi.dirs.externalIncludeDir]
+
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	property string installDir: cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
 
@@ -47,8 +49,6 @@ CommonProduct {
 		}
 
 		cpp.includePaths: [product.sourceDirectory + "/include"]
-
-		cpp.libraryPaths: if (product.cpp.libraryPaths) product.cpp.libraryPaths
 
 		Depends { name: "cpp" }
 	}

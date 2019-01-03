@@ -10,6 +10,10 @@ CommonProduct {
 
 	baseName: name
 
+	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
+
 	property string installDir: FileInfo.relativePath(path + "/../../..", sourceDirectory)
 
 	FileTagger {
@@ -44,6 +48,8 @@ CommonProduct {
 		qbs.installSourceBase: sourceDirectory
 		qbs.installDir: installDir
 	}
+
+	Depends { name: "cutehmi.dirs" }
 }
 
 //(c)MP: Copyright © 2019, Michal Policht. All rights reserved.

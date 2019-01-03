@@ -13,7 +13,9 @@ CommonProduct {
 
 	cpp.defines: base.concat([baseName.toUpperCase() + "_BUILD"])
 
-	cpp.includePaths: [product.sourceDirectory + "/include"]
+	cpp.includePaths: [product.sourceDirectory + "/include", cutehmi.dirs.externalIncludeDir]
+
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	Properties {
 		condition: !project.staticModules

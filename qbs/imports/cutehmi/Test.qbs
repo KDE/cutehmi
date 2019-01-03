@@ -13,6 +13,10 @@ CommonProduct {
 
 	condition: project.buildTests
 
+	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
+
 	property string testName
 
 	property string testNamePrefix

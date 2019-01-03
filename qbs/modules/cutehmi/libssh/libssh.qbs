@@ -3,10 +3,6 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libsshProbe.path)
-
-	cpp.includePaths: FileInfo.cleanPath(libsshHeaderProbe.path)
-
 	property bool found: libsshProbe.found && libsshHeaderProbe.found
 
 	property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.zlib.available && cutehmi.libgcrypt.available : true)

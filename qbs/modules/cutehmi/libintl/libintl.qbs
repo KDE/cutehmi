@@ -6,10 +6,6 @@ import qbs.FileInfo
   Library for native language support (part of gettext).
   */
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libintlProbe.path)
-
-	cpp.includePaths: FileInfo.cleanPath(libintlHeaderProbe.path)
-
 	property bool found: libintlProbe.found && libintlHeaderProbe.found
 
 	property bool available: found && cutehmi.libiconv.available

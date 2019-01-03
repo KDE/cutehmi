@@ -4,10 +4,6 @@ import qbs.FileInfo
 import qbs.Environment
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libpqProbe.path)
-
-	cpp.includePaths: FileInfo.cleanPath(libpq_feHeaderProbe.path)
-
 	property bool found: libpqProbe.found && libpq_feHeaderProbe.found
 
     property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.libintl.available : true)

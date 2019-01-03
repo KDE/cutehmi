@@ -3,10 +3,6 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libiconvProbe.path)
-
-	cpp.includePaths: FileInfo.cleanPath(iconvHeaderProbe.path)
-
 	property bool found: libiconvProbe.found && iconvHeaderProbe.found
 
 	property bool available: found
