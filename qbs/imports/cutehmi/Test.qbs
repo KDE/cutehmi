@@ -29,9 +29,6 @@ CommonProduct {
 	Depends { name: "Qt.testlib" }
 	Depends { name: "Qt.qmltest" }
 
-	Depends { name: "cutehmi_test_1" }
-	cutehmi_test_1.reqMinor: 0
-
 	Depends { name: "cutehmi.dirs" }
 
 	Group {
