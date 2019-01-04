@@ -1,14 +1,16 @@
-Assumptions: external conditions, which must be satisfied for the module to operate 
-(requirements, limitations etc.).
+Assumptions: external conditions, which must be satisfied by the module to
+operate (requirements, imposed limitations, etc.).
 
-Principles: internal conditions on which module operates. Restrictions etc.
+Principles: internal conditions on which module operates (self-restrictions,
+guarantees, etc.).
 
-Responsibility: reliable functionality, which is provided by the module. This can
-be considered as a subset of total functionality provided by the module.
+Responsibility: reliable functionality, which is provided by the module. This
+can be considered as a subset of total functionality provided by the module.
 
-The trio Assumptions, Principles and Responsibility (APR) reveals as Environment, 
-Implementation and Interface (EII) in the real world application *from* which it 
-is derived (just like arithmetics is derived from real world). On the other hand one 
-can say that EII is an implementation of APR. Anyway, it all comes down to the facts
-that every real world system: works in some sort of environment, is implemented in 
-some way and provides some sort of interface and APR analysis should describe it.
+The trio Assumptions, Principles and Responsibility (APR) reveals as
+Environment, Implementation and Interface (EII) in the real world application
+*from* which it is derived (just like arithmetics is derived from real world).
+On the other hand one can say that EII is an implementation of APR. Anyway, it
+all comes down to the facts that every real world system: works in some sort of
+environment, is implemented in some way and provides some sort of interface and
+APR analysis should describe it.
