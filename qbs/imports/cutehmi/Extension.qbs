@@ -38,6 +38,11 @@ CommonProduct {
 		targetName: name + (qbs.buildVariant.contains("debug") ? "d" : "")
 	}
 
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.linkerFlags: "-rpath=$ORIGIN"
+	}
+
 	Export {
 		cpp.defines: {
 			var defines = [product.macroName + "_" + product.major + "_" + product.minor]
