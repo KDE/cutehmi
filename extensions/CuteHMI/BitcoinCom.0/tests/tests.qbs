@@ -6,7 +6,7 @@ import "Test.qbs" as Test
 
 Project {
 	Test {
-		testName: "logging"
+		testName: "test_logging"
 
 		files: [
 			"test_logging.cpp",
@@ -14,7 +14,7 @@ Project {
 	}
 
 	Test {
-		testName: "Address"
+		testName: "test_Address"
 
 		files: [
 			"test_Address.cpp",
