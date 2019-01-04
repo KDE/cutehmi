@@ -50,6 +50,14 @@ Project {
 	}
 
 	Test {
+		testName: "test_Singleton"
+
+		files: [
+			"test_Singleton.cpp",
+		]
+	}
+
+	Test {
 		testName: "test_QML"
 
 		files: [
