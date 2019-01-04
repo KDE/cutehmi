@@ -7,5 +7,7 @@ std::unique_ptr::get() function by members of managed object during their destru
 Workaround:
 
 Use additional raw pointer to return instance of managed object.
-
+In general this prevents std::unique_ptr from being used in inconsistent state 
+(calling std::unique_ptr::get() while inside std::unique_ptr::reset()).
+	
 Snippet:

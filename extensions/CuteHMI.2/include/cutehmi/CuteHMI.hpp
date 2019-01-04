@@ -20,6 +20,7 @@ namespace cutehmi {
  */
 class CUTEHMI_API CuteHMI:
 	public QObject
+	// This class hopefully is going to be removed, but verify destroySingletonInstances() if it's going to inherit after Singleton.
 {
 	Q_OBJECT
 
@@ -83,7 +84,7 @@ class CUTEHMI_API CuteHMI:
 		 * Get instance pointer.
 		 * @return instance pointer.
 		 *
-		 * @note This is provided as a workaround (id="cutehmi_1-2").
+		 * @note This is provided as a workaround (CuteHMI-2.workaround).
 		 */
 		static std::unique_ptr<CuteHMI> & InstancePtr();
 

@@ -2,7 +2,7 @@ Problem:
 
 Sometimes a problem occurs and neither workaround nor solution can be found. Information
 about such problems may be stored in "id.unsolved.target.cause.txt" files.
-Affected piece of code may be wrapped in <unsolved id="id" target="target" cause="cause"></unsolved>
+Affected piece of code may be wrapped in <id.unsolved target="target" cause="cause"></unsolved>
 tags.
 
 Investigation:

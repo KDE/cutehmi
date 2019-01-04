@@ -13,3 +13,7 @@ Workaround:
 Use const_cast to remove const from root node.
 
 Snippet:
+
+Solution:
+
+ProjectModel has been removed from CuteHMI.2.
