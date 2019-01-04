@@ -6,6 +6,7 @@
 #include "cutehmi/daemon/CoreData.hpp"
 
 #include <cutehmi/CuteHMI.hpp>
+#include <cutehmi/Singleton.hpp>
 
 #include <QCoreApplication>
 #include <QQmlApplicationEngine>
@@ -29,10 +30,10 @@ using namespace cutehmi::daemon;
  */
 int main(int argc, char * argv[])
 {
-	//<principle id="cutehmi_daemon-silent_initialization">
+	//<cutehmi_daemon-silent_initialization.principle>
 	// Output shall remain silent until daemon logging is set up.
 
-	//<principle id="Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication">
+	//<Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
 	// "In general, creating QObjects before the QApplication is not supported and can lead to weird crashes on exit, depending on the
 	//	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
 	//	should make the QApplication be the first created, and last destroyed QObject."
@@ -44,8 +45,6 @@ int main(int argc, char * argv[])
 	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_DAEMON_MAJOR).arg(CUTEHMI_DAEMON_MINOR).arg(CUTEHMI_DAEMON_MICRO));
 
 	QCoreApplication app(argc, argv);
-
-	//</principle>
 
 
 	// Configure command line parser and process arguments.
@@ -138,6 +137,7 @@ int main(int argc, char * argv[])
 							emit engineThread.loadRequested(projectUrl.url());
 							int result = data.app->exec();
 							engineThread.wait();
+
 							return result;
 						}
 					}
@@ -168,14 +168,25 @@ int main(int argc, char * argv[])
 
 	// Run program core in daemon or application mode.
 
+	int exitCode;
+
 	if (!cmd.isSet(opt.app)) {
-		Daemon daemon(& data, core);	// At this point logging should be configured as daemon has been initialized.
+		Daemon daemon(& data, core);
 
-	//</principle>
+	// At this point logging should be configured and printing facilities silenced. Not much to say anyways...
+	//</cutehmi_daemon-silent_initialization.principle>
 
-		return daemon.exitCode();
+		exitCode = daemon.exitCode();
 	} else
-		return core(data);
+		exitCode = core(data);
+
+	// Destroy singleton instances before QCoreApplication. Ignoring the recommendation to connect clean-up code to the
+	// aboutToQuit() signal, because for daemon it is always violent termination if QCoreApplication::exec() does not exit.
+	cutehmi::destroySingletonInstances();
+
+	return exitCode;
+
+	//</Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
 }
 
 //(c)MP: Copyright © 2019, Michal Policht. All rights reserved.

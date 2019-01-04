@@ -187,10 +187,13 @@ void _Daemon::removePidFile()
 
 void Daemon::_init()
 {
+	//<cutehmi_daemon-silent_initialization.principle>
+
 	// Configure logging.
 	openlog(CUTEHMI_DAEMON_NAME, LOG_PID | LOG_NDELAY, LOG_USER);
 	qInstallMessageHandler(::syslogMessageHandler);
 
+	// As logging has been configured daemon can use logging macros. Standard file descriptors still have to be closed.
 	CUTEHMI_INFO("Starting " << CUTEHMI_DAEMON_NAME << "...");
 
 	pid_t pid, sid;
@@ -231,6 +234,8 @@ void Daemon::_init()
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
+
+	//</cutehmi_daemon-silent_initialization.principle>
 
 	// Create helper class.
 	QString pidFilePath = data()->cmd->value(data()->opt->pidfile);

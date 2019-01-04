@@ -8,7 +8,9 @@ Daemon::Daemon(CoreData * data, std::function<int(CoreData &)> & core):
 	m_core(core),
 	m_exitCode(EXIT_FAILURE)
 {
+	//<cutehmi_daemon-silent_initialization.principle>
 	_init();
+	//</cutehmi_daemon-silent_initialization.principle>
 }
 
 Daemon::~Daemon()
