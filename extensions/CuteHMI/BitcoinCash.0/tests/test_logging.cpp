@@ -1,9 +1,9 @@
-#include <cutehmi/bitcoincom/logging.hpp>
+#include <cutehmi/bitcoincash/logging.hpp>
 
 #include <QtTest/QtTest>
 
 namespace cutehmi {
-namespace bitcoincom {
+namespace bitcoincash {
 
 class test_logging:
 	public QObject
@@ -16,13 +16,13 @@ class test_logging:
 
 void test_logging::loggingCategory()
 {
-	QCOMPARE(cutehmi::bitcoincom::loggingCategory().categoryName(), "CuteHMI.BitcoinCom.0");
+	QCOMPARE(cutehmi::bitcoincash::loggingCategory().categoryName(), "CuteHMI.BitcoinCash.0");
 }
 
 }
 }
 
-QTEST_MAIN(cutehmi::bitcoincom::test_logging)
+QTEST_MAIN(cutehmi::bitcoincash::test_logging)
 #include "test_logging.moc"
 
 //(c)MP: Copyright © 2019, Michal Policht. All rights reserved.

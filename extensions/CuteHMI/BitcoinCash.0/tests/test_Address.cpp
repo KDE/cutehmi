@@ -1,11 +1,11 @@
-#include <cutehmi/bitcoincom/Address.hpp>
+#include <cutehmi/bitcoincash/Address.hpp>
 
 #include <cutehmi/test/tests.hpp>
 
 #include <QtTest/QtTest>
 
 namespace cutehmi {
-namespace bitcoincom {
+namespace bitcoincash {
 
 class test_Address:
 	public QObject
@@ -124,15 +124,15 @@ void test_Address::update()
 	spy.wait();
 
 	QCOMPARE(address.updated(), true);
-	QCOMPARE(address.balance(), 0.01);
-	QCOMPARE(address.totalReceived(), 0.05185868);
+	QCOMPARE(address.balance(), 0.02);
+	QCOMPARE(address.totalReceived(), 0.06185868);
 	QCOMPARE(address.totalSent(), 0.04185868);
 	QCOMPARE(address.unconfirmedBalance(), 0.0);
 	QCOMPARE(address.unconfirmedTxApperances(), 0);
-	QCOMPARE(address.txAppearances(), 36);
+	QCOMPARE(address.txAppearances(), 37);
 	QCOMPARE(address.transactions().count(), address.txAppearances());
-	QCOMPARE(address.transactions()[0], "ac444896b3e32d17824fa6573eed3b89768c5c9085b7a71f3ba88e9d5ba67355");
-	QCOMPARE(address.transactions()[35], "81039b1d7b855b133f359f9dc65f776bd105650153a941675fedc504228ddbd3");
+	QCOMPARE(address.transactions()[0], "282b3b296b6aed7122586ed69f7a57d35584eaf94a4d1b1ad7d1b05d36cb79d1");
+	QCOMPARE(address.transactions()[36], "81039b1d7b855b133f359f9dc65f776bd105650153a941675fedc504228ddbd3");
 	QCOMPARE(address.legacyAddress(), "1Fg4r9iDrEkCcDmHTy2T79EusNfhyQpu7W");
 	QCOMPARE(address.cashAddress(), "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c");
 }
@@ -140,7 +140,7 @@ void test_Address::update()
 }
 }
 
-QTEST_MAIN(cutehmi::bitcoincom::test_Address)
+QTEST_MAIN(cutehmi::bitcoincash::test_Address)
 #include "test_Address.moc"
 
 //(c)MP: Copyright © 2019, Michal Policht. All rights reserved.

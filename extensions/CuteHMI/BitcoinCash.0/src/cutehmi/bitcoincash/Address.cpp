@@ -1,4 +1,4 @@
-#include "../../../include/cutehmi/bitcoincom/Address.hpp"
+#include "../../../include/cutehmi/bitcoincash/Address.hpp"
 
 #include <QNetworkReply>
 #include <QJsonDocument>
@@ -6,7 +6,7 @@
 #include <QJsonArray>
 
 namespace cutehmi {
-namespace bitcoincom {
+namespace bitcoincash {
 
 const QString Address::REQUEST_DETAILS_URL = "https://rest.bitcoin.com/v1/address/details/";
 

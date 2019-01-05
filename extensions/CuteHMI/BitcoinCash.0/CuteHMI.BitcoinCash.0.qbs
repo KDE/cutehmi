@@ -3,7 +3,7 @@ import qbs
 import cutehmi
 
 Project {
-	name: "CuteHMI.BitcoinCom.0"
+	name: "CuteHMI.BitcoinCash.0"
 
 	cutehmi.Extension {
 		name: parent.name
@@ -12,11 +12,11 @@ Project {
 
 		micro: 0
 
-		friendlyName: "Bitcoin.com"
+		friendlyName: "Bitcoin Cash"
 
 		vendor: "CuteHMI"
 
-		description: "Wraps Bitcoin.com REST API."
+		description: "Wraps Bitcoin.com REST API to provide Bitcoin Cash operations."
 
 		author: "Michal Policht"
 
@@ -25,15 +25,15 @@ Project {
 		license: "Mozilla Public License, v. 2.0"
 
 		files: [
-			"include/cutehmi/bitcoincom/Address.hpp",
-			"include/cutehmi/bitcoincom/internal/common.hpp",
-			"include/cutehmi/bitcoincom/internal/platform.hpp",
-			"include/cutehmi/bitcoincom/logging.hpp",
-			"include/cutehmi/bitcoincom/metadata.hpp",
-			"src/cutehmi/bitcoincom/Address.cpp",
-			"src/cutehmi/bitcoincom/internal/QMLPlugin.cpp",
-			"src/cutehmi/bitcoincom/internal/QMLPlugin.hpp",
-			"src/cutehmi/bitcoincom/logging.cpp",
+			"include/cutehmi/bitcoincash/Address.hpp",
+			"include/cutehmi/bitcoincash/internal/common.hpp",
+			"include/cutehmi/bitcoincash/internal/platform.hpp",
+			"include/cutehmi/bitcoincash/logging.hpp",
+			"include/cutehmi/bitcoincash/metadata.hpp",
+			"src/cutehmi/bitcoincash/Address.cpp",
+			"src/cutehmi/bitcoincash/internal/QMLPlugin.cpp",
+			"src/cutehmi/bitcoincash/internal/QMLPlugin.hpp",
+			"src/cutehmi/bitcoincash/logging.cpp",
 		]
 
 		Depends { name: "Qt.network" }

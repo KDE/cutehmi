@@ -1,17 +1,17 @@
-#ifndef H_EXTENSIONS_CUTEHMI_BITCOINCOM_0_INCLUDE_CUTEHMI_BITCOINCOM_LOGGING_HPP
-#define H_EXTENSIONS_CUTEHMI_BITCOINCOM_0_INCLUDE_CUTEHMI_BITCOINCOM_LOGGING_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_BITCOINCASH_0_INCLUDE_CUTEHMI_BITCOINCASH_LOGGING_HPP
+#define H_EXTENSIONS_CUTEHMI_BITCOINCASH_0_INCLUDE_CUTEHMI_BITCOINCASH_LOGGING_HPP
 
 #include <cutehmi/loggingMacros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_bitcoincom_0_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_bitcoincash_0_loggingCategory)
 
 namespace cutehmi {
-namespace bitcoincom {
+namespace bitcoincash {
 
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_bitcoincom_0_loggingCategory();
+	return cutehmi_bitcoincash_0_loggingCategory();
 }
 
 }
