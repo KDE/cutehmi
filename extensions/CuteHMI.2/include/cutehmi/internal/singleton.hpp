@@ -1,5 +1,5 @@
-#ifndef SINGLETON_HPP
-#define SINGLETON_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_SINGLETON_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_SINGLETON_HPP
 
 namespace cutehmi {
 namespace internal {
@@ -15,4 +15,4 @@ void removeSingletonDestroyCallback(singletonDestroyCallback callback);
 }
 }
 
-#endif // SINGLETON_HPP
+#endif
