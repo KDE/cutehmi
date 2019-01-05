@@ -25,13 +25,14 @@ Project {
 		license: "Mozilla Public License, v. 2.0"
 
 		files: [
+			"README.md",
+			"LICENSE",
 			"ColorSet.qml",
 			"Element.qml",
-			"LICENSE",
 			"NumberDisplay.qml",
 			"Palette.qml",
 			"PropItem.qml",
-			"README.md",
+			"qmldir",
 			"include/cutehmi/CuteHMI.hpp",
 			"include/cutehmi/Error.hpp",
 			"include/cutehmi/ErrorException.hpp",
@@ -57,7 +58,6 @@ Project {
 			"include/cutehmi/logging.hpp",
 			"include/cutehmi/loggingMacros.hpp",
 			"include/cutehmi/metadata.hpp",
-			"qmldir",
 			"src/cutehmi/CuteHMI.cpp",
 			"src/cutehmi/Error.cpp",
 			"src/cutehmi/ErrorException.cpp",
