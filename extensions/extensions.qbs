@@ -4,7 +4,8 @@ Project {
 	references: [
 		"CuteHMI.2",
 		"CuteHMI/Test.0",
-		"CuteHMI/BitcoinCom.0"
+		"CuteHMI/BitcoinCash.0",
+		"CuteHMI/GPIO.0"
 //		"CuteHMI/Modbus.2"
 	]
 }
