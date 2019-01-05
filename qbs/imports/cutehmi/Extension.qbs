@@ -87,6 +87,11 @@ CommonProduct {
 		fileTags: ["metainfo"]
 	}
 
+	FileTagger {
+		patterns: ["LICENSE", "README.md"]
+		fileTags: ["ReadmeFiles"]
+	}
+
 	Group {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"
@@ -104,7 +109,7 @@ CommonProduct {
 
 	Group {
 		name: "Readme files"
-		fileTagsFilter: ["README.md", "LICENSE"]
+		fileTagsFilter: ["ReadmeFiles"]
 		qbs.install: true
 		qbs.installSourceBase: sourceDirectory
 		qbs.installDir: installDir
