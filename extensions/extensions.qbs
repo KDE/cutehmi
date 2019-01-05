@@ -5,7 +5,5 @@ Project {
 		"CuteHMI.2",
 		"CuteHMI/Test.0",
 		"CuteHMI/BitcoinCash.0",
-		"CuteHMI/GPIO.0"
-//		"CuteHMI/Modbus.2"
 	]
 }
