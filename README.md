@@ -106,7 +106,7 @@ Directory structure of the project is organized as follows.
 - *dev* - development notes (irrelevant).
 - [doc](doc/README.md) - a place where documentation shall be.
 - *examples* - self-explanatory.
-- [extensions](external/README.md) - libraries and QML extensions.
+- [extensions](extensions/README.md) - libraries and QML extensions.
 - [external](external/README.md) - directory containing "external" libraries.
 - *extra* - various stuff related to the project, such as T-shirts.
 - [modules](modules/README.md) - to be replaced by extensions.
