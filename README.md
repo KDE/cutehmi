@@ -48,6 +48,12 @@ Branch "master" is a development branch. Development branch may contain source c
 - Modbus extension should provide database backend.
 
 
+## Secondary goals
+
+- Implement extension for Bitcoin Cash payment services.
+- Implement extension to deal with GPIO chips (notably on Raspberry Pi machines).
+
+
 ## Compiling
 
 1. Get the Qt toolkit. Open-source and commercial editions can be obtained from
