@@ -82,21 +82,6 @@ items' results, so if the library is installed after the project has been
 configured with Qbs, it will not show up. You can use `--force-probe-execution`
 option to force Qbs to not use cached results.
 
-
-## Running example
-
-To run *SampleProject* example with *QtCreator* click 
-"Projects" -> "Build & Run" -> "Run" and in the "Command line arguments" box 
-type: `--project="examples/SampleProject/SampleProject.cutehmi.xml"`.
-
-If anything goes wrong during loading, first check debug output and verify that
-paths are correct.
-
-Something similar to this should show up on screen.
-
-![SampleProject screenshot](doc/images/examples_SampleProject.png)
-
-
 ## Internals
 
 Directory structure of the project is organized as follows.
