@@ -112,7 +112,7 @@ Directory structure of the project is organized as follows.
 - [modules](modules/README.md) - to be replaced by extensions.
 - *qbs* - Qbs modules and imports.
 - [QML](QML/README.md) - to be replaced by extensions.
-- [tools](tools/README.md) - end-user applications (secondary heart of the project).
+- [tools](tools/README.md) - end-user applications.
 
 ![Dependencies between tools, modules, QML and external libraries](doc/images/general_dependencies.png)
 
