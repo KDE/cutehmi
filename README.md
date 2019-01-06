@@ -106,21 +106,19 @@ Directory structure of the project is organized as follows.
 - *dev* - development notes (irrelevant).
 - [doc](doc/README.md) - a place where documentation shall be.
 - *examples* - self-explanatory.
+- [extensions](external/README.md) - libraries and QML extensions.
 - [external](external/README.md) - directory containing "external" libraries.
 - *extra* - various stuff related to the project, such as T-shirts.
-- [modules](modules/README.md) - the heart of the project.
+- [modules](modules/README.md) - to be replaced by extensions.
 - *qbs* - Qbs modules and imports.
-- [QML](QML/README.md) - QML extensions (secondary heart of the project).
-- [tools](tools/README.md) - end-user applications (tertiary heart of the project).
+- [QML](QML/README.md) - to be replaced by extensions.
+- [tools](tools/README.md) - end-user applications (secondary heart of the project).
 
 ![Dependencies between tools, modules, QML and external libraries](doc/images/general_dependencies.png)
 
-The concept is simple. Three most important directories are
-[modules](modules/README.md), [QML](QML/README.md) and [tools](tools/README.md).
-Modules are basically libraries, which provide various functionalities in modular
-fashion. These can be utilized by QML extensions or end-user applications.
-End-user applications may of course utilize QML extensions also, as this is one
-of the main features offered by Qt. Some modules may depend on
+Two most important directories are [extensions](extensions/README.md) and [tools](tools/README.md).
+Extensions combine functionality of QML extensions and standard libraries. They can be utilized by end-user
+applications, but they can be also linked with each other. Some extensions may depend on
 [external](external/README.md) libraries.
 
 
