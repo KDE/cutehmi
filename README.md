@@ -38,6 +38,16 @@ Branch "master" is a development branch. Development branch may contain source c
 </div>
 <!-- CUT HERE -->
 
+
+## Master milestones
+
+- Replace XML project description files by pure QML.
+- Implement *cutehmi_daemon* tool enabling one to run QML projects in daemon mode.
+- Modules and QML extensions are going to be unified as extensions.
+- Modbus extension should use QSerialBus module.
+- Modbus extension should provide database backend.
+
+
 ## Compiling
 
 1. Get the Qt toolkit. Open-source and commercial editions can be obtained from
@@ -81,6 +91,7 @@ Remember that Qbs caches [Probe](http://doc.qt.io/qbs/qml-qbslanguageitems-probe
 items' results, so if the library is installed after the project has been 
 configured with Qbs, it will not show up. You can use `--force-probe-execution`
 option to force Qbs to not use cached results.
+
 
 ## Internals
 
