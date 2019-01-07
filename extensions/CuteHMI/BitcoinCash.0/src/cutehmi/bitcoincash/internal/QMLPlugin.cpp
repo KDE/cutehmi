@@ -11,18 +11,7 @@ namespace internal {
 void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.BitcoinCash"));
-
-//	qmlRegisterType<cutehmi::bitcoincash::Address>(uri, CUTEHMI_, 0, "Prompt");
 }
-
-//QObject * QMLPlugin::CuteHMIProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
-//{
-//	Q_UNUSED(scriptEngine)
-
-//	cutehmi::CuteHMI * cuteHMI = & cutehmi::CuteHMI::Instance();
-//	engine->setObjectOwnership(cuteHMI, QQmlEngine::CppOwnership);
-//	return cuteHMI;
-//}
 
 }
 }

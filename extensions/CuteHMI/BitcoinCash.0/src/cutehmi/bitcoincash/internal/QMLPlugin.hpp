@@ -17,9 +17,6 @@ class QMLPlugin:
 
 	public:
 		void registerTypes(const char * uri) override;
-
-	private:
-//		static QObject * CuteHMIProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 };
 
 }
