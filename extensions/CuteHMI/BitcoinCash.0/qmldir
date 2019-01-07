@@ -1,0 +1,8 @@
+module CuteHMI.BitcoinCash
+
+plugin CuteHMI.BitcoinCash.0 ../..
+classname cutehmi::bitcoincash::internal::QMLPlugin
+
+typeinfo plugins.qmltypes
+
+designersupported

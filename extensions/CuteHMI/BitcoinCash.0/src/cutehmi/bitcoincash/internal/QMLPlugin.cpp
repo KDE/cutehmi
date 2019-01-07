@@ -11,6 +11,8 @@ namespace internal {
 void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.BitcoinCash"));
+
+	qmlRegisterType<cutehmi::bitcoincash::Address>(uri, CUTEHMI_BITCOINCASH_MAJOR, 0, "Address");
 }
 
 }

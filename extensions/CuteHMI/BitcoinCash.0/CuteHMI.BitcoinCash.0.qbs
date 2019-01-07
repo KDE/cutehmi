@@ -25,16 +25,17 @@ Project {
 		license: "Mozilla Public License, v. 2.0"
 
 		files: [
-			"include/cutehmi/bitcoincash/Address.hpp",
-			"include/cutehmi/bitcoincash/internal/common.hpp",
-			"include/cutehmi/bitcoincash/internal/platform.hpp",
-			"include/cutehmi/bitcoincash/logging.hpp",
-			"include/cutehmi/bitcoincash/metadata.hpp",
-			"src/cutehmi/bitcoincash/Address.cpp",
-			"src/cutehmi/bitcoincash/internal/QMLPlugin.cpp",
-			"src/cutehmi/bitcoincash/internal/QMLPlugin.hpp",
-			"src/cutehmi/bitcoincash/logging.cpp",
-		]
+         "include/cutehmi/bitcoincash/Address.hpp",
+         "include/cutehmi/bitcoincash/internal/common.hpp",
+         "include/cutehmi/bitcoincash/internal/platform.hpp",
+         "include/cutehmi/bitcoincash/logging.hpp",
+         "include/cutehmi/bitcoincash/metadata.hpp",
+         "qmldir",
+         "src/cutehmi/bitcoincash/Address.cpp",
+         "src/cutehmi/bitcoincash/internal/QMLPlugin.cpp",
+         "src/cutehmi/bitcoincash/internal/QMLPlugin.hpp",
+         "src/cutehmi/bitcoincash/logging.cpp",
+     ]
 
 		Depends { name: "Qt.network" }
 

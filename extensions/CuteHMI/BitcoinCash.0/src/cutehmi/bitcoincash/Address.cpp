@@ -81,6 +81,11 @@ QString Address::cashAddress() const
 	return m->cashAddress;
 }
 
+void Address::update()
+{
+	m->networkAccessManager.get(QNetworkRequest(QUrl(REQUEST_DETAILS_URL + address())));
+}
+
 void Address::setUpdated(bool updated)
 {
 	if (m->updated != updated) {
@@ -159,11 +164,6 @@ void Address::setCashAddress(const QString & cashAddress)
 		m->cashAddress = cashAddress;
 		emit cashAddressChanged();
 	}
-}
-
-void Address::update()
-{
-	m->networkAccessManager.get(QNetworkRequest(QUrl(REQUEST_DETAILS_URL + address())));
 }
 
 void Address::onNetworkAccessManagerFinished(QNetworkReply * reply)

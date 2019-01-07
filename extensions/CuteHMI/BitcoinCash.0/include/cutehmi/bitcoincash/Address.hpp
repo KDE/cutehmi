@@ -60,6 +60,9 @@ class CUTEHMI_BITCOINCASH_API Address:
 
 		QString cashAddress() const;
 
+	public slots:
+		void update();
+
 	protected:
 		void setUpdated(bool updated);
 
@@ -80,9 +83,6 @@ class CUTEHMI_BITCOINCASH_API Address:
 		void setLegacyAddress(const QString & legacyAddess);
 
 		void setCashAddress(const QString & cashAddress);
-
-	public slots:
-		void update();
 
 	signals:
 		void updateFinished();
