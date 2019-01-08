@@ -1,5 +1,5 @@
-#ifndef CHIPENUMERATOR_HPP
-#define CHIPENUMERATOR_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_CHIPENUMERATOR_HPP
+#define H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_CHIPENUMERATOR_HPP
 
 #include "internal/common.hpp"
 
@@ -30,4 +30,4 @@ class CUTEHMI_GPIO_API ChipEnumerator:
 
 extern template class cutehmi::Singleton<cutehmi::gpio::ChipEnumerator>;
 
-#endif // CHIPENUMERATOR_HPP
+#endif

@@ -1,5 +1,5 @@
-#ifndef LINE_HPP
-#define LINE_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_LINE_HPP
+#define H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_LINE_HPP
 
 #include "internal/common.hpp"
 #include "LineConfig.hpp"
@@ -91,4 +91,4 @@ class CUTEHMI_GPIO_API Line:
 }
 }
 
-#endif // LINE_HPP
+#endif

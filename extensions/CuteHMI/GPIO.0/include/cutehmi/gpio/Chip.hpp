@@ -1,5 +1,5 @@
-#ifndef GPIO_CHIP_HPP
-#define GPIO_CHIP_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_CHIP_HPP
+#define H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_CHIP_HPP
 
 #include "internal/common.hpp"
 #include "Line.hpp"
@@ -83,4 +83,4 @@ class CUTEHMI_GPIO_API Chip:
 }
 }
 
-#endif // CHIP_HPP
+#endif
