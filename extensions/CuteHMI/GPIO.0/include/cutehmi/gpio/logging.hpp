@@ -1,9 +1,10 @@
 #ifndef H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_LOGGING_HPP
 #define H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_LOGGING_HPP
 
+#include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_gpio_0_loggingCategory)
+CUTEHMI_GPIO_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_gpio_0_loggingCategory)
 
 namespace cutehmi {
 namespace gpio {

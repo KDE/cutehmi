@@ -1,9 +1,10 @@
 #ifndef H_EXTENSIONS_CUTEHMI_BITCOINCASH_0_INCLUDE_CUTEHMI_BITCOINCASH_LOGGING_HPP
 #define H_EXTENSIONS_CUTEHMI_BITCOINCASH_0_INCLUDE_CUTEHMI_BITCOINCASH_LOGGING_HPP
 
+#include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_bitcoincash_0_loggingCategory)
+CUTEHMI_BITCOINCASH_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_bitcoincash_0_loggingCategory)
 
 namespace cutehmi {
 namespace bitcoincash {

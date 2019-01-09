@@ -1,16 +1,19 @@
 #ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_SINGLETON_HPP
 #define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_SINGLETON_HPP
 
+#include "platform.hpp"
+
+
 namespace cutehmi {
 namespace internal {
 
 typedef void(*singletonDestroyCallback)();
 
-void destroySingletonInstances();
+CUTEHMI_PRIVATE void destroySingletonInstances();
 
-void storeSingletonDestroyCallback(singletonDestroyCallback callback);
+CUTEHMI_PRIVATE void storeSingletonDestroyCallback(singletonDestroyCallback callback);
 
-void removeSingletonDestroyCallback(singletonDestroyCallback callback);
+CUTEHMI_PRIVATE void removeSingletonDestroyCallback(singletonDestroyCallback callback);
 
 }
 }
