@@ -31,6 +31,7 @@ class CUTEHMI_BITCOINCASH_API Address:
 		Q_PROPERTY(QStringList transactions READ transactions NOTIFY transactionsChanged)
 		Q_PROPERTY(QString legacyAddress READ legacyAddress NOTIFY legacyAddressChanged)
 		Q_PROPERTY(QString cashAddress READ cashAddress NOTIFY cashAddressChanged)
+		Q_PROPERTY(double zeroConfReceived READ zeroConfReceived WRITE setZeroConfReceived NOTIFY zeroConfReceivedChanged)
 
 		static const QString REQUEST_DETAILS_URL;
 
@@ -60,6 +61,8 @@ class CUTEHMI_BITCOINCASH_API Address:
 
 		QString cashAddress() const;
 
+		double zeroConfReceived() const;
+
 	public slots:
 		void update();
 
@@ -83,6 +86,8 @@ class CUTEHMI_BITCOINCASH_API Address:
 		void setLegacyAddress(const QString & legacyAddess);
 
 		void setCashAddress(const QString & cashAddress);
+
+		void setZeroConfReceived(double zeroConfReceived);
 
 	signals:
 		void updateFinished();
@@ -109,6 +114,8 @@ class CUTEHMI_BITCOINCASH_API Address:
 
 		void cashAddressChanged();
 
+		void zeroConfReceivedChanged();
+
 	private slots:
 		void onNetworkAccessManagerFinished(QNetworkReply * reply);
 
@@ -125,6 +132,7 @@ class CUTEHMI_BITCOINCASH_API Address:
 			QStringList transactions;
 			QString legacyAddress;
 			QString cashAddress;
+			double zeroConfReceived = 0.0;
 			QNetworkAccessManager networkAccessManager;
 		};
 

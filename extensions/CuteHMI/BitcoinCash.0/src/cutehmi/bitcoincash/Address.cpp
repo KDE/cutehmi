@@ -81,6 +81,11 @@ QString Address::cashAddress() const
 	return m->cashAddress;
 }
 
+double Address::zeroConfReceived() const
+{
+	return m->zeroConfReceived;
+}
+
 void Address::update()
 {
 	m->networkAccessManager.get(QNetworkRequest(QUrl(REQUEST_DETAILS_URL + address())));
@@ -166,6 +171,14 @@ void Address::setCashAddress(const QString & cashAddress)
 	}
 }
 
+void Address::setZeroConfReceived(double zeroConfReceived)
+{
+	if (m->zeroConfReceived != zeroConfReceived) {
+		m->zeroConfReceived = zeroConfReceived;
+		emit zeroConfReceivedChanged();
+	}
+}
+
 void Address::onNetworkAccessManagerFinished(QNetworkReply * reply)
 {
 	if (reply->error() == QNetworkReply::NoError) {
@@ -207,6 +220,8 @@ void Address::onNetworkAccessManagerFinished(QNetworkReply * reply)
 
 				setLegacyAddress(json["legacyAddress"].toString());
 				setCashAddress(json["cashAddress"].toString());
+
+				setZeroConfReceived(totalReceived() + (unconfirmedBalance() > 0.0 ? unconfirmedBalance() : 0.0));
 
 				setUpdated(true);
 			} catch (const std::runtime_error & e) {
