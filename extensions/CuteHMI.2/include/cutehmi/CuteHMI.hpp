@@ -26,7 +26,7 @@ class CUTEHMI_API CuteHMI:
 
 	public:
 		Q_PROPERTY(Dialogist * dialogist READ dialogist CONSTANT)	///< %Dialogist. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
-		Q_PROPERTY(Notifier * notificationManager READ notificationManager CONSTANT) ///< %Notifier. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
+		Q_PROPERTY(Notifier * notifier READ notifier CONSTANT) ///< %Notifier. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
 
 		/**
 		 * Get instance. Gets a reference to the instance of the singleton class.
@@ -69,10 +69,10 @@ class CUTEHMI_API CuteHMI:
 		Dialogist * dialogist() const;
 
 		/**
-		 * Get notification manager.
-		 * @return notification manager.
+		 * Get notifier.
+		 * @return notifier.
 		 */
-		Notifier * notificationManager() const;
+		Notifier * notifier() const;
 
 	protected:
 		/**
@@ -92,7 +92,7 @@ class CUTEHMI_API CuteHMI:
 		struct Members
 		{
 			std::unique_ptr<Dialogist> dialogist;
-			std::unique_ptr<Notifier> notificationManager;
+			std::unique_ptr<Notifier> notifier;
 		};
 
 		MPtr<Members> m;
