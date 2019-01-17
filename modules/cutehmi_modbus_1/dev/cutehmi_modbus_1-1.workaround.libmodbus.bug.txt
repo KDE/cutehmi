@@ -1,9 +1,0 @@
-Problem:
-
-modbus_rtu_set_serial_mode() fails with error code -1.
-
-Workaround:
-
-Removed ability to set mode by commenting out code.
-
-Snippet:

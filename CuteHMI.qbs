@@ -9,9 +9,7 @@ Project {
 	qbsSearchPaths: ["qbs"]
 
 	references: [
-		"modules/modules.qbs",
 		"tools/tools.qbs",
-		"QML/QML.qbs",
 		"extensions/extensions.qbs",
 		"examples/examples.qbs"
 	]

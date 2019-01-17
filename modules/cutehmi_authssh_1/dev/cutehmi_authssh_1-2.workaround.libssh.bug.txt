@@ -1,9 +1,0 @@
-Problem:
-
-Function ssh_channel_open_forward()' returns 'SSH_OK', even if it fails to open channel.
-
-Investigation:
-
-Workaround:
-
-Use 'ssh_channel_is_open()' to check if channel was opened.

@@ -1,8 +1,0 @@
-module CuteHMI.AuthSSH
-
-plugin CuteHMI.AuthSSH plugins
-classname CuteHMIAuthSSHQMLPlugin
-
-typeinfo plugins.qmltypes
-
-designersupported

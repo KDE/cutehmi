@@ -111,9 +111,7 @@ Directory structure of the project is organized as follows.
 - [extensions](extensions/README.md) - libraries and QML extensions.
 - [external](external/README.md) - directory containing "external" libraries.
 - *extra* - various stuff related to the project, such as T-shirts.
-- [modules](modules/README.md) - to be replaced by extensions.
 - *qbs* - Qbs modules and imports.
-- [QML](QML/README.md) - to be replaced by extensions.
 - [tools](tools/README.md) - end-user applications.
 
 ![Dependencies between tools, modules, QML and external libraries](doc/images/general_dependencies.png)

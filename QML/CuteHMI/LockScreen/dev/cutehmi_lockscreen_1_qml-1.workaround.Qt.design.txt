@@ -1,9 +1,0 @@
-Problem:
-
-To measure idle 'QCoreApplication::instance()->installEventFilter()' could be used, but unfortunately this hurts performance terribly.
-
-Workaround:
-
-Make a subclass of 'QApplication' and reimplement 'event()' function to provide means of idle measuring.
-
-Snippet:
