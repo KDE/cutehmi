@@ -22,23 +22,23 @@ void CuteHMI::Destroy()
 	InstancePtr().reset();
 }
 
-PopupBridge * CuteHMI::popupBridge() const
+Dialogist * CuteHMI::dialogist() const
 {
-	return m->popupBridge.get();
+	return m->dialogist.get();
 }
 
-NotificationManager * CuteHMI::notificationManager() const
+Notifier * CuteHMI::notifier() const
 {
-	return m->notificationManager.get();
+	return m->notifier.get();
 }
 
 CuteHMI::CuteHMI():
 	m(new Members{
-	  std::unique_ptr<PopupBridge>(new PopupBridge),
-	  std::unique_ptr<NotificationManager>(new NotificationManager)})
+	  std::unique_ptr<Dialogist>(new Dialogist),
+	  std::unique_ptr<Notifier>(new Notifier)})
 {
 	qRegisterMetaType<cutehmi::ErrorInfo>();
-	qRegisterMetaType<cutehmi::Prompt::Button>();
+	qRegisterMetaType<cutehmi::Dialog::Button>();
 }
 
 std::unique_ptr<CuteHMI> & CuteHMI::InstancePtr()

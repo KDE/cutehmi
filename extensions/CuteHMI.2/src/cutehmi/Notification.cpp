@@ -9,22 +9,22 @@ Notification::Notification(Type type, const QString & text, QObject * parent):
 {
 }
 
-void Notification::Note(const QString & text)
+void Notification::Info(const QString & text)
 {
 	Notification notification(Notification::NOTE, text);
-	CuteHMI::Instance().notificationManager()->add(& notification);
+	CuteHMI::Instance().notifier()->add(& notification);
 }
 
 void Notification::Warning(const QString & text)
 {
 	Notification notification(Notification::WARNING, text);
-	CuteHMI::Instance().notificationManager()->add(& notification);
+	CuteHMI::Instance().notifier()->add(& notification);
 }
 
 void Notification::Critical(const QString & text)
 {
 	Notification notification(Notification::CRITICAL, text);
-	CuteHMI::Instance().notificationManager()->add(& notification);
+	CuteHMI::Instance().notifier()->add(& notification);
 }
 
 void Notification::Critical(const ErrorInfo & errorInfo)

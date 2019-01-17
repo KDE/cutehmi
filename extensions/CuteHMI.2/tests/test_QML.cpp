@@ -1,4 +1,4 @@
-#include <cutehmi/PopupBridge.hpp>
+#include <cutehmi/Dialogist.hpp>
 
 #include <QtQuickTest>
 #include <QQmlEngine>
@@ -12,12 +12,12 @@ class test_QML:
 	public slots:
 		void applicationAvailable()
 		{
-			m_popupBridge.reset(new cutehmi::PopupBridge);
+			m_dialogist.reset(new cutehmi::Dialogist);
 		}
 
 		void qmlEngineAvailable(QQmlEngine * engine)
 		{
-			engine->rootContext()->setContextProperty("popupBridge", m_popupBridge.get());
+			engine->rootContext()->setContextProperty("dialogist", m_dialogist.get());
 		}
 
 		void cleanupTestCase()
@@ -25,7 +25,7 @@ class test_QML:
 		}
 
 	private:
-		std::unique_ptr<cutehmi::PopupBridge> m_popupBridge;
+		std::unique_ptr<cutehmi::Dialogist> m_dialogist;
 };
 
 

@@ -31,7 +31,7 @@ class CUTEHMI_API Notification:
 
 		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = nullptr);
 
-		static void Note(const QString & text);
+		static void Info(const QString & text);
 
 		static void Warning(const QString & text);
 

@@ -14,7 +14,7 @@ namespace cutehmi {
 /**
  * %Notification manager.
  */
-class CUTEHMI_API NotificationManager:
+class CUTEHMI_API Notifier:
 	public QObject
 {
 	Q_OBJECT
@@ -23,7 +23,7 @@ class CUTEHMI_API NotificationManager:
 		Q_PROPERTY(NotificationListModel * model READ model CONSTANT)
 		Q_PROPERTY(int maxNotifications READ maxNotifications WRITE setMaxNotifications NOTIFY maxNotificationsChanged)
 
-		explicit NotificationManager(QObject * parent = nullptr);
+		explicit Notifier(QObject * parent = nullptr);
 
 		NotificationListModel * model() const;
 

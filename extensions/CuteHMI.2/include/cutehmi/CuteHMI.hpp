@@ -2,8 +2,8 @@
 #define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_CUTEHMI_HPP
 
 #include "internal/common.hpp"
-#include "PopupBridge.hpp"
-#include "NotificationManager.hpp"
+#include "Dialogist.hpp"
+#include "Notifier.hpp"
 
 #include <QObject>
 
@@ -25,15 +25,15 @@ class CUTEHMI_API CuteHMI:
 	Q_OBJECT
 
 	public:
-		Q_PROPERTY(PopupBridge * popupBridge READ popupBridge CONSTANT)	///< %Popup bridge. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
-		Q_PROPERTY(NotificationManager * notificationManager READ notificationManager CONSTANT) ///< %Notification manager. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
+		Q_PROPERTY(Dialogist * dialogist READ dialogist CONSTANT)	///< %Dialogist. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
+		Q_PROPERTY(Notifier * notificationManager READ notificationManager CONSTANT) ///< %Notifier. This property is never @p nullptr, unless CuteHMI singleton is destroyed.
 
 		/**
 		 * Get instance. Gets a reference to the instance of the singleton class.
 		 * Calling this function for the first time will also result in registering
 		 * some types with qRegisterMetaType() function. Types that are registered:
 		 *	- cutehmi::ErrorInfo
-		 *	- cutehmi::Prompt::Button
+		 *	- cutehmi::Dialog::Button
 		 *	.
 		 *
 		 * @return a reference to the instance of the singleton class.
@@ -63,16 +63,16 @@ class CUTEHMI_API CuteHMI:
 		static void Destroy();
 
 		/**
-		 * Get popup bridge.
-		 * @return popup bridge.
+		 * Get dialogist.
+		 * @return dialogist.
 		 */
-		PopupBridge * popupBridge() const;
+		Dialogist * dialogist() const;
 
 		/**
 		 * Get notification manager.
 		 * @return notification manager.
 		 */
-		NotificationManager * notificationManager() const;
+		Notifier * notificationManager() const;
 
 	protected:
 		/**
@@ -91,8 +91,8 @@ class CUTEHMI_API CuteHMI:
 	private:
 		struct Members
 		{
-			std::unique_ptr<PopupBridge> popupBridge;
-			std::unique_ptr<NotificationManager> notificationManager;
+			std::unique_ptr<Dialogist> dialogist;
+			std::unique_ptr<Notifier> notificationManager;
 		};
 
 		MPtr<Members> m;

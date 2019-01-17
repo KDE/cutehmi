@@ -1,7 +1,7 @@
 #include "QMLPlugin.hpp"
 
 #include <cutehmi/CuteHMI.hpp>
-#include <cutehmi/Prompt.hpp>
+#include <cutehmi/Dialog.hpp>
 #include <cutehmi/Notification.hpp>
 
 #include <QtQml>
@@ -13,10 +13,10 @@ void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI"));
 
-	qmlRegisterType<cutehmi::Prompt>(uri, CUTEHMI_MAJOR, 0, "Prompt");
+	qmlRegisterType<cutehmi::Dialog>(uri, CUTEHMI_MAJOR, 0, "Dialog");
 	qmlRegisterType<cutehmi::Notification>(uri, CUTEHMI_MAJOR, 0, "Notification");
-	qmlRegisterUncreatableType<cutehmi::PopupBridge>(uri, CUTEHMI_MAJOR, 0, "PopupBridge", QObject::tr("cutehmi::PopupBridge instances can not be created within QML."));
-	qmlRegisterUncreatableType<cutehmi::NotificationManager>(uri, CUTEHMI_MAJOR, 0, "NotificationManager", QObject::tr("cutehmi::NotificationManager instances can not be created within QML."));
+	qmlRegisterUncreatableType<cutehmi::Dialogist>(uri, CUTEHMI_MAJOR, 0, "Dialogist", QObject::tr("cutehmi::Dialogist instances can not be created within QML."));
+	qmlRegisterUncreatableType<cutehmi::Notifier>(uri, CUTEHMI_MAJOR, 0, "Notifier", QObject::tr("cutehmi::Notifier instances can not be created within QML."));
 	qmlRegisterSingletonType<cutehmi::CuteHMI>(uri, CUTEHMI_MAJOR, 0, "CuteHMI", CuteHMIProvider);
 }
 

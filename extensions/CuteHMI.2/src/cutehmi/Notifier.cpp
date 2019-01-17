@@ -1,24 +1,24 @@
-#include "../../include/cutehmi/NotificationManager.hpp"
+#include "../../include/cutehmi/Notifier.hpp"
 
 namespace cutehmi {
 
-NotificationManager::NotificationManager(QObject * parent):
+Notifier::Notifier(QObject * parent):
 	QObject(parent),
 	m(new Members)
 {
 }
 
-NotificationListModel * NotificationManager::model() const
+NotificationListModel * Notifier::model() const
 {
 	return m->model.get();
 }
 
-int NotificationManager::maxNotifications() const
+int Notifier::maxNotifications() const
 {
 	return m->maxNotifications;
 }
 
-void NotificationManager::setMaxNotifications(int maxNotifications)
+void Notifier::setMaxNotifications(int maxNotifications)
 {
 	if (m->maxNotifications != maxNotifications) {
 		m->maxNotifications = maxNotifications;
@@ -28,7 +28,7 @@ void NotificationManager::setMaxNotifications(int maxNotifications)
 	}
 }
 
-void NotificationManager::add(Notification * notification_l)
+void Notifier::add(Notification * notification_l)
 {
 	QMutexLocker locker(& m->modelMutex);
 
@@ -55,7 +55,7 @@ void NotificationManager::add(Notification * notification_l)
 		m->model->removeLast();
 }
 
-void NotificationManager::clear()
+void Notifier::clear()
 {
 	m->model->clear();
 }

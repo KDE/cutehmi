@@ -137,19 +137,19 @@ int main(int argc, char * argv[])
 		if (projectUrl.isValid()) {
 			// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
 			if (!projectUrl.scheme().isEmpty() && QDir::isRelativePath(projectUrl.path()))
-				cutehmi::Prompt::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(projectUrl.url()));
+				cutehmi::Dialog::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(projectUrl.url()));
 			else {
 				// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
 				if (projectUrl.isRelative())
 					projectUrl = QUrl::fromLocalFile(baseDirPath).resolved(projectUrl);
 				// Check if file exists and eventually set context property.
 				if (projectUrl.isLocalFile() && !QFile::exists(projectUrl.toLocalFile()))
-					cutehmi::Prompt::Critical(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
+					cutehmi::Dialog::Critical(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
 				else
 					engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", projectUrl.url());
 			}
 		} else
-			cutehmi::Prompt::Critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
+			cutehmi::Dialog::Critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
 	}
 
 	//<principle id="Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec">

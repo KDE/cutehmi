@@ -7,7 +7,7 @@
 #include "../MPtr.hpp"
 #include "../ErrorInfo.hpp"
 #include "../Notification.hpp"
-#include "../Prompt.hpp"
+#include "../Dialog.hpp"
 
 #include <QtGlobal>
 

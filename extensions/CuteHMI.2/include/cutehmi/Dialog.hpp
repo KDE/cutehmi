@@ -1,5 +1,5 @@
-#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_PROMPT_HPP
-#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_PROMPT_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_DIALOG_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_DIALOG_HPP
 
 #include "internal/platform.hpp"
 #include "MPtr.hpp"
@@ -14,9 +14,9 @@
 namespace cutehmi {
 
 /**
- * %Prompt message.
+ * %Dialog message.
  */
-class CUTEHMI_API Prompt:
+class CUTEHMI_API Dialog:
 	public QObject
 {
 	Q_OBJECT
@@ -64,48 +64,48 @@ class CUTEHMI_API Prompt:
 
 		/**
 		 * Constructor.
-		 * @param type prompt type.
+		 * @param type dialog type.
 		 * @param text message for the user.
-		 * @param buttons prompt buttons.
+		 * @param buttons dialog buttons.
 		 * @param parent parent object.
 		 */
-		explicit Prompt(Type type = NOTE, const QString & text = QString(), Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
+		explicit Dialog(Type type = NOTE, const QString & text = QString(), Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
 
 		/**
 		 * Constructor.
-		 * @param type prompt type.
+		 * @param type dialog type.
 		 * @param text message for the user.
 		 * @param informativeText informative message.
-		 * @param buttons prompt buttons.
+		 * @param buttons dialog buttons.
 		 * @param parent parent object.
 		 */
-		Prompt(Type type, const QString & text, const QString & informativeText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
+		Dialog(Type type, const QString & text, const QString & informativeText, Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
 
 		/**
 		 * Constructor.
-		 * @param type prompt type.
+		 * @param type dialog type.
 		 * @param text message for the user.
 		 * @param informativeText informative message.
 		 * @param detailedText detailed message.
-		 * @param buttons prompt buttons.
+		 * @param buttons dialog buttons.
 		 * @param parent parent object.
 		 */
-		Prompt(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Prompt::NO_BUTTON, QObject * parent = nullptr);
+		Dialog(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
 
 		/**
 		 * Destructor.
 		 */
-		~Prompt() override = default;
+		~Dialog() override = default;
 
 		/**
-		 * Get prompt type.
-		 * @return prompt type.
+		 * Get dialog type.
+		 * @return dialog type.
 		 */
 		Type type() const;
 
 		/**
-		 * Set prompt type.
-		 * @param type prompt type.
+		 * Set dialog type.
+		 * @param type dialog type.
 		 */
 		void setType(Type type);
 
@@ -146,8 +146,8 @@ class CUTEHMI_API Prompt:
 		void setDetailedText(const QString & detailedText);
 
 		/**
-		 * Get prompt buttons.
-		 * @return prompt buttons available to the user.
+		 * Get dialog buttons.
+		 * @return dialog buttons available to the user.
 		 */
 		Buttons buttons() const;
 
@@ -158,16 +158,16 @@ class CUTEHMI_API Prompt:
 		void setButtons(Buttons buttons);
 
 		/**
-		  * Get prompt response.
-		  * @return button that has been pressed by the user or Prompt::NO_BUTTON if user didn't make a choice.
+		  * Get dialog response.
+		  * @return button that has been pressed by the user or Dialog::NO_BUTTON if user didn't make a choice.
 		  */
 		Button response() const;
 
 		/**
-		 * Clone prompt.
-		 * @return prompt clone.
+		 * Clone dialog.
+		 * @return dialog clone.
 		 */
-		std::unique_ptr<Prompt> clone() const;
+		std::unique_ptr<Dialog> clone() const;
 
 		/**
 		 * Block until user provides a response. This function creates local event loop and blocks until user provides a response.
@@ -201,7 +201,7 @@ class CUTEHMI_API Prompt:
 
 		void responseChanged();
 
-		void responseArrived(cutehmi::Prompt::Button response);
+		void responseArrived(cutehmi::Dialog::Button response);
 
 	private:
 		struct Members
@@ -219,7 +219,7 @@ class CUTEHMI_API Prompt:
 
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Prompt::Buttons)
+Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Dialog::Buttons)
 
 #endif
 

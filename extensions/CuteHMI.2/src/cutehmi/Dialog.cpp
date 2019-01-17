@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/Prompt.hpp"
+#include "../../include/cutehmi/Dialog.hpp"
 #include "../../include/cutehmi/CuteHMI.hpp"
 
 #include <QEventLoop>
@@ -6,30 +6,30 @@
 
 namespace cutehmi {
 
-Prompt::Prompt(Type type, const QString & text, Buttons buttons, QObject * parent):
+Dialog::Dialog(Type type, const QString & text, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, {}, {}, buttons, NO_BUTTON})
 {
 }
 
-Prompt::Prompt(Type type, const QString & text, const QString & informativeText, Buttons buttons, QObject * parent):
+Dialog::Dialog(Type type, const QString & text, const QString & informativeText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, {}, buttons, NO_BUTTON})
 {
 }
 
-Prompt::Prompt(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons, QObject * parent):
+Dialog::Dialog(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, detailedText, buttons, NO_BUTTON})
 {
 }
 
-Prompt::Type Prompt::type() const
+Dialog::Type Dialog::type() const
 {
 	return m->type;
 }
 
-void Prompt::setType(Type type)
+void Dialog::setType(Type type)
 {
 	if (m->type != type) {
 		m->type = type;
@@ -37,12 +37,12 @@ void Prompt::setType(Type type)
 	}
 }
 
-QString Prompt::text() const
+QString Dialog::text() const
 {
 	return m->text;
 }
 
-void Prompt::setText(const QString & text)
+void Dialog::setText(const QString & text)
 {
 	if (m->text != text) {
 		m->text = text;
@@ -50,12 +50,12 @@ void Prompt::setText(const QString & text)
 	}
 }
 
-QString Prompt::informativeText() const
+QString Dialog::informativeText() const
 {
 	return m->informativeText;
 }
 
-void Prompt::setInformativeText(const QString & informativeText)
+void Dialog::setInformativeText(const QString & informativeText)
 {
 	if (m->informativeText != informativeText) {
 		m->informativeText = informativeText;
@@ -63,12 +63,12 @@ void Prompt::setInformativeText(const QString & informativeText)
 	}
 }
 
-QString Prompt::detailedText() const
+QString Dialog::detailedText() const
 {
 	return m->detailedText;
 }
 
-void Prompt::setDetailedText(const QString & detailedText)
+void Dialog::setDetailedText(const QString & detailedText)
 {
 	if (m->detailedText != detailedText) {
 		m->detailedText = detailedText;
@@ -76,12 +76,12 @@ void Prompt::setDetailedText(const QString & detailedText)
 	}
 }
 
-Prompt::Buttons Prompt::buttons() const
+Dialog::Buttons Dialog::buttons() const
 {
 	return m->buttons;
 }
 
-void Prompt::setButtons(Buttons buttons)
+void Dialog::setButtons(Buttons buttons)
 {
 	if (m->buttons != buttons) {
 		m->buttons = buttons;
@@ -89,12 +89,12 @@ void Prompt::setButtons(Buttons buttons)
 	}
 }
 
-Prompt::Button Prompt::response() const
+Dialog::Button Dialog::response() const
 {
 	return m->response;
 }
 
-void Prompt::acceptResponse(Button response)
+void Dialog::acceptResponse(Button response)
 {
 	if (m->response != NO_BUTTON)
 		CUTEHMI_WARNING("Ignoring new arrival '" << response << "', as response '" << m->response << "' has been already accepted.");
@@ -107,17 +107,17 @@ void Prompt::acceptResponse(Button response)
 	}
 }
 
-std::unique_ptr<Prompt> Prompt::clone() const
+std::unique_ptr<Dialog> Dialog::clone() const
 {
-	std::unique_ptr<Prompt> clone(new Prompt);
+	std::unique_ptr<Dialog> clone(new Dialog);
 	*(clone->m) = *m;
 	return clone;
 }
 
-Prompt::Button Prompt::exec()
+Dialog::Button Dialog::exec()
 {
 	QEventLoop loop;
-	QObject::connect(this, & Prompt::responseArrived, & loop, & QEventLoop::quit);
+	QObject::connect(this, & Dialog::responseArrived, & loop, & QEventLoop::quit);
 	loop.exec();
 
 	return response();

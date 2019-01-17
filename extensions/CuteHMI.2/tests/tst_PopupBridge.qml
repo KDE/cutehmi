@@ -18,29 +18,29 @@ Item {
 		visible: true
 		title: "Dialog"
 
-		function createPrompt(prompt) {
-			if (prompt) {
-				switch (prompt.type) {
-					case Prompt.NOTE:
+		function createDialog(dialog) {
+			if (dialog) {
+				switch (dialog.type) {
+					case Dialog.NOTE:
 						title = "Note"
 						break
-					case Prompt.WARNING:
+					case Dialog.WARNING:
 						title = "Warning"
 						break
-					case Prompt.QUESTION:
+					case Dialog.QUESTION:
 						title = "Question"
 						break
-					case Prompt.CRITICAL:
+					case Dialog.CRITICAL:
 						title = "Critical"
 						break
 					default:
-						title = "Unrecognized prompt type (" + prompt.type + ")."
+						title = "Unrecognized dialog type (" + dialog.type + ")."
 				}
 
-				text.text = prompt.text
-				informativeText.text = prompt.informativeText
-				detailedText.text = prompt.detailedText
-				standardButtons = prompt.buttons
+				text.text = dialog.text
+				informativeText.text = dialog.informativeText
+				detailedText.text = dialog.detailedText
+				standardButtons = dialog.buttons
 			}
 		}
 
@@ -54,26 +54,26 @@ Item {
 	}
 
 	TestCase {
-		name: "PopupBridge"
+		name: "Dialogist"
 		when: windowShown
 
 		function initTestCase() {
-			popupBridge.resetAdvertiser(dialog)
+			dialogist.resetAdvertiser(dialog)
 		}
 
 		function test_advertise() {
-			var prompt = Qt.createQmlObject('
+			var dialog = Qt.createQmlObject('
 				import CuteHMI 2.0
 
-				Prompt {
-					type: Prompt.QUESTION
+				Dialog {
+					type: Dialog.QUESTION
 					text: "Text?"
 					informativeText: "Informative text."
 					detailedText: "Detailed text."
-					buttons: { Prompt.BUTTON_YES | Prompt.BUTTON_NO }
+					buttons: { Dialog.BUTTON_YES | Dialog.BUTTON_NO }
 				}', root);
 
-			popupBridge.advertise(prompt)
+			dialogist.advertise(dialog)
 			waitForRendering(root)
 
 			verify(dialog.standardButton(Dialog.Yes))

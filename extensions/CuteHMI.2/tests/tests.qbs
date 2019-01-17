@@ -34,19 +34,19 @@ Project {
 	}
 
 	Test {
-		testName: "test_Prompt"
+		testName: "test_Dialog"
 
 		files: [
-			"test_Prompt.cpp",
-		]
+         "test_Dialog.cpp",
+     ]
 	}
 
 	Test {
-		testName: "test_PopupBridge"
+		testName: "test_Dialogist"
 
 		files: [
-			"test_PopupBridge.cpp",
-		]
+         "test_Dialogist.cpp",
+     ]
 	}
 
 	Test {
