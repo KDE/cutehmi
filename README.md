@@ -61,7 +61,7 @@ https://www.qt.io/. Qt can also be shipped with Linux distribution.
 
 2. Open `CuteHMI.qbs` file with *QtCreator* and simply build it.
 
-3. All modules dependent on external libraries will be disabled, if these
+3. All extensions dependent on external libraries will be disabled, if these
 libraries could not be found. To make the process of finding the libraries
 and installing them under Windows easier, a set of Makefiles is provided, which
 allows the libraries to be build from sources. Check out 
@@ -114,7 +114,7 @@ Directory structure of the project is organized as follows.
 - *qbs* - Qbs modules and imports.
 - [tools](tools/README.md) - end-user applications.
 
-![Dependencies between tools, modules, QML and external libraries](doc/images/general_dependencies.png)
+![Dependencies between tools, extensions and external libraries](doc/images/general_dependencies.png)
 
 Two most important directories are [extensions](extensions/README.md) and [tools](tools/README.md).
 Extensions combine functionality of QML extensions and standard libraries. They can be utilized by end-user
