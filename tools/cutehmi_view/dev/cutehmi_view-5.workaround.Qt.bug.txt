@@ -1,9 +1,0 @@
-Problem:
-
-When run on raw Xorg server application does not show up cursor unless some controls are hovered.
-
-Investigation:
-
-Workaround:
-
-Set cursor with QGuiApplication::setOverrideCursor(QCursor(Qt::ArrowCursor)) for non-touch mode.
