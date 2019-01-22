@@ -1,5 +1,5 @@
-#ifndef EXCEPTION_HPP
-#define EXCEPTION_HPP
+#ifndef H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_EXCEPTION_HPP
+#define H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_EXCEPTION_HPP
 
 #include <cutehmi/ExceptionMixin.hpp>
 
@@ -18,4 +18,4 @@ class Exception:
 }
 }
 
-#endif // EXCEPTION_HPP
+#endif
