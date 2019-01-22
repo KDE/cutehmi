@@ -1,5 +1,5 @@
 #include "../../include/cutehmi/Notification.hpp"
-#include "../../include/cutehmi/CuteHMI.hpp"
+#include "../../include/cutehmi/Notifier.hpp"
 
 namespace cutehmi {
 
@@ -12,19 +12,19 @@ Notification::Notification(Type type, const QString & text, QObject * parent):
 void Notification::Info(const QString & text)
 {
 	Notification notification(Notification::NOTE, text);
-	CuteHMI::Instance().notifier()->add(& notification);
+	Notifier::Instance().add(& notification);
 }
 
 void Notification::Warning(const QString & text)
 {
 	Notification notification(Notification::WARNING, text);
-	CuteHMI::Instance().notifier()->add(& notification);
+	Notifier::Instance().add(& notification);
 }
 
 void Notification::Critical(const QString & text)
 {
 	Notification notification(Notification::CRITICAL, text);
-	CuteHMI::Instance().notifier()->add(& notification);
+	Notifier::Instance().add(& notification);
 }
 
 void Notification::Critical(const ErrorInfo & errorInfo)

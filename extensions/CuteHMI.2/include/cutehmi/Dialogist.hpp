@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 #include "Dialog.hpp"
 #include "ExceptionMixin.hpp"
+#include "Singleton.hpp"
 
 #include <QObject>
 #include <QMutexLocker>
@@ -14,9 +15,12 @@ namespace cutehmi {
  * %Dialogist.
  */
 class CUTEHMI_API Dialogist:
-	public QObject
+	public QObject,
+	public Singleton<Dialogist>
 {
 	Q_OBJECT
+
+	friend class Singleton<Dialogist>;
 
 	public:
 		/**
@@ -49,8 +53,6 @@ class CUTEHMI_API Dialogist:
 				MPtr<Members> m;
 		};
 
-		explicit Dialogist(QObject * parent = nullptr);
-
 		/**
 		 * Advertise dialog.
 		 * @param dialog_l dialog to advertise. Parameter will be used locally by this function.
@@ -70,46 +72,6 @@ class CUTEHMI_API Dialogist:
 		  */
 		Q_INVOKABLE void resetAdvertiser(QObject * advertiser);
 
-		/**
-		 * Notice message. Convenient function that creates informative dialog.
-		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
-		 */
-		std::unique_ptr<Dialog> note(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
-
-		/**
-		 * Warning message. Convenient function that creates warning dialog.
-		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
-		 */
-		std::unique_ptr<Dialog> warning(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
-
-		/**
-		 * Question. Convenient function that creates question dialog.
-		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
-		 */
-		std::unique_ptr<Dialog> question(const QString & text, Dialog::Buttons buttons = Dialog::Buttons{Dialog::BUTTON_YES, Dialog::BUTTON_NO});
-
-		/**
-		 * Critical message. Convenient function that creates critical dialog.
-		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
-		 */
-		std::unique_ptr<Dialog> critical(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
-
-		/**
-		* Critical message. Convenient function that creates critical dialog from ErrorInfo object.
-		* @param errorInfo error info object.
-		* @param buttons dialog buttons.
-		* @return dialog.
-		*/
-		std::unique_ptr<Dialog> critical(const ErrorInfo & errorInfo, Dialog::Buttons buttons = Dialog::BUTTON_OK);
-
 	signals:
 		/**
 		 * Dialog requested. This signal is emitted each time advertise() function has been called. This signal will trigger
@@ -119,7 +81,9 @@ class CUTEHMI_API Dialogist:
 		 */
 		void dialogRequested(QVariant dialog);
 
-	private:
+	protected:
+		explicit Dialogist(QObject * parent = nullptr);
+
 		struct Members
 		{
 			QMutex requestMutex {};

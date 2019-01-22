@@ -17,8 +17,8 @@ namespace cutehmi {
  */
 template <class C>
 class Singleton:
-		public NonCopyable,
-		public NonMovable
+	public NonCopyable,
+	public NonMovable
 {
 	public:
 		/**

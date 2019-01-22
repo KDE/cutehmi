@@ -12,20 +12,16 @@ class test_QML:
 	public slots:
 		void applicationAvailable()
 		{
-			m_dialogist.reset(new cutehmi::Dialogist);
 		}
 
 		void qmlEngineAvailable(QQmlEngine * engine)
 		{
-			engine->rootContext()->setContextProperty("dialogist", m_dialogist.get());
+			engine->rootContext()->setContextProperty("dialogist", & cutehmi::Dialogist::Instance());
 		}
 
 		void cleanupTestCase()
 		{
 		}
-
-	private:
-		std::unique_ptr<cutehmi::Dialogist> m_dialogist;
 };
 
 

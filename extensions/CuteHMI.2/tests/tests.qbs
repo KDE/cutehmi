@@ -37,16 +37,16 @@ Project {
 		testName: "test_Dialog"
 
 		files: [
-         "test_Dialog.cpp",
-     ]
+			"test_Dialog.cpp",
+		]
 	}
 
 	Test {
 		testName: "test_Dialogist"
 
 		files: [
-         "test_Dialogist.cpp",
-     ]
+			"test_Dialogist.cpp",
+		]
 	}
 
 	Test {
@@ -62,8 +62,10 @@ Project {
 
 		files: [
 			"test_QML.cpp",
-			"tst_PopupBridge.qml",
+			"tst_Dialogist.qml",
 		]
+
+		Depends { name: "Qt.quick" }
 	}
 }
 

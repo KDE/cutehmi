@@ -1,4 +1,5 @@
 #include <cutehmi/Dialog.hpp>
+#include <cutehmi/Dialogist.hpp>
 
 #include <cutehmi/test/random.hpp>
 
@@ -20,6 +21,14 @@ class test_Dialog:
 		void response();
 
 		void clone();
+
+		void Note();
+
+		void Warning();
+
+		void Question();
+
+		void Critical();
 };
 
 void test_Dialog::initTestCase()
@@ -100,6 +109,59 @@ void test_Dialog::clone()
 	QCOMPARE(dialog.informativeText(), copy->informativeText());
 	QCOMPARE(dialog.detailedText(), copy->detailedText());
 	QCOMPARE(dialog.buttons(), copy->buttons());
+}
+
+void test_Dialog::Note()
+{
+	try {
+		std::unique_ptr<Dialog> dialog = Dialog::Note("Note.");
+		QCOMPARE(dialog->type(), Dialog::NOTE);
+		QCOMPARE(dialog->text(), "Note.");
+		QCOMPARE(dialog->buttons(), Dialog::BUTTON_OK);
+	} catch (const Dialogist::NoAdvertiserException & ) {
+	}
+}
+
+void test_Dialog::Warning()
+{
+	try {
+		std::unique_ptr<Dialog> dialog = Dialog::Warning("Warning.");
+		QCOMPARE(dialog->type(), Dialog::WARNING);
+		QCOMPARE(dialog->text(), "Warning.");
+		QCOMPARE(dialog->buttons(), Dialog::BUTTON_OK);
+	} catch (const Dialogist::NoAdvertiserException & ) {
+	}
+}
+
+void test_Dialog::Question()
+{
+	try {
+		std::unique_ptr<Dialog> dialog = Dialog::Question("Question?");
+		QCOMPARE(dialog->type(), Dialog::QUESTION);
+		QCOMPARE(dialog->text(), "Question?");
+		QCOMPARE(dialog->buttons(), Dialog::BUTTON_YES | Dialog::BUTTON_NO);
+	} catch (const Dialogist::NoAdvertiserException & ) {
+	}
+}
+
+void test_Dialog::Critical()
+{
+	try {
+		std::unique_ptr<Dialog> dialog = Dialog::Critical("Critical.");
+		QCOMPARE(dialog->type(), Dialog::CRITICAL);
+		QCOMPARE(dialog->text(), "Critical.");
+		QCOMPARE(dialog->buttons(), Dialog::BUTTON_OK);
+	} catch (const Dialogist::NoAdvertiserException & ) {
+	}
+
+	try {
+		ErrorInfo err{1, "class", "Error."};
+		std::unique_ptr<Dialog> dialog2 = Dialog::Critical(err);
+		QCOMPARE(dialog2->type(), Dialog::CRITICAL);
+		QCOMPARE(dialog2->text(), err.toString());
+		QCOMPARE(dialog2->buttons(), Dialog::BUTTON_OK);
+	} catch (const Dialogist::NoAdvertiserException & ) {
+	}
 }
 
 }
