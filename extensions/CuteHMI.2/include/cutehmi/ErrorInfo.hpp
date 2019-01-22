@@ -21,6 +21,12 @@ struct CUTEHMI_API ErrorInfo
 	QString str;			///< %Error string.
 
 	/**
+	 * Register this class as meta type and return its metatype type id.
+	 * @return meta type id.
+	 */
+	static int RegisterMetaType() noexcept;
+
+	/**
 	 * %Error info to string.
 	 * @return multi-line string containing information extracted from ErrorInfo struct.
 	 */
@@ -28,13 +34,15 @@ struct CUTEHMI_API ErrorInfo
 };
 
 /**
- * Get error info. Produces ErrorInfo from instance of Error or its subclass.
+ * Get error info. Produces ErrorInfo from instance of Error or its subclass. This function also registers ErrorInfo with
+ * ErrorInfo::RegisterMetaType() function.
  * @param err instance of Error class or its subclass.
  * @return error info structure.
  */
 template <typename ERR>
 ErrorInfo errorInfo(ERR err)
 {
+	ErrorInfo::RegisterMetaType();
 	return ErrorInfo{err.code(), typeid(ERR).name(), err.str()};
 }
 

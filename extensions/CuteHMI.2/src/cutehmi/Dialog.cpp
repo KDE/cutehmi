@@ -1,27 +1,69 @@
 #include "../../include/cutehmi/Dialog.hpp"
-#include "../../include/cutehmi/CuteHMI.hpp"
+#include "../../include/cutehmi/Dialogist.hpp"
 
 #include <QEventLoop>
 #include <QMutexLocker>
 
 namespace cutehmi {
 
+int Dialog::RegisterButtonMetaType() noexcept
+{
+	static const int Id = qRegisterMetaType<cutehmi::Dialog::Button>();
+	return Id;
+}
+
+std::unique_ptr<Dialog> Dialog::Note(const QString & text, Dialog::Buttons buttons)
+{
+	std::unique_ptr<Dialog> result(new Dialog(Dialog::NOTE, text, buttons));
+	Dialogist::Instance().advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Dialog> Dialog::Warning(const QString & text, Dialog::Buttons buttons)
+{
+	std::unique_ptr<Dialog> result(new Dialog(Dialog::WARNING, text, buttons));
+	Dialogist::Instance().advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Dialog> Dialog::Question(const QString & text, Dialog::Buttons buttons)
+{
+	std::unique_ptr<Dialog> result(new Dialog(Dialog::QUESTION, text, buttons));
+	Dialogist::Instance().advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Dialog> Dialog::Critical(const QString & text, Dialog::Buttons buttons)
+{
+	std::unique_ptr<Dialog> result(new Dialog(Dialog::CRITICAL, text, buttons));
+	Dialogist::Instance().advertise(result.get());
+	return result;
+}
+
+std::unique_ptr<Dialog> Dialog::Critical(const ErrorInfo & errorInfo, Dialog::Buttons buttons)
+{
+	return Critical(errorInfo.toString(), buttons);
+}
+
 Dialog::Dialog(Type type, const QString & text, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, {}, {}, buttons, NO_BUTTON})
 {
+	RegisterButtonMetaType();
 }
 
 Dialog::Dialog(Type type, const QString & text, const QString & informativeText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, {}, buttons, NO_BUTTON})
 {
+	RegisterButtonMetaType();
 }
 
 Dialog::Dialog(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, detailedText, buttons, NO_BUTTON})
 {
+	RegisterButtonMetaType();
 }
 
 Dialog::Type Dialog::type() const

@@ -1,8 +1,9 @@
-#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_NOTIFICATIONMANAGER_HPP
-#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_NOTIFICATIONMANAGER_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_NOTIFIER_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_NOTIFIER_HPP
 
 #include "internal/common.hpp"
 #include "NotificationListModel.hpp"
+#include "Singleton.hpp"
 
 #include <QObject>
 #include <QMutexLocker>
@@ -12,18 +13,19 @@
 namespace cutehmi {
 
 /**
- * %Notification manager.
+ * %Notifier.
  */
 class CUTEHMI_API Notifier:
-	public QObject
+	public QObject,
+	public Singleton<Notifier>
 {
 	Q_OBJECT
+
+	friend class Singleton<Notifier>;
 
 	public:
 		Q_PROPERTY(NotificationListModel * model READ model CONSTANT)
 		Q_PROPERTY(int maxNotifications READ maxNotifications WRITE setMaxNotifications NOTIFY maxNotificationsChanged)
-
-		explicit Notifier(QObject * parent = nullptr);
 
 		NotificationListModel * model() const;
 
@@ -45,6 +47,9 @@ class CUTEHMI_API Notifier:
 
 	signals:
 		void maxNotificationsChanged();
+
+	protected:
+		explicit Notifier(QObject * parent = nullptr);
 
 	private:
 		struct Members

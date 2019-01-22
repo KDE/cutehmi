@@ -37,6 +37,9 @@ class CUTEHMI_API Dialog:
 		};
 		Q_ENUM(Type)
 
+		/**
+		 * %Dialog button. Button is registered as meta type by Dialog constructors.
+		 */
 		enum Button: qint32 {
 			BUTTON_OK = 0x00000400,
 			BUTTON_OPEN = 0x00002000,
@@ -61,6 +64,53 @@ class CUTEHMI_API Dialog:
 		Q_DECLARE_FLAGS(Buttons, Button)
 		Q_FLAG(Buttons)
 		Q_ENUM(Button)
+
+		/**
+		 * Register Button as meta type and return its metatype type id. This method is called by Dialog constructors.
+		 * @return meta type id of Button.
+		 */
+		static int RegisterButtonMetaType() noexcept;
+
+		/**
+		 * Notice message. Convenient function that creates informative dialog and advertises it through Dialogist instance.
+		 * @param text message for the user.
+		 * @param buttons dialog buttons.
+		 * @return dialog.
+		 */
+		static std::unique_ptr<Dialog> Note(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+
+		/**
+		 * Warning message. Convenient function that creates warning dialog and advertises it through Dialogist instance.
+		 * @param text message for the user.
+		 * @param buttons dialog buttons.
+		 * @return dialog.
+		 */
+		static std::unique_ptr<Dialog> Warning(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+
+		/**
+		 * Question. Convenient function that creates question dialog and advertises it through Dialogist instance.
+		 * @param text message for the user.
+		 * @param buttons dialog buttons.
+		 * @return dialog.
+		 */
+		static std::unique_ptr<Dialog> Question(const QString & text, Dialog::Buttons buttons = Dialog::Buttons{Dialog::BUTTON_YES, Dialog::BUTTON_NO});
+
+		/**
+		 * Critical message. Convenient function that creates critical dialog and advertises it through Dialogist instance.
+		 * @param text message for the user.
+		 * @param buttons dialog buttons.
+		 * @return dialog.
+		 */
+		static std::unique_ptr<Dialog> Critical(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+
+		/**
+		* Critical message. Convenient function that creates critical dialog from ErrorInfo object and advertises it through
+		* Dialogist instance.
+		* @param errorInfo error info object.
+		* @param buttons dialog buttons.
+		* @return dialog.
+		*/
+		static std::unique_ptr<Dialog> Critical(const ErrorInfo & errorInfo, Dialog::Buttons buttons = Dialog::BUTTON_OK);
 
 		/**
 		 * Constructor.

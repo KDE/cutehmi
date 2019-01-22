@@ -2,6 +2,12 @@
 
 namespace cutehmi {
 
+int ErrorInfo::RegisterMetaType() noexcept
+{
+	static const int Id = qRegisterMetaType<cutehmi::ErrorInfo>();
+	return Id;
+}
+
 QString ErrorInfo::toString() const
 {
 	QString result = str;

@@ -1,8 +1,10 @@
 #include "QMLPlugin.hpp"
 
-#include <cutehmi/CuteHMI.hpp>
+#include <cutehmi/metadata.hpp>
 #include <cutehmi/Dialog.hpp>
+#include <cutehmi/Dialogist.hpp>
 #include <cutehmi/Notification.hpp>
+#include <cutehmi/Notifier.hpp>
 
 #include <QtQml>
 
@@ -15,18 +17,26 @@ void QMLPlugin::registerTypes(const char * uri)
 
 	qmlRegisterType<cutehmi::Dialog>(uri, CUTEHMI_MAJOR, 0, "Dialog");
 	qmlRegisterType<cutehmi::Notification>(uri, CUTEHMI_MAJOR, 0, "Notification");
-	qmlRegisterUncreatableType<cutehmi::Dialogist>(uri, CUTEHMI_MAJOR, 0, "Dialogist", QObject::tr("cutehmi::Dialogist instances can not be created within QML."));
-	qmlRegisterUncreatableType<cutehmi::Notifier>(uri, CUTEHMI_MAJOR, 0, "Notifier", QObject::tr("cutehmi::Notifier instances can not be created within QML."));
-	qmlRegisterSingletonType<cutehmi::CuteHMI>(uri, CUTEHMI_MAJOR, 0, "CuteHMI", CuteHMIProvider);
+	qmlRegisterSingletonType<cutehmi::Dialogist>(uri, CUTEHMI_MAJOR, 0, "Dialogist", DialogistProvider);
+	qmlRegisterSingletonType<cutehmi::Notifier>(uri, CUTEHMI_MAJOR, 0, "Notifier", NotifierProvider);
 }
 
-QObject * QMLPlugin::CuteHMIProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
+QObject * QMLPlugin::DialogistProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
 {
 	Q_UNUSED(scriptEngine)
 
-	cutehmi::CuteHMI * cuteHMI = & cutehmi::CuteHMI::Instance();
-	engine->setObjectOwnership(cuteHMI, QQmlEngine::CppOwnership);
-	return cuteHMI;
+	cutehmi::Dialogist * dialogist = & cutehmi::Dialogist::Instance();
+	engine->setObjectOwnership(dialogist, QQmlEngine::CppOwnership);
+	return dialogist;
+}
+
+QObject * QMLPlugin::NotifierProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
+{
+	Q_UNUSED(scriptEngine)
+
+	cutehmi::Notifier * notifier = & cutehmi::Notifier::Instance();
+	engine->setObjectOwnership(notifier, QQmlEngine::CppOwnership);
+	return notifier;
 }
 
 }

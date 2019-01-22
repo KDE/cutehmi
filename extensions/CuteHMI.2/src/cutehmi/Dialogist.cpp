@@ -29,12 +29,6 @@ const Dialog * Dialogist::NoAdvertiserException::dialog() const
 	return m->dialog.get();
 }
 
-Dialogist::Dialogist(QObject * parent):
-	QObject(parent),
-	m(new Members)
-{
-}
-
 void Dialogist::advertise(Dialog * dialog_l)
 {
 	QMutexLocker locker(& m->requestMutex);
@@ -61,37 +55,10 @@ void Dialogist::resetAdvertiser(QObject * advertiser)
 	QObject::connect(this, SIGNAL(dialogRequested(QVariant)), advertiser, SLOT(createDialog(QVariant)));
 }
 
-std::unique_ptr<Dialog> Dialogist::note(const QString & text, Dialog::Buttons buttons)
+Dialogist::Dialogist(QObject * parent):
+	QObject(parent),
+	m(new Members)
 {
-	std::unique_ptr<Dialog> result(new Dialog(Dialog::NOTE, text, buttons));
-	advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Dialog> Dialogist::warning(const QString & text, Dialog::Buttons buttons)
-{
-	std::unique_ptr<Dialog> result(new Dialog(Dialog::WARNING, text, buttons));
-	advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Dialog> Dialogist::question(const QString & text, Dialog::Buttons buttons)
-{
-	std::unique_ptr<Dialog> result(new Dialog(Dialog::QUESTION, text, buttons));
-	advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Dialog> Dialogist::critical(const QString & text, Dialog::Buttons buttons)
-{
-	std::unique_ptr<Dialog> result(new Dialog(Dialog::CRITICAL, text, buttons));
-	advertise(result.get());
-	return result;
-}
-
-std::unique_ptr<Dialog> Dialogist::critical(const ErrorInfo & errorInfo, Dialog::Buttons buttons)
-{
-	return critical(errorInfo.toString(), buttons);
 }
 
 }
