@@ -27,16 +27,18 @@ Project {
 		license: "Mozilla Public License, v. 2.0"
 
 		files: [
-			"README.md",
-			"src/cutehmi/daemon/CoreData.hpp",
-			"src/cutehmi/daemon/Daemon.cpp",
-			"src/cutehmi/daemon/Daemon.hpp",
-			"src/cutehmi/daemon/EngineThread.cpp",
-			"src/cutehmi/daemon/EngineThread.hpp",
-			"src/cutehmi/daemon/logging.cpp",
-			"src/cutehmi/daemon/logging.hpp",
-			"src/main.cpp",
-		]
+         "README.md",
+         "src/cutehmi/daemon/CoreData.hpp",
+         "src/cutehmi/daemon/Daemon.cpp",
+         "src/cutehmi/daemon/Daemon.hpp",
+         "src/cutehmi/daemon/EngineThread.cpp",
+         "src/cutehmi/daemon/EngineThread.hpp",
+         "src/cutehmi/daemon/Exception.cpp",
+         "src/cutehmi/daemon/Exception.hpp",
+         "src/cutehmi/daemon/logging.cpp",
+         "src/cutehmi/daemon/logging.hpp",
+         "src/main.cpp",
+     ]
 
 		Group {
 			name: "Windows"
