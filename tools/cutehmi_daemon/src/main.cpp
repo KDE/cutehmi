@@ -6,7 +6,7 @@
 #include "cutehmi/daemon/CoreData.hpp"
 #include "cutehmi/daemon/Exception.hpp"
 
-#include <cutehmi/CuteHMI.hpp>
+#include <cutehmi/Dialogist.hpp>
 #include <cutehmi/Singleton.hpp>
 
 #include <QCoreApplication>
