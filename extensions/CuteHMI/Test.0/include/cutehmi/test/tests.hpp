@@ -27,7 +27,7 @@ namespace test {
  * @param min minimal value that can be set by "setter" function.
  * @param max maximal value that can be set by "setter" function.
  */
-template <class CM, typename T, class C>
+template <class CM, typename T, class C, typename std::enable_if<IsIntType<T>::value || std::is_floating_point<T>::value, bool>::type = true>
 void testAccessors(T (CM::* getter)() const, void (CM::* setter)(T), C && object, T min = std::numeric_limits<T>::min(), T max = std::numeric_limits<T>::max())
 {
 	(object.*setter)(min);
@@ -42,7 +42,7 @@ void testAccessors(T (CM::* getter)() const, void (CM::* setter)(T), C && object
 }
 
 /**
- * Test accessors. Specialization for accessors that operate on boolean types.
+ * Test accessors. Overloaded function for accessors that operate on Boolean types.
  *
  * @tparam CM name of a class containing member access functions.
  * @tparam C object class (this should be the same as @a CM). This template
@@ -62,8 +62,12 @@ void testAccessors(bool (CM::* getter)() const, void (CM::* setter)(bool), C && 
 	QCOMPARE((object.*getter)(), value);
 }
 
+//<CuteHMI.Test-1.workaround target="MSVC" cause="bug">
+// MSVC has problems parsing function declarations with function pointers and default arguments initialized with braces.
+// Workaround is to use overloaded function instead of default argument.
+
 /**
- * Test accessors. Specialization for accessors that operate on QString.
+ * Test accessors. Overloaded function for accessors that operate on QString.
  *
  * @tparam CM name of a class containing member access functions.
  * @tparam C object class (this should be the same as @a CM). This template
@@ -75,17 +79,46 @@ void testAccessors(bool (CM::* getter)() const, void (CM::* setter)(bool), C && 
  * @param object object to call "getter" and "setter" functions with.
  * @param length string length.
  * @param categories character categories of which string should be composed from.
+ *
+ * @note This overloaded function is provided as CuteHMI.Test-1.workaround. It uses
+ * {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit} as character categories.
  */
 template <class CM, class C>
-void testAccessors(QString (CM::* getter)() const, void (CM::* setter)(const QString &), C && object, int length = rand(0, 255), QList<QChar::Category> categories = {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit})
+void testAccessors(QString (CM::* getter)() const, void (CM::* setter)(const QString &), C && object, int length, const QList<QChar::Category> & categories)
 {
 	QString str = cutehmi::test::rand<QString>(length, categories);
 	(object.*setter)(str);
 	QCOMPARE((object.*getter)(), str);
 }
 
+
 /**
- * Test accessors. Specialization for accessors that operate on QStringList.
+ * Test accessors. Overloaded function for accessors that operate on QString.
+ *
+ * @tparam CM name of a class containing member access functions.
+ * @tparam C object class (this should be the same as @a CM). This template
+ * parameter is introduced to prevent deduction of conflicting types for
+ * function parameters.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ * @param object object to call "getter" and "setter" functions with.
+ * @param length string length.
+ */
+template <class CM, class C>
+void testAccessors(QString (CM::* getter)() const, void (CM::* setter)(const QString &), C && object, int length = rand(0, 255))
+{
+	testAccessors(getter, setter, object, length, {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit});
+}
+
+//</CuteHMI.Test-1.workaround>
+
+//<CuteHMI.Test-1.workaround target="MSVC" cause="bug">
+// MSVC has problems parsing function declarations with function pointers and default arguments initialized with braces.
+// Workaround is to use overloaded function instead of default argument.
+
+/**
+ * Test accessors. Overloaded function for accessors that operate on QStringList.
  *
  * @tparam CM name of a class containing member access functions.
  * @tparam C object class (this should be the same as @a CM). This template
@@ -100,12 +133,37 @@ void testAccessors(QString (CM::* getter)() const, void (CM::* setter)(const QSt
  * @param categories character categories of which strings should be composed from.
  */
 template <class CM, class C>
-void testAccessors(QStringList (CM::* getter)() const, void (CM::* setter)(const QStringList &), C && object, int size = rand(0, 255), int length = rand(0, 255), QList<QChar::Category> categories = {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit})
+void testAccessors(QStringList (CM::* getter)() const, void (CM::* setter)(const QStringList &), C && object, int size, int length, const QList<QChar::Category> & categories)
 {
 	QStringList list = cutehmi::test::rand<QStringList>(size, length, categories);
 	(object.*setter)(list);
 	QCOMPARE((object.*getter)(), list);
 }
+
+/**
+ * Test accessors. Overloaded function for accessors that operate on QStringList.
+ *
+ * @tparam CM name of a class containing member access functions.
+ * @tparam C object class (this should be the same as @a CM). This template
+ * parameter is introduced to prevent deduction of conflicting types for
+ * function parameters.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ * @param object object to call "getter" and "setter" functions with.
+ * @param size string list size.
+ * @param length strings length.
+ *
+ * @note This overloaded function is provided as CuteHMI.Test-1.workaround. It uses
+ * {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit} as character categories.
+ */
+template <class CM, class C>
+void testAccessors(QStringList (CM::* getter)() const, void (CM::* setter)(const QStringList &), C && object, int size = rand(0, 255), int length = rand(0, 255))
+{
+	testAccessors(getter, setter, object, size, length, {QChar::Letter_Uppercase, QChar::Letter_Lowercase, QChar::Number_DecimalDigit});
+}
+
+//</CuteHMI.Test-1.workaround>
 
 /**
  * Test accessors. This overloaded function uses default constructed object as third argument to

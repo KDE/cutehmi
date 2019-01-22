@@ -1,0 +1,17 @@
+Problem:
+
+MSVC has problems parsing function declarations with function pointers and
+default arguments initialized with braces.
+
+
+References:
+
+https://developercommunity.visualstudio.com/content/problem/431539/vc-cannot-parse-function-pointer-parameter-with-de.html
+https://stackoverflow.com/questions/54310552/function-with-pointer-to-a-function-and-vector-with-default-value-as-arguments-r
+
+
+Workaround:
+
+Workaround is to use overloaded version of a function instead of default
+argument provided with initializer lists.
+
