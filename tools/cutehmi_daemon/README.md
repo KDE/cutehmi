@@ -2,6 +2,8 @@
 
 Non-GUI program, which allows one to run QML project in the background.
 
+Currently only Linux is supported.
+
 Use `--project` command line option to specify the QML project file to open.
 For example to run *CountDaemon* example use following command.
 
