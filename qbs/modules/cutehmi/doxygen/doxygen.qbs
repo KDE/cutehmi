@@ -87,7 +87,8 @@ Module {
 					'FILTER_PATTERNS': product.cutehmi.doxygen.useDoxyqml ? ['*.qml=doxyqml'] : undefined,
 					'FILE_PATTERNS' : product.cutehmi.doxygen.useDoxyqml ? ['*.qml'] : undefined,
 					'EXTENSION_MAPPING' : product.cutehmi.doxygen.useDoxyqml ? ['qml=C++'] : undefined,
-					'EXCLUDE': product.cutehmi.doxygen.exclude
+					'EXCLUDE': product.cutehmi.doxygen.exclude,
+					'CASE_SENSE_NAMES': false
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
