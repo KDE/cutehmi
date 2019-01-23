@@ -25,7 +25,7 @@ Module {
 		prepare: {
 			var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
 			dumpCmd.workingDirectory = product.qbs.installRoot
-			var paths = product.cpp.libraryPaths.concat([product.qbs.installRoot + "/" + product.cutehmi.dirs.moduleInstallDirname]).join(product.qbs.pathListSeparator)
+			var paths = product.cpp.libraryPaths.concat([product.qbs.installRoot + "/" + product.cutehmi.dirs.extensionInstallDirname]).join(product.qbs.pathListSeparator)
 			if (product.qbs.targetOS.contains("windows"))
 				dumpCmd.environment = ["PATH=" + Environment.getEnv("PATH") + product.qbs.pathListSeparator + paths]
 			else if (product.qbs.targetOS.contains("macos"))

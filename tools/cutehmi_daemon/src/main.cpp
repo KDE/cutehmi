@@ -109,7 +109,7 @@ int main(int argc, char * argv[])
 
 			EngineThread engineThread;
 			std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-			engine->addImportPath(baseDirPath + CUTEHMI_DIRS_QML_EXTENSION_INSTALL_DIRNAME);
+			engine->addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSION_INSTALL_DIRNAME);
 			CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 
 			if (!data.cmd->value(data.opt->project).isNull()) {

@@ -2,8 +2,6 @@ import qbs
 
 Project {
 	property bool buildTests: false
-	property bool staticQMLExtensions: false
-	property bool staticModules: false
 	property bool staticExtensions: false
 
 	qbsSearchPaths: ["qbs"]
@@ -17,7 +15,7 @@ Project {
 	AutotestRunner {
 		environment: {
 			var env = base;
-			env.push("QML2_IMPORT_PATH=" + qbs.installRoot + "/" + cutehmi.dirs.qmlExtensionInstallDirname);
+			env.push("QML2_IMPORT_PATH=" + qbs.installRoot + "/" + cutehmi.dirs.extensionInstallDirname);
 
 			env.push("QBS_INSTALL_ROOT=" + qbs.installRoot);
 
