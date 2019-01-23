@@ -9,7 +9,8 @@
 namespace cutehmi {
 
 /**
- * %Exception mixin.
+ * %Exception mixin. This class template can be used to automatically reimplement raise() and clone() methods for DERIVED class.
+ * This is internally achieved through static polymorphism technique.
  */
 template <class DERIVED>
 class ExceptionMixin:
