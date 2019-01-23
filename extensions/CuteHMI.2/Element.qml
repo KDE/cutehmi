@@ -96,7 +96,8 @@ Item {
 
 	/**
 	  Pick color set based on active, warning and alarm property states. Alarm takes precedence before warning and warning takes
-	  precedence over active state.
+	  precedence over active state. For warning and alarm states this function dynamically alters the colors to carry visual
+	  information more effectively and to provide accessibility to color blind people.
 	  @return appropriate color set.
 	  */
 	function currentStateColorSet() {
