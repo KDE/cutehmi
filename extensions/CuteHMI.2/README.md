@@ -8,7 +8,7 @@ It provides various utility classes and bridges that help other extensions and t
 
 [Logging macros](@ref loggingMacros.hpp) help deliver consistently looking logging messages to power users and developers.
 
-Messages that should show up in user interface can be delivered through Dialog and Notificatoin classes.
+Messages that should show up in user interface can be delivered through Dialog and Notification classes.
 
 ## Utility classes
 
