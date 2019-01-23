@@ -22,7 +22,7 @@ Item {
 
 	/**
 	  Active color set. Normally this is controlled by currentStateColorSet() function, which sets appropriate color
-	  according to the state of @a active, @a warning and @alarm properties.
+	  according to the state of @a active, @a warning and @a alarm properties.
 	  */
 	property ColorSet colorSet: currentStateColorSet()
 
