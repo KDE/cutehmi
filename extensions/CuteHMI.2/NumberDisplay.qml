@@ -8,8 +8,10 @@ import "."
 //</CuteHMI-3.workaround>
 
 /**
-  Number display. Number display can be used to conveniently display numerical values with corresponding units of measurement.
-  Number display tries to keep constant width. If that's not possible it expands to fit the content.
+  Number display.
+
+  Number display can be used to conveniently display numerical values with corresponding units of measurement. Number display tries
+  to keep constant width. If that's not possible it expands to fit the content.
   */
 Element
 {

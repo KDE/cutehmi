@@ -7,7 +7,9 @@ import "."
 //</CuteHMI-3.workaround>
 
 /**
-  %Element. This component should be used to implement color code aware items.
+  %Element.
+
+  This component should be used to implement color code aware items.
   */
 Item {
     implicitWidth: 40.0

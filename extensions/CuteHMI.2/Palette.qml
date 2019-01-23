@@ -3,7 +3,9 @@ pragma Singleton
 import QtQuick 2.0
 
 /**
-  %Palette. %Palette defines standard color sets to be used by CuteHMI items.
+  %Palette.
+
+  %Palette defines standard color sets to be used by CuteHMI items.
   */
 QtObject
 {

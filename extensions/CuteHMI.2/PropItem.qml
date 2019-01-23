@@ -7,7 +7,9 @@ import "."
 //</CuteHMI-3.workaround>
 
 /**
-  Prop item. This simple item can be used to draw small props around an actual item, which can be placed inside PropItem. Prop size
+  Prop item.
+
+  This simple item can be used to draw small props around an actual item, which can be placed inside PropItem. Prop size
   can be controlled with padding properties (leftPadding, rightPadding, topPadding, bottomPadding).
   */
 Canvas {
