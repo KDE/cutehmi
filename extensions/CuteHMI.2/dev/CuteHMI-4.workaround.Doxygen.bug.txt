@@ -1,0 +1,10 @@
+Problem:
+
+Doxygen does not expand Q_DECLARE_LOGGING_CATEGORY macro properly and messes up
+documentation appearing after the macro.
+
+Workaround:
+
+Adding semicolon after the macro resolves the issue.
+	
+Snippet:

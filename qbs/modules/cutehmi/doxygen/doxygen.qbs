@@ -80,7 +80,7 @@ Module {
 								   'QT_RCC_MANGLE_NAMESPACE()='
 					],
 					'LAYOUT_FILE': '../../doc/layout/ProductLayout.xml',
-					'SHOW_FILES': false,
+					'SHOW_FILES': true,
 					'SHOW_USED_FILES': false,
 					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,
 					'WARN_NO_PARAMDOC': true,
