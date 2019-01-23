@@ -6,20 +6,49 @@ import QtQuick 2.3
 import "."
 //</CuteHMI-3.workaround>
 
+/**
+  Prop item. This simple item can be used to draw small props around an actual item, which can be placed inside PropItem. Prop size
+  can be controlled with padding properties (leftPadding, rightPadding, topPadding, bottomPadding).
+  */
 Canvas {
 	id: root
 
 	implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
 	implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
+	/**
+	  Prop thickness.
+	  */
 	property real thickness: 2.0
+
+	/**
+	  Prop color.
+	  */
 	property color color: Palette.neutral.stroke
 
+	/**
+	  Left padding.
+	  */
 	property real leftPadding: 0.0
+
+	/**
+	  Right padding.
+	  */
 	property real rightPadding: 0.0
+
+	/**
+	  Top padding.
+	  */
 	property real topPadding: 0.0
+
+	/**
+	  Bottom padding.
+	  */
 	property real bottomPadding: 0.0
 
+	/**
+	  Content data.
+	  */
 	default property alias contentData: contentItem.data
 
 	Item {

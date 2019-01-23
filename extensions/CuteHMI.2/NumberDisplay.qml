@@ -7,6 +7,10 @@ import QtQuick.Templates 2.0 as Templates
 import "."
 //</CuteHMI-3.workaround>
 
+/**
+  Number display. Number display can be used to conveniently display numerical values with corresponding units of measurement.
+  Number display tries to keep constant width. If that's not possible it expands to fit the content.
+  */
 Element
 {
 	id: root
@@ -15,24 +19,62 @@ Element
 	implicitHeight: background.height
 	active: value === value		// NaN === NaN equals false, thus NaN value deactivates display.
 
+	/**
+	  Font. Font that is used by the display. It may be desirable to set some monospace font.
+	  */
 	property alias font: valueDisplay.font
-	property real paddingLeft: font.pixelSize * 0.25
-	property real paddingRight: font.pixelSize * 0.25
-	property real paddingTop: font.pixelSize * 0.25
-	property real paddingBottom: font.pixelSize * 0.25
+
+	/**
+	  Left padding.
+	  */
+	property real leftPadding: font.pixelSize * 0.25
+
+	/**
+	  Right padding.
+	  */
+	property real rightPadding: font.pixelSize * 0.25
+
+	/**
+	  Top padding.
+	  */
+	property real topPadding: font.pixelSize * 0.25
+
+	/**
+	  Bottom padding.
+	  */
+	property real bottomPadding: font.pixelSize * 0.25
+
+	/**
+	  Value.
+	  */
 	property real value: NaN
+
+	/**
+	  Fractional width.
+	  */
 	property int fractionalWidth: 1
+
+	/**
+	  Integral width.
+	  */
 	property int integralWidth: 3
+
+	/**
+	  Unit of measurment.
+	  */
 	property string unit: "°C"
 
+	/**
+	  Text formatter.
+	  */
 	property var textFormatter: function(value) { return value.toFixed(root.fractionalWidth) }
 
 	Rectangle {
 		id: background
 
 		x: -0.5 * valueDisplay.overfull
-		width: contentItem.width + paddingLeft + paddingRight
-		height: contentItem.height + paddingTop + paddingBottom
+		width: contentItem.width + leftPadding + rightPadding
+		height: contentItem.height + topPadding + bottomPadding
 		color: backgroundColor
 		border.width: lineWidth
 		radius: height / 5
@@ -41,8 +83,8 @@ Element
 	Row {
 		id: contentItem
 
-		x: paddingLeft - 0.5 * valueDisplay.overfull
-		y: paddingTop
+		x: leftPadding - 0.5 * valueDisplay.overfull
+		y: topPadding
 		spacing: root.font.pixelSize * 0.25
 
 		Text

@@ -21,6 +21,14 @@ cutehmi::MPtr can be helpful, when class uses PImpl idiom to maintain binary com
 cutehmi::Error, cutehmi::ErrorInfo, cutehmi::Exception and cutehmi::ExceptionMixin may be useful, when dealing with errors and
 exceptions.
 
+## QML components
+
+CuteHMI::Palette and CuteHMI::ColorSet help provide consistent color codes accross projects.
+
+CuteHMI::Element component should be used to create color code aware items.
+
+CuteHMI::NumberDisplay provides convenient display.
+
 ## Frontend tools
 
 Frontend tools should take care about cutehmi::Notifier and cutehmi::Dialogist classes to deliver messages to the users. They should

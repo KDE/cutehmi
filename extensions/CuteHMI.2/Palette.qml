@@ -2,18 +2,19 @@ pragma Singleton
 
 import QtQuick 2.0
 
-/*!
-  \qmltype Palette
-  \inqmlmodule CuteHMI.Base
-  \since CuteHMI.Base 1.0
-  \brief Palette.
-
-  Palette defines standard colors to be used with CuteHMI components.
+/**
+  %Palette. %Palette defines standard color sets to be used by CuteHMI items.
   */
 QtObject
 {
+	/**
+	  Background color.
+	  */
 	property color background: "white"
 
+	/**
+	  Alarm color set.
+	  */
 	property ColorSet alarm: ColorSet {
 		base: "#FF3300"
 		fill: base
@@ -24,6 +25,9 @@ QtObject
 		stroke: "black"
 	}
 
+	/**
+	  Warning color set.
+	  */
 	property ColorSet warning: ColorSet {
 		base: "#FF9933"
 		fill: base
@@ -34,6 +38,9 @@ QtObject
 		stroke: "black"
 	}
 
+	/**
+	  Active color set.
+	  */
 	property ColorSet active: ColorSet {
 		base: "#66CC33"
 		fill: base
@@ -44,6 +51,9 @@ QtObject
 		stroke: "black"
 	}
 
+	/**
+	  Inactive color set.
+	  */
 	property ColorSet inactive: ColorSet {
 		base: "#CECECE"
 		fill: base
@@ -55,7 +65,7 @@ QtObject
 	}
 
 	/**
-	  Neutral color set is for elements that do not distinguish between active and inactive states.
+	  Neutral color set is for items that do not distinguish between active and inactive states.
 	  */
 	property ColorSet neutral: ColorSet {
 		base: "black"
@@ -66,13 +76,6 @@ QtObject
 		background: "white"
 		stroke: "black"
 	}
-
-//	property color on: "#66CC33"
-//	property color off: "#000000"
-
-//	property color cold: "#0099FF"
-//	property color optimal: "#66CC33"
-//	property color hot: "#FF3300"	
 }
 
 //(c)MP: Copyright © 2019, Michal Policht. All rights reserved.

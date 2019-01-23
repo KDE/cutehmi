@@ -11,6 +11,30 @@
 namespace cutehmi {
 namespace internal {
 
+/**
+ * @class CuteHMI::Dialog
+ * Exposes cutehmi::Dialog to QML.
+ */
+
+/**
+ * @class CuteHMI::Notificatoin
+ * Exposes cutehmi::Notification to QML.
+ */
+
+/**
+ * @class CuteHMI::Dialogist
+ * Exposes cutehmi::Dialogist to QML.
+ */
+
+/**
+ * @class CuteHMI::Notifier
+ * Exposes cutehmi::Notifier to QML.
+ */
+
+/**
+ * Register QML types.
+ * @param uri URI.
+ */
 void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI"));
