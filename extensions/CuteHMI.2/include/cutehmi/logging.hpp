@@ -8,6 +8,10 @@ CUTEHMI_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_2_loggingCategory)
 
 namespace cutehmi {
 
+/**
+ * Logging category of the extension.
+ * @return logging category.
+ */
 inline
 const QLoggingCategory & loggingCategory()
 {

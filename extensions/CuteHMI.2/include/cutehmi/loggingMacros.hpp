@@ -1,6 +1,23 @@
 #ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_LOGGINGMACROS_HPP
 #define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_LOGGINGMACROS_HPP
 
+/**
+	@file Logging macros. Convenient macros to log messages with Qt logging categories. These macros can be used by other modules
+	providing that they implement loggingCategory() function in their own namespace. This function should return QLoggingCategory
+	object, which is declared and defined with Q_DECLARE_LOGGING_CATEGORY and Q_LOGGING_CATEGORY macros, as described in Qt
+	documentation. Macros are corresponding to Qt debug streams.
+
+		- CUTEHMI_DEBUG - debug message (qCDebug()).
+		- CUTEHMI_INFO - informative message (qCInfo()).
+		- CUTEHMI_WARNING - informative message (qCWarning()).
+		- CUTEHMI_CRITICAL - informative message (qCCritical()).
+		.
+
+	There's no CUTEHMI_FATAL, because Qt (5.12) does not provide QDebug output stream for fatal errors. Instead CUTEHMI_DIE macro
+	can be used. Unlike the other logging macros CUTEHMI_DIE does not wrap QDebug output stream, so a formatted string should be
+	passed as macro argument (see QMessageLogger::fatal()).
+*/
+
 #include <QLoggingCategory>
 
 #ifndef CUTEHMI_NDEBUG
