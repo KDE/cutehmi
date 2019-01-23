@@ -46,7 +46,8 @@ class Singleton:
 		 * after this class, at once.
 		 *
 		 * @assumption{cutehmi::Singleton-singleton_class_will_not_call_Destroy_from_destructor}
-		 * Singleton class can not call Destroy() functions from its destructor (neither its own nor of another class).
+		 * Class that inherits after Singleton will not call Destroy() functions from its destructor (neither its own nor of another
+		 * class).
 		 *
 		 * @see destroySingletonInstances().
 		 */
