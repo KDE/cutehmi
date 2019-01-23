@@ -12,9 +12,9 @@ int Dialog::RegisterButtonMetaType() noexcept
 	return Id;
 }
 
-std::unique_ptr<Dialog> Dialog::Note(const QString & text, Dialog::Buttons buttons)
+std::unique_ptr<Dialog> Dialog::Info(const QString & text, Dialog::Buttons buttons)
 {
-	std::unique_ptr<Dialog> result(new Dialog(Dialog::NOTE, text, buttons));
+	std::unique_ptr<Dialog> result(new Dialog(Dialog::INFO, text, buttons));
 	Dialogist::Instance().advertise(result.get());
 	return result;
 }

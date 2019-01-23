@@ -34,7 +34,7 @@ void Notifier::add(Notification * notification_l)
 
 #ifndef CUTEHMI_NDEBUG
 	switch (notification_l->type()) {
-		case Notification::NOTE:
+		case Notification::INFO:
 			CUTEHMI_INFO("[NOTIFICATION] " << notification_l->text());
 			break;
 		case Notification::WARNING:

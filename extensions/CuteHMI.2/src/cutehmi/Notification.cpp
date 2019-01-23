@@ -11,7 +11,7 @@ Notification::Notification(Type type, const QString & text, QObject * parent):
 
 void Notification::Info(const QString & text)
 {
-	Notification notification(Notification::NOTE, text);
+	Notification notification(Notification::INFO, text);
 	Notifier::Instance().add(& notification);
 }
 

@@ -30,7 +30,7 @@ class CUTEHMI_API Dialog:
 		Q_PROPERTY(Button response READ response NOTIFY responseChanged)
 
 		enum Type {
-			NOTE = 1,
+			INFO = 1,
 			WARNING = 2,
 			CRITICAL = 3,
 			QUESTION = 4
@@ -77,7 +77,7 @@ class CUTEHMI_API Dialog:
 		 * @param buttons dialog buttons.
 		 * @return dialog.
 		 */
-		static std::unique_ptr<Dialog> Note(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+		static std::unique_ptr<Dialog> Info(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
 
 		/**
 		 * Warning message. Convenient function that creates warning dialog and advertises it through Dialogist instance.
@@ -119,7 +119,7 @@ class CUTEHMI_API Dialog:
 		 * @param buttons dialog buttons.
 		 * @param parent parent object.
 		 */
-		explicit Dialog(Type type = NOTE, const QString & text = QString(), Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
+		explicit Dialog(Type type = INFO, const QString & text = QString(), Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
 
 		/**
 		 * Constructor.

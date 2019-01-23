@@ -22,7 +22,7 @@ class test_Dialog:
 
 		void clone();
 
-		void Note();
+		void Info();
 
 		void Warning();
 
@@ -42,8 +42,8 @@ void test_Dialog::properties()
 
 	QSignalSpy typeSpy(& dialog, & Dialog::typeChanged);
 	QCOMPARE(dialog.type(), Dialog::WARNING);
-	dialog.setType(Dialog::NOTE);
-	QCOMPARE(dialog.type(), Dialog::NOTE);
+	dialog.setType(Dialog::INFO);
+	QCOMPARE(dialog.type(), Dialog::INFO);
 	QCOMPARE(typeSpy.count(), 1);
 
 	QSignalSpy textSpy(& dialog, & Dialog::textChanged);
@@ -111,12 +111,12 @@ void test_Dialog::clone()
 	QCOMPARE(dialog.buttons(), copy->buttons());
 }
 
-void test_Dialog::Note()
+void test_Dialog::Info()
 {
 	try {
-		std::unique_ptr<Dialog> dialog = Dialog::Note("Note.");
-		QCOMPARE(dialog->type(), Dialog::NOTE);
-		QCOMPARE(dialog->text(), "Note.");
+		std::unique_ptr<Dialog> dialog = Dialog::Info("Info.");
+		QCOMPARE(dialog->type(), Dialog::INFO);
+		QCOMPARE(dialog->text(), "Info.");
 		QCOMPARE(dialog->buttons(), Dialog::BUTTON_OK);
 	} catch (const Dialogist::NoAdvertiserException & ) {
 	}

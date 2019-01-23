@@ -39,11 +39,11 @@ void test_Dialogist::initTestCase()
 
 void test_Dialogist::noAdvertiser()
 {
-	Dialog dialog(Dialog::NOTE, "Message", Dialog::BUTTON_APPLY | Dialog::BUTTON_CANCEL);
+	Dialog dialog(Dialog::INFO, "Message", Dialog::BUTTON_APPLY | Dialog::BUTTON_CANCEL);
 	try {
 		Dialogist::Instance().advertise(& dialog);
 	} catch (const Dialogist::NoAdvertiserException & e) {
-		QCOMPARE(e.dialog()->type(), Dialog::NOTE);
+		QCOMPARE(e.dialog()->type(), Dialog::INFO);
 		QCOMPARE(e.dialog()->text(), "Message");
 		QCOMPARE(e.dialog()->buttons(), Dialog::BUTTON_APPLY | Dialog::BUTTON_CANCEL);
 	}
@@ -51,7 +51,7 @@ void test_Dialogist::noAdvertiser()
 
 void test_Dialogist::advertise()
 {
-	Dialog dialog(Dialog::NOTE, "Message", Dialog::BUTTON_APPLY | Dialog::BUTTON_CANCEL);
+	Dialog dialog(Dialog::INFO, "Message", Dialog::BUTTON_APPLY | Dialog::BUTTON_CANCEL);
 	AdvertiserMock advertiserMock;
 	advertiserMock.response = Dialog::BUTTON_CANCEL;
 	Dialogist::Instance().resetAdvertiser(& advertiserMock);

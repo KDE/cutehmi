@@ -23,13 +23,13 @@ class CUTEHMI_API Notification:
 		Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
 		enum Type {
-			NOTE = 1,
+			INFO = 1,
 			WARNING = 2,
 			CRITICAL = 3
 		};
 		Q_ENUM(Type)
 
-		explicit Notification(Type type = NOTE, const QString & text = QString(), QObject * parent = nullptr);
+		explicit Notification(Type type = INFO, const QString & text = QString(), QObject * parent = nullptr);
 
 		static void Info(const QString & text);
 
