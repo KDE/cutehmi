@@ -12,7 +12,7 @@
 namespace cutehmi {
 
 /**
- * Singleton template. It may be necessary to make derived class a friend of inheriting class to grant Singleton<C> access to its
+ * %Singleton template. It may be necessary to make derived class a friend of inheriting class to grant Singleton<C> access to its
  * constructor.
  */
 template <class C>

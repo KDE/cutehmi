@@ -69,8 +69,8 @@ Module {
 					'QUIET': true,
 					'GENERATE_TAGFILE': 'doxygen.tag',
 					'INPUT_FILTER' : product.cutehmi.doxygen.useInputFilter ? 'sed \'s/\\(\\[[[:alnum:][:blank:]\\/.:_@#-]*\\]([[:alnum:]\\/.:_@#-]*\\/\\)\\()\\)/\\1index.html\\2/g\'' : undefined,
-					'ALIASES': ['principle{1}=\\xrefitem principles \\"Principle\\" \\"Principles\\" \\b \\"\\1\\" \\n',
-								'assumption{1}=\\xrefitem assumptions \\"Assumption\\" \\"Assumptions\\" \\b \\"\\1\\" \\n',
+					'ALIASES': ['principle{1}=\\xrefitem principles \\"Principle\\" \\"Principles\\" \\b \\1 \\n',
+								'assumption{1}=\\xrefitem assumptions \\"Assumption\\" \\"Assumptions\\" \\b \\1 \\n',
 								'threadsafe=\\remark This method is thread-safe.'
 					],
 					'MACRO_EXPANSION': true,
