@@ -12,6 +12,9 @@ class QNetworkReply;
 namespace cutehmi {
 namespace bitcoincash {
 
+/**
+ * Bitcoin cash address.
+ */
 class CUTEHMI_BITCOINCASH_API Address:
 	public QObject
 {

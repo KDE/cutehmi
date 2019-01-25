@@ -25,6 +25,7 @@ Project {
 		license: "Mozilla Public License, v. 2.0"
 
 		files: [
+         "README.md",
          "include/cutehmi/bitcoincash/Address.hpp",
          "include/cutehmi/bitcoincash/internal/common.hpp",
          "include/cutehmi/bitcoincash/internal/platform.hpp",
@@ -40,6 +41,11 @@ Project {
 		Depends { name: "Qt.network" }
 
 		Depends { name: "CuteHMI.2" }
+
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.warnIfUndocumented: false
+		cutehmi.doxygen.useDoxyqml: true
+		cutehmi.doxygen.exclude: ['tests']
 
 		Export {
 			Depends { name: "CuteHMI.2" }

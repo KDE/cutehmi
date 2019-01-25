@@ -8,6 +8,11 @@ namespace cutehmi {
 namespace bitcoincash {
 namespace internal {
 
+/**
+ * @class CuteHMI::BitcoinCash::Address
+ * Exposes cutehmi::bitcoincash::Address to QML.
+ */
+
 void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.BitcoinCash"));
