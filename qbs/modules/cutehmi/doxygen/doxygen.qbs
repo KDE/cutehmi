@@ -79,7 +79,7 @@ Module {
 								   'Q_DECLARE_TR_FUNCTIONS()=',
 								   'QT_RCC_MANGLE_NAMESPACE()='
 					],
-					'LAYOUT_FILE': '../../doc/layout/ProductLayout.xml',
+					'LAYOUT_FILE': FileInfo.relativePath(product.sourceDirectory, project.sourceDirectory) + 'doc/layout/ProductLayout.xml',
 					'SHOW_FILES': true,
 					'SHOW_USED_FILES': false,
 					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,
@@ -122,7 +122,7 @@ Module {
 					}
 
 					// Append cppreference.com '.tags' file to TAGFILES.
-					f.writeLine('TAGFILES += ../../doc/tags/cppreference.com/cppreference-doxygen-web.tag.xml=https://en.cppreference.com/w')
+					f.writeLine('TAGFILES += ' + FileInfo.relativePath(product.sourceDirectory, project.sourceDirectory) + 'doc/tags/cppreference.com/cppreference-doxygen-web.tag.xml=https://en.cppreference.com/w')
 
 					// Append Qt '.tags' files to TAGILES.
 					for (var qtSubmodule in product.Qt) {
