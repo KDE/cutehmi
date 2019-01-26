@@ -51,6 +51,8 @@ Module {
 				// Instead of:
 				// var outputDir = docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory) // Absolute.
 //</workaround>
+				// This is used to pick proper ProductLayout file. Doxygen is troublesome when it comes to subdirectories.
+				var subLevel = FileInfo.relativePath(product.sourceDirectory, project.sourceDirectory).length / 3 - 1 // Amount of "../" in relativePath - 1.
 				var doxygenOptions = {
 					'PROJECT_NAME': product.vendor + ' - ' + product.friendlyName + ' (' + product.name + ')',
 					'PROJECT_NUMBER': product.major + '.' + product.minor + '.' + product.micro,
@@ -79,7 +81,7 @@ Module {
 								   'Q_DECLARE_TR_FUNCTIONS()=',
 								   'QT_RCC_MANGLE_NAMESPACE()='
 					],
-					'LAYOUT_FILE': FileInfo.relativePath(product.sourceDirectory, project.sourceDirectory) + 'doc/layout/ProductLayout.xml',
+					'LAYOUT_FILE': FileInfo.relativePath(product.sourceDirectory, project.sourceDirectory) + 'doc/layout/ProductLayout' + subLevel + '.xml',
 					'SHOW_FILES': true,
 					'SHOW_USED_FILES': false,
 					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,
