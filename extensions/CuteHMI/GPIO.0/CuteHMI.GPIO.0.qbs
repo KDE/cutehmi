@@ -27,6 +27,7 @@ Project {
 		license: "Mozilla Public License, v. 2.0"
 
 		files: [
+		 "README.md",
 		 "include/cutehmi/gpio/Chip.hpp",
 		 "include/cutehmi/gpio/ChipEnumerator.hpp",
 		 "include/cutehmi/gpio/Line.hpp",
@@ -50,6 +51,11 @@ Project {
 		Depends { name: "CuteHMI.2" }
 
 		Depends { name: "cutehmi.libgpiod" }
+
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.warnIfUndocumented: false
+		cutehmi.doxygen.useDoxyqml: true
+		cutehmi.doxygen.exclude: ['tests']
 
 		Export {
 			Depends { name: "CuteHMI.2" }
