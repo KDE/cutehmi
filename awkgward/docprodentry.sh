@@ -13,7 +13,7 @@
 # parameters:
 # doxygen_file - a Doxygen file.
 #
-# required tools: sh, dirname, basename, echo.
+# required tools: sh, dirname, echo, sed.
 
 
 usage()
@@ -35,6 +35,7 @@ if [ $# -lt 1 ]; then
 fi
 
 dir=$(dirname $doxygen_file)
-basedir=$(basename $dir)
-echo - \<a href=\"$basedir/index.html\"\>$basedir\<\/a\>
+productdir=${dir#*/}
+prodname=$(echo "$productdir" | sed 's|/|\.|g' | sed 's|\(.*\)\.|\1 |')
+echo - \<a href=\"$productdir/index.html\"\>$prodname\<\/a\>
 
