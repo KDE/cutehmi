@@ -75,7 +75,7 @@ void test_cutehmi_daemon::countDaemonExample()
 	QProcess process;
 	QStringList arguments { {"--app"}, {"--project=examples/CountDaemon/Main.qml"} };
 	process.start(m_programPath, arguments);
-	process.waitForFinished();
+	QVERIFY(process.waitForFinished());
 
 	QString stdOut = QString::fromLocal8Bit(process.readAllStandardOutput());
 	QString stdErr = QString::fromLocal8Bit(process.readAllStandardError());
