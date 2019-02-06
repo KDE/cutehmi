@@ -2,7 +2,6 @@
 #include "../cutehmi.dirs.hpp"
 #include "cutehmi/daemon/logging.hpp"
 #include "cutehmi/daemon/Daemon.hpp"
-#include "cutehmi/daemon/EngineThread.hpp"
 #include "cutehmi/daemon/CoreData.hpp"
 #include "cutehmi/daemon/Exception.hpp"
 
@@ -107,10 +106,19 @@ int main(int argc, char * argv[])
 
 			CUTEHMI_DEBUG("Library paths: " << QCoreApplication::libraryPaths());
 
-			EngineThread engineThread;
-			std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-			engine->addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSION_INSTALL_DIRNAME);
-			CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
+			QQmlApplicationEngine engine;
+			engine.addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSION_INSTALL_DIRNAME);
+			CUTEHMI_DEBUG("QML import paths: " << engine.importPathList());
+
+			//<cutehmi_daemon-1.workaround target="Qt" cause="QTBUG-73649">
+			// Class QQmlApplicationEngine connects Qt.quit() signal to QCoreApplication::quit() and QQmlApplicationEngine::exit()
+			// signal to QCoreApplication::exit(), but it does so with AutoConnection. This causes in some circumstances problems,
+			// which are described in Qt documentation (see QCoreApplication::exit()). Workaround is to disconnect signals and
+			// connect them again with QueuedConnection.
+			engine.disconnect(& engine, nullptr, data.app, nullptr);
+			engine.connect(& engine, SIGNAL(quit()), data.app, SLOT(quit()), Qt::QueuedConnection);
+			engine.connect(& engine, & QQmlApplicationEngine::exit, data.app, & QCoreApplication::exit, Qt::QueuedConnection);
+			//</cutehmi_daemon-1.workaround>
 
 			if (!data.cmd->value(data.opt->project).isNull()) {
 				CUTEHMI_DEBUG("Project: " << data.cmd->value(data.opt->project));
@@ -123,22 +131,13 @@ int main(int argc, char * argv[])
 						// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
 						if (projectUrl.isRelative())
 							projectUrl = QUrl::fromLocalFile(baseDirPath).resolved(projectUrl);
-						// Check if file exists and eventually set context property.
+						// Check if file exists.
 						if (projectUrl.isLocalFile() && !QFile::exists(projectUrl.toLocalFile()))
 							throw Exception(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
 						else {
-							engine->moveToThread(& engineThread);
-
-							QObject::connect(& engineThread, & EngineThread::loadRequested, engine.get(), QOverload<const QString &>::of(& QQmlApplicationEngine::load));
-							QObject::connect(& engineThread, SIGNAL(loadRequested(const QString &)), & engineThread, SLOT(start()));
-							QObject::connect(data.app, & QCoreApplication::aboutToQuit, & engineThread, & QThread::quit);
-							// Delegate management of engine to EngineThread, so that it gets deleted after thread finishes execution.
-							QObject::connect(& engineThread, & QThread::finished, engine.release(), & QObject::deleteLater);
-
-							emit engineThread.loadRequested(projectUrl.url());
+							engine.load(projectUrl.url());
 							int result = data.app->exec();
-							engineThread.wait();
-
+							engine.collectGarbage();
 							return result;
 						}
 					}
