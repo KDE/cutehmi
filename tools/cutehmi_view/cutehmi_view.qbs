@@ -40,6 +40,7 @@ Project {
 		Depends { name: "CuteHMI.App.2" }
 
 		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.exclude: ['tests']
 	}
 
 	SubProject {
