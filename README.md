@@ -76,7 +76,7 @@ option to force Qbs to not use cached results.
 
 ## Examples
 
-Refer to individual [tool](@ref toolsList) on how to run examples.
+Refer to individual [tool](https://michpolicht.github.io/CuteHMI_Doxygen/docs/tools_list.html) on how to run examples.
 
 
 ## Internals
