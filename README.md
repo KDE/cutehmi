@@ -74,6 +74,11 @@ configured with Qbs, it will not show up. You can use `--force-probe-execution`
 option to force Qbs to not use cached results.
 
 
+## Examples
+
+Refer to individual [tool](@ref toolsList) on how to run examples.
+
+
 ## Internals
 
 Directory structure of the project is organized as follows.
