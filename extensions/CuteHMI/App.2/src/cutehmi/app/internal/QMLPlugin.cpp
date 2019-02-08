@@ -8,7 +8,7 @@ namespace CuteHMI {
 namespace App {
 
 /**
- * @class CuteHMI::CuteApp
+ * @class CuteHMI::App::CuteApp
  * Exposes cutehmi::app::CuteApp to QML.
  */
 
