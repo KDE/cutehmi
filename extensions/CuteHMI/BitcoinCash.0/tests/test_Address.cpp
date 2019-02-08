@@ -38,6 +38,8 @@ class test_Address:
 		void cashAddress();
 
 		void update();
+
+		void updateTest();
 };
 
 void test_Address::ctor()
@@ -115,26 +117,31 @@ void test_Address::update()
 {
 	Address address;
 
-	// Using Bitcoin.com test address. If they change anything with it then the tests will fail.
-	// So, if tests fail for some reason, don't forget to check https://rest.bitcoin.com/#/address/details/.
-	address.setAddress("bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c");
+	// If tests fail for some reason, first check the address on block explorer if its balances haven't been modified.
+	address.setAddress("bitcoincash:qrkdpwuv4583x2gmcn0gcykk6fjml5ytnvqc9rq8pe");
 
 	QSignalSpy spy(& address, & Address::updateFinished);
 	address.update();
 	spy.wait();
 
 	QCOMPARE(address.updated(), true);
-	QCOMPARE(address.balance(), 0.02);
-	QCOMPARE(address.totalReceived(), 0.06185868);
-	QCOMPARE(address.totalSent(), 0.04185868);
+	QCOMPARE(address.balance(), 9.901e-05);
+	QCOMPARE(address.totalReceived(), 9.901e-05);
+	QCOMPARE(address.totalSent(), 0.0);
 	QCOMPARE(address.unconfirmedBalance(), 0.0);
 	QCOMPARE(address.unconfirmedTxApperances(), 0);
-	QCOMPARE(address.txAppearances(), 37);
+	QCOMPARE(address.txAppearances(), 5);
 	QCOMPARE(address.transactions().count(), address.txAppearances());
-	QCOMPARE(address.transactions()[0], "282b3b296b6aed7122586ed69f7a57d35584eaf94a4d1b1ad7d1b05d36cb79d1");
-	QCOMPARE(address.transactions()[36], "81039b1d7b855b133f359f9dc65f776bd105650153a941675fedc504228ddbd3");
-	QCOMPARE(address.legacyAddress(), "1Fg4r9iDrEkCcDmHTy2T79EusNfhyQpu7W");
-	QCOMPARE(address.cashAddress(), "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c");
+	QCOMPARE(address.transactions()[0], "10c1576490b7da93a69199e8307429cf27d04e1ff33440d7f6fdb673549fc3cf");
+	QCOMPARE(address.transactions()[4], "2785e9afee5f09b9870c8ff59a9537eb4d92db63c373e7a17b9cf4adb85e018d");
+	QCOMPARE(address.legacyAddress(), "1NbAXGZiD4kcaCn2KT3Ux3Z6udxUtV87Tm");
+	QCOMPARE(address.cashAddress(), "bitcoincash:qrkdpwuv4583x2gmcn0gcykk6fjml5ytnvqc9rq8pe");
+}
+
+void test_Address::updateTest()
+{
+	for (int i = 0; i < 1000; i++)
+		update();
 }
 
 }
