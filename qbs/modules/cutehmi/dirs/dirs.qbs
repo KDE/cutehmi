@@ -18,14 +18,14 @@ Module {
 
 	property bool generateHeaderFile: false
 
-	property string toolInstallDirname: "bin"
-	property string testInstallDirname: "bin"
+	property string examplesInstallDirname: "examples"
 	property string extensionInstallDirname: "bin"
 	property string extensionsSourceDir: project.sourceDirectory + "/extensions"
-
 	property string externalDeployDir: project.sourceDirectory + "/external/deploy"
 	property string externalLibDir: externalDeployDir + "/lib"
 	property string externalIncludeDir: externalDeployDir + "/include"
+	property string testInstallDirname: "bin"
+	property string toolInstallDirname: "bin"
 
 	FileTagger {
 		patterns: ["*.qbs"]

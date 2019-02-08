@@ -2,6 +2,7 @@ import qbs
 
 Project {
 	property bool buildTests: false
+	property bool buildExamples: true
 	property bool staticExtensions: false
 
 	qbsSearchPaths: ["qbs"]

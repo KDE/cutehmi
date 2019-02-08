@@ -10,11 +10,13 @@ CommonProduct {
 
 	baseName: name
 
+	condition: project.buildExamples
+
 	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
 
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
-	property string installDir: FileInfo.relativePath(path + "/../../..", sourceDirectory)
+	property string installDir: cutehmi.dirs.examplesInstallDirname + "/" + FileInfo.baseName(sourceDirectory)
 
 	FileTagger {
 		patterns: "*.qml"
