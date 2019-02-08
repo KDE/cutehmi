@@ -19,6 +19,22 @@ One may use `--app` option to tell the program to work as a foreground process (
 cutehmi_daemon --project="examples/CountDaemon/Main.qml" --app
 ```
 
+Running this example should result in printing following lines.
+
+```
+qml: Hello from counting daemon!
+qml: I can count to 1
+qml: I can count to 2
+qml: I can count to 3
+qml: I can count to 4
+qml: I can count to 5
+qml: I can count to 6
+qml: I can count to 7
+qml: I can count to 8
+qml: I can count to 9
+qml: I can count to 10
+```
+
 You can use `--help` command line argument to see the list of all possible command line options.
 
 
