@@ -65,33 +65,8 @@ https://www.qt.io/. Qt can also be shipped with Linux distribution.
 libraries could not be found. To make the process of finding the libraries
 and installing them under Windows easier, a set of Makefiles is provided, which
 allows the libraries to be build from sources. Check out 
-[external](external/README.md) libraries for more details.
-
-Under Linux one can run following commands to compile and install libmodbus
-library.
-```  
-git clone git://github.com/stephane/libmodbus.git
-cd libmodbus
-git checkout f9358460ee1f62bcac716ad0444b3bbe7628b204
-./autogen.sh
-./configure
-make && sudo make install
-```
-
-To install libssh on a Ubuntu-based system.
-```
-sudo apt-get -y install libssh-dev
-```
-
-On Arch-based system.
-```
-pacman -S libssh
-```
-
-To install PostgreSQL client library on Ubuntu-based system.
-```
-sudo apt-get -y install libpq-dev
-```
+[external](external/README.md) libraries for more details. Each extension may
+provide individual documentation on how to build it.
 
 Remember that Qbs caches [Probe](http://doc.qt.io/qbs/qml-qbslanguageitems-probe.html)
 items' results, so if the library is installed after the project has been 
