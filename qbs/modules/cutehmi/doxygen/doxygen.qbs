@@ -90,7 +90,8 @@ Module {
 					'FILE_PATTERNS' : product.cutehmi.doxygen.useDoxyqml ? ['*.qml'] : undefined,
 					'EXTENSION_MAPPING' : product.cutehmi.doxygen.useDoxyqml ? ['qml=C++'] : undefined,
 					'EXCLUDE': product.cutehmi.doxygen.exclude,
-					'CASE_SENSE_NAMES': false
+					'CASE_SENSE_NAMES': false,
+					'IMAGE_PATH': 'doc'
 				}
 
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
