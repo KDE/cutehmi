@@ -3,6 +3,8 @@
 
 #include "random.hpp"
 
+#include <cutehmi/wrappers.hpp>
+
 #include <QtTest/QtTest>
 
 #include <functional>
@@ -209,7 +211,7 @@ void testAccessors(T (CM::*getter)() const, void (CM::*setter)(const T &))
 template <typename T>
 bool arrEqual(const T * arr1, const T * arr2, std::size_t size)
 {
-	return std::equal(arr1, arr1 + size, arr2);
+	return equal(arr1, arr1 + size, arr2);
 }
 
 /**
