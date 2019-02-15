@@ -5,6 +5,7 @@ documentation appearing after the macro.
 
 Workaround:
 
-Adding semicolon after the macro resolves the issue.
-	
+Use PREDEFINED tag to substitute real macro definition with empty one.
+
 Snippet:
+

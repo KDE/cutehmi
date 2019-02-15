@@ -79,7 +79,10 @@ Module {
 					'EXPAND_ONLY_PREDEF': true,
 					'PREDEFINED': ['DOXYGEN_WORKAROUND',
 								   'Q_DECLARE_TR_FUNCTIONS()=',
-								   'QT_RCC_MANGLE_NAMESPACE()='
+								   'QT_RCC_MANGLE_NAMESPACE()=',
+								   //<qbs-cutehmi-doxygen-3.workaround target="Doxygen" cause="bug">
+								   'Q_DECLARE_LOGGING_CATEGORY()='
+								   //</qbs-cutehmi-doxygen-3.workaround target="Doxygen" cause="bug">
 					],
 					'LAYOUT_FILE': FileInfo.relativePath(product.sourceDirectory, project.sourceDirectory) + 'doc/layout/ProductLayout' + subLevel + '.xml',
 					'SHOW_FILES': true,
