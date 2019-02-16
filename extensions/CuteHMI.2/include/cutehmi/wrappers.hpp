@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_HPP
-#define FUNCTIONS_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_WRAPPERS_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_WRAPPERS_HPP
 
 #include <algorithm>
 #include <iterator>
@@ -36,4 +36,4 @@ bool equal(INPUT_IT1 first1, INPUT_IT1 last1, INPUT_IT2 first2)
 
 }
 
-#endif // FUNCTIONS_HPP
+#endif
