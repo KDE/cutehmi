@@ -6,10 +6,18 @@ import "Test.qbs" as Test
 
 Project {
 	Test {
-		testName: "random"
+		testName: "test_random"
 
 		files: [
 			"test_random.cpp"
+		]
+	}
+
+	Test {
+		testName: "test_tests"
+
+		files: [
+			"test_tests.cpp"
 		]
 	}
 }
