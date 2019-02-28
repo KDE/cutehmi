@@ -35,6 +35,7 @@ Project {
          "include/cutehmi/Dialog.hpp",
          "include/cutehmi/Dialogist.hpp",
          "include/cutehmi/Notifier.hpp",
+         "include/cutehmi/wrappers.hpp",
          "qmldir",
          "include/cutehmi/Error.hpp",
          "include/cutehmi/ErrorException.hpp",
