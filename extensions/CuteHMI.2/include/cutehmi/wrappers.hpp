@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_HPP
-#define FUNCTIONS_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_WRAPPERS_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_WRAPPERS_HPP
 
 #include <algorithm>
 #include <iterator>
@@ -36,4 +36,7 @@ bool equal(INPUT_IT1 first1, INPUT_IT1 last1, INPUT_IT2 first2)
 
 }
 
-#endif // FUNCTIONS_HPP
+#endif
+
+//(c)MP: Copyright © 2019, Michal Policht. All rights reserved.
+//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
