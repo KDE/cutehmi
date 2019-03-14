@@ -23,7 +23,7 @@ namespace test {
  * @tparam E random number generator engine.
  */
 template <class E = std::mt19937>
-class SeededEngine :
+class SeededEngine:
 	public E
 {
 	public:

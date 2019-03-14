@@ -6,7 +6,7 @@
 
 [//]: # (\htmlonly)
 
-[![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-blue.svg)](https://opensource.org/licenses/MPL-2.0)
+[![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master)](https://travis-ci.org/michpolicht/CuteHMI)
 
 [//]: # (\endhtmlonly)
@@ -16,12 +16,14 @@
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++
 and QML, using Qt libraries as a framework.
 
-Note: While most of the project uses Mozilla Public License, v. 2.0, some files
-are distributed under different licenses.
+Note: While most of the project uses GNU Lesser General Public License version
+3, some files are distributed under different licenses.
 
 ## Branches
 
-Branch "master" is a development branch. Development branch may contain source code that is undergoing deep changes, rendering it unusable. Consecutive branch numbers denote successive iterations of the project.
+Branch "master" is a development branch. Development branch may contain source
+code that is undergoing deep changes, rendering it unusable. Consecutive branch
+numbers denote successive iterations of the project.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
@@ -96,9 +98,10 @@ Directory structure of the project is organized as follows.
 
 ![Dependencies between tools, extensions and external libraries](doc/images/general_dependencies.png)
 
-Two most important directories are [extensions](extensions/README.md) and [tools](tools/README.md).
-Extensions combine functionality of QML extensions and standard libraries. They can be utilized by end-user
-applications, but they can be also linked with each other. Some extensions may depend on
+Two most important directories are [extensions](extensions/README.md) and
+[tools](tools/README.md). Extensions combine functionality of QML extensions and
+standard libraries. They can be utilized by end-user applications, but they can
+be also linked with each other. Some extensions may depend on
 [external](external/README.md) libraries.
 
 
