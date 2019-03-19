@@ -14,15 +14,6 @@ import qbs.Utilities
 Module {
 	additionalProductTypes: ["cutehmi.metadata.json", "cutehmi.metadata.hpp"]
 
-//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
-//	Parameter 'cutehmi.depends.reqMinor' can be specified within dependencies. It denotes required minor version of the dependency.
-//	The build will stop if minor version requirement is not satisfied. This is similar to 'versionAtLeast' parameter
-//	functionality provided by Qbs, with a difference, that if 'cutehmi.depends.reqMinor' parameter is set, then dependency will be
-//	added to the 'dependencies' list of 'cutehmi.metadata.json' artifact.
-
-	//Depends { name: "cutehmi.depends" }
-//</workaround>
-
 	FileTagger {
 		patterns: ["*.qbs"]
 		fileTags: ["qbs"]
@@ -75,26 +66,10 @@ Module {
 
 				for (i in product.dependencies) {
 					var dependency = product.dependencies[i]
-
-//<workaround id="qbs-cutehmi-depends-1" target="Qbs" cause="design">
-					var reqMinor = product[dependency.name].reqMinor
-					// Instead of:
-					//	var reqMinor = dependency.parameters.cutehmi.depends.reqMinor
-//</workaround>
-
-					if (reqMinor !== undefined) {
-						var metadataDepencency = {
-							"name": dependency.name,
-							"reqMinor": reqMinor
-						}
-						metadata.dependencies.push(metadataDepencency)
-						if (dependency.minor !== undefined)
-							if (Number(dependency.minor) < reqMinor)
-								throw "Product '" + product.name + "'"
-											  + " requires dependency '" + dependency.name + "'"
-											  + " to have minor version number at least '" + reqMinor + "'"
-											  + ", while dependency has minor version number '" + Number(dependency.minor) + "'."
+					var metadataDepencency = {
+						"name": dependency.name,
 					}
+					metadata.dependencies.push(metadataDepencency)
 				}
 
 				var f = new TextFile(product.sourceDirectory + "/cutehmi.metadata.json", TextFile.WriteOnly);
