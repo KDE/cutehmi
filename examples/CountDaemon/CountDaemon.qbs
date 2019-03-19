@@ -15,7 +15,7 @@ cutehmi.Example {
 
 	copyright: "Michal Policht"
 
-	license: "WTFNWPL"
+	license: "The MIT License"
 
 	files: [
         "Main.qml",

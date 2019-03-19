@@ -22,7 +22,7 @@ Project {
 
 		copyright: "Michal Policht"
 
-		license: "Mozilla Public License, v. 2.0"
+		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"include/cutehmi/test/IsAnyOfTypes.hpp",
