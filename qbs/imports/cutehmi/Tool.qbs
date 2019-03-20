@@ -9,6 +9,8 @@ CommonProduct {
 
 	targetName: qbs.buildVariant.contains("debug") ? name + "_debug" : name
 
+	condition: project.buildTools
+
 	baseName: name
 
 	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
