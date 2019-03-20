@@ -8,6 +8,8 @@ Project {
 	cutehmi.Tool {
 		name: parent.name
 
+		consoleApplication: true
+
 		major: 1
 
 		minor: 0
