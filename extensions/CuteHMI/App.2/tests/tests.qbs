@@ -1,7 +1,5 @@
 import qbs
 
-import cutehmi
-
 import "Test.qbs" as Test
 
 Project {
