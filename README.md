@@ -106,7 +106,7 @@ be also linked with each other. Some extensions may depend on
 
 ## Creating custom extensions
 
-Extension (CuteHMI.Skeleton)[extensions/CuteHMI.Skeleton.0/README.md] can be
+Extension [CuteHMI.Skeleton](extensions/CuteHMI.Skeleton.0/README.md) can be
 used to boost the process of creating custom extensions.
 
 ## Quick links
