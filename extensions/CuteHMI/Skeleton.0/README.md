@@ -64,7 +64,7 @@ through `Properties:` box in the `Projects` mode.
 Next steps depend on what your extension is going to accomplish. CuteHMI extensions combine the functionality of libraries and QML
 extensions. Extension can be a pure QML runtime extension, a pure binary library, or it can be a mix of both.
 
-If you would like to provide a QML extension, then you should refer to documentatino on
+If you would like to provide a QML extension, then you should refer to documentation on
 [qmldir](https://doc.qt.io/qt-5/qtqml-modules-qmldir.html) files. You have to create `qmldir` file, but `qmltypes` file will be
 generated automatically for each extension thanks to `cutehmi.qmltypes` Qbs module dependecy, which is set for each
 cutehmi.Extension item by default.
