@@ -59,7 +59,7 @@ Project `ExtensionSkeleton.qbs` can be also opened from QtCreator. You can simpl
 intrusive, but most straightforward way to generate skeleton for an extension. QtCreator also allows you to modify this property
 through `Properties:` box in the `Projects` mode.
 
-## Providing extensiton with a code
+## Providing extension with a code
 
 Next steps depend on what your extension is going to accomplish. CuteHMI extensions combine the functionality of libraries and QML
 extensions. Extension can be a pure QML runtime extension, a pure binary library, or it can be a mix of both.
