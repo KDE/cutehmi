@@ -104,6 +104,10 @@ standard libraries. They can be utilized by end-user applications, but they can
 be also linked with each other. Some extensions may depend on
 [external](external/README.md) libraries.
 
+## Creating custom extensions
+
+Extension (CuteHMI.Skeleton)[extensions/CuteHMI.Skeleton.0/README.md] can be
+used to boost the process of creating custom extensions.
 
 ## Quick links
 
