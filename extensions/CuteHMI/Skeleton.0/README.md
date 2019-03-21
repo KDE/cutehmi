@@ -46,7 +46,7 @@ tasks.
 - Copy `Skeleton.0.qbs` to the extension directory, rename it to match extension name. Modify its contents.
 - Tell Qbs to build `ExtensionSkeleton.qbs`.
     - In a console, `cd` to `CuteHMI` top level directory.
-    - Create temporary build directory outside of the top level CuteHMI directory: `mkdir ../build-temp`.
+    - Create temporary build directory outside of the top level CuteHMI directory: `mkdir ../build-temp` and `cd` into it.
     - Execute Qbs: `qbs build -f ../CuteHMI/ExtensionSkeleton.qbs --no-install -p ExtensionSkeleton products.CuteHMI.2.type:[] products.ExtensionSkeleton.extension:VendorName.ExtensionName.0  products.VendorName.ExtensionName.0.type:[]`
     Replace `VendorName` and `ExtensionName` to match names of the extension.
     - Delete temporary build directory.
