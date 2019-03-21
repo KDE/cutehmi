@@ -67,12 +67,12 @@ extensions. Extension can be a pure QML runtime extension, a pure binary library
 If you would like to provide a QML extension, then you should refer to documentation on
 [qmldir](https://doc.qt.io/qt-5/qtqml-modules-qmldir.html) files. You have to create `qmldir` file, but `qmltypes` file will be
 generated automatically for each extension thanks to `cutehmi.qmltypes` Qbs module dependecy, which is set for each
-cutehmi.Extension item by default.
+`cutehmi.Extension` item by default.
 
 To make an extension that acts as a QML extension, but uses C++ code, you may refer to
 [Creating C++ Plugins for QML](https://doc.qt.io/qt-5/qtqml-modules-cppplugins.html). You can ignore the creation of `.pro` files
 and simply add files to Qbs project. Key concepts to focus on is a class that extends `QQmlExtensionPlugin`, `qmlRegisterType`
-function template that exposes QObject derived and entries in `qmldir` file. You may also check out the tutorial
+function template that exposes `QObject` derived classes and entries in `qmldir` file. You may also check out the tutorial
 [Writing QML Extensions with C++](https://doc.qt.io/qt-5/qtqml-tutorials-extending-qml-example.html).
 
 To create an extension that behaves like a library (i.e. other extensions can be linked with it) you should refer to Qt
