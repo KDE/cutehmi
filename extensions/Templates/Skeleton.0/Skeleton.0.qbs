@@ -3,7 +3,7 @@ import qbs
 import cutehmi
 
 Project {
-	name: "CuteHMI.Skeleton.0"
+	name: "Templates.Skeleton.0"
 
 	cutehmi.Extension {
 		name: parent.name
@@ -12,7 +12,7 @@ Project {
 
 		micro: 0
 
-		vendor: "CuteHMI"
+		vendor: "The Secret Order of Templates"
 
 		friendlyName: "Skeleton"
 
@@ -20,17 +20,18 @@ Project {
 
 		author: "Michal Policht"
 
-		copyright: "Michal Policht"
+		copyright: "Anyone"
 
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"README.md",
-//			"include/cutehmi/skeleton/internal/platform.hpp",
-//			"include/cutehmi/skeleton/internal/common.hpp",
-//			"include/cutehmi/skeleton/logging.hpp",
-//			"include/cutehmi/skeleton/metadata.hpp",
-//			"src/cutehmi/skeleton/logging.cpp",
+			"LICENSE",
+//			"include/templates/skeleton/internal/platform.hpp",
+//			"include/templates/skeleton/internal/common.hpp",
+//			"include/templates/skeleton/logging.hpp",
+//			"include/templates/skeleton/metadata.hpp",
+//			"src/templates/skeleton/logging.cpp",
 		]
 
 		Depends { name: "CuteHMI.2" }
@@ -53,6 +54,3 @@ Project {
 //		}
 //	}
 }
-
-//(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
-//(c)MP: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.

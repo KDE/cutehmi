@@ -17,7 +17,7 @@ Project {
 
 		type: ["skeleton"]
 
-		property string extension: "CuteHMI.Skeleton.0"
+		property string extension: "Templates.Skeleton.0"
 
 		property bool generatePlatform: true
 

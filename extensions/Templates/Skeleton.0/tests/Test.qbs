@@ -7,5 +7,5 @@ import cutehmi
 cutehmi.Test {
 	testNamePrefix: parent.parent.name
 
-	Depends { name: "CuteHMI.Skeleton.0" }
+	Depends { name: "Templates.Skeleton.0" }
 }
