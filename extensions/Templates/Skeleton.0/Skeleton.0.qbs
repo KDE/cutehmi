@@ -5,6 +5,10 @@ import cutehmi
 Project {
 	name: "Templates.Skeleton.0"
 
+//	references: [
+//		"tests/tests.qbs"
+//	]
+
 	cutehmi.Extension {
 		name: parent.name
 
@@ -45,14 +49,6 @@ Project {
 			Depends { name: "CuteHMI.2" }
 		}
 	}
-
-//	SubProject {
-//		filePath: "tests/tests.qbs"
-
-//		Properties {
-//			condition: parent.buildTests
-//		}
-//	}
 }
 
 //(c)ANYONE: Copyright © 2019, Anyone. All rights reserved.

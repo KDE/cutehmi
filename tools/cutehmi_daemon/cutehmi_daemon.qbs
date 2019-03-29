@@ -5,6 +5,11 @@ import cutehmi
 Project {
 	name: "cutehmi_daemon"
 
+	references: [
+		"tests/tests.qbs",
+		"examples/examples.qbs"
+	]
+
 	cutehmi.Tool {
 		name: parent.name
 
@@ -62,18 +67,6 @@ Project {
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.exclude: ['tests']
-	}
-
-	SubProject {
-		filePath: "tests/tests.qbs"
-
-		Properties {
-			condition: parent.buildTests
-		}
-	}
-
-	SubProject {
-		filePath: "examples/examples.qbs"
 	}
 }
 

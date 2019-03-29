@@ -5,6 +5,10 @@ import cutehmi
 Project {
 	name: "CuteHMI.App.2"
 
+	references: [
+		"tests/tests.qbs"
+	]
+
 	cutehmi.Extension {
 		name: parent.name
 
@@ -53,14 +57,6 @@ Project {
 			Depends { name: "CuteHMI.2" }
 
 			Depends { name: "Qt.widgets" }
-		}
-	}
-
-	SubProject {
-		filePath: "tests/tests.qbs"
-
-		Properties {
-			condition: parent.buildTests
 		}
 	}
 }

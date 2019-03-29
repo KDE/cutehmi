@@ -5,8 +5,12 @@ import cutehmi
 Project {
 	name: "CuteHMI.2"
 
+	references: [
+		"tests/tests.qbs"
+	]
+
 	cutehmi.Extension {
-		name: "CuteHMI.2"
+		name: parent.name
 
 		minor: 0
 
@@ -83,14 +87,6 @@ Project {
 		Export {
 			Depends { name: "Qt.core" }
 			Depends { name: "Qt.qml" }
-		}
-	}
-
-	SubProject {
-		filePath: "tests/tests.qbs"
-
-		Properties {
-			condition: parent.buildTests
 		}
 	}
 }

@@ -5,6 +5,10 @@ import cutehmi
 Project {
 	name: "CuteHMI.BitcoinCash.0"
 
+	references: [
+		"tests/tests.qbs"
+	]
+
 	cutehmi.Extension {
 		name: parent.name
 
@@ -49,14 +53,6 @@ Project {
 
 		Export {
 			Depends { name: "CuteHMI.2" }
-		}
-	}
-
-	SubProject {
-		filePath: "tests/tests.qbs"
-
-		Properties {
-			condition: parent.buildTests
 		}
 	}
 }
