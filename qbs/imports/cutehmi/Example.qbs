@@ -16,7 +16,9 @@ CommonProduct {
 
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
-	property string installDir: cutehmi.dirs.examplesInstallDirname + "/" + FileInfo.baseName(sourceDirectory)
+	property string installPrefix: FileInfo.baseName(FileInfo.cleanPath(sourceDirectory + "/../.."))
+
+	property string installDir: cutehmi.dirs.examplesInstallDirname + "/" + installPrefix + "/" + FileInfo.baseName(sourceDirectory)
 
 	FileTagger {
 		patterns: "*.qml"

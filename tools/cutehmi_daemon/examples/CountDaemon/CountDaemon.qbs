@@ -3,26 +3,25 @@ import qbs
 import cutehmi
 
 cutehmi.Example {
-	name: "SimpleView"
+	name: "CountDaemon"
 
 	vendor: "CuteHMI"
 
-	friendlyName: "Simple View"
+	friendlyName: "Counting Daemon"
 
-	description: "Simple QML project."
+	description: "Daemon demonstration with counter."
 
 	author: "Michal Policht"
 
 	copyright: "Michal Policht"
 
-	license: "The MIT License"
+	license: "GNU Lesser General Public License, v. 3.0"
 
 	files: [
-        "RectangularElement.qml",
-        "_Main.qml",
+        "Main.qml",
     ]
 
-	Depends { name: "cutehmi_view" }
+	Depends { name: "cutehmi_daemon" }
 }
 
 //(c)MP: Copyright © 2019, Michal Policht. All rights reserved.

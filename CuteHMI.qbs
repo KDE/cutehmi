@@ -15,8 +15,7 @@ Project {
 
 	references: [
 		"tools/tools.qbs",
-		"extensions/extensions.qbs",
-		"examples/examples.qbs"
+		"extensions/extensions.qbs"
 	]
 
 	AutotestRunner {

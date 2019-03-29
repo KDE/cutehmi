@@ -8,7 +8,7 @@ Use `--project` command line option to specify the QML project file to open.
 For example to run *CountDaemon* example use following command.
 
 ```
-cutehmi_daemon --project="examples/CountDaemon/Main.qml"
+cutehmi_daemon --project="examples/cutehmi_daemon/CountDaemon/Main.qml"
 ```
 Fore debug builds use `cutehmi_daemon_debug` instead of `cutehmi_daemon`. Read system logs to investigate whether daemon is running
 (e.g. `journalctl -n20` on a system with *systemd*).
@@ -16,7 +16,7 @@ Fore debug builds use `cutehmi_daemon_debug` instead of `cutehmi_daemon`. Read s
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).
 
 ```
-cutehmi_daemon --project="examples/CountDaemon/Main.qml" --app
+cutehmi_daemon --project="examples/cutehmi_daemon/CountDaemon/Main.qml" --app
 ```
 
 Running this example should result in printing following lines.

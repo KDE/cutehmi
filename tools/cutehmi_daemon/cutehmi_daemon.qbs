@@ -71,6 +71,10 @@ Project {
 			condition: parent.buildTests
 		}
 	}
+
+	SubProject {
+		filePath: "examples/examples.qbs"
+	}
 }
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
