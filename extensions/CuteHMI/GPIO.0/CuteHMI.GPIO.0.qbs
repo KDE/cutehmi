@@ -56,6 +56,8 @@ Project {
 
 		Depends { name: "cutehmi.libgpiod" }
 
+		Depends { name: "cutehmi.qmltypes" }
+
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true

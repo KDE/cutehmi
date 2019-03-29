@@ -77,7 +77,10 @@ Project {
      ]
 
 		Depends { name: "Qt.core" }
+
 		Depends { name: "Qt.qml" }
+
+		Depends { name: "cutehmi.qmltypes" }
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false

@@ -46,6 +46,8 @@ Project {
 
 		Depends { name: "CuteHMI.2" }
 
+		Depends { name: "cutehmi.qmltypes" }
+
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true

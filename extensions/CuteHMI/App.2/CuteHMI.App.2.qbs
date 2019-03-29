@@ -48,6 +48,8 @@ Project {
 		Depends { name: "Qt.widgets" }
 		//</CuteHMI.App-1.workaround>
 
+		Depends { name: "cutehmi.qmltypes" }
+
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
