@@ -16,7 +16,7 @@ CommonProduct {
 
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
-	property string installPrefix: FileInfo.baseName(FileInfo.cleanPath(sourceDirectory + "/../.."))
+	property string installPrefix: parent.parent.name
 
 	property string installDir: cutehmi.dirs.examplesInstallDirname + "/" + installPrefix + "/" + FileInfo.baseName(sourceDirectory)
 
