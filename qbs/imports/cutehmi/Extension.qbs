@@ -63,9 +63,24 @@ CommonProduct {
 	Depends { name: "cutehmi.metadata" }
 	Depends { name: "cutehmi.dirs" }
 
+	Group {
+		name: "Library"
+		fileTagsFilter: "dynamiclibrary"
+		qbs.install: true
+		qbs.installDir: cutehmi.dirs.extensionInstallDirname
+	}
+
 	FileTagger {
-		patterns: "*.qml"
-		fileTags: ["qml"]
+		patterns: "*.metainfo"
+		fileTags: ["metainfo"]
+	}
+
+	Group {
+		name: "Metainfo"
+		fileTagsFilter: ["metainfo"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
 	}
 
 	FileTagger {
@@ -74,8 +89,8 @@ CommonProduct {
 	}
 
 	FileTagger {
-		patterns: "qmldir"
-		fileTags: ["qmldir"]
+		patterns: "*.qml"
+		fileTags: ["qml"]
 	}
 
 	FileTagger {
@@ -84,28 +99,21 @@ CommonProduct {
 	}
 
 	FileTagger {
-		patterns: "*.metainfo"
-		fileTags: ["metainfo"]
+		patterns: "qmldir"
+		fileTags: ["qmldir"]
+	}
+
+	Group {
+		name: "QML"
+		fileTagsFilter: ["js", "qml", "qmldir", "qmltypes"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
 	}
 
 	FileTagger {
 		patterns: ["LICENSE", "README.md"]
 		fileTags: ["ReadmeFiles"]
-	}
-
-	Group {
-		name: "Library"
-		fileTagsFilter: "dynamiclibrary"
-		qbs.install: true
-		qbs.installDir: cutehmi.dirs.extensionInstallDirname
-	}
-
-	Group {
-		name: "QML"
-		fileTagsFilter: ["qml", "js", "qmldir", "qmltypes", "metainfo"]
-		qbs.install: true
-		qbs.installSourceBase: sourceDirectory
-		qbs.installDir: installDir
 	}
 
 	Group {

@@ -21,21 +21,6 @@ CommonProduct {
 	property string installDir: cutehmi.dirs.examplesInstallDirname + "/" + installPrefix + "/" + FileInfo.baseName(sourceDirectory)
 
 	FileTagger {
-		patterns: "*.qml"
-		fileTags: ["qml"]
-	}
-
-	FileTagger {
-		patterns: "*.js"
-		fileTags: ["js"]
-	}
-
-	FileTagger {
-		patterns: "*.xml"
-		fileTags: ["xml"]
-	}
-
-	FileTagger {
 		patterns: "*.png"
 		fileTags: ["png"]
 	}
@@ -46,8 +31,82 @@ CommonProduct {
 	}
 
 	Group {
-		name: "Project files"
-		fileTagsFilter: ["qml", "js", "xml", "png", "svg"]
+		name: "Images"
+		fileTagsFilter: ["png", "svg"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
+	}
+
+	Group {
+		name: "Library"
+		fileTagsFilter: "dynamiclibrary"
+		qbs.install: true
+		qbs.installDir: installDir
+	}
+
+	FileTagger {
+		patterns: "*.metainfo"
+		fileTags: ["metainfo"]
+	}
+
+	Group {
+		name: "Metainfo"
+		fileTagsFilter: ["metainfo"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
+	}
+
+	FileTagger {
+		patterns: "*.js"
+		fileTags: ["js"]
+	}
+
+	FileTagger {
+		patterns: "*.qml"
+		fileTags: ["qml"]
+	}
+
+	FileTagger {
+		patterns: "*.qmltypes"
+		fileTags: ["qmltypes"]
+	}
+
+	FileTagger {
+		patterns: "qmldir"
+		fileTags: ["qmldir"]
+	}
+
+	Group {
+		name: "QML"
+		fileTagsFilter: ["js", "qml", "qmldir", "qmltypes"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
+	}
+
+	FileTagger {
+		patterns: ["LICENSE", "README.md"]
+		fileTags: ["ReadmeFiles"]
+	}
+
+	Group {
+		name: "Readme files"
+		fileTagsFilter: ["ReadmeFiles"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
+	}
+
+	FileTagger {
+		patterns: "*.xml"
+		fileTags: ["xml"]
+	}
+
+	Group {
+		name: "XML"
+		fileTagsFilter: ["xml"]
 		qbs.install: true
 		qbs.installSourceBase: sourceDirectory
 		qbs.installDir: installDir
