@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtTest 1.2
 
-import CuteHMI 2.0
+import CuteHMI 2.0 as CuteHMI
 
 Item {
 	id: root
@@ -21,16 +21,16 @@ Item {
 		function createDialog(dialog) {
 			if (dialog) {
 				switch (dialog.type) {
-					case Dialog.NOTE:
+					case CuteHMI.Dialog.NOTE:
 						title = "Note"
 						break
-					case Dialog.WARNING:
+					case CuteHMI.Dialog.WARNING:
 						title = "Warning"
 						break
-					case Dialog.QUESTION:
+					case CuteHMI.Dialog.QUESTION:
 						title = "Question"
 						break
-					case Dialog.CRITICAL:
+					case CuteHMI.Dialog.CRITICAL:
 						title = "Critical"
 						break
 					default:
@@ -62,7 +62,7 @@ Item {
 		}
 
 		function test_advertise() {
-			var dialog = Qt.createQmlObject('
+			var cutehmiDialog = Qt.createQmlObject('
 				import CuteHMI 2.0
 
 				Dialog {
@@ -73,7 +73,7 @@ Item {
 					buttons: { Dialog.BUTTON_YES | Dialog.BUTTON_NO }
 				}', root);
 
-			dialogist.advertise(dialog)
+			dialogist.advertise(cutehmiDialog)
 			waitForRendering(root)
 
 			verify(dialog.standardButton(Dialog.Yes))
