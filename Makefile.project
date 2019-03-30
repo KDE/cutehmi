@@ -42,11 +42,9 @@ DEPLOY_DIR = $(EXTERNAL_ROOT)/deploy
 # Recipes directory.
 RECIPES_DIR = $(EXTERNAL_ROOT)/recipes/$(TARGET_MACHINE) 
 
-LICENSE_DSLASH_DIRS = examples extensions qbs tools
+LICENSE_DSLASH_DIRS = extensions qbs tools
 
-LICENSE_XML_DIRS = examples
-
-INCLUDE_GUARDS_DIRS = examples extensions tools
+INCLUDE_GUARDS_DIRS = extensions tools
 
 DOXYGEN_INPUT_DIRS = Doxyfile extensions tools external/recipes
 
