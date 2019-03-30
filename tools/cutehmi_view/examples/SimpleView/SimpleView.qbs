@@ -3,8 +3,6 @@ import qbs
 import cutehmi
 
 cutehmi.Example {
-	id: root
-
 	name: "SimpleView"
 
 	vendor: "CuteHMI"
