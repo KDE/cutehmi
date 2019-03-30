@@ -58,7 +58,7 @@ Module {
 
 					f.writeLine("#define " + prefix + "_TOOL_INSTALL_DIRNAME \"" + product.cutehmi.dirs.toolInstallDirname + "\"")
 					f.writeLine("#define " + prefix + "_TEST_INSTALL_DIRNAME \"" + product.cutehmi.dirs.testInstallDirname + "\"")
-					f.writeLine("#define " + prefix + "_EXTENSION_INSTALL_DIRNAME \"" + product.cutehmi.dirs.extensionDirname + "\"")
+					f.writeLine("#define " + prefix + "_EXTENSION_INSTALL_DIRNAME \"" + product.cutehmi.dirs.extensionInstallDirname + "\"")
 					f.writeLine("")
 					f.writeLine("#endif")
 				} finally {
