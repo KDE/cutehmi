@@ -5,19 +5,23 @@
 
 #ifdef CUTEHMI_BITCOINCASH_DYNAMIC
 	#ifdef CUTEHMI_BITCOINCASH_BUILD
-		//export symbols to dll
+		// Export symbols to dynamic library.
 		#define CUTEHMI_BITCOINCASH_API Q_DECL_EXPORT
+		#ifdef CUTEHMI_BITCOINCASH_TESTS
+			// Export symbols to dynamic library.
+			#define CUTEHMI_BITCOINCASH_PRIVATE Q_DECL_EXPORT
+		#else
+			#define CUTEHMI_BITCOINCASH_PRIVATE
+		#endif
 	#else
-		//using functions from dll
+		// Using symbols from dynamic library.
 		#define CUTEHMI_BITCOINCASH_API Q_DECL_IMPORT
-	#endif
-
-	#ifdef CUTEHMI_BITCOINCASH_TESTS
-		//export symbols to dll
-		#define CUTEHMI_BITCOINCASH_PRIVATE Q_DECL_EXPORT
-	#else
-		//using functions from dll
-		#define CUTEHMI_BITCOINCASH_PRIVATE Q_DECL_IMPORT
+		#ifdef CUTEHMI_BITCOINCASH_TESTS
+			// Using symbols from dynamic library.
+			#define CUTEHMI_BITCOINCASH_PRIVATE Q_DECL_IMPORT
+		#else
+			#define CUTEHMI_BITCOINCASH_PRIVATE
+		#endif
 	#endif
 #else
 	#define CUTEHMI_BITCOINCASH_API

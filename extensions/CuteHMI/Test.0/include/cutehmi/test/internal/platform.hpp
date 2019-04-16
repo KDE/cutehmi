@@ -5,19 +5,23 @@
 
 #ifdef CUTEHMI_TEST_DYNAMIC
 	#ifdef CUTEHMI_TEST_BUILD
-		//export symbols to dll
+		// Export symbols to dynamic library.
 		#define CUTEHMI_TEST_API Q_DECL_EXPORT
+		#ifdef CUTEHMI_TEST_TESTS
+			// Export symbols to dynamic library.
+			#define CUTEHMI_TEST_PRIVATE Q_DECL_EXPORT
+		#else
+			#define CUTEHMI_TEST_PRIVATE
+		#endif
 	#else
-		//using functions from dll
+		// Using symbols from dynamic library.
 		#define CUTEHMI_TEST_API Q_DECL_IMPORT
-	#endif
-
-	#ifdef CUTEHMI_TEST_TESTS
-		//export symbols to dll
-		#define CUTEHMI_TEST_PRIVATE Q_DECL_EXPORT
-	#else
-		//using functions from dll
-		#define CUTEHMI_TEST_PRIVATE Q_DECL_IMPORT
+		#ifdef CUTEHMI_TEST_TESTS
+			// Using symbols from dynamic library.
+			#define CUTEHMI_TEST_PRIVATE Q_DECL_IMPORT
+		#else
+			#define CUTEHMI_TEST_PRIVATE
+		#endif
 	#endif
 #else
 	#define CUTEHMI_TEST_API
