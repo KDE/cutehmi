@@ -4,10 +4,34 @@ import "Test.qbs" as Test
 
 Project {
 	Test {
-		testName: "test_logging"
+		testName: "test_Dialog"
 
 		files: [
-			"test_logging.cpp",
+			"test_Dialog.cpp",
+		]
+	}
+
+	Test {
+		testName: "test_Dialogist"
+
+		files: [
+			"test_Dialogist.cpp",
+		]
+	}
+
+	Test {
+		testName: "test_Initializer"
+
+		files: [
+			"test_Initializer.cpp",
+		]
+	}
+
+	Test {
+		testName: "test_ExtensionInitializer"
+
+		files: [
+			"test_ExtensionInitializer.cpp",
 		]
 	}
 
@@ -32,26 +56,10 @@ Project {
 	}
 
 	Test {
-		testName: "test_Dialog"
+		testName: "test_logging"
 
 		files: [
-			"test_Dialog.cpp",
-		]
-	}
-
-	Test {
-		testName: "test_Dialogist"
-
-		files: [
-			"test_Dialogist.cpp",
-		]
-	}
-
-	Test {
-		testName: "test_Singleton"
-
-		files: [
-			"test_Singleton.cpp",
+			"test_logging.cpp",
 		]
 	}
 
@@ -64,6 +72,14 @@ Project {
 		]
 
 		Depends { name: "Qt.quick" }
+	}
+
+	Test {
+		testName: "test_Singleton"
+
+		files: [
+			"test_Singleton.cpp",
+		]
 	}
 }
 

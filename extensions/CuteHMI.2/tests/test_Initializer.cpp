@@ -1,19 +1,27 @@
-#include "../../include/cutehmi/ErrorInfo.hpp"
+#include "../cutehmi.init.cpp"
+
+#include <QtTest/QtTest>
 
 namespace cutehmi {
 
-QString ErrorInfo::toString() const
+class test_Initializer:
+	public QObject
 {
-	QString result = str;
-	result += "\n[error class: ";
-	result += errClass;
-	result += " code: ";
-	result += QString::number(code);
-	result += "]";
-	return result;
+	Q_OBJECT
+
+	private slots:
+		void metaTypes();
+};
+
+void test_Initializer::metaTypes()
+{
+	QVERIFY(QMetaType::type("cutehmi::ErrorInfo") != QMetaType::UnknownType);
 }
 
 }
+
+QTEST_MAIN(cutehmi::test_Initializer)
+#include "test_Initializer.moc"
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
 //(c)MP: This file is a part of CuteHMI.

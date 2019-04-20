@@ -38,6 +38,8 @@ Project {
          "PropItem.qml",
          "include/cutehmi/Dialog.hpp",
          "include/cutehmi/Dialogist.hpp",
+         "include/cutehmi/ExtensionInitializer.hpp",
+         "include/cutehmi/Initializer.hpp",
          "include/cutehmi/Notifier.hpp",
          "include/cutehmi/wrappers.hpp",
          "qmldir",
@@ -65,6 +67,7 @@ Project {
          "src/cutehmi/ErrorException.cpp",
          "src/cutehmi/ErrorInfo.cpp",
          "src/cutehmi/Exception.cpp",
+         "src/cutehmi/Initializer.cpp",
          "src/cutehmi/Notification.cpp",
          "src/cutehmi/NotificationListModel.cpp",
          "src/cutehmi/Notifier.cpp",
@@ -86,6 +89,9 @@ Project {
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
 		cutehmi.doxygen.exclude: ['tests']
+
+		Depends { name: "cutehmi.init" }
+		cutehmi.init.initializerClass: "cutehmi::Initializer"
 
 		Export {
 			Depends { name: "Qt.core" }
