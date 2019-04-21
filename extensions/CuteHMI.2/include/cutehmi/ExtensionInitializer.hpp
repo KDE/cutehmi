@@ -1,5 +1,5 @@
-#ifndef INCLUDECUTEHMIINIT_HPP
-#define INCLUDECUTEHMIINIT_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_EXTENSIONINITIALIZER_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_EXTENSIONINITIALIZER_HPP
 
 #include "internal/common.hpp"
 #include "NonCopyable.hpp"
@@ -77,4 +77,4 @@ ExtensionInitializer<DERIVED>::~ExtensionInitializer()
 
 }
 
-#endif // INCLUDECUTEHMIINIT_HPP
+#endif
