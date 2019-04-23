@@ -73,7 +73,9 @@ Module {
 					'INPUT_FILTER' : product.cutehmi.doxygen.useInputFilter ? 'sed \'s/\\(\\[[[:alnum:][:blank:]\\/.:_@#-]*\\]([[:alnum:]\\/.:_@#-]*\\/\\)\\()\\)/\\1index.html\\2/g\'' : undefined,
 					'ALIASES': ['principle{1}=\\xrefitem principles \\"Principle\\" \\"Principles\\" \\b %\\1 \\n',
 								'assumption{1}=\\xrefitem assumptions \\"Assumption\\" \\"Assumptions\\" \\b %\\1 \\n',
-								'threadsafe=\\remark This method is thread-safe.'
+								'threadsafe=\\remark This method is thread-safe.',
+								'quote{1}=<div style=\'text-align:right; margin-right: 24px\'><em>\\1</em></div>\\n'
+
 					],
 					'MACRO_EXPANSION': true,
 					'EXPAND_ONLY_PREDEF': true,
