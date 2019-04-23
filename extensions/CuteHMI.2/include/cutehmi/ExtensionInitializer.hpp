@@ -13,9 +13,9 @@ namespace cutehmi {
  * the template and creating a global instance of a derived class, which is a subject of static initialization. This relies on
  * following C++ principle.
  *
- * "If a variable with static storage duration has initialization or a destructor with side eﬀects, it shall not be eliminated even
- *  if it appears to be unused, except that a class object or its copy/move may be eliminated as speciﬁed in 11.9.5."
- *                                                                              -- C++ Standard [basic.stc.static] (6.6.5.1/2 N4810)
+ * > "If a variable with static storage duration has initialization or a destructor with side eﬀects, it shall not be eliminated
+ * >  even if it appears to be unused, except that a class object or its copy/move may be eliminated as speciﬁed in 11.9.5."
+ *                                                                      @quote{-- C++ Standard (6.6.5.1/2 N4810) [basic.stc.static]}
  *
  * Extension initializer counts its own references and runs initialization and deinitialization code only once - for the first
  * constructed and last destroyed instance.
