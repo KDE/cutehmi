@@ -9,13 +9,9 @@ DS18B20History::DS18B20History(std::unique_ptr<internal::DS18B20HistoryWorker> w
 	QObject(parent),
 	m(new Members{std::move(worker), new charts::PointSeries(this), 0, 0, 0, 0, false})
 {
-	if (m->worker) {
-		m->worker->work();
-		m->worker->wait();
-		m->minimum = m->worker->results().minimum;
-		m->maximum = m->worker->results().maximum;
+	if (m->worker)
 		connect(m->worker.get(), & internal::DS18B20HistoryWorker::ready, this, & DS18B20History::update);
-	}
+	requestUpdate();
 }
 
 DS18B20History::~DS18B20History()
