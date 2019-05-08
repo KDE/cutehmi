@@ -11,18 +11,23 @@ namespace cutehmi {
 namespace termobot {
 
 class Service :
-    public services::Service
+		public services::Service
 {
 
-    public:
+	public:
 		Service(const QString & name, DatabaseThread * databaseThread, QObject * parent = nullptr);
 
 		~Service() override;
 
-    protected:
-        State customStart() override;
+	private slots:
+		void databaseConnected();
 
-        State customStop() override;
+		void databaseError(cutehmi::ErrorInfo errInfo);
+
+	protected:
+		State customStart() override;
+
+		State customStop() override;
 
 	private:
 		struct Members
@@ -42,3 +47,4 @@ class Service :
 
 //(c)WZ: Copyright © 2018, Wojciech Zygmuntowicz. All rights reserved.
 //(c)WZ: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+

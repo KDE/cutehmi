@@ -1,17 +1,23 @@
 #include "Service.hpp"
 
+#include <cutehmi/Prompt.hpp>
+
 namespace cutehmi {
 namespace termobot {
 
 Service::Service(const QString & name, DatabaseThread * databaseThread, QObject * parent):
 	services::Service(name, parent),
 	m(new Members{databaseThread})
-{}
+{
+	QObject::connect(m->databaseThread, &DatabaseThread::connected, this, &Service::databaseConnected);
+	QObject::connect(m->databaseThread, &DatabaseThread::error, this, &Service::databaseError);
+}
 
 Service::State Service::customStart()
 {
+	setState(STARTING);
 	m->databaseThread->start();
-    return STARTED;
+	return state();
 }
 
 Service::~Service()
@@ -20,15 +26,27 @@ Service::~Service()
 		stop();
 }
 
+void Service::databaseConnected()
+{
+	setState(STARTED);
+}
+
+void Service::databaseError(ErrorInfo errInfo)
+{
+	Prompt::Critical(errInfo);
+	stop();
+}
+
 Service::State Service::customStop()
 {
+	setState(STOPPING);
 	if (m->databaseThread->isRunning()) {
 		CUTEHMI_LOG_DEBUG("Stopping Termobot DatabaseThread...");
 		m->databaseThread->quit();
 		m->databaseThread->wait();
 		CUTEHMI_LOG_DEBUG("Termobot DatabaseThread finished.");
 	}
-    return STOPPED;
+	return STOPPED;
 }
 
 } // namespace termobot
