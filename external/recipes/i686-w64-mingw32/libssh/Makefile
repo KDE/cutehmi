@@ -9,12 +9,12 @@ include ../libgpg-error/Makefile.include
 include Makefile.include
 
 PRODUCT_NAME = libssh
-PRODUCT_VERSION = 0.7.5
+PRODUCT_VERSION = 0.8.7
 PRODUCT_DIRNAME = $(PRODUCT_NAME)-$(PRODUCT_VERSION)
 PRODUCT_PORT_SUFFIX = $(TARGET_MACHINE)
 
-PRODUCT_ARCHIVE = libssh-$(PRODUCT_NAME)-$(PRODUCT_VERSION).tar.gz
-PRODUCT_ARCHIVE_URL = https://git.libssh.org/projects/libssh.git/snapshot/$(PRODUCT_ARCHIVE)
+PRODUCT_ARCHIVE = $(PRODUCT_NAME)-$(PRODUCT_VERSION).tar.xz
+PRODUCT_ARCHIVE_URL = https://www.libssh.org/files/0.8/$(PRODUCT_ARCHIVE)
 PRODUCT_ARCHIVE_DIR = $(ARCHIVE_DIR)
 PRODUCT_ARCHIVE_PATH = $(PRODUCT_ARCHIVE_DIR)/$(PRODUCT_ARCHIVE)
 
@@ -86,8 +86,7 @@ include ../Makefile.portdir
 
 sourcedir $(PRODUCT_SOURCE_DIR): $(PRODUCT_ARCHIVE_PATH) | $(MKDIR) $(CD) $(TAR) $(MV) $(TOUCH)
 	$(MKDIR) -p $(SOURCE_DIR)
-	$(CD) $(SOURCE_DIR) && $(TAR) xvfz $(PRODUCT_ARCHIVE_PATH) --force-local
-	$(CD) $(SOURCE_DIR) && $(MV) libssh-$(PRODUCT_NAME)-$(PRODUCT_VERSION) $(PRODUCT_NAME)-$(PRODUCT_VERSION)
+	$(CD) $(SOURCE_DIR) && $(TAR) xvfJ $(PRODUCT_ARCHIVE_PATH) --force-local
 	$(TOUCH) $(PRODUCT_SOURCE_DIR)
 
 include ../Makefile.archive
