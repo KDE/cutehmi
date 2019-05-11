@@ -61,6 +61,12 @@ buildinstall $(PRODUCT_LIB_FILES_INSTALL) $(PRODUCT_INCLUDE_FILES_INSTALL): $(PR
 build $(PRODUCT_BUILD_TXT_PATH): $(PRODUCT_BUILD_DIR)/GNUmakefile | $(CD) $(MAKE) $(TEE) $(CMD) $(PERL)
 	$(CD) $(PRODUCT_BUILD_DIR) && $(MAKE) -j 1 2>&1 | $(TEE) $(PRODUCT_BUILD_TXT_PATH)
 
+#<recipes-i686-mingw32-postgresql-1.workaround target="PostgreSQL" cause="gettext">
+# Normally PostgreSQL would be configured with `--enable-nls` option. The
+# problem is, despite enabling thread-safety, which is confirmed by
+# PQisthreadsafe() returning 1, it comes out _libpq_ (and possibly other
+# libraries) is not thread-safe because of _gettext_. Enabling NLS causes
+# crashes, when multiple threads try to open a connection in parallel.
 buildconfigure $(PRODUCT_BUILD_DIR)/GNUmakefile: $(PRODUCT_BUILD_DIR)/configure \
 		$(LIBICONV_INSTALL_DIR) \
 		$(GETTEXT_INSTALL_DIR) | $(CD) $(SH) $(TEE) $(AWK) $(SED) $(CMD) $(PERL)
@@ -68,11 +74,12 @@ buildconfigure $(PRODUCT_BUILD_DIR)/GNUmakefile: $(PRODUCT_BUILD_DIR)/configure 
 		--prefix=$(PRODUCT_INSTALL_DIR) \
 		--sysconfdir=/etc \
 		--localedir=/share/locale \
-		--enable-nls \
+		--enable-thread-safety \
 		--with-libraries=$(LIBICONV_INSTALL_DIR)/lib:$(GETTEXT_INSTALL_DIR)/lib \
 		--with-includes=$(LIBICONV_INSTALL_DIR)/include:$(GETTEXT_INSTALL_DIR)/include \
 		--disable-rpath \
 		2>&1 | $(TEE) $(PRODUCT_CONFIGURE_TXT_PATH)
+#</recipes-i686-mingw32-postgresql-1.workaround>
 
 include ../Makefile.builddir
 
