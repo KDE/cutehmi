@@ -39,8 +39,6 @@ stupid::DatabaseConnectionData * DatabaseThread::dbData() const
 
 void DatabaseThread::run()
 {
-	QMutexLocker locker(& m->runLock);
-
 	if (m->dbData) {
 		QSqlDatabase db = QSqlDatabase::addDatabase(m->dbData->type, m->dbData->connectionName);
 		db.setHostName(m->dbData->hostName);
