@@ -54,7 +54,6 @@ class DatabaseThread:
 		struct Members
 		{
 			std::unique_ptr<DatabaseConnectionData> dbData;
-			QMutex runLock;
 		};
 
 		MPtr<Members> m;
