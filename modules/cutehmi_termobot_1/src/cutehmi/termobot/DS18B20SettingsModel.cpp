@@ -237,6 +237,17 @@ QVariant DS18B20SettingsModel::descriptionFromW1Id(const QString & w1Id) const
 	return QVariant();
 }
 
+QModelIndex DS18B20SettingsModel::indexFromW1Id(const QString & w1Id) const
+{
+	for (int i = 0; i < m->settingsContainer.length(); i++) {
+		SettingsTuple settings = m->settingsContainer.at(i);
+		if (settings.w1Id == w1Id)
+			return createIndex(i, 0);
+	}
+
+	return QModelIndex();
+}
+
 int DS18B20SettingsModel::roleId(const QByteArray & name) const
 {
 	return roleNames().key(name);
