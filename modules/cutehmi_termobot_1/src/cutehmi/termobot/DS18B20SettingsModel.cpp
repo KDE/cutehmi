@@ -40,7 +40,7 @@ DS18B20SettingsModel::DS18B20SettingsModel(DatabaseThread * databaseThread):
 	connect(& m->updateWorker, & UpdateWorker::ready, this, [this]() {
 		m->settingsContainer.replace(m->updateWorker.changedRow(), m->updateWorker.settings());
 		QModelIndex changedIndex = createIndex(m->updateWorker.changedRow(), 1);
-		dataChanged(changedIndex, changedIndex);
+		emit dataChanged(changedIndex, changedIndex);
 		--m->workingCounter;
 	});
 
@@ -55,6 +55,9 @@ DS18B20SettingsModel::DS18B20SettingsModel(DatabaseThread * databaseThread):
 		endRemoveRows();
 		--m->workingCounter;
 	});
+
+	++m->workingCounter;
+	m->readWorker.work();
 }
 
 DS18B20SettingsModel::~DS18B20SettingsModel()
@@ -232,6 +235,11 @@ QVariant DS18B20SettingsModel::descriptionFromW1Id(const QString & w1Id) const
 	}
 
 	return QVariant();
+}
+
+int DS18B20SettingsModel::roleId(const QByteArray & name) const
+{
+	return roleNames().key(name);
 }
 
 DS18B20SettingsModel::CreateWorker::CreateWorker(DatabaseThread &databaseThread):

@@ -48,6 +48,8 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 
 		Q_INVOKABLE QVariant descriptionFromW1Id(const QString & w1Id) const;
 
+		Q_INVOKABLE int roleId(const QByteArray & name) const;
+
 	signals:
 		void busyChanged();
 
