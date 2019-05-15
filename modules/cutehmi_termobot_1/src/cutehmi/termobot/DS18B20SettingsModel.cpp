@@ -39,7 +39,7 @@ DS18B20SettingsModel::DS18B20SettingsModel(DatabaseThread * databaseThread):
 
 	connect(& m->updateWorker, & UpdateWorker::ready, this, [this]() {
 		m->settingsContainer.replace(m->updateWorker.changedRow(), m->updateWorker.settings());
-		QModelIndex changedIndex = createIndex(m->updateWorker.changedRow(), 1);
+		QModelIndex changedIndex = createIndex(m->updateWorker.changedRow(), 0);
 		emit dataChanged(changedIndex, changedIndex);
 		--m->workingCounter;
 	});
