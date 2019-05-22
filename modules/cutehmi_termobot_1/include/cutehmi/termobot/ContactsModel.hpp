@@ -14,151 +14,155 @@ namespace termobot {
 class CUTEHMI_TERMOBOT_API ContactsModel:
     public QAbstractListModel
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
+    public:
+        Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
-		ContactsModel(DatabaseThread * databaseThread);
+        ContactsModel(DatabaseThread * databaseThread);
 
-		~ContactsModel();
+        ~ContactsModel();
 
-		bool busy() const;
+        bool busy() const;
 
-		// read implementation
-		QVariant data(const QModelIndex & index, int role) const override;
+        // read implementation
+        QVariant data(const QModelIndex & index, int role) const override;
 
-		int rowCount(const QModelIndex & parent) const override;
+        int rowCount(const QModelIndex & parent) const override;
 
-		// update implementation
-		Q_INVOKABLE bool update(const unsigned int & databaseId, const QString & newNick, const QString & newFirstName, const QString & lastName, const unsigned int & phoneId, const QString & newPhoneNumber, const unsigned int & emailId, const QString & newEmail, const bool & newActive);
+        // update implementation
+        Q_INVOKABLE bool update(const unsigned int & databaseId, const QString & newNick, const QString & newFirstName, const QString & lastName, const unsigned int & phoneId, const QString & newPhoneNumber, const unsigned int & emailId, const QString & newEmail, const bool & newActive, const QString & newAvatar);
 
-//		bool setData(const QModelIndex & index, const QVariant & value, int role) override;
+        //		bool setData(const QModelIndex & index, const QVariant & value, int role) override;
 
-		Qt::ItemFlags flags(const QModelIndex & index) const override;
+        Qt::ItemFlags flags(const QModelIndex & index) const override;
 
-		// delete implementation
-		Q_INVOKABLE bool remove(unsigned int databaseId);
+        // delete implementation
+        Q_INVOKABLE bool remove(unsigned int databaseId);
 
-		// create implementation
-		Q_INVOKABLE bool insert(const QString & nick, const QString & firstName, const QString & lastName, const QString & phoneNumber, const QString & email, const bool & enabled);
+        // create implementation
+        Q_INVOKABLE bool insert(const QString & nick, const QString & firstName, const QString & lastName, const QString & phoneNumber, const QString & email, const bool & enabled, const QString & avatar);
 
         QHash<int, QByteArray> roleNames() const override;
 
-	signals:
-		void busyChanged();
+        Q_INVOKABLE int roleId(const QByteArray & name) const;
 
-    private:		
-		enum Role : int {
-			DatabaseId = Qt::UserRole,
-			Nick,
-			FirstName,
-			LastName,
-			Active,
-			PhoneId,
-			PhoneNumber,
-			EmailId,
-			Email
-		};
+    signals:
+        void busyChanged();
 
-		struct ContactTuple
-		{
-				unsigned int databaseId;
-				QString nick;
-				QString firstName;
-				QString lastName;
-				unsigned int phoneId;
-				QString phoneNumber;
-				unsigned int emailId;
-				QString email;
-				bool enabled;
-		};
+    private:
+        enum Role: int {
+            DatabaseId = Qt::UserRole,
+            Nick,
+            FirstName,
+            LastName,
+            Active,
+            PhoneId,
+            PhoneNumber,
+            EmailId,
+            Email,
+            Avatar
+        };
 
-		typedef QList<ContactTuple> ContactsContainer;
+        struct ContactTuple
+        {
+                unsigned int databaseId;
+                QString nick;
+                QString firstName;
+                QString lastName;
+                unsigned int phoneId;
+                QString phoneNumber;
+                unsigned int emailId;
+                QString email;
+                bool enabled;
+                QString avatar;
+        };
 
-		class CreateWorker:
-				public Worker
-		{
-			public:
-				CreateWorker(DatabaseThread & databaseThread);
+        typedef QList<ContactTuple> ContactsContainer;
 
-				void job() override;
+        class CreateWorker:
+                public Worker
+        {
+            public:
+                CreateWorker(DatabaseThread & databaseThread);
 
-				void contact(std::unique_ptr<ContactTuple> newContact);
+                void job() override;
 
-			private:
-				QString m_connectionName;
-				std::unique_ptr<ContactTuple> m_contact;
-		};
+                void contact(std::unique_ptr<ContactTuple> newContact);
 
-		class ReadWorker:
-				public Worker
-		{
-			public:
-				ReadWorker(DatabaseThread & DatabaseThread);
+            private:
+                QString m_connectionName;
+                std::unique_ptr<ContactTuple> m_contact;
+        };
 
-				void job() override;
+        class ReadWorker:
+                public Worker
+        {
+            public:
+                ReadWorker(DatabaseThread & DatabaseThread);
 
-				const ContactsContainer & contacts() const;
+                void job() override;
 
-			private:
-				QString m_connectionName;
-				ContactsContainer m_contacts;
-		};
+                const ContactsContainer & contacts() const;
 
-		class UpdateWorker:
-				public Worker
-		{
-			public:
-				UpdateWorker(DatabaseThread & databaseThread);
+            private:
+                QString m_connectionName;
+                ContactsContainer m_contacts;
+        };
 
-				void job() override;
+        class UpdateWorker:
+                public Worker
+        {
+            public:
+                UpdateWorker(DatabaseThread & databaseThread);
 
-				const ContactTuple & contact() const;
+                void job() override;
 
-				void contact(std::unique_ptr<ContactTuple> newContact);
+                const ContactTuple & contact() const;
 
-				const int & changedRow() const;
+                void contact(std::unique_ptr<ContactTuple> newContact);
 
-				void changedRow(const int & newRow);
+                const int & changedRow() const;
 
-			private:
-				int m_changedRow;
-				QString m_connectionName;
-				std::unique_ptr<ContactTuple> m_contact;
-		};
+                void changedRow(const int & newRow);
 
-		class DeleteWorker:
-				public Worker
-		{
-			public:
-				DeleteWorker(DatabaseThread & databaseThread);
+            private:
+                int m_changedRow;
+                QString m_connectionName;
+                std::unique_ptr<ContactTuple> m_contact;
+        };
 
-				void job() override;
+        class DeleteWorker:
+                public Worker
+        {
+            public:
+                DeleteWorker(DatabaseThread & databaseThread);
 
-				void setDatabaseId(const unsigned int & databaseId);
+                void job() override;
 
-				const unsigned int & databaseId() const;
+                void setDatabaseId(const unsigned int & databaseId);
 
-			private:
-				QString m_connectionName;
-				unsigned int m_databaseId;
-		};
+                const unsigned int & databaseId() const;
+
+            private:
+                QString m_connectionName;
+                unsigned int m_databaseId;
+        };
 
         struct Members
         {
-			bool modelIsResetting;
-            QHash<int, QByteArray> roleNames;
-			DatabaseThread * databaseThread;
-			ContactsContainer contactsContainer;
-			mutable CreateWorker createWorker;
-			mutable ReadWorker readWorker;
-			mutable UpdateWorker updateWorker;
-			mutable DeleteWorker deleteWorker;
-			mutable internal::WorkingCounter workingCounter;
+                bool modelIsResetting;
+                QHash<int, QByteArray> roleNames;
+                DatabaseThread * databaseThread;
+                ContactsContainer contactsContainer;
+                mutable CreateWorker createWorker;
+                mutable ReadWorker readWorker;
+                mutable UpdateWorker updateWorker;
+                mutable DeleteWorker deleteWorker;
+                mutable internal::WorkingCounter workingCounter;
         };
 
-		MPtr<Members> m;
+        MPtr<Members> m;
 };
 
 }

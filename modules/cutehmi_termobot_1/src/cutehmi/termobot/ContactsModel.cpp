@@ -21,6 +21,7 @@ ContactsModel::ContactsModel(DatabaseThread * databaseThread):
 	m->roleNames[static_cast<int>(Role::Email)] = "email";
 	m->roleNames[static_cast<int>(Role::PhoneId)] = "phoneId";
 	m->roleNames[static_cast<int>(Role::PhoneNumber)] = "phoneNumber";
+	m->roleNames[static_cast<int>(Role::Avatar)] = "avatar";
 
 	connect(& m->createWorker, & CreateWorker::ready, this, [this]() {
 		endInsertRows();
@@ -90,6 +91,8 @@ QVariant ContactsModel::data(const QModelIndex & index, int role) const
 			return contact.emailId;
 		else if (role == static_cast<int>(Role::Email))
 			return contact.email;
+		else if (role == static_cast<int>(Role::Avatar))
+			return contact.avatar;
 	}
 	return QVariant();
 }
@@ -115,7 +118,7 @@ int ContactsModel::rowCount(const QModelIndex & parent) const
 	return m->contactsContainer.count();
 }
 
-bool ContactsModel::update(const unsigned int & databaseId, const QString & newNick, const QString & newFirstName, const QString & newLastName, const unsigned int & phoneId, const QString & newPhoneNumber, const unsigned int & emailId, const QString & newEmail, const bool & newActive)
+bool ContactsModel::update(const unsigned int & databaseId, const QString & newNick, const QString & newFirstName, const QString & newLastName, const unsigned int & phoneId, const QString & newPhoneNumber, const unsigned int & emailId, const QString & newEmail, const bool & newActive, const QString & newAvatar)
 {
 	if (!m->databaseThread->isRunning()) {
 		CUTEHMI_LOG_WARNING("Ignoring request, because database thread is not running.");
@@ -134,7 +137,7 @@ bool ContactsModel::update(const unsigned int & databaseId, const QString & newN
 		return false;
 
 	// Create new contact tuple.
-	std::unique_ptr<ContactTuple> contact(new ContactTuple{databaseId, newNick, newFirstName, newLastName, phoneId, newPhoneNumber, emailId, newEmail, newActive});
+	std::unique_ptr<ContactTuple> contact(new ContactTuple{databaseId, newNick, newFirstName, newLastName, phoneId, newPhoneNumber, emailId, newEmail, newActive, newAvatar});
 
 	// Prepare worker to work.
 	m->updateWorker.changedRow(row);
@@ -189,14 +192,14 @@ bool ContactsModel::remove(unsigned int databaseId)
 	return true;
 }
 
-bool ContactsModel::insert(const QString & nick, const QString & firstName, const QString & lastName, const QString & phoneNumber, const QString & email, const bool & enabled)
+bool ContactsModel::insert(const QString & nick, const QString & firstName, const QString & lastName, const QString & phoneNumber, const QString & email, const bool & enabled, const QString & avatar)
 {
 	if (!m->databaseThread->isRunning()) {
 		CUTEHMI_LOG_WARNING("Ignoring request, because database thread is not running.");
 		return false;
 	}
 
-	std::unique_ptr<ContactTuple> contact(new ContactTuple{{}, nick, firstName, lastName, {}, phoneNumber, {}, email, enabled});
+	std::unique_ptr<ContactTuple> contact(new ContactTuple{{}, nick, firstName, lastName, {}, phoneNumber, {}, email, enabled, avatar});
 
 	// Check if nick is unique (if not then early return false).
 	for (int i = 0; i < m->contactsContainer.length(); ++i) {
@@ -217,7 +220,12 @@ bool ContactsModel::insert(const QString & nick, const QString & firstName, cons
 
 QHash<int, QByteArray> ContactsModel::roleNames() const
 {
-    return m->roleNames;
+	return m->roleNames;
+}
+
+int ContactsModel::roleId(const QByteArray & name) const
+{
+	return roleNames().key(name);
 }
 
 ContactsModel::CreateWorker::CreateWorker(DatabaseThread &databaseThread):
@@ -238,8 +246,8 @@ void ContactsModel::CreateWorker::job()
 	// Insert contact with email and phone number into three tables in one statement.
 	QSqlQuery query(QSqlDatabase::database(m_connectionName, false));
 	query.prepare("WITH new_contact AS ( "
-				  "INSERT INTO contacts (nick, first_name, last_name, enabled) "
-				  "VALUES (:nick, :first_name, :last_name, :enabled) "
+				  "INSERT INTO contacts (nick, first_name, last_name, enabled, avatar) "
+				  "VALUES (:nick, :first_name, :last_name, :enabled, :avatar) "
 				  "RETURNING id), new_phone_number AS ( "
 				  "INSERT INTO phone_numbers (contact_id, phone_number) "
 				  "VALUES ((SELECT id FROM new_contact), :phone_number) RETURNING *) "
@@ -249,6 +257,7 @@ void ContactsModel::CreateWorker::job()
 	query.bindValue(":first_name", m_contact->firstName);
 	query.bindValue(":last_name", m_contact->lastName);
 	query.bindValue(":enabled", m_contact->enabled);
+	query.bindValue(":avatar", m_contact->avatar);
 	query.bindValue(":phone_number", m_contact->phoneNumber);
 	query.bindValue(":address", m_contact->email);
 	query.exec();
@@ -276,7 +285,7 @@ void ContactsModel::ReadWorker::job()
 
 	QSqlQuery contactsQuery(QSqlDatabase::database(m_connectionName, false));
 	contactsQuery.exec("SELECT DISTINCT ON (contacts.id) contacts.id, contacts.nick, "
-					   "contacts.first_name, contacts.last_name, contacts.enabled, "
+					   "contacts.first_name, contacts.last_name, contacts.enabled, contacts.avatar, "
 					   "phone_numbers.id AS phone_id, phone_numbers.phone_number, "
 					   "emails.id AS email_id, emails.address FROM "
 					   "(contacts LEFT JOIN phone_numbers ON contacts.id = phone_numbers.contact_id) "
@@ -292,7 +301,8 @@ void ContactsModel::ReadWorker::job()
 								 contactsQuery.value(record.indexOf("phone_number")).toString(),
 								 contactsQuery.value(record.indexOf("email_id")).toUInt(),
 								 contactsQuery.value(record.indexOf("address")).toString(),
-								 contactsQuery.value(record.indexOf("enabled")).toBool()
+								 contactsQuery.value(record.indexOf("enabled")).toBool(),
+								 contactsQuery.value(record.indexOf("avatar")).toString()
 							 });
 	}
 	CUTEHMI_LOG_DEBUG("Read worker finished.");
@@ -363,11 +373,12 @@ void ContactsModel::UpdateWorker::job()
 
 	// Prepare query for updating contact.
 	QSqlQuery updateContactQuery(connection);
-	updateContactQuery.prepare("UPDATE contacts SET nick = :new_nick, first_name = :new_first_name, last_name = :new_last_name, enabled = :new_enabled WHERE id = :id");
+	updateContactQuery.prepare("UPDATE contacts SET nick = :new_nick, first_name = :new_first_name, last_name = :new_last_name, enabled = :new_enabled, avatar = :new_avatar WHERE id = :id");
 	updateContactQuery.bindValue(":new_nick", m_contact->nick);
 	updateContactQuery.bindValue(":new_first_name", m_contact->firstName);
 	updateContactQuery.bindValue(":new_last_name", m_contact->lastName);
 	updateContactQuery.bindValue(":new_enabled", m_contact->enabled);
+	updateContactQuery.bindValue(":new_avatar", m_contact->avatar);
 	updateContactQuery.bindValue(":id", m_contact->databaseId);
 
 	// Execute all queries in one transaction.
