@@ -12,7 +12,7 @@ namespace cutehmi {
 namespace stupid {
 
 class CUTEHMI_STUPID_API DS18B20:
-		public QObject
+                public QObject
 {
 	Q_OBJECT
 

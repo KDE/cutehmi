@@ -11,7 +11,6 @@ DS18B20History::DS18B20History(std::unique_ptr<internal::DS18B20HistoryWorker> w
 {
 	if (m->worker)
 		connect(m->worker.get(), & internal::DS18B20HistoryWorker::ready, this, & DS18B20History::update);
-	requestUpdate();
 }
 
 DS18B20History::~DS18B20History()
