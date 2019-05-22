@@ -59,6 +59,12 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 
 		Q_INVOKABLE QModelIndex indexFromW1Id(const QString & w1Id) const;
 
+		Q_INVOKABLE bool hasWarning(const QString & w1Id) const;
+
+		Q_INVOKABLE bool hasError(const QString & w1Id) const;
+
+		Q_INVOKABLE bool isActive(const QString & w1Id) const;
+
 		Q_INVOKABLE int roleId(const QByteArray & name) const;
 
 	signals:

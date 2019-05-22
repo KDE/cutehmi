@@ -250,6 +250,39 @@ QModelIndex DS18B20SettingsModel::indexFromW1Id(const QString & w1Id) const
 	return QModelIndex();
 }
 
+bool DS18B20SettingsModel::hasWarning(const QString & w1Id) const
+{
+	for (int i = 0; i < m->settingsContainer.length(); i++) {
+		SettingsTuple settings = m->settingsContainer.at(i);
+		if (settings.w1Id == w1Id)
+			return settings.state == INCORRECT_TEMP_EXCEEDED ||
+					settings.state == INCORRECT_DISCONNECTED ||
+					settings.state == INCORRECT_WRONG_CRC;
+	}
+	return false;
+}
+
+bool DS18B20SettingsModel::hasError(const QString & w1Id) const
+{
+	for (int i = 0; i < m->settingsContainer.length(); i++) {
+		SettingsTuple settings = m->settingsContainer.at(i);
+		if (settings.w1Id == w1Id)
+			return settings.state == ALERT ||
+					settings.state == SUSPEND;
+	}
+	return false;
+}
+
+bool DS18B20SettingsModel::isActive(const QString & w1Id) const
+{
+	for (int i = 0; i < m->settingsContainer.length(); i++) {
+		SettingsTuple settings = m->settingsContainer.at(i);
+		if (settings.w1Id == w1Id)
+			return settings.state != STOPPED;
+	}
+	return false;
+}
+
 int DS18B20SettingsModel::roleId(const QByteArray & name) const
 {
 	return roleNames().key(name);
