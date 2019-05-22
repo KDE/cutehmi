@@ -422,19 +422,19 @@ const QString & DS18B20SettingsModel::DeleteWorker::w1Id() const
 enum DS18B20SettingsModel::State DS18B20SettingsModel::StateFromString(const QString & state)
 {
 	if (state == "ok")
-		return State::OK;
+		return OK;
 	else if (state == "alert")
-		return State::ALERT;
+		return ALERT;
 	else if (state == "suspend")
-		return State::SUSPEND;
+		return SUSPEND;
 	else if (state == "incorrect.temp_exceeded")
-		return State::INCORRECT_TEMP_EXCEEDED;
+		return INCORRECT_TEMP_EXCEEDED;
 	else if (state == "incorrect.disconnected")
-		return State::INCORRECT_DISCONNECTED;
+		return INCORRECT_DISCONNECTED;
 	else if (state == "incorrect.wrong_crc")
-		return State::INCORRECT_WRONG_CRC;
+		return INCORRECT_WRONG_CRC;
 	else if (state == "stopped")
-		return State::STOPPED;
+		return STOPPED;
 	else {
 		throw Exception(QObject::tr("Unrecognized state ('%1') received from database.").arg(state));
 	}
