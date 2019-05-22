@@ -61,7 +61,7 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 
 		Q_INVOKABLE bool hasWarning(const QString & w1Id) const;
 
-		Q_INVOKABLE bool hasError(const QString & w1Id) const;
+		Q_INVOKABLE bool hasAlarm(const QString & w1Id) const;
 
 		Q_INVOKABLE bool isActive(const QString & w1Id) const;
 

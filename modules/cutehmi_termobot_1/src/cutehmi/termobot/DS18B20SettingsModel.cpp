@@ -262,7 +262,7 @@ bool DS18B20SettingsModel::hasWarning(const QString & w1Id) const
 	return false;
 }
 
-bool DS18B20SettingsModel::hasError(const QString & w1Id) const
+bool DS18B20SettingsModel::hasAlarm(const QString & w1Id) const
 {
 	for (int i = 0; i < m->settingsContainer.length(); i++) {
 		SettingsTuple settings = m->settingsContainer.at(i);
