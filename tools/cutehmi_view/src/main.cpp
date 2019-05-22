@@ -76,9 +76,11 @@ int main(int argc, char * argv[])
 	QCoreApplication::setApplicationName(CUTEHMI_VIEW_VENDOR " " CUTEHMI_VIEW_FRIENDLY_NAME);
 	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_VIEW_MAJOR).arg(CUTEHMI_VIEW_MINOR).arg(CUTEHMI_VIEW_MICRO));
 
+#ifdef CUTEHMI_VIEW_VIRTUAL_KEYBOARD
 	if (qgetenv("QT_IM_MODULE").isEmpty())
 		qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 	qDebug() << "Input method: " << qgetenv("QT_IM_MODULE");
+#endif
 
 	if (qgetenv("QT_IM_MODULE") == "qtvirtualkeyboard") {
 		if (qgetenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH").isEmpty())
