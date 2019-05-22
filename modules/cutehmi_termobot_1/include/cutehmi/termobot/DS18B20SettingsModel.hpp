@@ -17,11 +17,20 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 	Q_OBJECT
 
 	public:
+		enum State {
+			OK,
+			ALERT,
+			SUSPEND,
+			INCORRECT_TEMP_EXCEEDED,
+			INCORRECT_DISCONNECTED,
+			INCORRECT_WRONG_CRC,
+			STOPPED
+		};
+		Q_ENUM(State)
+
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
 		DS18B20SettingsModel(DatabaseThread * databaseThread);
-
-		~DS18B20SettingsModel();
 
 		bool busy() const;
 
@@ -64,7 +73,8 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 			TemperatureThreshold,
 			CrcTimeThreshold,
 			SuspendTime,
-			TemperatureTimeThreshold
+			TemperatureTimeThreshold,
+			State
 		};
 
 		struct SettingsTuple
@@ -77,6 +87,7 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 				unsigned int crcTimeThreshold;
 				unsigned int suspendTime;
 				unsigned int temperatureTimeThreshold;
+				enum State state; // Using elaborated type specifier in order to refer to previously declared enum hidden by State from Role enumerator.
 		};
 
 		typedef QList<SettingsTuple> SettingsContainer;
@@ -164,6 +175,8 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 		};
 
 		MPtr<Members> m;
+
+		static enum State StateFromString(const QString & state);
 };
 
 }

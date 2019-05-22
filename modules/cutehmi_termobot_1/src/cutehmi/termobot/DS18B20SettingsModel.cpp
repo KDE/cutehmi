@@ -1,4 +1,5 @@
 #include "../../../include/cutehmi/termobot/DS18B20SettingsModel.hpp"
+#include "../../../include/cutehmi/termobot/Exception.hpp"
 #include <cutehmi/Worker.hpp>
 
 #include <QSqlQuery>
@@ -20,6 +21,7 @@ DS18B20SettingsModel::DS18B20SettingsModel(DatabaseThread * databaseThread):
 	m->roleNames[static_cast<int>(Role::CrcTimeThreshold)] = "crcTimeThreshold";
 	m->roleNames[static_cast<int>(Role::SuspendTime)] = "suspendTime";
 	m->roleNames[static_cast<int>(Role::TemperatureTimeThreshold)] = "temperatureTimeThreshold";
+	m->roleNames[static_cast<int>(Role::State)] = "state";
 
 	connect(& m->createWorker, & CreateWorker::ready, this, [this]() {
 		endInsertRows();
@@ -51,17 +53,13 @@ DS18B20SettingsModel::DS18B20SettingsModel(DatabaseThread * databaseThread):
 				break;
 			}
 		}
-		m->deleteWorker.setW1Id(0);
+		m->deleteWorker.setW1Id(QString());
 		endRemoveRows();
 		--m->workingCounter;
 	});
 
 	++m->workingCounter;
 	m->readWorker.work();
-}
-
-DS18B20SettingsModel::~DS18B20SettingsModel()
-{
 }
 
 bool DS18B20SettingsModel::busy() const
@@ -89,13 +87,15 @@ QVariant DS18B20SettingsModel::data(const QModelIndex & index, int role) const
 			return settings.suspendTime;
 		else if (role == static_cast<int>(Role::TemperatureTimeThreshold))
 			return settings.temperatureTimeThreshold;
+		else if (role == static_cast<int>(Role::State))
+			return settings.state;
 	}
 	return QVariant();
 }
 
 int DS18B20SettingsModel::rowCount(const QModelIndex & parent) const
 {
-	Q_UNUSED(parent);
+	Q_UNUSED(parent)
 
 	CUTEHMI_LOG_DEBUG("entering rowCount");
 
@@ -124,10 +124,12 @@ bool DS18B20SettingsModel::update(const QString & w1Id, const QString & newDescr
 	// Find a row number which changes and oldDescriptiveColor.
 	int row = -1;
 	QString oldDescriptiveColor;
+	enum State oldState;
 	for (int i = 0; i < m->settingsContainer.length(); ++i) {
 		if (m->settingsContainer.at(i).w1Id == w1Id) {
 			row = i;
 			oldDescriptiveColor = m->settingsContainer.at(i).descriptiveColor;
+			oldState = m->settingsContainer.at(i).state;
 			break;
 		}
 	}
@@ -136,7 +138,7 @@ bool DS18B20SettingsModel::update(const QString & w1Id, const QString & newDescr
 
 	// Create new settings tuple.
 
-	std::unique_ptr<SettingsTuple> settings(new SettingsTuple{w1Id, newDescription, oldDescriptiveColor, newDisconnectionTimeThreshold, newTemperatureThreshold, newCrcTimeThreshold, newSuspendTime, newTemperatureTimeThreshold});
+	std::unique_ptr<SettingsTuple> settings(new SettingsTuple{w1Id, newDescription, oldDescriptiveColor, newDisconnectionTimeThreshold, newTemperatureThreshold, newCrcTimeThreshold, newSuspendTime, newTemperatureTimeThreshold, oldState});
 
 	// Prepare worker to work.
 	m->updateWorker.changedRow(row);
@@ -153,7 +155,7 @@ bool DS18B20SettingsModel::update(const QString & w1Id, const QString & newDescr
 
 Qt::ItemFlags DS18B20SettingsModel::flags(const QModelIndex &index) const
 {
-	Q_UNUSED(index);
+	Q_UNUSED(index)
 
 	Qt::ItemFlags flags;
 	if (m->databaseThread->isRunning()) {
@@ -198,7 +200,7 @@ bool DS18B20SettingsModel::insert(const QString & description, const unsigned in
 		return false;
 	}
 
-	std::unique_ptr<SettingsTuple> settings(new SettingsTuple{{}, description, {}, disconnectionTimeThreshold, temperatureThreshold, crcTimeThreshold, suspendTime, temperatureTimeThreshold});
+	std::unique_ptr<SettingsTuple> settings(new SettingsTuple{{}, description, {}, disconnectionTimeThreshold, temperatureThreshold, crcTimeThreshold, suspendTime, temperatureTimeThreshold, {}});
 
 	// Append settings to the end of the list.
 	int endRow = m->settingsContainer.count();
@@ -316,6 +318,7 @@ void DS18B20SettingsModel::ReadWorker::job()
 								 settingsQuery.value(record.indexOf("crc_time_threshold")).toUInt(),
 								 settingsQuery.value(record.indexOf("suspend_time")).toUInt(),
 								 settingsQuery.value(record.indexOf("temperature_time_threshold")).toUInt(),
+								 StateFromString(settingsQuery.value(record.indexOf("state")).toString())
 							 });
 	}
 	CUTEHMI_LOG_DEBUG("Read worker finished.");
@@ -414,6 +417,27 @@ void DS18B20SettingsModel::DeleteWorker::setW1Id(const QString & w1Id)
 const QString & DS18B20SettingsModel::DeleteWorker::w1Id() const
 {
 	return m_w1Id;
+}
+
+enum DS18B20SettingsModel::State DS18B20SettingsModel::StateFromString(const QString & state)
+{
+	if (state == "ok")
+		return State::OK;
+	else if (state == "alert")
+		return State::ALERT;
+	else if (state == "suspend")
+		return State::SUSPEND;
+	else if (state == "incorrect.temp_exceeded")
+		return State::INCORRECT_TEMP_EXCEEDED;
+	else if (state == "incorrect.disconnected")
+		return State::INCORRECT_DISCONNECTED;
+	else if (state == "incorrect.wrong_crc")
+		return State::INCORRECT_WRONG_CRC;
+	else if (state == "stopped")
+		return State::STOPPED;
+	else {
+		throw Exception(QObject::tr("Unrecognized state ('%1') received from database.").arg(state));
+	}
 }
 
 }
