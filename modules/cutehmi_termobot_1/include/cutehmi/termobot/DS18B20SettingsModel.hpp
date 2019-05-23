@@ -94,6 +94,10 @@ class CUTEHMI_TERMOBOT_API DS18B20SettingsModel:
 				unsigned int suspendTime;
 				unsigned int temperatureTimeThreshold;
 				enum State state; // Using elaborated type specifier in order to refer to previously declared enum hidden by State from Role enumerator.
+
+				bool operator ==(const SettingsTuple & other);
+
+				bool operator !=(const SettingsTuple & other);
 		};
 
 		typedef QList<SettingsTuple> SettingsContainer;

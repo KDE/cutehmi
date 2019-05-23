@@ -29,7 +29,7 @@ DS18B20SettingsModel::DS18B20SettingsModel(DatabaseThread * databaseThread):
 	});
 
 	connect(& m->readWorker, & ReadWorker::ready, this, [this]() {
-		if (m->settingsContainer.length() != m->readWorker.settings().length()) {
+		if (m->settingsContainer != m->readWorker.settings()) {
 			beginResetModel();
 			m->modelIsResetting = true;
 			m->settingsContainer = m->readWorker.settings();
@@ -472,6 +472,25 @@ enum DS18B20SettingsModel::State DS18B20SettingsModel::StateFromString(const QSt
 		throw Exception(QObject::tr("Unrecognized state ('%1') received from database.").arg(state));
 	}
 }
+
+bool DS18B20SettingsModel::SettingsTuple::operator ==(const DS18B20SettingsModel::SettingsTuple & other)
+{
+	return this->w1Id == other.w1Id
+			&& this->state == other.state
+			&& this->description == other.description
+			&& this->suspendTime == other.suspendTime
+			&& this->crcTimeThreshold == other.crcTimeThreshold
+			&& this->descriptiveColor == other.descriptiveColor
+			&& this->temperatureThreshold == other.temperatureThreshold
+			&& this->temperatureTimeThreshold == other.temperatureTimeThreshold
+			&& this->disconnectionTimeThreshold == other.disconnectionTimeThreshold;
+}
+
+bool DS18B20SettingsModel::SettingsTuple::operator !=(const DS18B20SettingsModel::SettingsTuple & other)
+{
+	return !(*this == other);
+}
+
 
 }
 }
