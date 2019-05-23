@@ -339,7 +339,7 @@ void DS18B20SettingsModel::ReadWorker::job()
 	m_settings.clear();
 
 	QSqlQuery settingsQuery(QSqlDatabase::database(m_connectionName, false));
-	settingsQuery.exec("SELECT * FROM ds18b20");
+	settingsQuery.exec("SELECT * FROM ds18b20 ORDER BY description");
 	QSqlRecord record = settingsQuery.record();
 	while (settingsQuery.next()) {
 		m_settings.push_back(SettingsTuple{
