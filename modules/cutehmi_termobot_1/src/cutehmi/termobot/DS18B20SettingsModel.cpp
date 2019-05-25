@@ -30,10 +30,9 @@ DS18B20SettingsModel::DS18B20SettingsModel(DatabaseThread * databaseThread):
 
 	connect(& m->readWorker, & ReadWorker::ready, this, [this]() {
 		if (m->settingsContainer != m->readWorker.settings()) {
-			beginResetModel();
 			m->modelIsResetting = true;
 			m->settingsContainer = m->readWorker.settings();
-			endResetModel();
+			emit dataChanged(createIndex(0, 0), createIndex(m->settingsContainer.count(), 0));
 			m->modelIsResetting = false;
 		}
 		--m->workingCounter;
