@@ -118,6 +118,9 @@ int main(int argc, char * argv[])
 	QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
 	cmd.addOption(fullScreenOption);
 	QCommandLineOption projectOption({"p", "project"}, QCoreApplication::translate("main", "Load CuteHMI project <file>."), QCoreApplication::translate("main", "file"));
+#ifdef CUTEHMI_VIEW_DEFAULT_PROJECT
+	projectOption.setDefaultValue(CUTEHMI_VIEW_DEFAULT_PROJECT);
+#endif
 	cmd.addOption(projectOption);
 	QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
 	cmd.addOption(hideCursorOption);

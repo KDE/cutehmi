@@ -30,6 +30,10 @@ cutehmi.Tool {
         "src/main.cpp",
     ]
 
+	property string defaultProject
+
+	property bool virtualKeyboard: false
+
 	cutehmi.dirs.generateHeaderFile: true
 
 	Depends { name: "cutehmi_1" }
@@ -42,6 +46,16 @@ cutehmi.Tool {
 	cutehmi_app_1.reqMinor: 0
 
 	Depends { name: "cutehmi.doxygen" }
+
+	Properties {
+		condition: virtualKeyboard
+		cpp.defines: outer.concat("CUTEHMI_VIEW_VIRTUAL_KEYBOARD")
+	}
+
+	Properties {
+		condition: defaultProject
+		cpp.defines: outer.concat("CUTEHMI_VIEW_DEFAULT_PROJECT=\"" + defaultProject + "\"")
+	}
 }
 
 //(c)MP: Copyright © 2018, Michal Policht. All rights reserved.
