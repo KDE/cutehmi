@@ -23,6 +23,8 @@ cutehmi.Tool {
 
 	license: "Mozilla Public License, v. 2.0"
 
+	consoleApplication: qbs.buildVariant === "debug"
+
 	files: [
         "README.md",
         "resources.qrc",
