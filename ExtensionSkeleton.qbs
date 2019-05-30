@@ -33,10 +33,6 @@ Project {
 
 		Depends { name: extension }
 
-		Depends { name: "CuteHMI.2"; required: false }
-
-		Depends { name: "cutehmi.metadata"; required: false }
-
 		Rule {
 			inputs: ["qbs"]
 			inputsFromDependencies: "qbs"
@@ -470,7 +466,8 @@ Project {
 						]
 			}
 
-			outputFileTags: ["skeleton"]
+			outputFileTags: ["skeleton", "srcDir", "includeDir", "internalIncludeDir", "testsDir", "platformHpp", "commonHpp",
+				"metadataHpp", "loggingHpp", "loggingCpp", "loggingTest", "testsQbs", "testQbs"]
 		}
 	}
 }

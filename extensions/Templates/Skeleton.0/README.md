@@ -10,13 +10,14 @@ create an extensions, which uses C++ code you would probably need to modify each
 
 Less tedious way of doing this is to use `ExtensionSkeleton.qbs` to generate the files. The process can be reduced to following
 tasks.
+
 - Create an extension directory.
 - Copy `Skeleton.0.qbs` to the extension directory, rename it to match extension name. Modify its contents.
 - Tell Qbs to build `ExtensionSkeleton.qbs`.
     - In a console, `cd` to `CuteHMI` top level directory.
     - Create temporary build directory outside of the top level CuteHMI directory: `mkdir ../build-temp` and `cd` into it.
-    - Execute Qbs: `qbs build -f ../CuteHMI/ExtensionSkeleton.qbs --no-install -p ExtensionSkeleton products.CuteHMI.2.type:[] products.ExtensionSkeleton.extension:VendorName.ExtensionName.0  products.VendorName.ExtensionName.0.type:[]`
-      Replace `VendorName` and `ExtensionName` to match names of the extension.
+    - Execute Qbs: `qbs build -f ../CuteHMI/ExtensionSkeleton.qbs --no-install -p ExtensionSkeleton products.CuteHMI.2.type:'[]' products.ExtensionSkeleton.extension:<VendorName>.<ExtensionName>.<0>  products.<VendorName>.<ExtensionName>.0.type:'[]'`
+      Replace `<VendorName>` and `<ExtensionName>` to match names of the extension.
     - Delete temporary build directory.
 
 If you haven't used Qbs from command line you may need to configure toolchains, Qt versions, specify Qbs profile or set up default
