@@ -1,0 +1,8 @@
+module CuteHMI.ModFEM
+
+plugin CuteHMI.ModFEM.0 ../..
+classname cutehmi::modfem::internal::QMLPlugin
+
+typeinfo plugins.qmltypes
+
+designersupported

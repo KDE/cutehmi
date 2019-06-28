@@ -1,0 +1,80 @@
+import qbs 1.0
+import qbs.Probes
+import qbs.File
+import qbs.FileInfo
+import qbs.Environment
+
+Module {
+	property bool found: staticLibProbe.found && headerProbe.found
+
+	property bool available: found
+
+//    property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.libintl.available : true)
+
+//	property string libpqPath: libpqProbe.filePath
+
+//	property string includePath: libpq_feHeaderProbe.path
+
+	Properties {
+		condition: qbs.targetOS.contains("windows")
+		cpp.staticLibraries: staticLibProbe.names.map(function(name) {return name.slice(3)})	// Strip "lib" prefix.
+	}
+
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.staticLibraries: staticLibProbe.names.map(function(name) {return name.slice(3)})	// Strip "lib" prefix.
+	}
+
+	Probes.PathProbe {
+		id: staticLibProbe
+
+		names: ["libapl_dg_prism",
+			"libapl_std_lin",
+			"libapl_std_quad",
+			"liblsl_mkb",
+			"libmml_prism_2D",
+			"libmml_prism",
+			"libmml_remesh",
+			"libmml_t4_prism",
+			"libpdl_heat",
+			"libsil_lapack",
+			"libsil_mkb",
+			"libutl_bc",
+			"libutl_hash",
+			"libutl_io",
+			"libutl_io_results",
+			"libutl_log",
+			"libutl_mat",
+			"libutl_mesh",
+			"libutl_system",
+			"libutl_util"]
+
+		nameSuffixes: [".a"]
+		searchPaths: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
+							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
+							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
+							.concat([cutehmi.dirs.externalLibDir])
+	}
+
+	Probes.PathProbe {
+		id: headerProbe
+
+		names: ["uth_mesh"]
+		nameSuffixes: [".h"]
+		searchPaths: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
+							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
+							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
+							.concat([cutehmi.dirs.externalIncludeDir])
+		pathSuffixes: ["modfem"]
+	}
+
+	Depends { name: "cpp" }
+
+	Depends { name: "cutehmi.dirs" }
+}
+
+//(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
+//(c)MP: This file is a part of CuteHMI.
+//(c)MP: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+//(c)MP: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+//(c)MP: You should have received a copy of the GNU Lesser General Public License along with CuteHMI.  If not, see <https://www.gnu.org/licenses/>.
