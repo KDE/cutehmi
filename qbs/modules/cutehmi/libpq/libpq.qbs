@@ -27,7 +27,7 @@ Module {
 
         names: ["libpq"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
-		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
+		searchPaths: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
 							.concat([cutehmi.dirs.externalLibDir])
@@ -38,7 +38,7 @@ Module {
 
 		names: ["libpq-fe"]
 		nameSuffixes: [".h"]
-		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
+		searchPaths: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
 							.concat([cutehmi.dirs.externalIncludeDir])

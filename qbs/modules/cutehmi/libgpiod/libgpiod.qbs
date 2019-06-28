@@ -24,7 +24,7 @@ Module {
 
 		names: ["libgpiod"]
 		nameSuffixes: [".so"]
-		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
+		searchPaths: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
 							.concat([cutehmi.dirs.externalLibDir])
@@ -34,7 +34,7 @@ Module {
 		id: libgpiodHeaderProbe
 
 		names: ["gpiod.h"]
-		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
+		searchPaths: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
 							.concat([cutehmi.dirs.externalIncludeDir])
