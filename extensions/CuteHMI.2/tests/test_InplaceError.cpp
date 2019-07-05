@@ -1,28 +1,46 @@
-#include "../cutehmi.init.cpp"
+#include <cutehmi/InplaceError.hpp>
 
 #include <QtTest/QtTest>
 
 namespace cutehmi {
 
-class test_Initializer:
+class test_InplaceError:
 	public QObject
 {
 	Q_OBJECT
 
 	private slots:
-		void metaTypes();
+		void macro();
+
+		void str();
 };
 
-void test_Initializer::metaTypes()
+void test_InplaceError::macro()
 {
-	QVERIFY(QMetaType::type("cutehmi::ErrorInfo") != QMetaType::UnknownType);
-	QVERIFY(QMetaType::type("cutehmi::InplaceError") != QMetaType::UnknownType);
+	InplaceError err = CUTEHMI_ERROR("Error message.");
+	QCOMPARE(err.message, "Error message.");
+	QCOMPARE(err.file, __FILE__);
+	QVERIFY(err.line != 0);
+	QCOMPARE(err.function, Q_FUNC_INFO);
+	QCOMPARE(err.code(), Error::FAIL);
 }
+
+void test_InplaceError::str()
+{
+	int line = __LINE__;
+	InplaceError err = InplaceError("Error string.", __FILE__, line, Q_FUNC_INFO);
+	QString str = err.str();
+	QVERIFY(str.contains("Error string."));
+	QVERIFY(str.contains(__FILE__));
+	QVERIFY(str.contains(QString::number(line)));
+	QVERIFY(str.contains(Q_FUNC_INFO));
+}
+
 
 }
 
-QTEST_MAIN(cutehmi::test_Initializer)
-#include "test_Initializer.moc"
+QTEST_MAIN(cutehmi::test_InplaceError)
+#include "test_InplaceError.moc"
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
 //(c)MP: This file is a part of CuteHMI.
