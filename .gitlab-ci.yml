@@ -22,8 +22,8 @@ stages:
   after_script:
      - qbs build -f CuteHMI.qbs -d build profile:qt config:$QBS_CONFIG
 
-gcc debug kdeorg/ci-suse-qt511:
-  image: "kdeorg/ci-suse-qt511"
+gcc debug kdeorg/ci-suse-qt512:
+  image: "kdeorg/ci-suse-qt512"
   extends: .build
   variables:
     QBS_BASE_PROFILE: "gcc"
@@ -31,8 +31,8 @@ gcc debug kdeorg/ci-suse-qt511:
   script:
     - zypper --non-interactive in libgpiod-devel
 
-clang debug kdeorg/ci-suse-qt511:
-  image: "kdeorg/ci-suse-qt511"
+clang debug kdeorg/ci-suse-qt512:
+  image: "kdeorg/ci-suse-qt512"
   extends: .build
   variables:
     QBS_BASE_PROFILE: "clang"
@@ -40,8 +40,8 @@ clang debug kdeorg/ci-suse-qt511:
   script:
     - zypper --non-interactive in libgpiod-devel
 
-gcc release kdeorg/ci-suse-qt511:
-  image: "kdeorg/ci-suse-qt511"
+gcc release kdeorg/ci-suse-qt512:
+  image: "kdeorg/ci-suse-qt512"
   extends: .build
   variables:
     QBS_BASE_PROFILE: "gcc"
@@ -49,8 +49,8 @@ gcc release kdeorg/ci-suse-qt511:
   script:
     - zypper --non-interactive in libgpiod-devel
 
-clang release kdeorg/ci-suse-qt511:
-  image: "kdeorg/ci-suse-qt511"
+clang release kdeorg/ci-suse-qt512:
+  image: "kdeorg/ci-suse-qt512"
   extends: .build
   variables:
     QBS_BASE_PROFILE: "clang"
