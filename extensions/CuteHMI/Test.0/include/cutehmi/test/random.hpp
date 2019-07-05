@@ -80,7 +80,7 @@ typename std::enable_if<IsIntType<T>::value, T>::type rand(T from = std::numeric
 
 /**
  * Generate random floating point number using uniform distribution. Fractions are generated within range [@p 0.0, @p 1.0) and then
- * multiplied by @p 2 raised to random exponent [@a fromExponent, @a toExponent].
+ * multiplied by @p 2 raised to random exponent [@a fromExponent, @a toExponent]. Sign is randomly applied to the resulting value.
  * @tparam T floating point number type.
  * @tparam E random number generator engine.
  * @param fromExponent lower bound of a set of powers of base 2 exponents to be used to multiply a randomly generated fraction from
@@ -97,7 +97,7 @@ typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(int from
 	std::uniform_real_distribution<T> fracDistribution(0.0, 1.0);	// A fraction within range [0.0, 1.0).
 	std::uniform_int_distribution<int> expDistribution(fromExponent, toExponent);
 
-	return ldexp(fracDistribution(engine), expDistribution(engine));
+	return rand<bool>() ? ldexp(fracDistribution(engine), expDistribution(engine)) : -ldexp(fracDistribution(engine), expDistribution(engine));
 }
 
 /**
