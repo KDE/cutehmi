@@ -1,5 +1,6 @@
 #include <cutehmi/Initializer.hpp>
 #include <cutehmi/ErrorInfo.hpp>
+#include <cutehmi/InplaceError.hpp>
 
 namespace cutehmi {
 
@@ -7,6 +8,7 @@ Initializer::Initializer():
 	ExtensionInitializer<Initializer>(
 		[]() {
 			qRegisterMetaType<cutehmi::ErrorInfo>();
+			qRegisterMetaType<cutehmi::InplaceError>();
 		}
 	)
 {
