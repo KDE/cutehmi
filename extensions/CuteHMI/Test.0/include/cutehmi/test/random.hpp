@@ -97,7 +97,7 @@ typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(int from
 	std::uniform_real_distribution<T> fracDistribution(0.0, 1.0);	// A fraction within range [0.0, 1.0).
 	std::uniform_int_distribution<int> expDistribution(fromExponent, toExponent);
 
-	return rand<bool>() ? ldexp(fracDistribution(engine), expDistribution(engine)) : -ldexp(fracDistribution(engine), expDistribution(engine));
+	return rand<bool>() ? std::ldexp(fracDistribution(engine), expDistribution(engine)) : -std::ldexp(fracDistribution(engine), expDistribution(engine));
 }
 
 /**
