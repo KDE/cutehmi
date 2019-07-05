@@ -24,7 +24,8 @@ qreal eps(qreal r)
 }
 
 /**
- * Absolute epsilon for a number. Work in similar way to eps() function, except that absolute value is returned instead of signed one.
+ * Absolute epsilon for a number. Works in similar way to eps() function, except that absolute value is returned instead of signed
+ * one.
  * @param r real number.
  * @return smallest number which added to @a r changes value of @a r. Always non-negative value is returned.
  *
