@@ -1,5 +1,5 @@
-#ifndef CONSTANTS_HPP
-#define CONSTANTS_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_CONSTANTS_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_CONSTANTS_HPP
 
 #include <QtGlobal>
 
@@ -14,4 +14,4 @@ constexpr qreal EPS = std::numeric_limits<qreal>::epsilon() * 0.5 * 0x10000;	// 
 
 }
 
-#endif // CONSTANTS_HPP
+#endif

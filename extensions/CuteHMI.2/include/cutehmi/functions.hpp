@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_HPP
-#define FUNCTIONS_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_FUNCTIONS_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_FUNCTIONS_HPP
 
 #include "constants.hpp"
 
@@ -128,4 +128,4 @@ bool cgt(qreal r1, qreal r2, qreal eps = EPS)
 
 }
 
-#endif // FUNCTIONS_HPP
+#endif
