@@ -1,0 +1,10 @@
+# Artistic Style configuration for CuteHMI project
+
+--indent=force-tab=4
+--indent-classes
+--indent-switches
+--indent-continuation=2
+--indent-after-parens
+--align-pointer=middle
+--pad-header
+--pad-oper
