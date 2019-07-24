@@ -16,11 +16,11 @@ namespace cutehmi {
 inline
 qreal eps(qreal r)
 {
-	static constexpr qreal MACHINE_EPS = std::numeric_limits<qreal>::epsilon() * 0.5;
+	static constexpr qreal HALF_EPS = std::numeric_limits<qreal>::epsilon() * 0.5;
 
 	int exp;
 	std::frexp(r, & exp);
-	return std::ldexp(std::signbit(r) ? -MACHINE_EPS : MACHINE_EPS, exp);
+	return std::ldexp(std::signbit(r) ? -HALF_EPS : HALF_EPS, exp);
 }
 
 /**
@@ -34,11 +34,11 @@ qreal eps(qreal r)
 inline
 qreal absEps(qreal r)
 {
-	static constexpr qreal MACHINE_EPS = std::numeric_limits<qreal>::epsilon() * 0.5;
+	static constexpr qreal HALF_EPS = std::numeric_limits<qreal>::epsilon() * 0.5;
 
 	int exp;
 	std::frexp(r, & exp);
-	return std::ldexp(MACHINE_EPS, exp);
+	return std::ldexp(HALF_EPS, exp);
 }
 
 /**
