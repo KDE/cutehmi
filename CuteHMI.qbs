@@ -11,6 +11,8 @@ Project {
 
 	property bool staticExtensions: false
 
+	property bool buildApk: false
+
 	qbsSearchPaths: ["qbs"]
 
 	references: [

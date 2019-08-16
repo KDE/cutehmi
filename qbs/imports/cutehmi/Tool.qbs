@@ -3,7 +3,7 @@ import qbs
 import "CommonProduct.qbs" as CommonProduct
 
 CommonProduct {
-	type: "application"
+	type: project.buildApk ? "android.apk" : "application"
 
 	cutehmiType: "tool"
 
@@ -26,6 +26,7 @@ CommonProduct {
 
 	Depends { name: "cutehmi.metadata" }
 	Depends { name: "cutehmi.dirs" }
+	Depends { name: "cutehmi.android"; condition: project.buildApk }
 
 	Export {
 		Depends { name: "cpp" }

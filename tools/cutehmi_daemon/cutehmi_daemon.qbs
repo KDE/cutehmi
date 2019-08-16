@@ -5,6 +5,8 @@ import cutehmi
 Project {
 	name: "cutehmi_daemon"
 
+	condition: !qbs.targetOS.contains("android")
+
 	references: [
 		"tests/tests.qbs",
 		"examples/examples.qbs"

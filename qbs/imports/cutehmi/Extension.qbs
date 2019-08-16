@@ -41,6 +41,11 @@ CommonProduct {
 	}
 
 	Properties {
+		condition: qbs.targetOS.contains("android")
+		targetName: "android_" + name
+	}
+
+	Properties {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN"
 	}
@@ -58,6 +63,12 @@ CommonProduct {
 		cpp.includePaths: [product.sourceDirectory + "/include"]
 
 		Depends { name: "cpp" }
+
+		Depends {
+			name: "android_" + product.name
+			condition: importingProduct.cutehmiType == "tool" && qbs.targetOS.contains("android")
+			cpp.link: false
+		}
 	}
 
 	Depends { name: "cutehmi.metadata" }

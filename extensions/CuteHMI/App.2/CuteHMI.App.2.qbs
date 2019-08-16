@@ -61,6 +61,10 @@ Project {
 			Depends { name: "Qt.widgets" }
 		}
 	}
+
+	cutehmi.AndroidQMLPlugin {
+		extensionName: "CuteHMI.App.2"
+	}
 }
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
