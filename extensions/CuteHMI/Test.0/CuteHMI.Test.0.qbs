@@ -20,6 +20,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		description: "Testing helpers."
 
 		author: "Michal Policht"
