@@ -33,6 +33,7 @@ Module {
 						'micro',
 						'friendlyName',
 						'vendor',
+						'domain',
 						'description',
 						'author',
 						'copyright',
@@ -57,6 +58,7 @@ Module {
 					"micro": product.micro,
 					"friendlyName": product.friendlyName,
 					"vendor": product.vendor,
+					"domain": product.domain,
 					"description": product.description,
 					"author": product.author,
 					"copyright": product.copyright,
@@ -102,6 +104,7 @@ Module {
 					f.writeLine("#define " + shortPrefix + "_CUTEHMI_TYPE \"" + product.cutehmiType + "\"")
 					f.writeLine("#define " + shortPrefix + "_FRIENDLY_NAME \"" + product.friendlyName + "\"")
 					f.writeLine("#define " + shortPrefix + "_VENDOR \"" + product.vendor + "\"")
+					f.writeLine("#define " + shortPrefix + "_DOMAIN \"" + product.domain + "\"")
 					f.writeLine("#define " + shortPrefix + "_VERSION \"" + product.major + "." + product.minor + "." + product.micro + "\"")
 					f.writeLine("#define " + shortPrefix + "_MAJOR " + product.major + "")
 					f.writeLine("#define " + shortPrefix + "_MINOR " + product.minor + "")

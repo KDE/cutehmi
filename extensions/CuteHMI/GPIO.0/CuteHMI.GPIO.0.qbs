@@ -22,6 +22,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		description: "An extension built on top of 'libgpiod' library to deal with GPIO chips."
 
 		author: "Michal Policht"

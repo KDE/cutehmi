@@ -18,6 +18,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		friendlyName: "CuteHMI"
 
 		description: "Provides core functionality to other modules."

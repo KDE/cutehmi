@@ -20,6 +20,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		description: "Provides foundation for GUI application."
 
 		author: "Michal Policht"
