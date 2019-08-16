@@ -18,6 +18,8 @@ Project {
 
 		vendor: "The Secret Order of Templates"
 
+		domain: "stemplates.org"
+
 		friendlyName: "Skeleton"
 
 		description: "Extension skeleton."

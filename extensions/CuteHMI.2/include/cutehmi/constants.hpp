@@ -1,28 +1,20 @@
-#include "../cutehmi.init.cpp"
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_CONSTANTS_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_CONSTANTS_HPP
 
-#include <QtTest/QtTest>
+#include <QtGlobal>
 
 namespace cutehmi {
 
-class test_Initializer:
-	public QObject
-{
-	Q_OBJECT
-
-	private slots:
-		void metaTypes();
-};
-
-void test_Initializer::metaTypes()
-{
-	QVERIFY(QMetaType::type("cutehmi::ErrorInfo") != QMetaType::UnknownType);
-	QVERIFY(QMetaType::type("cutehmi::InplaceError") != QMetaType::UnknownType);
-}
+/**
+ * %CuteHMI epsilon. This constant is used in fuzzy comparison functions.
+ *
+ * @internal Machine epsilon * 0.5 is smallest possible epsilon for which approximation functions make sense.
+ */
+constexpr qreal EPS = std::numeric_limits<qreal>::epsilon() * 0.5 * 0x10000;	// eps * 0.5 * 2^16.
 
 }
 
-QTEST_MAIN(cutehmi::test_Initializer)
-#include "test_Initializer.moc"
+#endif
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
 //(c)MP: This file is a part of CuteHMI.

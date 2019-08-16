@@ -9,6 +9,8 @@ Product {
 
 	property string vendor					///< Product vendor.
 
+	property string domain					///< Organization domain.
+
 	property string friendlyName			///< Descriptive product name for ordinary humans.
 
 	property string description				///< Product description.

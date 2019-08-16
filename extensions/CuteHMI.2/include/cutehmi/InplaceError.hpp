@@ -1,28 +1,38 @@
-#include "../cutehmi.init.cpp"
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INPLACEERROR_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INPLACEERROR_HPP
 
-#include <QtTest/QtTest>
+#include "internal/common.hpp"
+
+#include "Error.hpp"
 
 namespace cutehmi {
 
-class test_Initializer:
-	public QObject
+/**
+ * In-place error.
+ *
+ * @remark This class is registered as metatype by Initializer instance.
+ */
+struct CUTEHMI_API InplaceError:
+	public Error
 {
-	Q_OBJECT
+	// Note: line count starts with 1.
+	InplaceError(const QString & message = "Error.", const char * file = nullptr, int line = 0, const char * function = nullptr, int code = Error::FAIL);
 
-	private slots:
-		void metaTypes();
+	QString str() const;
+
+	QString message;
+	const char * file;
+	int line;
+	const char * function;
 };
 
-void test_Initializer::metaTypes()
-{
-	QVERIFY(QMetaType::type("cutehmi::ErrorInfo") != QMetaType::UnknownType);
-	QVERIFY(QMetaType::type("cutehmi::InplaceError") != QMetaType::UnknownType);
 }
 
-}
+#define CUTEHMI_ERROR(MESSAGE) cutehmi::InplaceError(MESSAGE, __FILE__, __LINE__, Q_FUNC_INFO)
 
-QTEST_MAIN(cutehmi::test_Initializer)
-#include "test_Initializer.moc"
+Q_DECLARE_METATYPE(cutehmi::InplaceError)
+
+#endif
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
 //(c)MP: This file is a part of CuteHMI.

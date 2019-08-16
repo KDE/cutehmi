@@ -25,6 +25,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		friendlyName: "Daemon"
 
 		description: "Daemon, which allows one to run QML project in a background."

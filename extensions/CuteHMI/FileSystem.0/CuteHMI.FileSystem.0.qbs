@@ -18,6 +18,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		friendlyName: "File System"
 
 		description: "Wraps QT file system manipulation classes into QML API."

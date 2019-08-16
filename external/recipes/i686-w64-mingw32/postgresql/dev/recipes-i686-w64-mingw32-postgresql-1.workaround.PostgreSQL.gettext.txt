@@ -1,0 +1,20 @@
+Problem:
+
+Even if PostgreSQL is configured with `-enable-thread-safety` option and
+PQisthreadsafe() returns 1, when two (or more) threads attempt to open database
+connection in parallel _libpq_ library causes a crash on Windows.
+
+Investigation:
+
+The crash is caused precisely by call to libpq_gettext() in pqWaitTimed()
+function (file: `fe-misc.c`). It comes out that _gettext_ functions are not
+thread-safe on Windows, thus all other pieces of code, where gettext has been
+used may be affected.
+
+Workaround:
+
+A workaround is to disable NLS (native language support), which effectively
+turns off _gettext_.
+
+Snippet:
+

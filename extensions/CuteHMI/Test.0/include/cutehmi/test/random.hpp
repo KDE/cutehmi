@@ -69,7 +69,7 @@ SeededEngine<E>::SeededEngine()
  * @return randomly generated integer.
  */
 template <typename T, typename E = SeededEngine<std::mt19937>>
-typename std::enable_if<IsIntType<T>::value, T>::type rand(T from = std::numeric_limits<T>::min(), T to = std::numeric_limits<T>::max())
+typename std::enable_if<IsIntType<T>::value, T>::type rand(T from = std::numeric_limits<T>::lowest(), T to = std::numeric_limits<T>::max())
 {
 	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
 
@@ -79,21 +79,25 @@ typename std::enable_if<IsIntType<T>::value, T>::type rand(T from = std::numeric
 }
 
 /**
- * Generate random floating point number using uniform distribution.
+ * Generate random floating point number using uniform distribution. Fractions are generated within range [@p 0.0, @p 1.0) and then
+ * multiplied by @p 2 raised to random exponent [@a fromExponent, @a toExponent]. Sign is randomly applied to the resulting value.
  * @tparam T floating point number type.
  * @tparam E random number generator engine.
- * @param from lower bound of a set of generated random numbers.
- * @param from upper bound of a set of generated random numbers.
+ * @param fromExponent lower bound of a set of powers of base 2 exponents to be used to multiply a randomly generated fraction from
+ * [@p 0.0, @p 1.0) range.
+ * @param toExponent upper bound of a set of powers of base 2 exponents to be used to multiply a randomly generated fraction from
+ * [@p 0.0, @p 1.0) range.
  * @return randomly generated floating point number.
  */
 template <typename T, typename E = SeededEngine<std::mt19937>>
-typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(T from = std::numeric_limits<T>::min(), T to = std::numeric_limits<T>::max())
+typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(int fromExponent = std::numeric_limits<T>::min_exponent, int toExponent = std::numeric_limits<T>::max_exponent)
 {
 	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
 
-	std::uniform_real_distribution<T> distribution(from, to);
+	std::uniform_real_distribution<T> fracDistribution(0.0, 1.0);	// A fraction within range [0.0, 1.0).
+	std::uniform_int_distribution<int> expDistribution(fromExponent, toExponent);
 
-	return distribution(engine);
+	return rand<bool>() ? std::ldexp(fracDistribution(engine), expDistribution(engine)) : -std::ldexp(fracDistribution(engine), expDistribution(engine));
 }
 
 /**

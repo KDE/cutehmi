@@ -4,8 +4,7 @@
 namespace cutehmi {
 
 /**
- * Non-movable object. This class just locks move constructor and move assignment operator for
- * derived classes.
+ * Non-movable object. This class just locks move constructor and move assignment operator for derived classes.
  */
 class NonMovable
 {

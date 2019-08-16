@@ -39,8 +39,9 @@ using namespace cutehmi::view;
  */
 int main(int argc, char * argv[])
 {
-	QCoreApplication::setOrganizationDomain(QString(CUTEHMI_VIEW_VENDOR).toLower());
-	QCoreApplication::setApplicationName(CUTEHMI_VIEW_VENDOR " " CUTEHMI_VIEW_FRIENDLY_NAME);
+	QCoreApplication::setOrganizationName(CUTEHMI_VIEW_VENDOR);
+	QCoreApplication::setOrganizationDomain(CUTEHMI_VIEW_DOMAIN);
+	QCoreApplication::setApplicationName(CUTEHMI_VIEW_FRIENDLY_NAME);
 	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_VIEW_MAJOR).arg(CUTEHMI_VIEW_MINOR).arg(CUTEHMI_VIEW_MICRO));
 
 	try {
@@ -55,10 +56,10 @@ int main(int argc, char * argv[])
 			CUTEHMI_DEBUG("Qt Virtual Keyboard layouts path: " << qgetenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH"));
 		}
 
-	//<Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
-	// "In general, creating QObjects before the QApplication is not supported and can lead to weird crashes on exit, depending on the
-	//	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
-	//	should make the QApplication be the first created, and last destroyed QObject."
+		//<Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
+		// "In general, creating QObjects before the QApplication is not supported and can lead to weird crashes on exit, depending on the
+		//	platform. This means static instances of QObject are also not supported. A properly structured single or multi-threaded application
+		//	should make the QApplication be the first created, and last destroyed QObject."
 
 		//<cutehmi_view-4.workaround target="Qt" cause="bug">
 		QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

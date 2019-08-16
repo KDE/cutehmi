@@ -28,10 +28,26 @@ Project {
 	}
 
 	Test {
+		testName: "test_InplaceError"
+
+		files: [
+			"test_InplaceError.cpp",
+		]
+	}
+
+	Test {
 		testName: "test_ExtensionInitializer"
 
 		files: [
 			"test_ExtensionInitializer.cpp",
+		]
+	}
+
+	Test {
+		testName: "test_functions"
+
+		files: [
+			"test_functions.cpp",
 		]
 	}
 

@@ -18,6 +18,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		friendlyName: "CuteHMI"
 
 		description: "Provides core functionality to other modules."
@@ -40,7 +42,10 @@ Project {
          "include/cutehmi/Dialogist.hpp",
          "include/cutehmi/ExtensionInitializer.hpp",
          "include/cutehmi/Initializer.hpp",
+         "include/cutehmi/InplaceError.hpp",
          "include/cutehmi/Notifier.hpp",
+         "include/cutehmi/constants.hpp",
+         "include/cutehmi/functions.hpp",
          "include/cutehmi/wrappers.hpp",
          "qmldir",
          "include/cutehmi/Error.hpp",
@@ -68,6 +73,7 @@ Project {
          "src/cutehmi/ErrorInfo.cpp",
          "src/cutehmi/Exception.cpp",
          "src/cutehmi/Initializer.cpp",
+         "src/cutehmi/InplaceError.cpp",
          "src/cutehmi/Notification.cpp",
          "src/cutehmi/NotificationListModel.cpp",
          "src/cutehmi/Notifier.cpp",

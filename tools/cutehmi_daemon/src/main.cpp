@@ -40,8 +40,9 @@ int main(int argc, char * argv[])
 
 	// Set up application.
 
-	QCoreApplication::setOrganizationDomain(QString(CUTEHMI_DAEMON_VENDOR).toLower());
-	QCoreApplication::setApplicationName(CUTEHMI_DAEMON_VENDOR " " CUTEHMI_DAEMON_FRIENDLY_NAME);
+	QCoreApplication::setOrganizationName(CUTEHMI_DAEMON_VENDOR);
+	QCoreApplication::setOrganizationDomain(CUTEHMI_DAEMON_DOMAIN);
+	QCoreApplication::setApplicationName(CUTEHMI_DAEMON_FRIENDLY_NAME);
 	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_DAEMON_MAJOR).arg(CUTEHMI_DAEMON_MINOR).arg(CUTEHMI_DAEMON_MICRO));
 
 	QCoreApplication app(argc, argv);
@@ -175,8 +176,8 @@ int main(int argc, char * argv[])
 	if (!cmd.isSet(opt.app)) {
 		Daemon daemon(& data, core);
 
-	// At this point logging should be configured and printing facilities silenced. Not much to say anyways...
-	//</cutehmi_daemon-silent_initialization.principle>
+		// At this point logging should be configured and printing facilities silenced. Not much to say anyways...
+		//</cutehmi_daemon-silent_initialization.principle>
 
 		exitCode = daemon.exitCode();
 	} else

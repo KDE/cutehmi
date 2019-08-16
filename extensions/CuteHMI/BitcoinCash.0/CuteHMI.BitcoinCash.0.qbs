@@ -20,6 +20,8 @@ Project {
 
 		vendor: "CuteHMI"
 
+		domain: "cutehmi.kde.org"
+
 		description: "Wraps Bitcoin.com REST API to provide Bitcoin Cash operations."
 
 		author: "Michal Policht"

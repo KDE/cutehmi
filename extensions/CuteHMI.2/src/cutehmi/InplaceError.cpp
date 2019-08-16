@@ -1,28 +1,34 @@
-#include "../cutehmi.init.cpp"
-
-#include <QtTest/QtTest>
+#include <cutehmi/InplaceError.hpp>
 
 namespace cutehmi {
 
-class test_Initializer:
-	public QObject
+InplaceError::InplaceError(const QString & p_message, const char * p_file, int p_line, const char * p_function, int p_code):
+	Error(p_code),
+	message(p_message),
+	file(p_file),
+	line(p_line),
+	function(p_function)
 {
-	Q_OBJECT
+}
 
-	private slots:
-		void metaTypes();
-};
-
-void test_Initializer::metaTypes()
+QString InplaceError::str() const
 {
-	QVERIFY(QMetaType::type("cutehmi::ErrorInfo") != QMetaType::UnknownType);
-	QVERIFY(QMetaType::type("cutehmi::InplaceError") != QMetaType::UnknownType);
+	QStringList location;
+	if (file)
+		location << QString("file: ") + file;
+	if (line)
+		location << QString("line: ") + QString::number(line);
+	if (function)
+		location << QString("function: ") + function;
+
+	QString result = message;
+	if (!location.isEmpty())
+		result += QString(" [") + location.join(' ') + "]";
+
+	return result;
 }
 
 }
-
-QTEST_MAIN(cutehmi::test_Initializer)
-#include "test_Initializer.moc"
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
 //(c)MP: This file is a part of CuteHMI.

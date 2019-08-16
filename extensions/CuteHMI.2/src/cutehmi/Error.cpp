@@ -40,7 +40,7 @@ QString Error::str() const
 		case Error::FAIL:
 			return tr("Undescribed error.");
 		case Error::UNINITIALIZED:
-			return tr("Uninitialized error code.");
+			return tr("Uninitialized error.");
 		default:
 			return tr("Unrecognized error code: %1.").arg(code());
 	}
