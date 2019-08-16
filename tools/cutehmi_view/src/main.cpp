@@ -125,7 +125,7 @@ int main(int argc, char * argv[])
 
 		QDir baseDir(QCoreApplication::applicationDirPath() + "/..");
 		if (cmd.isSet(basedirOption))
-			baseDir = cmd.value(basedirOption);
+			baseDir.setPath(cmd.value(basedirOption));
 		QString baseDirPath = baseDir.absolutePath() + "/";
 		CUTEHMI_DEBUG("Base directory: " << baseDirPath);
 
@@ -133,6 +133,7 @@ int main(int argc, char * argv[])
 
 		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
 		engine->addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSION_INSTALL_DIRNAME);
+
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 		engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
