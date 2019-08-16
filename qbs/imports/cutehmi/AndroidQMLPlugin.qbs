@@ -7,14 +7,16 @@ import "CommonProduct.qbs" as CommonProduct
 CommonProduct {
 	name:  "android_" + extensionName
 
+	condition: qbs.targetOS.contains("android")
+
 	type: ["dynamiclibrary", "android.nativelibrary"]
 
-	targetName: extensionName 
+	targetName: extensionName
 
 	cutehmiType: "androidQMLPlugin"
 
 	baseName: isNaN(extensionName.substr(extensionName.lastIndexOf(".", extensionName.length - 1) + 1)) ? extensionName : extensionName.substring(0, extensionName.lastIndexOf(".", extensionName.length - 1))
-	
+
 	files: {
 		var namespaceRelativePath = baseName.toLowerCase().replace(/\./g, '/')
 
