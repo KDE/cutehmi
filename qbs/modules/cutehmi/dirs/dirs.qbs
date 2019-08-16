@@ -11,13 +11,14 @@ Module {
 		else
 			Environment.putEnv("LD_LIBRARY_PATH", product.cutehmi.dirs.externalLibDir + product.qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
 
-		Environment.putEnv("QML2_IMPORT_PATH", product.qbs.installRoot + "/" + product.cutehmi.dirs.extensionInstallDirname)
+		Environment.putEnv("QML2_IMPORT_PATH", product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallDirname)
 
-		Environment.putEnv("CUTEHMI_INSTALL_ROOT", product.qbs.installRoot)
+		Environment.putEnv("CUTEHMI_INSTALL_DIR", product.cutehmi.dirs.installDir)
 	}
 
 	property bool generateHeaderFile: false
 
+	property string installDir: product.qbs.installPrefix ? product.qbs.installRoot + product.qbs.installPrefix : product.qbs.installRoot // Note: qbs.installPrefix starts with "/".
 	property string examplesInstallDirname: "examples"
 	property string extensionInstallDirname: "bin"
 	property string extensionsSourceDir: project.sourceDirectory + "/extensions"

@@ -17,16 +17,16 @@ class test_cutehmi_view:
 		void versionOption();
 
 	private:
-		QString m_installRoot;
+		QString m_installDir;
 		QString m_programPath;
 };
 
 void test_cutehmi_view::initTestCase()
 {
-	QString m_installRoot = qEnvironmentVariable("CUTEHMI_INSTALL_ROOT");
-	QVERIFY(!m_installRoot.isEmpty());
+	QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
+	QVERIFY(!m_installDir.isEmpty());
 
-	m_programPath = m_installRoot + "/bin/cutehmi_view";
+	m_programPath = m_installDir + "/bin/cutehmi_view";
 #ifndef CUTEHMI_NDEBUG
 	m_programPath += "_debug";
 #endif

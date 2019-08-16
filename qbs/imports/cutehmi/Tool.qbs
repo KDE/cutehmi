@@ -17,6 +17,8 @@ CommonProduct {
 
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
+	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]
+
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN"

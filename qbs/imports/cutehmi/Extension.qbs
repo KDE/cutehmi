@@ -31,7 +31,7 @@ CommonProduct {
 
 	property string installDir: cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
 
-	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.extensionInstallDirname]	// QML import paths for QtCreator.
+	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]	// QML import paths for QtCreator.
 
 	property string macroName: baseName.toUpperCase().replace(/\./g, '_')
 

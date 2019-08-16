@@ -19,16 +19,16 @@ class test_cutehmi_daemon:
 		void countDaemonExample();
 
 	private:
-		QString m_installRoot;
+		QString m_installDir;
 		QString m_programPath;
 };
 
 void test_cutehmi_daemon::initTestCase()
 {
-	QString m_installRoot = qEnvironmentVariable("CUTEHMI_INSTALL_ROOT");
-	QVERIFY(!m_installRoot.isEmpty());
+	QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
+	QVERIFY(!m_installDir.isEmpty());
 
-	m_programPath = m_installRoot + "/bin/cutehmi_daemon";
+	m_programPath = m_installDir + "/bin/cutehmi_daemon";
 #ifndef CUTEHMI_NDEBUG
 	m_programPath += "_debug";
 #endif

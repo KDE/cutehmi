@@ -20,7 +20,7 @@ CommonProduct {
 
 	property string installDir: cutehmi.dirs.qmlExtensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.qmlSourceDir, sourceDirectory)
 
-	property stringList qmlImportPaths: [qbs.installRoot + "/" + cutehmi.dirs.qmlExtensionInstallDirname]	// QML import paths for QtCreator.
+	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.qmlExtensionInstallDirname]	// QML import paths for QtCreator.
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
