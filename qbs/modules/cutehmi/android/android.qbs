@@ -6,7 +6,7 @@ Module {
 
 	Qt.android_support.extraLibs: androidExtensionsProbe.extensionPaths
 
-	property string packageName
+	property string packageName: product.domain.split(".").reverse().join(".") + "." + product.name
 
 	Depends { name: "Qt.android_support" }
 
