@@ -6,12 +6,16 @@
 namespace cutehmi {
 
 /**
- * Epsilon for a number. Get epsilon for real number @a r, that means smallest number which added to @a r changes value of @a r.
- * @param r real number.
- * @return smallest number, which added to @a r changes value of @a r. If @a r is positive number, then returned number is also
- * positive. Otherwise negative number is returned.
+ * Epsilon for a number. This function tries to find value close to epsilon for number @a r, that means smallest floating point
+ * number, which added to @a r changes value of @a r.
+ * @param r real (floating point) number.
+ * @return value close to smallest number, which added to @a r changes value of @a r. If @a r is positive number, then returned
+ * number is also positive. Otherwise negative number is returned.
  *
  * @see absEps().
+ *
+ * @note This function may return value that is slightly larger (in terms of magnitude) than smallest value, that changes value
+ * of @a r.
  */
 inline
 qreal eps(qreal r)
@@ -27,9 +31,11 @@ qreal eps(qreal r)
  * Absolute epsilon for a number. Works in similar way to eps() function, except that absolute value is returned instead of signed
  * one.
  * @param r real number.
- * @return smallest number which added to @a r changes value of @a r. Always non-negative value is returned.
+ * @return value close to smallest number which added to @a r changes value of @a r. Always non-negative value is returned.
  *
  * @see eps().
+ *
+ * @note This function may return value that is slightly larger than smallest value, that changes value of @a r.
  */
 inline
 qreal absEps(qreal r)
