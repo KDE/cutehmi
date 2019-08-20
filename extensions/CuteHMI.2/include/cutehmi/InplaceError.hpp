@@ -8,16 +8,32 @@
 namespace cutehmi {
 
 /**
- * In-place error.
+ * In-place error. This class can be more conveniently used with CUTEHMI_ERROR macro.
  *
  * @remark This class is registered as metatype by Initializer instance.
  */
 struct CUTEHMI_API InplaceError:
 	public Error
 {
-	// Note: line count starts with 1.
+	/**
+	 * Constructor.
+	 * @param message error message.
+	 * @param file file name, where error occurred.
+	 * @param line line at which error occurred.
+	 * @param function function inside which error occurred.
+	 * @param code error code.
+	 *
+	 * @note It is not intended to use this constructor directly. To conveniently create an instance of this class a CUTEHMI_ERROR
+	 * macro, which takes only message as an argument, should be used.
+	 *
+	 * @internal Line count starts with 1.
+	 */
 	InplaceError(const QString & message = "Error.", const char * file = nullptr, int line = 0, const char * function = nullptr, int code = Error::FAIL);
 
+	/**
+	 * Get error string.
+	 * @return error string.
+	 */
 	QString str() const;
 
 	QString message;

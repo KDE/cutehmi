@@ -18,8 +18,8 @@ cutehmi::Worker class can be helpful, when dealing with Qt database connections.
 
 cutehmi::MPtr can be helpful, when class uses PImpl idiom to maintain binary compatibility.
 
-cutehmi::Error, cutehmi::ErrorInfo, cutehmi::Exception and cutehmi::ExceptionMixin may be useful, when dealing with errors and
-exceptions.
+cutehmi::Error, cutehmi::InplaceError, cutehmi::ErrorInfo, cutehmi::Exception and cutehmi::ExceptionMixin may be useful, when
+dealing with errors and exceptions.
 
 cutehmi::ExtensionInitializer can be used to initialize extension.
 
