@@ -12,19 +12,20 @@ process of creating custom extensions.
 ## Directories
 
 Directory structure of extensions follows standard QML extensions scheme.
-Directory name of the extension defines fully qualified extension __name__
-denoted as __BaseName.MajorVersion__. Typically __BaseName__ consists of
-dot-separated _VendorName.ExtensionName_ parts, but this is a convention rather
-than a requirement. Extension name must only contain __base name__ and
-__major version__ suffix. Base name parts have no special meaning. As a
-reference we can take `Templates.Skeleton.0` extension.
+According to [QML identified module rules][1] path of an extension relative
+to `extensions` directory defines module identifier, which is also extension
+__name__ denoted as __BaseName.MajorVersion__. Typically __BaseName__ consists
+of dot-separated _VendorName.ExtensionName_ parts, but this is a convention
+rather than a requirement. Extension name must only contain __base name__ and
+__major version__ suffix. Base name parts have no special meaning.
 
-Fully qualified __name__ consists of __base name__ (`Templates.Skeleton`) and
-__major version__ suffix (`.0`). __Base name__ consists of two parts:
-_vendor name_ (`Templates`) and _extension name_ (`Skeleton`). It is allowed
-to omit _extension name_ for a single extension from a specific vendor. It is
-also allowed to provide dot-separated _extension name_ (e.g.
-`examples.Skeleton`); or do the same with _vendor_ (e.g. `org.nokia`).
+As a reference we can take `Templates.Skeleton.0` extension. Fully qualified
+__name__ consists of __base name__ (`Templates.Skeleton`) and __major version__
+suffix (`0`). __Base name__ consists of two parts: _vendor name_ (`Templates`)
+and _extension name_ (`Skeleton`). It is allowed to omit _extension name_ for a
+single extension from a specific vendor. It is also allowed to provide
+dot-separated _extension name_ (e.g. `examples.Skeleton`); or do the same with
+_vendor_ (e.g. `org.nokia`).
 
 Extension directories follow camel-case (PascalCase) rules in order to remain
 consistent with QML extension naming convention used by Qt. On the other hand
@@ -53,3 +54,4 @@ Typically each extension will have directory structure similar to this one.
 To keep things in order and avoid naming conflicts, C++ namespaces should
 reflect above directory structure within `include` and `src` directories.
 
+[1]: https://doc.qt.io/qt-5/qtqml-modules-identifiedmodules.html#semantics-of-identified-modules
