@@ -3,30 +3,40 @@ import qbs.File
 Project {
 	minimumQbsVersion: "1.10"
 
-	references: extensionsProbe.projectDirs
+	references: extensionsProbe.extensionDirs
 
 	/*
-	  This probe performs a two-level deep search for project directories. It first scans current directory for its subdirectories.
-	  If subdirectory contains a dot character ('.'), then it is considered to be a project directory with a major version number
-	  after the dot. If subdirectory does not contain a dot character, then its own subdirectories are considered to be project
-	  directories. This follows a typical layout for QML extensions. Project directories are stored in `projectDirs` property.
-	  */
+	  This probe performs a recursive search for extension directories. It first scans current directory for its subdirectories.
+	  If subdirectory contains a dot character ('.'), then it is considered to be an extension directory with a major version number
+	  after the dot. If subdirectory does not contain a dot character, then it is recursively scanned for extension directories.
+	  Extension directories are stored in `extensionDirs` property.
+	 */
 	Probe {
 		id: extensionsProbe
 
-		property pathList projectDirs: []
+		property pathList extensionDirs: []
 
 		configure: {
-			var topDirs = File.directoryEntries(path, File.Dirs | File.NoDotAndDotDot)
+			/*
+			  Recursive function that searches for extension directories.
+			  @param rootPath root path, where the search should start.
+			  @param dir directory relative to root path, which is going to be scanned for extension directories. Do not add
+				trailing "/" (slash) upon external call.
+			  @param result array containing list of extension directories.
+			 */
+			function findExtensionDirs(rootPath, dir, result)
+			{
+				var dirs = File.directoryEntries(rootPath + "/" + dir, File.Dirs | File.NoDotAndDotDot)
+				for (var i = 0; i < dirs.length; i++)
+					if (dirs[i].indexOf('.') === -1)
+						findExtensionDirs(rootPath, dir + dirs[i] + "/", result)	// Intrnally trailing slash has to be appended however.
+					else
+						result.push(dir + dirs[i])
+			}
+
 			var result = []
-			for (var i = 0; i < topDirs.length; i++)
-				if (topDirs[i].indexOf('.') === -1) {
-					var subDirs = File.directoryEntries(path + "/" +topDirs[i], File.Dirs | File.NoDotAndDotDot)
-					for (var j = 0; j < subDirs.length; j++)
-						result.push(topDirs[i] + "/" + subDirs[j])
-				} else
-					result.push(topDirs[i])
-			projectDirs = result
+			findExtensionDirs(path, "", result)
+			extensionDirs = result
 		}
 	}
 }
