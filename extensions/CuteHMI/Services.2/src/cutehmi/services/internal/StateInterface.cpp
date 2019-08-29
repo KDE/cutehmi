@@ -17,6 +17,7 @@ StateInterface::StateInterface(QObject * parent):
 	m->mainStates[Members::STOPPING].setObjectName("stopping");
 	m->mainStates[Members::BROKEN].setObjectName("broken");
 	m->mainStates[Members::REPAIRING].setObjectName("repairing");
+	m->mainStates[Members::EVACUATING].setObjectName("evacuating");
 	m->active->setObjectName("active");
 	m->idling->setObjectName("idling");
 	m->yielding->setObjectName("yielding");
@@ -145,6 +146,16 @@ QState & StateInterface::repairing()
 const QState & StateInterface::repairing() const
 {
 	return m->mainStates[Members::REPAIRING];
+}
+
+QState & StateInterface::evacuating()
+{
+	return m->mainStates[Members::EVACUATING];
+}
+
+const QState & StateInterface::evacuating() const
+{
+	return m->mainStates[Members::EVACUATING];
 }
 
 }

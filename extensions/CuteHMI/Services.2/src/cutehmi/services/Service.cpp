@@ -211,6 +211,13 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		// It's safer to stop timout, so that it won't make false shot.
 		connect(& m->stateInterface->stopping(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
+		connect(& m->stateInterface->evacuating(), & QState::entered, [this]() {
+			if (stopTimeout() >= 0)
+				m->timeoutTimer.start(stopTimeout());
+		});
+		// It's safer to stop timout, so that it won't make false shot.
+		connect(& m->stateInterface->evacuating(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
+
 		connect(& m->stateInterface->starting(), & QState::entered, [this]() {
 			if (startTimeout() >= 0)
 				m->timeoutTimer.start(startTimeout());
@@ -236,6 +243,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		m->stateInterface->stopping().assignProperty(m->stateInterface, "status", tr("Stopping"));
 		m->stateInterface->broken().assignProperty(m->stateInterface, "status", tr("Broken"));
 		m->stateInterface->repairing().assignProperty(m->stateInterface, "status", tr("Repairing"));
+		m->stateInterface->evacuating().assignProperty(m->stateInterface, "status", tr("Evacuating"));
 
 
 		m->stateMachine->addState(& m->stateInterface->stopped());
@@ -245,17 +253,19 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		m->stateMachine->addState(& m->stateInterface->stopping());
 		m->stateMachine->addState(& m->stateInterface->broken());
 		m->stateMachine->addState(& m->stateInterface->repairing());
+		m->stateMachine->addState(& m->stateInterface->evacuating());
 		m->stateMachine->setInitialState(& m->stateInterface->stopped());
 
 
 		m->stateInterface->stopped().addTransition(this, & Service::started, & m->stateInterface->starting());
 		m->stateInterface->started().addTransition(this, & Service::stopped, & m->stateInterface->stopping());
 		m->stateInterface->broken().addTransition(this, & Service::started, & m->stateInterface->repairing());
-		m->stateInterface->broken().addTransition(this, & Service::stopped, & m->stateInterface->stopped());
+		m->stateInterface->broken().addTransition(this, & Service::stopped, & m->stateInterface->evacuating());
 		m->stateInterface->stopping().addTransition(& m->timeoutTimer, & QTimer::timeout, & m->stateInterface->interrupted());
 		m->stateInterface->starting().addTransition(& m->timeoutTimer, & QTimer::timeout, & m->stateInterface->broken());
 		m->stateInterface->repairing().addTransition(& m->timeoutTimer, & QTimer::timeout, & m->stateInterface->broken());
 		m->stateInterface->yielding().addTransition(this, & Service::activated, & m->stateInterface->active());
+		m->stateInterface->evacuating().addTransition(& m->timeoutTimer, & QTimer::timeout, & m->stateInterface->interrupted());
 
 
 		addTransition(& m->stateInterface->starting(), & m->stateInterface->started(), serviceable.transitionToStarted());
@@ -267,6 +277,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		if (serviceable.transitionToIdling())
 			addTransition(& m->stateInterface->active(), & m->stateInterface->idling(), serviceable.transitionToIdling());
 		addTransition(& m->stateInterface->idling(), & m->stateInterface->yielding(), serviceable.transitionToYielding());
+		addTransition(& m->stateInterface->evacuating(), & m->stateInterface->stopped(), serviceable.transitionToStopped());
 
 
 		addStatuses(serviceable.configureBroken(& m->stateInterface->broken()));
@@ -274,6 +285,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		addStatuses(serviceable.configureStarting(& m->stateInterface->starting()));
 		addStatuses(serviceable.configureStopping(& m->stateInterface->stopping()));
 		addStatuses(serviceable.configureRepairing(& m->stateInterface->repairing()));
+		addStatuses(serviceable.configureEvacuating(& m->stateInterface->evacuating()));
 
 
 		m->stateMachine->start();

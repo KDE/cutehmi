@@ -58,6 +58,13 @@ class CUTEHMI_SERVICES_API Serviceable
 		virtual std::unique_ptr<ServiceStatuses> configureRepairing(QState * repairing) = 0;
 
 		/**
+		 * Configure evacuating state.
+		 * @param evacuating state.
+		 * @return optional hash map containing status name for each state or @p nullptr if default statuses should be used.
+		 */
+		virtual std::unique_ptr<ServiceStatuses> configureEvacuating(QState * evacuating) = 0;
+
+		/**
 		 * Transition to started state.
 		 * @return transition to started state. It is allowed to return @p nullptr. In such case transition from starting to
 		 * started state will be immediate.

@@ -47,8 +47,8 @@ class CUTEHMI_SERVICES_API Service:
 
 		/**
 		 * Set stop timeout.
-		 * @param stopTimeout amount of time [milliseconds] after which stopping sequence should be interrupted. Setting a negative
-		 * value will disable timeout functionality.
+		 * @param stopTimeout amount of time [milliseconds] after which stopping or evacuating sequence should be interrupted.
+		 * Setting a negative value will disable timeout functionality.
 		 */
 		void setStopTimeout(int stopTimeout);
 

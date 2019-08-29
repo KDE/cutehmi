@@ -69,6 +69,10 @@ class CUTEHMI_SERVICES_API StateInterface:
 
 		const QState & repairing() const;
 
+		QState & evacuating();
+
+		const QState & evacuating() const;
+
 	signals:
 		void statusChanged();
 
@@ -82,10 +86,11 @@ class CUTEHMI_SERVICES_API StateInterface:
 				STARTED,
 				STOPPING,
 				BROKEN,
-				REPAIRING
+				REPAIRING,
+				EVACUATING
 			};
 
-			typedef std::array<QState, 7> MainStatesContainer;
+			typedef std::array<QState, 8> MainStatesContainer;
 
 			MainStatesContainer mainStates;
 			QString status;
