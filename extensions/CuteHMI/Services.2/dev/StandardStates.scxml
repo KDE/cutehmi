@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StandardStates" qt:editorversion="4.7.2">
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StandardStates" qt:editorversion="4.9.2">
     <state id="stopped">
-        <qt:editorinfo scenegeometry="24.50;133.97;-25.70;47.04;120;108.50" geometry="24.50;133.97;-50.20;-86.93;120;108.50"/>
+        <qt:editorinfo geometry="24.50;133.97;-50.20;-86.93;120;108.50" scenegeometry="24.50;133.97;-25.70;47.04;120;108.50"/>
         <transition type="external" event="Service::started()" target="starting">
             <qt:editorinfo movePoint="1.02;7.14"/>
         </transition>
         <initial>
-            <qt:editorinfo scenegeometry="34.30;113.55;14.30;93.55;40;40" geometry="9.80;-20.42;-20;-20;40;40"/>
+            <qt:editorinfo geometry="9.80;-20.42;-20;-20;40;40" scenegeometry="34.30;113.55;14.30;93.55;40;40"/>
         </initial>
     </state>
     <state id="starting">
-        <qt:editorinfo scenegeometry="973.51;101.29;871.01;51.29;120;100" geometry="973.51;101.29;-102.50;-50;120;100"/>
+        <qt:editorinfo geometry="973.51;101.29;-102.50;-50;120;100" scenegeometry="973.51;101.29;871.01;51.29;120;100"/>
         <transition type="external" target="started" event="Serviceable::transitionToStarted()">
             <qt:editorinfo movePoint="-13.46;15.72"/>
         </transition>
         <transition type="external" event="Serviceable::transitionToBroken()" target="broken">
             <qt:editorinfo movePoint="140.81;-10.20"/>
         </transition>
+        <transition type="external" event="timeout()" target="broken">
+            <qt:editorinfo startTargetFactors="77.14;80.65" endTargetFactors="78.09;57.36"/>
+        </transition>
     </state>
     <state id="started" initial="yielding">
-        <qt:editorinfo scenegeometry="869.22;380.12;213.83;328.28;594.72;354.57" geometry="869.22;380.12;-655.39;-51.84;594.72;354.57"/>
+        <qt:editorinfo geometry="869.22;380.12;-655.39;-51.84;594.72;354.57" scenegeometry="869.22;380.12;213.83;328.28;594.72;354.57"/>
         <transition type="external" target="broken" event="Serviceable::transitionToBroken()">
             <qt:editorinfo movePoint="3.33;25.02"/>
         </transition>
@@ -27,45 +30,48 @@
             <qt:editorinfo movePoint="14.29;-20.41"/>
         </transition>
         <state id="yielding">
-            <qt:editorinfo scenegeometry="726.82;444.88;666.82;394.88;120;100" geometry="-142.40;64.76;-60;-50;120;100"/>
+            <qt:editorinfo geometry="-142.40;64.76;-60;-50;120;100" scenegeometry="726.82;444.88;666.82;394.88;120;100"/>
             <transition type="external" event="Service::activated()" target="active">
                 <qt:editorinfo movePoint="59.91;12.84"/>
             </transition>
         </state>
         <onentry/>
         <state id="idling">
-            <qt:editorinfo scenegeometry="295.10;452.39;235.10;402.39;120;100" geometry="-574.12;72.27;-60;-50;120;100"/>
+            <qt:editorinfo geometry="-574.12;72.27;-60;-50;120;100" scenegeometry="295.10;452.39;235.10;402.39;120;100"/>
             <transition type="external" event="Serviceable::transitionToYielding()" target="yielding">
-                <qt:editorinfo movePoint="-2.14;7.49" endTargetFactors="73.60;58.29"/>
+                <qt:editorinfo endTargetFactors="73.60;58.29" movePoint="-2.14;7.49"/>
             </transition>
         </state>
         <state id="active">
-            <qt:editorinfo scenegeometry="551.19;608.58;451.19;558.58;120;100" geometry="-318.03;228.46;-100;-50;120;100"/>
+            <qt:editorinfo geometry="-318.03;228.46;-100;-50;120;100" scenegeometry="551.19;608.58;451.19;558.58;120;100"/>
             <transition type="external" event="Serviceable::transitionToIdling()" target="idling">
                 <qt:editorinfo movePoint="-65.25;16.05"/>
             </transition>
         </state>
     </state>
     <state id="broken">
-        <qt:editorinfo scenegeometry="931.01;879.38;871.01;829.38;120;100" geometry="931.01;879.38;-60;-50;120;100"/>
+        <qt:editorinfo geometry="931.01;879.38;-60;-50;120;100" scenegeometry="931.01;879.38;871.01;829.38;120;100"/>
         <transition type="external" event="Service::started()" target="repairing">
-            <qt:editorinfo startTargetFactors="8.78;39.48" movePoint="10.66;-22.50" endTargetFactors="87.05;39.46"/>
+            <qt:editorinfo startTargetFactors="11.27;30.85" endTargetFactors="89.84;31.67" movePoint="10.66;-22.50"/>
         </transition>
         <transition type="external" event="Service::stopped()" target="stopped">
-            <qt:editorinfo movePoint="17.35;-22.45" endTargetFactors="25.55;58.27" localGeometry="-0.02;76.32;-987.16;76.32;-987.16;-769.12"/>
+            <qt:editorinfo endTargetFactors="25.55;58.27" movePoint="17.35;-22.45" localGeometry="-0.02;76.32;-987.16;76.32;-987.16;-769.12"/>
         </transition>
     </state>
     <state id="repairing">
-        <qt:editorinfo scenegeometry="34.30;879.38;-25.70;829.38;120;100" geometry="34.30;879.38;-60;-50;120;100"/>
+        <qt:editorinfo geometry="34.30;879.38;-60;-50;120;100" scenegeometry="34.30;879.38;-25.70;829.38;120;100"/>
         <transition type="external" event="Serviceable::transitionToBroken()" target="broken">
-            <qt:editorinfo startTargetFactors="85.60;71.97" movePoint="3.36;10.30" endTargetFactors="48.50;73.76"/>
+            <qt:editorinfo startTargetFactors="85.48;83.39" endTargetFactors="11.33;83.75" movePoint="3.36;10.30"/>
         </transition>
         <transition type="external" event="Serviceable::transitionToStarted()" target="started">
             <qt:editorinfo movePoint="14.39;39.85"/>
         </transition>
+        <transition type="external" event="timeout()" target="broken">
+            <qt:editorinfo startTargetFactors="88.42;61.73" endTargetFactors="17.57;59.26" movePoint="-7.49;3.21"/>
+        </transition>
     </state>
     <state id="stopping">
-        <qt:editorinfo scenegeometry="39.65;506.70;-20.35;456.70;120;100" geometry="39.65;506.70;-60;-50;120;100"/>
+        <qt:editorinfo geometry="39.65;506.70;-60;-50;120;100" scenegeometry="39.65;506.70;-20.35;456.70;120;100"/>
         <transition type="external" event="Serviceable::transitionToStopped()" target="stopped">
             <qt:editorinfo movePoint="131.65;-31.13"/>
         </transition>
@@ -74,6 +80,6 @@
         </transition>
     </state>
     <state id="interrupted">
-        <qt:editorinfo scenegeometry="39.65;679.31;-20.35;629.31;120;100" geometry="39.65;679.31;-60;-50;120;100"/>
+        <qt:editorinfo geometry="39.65;679.31;-60;-50;120;100" scenegeometry="39.65;679.31;-20.35;629.31;120;100"/>
     </state>
 </scxml>

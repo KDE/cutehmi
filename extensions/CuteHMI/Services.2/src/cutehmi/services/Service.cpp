@@ -10,6 +10,8 @@ namespace cutehmi {
 namespace services {
 
 constexpr int Service::INITIAL_STOP_TIMEOUT;
+constexpr int Service::INITIAL_START_TIMEOUT;
+constexpr int Service::INITIAL_REPAIR_TIMEOUT;
 constexpr const char * Service::INITIAL_NAME;
 
 Service::Service(QObject * parent):
@@ -26,8 +28,12 @@ Service::~Service()
 
 	// Wait till either service stops or timeout is reached.
 	if (m->stateInterface)
-		while (!m->stateInterface->stopped().active() && !m->stateInterface->interrupted().active())
+		while (!m->stateInterface->stopped().active() && !m->stateInterface->interrupted().active()) {
 			QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
+			// Due to repair and start timeouts service may end up in broken state.
+			if (m->stateInterface->broken().active())
+				stop();
+		}
 
 	if (m->serviceable)
 		ServiceManager::Instance().leave(this);
@@ -47,6 +53,32 @@ void Service::setStopTimeout(int timeout)
 	if (m->stopTimeout != timeout) {
 		m->stopTimeout = timeout;
 		emit stopTimeoutChanged();
+	}
+}
+
+int Service::startTimeout() const
+{
+	return m->startTimeout;
+}
+
+void Service::setStartTimeout(int startTimeout)
+{
+	if (m->startTimeout != startTimeout) {
+		m->startTimeout = startTimeout;
+		emit startTimeoutChanged();
+	}
+}
+
+int Service::repairTimeout() const
+{
+	return m->repairTimeout;
+}
+
+void Service::setRepairTimeout(int repairTimeout)
+{
+	if (m->repairTimeout != repairTimeout) {
+		m->repairTimeout = repairTimeout;
+		emit repairTimeoutChanged();
 	}
 }
 
@@ -103,8 +135,6 @@ void Service::start()
 void Service::stop()
 {
 	emit stopped();
-	if (stopTimeout() >= 0)
-		m->timeoutTimer.start(stopTimeout());
 }
 
 internal::StateInterface * Service::stateInterface()
@@ -152,9 +182,11 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		m->stateMachine = new QStateMachine(this);
 		m->stateInterface = new internal::StateInterface(m->stateMachine);
 
+
 		connect(m->stateInterface, & internal::StateInterface::statusChanged, this, [this]() {
 			setStatus(m->stateInterface->status());
 		} );
+
 
 		connect(& m->stateInterface->interrupted(), & QState::entered, [this]() {
 			Notification::Critical(tr("Interrupting stop sequence of '%1' service, because it took more than %2 [ms].").arg(name()).arg(stopTimeout()));
@@ -169,6 +201,31 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 			Notification::Warning(tr("Service '%1' broke.").arg(name()));
 		});
 
+
+		// Configure timeouts.
+
+		connect(& m->stateInterface->stopping(), & QState::entered, [this]() {
+			if (stopTimeout() >= 0)
+				m->timeoutTimer.start(stopTimeout());
+		});
+		// It's safer to stop timout, so that it won't make false shot.
+		connect(& m->stateInterface->stopping(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
+
+		connect(& m->stateInterface->starting(), & QState::entered, [this]() {
+			if (startTimeout() >= 0)
+				m->timeoutTimer.start(startTimeout());
+		});
+		// It's safer to stop timout, so that it won't make false shot.
+		connect(& m->stateInterface->starting(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
+
+		connect(& m->stateInterface->repairing(), & QState::entered, [this]() {
+			if (repairTimeout() >= 0)
+				m->timeoutTimer.start(repairTimeout());
+		});
+		// It's safer to stop timout, so that it won't make false shot.
+		connect(& m->stateInterface->repairing(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
+
+
 		m->stateInterface->stopped().assignProperty(m->stateInterface, "status", tr("Stopped"));
 		m->stateInterface->interrupted().assignProperty(m->stateInterface, "status", tr("Interrupted"));
 		m->stateInterface->starting().assignProperty(m->stateInterface, "status", tr("Starting"));
@@ -180,6 +237,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		m->stateInterface->broken().assignProperty(m->stateInterface, "status", tr("Broken"));
 		m->stateInterface->repairing().assignProperty(m->stateInterface, "status", tr("Repairing"));
 
+
 		m->stateMachine->addState(& m->stateInterface->stopped());
 		m->stateMachine->addState(& m->stateInterface->interrupted());
 		m->stateMachine->addState(& m->stateInterface->starting());
@@ -189,12 +247,16 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		m->stateMachine->addState(& m->stateInterface->repairing());
 		m->stateMachine->setInitialState(& m->stateInterface->stopped());
 
+
 		m->stateInterface->stopped().addTransition(this, & Service::started, & m->stateInterface->starting());
 		m->stateInterface->started().addTransition(this, & Service::stopped, & m->stateInterface->stopping());
 		m->stateInterface->broken().addTransition(this, & Service::started, & m->stateInterface->repairing());
 		m->stateInterface->broken().addTransition(this, & Service::stopped, & m->stateInterface->stopped());
 		m->stateInterface->stopping().addTransition(& m->timeoutTimer, & QTimer::timeout, & m->stateInterface->interrupted());
+		m->stateInterface->starting().addTransition(& m->timeoutTimer, & QTimer::timeout, & m->stateInterface->broken());
+		m->stateInterface->repairing().addTransition(& m->timeoutTimer, & QTimer::timeout, & m->stateInterface->broken());
 		m->stateInterface->yielding().addTransition(this, & Service::activated, & m->stateInterface->active());
+
 
 		addTransition(& m->stateInterface->starting(), & m->stateInterface->started(), serviceable.transitionToStarted());
 		addTransition(& m->stateInterface->repairing(), & m->stateInterface->started(), serviceable.transitionToStarted());
@@ -206,11 +268,13 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 			addTransition(& m->stateInterface->active(), & m->stateInterface->idling(), serviceable.transitionToIdling());
 		addTransition(& m->stateInterface->idling(), & m->stateInterface->yielding(), serviceable.transitionToYielding());
 
+
 		addStatuses(serviceable.configureBroken(& m->stateInterface->broken()));
 		addStatuses(serviceable.configureStarted(& m->stateInterface->active(), & m->stateInterface->idling(), & m->stateInterface->yielding()));
 		addStatuses(serviceable.configureStarting(& m->stateInterface->starting()));
 		addStatuses(serviceable.configureStopping(& m->stateInterface->stopping()));
 		addStatuses(serviceable.configureRepairing(& m->stateInterface->repairing()));
+
 
 		m->stateMachine->start();
 		QCoreApplication::processEvents();	// This is required in order to trully start state machine and prevent it from ignoring incomming events.

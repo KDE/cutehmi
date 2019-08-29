@@ -26,9 +26,13 @@ class CUTEHMI_SERVICES_API Service:
 
 	public:
 		static constexpr int INITIAL_STOP_TIMEOUT = 30000;
+		static constexpr int INITIAL_START_TIMEOUT = 30000;
+		static constexpr int INITIAL_REPAIR_TIMEOUT = 30000;
 		static constexpr const char * INITIAL_NAME = "Unnamed Service";
 
 		Q_PROPERTY(int stopTimeout READ stopTimeout WRITE setStopTimeout NOTIFY stopTimeoutChanged)
+		Q_PROPERTY(int startTimeout READ startTimeout WRITE setStartTimeout NOTIFY startTimeoutChanged)
+		Q_PROPERTY(int repairTimeout READ repairTimeout WRITE setRepairTimeout NOTIFY repairTimeoutChanged)
 		Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 		Q_PROPERTY(QString status READ status NOTIFY statusChanged)
 		Q_PROPERTY(QVariant serviceable READ serviceable WRITE setServiceable NOTIFY serviceableChanged)
@@ -42,11 +46,29 @@ class CUTEHMI_SERVICES_API Service:
 		int stopTimeout() const;
 
 		/**
-		 * Set timeout.
-		 * @param timeout amount of time [milliseconds] after which stopping sequence should be interrupted. Setting a negative
+		 * Set stop timeout.
+		 * @param stopTimeout amount of time [milliseconds] after which stopping sequence should be interrupted. Setting a negative
 		 * value will disable timeout functionality.
 		 */
 		void setStopTimeout(int stopTimeout);
+
+		int startTimeout() const;
+
+		/**
+		 * Set start timeout.
+		 * @param startTimeout amount of time [milliseconds] after which starting sequence should be interrupted. Setting a negative
+		 * value will disable timeout functionality.
+		 */
+		void setStartTimeout(int startTimeout);
+
+		int repairTimeout() const;
+
+		/**
+		 * Set repair timeout.
+		 * @param repairTimeout amount of time [milliseconds] after which repair sequence should be interrupted. Setting a negative
+		 * value will disable timeout functionality.
+		 */
+		void setRepairTimeout(int repairTimeout);
 
 		QString name() const;
 
@@ -75,6 +97,10 @@ class CUTEHMI_SERVICES_API Service:
 
 	signals:
 		void stopTimeoutChanged();
+
+		void startTimeoutChanged();
+
+		void repairTimeoutChanged();
 
 		void nameChanged();
 
@@ -111,6 +137,8 @@ class CUTEHMI_SERVICES_API Service:
 
 		struct Members {
 			int stopTimeout = INITIAL_STOP_TIMEOUT;
+			int startTimeout = INITIAL_START_TIMEOUT;
+			int repairTimeout = INITIAL_REPAIR_TIMEOUT;
 			QString name = INITIAL_NAME;
 			QString status;
 			Serviceable * serviceable = nullptr;
