@@ -4,6 +4,7 @@ namespace cutehmi {
 namespace services {
 
 constexpr int ServiceManager::INITIAL_MAX_ACTIVE_SERVICES;
+constexpr int ServiceManager::INITIAL_REPAIR_INTERVAL;
 
 int ServiceManager::maxActiveServices() const
 {
@@ -15,6 +16,19 @@ void ServiceManager::setMaxActiveServices(int maxActiveServices)
 	if (m->maxActiveServices != maxActiveServices) {
 		m->maxActiveServices = maxActiveServices;
 		emit maxActiveServicesChanged();
+	}
+}
+
+int ServiceManager::repairInterval() const
+{
+	return m->repairInterval;
+}
+
+void ServiceManager::setRepairInterval(int repairInterval)
+{
+	if (m->repairInterval != repairInterval) {
+		m->repairInterval = repairInterval;
+		emit repairIntervalChanged();
 	}
 }
 
@@ -30,13 +44,18 @@ void ServiceManager::remove(Service * service)
 
 void ServiceManager::manage(Service * service)
 {
+	// Temporary used to store lambda connections.
 	QMetaObject::Connection connection;
+
+	// Check whether service is impolite or polite.
 	if (!service->serviceable().value<Serviceable *>()->transitionToYielding()) {
+		// If service is impolite, then simply activate it.
 		connection = QObject::connect(& service->stateInterface()->yielding(), & QState::entered, [service]() {
 			service->activate();
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 	} else {
+		// If service is polite, then manage yielding.
 		connection = QObject::connect(& service->stateInterface()->active(), & QState::exited, [this]() {
 			if (m->yieldingServices.empty())
 				m->activeServices--;
@@ -56,6 +75,23 @@ void ServiceManager::manage(Service * service)
 
 		connection = QObject::connect(& service->stateInterface()->started(), & QState::exited, [this, service]() {
 			m->yieldingServices.removeAll(service);
+		});
+		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
+	}
+
+	// Manage repairing.
+	if (service->serviceable().value<Serviceable *>()->transitionToBroken()) {
+		QTimer * repairTimer = new QTimer(service->stateInterface());
+		repairTimer->setSingleShot(true);
+		QObject::connect(repairTimer, & QTimer::timeout, service, & Service::started);
+
+		connection = QObject::connect(& service->stateInterface()->broken(), & QState::entered, [this, repairTimer]() {
+			repairTimer->start(repairInterval());
+		});
+		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
+
+		connection = QObject::connect(& service->stateInterface()->broken(), & QState::exited, [repairTimer]() {
+			repairTimer->stop();
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 	}

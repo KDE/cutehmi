@@ -23,12 +23,18 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 	public:
 		static constexpr int INITIAL_MAX_ACTIVE_SERVICES = 1;
+		static constexpr int INITIAL_REPAIR_INTERVAL = 10000;
 
 		Q_PROPERTY(int maxActiveServices READ maxActiveServices WRITE setMaxActiveServices NOTIFY maxActiveServicesChanged)
+		Q_PROPERTY(int repairInterval READ repairInterval WRITE setRepairInterval NOTIFY repairIntervalChanged)
 
 		int maxActiveServices() const;
 
 		void setMaxActiveServices(int maxActiveServices);
+
+		int repairInterval() const;
+
+		void setRepairInterval(int repairInterval);
 
 	public slots:
 		void start();
@@ -37,6 +43,8 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 	signals:
 		void maxActiveServicesChanged();
+
+		void repairIntervalChanged();
 
 	protected:
 		explicit ServiceManager(QObject * parent = nullptr);
@@ -56,13 +64,15 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		struct Members {
 			int activeServices;
 			int maxActiveServices;
+			int repairInterval;
 			std::unique_ptr<ServiceListModel> services;
 			YieldingServicesContainer yieldingServices;
-			StateInterfaceConnectionsContainer stateInterfaceConnections;
+			StateInterfaceConnectionsContainer stateInterfaceConnections;	// The only way to disconnect particular lambda from particular emitter is to store its connection.
 
 			Members():
 				activeServices(0),
 				maxActiveServices(INITIAL_MAX_ACTIVE_SERVICES),
+				repairInterval(INITIAL_REPAIR_INTERVAL),
 				services(new ServiceListModel)
 			{
 			}
