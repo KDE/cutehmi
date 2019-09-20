@@ -11,11 +11,11 @@ namespace cutehmi {
 /**
  * %Notification list model.
  */
-class NotificationListModel:
+class CUTEHMI_API NotificationListModel:
 	public QAbstractListModel
 {
-	Q_OBJECT
-	typedef QAbstractListModel Parent;
+		Q_OBJECT
+		typedef QAbstractListModel Parent;
 
 	public:
 		enum Role {
