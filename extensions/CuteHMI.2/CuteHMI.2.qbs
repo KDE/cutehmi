@@ -46,6 +46,7 @@ Project {
          "include/cutehmi/Notifier.hpp",
          "include/cutehmi/constants.hpp",
          "include/cutehmi/functions.hpp",
+         "include/cutehmi/macros.hpp",
          "include/cutehmi/wrappers.hpp",
          "qmldir",
          "include/cutehmi/Error.hpp",
