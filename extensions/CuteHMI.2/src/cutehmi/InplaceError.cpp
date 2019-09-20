@@ -13,6 +13,9 @@ InplaceError::InplaceError(const QString & p_message, const char * p_file, int p
 
 QString InplaceError::str() const
 {
+	QString result = message;
+
+#ifndef CUTEHMI_NDEBUG
 	QStringList location;
 	if (file)
 		location << QString("file: ") + file;
@@ -21,9 +24,9 @@ QString InplaceError::str() const
 	if (function)
 		location << QString("function: ") + function;
 
-	QString result = message;
 	if (!location.isEmpty())
 		result += QString(" [") + location.join(' ') + "]";
+#endif
 
 	return result;
 }
