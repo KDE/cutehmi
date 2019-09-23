@@ -74,6 +74,19 @@ CommonProduct {
 	Depends { name: "cutehmi.metadata" }
 	Depends { name: "cutehmi.dirs" }
 
+	FileTagger {
+		patterns: ["*.jpg", "*.svg"]
+		fileTags: ["Images"]
+	}
+
+	Group {
+		name: "Images"
+		fileTagsFilter: ["Images"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
+	}
+
 	Group {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"

@@ -83,11 +83,15 @@ int main(int argc, char * argv[])
 		cmd.setApplicationDescription(QCoreApplication::applicationName() + "\n" + metadataJson.object().value("description").toString());
 		cmd.addHelpOption();
 		cmd.addVersionOption();
-		QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
+		QCommandLineOption fullScreenOption("fullscreen", QCoreApplication::translate("main", "Run application in full screen mode."));
 		cmd.addOption(fullScreenOption);
-		QCommandLineOption projectOption({"p", "project"}, QCoreApplication::translate("main", "Load QML project <URL>."), QCoreApplication::translate("main", "URL"));
-		cmd.addOption(projectOption);
-		QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
+		QCommandLineOption fileOption({"f", "file"}, QCoreApplication::translate("main", "Initial QML <file> to be loaded."), QCoreApplication::translate("main", "file"), "qrc:/qml/ExtensionLoader.qml");
+		cmd.addOption(fileOption);
+		QCommandLineOption extensionOption({"e", "extension"}, QCoreApplication::translate("main", "Load extension specified by QML <import>."), QCoreApplication::translate("main", "import"));
+		cmd.addOption(extensionOption);
+		QCommandLineOption componentOption({"c", "component"}, QCoreApplication::translate("main", "Use <name> to specify extension QML component."), QCoreApplication::translate("main", "name"), "Main");
+		cmd.addOption(componentOption);
+		QCommandLineOption hideCursorOption("touch", QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
 		cmd.addOption(hideCursorOption);
 		QCommandLineOption styleOption("qstyle", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
 		cmd.addOption(styleOption);
@@ -136,28 +140,36 @@ int main(int argc, char * argv[])
 		engine->addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSION_INSTALL_DIRNAME);
 
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
+
+		QStringList extensionNameParts = cmd.value(extensionOption).split('.');
+		QString extensionMajor = extensionNameParts.takeLast();
+		QString extensionBasename = extensionNameParts.join('.');
+		engine->rootContext()->setContextProperty("cutehmi_view_extensionBasename", extensionBasename);
+		engine->rootContext()->setContextProperty("cutehmi_view_extensionMajor", extensionMajor);
+		engine->rootContext()->setContextProperty("cutehmi_view_extensionComponent", cmd.value(componentOption));
 		engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", "qrc:/qml/DefaultScreen.qml");
+
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
-		if (!cmd.value(projectOption).isNull()) {
-			CUTEHMI_DEBUG("Project:" << cmd.value(projectOption));
-			QUrl projectUrl(cmd.value(projectOption));
-			if (projectUrl.isValid()) {
+		if (!cmd.value(fileOption).isNull()) {
+			CUTEHMI_DEBUG("File:" << cmd.value(fileOption));
+			QUrl fileUrl(cmd.value(fileOption));
+			if (fileUrl.isValid()) {
 				// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
-				if (!projectUrl.scheme().isEmpty() && QDir::isRelativePath(projectUrl.path()))
-					cutehmi::Dialog::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(projectUrl.url()));
+				if (!fileUrl.scheme().isEmpty() && QDir::isRelativePath(fileUrl.path()))
+					cutehmi::Dialog::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(fileUrl.url()));
 				else {
 					// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
-					if (projectUrl.isRelative())
-						projectUrl = QUrl::fromLocalFile(baseDirPath).resolved(projectUrl);
+					if (fileUrl.isRelative())
+						fileUrl = QUrl::fromLocalFile(baseDirPath).resolved(fileUrl);
 					// Check if file exists and eventually set context property.
-					if (projectUrl.isLocalFile() && !QFile::exists(projectUrl.toLocalFile()))
-						cutehmi::Dialog::Critical(QObject::tr("Project file '%1' does not exist.").arg(projectUrl.url()));
+					if (fileUrl.isLocalFile() && !QFile::exists(fileUrl.toLocalFile()))
+						cutehmi::Dialog::Critical(QObject::tr("QML file '%1' does not exist.").arg(fileUrl.url()));
 					else
-						engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", projectUrl.url());
+						engine->rootContext()->setContextProperty("cutehmi_view_mainScreenURL", fileUrl.url());
 				}
 			} else
-				cutehmi::Dialog::Critical(QObject::tr("Invalid format of project URL '%1'.").arg(cmd.value(projectOption)));
+				cutehmi::Dialog::Critical(QObject::tr("Invalid format of QML file URL '%1'.").arg(cmd.value(fileOption)));
 		}
 
 		//<Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec.assumption>
