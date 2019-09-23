@@ -19,13 +19,24 @@ Module {
 	property bool generateHeaderFile: false
 
 	property string installDir: product.qbs.installPrefix ? product.qbs.installRoot + product.qbs.installPrefix : product.qbs.installRoot // Note: qbs.installPrefix starts with "/".
+
 	property string examplesInstallDirname: "examples"
-	property string extensionInstallDirname: "bin"
+
+	// <qbs-cutehmi-dirs-1.workaround target="Qt" cause="design">
+	// Android expects QML files to be installed in 'qml' directory, so we're changing installation path of extension files.
+	property string extensionInstallDirname: qbs.targetOS.contains("android") ? "qml" : "bin"
+	// </qbs-cutehmi-dirs-1.workaround>
+
 	property string extensionsSourceDir: project.sourceDirectory + "/extensions"
+
 	property string externalDeployDir: project.sourceDirectory + "/external/deploy"
+
 	property string externalLibDir: externalDeployDir + "/lib"
+
 	property string externalIncludeDir: externalDeployDir + "/include"
+
 	property string testInstallDirname: "bin"
+
 	property string toolInstallDirname: "bin"
 
 	FileTagger {

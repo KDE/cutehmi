@@ -33,6 +33,7 @@ Project {
 
 		license: "GNU Lesser General Public License, v. 3.0"
 
+		// Add also QML files from qrc, because for eg. androiddeployqt needs them installed to scan them.
 		files: [
 			"README.md",
 			"resources.qrc",
@@ -40,6 +41,11 @@ Project {
 			"src/cutehmi/view/logging.cpp",
 			"src/cutehmi/view/logging.hpp",
 			"src/main.cpp",
+			"qml/DefaultScreen.qml",
+			"qml/ExtensionLoader.qml",
+			"qml/MainWindow.qml",
+			"qml/MessageDialog.qml",
+			"qml/NotificationListView.qml",
 		]
 
 		cutehmi.dirs.generateHeaderFile: true

@@ -1,10 +1,17 @@
 import qbs.File
 import qbs.Probes
 
+/**
+  This module sets all the necessary properties for tracking dependencies of CuteHMI extensions during APK building.
+  */
 Module {
 	Android.sdk.packageName: packageName
 
 	Qt.android_support.extraLibs: androidExtensionsProbe.extensionPaths
+
+	Qt.android_support.extraPlugins: cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname
+
+	Qt.android_support.qmlRootDir: cutehmi.dirs.installDir
 
 	property string packageName: product.domain.split(".").reverse().join(".") + "." + product.name
 
@@ -14,11 +21,6 @@ Module {
 
 	Depends { name: "cutehmi.dirs" }
 
-	FileTagger {
-		patterns: "*.qml"
-		fileTags: ["android.assets"]
-	}
-
 	Probe {
 		id: androidExtensionsProbe
 
@@ -27,7 +29,7 @@ Module {
 		property string nameSuffix: ".so"
 
 		property stringList extensionPaths: []
-		
+
 		configure: {
 			var androidExtensionFilter = function(fileName) {
 				return fileName.endsWith(nameSuffix);
@@ -45,6 +47,4 @@ Module {
 			extensionPaths = searchPaths.reduce(reducer, []);
 		}
 	}
-
-
 }
