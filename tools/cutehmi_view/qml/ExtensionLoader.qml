@@ -1,5 +1,5 @@
-import QtQuick 2.13
-import QtQuick.Controls 2.5
+import QtQuick 2.0
+import QtQuick.Controls 2.0
 
 import CuteHMI 2.0 as CuteHMI
 
@@ -23,7 +23,8 @@ Item {
 				Qt.createQmlObject(qmlData, extensionContainer)
 			} catch(error) {
 				showDefaultScreen()
-				dialog.informativeText = error.qmlErrors.map(function (obj) { return obj.message }).join(".\n")
+				dialog.informativeText = error.qmlErrors.length > 1 ? qsTr("Reasons: ") : qsTr("Reason: ")
+				dialog.informativeText += error.qmlErrors.map(function (obj) { return obj.message }).join("; ") + "."
 				createDialog(dialog)
 			}
 		} else {
