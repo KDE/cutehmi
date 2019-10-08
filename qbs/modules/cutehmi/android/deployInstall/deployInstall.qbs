@@ -5,8 +5,6 @@ import qbs.FileInfo
   qmlRootDir directory defined by android_support Qbs module.
   */
 Module {
-	property string installDir: cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
-
 	Depends { name: "cutehmi.dirs" }
 
 	FileTagger {
@@ -34,6 +32,6 @@ Module {
 		fileTagsFilter: ["js", "qml", "qmldir", "qmltypes"]
 		qbs.install: true
 		qbs.installSourceBase: sourceDirectory
-		qbs.installDir: installDir
+		qbs.installDir: product.cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(product.cutehmi.dirs.extensionsSourceDir, product.sourceDirectory)
 	}
 }
