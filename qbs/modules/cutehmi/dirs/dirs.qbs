@@ -46,17 +46,13 @@ Module {
 
 	Rule {
 		condition: product.cutehmi.dirs.generateHeaderFile
-		multiplex: true
 		inputs: ["qbs"]
-		inputsFromDependencies: "qbs"
 
 		prepare: {
 			var hppCmd = new JavaScriptCommand();
 			hppCmd.description = "generating " + product.sourceDirectory + "/cutehmi.dirs.hpp"
 			hppCmd.highlight = "codegen";
 			hppCmd.sourceCode = function() {
-				console.info("Regenerating file " + product.sourceDirectory + "/cutehmi.dirs.hpp")
-
 				var f = new TextFile(product.sourceDirectory + "/cutehmi.dirs.hpp", TextFile.WriteOnly);
 				try {
 					var prefix = "CUTEHMI_DIRS"

@@ -62,8 +62,6 @@ Module {
 			doxCmd.description = 'generating ' + product.sourceDirectory + '/cutehmi.doxygen.Doxyfile'
 			doxCmd.highlight = 'codegen';
 			doxCmd.sourceCode = function() {
-				console.info('Regenerating file ' + product.sourceDirectory + '/cutehmi.doxygen.Doxyfile')
-
 				var docDir = project.sourceDirectory + '/doc/Doxygen/docs'
 //<workaround id="qbs-cutehmi-doxygen-2" target="Doxygen" cause="missing">
 				// To make relative links work properly first directory of the product location has to be stripped (e.g., 'cutehmi_1' instead of 'modules/cutehmi_1').
@@ -196,7 +194,6 @@ Module {
 					// var outputDir = docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory) // Absolute.
 //</workaround>
 					var href = FileInfo.relativePath(product.sourceDirectory, outputDir) + '/index.html'
-					console.info('Regenerating file ' + product.sourceDirectory + '/index.html')
 					var f = new TextFile(product.sourceDirectory + "/index.html", TextFile.WriteOnly);
 					try {
 						f.writeLine('<!DOCTYPE html>')
