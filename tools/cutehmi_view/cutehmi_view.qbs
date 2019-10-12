@@ -6,8 +6,7 @@ Project {
 	name: "cutehmi_view"
 
 	references: [
-		"tests/tests.qbs",
-		"examples/examples.qbs"
+		"tests/tests.qbs"
 	]
 
 	cutehmi.Tool {
@@ -53,7 +52,7 @@ Project {
 		Depends { name: "CuteHMI.App.2" }
 
 		Depends { name: "cutehmi.doxygen" }
-		cutehmi.doxygen.exclude: ['tests', 'examples']
+		cutehmi.doxygen.exclude: ['tests']
 	}
 }
 

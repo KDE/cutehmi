@@ -68,7 +68,7 @@ ApplicationWindow {
 
 	Loader {
 		anchors.fill: parent
-		source: cutehmi_view_mainScreenURL
+		source: cutehmi_view_initURL
 	}
 
 	function createDialog(dialog) {

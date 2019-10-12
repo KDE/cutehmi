@@ -2,27 +2,43 @@ import qbs
 
 import cutehmi
 
-cutehmi.Example {
-	name: "SimpleView"
+Project {
+	name: "CuteHMI.Examples.SimpleView.0"
 
-	vendor: "CuteHMI"
+	condition: project.buildExamples
 
-	friendlyName: "Simple View"
+	cutehmi.Extension {
+		type: []
 
-	description: "Simple QML project."
+		name: parent.name
 
-	author: "Michal Policht"
+		minor: 0
 
-	copyright: "Michal Policht"
+		micro: 0
 
-	license: "GNU Lesser General Public License, v. 3.0"
+		vendor: "CuteHMI"
 
-	files: [
-        "RectangularElement.qml",
-        "_Main.qml",
-    ]
+		domain: "cutehmi.kde.org"
 
-	Depends { name: "cutehmi_view" }
+		friendlyName: "Simple View"
+
+		description: "Simple QML project demonstrating how to provide visual indication of device operational status with CuteHMI.Element component."
+
+		author: "Michal Policht"
+
+		copyright: "Michal Policht"
+
+		license: "GNU Lesser General Public License, v. 3.0"
+
+		files: [
+			"RectangularElement.qml",
+			"Main.qml",
+		]
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi_view" }
+	}
 }
 
 //(c)MP: Copyright © 2019, Michal Policht <michpolicht@gmail.com>. All rights reserved.
