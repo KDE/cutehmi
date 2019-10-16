@@ -5,8 +5,6 @@ import cutehmi
 Project {
 	name: "CuteHMI.Examples.SimpleView.0"
 
-	condition: project.buildExamples
-
 	cutehmi.Extension {
 		type: []
 
