@@ -1,0 +1,15 @@
+Problem:
+
+QModbusDataUnit::setValue() function accepts `int` type as its `index` parameter,
+while functions such as QModbusDataUnit::valueCount() use `uint`
+as return type. It may be not safe to access container elements through index
+type, which covers smaller range than type used to determine container size.
+
+Workaround:
+
+Because valueCount() can not exceed maximal theoretical amount of registers that
+can be queried at once (2008 coils through RTU) it is safe to downcast returned
+`uint` value to `int`, which is guaranteed to be at least 16 bit wide.
+
+Snippet:
+

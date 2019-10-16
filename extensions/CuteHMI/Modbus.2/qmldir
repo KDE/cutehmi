@@ -1,0 +1,8 @@
+module CuteHMI.Modbus
+
+plugin CuteHMI.Modbus.2 ../..
+classname cutehmi::modbus::internal::QMLPlugin
+
+typeinfo plugins.qmltypes
+
+designersupported
