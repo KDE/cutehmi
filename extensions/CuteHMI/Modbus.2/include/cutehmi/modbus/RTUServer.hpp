@@ -42,7 +42,6 @@ class CUTEHMI_MODBUS_API RTUServer:
 		Q_PROPERTY(QSerialPort::DataBits dataBits READ dataBits WRITE setDataBits NOTIFY dataBitsChanged)
 		Q_PROPERTY(QSerialPort::StopBits stopBits READ stopBits WRITE setStopBits NOTIFY stopBitsChanged)
 		Q_PROPERTY(int slaveAddress READ slaveAddress WRITE setSlaveAddress NOTIFY slaveAddressChanged)
-		Q_PROPERTY(bool busy READ busy WRITE setBusy NOTIFY busyChanged)
 
 		RTUServer(QObject * parent = nullptr);
 
