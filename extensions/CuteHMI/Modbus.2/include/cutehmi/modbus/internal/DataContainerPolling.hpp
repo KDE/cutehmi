@@ -92,7 +92,7 @@ bool DataContainerPolling<DERIVED, DATA>::runNext()
 template<class DERIVED, class DATA>
 void DataContainerPolling<DERIVED, DATA>::reset()
 {
-	m_it = DataContainer::KeysIterator(& derived().container());
+	m_it = typename DataContainer::KeysIterator(& derived().container());
 }
 
 template<class DERIVED, class DATA>
