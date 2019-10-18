@@ -5,6 +5,8 @@ Product {
 
 	cpp.defines: ["QT_DEPRECATED_WARNINGS"]
 
+	cpp.cxxLanguageVersion: ["c++14"]
+
 	property string cutehmiType: "product"	///< CuteHMI product type.
 
 	property string vendor					///< Product vendor.
