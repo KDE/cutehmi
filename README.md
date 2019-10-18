@@ -7,7 +7,7 @@
 [//]: # (\htmlonly)
 
 [![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
-[![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://travis-ci.org/michpolicht/CuteHMI)
+[![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)
 
 [//]: # (\endhtmlonly)
 </div>
