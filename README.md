@@ -7,7 +7,7 @@
 [//]: # (\htmlonly)
 
 [![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
-[![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master)](https://travis-ci.org/michpolicht/CuteHMI)
+[![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://travis-ci.org/michpolicht/CuteHMI)
 
 [//]: # (\endhtmlonly)
 </div>
@@ -33,8 +33,8 @@ numbers denote successive iterations of the project.
 
 | Branch | Build status | Development status |
 |--------|--------------|--------------------|
-| [master](https://github.com/michpolicht/CuteHMI) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=master)](https://travis-ci.org/michpolicht/CuteHMI/branches) | pre-alpha |
-| [1](https://github.com/michpolicht/CuteHMI/tree/1)      | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches) | alpha |
+| [master](https://invent.kde.org/kde/cutehmi) | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | pre-alpha |
+| [1](https://invent.kde.org/kde/cutehmi/tree/1)      | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/1/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | alpha |
 
 [//]: # (\endhtmlonly)
 </div>
