@@ -1,4 +1,4 @@
-# CuteHMI - Application
+# Application
 
 This module provides foundation for GUI application.
 

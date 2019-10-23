@@ -8,7 +8,7 @@
 # a documentation.
 #
 # usage: docprodentry.sh doxygen_file
-# example: docprodentry.sh modules/cutehmi_1/cutehmi.doxygen.Doxyfile
+# example: docprodentry.sh extensions/CuteHMI.2/cutehmi.doxygen.Doxyfile
 #
 # parameters:
 # doxygen_file - a Doxygen file.
@@ -35,7 +35,7 @@ if [ $# -lt 1 ]; then
 fi
 
 dir=$(dirname $doxygen_file)
-productdir=${dir#*/}
-prodname=$(echo "$productdir" | sed 's|/|\.|g' | sed 's|\(.*\)\.|\1 |')
-echo - \<a href=\"$productdir/index.html\"\>$prodname\<\/a\>
+subdir=${dir#*/}
+prodname=$(echo "$subdir" | sed 's|/|\.|g' | sed 's|\(.*\)\.|\1 |')
+echo - \<a href=\"$dir/index.html\"\>$prodname\<\/a\>
 

@@ -5,7 +5,7 @@ import QtQuick 2.0
 /**
   %Palette.
 
-  %Palette defines standard color sets to be used by %CuteHMI items.
+  %Palette defines standard color sets to be used by CuteHMI items.
   */
 QtObject
 {

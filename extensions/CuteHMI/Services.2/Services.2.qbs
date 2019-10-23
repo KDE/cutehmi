@@ -59,10 +59,13 @@ Project {
 
 		Depends { name: "CuteHMI.2" }
 
-		Depends { name: "cutehmi.doxygen" }
-		cutehmi.doxygen.warnIfUndocumented: false
-		cutehmi.doxygen.useDoxyqml: true
-		cutehmi.doxygen.exclude: ['tests']
+		Depends { name: "cutehmi.init" }
+		cutehmi.init.initializerClass: "cutehmi::services::Initializer"
+
+//		Depends { name: "cutehmi.doxygen" }
+//		cutehmi.doxygen.warnIfUndocumented: false
+//		cutehmi.doxygen.useDoxyqml: true
+//		cutehmi.doxygen.exclude: ['tests']
 
 		Export {
 			Depends { name: "CuteHMI.2" }

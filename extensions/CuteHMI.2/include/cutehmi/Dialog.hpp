@@ -19,7 +19,7 @@ namespace cutehmi {
 class CUTEHMI_API Dialog:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	public:
 		Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)
@@ -40,7 +40,7 @@ class CUTEHMI_API Dialog:
 		/**
 		 * %Dialog button. Button is registered as meta type by Dialog constructors.
 		 */
-		enum Button: qint32 {
+		enum Button : qint32 {
 			BUTTON_OK = 0x00000400,
 			BUTTON_OPEN = 0x00002000,
 			BUTTON_SAVE = 0x00000800,

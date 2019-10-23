@@ -34,7 +34,7 @@ numbers denote successive iterations of the project.
 | Branch | Build status | Development status |
 |--------|--------------|--------------------|
 | [master](https://invent.kde.org/kde/cutehmi) | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | pre-alpha |
-| [1](https://invent.kde.org/kde/cutehmi/tree/1)      | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches) | alpha |
+| [1](https://invent.kde.org/kde/cutehmi/tree/1) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches) | alpha |
 
 [//]: # (\endhtmlonly)
 </div>
@@ -52,7 +52,7 @@ https://www.qt.io/. Qt can also be shipped with Linux distribution.
 libraries could not be found. To make the process of finding the libraries
 and installing them under Windows easier, a set of Makefiles is provided, which
 allows the libraries to be build from sources. Check out 
-[external](external/README.md) libraries for more details. Each extension may
+[external](external/) libraries for more details. Each extension may
 provide individual documentation on how to build it.
 
 Remember that Qbs caches [Probe](http://doc.qt.io/qbs/qml-qbslanguageitems-probe.html)
@@ -73,21 +73,20 @@ Directory structure of the project is organized as follows.
 - *_sass*, *_layouts* - directories used by GitHub Pages.
 - *awkgward* - code maintanance scripts (don't bother).
 - *dev* - development notes (irrelevant).
-- [doc](doc/README.md) - a place where documentation shall be.
-- *examples* - self-explanatory.
-- [extensions](extensions/README.md) - libraries and QML extensions.
-- [external](external/README.md) - directory containing "external" libraries.
+- [doc](doc/) - a place where documentation shall be.
+- [extensions](extensions/) - libraries and QML extensions.
+- [external](external/) - directory containing "external" libraries.
 - *extra* - various stuff related to the project, such as T-shirts.
 - *qbs* - Qbs modules and imports.
-- [tools](tools/README.md) - end-user applications.
+- [tools](tools/) - executable programs.
 
 ![Dependencies between tools, extensions and external libraries](doc/images/general_dependencies.png)
 
-Two most important directories are [extensions](extensions/README.md) and
-[tools](tools/README.md). Extensions combine functionality of QML extensions and
+Two most important directories are [extensions](extensions/) and
+[tools](tools/). Extensions combine functionality of QML extensions and
 standard libraries. They can be utilized by end-user applications, but they can
 be also linked with each other. Some extensions may depend on
-[external](external/README.md) libraries.
+[external](external/) libraries.
 
 ## Quick links
 

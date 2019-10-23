@@ -6,7 +6,7 @@
 namespace cutehmi {
 
 /**
- * %CuteHMI epsilon. This constant is used in fuzzy comparison functions.
+ * CuteHMI epsilon. This constant is used in fuzzy comparison functions.
  *
  * @internal Machine epsilon * 0.5 is smallest possible epsilon for which approximation functions make sense.
  */

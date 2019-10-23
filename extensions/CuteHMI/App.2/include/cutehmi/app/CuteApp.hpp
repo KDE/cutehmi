@@ -11,18 +11,18 @@ namespace cutehmi {
 namespace app {
 
 /**
- * %CuteHMI application. This class extends QApplication to provide idle measurment.
+ * CuteHMI application. This class extends QApplication to provide idle measurment.
  */
 class CUTEHMI_APP_API CuteApp:
-	//<CuteHMI.App-1.workaround target="Qt" cause="bug">
+//<CuteHMI.App-1.workaround target="Qt" cause="bug">
 	public QApplication
-	// Instead of:
-	// public QGuiApplication
-	//</CuteHMI.App-1.workaround>
+// Instead of:
+// public QGuiApplication
+//</CuteHMI.App-1.workaround>
 {
-	typedef QApplication Parent;
+		typedef QApplication Parent;
 
-	Q_OBJECT
+		Q_OBJECT
 
 	public:
 		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">

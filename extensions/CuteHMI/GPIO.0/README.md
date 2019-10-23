@@ -1,4 +1,4 @@
-# CuteHMI - General-purpose Input/Output
+# General-purpose Input/Output
 
 An extension built on top of 'libgpiod' library to deal with GPIO chips.
 

@@ -1,0 +1,13 @@
+Problem:
+
+Doxygen (1.8.14) is missing functionality to preserve source directory structure for the output. This causes problems when creating
+relative links from 'README.md' files located in subdirectories such as 'QML' or 'modules'. They should work correctly on GitLab,
+GitHub and inside Doxygen generated documentation, but Doxygen generated output is flat, signle directory.
+
+Workaround:
+
+Each documented subdirectory is given a Doxyfile with output directory specified manually. This allows us to use relative links
+within Doxygen docs.
+
+Snippet:
+

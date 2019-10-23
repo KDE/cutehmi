@@ -1,0 +1,24 @@
+# <Doxygen-2.workaround target="Doxygen" cause="missing">
+
+@INCLUDE = ../doc/config/Doxyfile.common
+
+PROJECT_LOGO           = ../doc/images/project_logo.png
+
+OUTPUT_DIRECTORY       = ../doc/Doxygen/docs/extensions
+
+LAYOUT_FILE            = ../doc/layout/SubdirectoryLayout.xml
+
+INPUT                  = .
+
+EXAMPLE_PATH           = ../doc/_temp
+
+IMAGE_PATH             = ../doc/images
+
+INPUT_FILTER           = "sed -f ../doc/filters/input.sed"
+
+USE_MDFILE_AS_MAINPAGE = ./README.md
+
+HTML_EXTRA_STYLESHEET  = ../doc/CSS/extra.css
+
+# </Doxygen-2.workaround>
+

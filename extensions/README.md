@@ -1,6 +1,7 @@
 # Extensions directory
 
-Extensions can act as [QML extensions](http://doc.qt.io/qt-5/qtqml-index.html), but they can be also used like standard libraries.
+Extensions can act as [QML extensions](http://doc.qt.io/qt-5/qtqml-index.html),
+but they can be also used like standard libraries.
 
 
 ## Creating custom extensions
@@ -24,7 +25,7 @@ __name__ consists of __base name__ (`Templates.Skeleton`) and __major version__
 suffix (`0`). __Base name__ consists of two parts: _vendor name_ (`Templates`)
 and _extension name_ (`Skeleton`). It is allowed to omit _extension name_ for a
 single extension from a specific vendor. It is also allowed to provide
-dot-separated _extension name_ (e.g. `examples.Skeleton`); or do the same with
+dot-separated _extension name_ (e.g. `Examples.Skeleton`); or do the same with
 _vendor_ (e.g. `org.nokia`).
 
 Extension directories follow camel-case (PascalCase) rules in order to remain
@@ -41,12 +42,12 @@ Typically each extension will have directory structure similar to this one.
     - _vendorname_ - for example `templates`.
         - _extensionname_ - for example `skeleton`.
             - `internal` - some headers need to be publicly available, but they
-            are implementation detail. This directory is for such files.
+              are implementation detail. This directory is for such files.
 - `src` - private header files and implementation.
     - _vendorname_ - for example `templates`.
         - _extensionname_ - for example `skeleton`.
             - `internal` - corresponds with `internal` subdirectory inside
-            `include` directory.
+              `include` directory.
 - `tests` - Tests.
 - `doc` - Documentation related files.
 - `dev` - Development notes.

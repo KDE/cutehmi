@@ -130,7 +130,6 @@ void test_functions::testAbsEps()
 	QCOMPARE(r == r + absEps(r) * 0.25, true);
 }
 
-
 }
 
 QTEST_MAIN(cutehmi::test_functions)

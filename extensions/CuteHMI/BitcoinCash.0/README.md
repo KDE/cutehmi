@@ -1,4 +1,4 @@
-# CuteHMI - Bitcoin Cash
+# Bitcoin Cash
 
 This extension provides Bitcoin Cash operations through Bitcoin.com REST API.
 
