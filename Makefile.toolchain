@@ -1,5 +1,5 @@
 # Copyright (c) 2018, Michal Policht. This file is dually licensed under terms
-# of either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or 
+# of either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or
 # BEER-WARE LICENSE by googling, binging, yahooing or downloading it from pirate
 # bay. NO WARRANTY.
 
@@ -22,11 +22,13 @@ HOST_MACHINE := $(TARGET_MACHINE)
 ifeq "$(OS)" "Windows_NT"
   NATIVE_PATH_SEPARATOR := $(join \,)
   NATIVE_EXECUTABLE_SUFFIX := .exe
-  NATIVE_IORS = '\r\n'  	# Input/Output Record Separator used by AWK.
+  # Input/Output Record Separator used by AWK.
+  NATIVE_IORS = '\r\n'
 else
   NATIVE_PATH_SEPARATOR := /
   NATIVE_EXECUTABLE_SUFFIX :=
-  NATIVE_IORS = '\n'		# Input/Output Record Separator used by AWK.
+  # Input/Output Record Separator used by AWK.
+  NATIVE_IORS = '\n'
 endif
 
 
@@ -55,14 +57,16 @@ DIRNAME = dirname
 ECHO = echo
 MKDIR = mkdir
 MV = mv
+PASTE = paste
 RM = rm
 TR = tr
+UNIQ = uniq
 SORT = sort
 STAT = stat
 TOUCH = touch
 
-$(BASENAME) $(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MKDIR) $(MV) $(RM) $(TR) \
-$(SORT) $(STAT) $(TOUCH):
+$(BASENAME) $(CAT) $(CUT) $(CP) $(DIRNAME) $(ECHO) $(MKDIR) $(MV) $(PASTE) \
+$(RM) $(TR) $(UNIQ) $(SORT) $(STAT) $(TOUCH):
 
 
 # Findutils
@@ -145,10 +149,21 @@ DOXYQML = $(DOXYQML_DIR)/doxyqml
 ifeq "$(OS)" "Windows_NT"
   CMAKE_DIR = $(C_DIR)/Program\ Files/CMake
 else
-  CMAKE_DIR = /usr/bin
+  CMAKE_DIR = /usr
 endif
 CMAKE_BIN_DIR = $(CMAKE_DIR)/bin
 CMAKE = $(CMAKE_BIN_DIR)/cmake$(NATIVE_EXECUTABLE_SUFFIX)
+
+
+# Git.
+
+ifeq "$(OS)" "Windows_NT"
+  GIT_DIR = $(C_DIR)/Program\ Files/Git
+else
+  GIT_DIR = /usr
+endif
+GIT_BIN_DIR = $(GIT_DIR)/bin
+GIT = $(GIT_BIN_DIR)/git$(NATIVE_EXECUTABLE_SUFFIX)
 
 
 # Include platform specific toolchain file.

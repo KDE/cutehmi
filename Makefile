@@ -1,4 +1,4 @@
-# Copyright (c) 2018, Michal Policht. This file is dually licensed under terms of 
+# Copyright (c) 2018, Michal Policht. This file is dually licensed under terms of
 # either WTFPL or BEER-WARE LICENSE. You may obtain the copy of WTFPL or BEER-WARE
 # LICENSE by googling, binging, yahooing or downloading it from pirate bay.
 # NO WARRANTY.
@@ -44,13 +44,13 @@ INCLUDE_FILE_TYPES = -name '*.hpp' -o -name '*.h' -o -name '*.hpp.in'
 INCLUDE_GUARD_PREFIX = "AWKGWARD_"
 
 # [doc_doxygen] List of Doxygen files.
-DOC_DOXYGEN_FILES = 
+DOC_DOXYGEN_FILES =
 
 # [doc_qdoc] List of qdoc files.
 DOC_QDOC_FILES =
 
 # [doc] Project-specific targets.
-DOC_PROJECT_TARGETS = 
+DOC_PROJECT_TARGETS =
 
 # [guards] Directories, where include guards should be updated.
 INCLUDE_GUARDS_DIRS = $(INCLUDE_DIRS)
@@ -86,9 +86,9 @@ MAKELIC = awkgward/makelic.sh
 include Makefile.project
 
 
-.PHONY: help description path license guards doc doc_clean doc_doxygen ports
+.PHONY: help description env license guards doc doc_clean doc_doxygen ports
 
-help: description path
+help: description env
 		@echo --------------------------------------------------------------------------------
 		@echo Make targets are:
 		@echo help - display this help box.
@@ -104,23 +104,24 @@ description:
 		@echo $(HELP_MESSAGE)
 
 # Double quotes are required for printing path reliably with raw mingw32-make (without MSYS shell).
-path:
+env:
 		@echo --------------------------------------------------------------------------------
+		@echo OS = "$(OS)"
 		@echo PATH = "$(PATH)"
 
 license: license_dslash license_hash license_xml
 
-license_dslash: $(MAKELIC) $(LICENSE_DSLASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+license_dslash: $(MAKELIC) $(LICENSE_DSLASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(UNIQ) $(PASTE) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM) $(GIT)
 		@echo Applying licenses using double slash comment...
-		@$(FIND) $(LICENSE_DSLASH_DIRS) -type f -name $(LICENSE_DSLASH) -exec $(SH) $(MAKELIC) {} dslash '$(LICENSE_DSLASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
+		@$(FIND) $(LICENSE_DSLASH_DIRS) -type f -name $(LICENSE_DSLASH) -exec $(SH) $(MAKELIC) {} dslash '$(LICENSE_DSLASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) $(GIT) \;
 
-license_hash: $(MAKELIC) $(LICENSE_HASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+license_hash: $(MAKELIC) $(LICENSE_HASH_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(UNIQ) $(PASTE) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM) $(GIT)
 		@echo Applying licenses using hash comment...
-		@$(FIND) $(LICENSE_HASH_DIRS) -type f -name $(LICENSE_HASH) -exec $(SH) $(MAKELIC) {} hash '$(LICENSE_HASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
+		@$(FIND) $(LICENSE_HASH_DIRS) -type f -name $(LICENSE_HASH) -exec $(SH) $(MAKELIC) {} hash '$(LICENSE_HASH_FILE_TYPES)' $(NATIVE_IORS) $(FIND) $(GIT) \;
 
-license_xml: $(MAKELIC) $(LICENSE_XML_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM)
+license_xml: $(MAKELIC) $(LICENSE_XML_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(MAKELIC) $(STAT) $(CUT) $(UNIQ) $(PASTE) $(GREP) $(TOUCH) $(SED) $(ECHO) $(CAT) $(RM) $(GIT)
 		@echo Applying licenses using XML comment...
-		@$(FIND) $(LICENSE_XML_DIRS) -type f -name $(LICENSE_XML) -exec $(SH) $(MAKELIC) {} xml '$(LICENSE_XML_FILE_TYPES)' $(NATIVE_IORS) $(FIND) \;
+		@$(FIND) $(LICENSE_XML_DIRS) -type f -name $(LICENSE_XML) -exec $(SH) $(MAKELIC) {} xml '$(LICENSE_XML_FILE_TYPES)' $(NATIVE_IORS) $(FIND) $(GIT) \;
 
 guards: $(AWKGWARD) $(INCLUDE_GUARDS_DIRS) | $(FIND) $(SH) $(AWK) $(CUT) $(GREP) $(TOUCH) $(STAT) $(AWK) $(ECHO) $(MV)
 		@echo Updating include guards...
