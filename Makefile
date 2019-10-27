@@ -11,13 +11,13 @@ first: help
 HELP_MESSAGE =
 
 # [license] Names of files containing license text to be appended to files, commented out with double slash.
-LICENSE_DSLASH = '*.LICENSE.dslash.inc'
+LICENSE_DSLASH = 'LICENSE.*.dslash.inc'
 
 # [license] Names of files containing license text to be appended to files, commented out with hash.
-LICENSE_HASH = '*.LICENSE.hash.inc'
+LICENSE_HASH = 'LICENSE.*.hash.inc'
 
 # [license] Names of files containing license text to be appended to files, commented out with XML comment.
-LICENSE_XML = '*.LICENSE.xml.inc'
+LICENSE_XML = 'LICENSE.*.xml.inc'
 
 # [license] CMake file types.
 CMAKE_FILE_TYPES = -name '*.cmake' -o -name 'CMakeLists.txt'
