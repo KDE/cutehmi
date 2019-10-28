@@ -1,24 +1,24 @@
 # <Doxygen-2.workaround targe="Doxygen" cause="missing">
 
-@INCLUDE = doc/config/Doxyfile.common
+@INCLUDE = ../doc/config/Doxyfile.common
 
-PROJECT_LOGO           = doc/images/project_logo.png
+PROJECT_LOGO           = ../doc/images/project_logo.png
 
-OUTPUT_DIRECTORY       = doc/Doxygen/docs/doc
+OUTPUT_DIRECTORY       = ../doc/Doxygen/docs/doc
 
-LAYOUT_FILE            = doc/layout/SubdirectoryLayout.xml
+LAYOUT_FILE            = ../doc/layout/SubdirectoryLayout.xml
 
-INPUT                  = doc
+INPUT                  = .
 
-EXAMPLE_PATH           = doc/_temp
+EXAMPLE_PATH           = ../doc/_temp
 
-IMAGE_PATH             = doc/images
+IMAGE_PATH             = ../doc/images
 
-INPUT_FILTER           = "sed -f doc/filters/input.sed"
+INPUT_FILTER           = "sed -f ../doc/filters/input.sed"
 
-USE_MDFILE_AS_MAINPAGE = doc/README.md
+USE_MDFILE_AS_MAINPAGE = ./README.md
 
-HTML_EXTRA_STYLESHEET  = doc/CSS/extra.css
+HTML_EXTRA_STYLESHEET  = ../doc/CSS/extra.css
 
 # </Doxygen-2.workaround>
 
