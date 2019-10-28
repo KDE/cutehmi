@@ -108,9 +108,8 @@ Project {
 	}
 
 	cutehmi.AndroidQMLPlugin {
-		extensionName: "CuteHMI.2"
+		extensionName: parent.name
 	}
-
 }
 
 //(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
