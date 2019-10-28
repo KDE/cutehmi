@@ -87,7 +87,8 @@ timestamp=`stat $target_file | grep 'Modify: ' | cut -d ' ' -f 2,3,4`
 # (If run without shell it seems to translate input file "\r\n" into unix style "\n".)
 awk -v ORS="$iors" -v RS="\n|\r\n" -v comment="$comment" -v qualifier="$qualifier" -f awkgward/striplic.awk $target_file > $target_file.strip
 year=`$git_program log --reverse --pretty=format:"%ad" $target_file | cut -d' ' -f5 | awk 'NR==1; END{print}' | uniq | paste -sd "-"`
-authors=`$git_program shortlog --summary --numbered --email $target_file | cut -c8- | paste -sd "," | sed s/,/,\ /g`
+# HEAD is required when using shortlog from a script (see: git help shortlog and https://stackoverflow.com/questions/43041659/git-shortlog-does-not-show-output-in-jenkins-shell)
+authors=`$git_program shortlog HEAD --summary --numbered --email $target_file | cut -c8- | paste -sd "," | sed s/,/,\ /g`
 # Invoking sed with -b option to prevent new lines conversion
 sed -b -e "s/%YEAR%/$year/" -e "s/%AUTHORS%/$authors/" $license_file > $license_file.putlic
 cat $target_file.strip $license_file.putlic > $target_file
