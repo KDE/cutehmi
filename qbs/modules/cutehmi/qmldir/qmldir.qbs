@@ -26,7 +26,8 @@ Module {
 
 	/**
 	  Initial major version. The property represents major version of \<InitialVersion\>, that stands after \<TypeName\> of each QML
-	  type entry. By default the property is binded to major version of a product.
+	  type entry. It is also used when specyfing major version of plugin binary. By default the property is binded to major version
+	  of a product.
 	  */
 	property int major: product.major
 
@@ -145,7 +146,7 @@ Module {
 
 					if (product.type.contains("dynamiclibrary") && inputs["cutehmi.qmldir.qmlPlugin"] !== undefined) {
 						f.writeLine("")
-						f.writeLine("plugin " + product.cutehmi.qmldir.pluginName + " " + product.cutehmi.qmldir.pluginDir)
+						f.writeLine("plugin " + product.cutehmi.qmldir.pluginName + "." + product.cutehmi.qmldir.major + " " + product.cutehmi.qmldir.pluginDir)
 						f.writeLine("classname " + product.cutehmi.qmldir.className)
 					}
 
