@@ -37,7 +37,6 @@ Project {
          "include/cutehmi/app/internal/platform.hpp",
          "include/cutehmi/app/logging.hpp",
          "include/cutehmi/app/metadata.hpp",
-         "qmldir",
          "src/cutehmi/app/CuteApp.cpp",
          "src/cutehmi/app/internal/QMLPlugin.cpp",
          "src/cutehmi/app/internal/QMLPlugin.hpp",
@@ -50,12 +49,14 @@ Project {
 		Depends { name: "Qt.widgets" }
 		//</CuteHMI.App-1.workaround>
 
-		Depends { name: "cutehmi.qmltypes" }
-
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
 		cutehmi.doxygen.exclude: ['tests']
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
 			Depends { name: "CuteHMI.2" }

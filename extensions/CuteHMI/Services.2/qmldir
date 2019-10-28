@@ -1,8 +1,0 @@
-module CuteHMI.Services
-
-plugin CuteHMI.Services.2 ../..
-classname cutehmi::services::internal::QMLPlugin
-
-typeinfo plugins.qmltypes
-
-designersupported

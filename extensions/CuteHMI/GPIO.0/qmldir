@@ -1,8 +1,0 @@
-module CuteHMI.GPIO
-
-plugin CuteHMI.GPIO.0 ../..
-classname cutehmi::gpio::internal::QMLPlugin
-
-typeinfo plugins.qmltypes
-
-designersupported

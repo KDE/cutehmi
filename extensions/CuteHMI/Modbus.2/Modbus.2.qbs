@@ -31,9 +31,9 @@ Project {
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
-         "LICENSE",
+		 "LICENSE",
          "README.md",
-         "include/cutehmi/modbus/AbstractClient.hpp",
+		 "include/cutehmi/modbus/AbstractClient.hpp",
          "include/cutehmi/modbus/AbstractDevice.hpp",
          "include/cutehmi/modbus/AbstractRegisterController.hpp",
          "include/cutehmi/modbus/AbstractServer.hpp",
@@ -95,7 +95,6 @@ Project {
          "include/cutehmi/modbus/internal/platform.hpp",
          "include/cutehmi/modbus/logging.hpp",
          "include/cutehmi/modbus/metadata.hpp",
-         "qmldir",
          "src/cutehmi/modbus/AbstractClient.cpp",
          "src/cutehmi/modbus/AbstractDevice.cpp",
          "src/cutehmi/modbus/AbstractRegisterController.cpp",
@@ -158,10 +157,12 @@ Project {
 
 		Depends { name: "CuteHMI.Services.2" }
 
-		Depends { name: "cutehmi.qmltypes" }
-
 		Depends { name: "cutehmi.init" }
 		cutehmi.init.initializerClass: "cutehmi::modbus::Initializer"
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
 			Depends { name: "Qt.serialbus" }

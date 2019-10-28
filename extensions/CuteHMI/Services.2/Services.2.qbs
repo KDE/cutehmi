@@ -47,7 +47,6 @@ Project {
          "include/cutehmi/services/internal/common.hpp",
          "include/cutehmi/services/logging.hpp",
          "include/cutehmi/services/metadata.hpp",
-         "qmldir",
          "src/cutehmi/services/Initializer.cpp",
          "src/cutehmi/services/PollingTimer.cpp",
          "src/cutehmi/services/Service.cpp",
@@ -59,13 +58,17 @@ Project {
 
 		Depends { name: "CuteHMI.2" }
 
-		Depends { name: "cutehmi.init" }
-		cutehmi.init.initializerClass: "cutehmi::services::Initializer"
-
 //		Depends { name: "cutehmi.doxygen" }
 //		cutehmi.doxygen.warnIfUndocumented: false
 //		cutehmi.doxygen.useDoxyqml: true
 //		cutehmi.doxygen.exclude: ['tests']
+
+		Depends { name: "cutehmi.init" }
+		cutehmi.init.initializerClass: "cutehmi::services::Initializer"
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
 			Depends { name: "CuteHMI.2" }

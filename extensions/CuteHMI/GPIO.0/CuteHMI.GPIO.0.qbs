@@ -43,7 +43,6 @@ Project {
 		 "include/cutehmi/gpio/internal/platform.hpp",
 		 "include/cutehmi/gpio/logging.hpp",
 		 "include/cutehmi/gpio/metadata.hpp",
-		 "qmldir",
 		 "src/cutehmi/gpio/Chip.cpp",
 		 "src/cutehmi/gpio/ChipEnumerator.cpp",
 		 "src/cutehmi/gpio/Line.cpp",
@@ -58,12 +57,14 @@ Project {
 
 		Depends { name: "cutehmi.libgpiod" }
 
-		Depends { name: "cutehmi.qmltypes" }
-
 //		Depends { name: "cutehmi.doxygen" }
 //		cutehmi.doxygen.warnIfUndocumented: false
 //		cutehmi.doxygen.useDoxyqml: true
 //		cutehmi.doxygen.exclude: ['tests']
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
 			Depends { name: "CuteHMI.2" }

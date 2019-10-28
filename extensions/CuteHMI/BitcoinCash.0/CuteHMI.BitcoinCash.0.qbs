@@ -37,7 +37,6 @@ Project {
 			"include/cutehmi/bitcoincash/internal/platform.hpp",
 			"include/cutehmi/bitcoincash/logging.hpp",
 			"include/cutehmi/bitcoincash/metadata.hpp",
-			"qmldir",
 			"src/cutehmi/bitcoincash/Address.cpp",
 			"src/cutehmi/bitcoincash/internal/QMLPlugin.cpp",
 			"src/cutehmi/bitcoincash/internal/QMLPlugin.hpp",
@@ -48,12 +47,14 @@ Project {
 
 		Depends { name: "CuteHMI.2" }
 
-		Depends { name: "cutehmi.qmltypes" }
-
 //		Depends { name: "cutehmi.doxygen" }
 //		cutehmi.doxygen.warnIfUndocumented: false
 //		cutehmi.doxygen.useDoxyqml: true
 //		cutehmi.doxygen.exclude: ['tests']
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
 			Depends { name: "CuteHMI.2" }

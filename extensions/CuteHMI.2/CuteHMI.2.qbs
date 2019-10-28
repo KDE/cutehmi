@@ -48,7 +48,6 @@ Project {
          "include/cutehmi/functions.hpp",
          "include/cutehmi/macros.hpp",
          "include/cutehmi/wrappers.hpp",
-         "qmldir",
          "include/cutehmi/Error.hpp",
          "include/cutehmi/ErrorException.hpp",
          "include/cutehmi/ErrorInfo.hpp",
@@ -90,8 +89,6 @@ Project {
 
 		Depends { name: "Qt.qml" }
 
-		Depends { name: "cutehmi.qmltypes" }
-
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
@@ -99,6 +96,10 @@ Project {
 
 		Depends { name: "cutehmi.init" }
 		cutehmi.init.initializerClass: "cutehmi::Initializer"
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
 			Depends { name: "Qt.core" }
