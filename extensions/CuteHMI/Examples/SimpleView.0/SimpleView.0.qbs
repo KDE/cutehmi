@@ -35,6 +35,8 @@ Project {
 
 		Depends { name: "cutehmi.qmldir" }
 
+		Depends { name: "cutehmi.qmltypes" }
+
 		Depends { name: "cutehmi_view" }
 	}
 }
