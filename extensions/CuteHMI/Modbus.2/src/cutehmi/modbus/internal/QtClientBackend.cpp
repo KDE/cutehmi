@@ -569,7 +569,7 @@ void QtClientBackend::close()
 void QtClientBackend::onStateChanged(QModbusDevice::State state)
 {
 	CUTEHMI_DEBUG("Client state changed to: '" << state << "'.");
-	switch (m->qClient->state()) {
+	switch (state) {
 		case QModbusDevice::ConnectingState:
 			emit stateChanged(AbstractDevice::OPENING);
 			break;
