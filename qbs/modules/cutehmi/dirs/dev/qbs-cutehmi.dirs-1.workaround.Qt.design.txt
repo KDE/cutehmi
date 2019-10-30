@@ -1,7 +1,7 @@
 Problem:
 
 The problem is a clash between default QML import path set by Qt for Android and CuteHMI directory tree. Going into details - Qt
-expects us to install all the extensions in the 'qml' directory (which would be later referred by Qt.android_support.extraPlugins 
+expects us to install all the extensions in the 'qml' directory (which would be later referred by Qt.android_support.extraPlugins
 property), but CuteHMI by default installs extensions in the 'bin' directory.
 
 Workaround:
