@@ -22,7 +22,7 @@ class CUTEHMI_MODBUS_PRIVATE RTUServerConfig:
 
 		static constexpr int MIN_SLAVE_ADDRESS = 1; // Can be 1 to 247 according to http://www.simplymodbus.ca/FAQ.htm
 		static constexpr int MAX_SLAVE_ADDRESS = 247; // Can be 1 to 247 according to http://www.simplymodbus.ca/FAQ.htm
-		static constexpr const char * INITIAL_PORT = "COM1";
+		static const char * INITIAL_PORT;
 		static constexpr QSerialPort::Parity INITIAL_PARITY = QSerialPort::NoParity;
 		static constexpr QSerialPort::BaudRate INITIAL_BAUD_RATE = QSerialPort::Baud19200;
 		static constexpr QSerialPort::DataBits INITIAL_DATA_BITS = QSerialPort::Data8;

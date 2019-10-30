@@ -4,6 +4,12 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
+constexpr int TCPClientConfig::MIN_SLAVE_ADDRESS;
+constexpr int TCPClientConfig::MAX_SLAVE_ADDRESS;
+const char * TCPClientConfig::INITIAL_HOST = "localhost";
+constexpr int TCPClientConfig::INITIAL_PORT;
+constexpr int TCPClientConfig::INITIAL_SLAVE_ADDRESS;
+
 TCPClientConfig::TCPClientConfig(QObject * parent):
 	Config(parent),
 	m(new Members)

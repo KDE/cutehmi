@@ -4,6 +4,20 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
+constexpr int TCPServerConfig::MIN_SLAVE_ADDRESS;
+constexpr int TCPServerConfig::MAX_SLAVE_ADDRESS;
+const char * TCPServerConfig::INITIAL_HOST = "localhost";
+constexpr int TCPServerConfig::INITIAL_PORT;
+constexpr int TCPServerConfig::INITIAL_SLAVE_ADDRESS;
+constexpr quint16 TCPServerConfig::INITIAL_COILS_ADDRESS_RANGE_MIN;
+constexpr quint16 TCPServerConfig::INITIAL_COILS_ADDRESS_RANGE_MAX;
+constexpr quint16 TCPServerConfig::INITIAL_DISCRETE_INPUTS_ADDRESS_RANGE_MIN;
+constexpr quint16 TCPServerConfig::INITIAL_DISCRETE_INPUTS_ADDRESS_RANGE_MAX;
+constexpr quint16 TCPServerConfig::INITIAL_HOLDING_REGISTERS_ADDRESS_RANGE_MIN;
+constexpr quint16 TCPServerConfig::INITIAL_HOLDING_REGISTERS_ADDRESS_RANGE_MAX;
+constexpr quint16 TCPServerConfig::INITIAL_INPUT_REGISTERS_ADDRESS_RANGE_MIN;
+constexpr quint16 TCPServerConfig::INITIAL_INPUT_REGISTERS_ADDRESS_RANGE_MAX;
+
 TCPServerConfig::TCPServerConfig(QObject * parent):
 	Config(parent),
 	m(new Members)

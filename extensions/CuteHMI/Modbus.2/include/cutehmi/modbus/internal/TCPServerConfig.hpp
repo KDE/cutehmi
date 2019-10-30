@@ -21,7 +21,7 @@ class CUTEHMI_MODBUS_PRIVATE TCPServerConfig:
 
 		static constexpr int MIN_SLAVE_ADDRESS = 1; // Can be 1 to 247 according to http://www.simplymodbus.ca/FAQ.htm
 		static constexpr int MAX_SLAVE_ADDRESS = 247; // Can be 1 to 247 according to http://www.simplymodbus.ca/FAQ.htm
-		static constexpr const char * INITIAL_HOST = "localhost";
+		static const char * INITIAL_HOST;
 		static constexpr int INITIAL_PORT = 502;
 		static constexpr int INITIAL_SLAVE_ADDRESS = MIN_SLAVE_ADDRESS;
 		static constexpr quint16 INITIAL_COILS_ADDRESS_RANGE_MIN = 0;

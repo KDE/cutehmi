@@ -4,6 +4,23 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
+constexpr int RTUServerConfig::MIN_SLAVE_ADDRESS;
+constexpr int RTUServerConfig::MAX_SLAVE_ADDRESS;
+const char * RTUServerConfig::INITIAL_PORT = "COM1";
+constexpr QSerialPort::Parity RTUServerConfig::INITIAL_PARITY;
+constexpr QSerialPort::BaudRate RTUServerConfig::INITIAL_BAUD_RATE;
+constexpr QSerialPort::DataBits RTUServerConfig::INITIAL_DATA_BITS;
+constexpr QSerialPort::StopBits RTUServerConfig::INITIAL_STOP_BITS;
+constexpr int RTUServerConfig::INITIAL_SLAVE_ADDRESS;
+constexpr int RTUServerConfig::INITIAL_COILS_ADDRESS_RANGE_MIN;
+constexpr int RTUServerConfig::INITIAL_COILS_ADDRESS_RANGE_MAX;
+constexpr int RTUServerConfig::INITIAL_DISCRETE_INPUTS_ADDRESS_RANGE_MIN;
+constexpr int RTUServerConfig::INITIAL_DISCRETE_INPUTS_ADDRESS_RANGE_MAX;
+constexpr int RTUServerConfig::INITIAL_HOLDING_REGISTERS_ADDRESS_RANGE_MIN;
+constexpr int RTUServerConfig::INITIAL_HOLDING_REGISTERS_ADDRESS_RANGE_MAX;
+constexpr int RTUServerConfig::INITIAL_INPUT_REGISTERS_ADDRESS_RANGE_MIN;
+constexpr int RTUServerConfig::INITIAL_INPUT_REGISTERS_ADDRESS_RANGE_MAX;
+
 RTUServerConfig::RTUServerConfig(QObject * parent):
 	Config(parent),
 	m(new Members)
