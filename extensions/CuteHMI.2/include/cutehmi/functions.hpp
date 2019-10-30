@@ -3,6 +3,8 @@
 
 #include "constants.hpp"
 
+#include <cmath>
+
 namespace cutehmi {
 
 /**
