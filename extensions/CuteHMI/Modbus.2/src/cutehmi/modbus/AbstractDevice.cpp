@@ -467,6 +467,8 @@ void AbstractDevice::handleReply(QUuid requestId, QJsonObject reply)
 
 	CUTEHMI_DEBUG("Handling reply '" << reply << "' to request '" << requestId << "', which took " << elapsedTime << " [ms] to complete.");
 
+	reply.insert("elapsed", elapsedTime);
+
 	if (validateReply(request, reply)) {
 		if (!reply.value("success").toBool()) {
 			CUTEHMI_WARNING("Request '" << requestId << "' failed.");
