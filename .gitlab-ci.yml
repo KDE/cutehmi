@@ -1,59 +1,139 @@
 variables:
   QBS_BASE_PROFILE: "gcc"
   QBS_CONFIG: "debug"
-
+  QBS_PROFILE: "qt"
+  QBS_AUTOTEST_ARGUMENTS: "-platform xcb"
+  QT_DEBUG_PLUGINS: 0
+  XDG_RUNTIME_DIR: "/tmp/runtime-kdeci/"
+  DISPLAY: ":90"
+  
 stages:
   - build
+  - build tests
+  - test
+
+
+# Build stage.
 
 .build:
   stage: build
   only:
     - master
     - merge_requests
+  script:
+    - echo "Qbs base profile:" $QBS_BASE_PROFILE
+    - echo "Qbs profile:" $QBS_PROFILE
+    - echo "Qbs config:" $QBS_CONFIG
+    - qbs build -f CuteHMI.qbs -d build profile:$QBS_PROFILE config:$QBS_CONFIG
+
+.build_ci-suse-qt512:
+  image: "kdeorg/ci-suse-qt512"
+  extends: .build
   before_script:
     - uname -a
     - export PATH=$PATH:/usr/lib64/qt5/bin/:/usr/bin/
     - qbs --version
     - qmake --version
     - qbs setup-toolchains --detect
-    - qbs setup-qt /usr/lib64/qt5/bin/qmake qt
+    - qbs setup-qt /usr/lib64/qt5/bin/qmake $QBS_PROFILE
     - qbs config --list profiles
-    - qbs config profiles.qt.baseProfile $QBS_BASE_PROFILE
-  after_script:
-     - qbs build -f CuteHMI.qbs -d build profile:qt config:$QBS_CONFIG
+    - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
+    - zypper --non-interactive in libgpiod-devel
 
-gcc debug kdeorg/ci-suse-qt512:
-  image: "kdeorg/ci-suse-qt512"
-  extends: .build
+gcc ci-suse-qt512 debug build:
+  extends: .build_ci-suse-qt512
   variables:
     QBS_BASE_PROFILE: "gcc"
     QBS_CONFIG: "debug"
-  script:
-    - zypper --non-interactive in libgpiod-devel
 
-clang debug kdeorg/ci-suse-qt512:
-  image: "kdeorg/ci-suse-qt512"
-  extends: .build
+clang ci-suse-qt512 debug build:
+  extends: .build_ci-suse-qt512
   variables:
     QBS_BASE_PROFILE: "clang"
     QBS_CONFIG: "debug"
-  script:
-    - zypper --non-interactive in libgpiod-devel
 
-gcc release kdeorg/ci-suse-qt512:
-  image: "kdeorg/ci-suse-qt512"
-  extends: .build
+gcc ci-suse-qt512 release build:
+  extends: .build_ci-suse-qt512
   variables:
     QBS_BASE_PROFILE: "gcc"
     QBS_CONFIG: "release"
-  script:
-    - zypper --non-interactive in libgpiod-devel
 
-clang release kdeorg/ci-suse-qt512:
-  image: "kdeorg/ci-suse-qt512"
-  extends: .build
+clang ci-suse-qt512 release build:
+  extends: .build_ci-suse-qt512
   variables:
     QBS_BASE_PROFILE: "clang"
     QBS_CONFIG: "release"
+
+
+# Build tests stage.
+
+.build_tests:
+  stage: build tests
+  only:
+    - master
+    - merge_requests
+  artifacts:
+    paths:
+      - build_tests/$QBS_CONFIG
+    expire_in: 24h
   script:
-    - zypper --non-interactive in libgpiod-devel
+    - echo "Qbs base profile:" $QBS_BASE_PROFILE
+    - echo "Qbs profile:" $QBS_PROFILE
+    - echo "Qbs config:" $QBS_CONFIG
+    - qbs build -f TestCuteHMI.qbs -d build_tests modules.autotest.arguments:'[$QBS_AUTOTEST_ARGUMENTS]' profile:$QBS_PROFILE config:$QBS_CONFIG
+
+
+.build_tests_ubuntu-19.04-qt-5.13.1:
+  image: "cutehmi/qt:ubuntu-19.04-qt-5.13.1"
+  extends: .build_tests
+  variables:
+    QBS_PROFILE: "qt-5-13-1"
+  before_script:
+    - uname -a
+    - qbs --version
+    - qmake --version
+    - qbs setup-toolchains --detect
+    - qbs setup-qt --detect
+    - qbs config --list profiles
+    - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
+    - sudo apt-get update
+    - sudo apt-get install libgpiod-dev --yes
+
+gcc ubuntu-19.04-qt-5.13.1 debug build tests:
+  extends: .build_tests_ubuntu-19.04-qt-5.13.1
+  variables:
+    QBS_BASE_PROFILE: "gcc"
+    QBS_CONFIG: "debug"
+
+
+# Test stage.
+
+.test:
+  stage: test
+  allow_failure: true
+  only:
+    - master
+    - merge_requests
+  script:
+    - qbs build -f TestCuteHMI.qbs -d build_tests -p autotest-runner modules.autotest.arguments:'[$QBS_AUTOTEST_ARGUMENTS]' profile:$QBS_PROFILE config:$QBS_CONFIG
+
+gcc ubuntu-19.04-qt-5.13.1 debug test:
+  image: "cutehmi/qt:ubuntu-19.04-qt-5.13.1"
+  extends: .test
+  variables:
+    QBS_PROFILE: "qt-5-13-1"
+  dependencies:
+    - gcc ubuntu-19.04-qt-5.13.1 debug build tests
+  before_script:
+    - uname -a
+    - mkdir $XDG_RUNTIME_DIR
+    - Xvfb $DISPLAY -ac -screen 0 1600x1200x24+32 -nolisten tcp -nolisten unix &
+    - sleep 1
+    - qbs --version
+    - qmake --version
+    - qbs setup-toolchains --detect
+    - qbs setup-qt --detect
+    - qbs config --list profiles
+    - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
+    - sudo apt-get update
+    - sudo apt-get install libgpiod-dev --yes
