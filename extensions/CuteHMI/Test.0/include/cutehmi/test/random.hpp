@@ -61,6 +61,23 @@ SeededEngine<E>::SeededEngine()
 }
 
 /**
+ * Generate random Boolean value using Bernoulli distribution.
+ * @tparam T boolean type.
+ * @tparam E random number generator engine.
+ * @param p propbablity of generating @p true.
+ * @return one of the Boolean values: @p true or @p false.
+ */
+template <typename T, typename E = SeededEngine<std::mt19937>>
+typename std::enable_if<std::is_same<T, bool>::value, T>::type rand(double p = 0.5)
+{
+	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
+
+	std::bernoulli_distribution distribution(p);
+
+	return distribution(engine);
+}
+
+/**
  * Generate random integer using uniform distribution.
  * @tparam T integer type.
  * @tparam E random number generator engine.
@@ -98,23 +115,6 @@ typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(int from
 	std::uniform_int_distribution<int> expDistribution(fromExponent, toExponent);
 
 	return rand<bool>() ? std::ldexp(fracDistribution(engine), expDistribution(engine)) : -std::ldexp(fracDistribution(engine), expDistribution(engine));
-}
-
-/**
- * Generate random Boolean value using Bernoulli distribution.
- * @tparam T boolean type.
- * @tparam E random number generator engine.
- * @param p propbablity of generating @p true.
- * @return one of the Boolean values: @p true or @p false.
- */
-template <typename T, typename E = SeededEngine<std::mt19937>>
-typename std::enable_if<std::is_same<T, bool>::value, T>::type rand(double p = 0.5)
-{
-	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
-
-	std::bernoulli_distribution distribution(p);
-
-	return distribution(engine);
 }
 
 /**
