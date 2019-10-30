@@ -1,0 +1,21 @@
+Problem:
+
+On Windows Findutils find (version 4.4.2) provided with mingw32 is buggy. It
+won't properly change working directory within `execdir` command, when searching
+for `doc\Doxyfile` and `external\Doxyfile` files. Because of that generated
+documentation will be missing those directories.
+
+
+Investigation:
+
+Newer versions of find work as expected.
+
+
+Solution:
+
+One can replace mingw32 find with more recent version if one needs these
+directories to be generated on Windows. Path to find program can be overriden
+with `Makefile.user` file.
+
+Anyways mingw32 is becomming obsolete and switching to mingw64 is desired.
+
