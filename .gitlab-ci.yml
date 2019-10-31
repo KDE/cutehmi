@@ -115,7 +115,7 @@ gcc ubuntu-19.04-qt-5.13.1 debug build tests:
     - master
     - merge_requests
   script:
-    - qbs build -f TestCuteHMI.qbs -d build_tests -p autotest-runner modules.autotest.arguments:'[$QBS_AUTOTEST_ARGUMENTS]' profile:$QBS_PROFILE config:$QBS_CONFIG
+    - qbs build -f TestCuteHMI.qbs -d build_tests -p autotest-runner --jobs 1 modules.autotest.arguments:'[$QBS_AUTOTEST_ARGUMENTS]' profile:$QBS_PROFILE config:$QBS_CONFIG
 
 gcc ubuntu-19.04-qt-5.13.1 debug test:
   image: "cutehmi/qt:ubuntu-19.04-qt-5.13.1"
