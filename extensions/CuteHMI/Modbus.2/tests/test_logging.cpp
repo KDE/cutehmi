@@ -8,7 +8,7 @@ namespace modbus {
 class test_logging:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	private slots:
 		void loggingCategory();
@@ -16,7 +16,7 @@ class test_logging:
 
 void test_logging::loggingCategory()
 {
-	QCOMPARE(cutehmi::modbus::loggingCategory().categoryName(), "cutehmi_modbus_2");
+	QCOMPARE(cutehmi::modbus::loggingCategory().categoryName(), "CuteHMI.Modbus.2");
 }
 
 }
