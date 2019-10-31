@@ -19,16 +19,7 @@ CommonProduct {
 
 	files: {
 		var namespaceRelativePath = baseName.toLowerCase().replace(/\./g, '/')
-
-		var pathArray = [
-			sourceDirectory,
-			"src",
-			namespaceRelativePath,
-			"internal"
-		]
-
-		var internalDirPath = pathArray.join('/')
-
+		var internalDirPath = sourceDirectory + "/src/" + namespaceRelativePath + "/internal"
 		var headerPath = internalDirPath + "/QMLPlugin.hpp"
 		var sourcePath = internalDirPath + "/QMLPlugin.cpp"
 
