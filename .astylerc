@@ -8,3 +8,4 @@
 --align-pointer=middle
 --pad-header
 --pad-oper
+--close-templates
