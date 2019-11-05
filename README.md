@@ -31,10 +31,10 @@ numbers denote successive iterations of the project.
 
 [//]: # (\htmlonly)
 
-| Branch | Build status | Development status |
-|--------|--------------|--------------------|
-| [master](https://invent.kde.org/kde/cutehmi) | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | pre-alpha |
-| [1](https://invent.kde.org/kde/cutehmi/tree/1) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches) | alpha |
+| Branch                                         | Build status                                                                                                                   | Development status |
+|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| [master](https://invent.kde.org/kde/cutehmi)   | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | pre-alpha          |
+| [1](https://invent.kde.org/kde/cutehmi/tree/1) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
 
 [//]: # (\endhtmlonly)
 </div>
@@ -51,19 +51,21 @@ https://www.qt.io/. Qt can also be shipped with Linux distribution.
 3. All extensions dependent on external libraries will be disabled, if these
 libraries could not be found. To make the process of finding the libraries
 and installing them under Windows easier, a set of Makefiles is provided, which
-allows the libraries to be build from sources. Check out 
+allows the libraries to be build from sources. Check out
 [external](external/) libraries for more details. Each extension may
 provide individual documentation on how to build it.
 
 Remember that Qbs caches [Probe](http://doc.qt.io/qbs/qml-qbslanguageitems-probe.html)
-items' results, so if the library is installed after the project has been 
+items' results, so if the library is installed after the project has been
 configured with Qbs, it will not show up. You can use `--force-probe-execution`
 option to force Qbs to not use cached results.
 
 
 ## Examples
 
-Refer to documentation of each individual [tool](https://cutehmi.kde.org/docs/tools_list.html) on how to run examples.
+Refer to documentation of each individual
+[tool](https://cutehmi.kde.org/docs/tools_list.html) on how to run some basic
+examples.
 
 
 ## Internals
