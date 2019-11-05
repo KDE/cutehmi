@@ -3,6 +3,8 @@ import qbs
 import cutehmi
 
 Project {
+	condition: false	// This extension no longer works, because Bitcoin.com REST API v1 became unavailable.
+
 	name: "CuteHMI.BitcoinCash.0"
 
 	references: [
