@@ -7,7 +7,7 @@ namespace daemon {
 class test_cutehmi_daemon:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	private slots:
 		void initTestCase();
@@ -38,9 +38,9 @@ void test_cutehmi_daemon::helpOption()
 {
 	QList<QStringList> argumentsList;
 	argumentsList << QStringList({"--help"})
-				  << QStringList({"--h"});
+			<< QStringList({"--h"});
 
-	for (auto arguments: argumentsList) {
+	for (auto arguments : argumentsList) {
 		QProcess process;
 		process.start(m_programPath, arguments);
 		process.waitForFinished(1000);
@@ -56,9 +56,9 @@ void test_cutehmi_daemon::versionOption()
 {
 	QList<QStringList> argumentsList;
 	argumentsList << QStringList({"--version"})
-				  << QStringList({"--v"});
+			<< QStringList({"--v"});
 
-	for (auto arguments: argumentsList) {
+	for (auto arguments : argumentsList) {
 		QProcess process;
 		process.start(m_programPath, arguments);
 		process.waitForFinished(1000);
@@ -73,7 +73,7 @@ void test_cutehmi_daemon::versionOption()
 void test_cutehmi_daemon::countDaemonExample()
 {
 	QProcess process;
-	QStringList arguments { {"--app"}, {"--project=examples/CountDaemon/Main.qml"} };
+	QStringList arguments { {"--app"}, {"--project=examples/cutehmi_daemon/CountDaemon/Main.qml"} };
 	process.start(m_programPath, arguments);
 	QVERIFY(process.waitForFinished());
 
