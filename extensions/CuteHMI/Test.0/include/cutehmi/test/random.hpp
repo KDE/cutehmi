@@ -2,12 +2,14 @@
 #define H_EXTENSIONS_CUTEHMI_TEST_0_INCLUDE_CUTEHMI_TEST_RANDOM_HPP
 
 #include "IsIntType.hpp"
+#include "logging.hpp"
 
 #include <QChar>
 #include <QString>
 #include <QList>
 #include <QMultiHash>
 
+#include <cmath>
 #include <random>
 #include <chrono>
 #include <limits>
@@ -96,8 +98,9 @@ typename std::enable_if<IsIntType<T>::value, T>::type rand(T from = std::numeric
 }
 
 /**
- * Generate random floating point number using uniform distribution. Fractions are generated within range [@p 0.0, @p 1.0) and then
- * multiplied by @p 2 raised to random exponent [@a fromExponent, @a toExponent]. Sign is randomly applied to the resulting value.
+ * Generate random floating point number using uniform distribution for given exponent range. Fractions are generated within range
+ * [@p 0.0, @p 1.0) and then multiplied by @p 2 raised to random exponent [@a fromExponent, @a toExponent]. Sign is randomly applied
+ * to the resulting value.
  * @tparam T floating point number type.
  * @tparam E random number generator engine.
  * @param fromExponent lower bound of a set of powers of base 2 exponents to be used to multiply a randomly generated fraction from
@@ -107,7 +110,7 @@ typename std::enable_if<IsIntType<T>::value, T>::type rand(T from = std::numeric
  * @return randomly generated floating point number.
  */
 template <typename T, typename E = SeededEngine<std::mt19937>>
-typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(int fromExponent = std::numeric_limits<T>::min_exponent, int toExponent = std::numeric_limits<T>::max_exponent)
+typename std::enable_if<std::is_floating_point<T>::value, T>::type randExp(int fromExponent = std::numeric_limits<T>::min_exponent, int toExponent = std::numeric_limits<T>::max_exponent)
 {
 	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
 
@@ -115,6 +118,88 @@ typename std::enable_if<std::is_floating_point<T>::value, T>::type rand(int from
 	std::uniform_int_distribution<int> expDistribution(fromExponent, toExponent);
 
 	return rand<bool>() ? std::ldexp(fracDistribution(engine), expDistribution(engine)) : -std::ldexp(fracDistribution(engine), expDistribution(engine));
+}
+
+/**
+ * Pick random floating point number. For given interval exponent is picked in uniform manner. The distribution of picked numbers is
+ * not uniform in terms of continuous set of real numbers however. This function is provided to generate floating point numbers from
+ * a given interval with varying exponents.
+ * @tparam T floating point number type.
+ * @tparam E random number generator engine.
+ * @param from lower bound of a set of generated random numbers.
+ * @param from upper bound of a set of generated random numbers.
+ * @return randomly generated floating point number.
+ */
+template <typename T, typename E = SeededEngine<std::mt19937>>
+typename std::enable_if<std::is_floating_point<T>::value, T>::type randPick(T from = std::numeric_limits<T>::lowest(), T to = std::numeric_limits<T>::max())
+{
+	CUTEHMI_ASSERT(from <= to, "value of parameter 'to' must not be higher than value of parameter 'from'");
+
+	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
+
+	int fromExp;
+	T fromFrac = std::frexp(from, & fromExp);
+
+	int toExp;
+	T toFrac = std::frexp(to, & toExp);
+
+	// If boundary equals zero, enable close-to-zero exponents.
+	if (from == 0.0f)
+		std::frexp(std::numeric_limits<T>::denorm_min(), & fromExp);
+	if (to == 0.0f)
+		std::frexp(std::numeric_limits<T>::denorm_min(), & toExp);
+
+	bool negative;
+	int exp;
+	if ((negative = std::signbit(from)) == std::signbit(to)) {
+		exp = rand<int>(std::min(fromExp, toExp), std::max(fromExp, toExp));
+	} else {
+		// Handle degenerated interval with zero, where one of the bounds was a negative zero.
+		if (from == 0.0f && to == 0.0f)
+			return 0.0f;
+
+		// Pick sign randomly.
+		T ratio = -0.5f * from / (0.5f * to - 0.5f * from);	// Multiply by 0.5 to prevent overflow.
+		if (!std::isfinite(ratio))
+			ratio = 0.5f;
+		negative = rand<bool>(ratio);
+		if (negative) {
+			std::frexp(std::numeric_limits<T>::denorm_min(), & exp); // Subnormal exponent < std::numeric_limits<T>::min_exponent.
+			exp = rand<int>(exp, fromExp);
+			toFrac = 0.0f;
+		} else {
+			std::frexp(std::numeric_limits<T>::denorm_min(), & exp); // Subnormal exponent < std::numeric_limits<T>::min_exponent.
+			exp = rand<int>(exp, toExp);
+			fromFrac = 0.0f;
+		}
+	}
+
+	T fracLow = 0.0f;
+	T fracUp = 1.0f;
+
+	// Limit fraction range.
+	if (negative) {
+		fracUp = std::ldexp(std::abs(fromFrac), fromExp - exp);
+		fracLow = std::ldexp(std::abs(toFrac), toExp - exp);
+	} else {
+		fracLow = std::ldexp(fromFrac, fromExp - exp);
+		fracUp = std::ldexp(toFrac, toExp - exp);
+	}
+
+	std::uniform_real_distribution<T> fracDistribution(std::max(fracLow, static_cast<T>(0.0f)), std::min(fracUp, static_cast<T>(1.0f)));	// A fraction within range [max(fracLow, 0.0), min(fracUp, 1.0)).
+	T frac = fracDistribution(engine);
+
+#ifndef CUTEHMI_TESTS_RANDOM_NO_SANITIZE
+	if (negative)
+		return std::min(std::max(from, -std::ldexp(frac, exp)), to);
+	else
+		return std::min(std::max(from, std::ldexp(frac, exp)), to);
+#else
+	if (negative)
+		return -std::ldexp(frac, exp);
+	else
+		return std::ldexp(frac, exp);
+#endif
 }
 
 /**

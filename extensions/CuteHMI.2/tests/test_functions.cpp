@@ -9,7 +9,7 @@ namespace cutehmi {
 class test_functions:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	private slots:
 		void testApe();
@@ -51,7 +51,7 @@ void test_functions::testApe()
 	QCOMPARE(ape(0.0, 0.0625), false);
 	QCOMPARE(ape(0.5, 0.5 + 0.0625), false);
 
-	qreal r = test::rand<qreal>(0, std::numeric_limits<qreal>::max_exponent);
+	qreal r = test::randExp<qreal>(0, std::numeric_limits<qreal>::max_exponent);
 	QCOMPARE(ape(r, r + std::numeric_limits<qreal>::epsilon() * 0.5), true);
 	QCOMPARE(ape(r, 1.0625 * r), false);
 }
@@ -104,7 +104,7 @@ void test_functions::testEps()
 	QCOMPARE(2.0 == 2.0 + eps(2.0), false);
 	QCOMPARE(2.0 == 2.0 + eps(2.0) * 0.5, true);
 
-	qreal r = test::rand<qreal>();
+	qreal r = test::randPick<qreal>();
 	if (r >= 0)
 		QVERIFY(eps(r) > 0);
 	else
@@ -124,7 +124,7 @@ void test_functions::testAbsEps()
 	QCOMPARE(2.0 == 2.0 + absEps(2.0), false);
 	QCOMPARE(2.0 == 2.0 + absEps(2.0) * 0.5, true);
 
-	qreal r = test::rand<qreal>();
+	qreal r = test::randPick<qreal>();
 	QVERIFY(absEps(r) > 0);
 	QCOMPARE(r == r + absEps(r), false);
 	QCOMPARE(r == r + absEps(r) * 0.25, true);

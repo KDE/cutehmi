@@ -26,8 +26,8 @@ namespace test {
  * @param min minimal value that can be set by "setter" function.
  * @param max maximal value that can be set by "setter" function.
  */
-template <class C, typename T, typename std::enable_if<IsIntType<T>::value || std::is_floating_point<T>::value, bool>::type = true>
-void testAccessors(T (C::* getter)() const, void (C::* setter)(T), C & object, T min = std::numeric_limits<T>::min(), T max = std::numeric_limits<T>::max())
+template <class C, typename T, typename std::enable_if<IsIntType<T>::value, bool>::type = true>
+void testAccessors(T (C::* getter)() const, void (C::* setter)(T), C & object, T min = std::numeric_limits<T>::lowest(), T max = std::numeric_limits<T>::max())
 {
 	(object.*setter)(min);
 	QCOMPARE((object.*getter)(), min);
@@ -53,8 +53,55 @@ void testAccessors(T (C::* getter)() const, void (C::* setter)(T), C & object, T
  * @param min minimal value that can be set by "setter" function.
  * @param max maximal value that can be set by "setter" function.
  */
-template <class C, typename T, typename std::enable_if<IsIntType<T>::value || std::is_floating_point<T>::value, bool>::type = true>
-void testAccessors(T (C::* getter)() const, void (C::* setter)(T), T min = std::numeric_limits<T>::min(), T max = std::numeric_limits<T>::max())
+template <class C, typename T, typename std::enable_if<IsIntType<T>::value, bool>::type = true>
+void testAccessors(T (C::* getter)() const, void (C::* setter)(T), T min = std::numeric_limits<T>::lowest(), T max = std::numeric_limits<T>::max())
+{
+	C object;
+	testAccessors(getter, setter, object, min, max);
+}
+
+/**
+ * Test accessors. Convenient function to test "getter" and "setter" functions. Functions are tested with @a min, @a max and some
+ * random value in between.
+ *
+ * @tparam C name of a class containing member access functions.
+ * @tparam T type of value to set or get by access functions.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ * @param object object to call "getter" and "setter" functions with.
+ * @param min minimal value that can be set by "setter" function.
+ * @param max maximal value that can be set by "setter" function.
+ */
+template <class C, typename T, typename std::enable_if<std::is_floating_point<T>::value, bool>::type = true>
+void testAccessors(T (C::* getter)() const, void (C::* setter)(T), C & object, T min = std::numeric_limits<T>::lowest(), T max = std::numeric_limits<T>::max())
+{
+	(object.*setter)(min);
+	QCOMPARE((object.*getter)(), min);
+
+	(object.*setter)(max);
+	QCOMPARE((object.*getter)(), max);
+
+	T value = cutehmi::test::randPick<T>(min, max);
+	(object.*setter)(value);
+	QCOMPARE((object.*getter)(), value);
+}
+
+/**
+ * Test accessors. Convenient function to test "getter" and "setter" functions. Functions are tested with @a min, @a max and some
+ * random value in between. Performs tests on default constructed object.
+ *
+ * @tparam C name of a class containing member access functions.
+ * @tparam T type of value to set or get by access functions.
+ *
+ * @param getter "getter" function.
+ * @param setter "setter" function.
+ * @param object object to call "getter" and "setter" functions with.
+ * @param min minimal value that can be set by "setter" function.
+ * @param max maximal value that can be set by "setter" function.
+ */
+template <class C, typename T, typename std::enable_if<std::is_floating_point<T>::value, bool>::type = true>
+void testAccessors(T (C::* getter)() const, void (C::* setter)(T), T min = std::numeric_limits<T>::lowest(), T max = std::numeric_limits<T>::max())
 {
 	C object;
 	testAccessors(getter, setter, object, min, max);
