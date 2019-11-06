@@ -51,9 +51,9 @@ void test_random::randPickDouble_data()
 	QTest::newRow("negative fractions interval") << -1.0 << 0.0;
 	QTest::newRow("mixed fractions interval") << -1.0 << 1.0;
 
-	QTest::newRow("extremally small left interval") << std::nextafter(0.0, -1.0) << 0.0;
-	QTest::newRow("extremally small right interval") << 0.0 << std::nextafter(0.0, 1.0);
-	QTest::newRow("extremally small symetric interval") << std::nextafter(0.0, -1.0) << std::nextafter(0.0, 1.0);
+	QTest::newRow("extremely small left interval") << std::nextafter(0.0, -1.0) << 0.0;
+	QTest::newRow("extremely small right interval") << 0.0 << std::nextafter(0.0, 1.0);
+	QTest::newRow("extremely small symetric interval") << std::nextafter(0.0, -1.0) << std::nextafter(0.0, 1.0);
 
 	QTest::newRow("assymetric right dominated interval") << std::nextafter(0.0, -1.0) << 100.0;
 	QTest::newRow("assymetric left dominated interval") << -100.0 << std::nextafter(0.0, 1.0);
