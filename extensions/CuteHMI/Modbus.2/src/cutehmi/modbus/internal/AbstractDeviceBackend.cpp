@@ -6,13 +6,6 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
-AbstractDeviceBackend::AbstractDeviceBackend(QObject * parent):
-	QObject(parent)
-{
-	connect(this, & AbstractDeviceBackend::openRequested, this, & AbstractDeviceBackend::open);
-	connect(this, & AbstractDeviceBackend::closeRequested, this, & AbstractDeviceBackend::close);
-}
-
 void AbstractDeviceBackend::processRequest(QJsonObject request)
 {
 	QUuid requestId = QUuid::fromString(request.value("id").toString());
@@ -167,6 +160,13 @@ void AbstractDeviceBackend::processRequest(QJsonObject request)
 		}
 	} else
 		CUTEHMI_DEBUG("Device is not ready to process " << humanFunctionName(function) << " request '" << request << "'. ");
+}
+
+AbstractDeviceBackend::AbstractDeviceBackend(QObject * parent):
+	QObject(parent)
+{
+	connect(this, & AbstractDeviceBackend::openRequested, this, & AbstractDeviceBackend::open);
+	connect(this, & AbstractDeviceBackend::closeRequested, this, & AbstractDeviceBackend::close);
 }
 
 void AbstractDeviceBackend::readCoils(QUuid requestId, quint16 startAddress, quint16 endAddress)

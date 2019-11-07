@@ -23,13 +23,13 @@ class CUTEHMI_MODBUS_PRIVATE AbstractServerBackend:
 {
 		Q_OBJECT
 
-	public:
-		AbstractServerBackend(QObject * parent = nullptr);
-
 	signals:
 		void setBusyRequested(bool busy);
 
 		void busyUpdated(bool busy);
+
+	protected:
+		explicit AbstractServerBackend(QObject * parent = nullptr);
 
 	protected slots:
 		virtual void setBusy(bool busy) = 0;

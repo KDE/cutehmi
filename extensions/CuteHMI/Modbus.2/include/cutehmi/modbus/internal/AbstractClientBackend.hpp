@@ -25,8 +25,8 @@ class CUTEHMI_MODBUS_PRIVATE AbstractClientBackend:
 {
 		Q_OBJECT
 
-	public:
-		AbstractClientBackend(QObject * parent = nullptr);
+	protected:
+		explicit AbstractClientBackend(QObject * parent = nullptr);
 };
 
 }

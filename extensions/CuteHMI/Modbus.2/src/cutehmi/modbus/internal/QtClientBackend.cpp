@@ -9,6 +9,12 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
+void QtClientBackend::ensureClosed()
+{
+	if (m->qClient->state() != QModbusDevice::UnconnectedState && m->qClient->state() != QModbusDevice::ClosingState)
+		disconnect();
+}
+
 QtClientBackend::QtClientBackend(std::unique_ptr<QModbusClient> qClient, QObject * parent):
 	AbstractClientBackend(parent),
 	m(new Members{qClient.get()})
@@ -18,12 +24,6 @@ QtClientBackend::QtClientBackend(std::unique_ptr<QModbusClient> qClient, QObject
 	connect(m->qClient, & QModbusClient::stateChanged, this, & QtClientBackend::onStateChanged);
 	connect(m->qClient, & QModbusClient::errorOccurred, this, & QtClientBackend::onErrorOccurred);
 	connect(this, & QtClientBackend::errored, this, & QtClientBackend::printError);
-}
-
-void QtClientBackend::ensureClosed()
-{
-	if (m->qClient->state() != QModbusDevice::UnconnectedState && m->qClient->state() != QModbusDevice::ClosingState)
-		disconnect();
 }
 
 QModbusClient * QtClientBackend::qClient() const

@@ -18,9 +18,6 @@ class CUTEHMI_MODBUS_PRIVATE QtClientBackend:
 {
 		Q_OBJECT
 
-	public:
-		QtClientBackend(std::unique_ptr<QModbusClient> qClient, QObject * parent = nullptr);
-
 	public slots:
 		void ensureClosed();
 
@@ -30,6 +27,8 @@ class CUTEHMI_MODBUS_PRIVATE QtClientBackend:
 		void closed();
 
 	protected:
+		explicit QtClientBackend(std::unique_ptr<QModbusClient> qClient, QObject * parent = nullptr);
+
 		virtual int slaveAddress() const = 0;
 
 		virtual void configureConnection() = 0;

@@ -25,9 +25,6 @@ class CUTEHMI_MODBUS_PRIVATE AbstractDeviceBackend:
 {
 		Q_OBJECT
 
-	public:
-		AbstractDeviceBackend(QObject * parent = nullptr);
-
 	public slots:
 		virtual void processRequest(QJsonObject request);
 
@@ -43,6 +40,8 @@ class CUTEHMI_MODBUS_PRIVATE AbstractDeviceBackend:
 		void closeRequested();
 
 	protected:
+		explicit AbstractDeviceBackend(QObject * parent = nullptr);
+
 		virtual bool proceedRequest(QUuid requestId) = 0;
 
 		virtual void readCoils(QUuid requestId, quint16 startAddress, quint16 endAddress);
