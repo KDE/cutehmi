@@ -192,7 +192,7 @@ Module {
 					if (!qmldirLinePresent) {
 						if (!empty)
 							f.writeLine("")
-						f.writeLine("# Ignore 'qmldir' files (entry added by Qbs cutehmi.qmldir module).")
+						f.writeLine("# Ignore 'qmldir' files (entry added by 'cutehmi.qmldir' Qbs module).")
 						f.writeLine("qmldir");
 					}
 				} finally {

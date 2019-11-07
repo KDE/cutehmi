@@ -1,2 +1,2 @@
-# Ignore 'qmldir' files (entry added by Qbs cutehmi.qmldir module).
+# Ignore 'qmldir' files (entry added by 'cutehmi.qmldir' Qbs module).
 qmldir
