@@ -15,7 +15,7 @@ Module {
 	Depends { name: "cutehmi.dirs" }
 
 	Rule {
-//<qbs-cutehmi.qmltypes-1.workaround target="qmlplugindump" cuase="QTBUG-66669">
+//<qbs-cutehmi.qmltypes-1.workaround target="qmlplugindump" cause="QTBUG-66669">
 		condition: qbs.targetOS.contains("windows") && qbs.buildVariant == "release"
 //</qbs-cutehmi.qmltypes-1.workaround>
 
