@@ -24,8 +24,12 @@ CommonProduct {
 		cpp.linkerFlags: "-rpath=$ORIGIN"
 	}
 
+	Depends { name: "cutehmi.cpp" }
+
 	Depends { name: "cutehmi.metadata" }
+
 	Depends { name: "cutehmi.dirs" }
+
 	Depends { name: "cutehmi.android.package"; condition: project.buildApk }
 	Depends { name: "cutehmi.android.deployInstall"; condition: qbs.targetOS.contains("android") }
 

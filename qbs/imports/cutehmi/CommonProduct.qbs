@@ -3,10 +3,6 @@ import qbs
 Product {
 	targetName: qbs.buildVariant.contains("debug") ? name + "d" : name
 
-	cpp.defines: ["QT_DEPRECATED_WARNINGS"]
-
-	cpp.cxxLanguageVersion: "c++14"
-
 	property string cutehmiType: "product"	///< CuteHMI product type.
 
 	property string vendor					///< Product vendor.
@@ -30,13 +26,6 @@ Product {
 	property int minor						///< Minor version number (deprecated).
 
 	property int micro						///< Micro version number (deprecated).
-
-	Properties {
-		condition: !qbs.buildVariant.contains("debug")
-		cpp.defines: outer.concat(["CUTEHMI_NDEBUG", "QT_NO_DEBUG_OUTPUT"])
-	}
-
-	Depends { name: "cpp" }
 }
 
 //(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>. All rights reserved.

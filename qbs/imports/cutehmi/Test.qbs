@@ -27,7 +27,10 @@ CommonProduct {
 	}
 
 	Depends { name: "Qt.testlib" }
+
 	Depends { name: "Qt.qmltest" }
+
+	Depends { name: "cutehmi.cpp" }
 
 	Depends { name: "cutehmi.dirs" }
 

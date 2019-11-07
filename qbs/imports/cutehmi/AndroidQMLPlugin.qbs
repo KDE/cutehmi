@@ -39,6 +39,8 @@ CommonProduct {
 
 	Depends { name: extensionName }
 
+	Depends { name: "cutehmi.cpp" }
+
 	Depends { name: "cutehmi.dirs" }
 
 	Depends { name: "Qt.qml" }

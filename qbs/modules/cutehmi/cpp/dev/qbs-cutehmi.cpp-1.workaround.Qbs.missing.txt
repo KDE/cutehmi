@@ -1,0 +1,14 @@
+Problem:
+
+Qbs does not allow Export within Module items. Because of that modules are not
+able to export C++ include paths.
+
+Workaround:
+
+Because module instance is created in the socpe of a product, modules can alter
+other modules properties belonging to a product. Workaround is to provide a
+module with a property containing include paths to export. This property can be
+then used inside Export item by a product.
+
+Snippet:
+

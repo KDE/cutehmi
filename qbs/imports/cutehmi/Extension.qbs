@@ -60,7 +60,12 @@ CommonProduct {
 			return defines
 		}
 
-		cpp.includePaths: [product.sourceDirectory + "/include"]
+		//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
+		// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
+		cpp.includePaths: product.cutehmi.cpp.exportedIncludePaths
+		// Instead of:
+		// cpp.includePaths: [sourceDirectory + "/include"]
+		//</qbs-cutehmi.cpp-1.workaround>
 
 		Depends { name: "cpp" }
 
@@ -71,7 +76,14 @@ CommonProduct {
 		}
 	}
 
+	Depends { name: "cutehmi.cpp" }
+	//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
+	// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
+	cutehmi.cpp.exportedIncludePaths: [sourceDirectory + "/include"]
+	//</qbs-cutehmi.cpp-1.workaround>
+
 	Depends { name: "cutehmi.metadata" }
+
 	Depends { name: "cutehmi.dirs" }
 
 	FileTagger {
