@@ -3,6 +3,9 @@ import qbs.FileInfo
 
 import "CommonProduct.qbs" as CommonProduct
 
+/**
+  @deprecated Example entity is going to be replaced by extensions.
+  */
 CommonProduct {
 	type: []
 
@@ -12,13 +15,11 @@ CommonProduct {
 
 	condition: project.buildExamples
 
-	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
-
-	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
-
 	property string installPrefix: parent.parent.name
 
 	property string installDir: cutehmi.dirs.examplesInstallDirname + "/" + installPrefix + "/" + FileInfo.baseName(sourceDirectory)
+
+	Depends { name: "cutehmi.dirs" }
 
 	FileTagger {
 		patterns: "*.png"
@@ -111,8 +112,6 @@ CommonProduct {
 		qbs.installSourceBase: sourceDirectory
 		qbs.installDir: installDir
 	}
-
-	Depends { name: "cutehmi.dirs" }
 }
 
 //(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>. All rights reserved.

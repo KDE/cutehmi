@@ -13,18 +13,18 @@ CommonProduct {
 
 	condition: project.buildTests
 
-	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
-
-	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
-
 	property string testName
 
 	property string testNamePrefix
 
+	Depends { name: "cpp" }
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN"
 	}
+	cpp.defines: base.concat("QUICK_TEST_SOURCE_DIR=\"" + sourceDirectory + "\"")
+	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	Depends { name: "Qt.testlib" }
 
@@ -40,8 +40,6 @@ CommonProduct {
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.testInstallDirname
 	}
-
-	cpp.defines: base.concat("QUICK_TEST_SOURCE_DIR=\"" + sourceDirectory + "\"")
 }
 
 //(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>, Mr CuteBOT <michpolicht@gmail.com>. All rights reserved.

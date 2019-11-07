@@ -39,11 +39,11 @@ CommonProduct {
 
 	Depends { name: extensionName }
 
+	Depends { name: "Qt.qml" }
+
 	Depends { name: "cutehmi.cpp" }
 
 	Depends { name: "cutehmi.dirs" }
-
-	Depends { name: "Qt.qml" }
 }
 
 //(c)C: Copyright © 2019, Mr CuteBOT <michpolicht@gmail.com>, Michal Policht <michpolicht@gmail.com>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.

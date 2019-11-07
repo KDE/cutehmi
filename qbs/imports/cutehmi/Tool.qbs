@@ -13,29 +13,24 @@ CommonProduct {
 
 	baseName: name
 
-	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
-
-	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
-
 	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]
 
+	Depends { name: "cpp" }
 	Properties {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN"
 	}
-
-	Depends { name: "cutehmi.cpp" }
-
-	Depends { name: "cutehmi.metadata" }
-
-	Depends { name: "cutehmi.dirs" }
+	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	Depends { name: "cutehmi.android.package"; condition: project.buildApk }
 	Depends { name: "cutehmi.android.deployInstall"; condition: qbs.targetOS.contains("android") }
 
-	Export {
-		Depends { name: "cpp" }
-	}
+	Depends { name: "cutehmi.cpp" }
+
+	Depends { name: "cutehmi.dirs" }
+
+	Depends { name: "cutehmi.metadata" }
 
 	Group {
 		name: "Application"

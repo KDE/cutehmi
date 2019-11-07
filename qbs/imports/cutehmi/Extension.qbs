@@ -16,19 +16,6 @@ CommonProduct {
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
-	cpp.defines: {
-		var defines = [macroName + "_BUILD"]
-		if (!project.staticExtensions)
-			defines.push(macroName + "_DYNAMIC")
-		if (project.buildTests)
-			defines.push(macroName + "_TESTS")
-		return base.concat(defines)
-	}
-
-	cpp.includePaths: [product.sourceDirectory + "/include", cutehmi.dirs.externalIncludeDir]
-
-	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
-
 	property string installDir: cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
 
 	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]	// QML import paths for QtCreator.
@@ -43,11 +30,6 @@ CommonProduct {
 	Properties {
 		condition: qbs.targetOS.contains("android")
 		targetName: "android_" + name
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-		cpp.linkerFlags: "-rpath=$ORIGIN"
 	}
 
 	Export {
@@ -76,15 +58,31 @@ CommonProduct {
 		}
 	}
 
+	Depends { name: "cpp" }
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.linkerFlags: "-rpath=$ORIGIN"
+	}
+	cpp.defines: {
+		var defines = [macroName + "_BUILD"]
+		if (!project.staticExtensions)
+			defines.push(macroName + "_DYNAMIC")
+		if (project.buildTests)
+			defines.push(macroName + "_TESTS")
+		return base.concat(defines)
+	}
+	cpp.includePaths: [product.sourceDirectory + "/include", cutehmi.dirs.externalIncludeDir]
+	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
+
 	Depends { name: "cutehmi.cpp" }
 	//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
 	// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
 	cutehmi.cpp.exportedIncludePaths: [sourceDirectory + "/include"]
 	//</qbs-cutehmi.cpp-1.workaround>
 
-	Depends { name: "cutehmi.metadata" }
-
 	Depends { name: "cutehmi.dirs" }
+
+	Depends { name: "cutehmi.metadata" }
 
 	FileTagger {
 		patterns: ["*.jpg", "*.svg"]
