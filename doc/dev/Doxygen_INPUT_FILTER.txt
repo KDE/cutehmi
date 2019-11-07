@@ -1,3 +1,0 @@
-Markdown files are altered by *Doxygen* 'INPUT_FILTER' by appending 'index.html' to the end of a link reference in round brackets, if
-the reference contains '/' (slash) as last character. This is provided for convenient browsing of offline docs. For 'INPUT_FILTER'
-to work *sed* program is required.
