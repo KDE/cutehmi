@@ -6,8 +6,6 @@ Project {
 	name: "CuteHMI.Examples.SimpleView.0"
 
 	cutehmi.Extension {
-		type: []
-
 		name: parent.name
 
 		minor: 0
@@ -29,9 +27,10 @@ Project {
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
-			"RectangularElement.qml",
-			"Main.qml",
-		]
+         "LICENSE",
+         "RectangularElement.qml",
+         "Main.qml",
+     ]
 
 		Depends { name: "cutehmi.qmldir" }
 

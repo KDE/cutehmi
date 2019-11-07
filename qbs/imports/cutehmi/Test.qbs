@@ -2,6 +2,9 @@ import qbs
 
 import "CommonProduct.qbs" as CommonProduct
 
+/**
+  Test product.
+  */
 CommonProduct {
 	type: ["application", "autotest"]
 

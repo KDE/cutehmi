@@ -11,7 +11,7 @@ Project {
 		"tests/tests.qbs"
 	]
 
-	cutehmi.Extension {
+	cutehmi.CppExtension {
 		name: parent.name
 
 		minor: 0

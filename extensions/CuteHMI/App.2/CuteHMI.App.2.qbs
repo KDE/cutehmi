@@ -9,7 +9,7 @@ Project {
 		"tests/tests.qbs"
 	]
 
-	cutehmi.Extension {
+	cutehmi.CppExtension {
 		name: parent.name
 
 		minor: 0
@@ -31,6 +31,7 @@ Project {
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
+         "LICENSE",
          "README.md",
          "include/cutehmi/app/CuteApp.hpp",
          "include/cutehmi/app/internal/common.hpp",

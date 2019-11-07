@@ -4,6 +4,9 @@ import qbs.File
 
 import "CommonProduct.qbs" as CommonProduct
 
+/**
+  Android QML plugin product.
+  */
 CommonProduct {
 	name:  "android_" + extensionName
 

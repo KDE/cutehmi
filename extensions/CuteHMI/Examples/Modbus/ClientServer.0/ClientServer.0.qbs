@@ -6,8 +6,6 @@ Project {
 	name: "CuteHMI.Examples.Modbus.ClientServer.0"
 
 	cutehmi.Extension {
-		type: []
-
 		name: parent.name
 
 		minor: 0

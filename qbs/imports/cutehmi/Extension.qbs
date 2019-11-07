@@ -3,12 +3,12 @@ import qbs.FileInfo
 
 import "CommonProduct.qbs" as CommonProduct
 
+/**
+  Extension product. This item denotes pure QML extension. No C++ artifacts are generated for the product. Use CppExtension item if
+  extension is using C++ code.
+  */
 CommonProduct {
-	type: project.staticExtensions ? ["staticlibrary"] : ["dynamiclibrary"]
-
 	cutehmiType: "extension"
-
-	targetName: name
 
 	condition: project.buildExtensions
 
@@ -19,66 +19,6 @@ CommonProduct {
 	property string installDir: cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
 
 	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]	// QML import paths for QtCreator.
-
-	property string macroName: baseName.toUpperCase().replace(/\./g, '_')
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		targetName: name + (qbs.buildVariant.contains("debug") ? "d" : "")
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("android")
-		targetName: "android_" + name
-	}
-
-	Export {
-		cpp.defines: {
-			var defines = [product.macroName + "_" + product.major + "_" + product.minor]
-			if (!project.staticExtensions)
-				defines.push(product.macroName + "_DYNAMIC")
-			if (project.buildTests)
-				defines.push(product.macroName + "_TEST")
-			return defines
-		}
-
-		//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
-		// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
-		cpp.includePaths: product.cutehmi.cpp.exportedIncludePaths
-		// Instead of:
-		// cpp.includePaths: [sourceDirectory + "/include"]
-		//</qbs-cutehmi.cpp-1.workaround>
-
-		Depends { name: "cpp" }
-
-		Depends {
-			name: "android_" + product.name
-			condition: importingProduct.cutehmiType == "tool" && qbs.targetOS.contains("android")
-			cpp.link: false
-		}
-	}
-
-	Depends { name: "cpp" }
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-		cpp.linkerFlags: "-rpath=$ORIGIN"
-	}
-	cpp.defines: {
-		var defines = [macroName + "_BUILD"]
-		if (!project.staticExtensions)
-			defines.push(macroName + "_DYNAMIC")
-		if (project.buildTests)
-			defines.push(macroName + "_TESTS")
-		return base.concat(defines)
-	}
-	cpp.includePaths: [product.sourceDirectory + "/include", cutehmi.dirs.externalIncludeDir]
-	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
-
-	Depends { name: "cutehmi.cpp" }
-	//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
-	// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
-	cutehmi.cpp.exportedIncludePaths: [sourceDirectory + "/include"]
-	//</qbs-cutehmi.cpp-1.workaround>
 
 	Depends { name: "cutehmi.dirs" }
 

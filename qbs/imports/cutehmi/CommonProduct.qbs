@@ -1,5 +1,8 @@
 import qbs
 
+/**
+  Common product. Defines common properties for all CuteHMI product types.
+  */
 Product {
 	targetName: qbs.buildVariant.contains("debug") ? name + "d" : name
 

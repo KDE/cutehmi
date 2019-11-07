@@ -2,6 +2,9 @@ import qbs
 
 import "CommonProduct.qbs" as CommonProduct
 
+/**
+  Tool product.
+  */
 CommonProduct {
 	type: project.buildApk ? "android.apk" : "application"
 

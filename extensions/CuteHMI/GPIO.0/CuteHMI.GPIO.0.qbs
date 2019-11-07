@@ -9,7 +9,7 @@ Project {
 		"tests/tests.qbs"
 	]
 
-	cutehmi.Extension {
+	cutehmi.CppExtension {
 		name: parent.name
 
 		condition: cutehmi.libgpiod.available
