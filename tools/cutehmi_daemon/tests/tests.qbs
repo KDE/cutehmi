@@ -3,6 +3,8 @@ import qbs
 import "Test.qbs" as Test
 
 Project {
+	condition: !qbs.targetOS.contains("windows")
+
 	Test {
 		testName: "test_cutehmi_daemon"
 
