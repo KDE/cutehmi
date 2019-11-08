@@ -2,33 +2,32 @@ import qbs 1.0
 import qbs.Probes
 import qbs.FileInfo
 
+/**
+  Library for native language support (part of gettext).
+  */
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libgcryptProbe.path)
+	property bool found: libintlProbe.found && libintlHeaderProbe.found
 
-	cpp.includePaths: FileInfo.cleanPath(gcryptHeaderProbe.path)
+	property bool available: found && cutehmi.libs.libiconv.available
 
-	property bool found: libgcryptProbe.found && gcryptHeaderProbe.found
+	property string libintlPath: libintlProbe.filePath
 
-	property bool available: found && cutehmi.libgpg_error.available
-
-	property string libgcryptPath: libgcryptProbe.filePath
-
-	property string includePath: gcryptHeaderProbe.path
+	property string includePath: libintlHeaderProbe.path
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libgcrypt-20"]
+		cpp.dynamicLibraries: ["libintl-8"]
 	}
 
 	Properties {
-		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["gcrypt"]
+		condition: qbs.targetOS.contains("linux") && found
+		cpp.dynamicLibraries: ["intl"]
 	}
 
 	Probes.PathProbe {
-		id: libgcryptProbe
+		id: libintlProbe
 
-		names: qbs.targetOS.contains("windows") ? ["libgcrypt-20"] : ["libgcrypt"]
+        names: qbs.targetOS.contains("windows") ? ["libintl-8"] : ["libintl"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
@@ -37,9 +36,9 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: gcryptHeaderProbe
+		id: libintlHeaderProbe
 
-		names: ["gcrypt.h"]
+		names: ["libintl.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
@@ -50,10 +49,10 @@ Module {
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.libgpg_error" }
+	Depends { name: "cutehmi.libs.libiconv" }
 }
 
-//(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>. All rights reserved.
+//(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

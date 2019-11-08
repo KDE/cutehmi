@@ -1,33 +1,31 @@
 import qbs 1.0
 import qbs.Probes
 import qbs.FileInfo
+import qbs.Environment
 
-/**
-  Library for native language support (part of gettext).
-  */
 Module {
-	property bool found: libintlProbe.found && libintlHeaderProbe.found
+	property bool found: libpqProbe.found && libpq_feHeaderProbe.found
 
-	property bool available: found && cutehmi.libiconv.available
+    property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.libs.libintl.available : true)
 
-	property string libintlPath: libintlProbe.filePath
+	property string libpqPath: libpqProbe.filePath
 
-	property string includePath: libintlHeaderProbe.path
+	property string includePath: libpq_feHeaderProbe.path
 
 	Properties {
 		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libintl-8"]
+		cpp.dynamicLibraries: ["libpq"]
 	}
 
 	Properties {
-		condition: qbs.targetOS.contains("linux") && found
-		cpp.dynamicLibraries: ["intl"]
+		condition: qbs.targetOS.contains("linux")
+		cpp.dynamicLibraries: ["pq"]
 	}
 
 	Probes.PathProbe {
-		id: libintlProbe
+		id: libpqProbe
 
-        names: qbs.targetOS.contains("windows") ? ["libintl-8"] : ["libintl"]
+        names: ["libpq"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
@@ -36,20 +34,22 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: libintlHeaderProbe
+		id: libpq_feHeaderProbe
 
-		names: ["libintl.h"]
+		names: ["libpq-fe"]
+		nameSuffixes: [".h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
 							.concat([cutehmi.dirs.externalIncludeDir])
+        pathSuffixes: ["postgresql"]
 	}
 
 	Depends { name: "cpp" }
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.libiconv" }
+	Depends { name: "cutehmi.libs.libintl" }
 }
 
 //(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>. All rights reserved.

@@ -5,7 +5,7 @@ import qbs.FileInfo
 Module {
 	property bool found: libsshProbe.found && libsshHeaderProbe.found
 
-	property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.zlib.available && cutehmi.libgcrypt.available : true)
+	property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.libs.zlib.available && cutehmi.libs.libgcrypt.available : true)
 
 	property string libsshPath: libsshProbe.filePath
 
@@ -46,8 +46,9 @@ Module {
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.zlib"; condition: qbs.targetOS.contains("windows")}
-	Depends { name: "cutehmi.libgcrypt"; condition: qbs.targetOS.contains("windows")}
+	Depends { name: "cutehmi.libs.zlib"; condition: qbs.targetOS.contains("windows")}
+
+	Depends { name: "cutehmi.libs.libgcrypt"; condition: qbs.targetOS.contains("windows")}
 }
 
 //(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>. All rights reserved.
