@@ -1,0 +1,9 @@
+Problem:
+
+Products, which set condition to false are not evaluated at all, which gives no
+chance to propagate condition accross dependencies.
+
+Workaround:
+
+A workaround is to use 'builtByDefault' property.
+

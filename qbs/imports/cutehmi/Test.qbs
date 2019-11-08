@@ -14,7 +14,14 @@ CommonProduct {
 
 	baseName: name
 
-	condition: project.buildTests
+	//<qbs-imports-cutehmi-2.workaround target="Qbs" cause="bug">
+	// Even tho' 'type' property can conditionaly specify "autotest", when condition involves complex evaluation of module
+	// parameters such as 'cutehmi.product.enabled' (probably causing some re-evaluation) AutotestRunner will not conform to the
+	// final results, but rather stick to some initial results (branch that specifies "autotest"). Using 'condition' seems to
+	// resolve the issue. No product should depend on a test product, so no product should be affected by
+	// "qbs-imports-cutehmi-1.workaround".
+	condition: project.buildTests && cutehmi.product.enabled
+	//</qbs-imports-cutehmi-2.workaround>
 
 	property string testName
 

@@ -6,6 +6,12 @@ import qbs
 Product {
 	targetName: qbs.buildVariant.contains("debug") ? name + "d" : name
 
+	//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
+	// Using 'builtByDefault' instead of 'condition', because products with condition set to false are not evaluated at all, which
+	// gives no chance to propagate condition accross dependencies.
+	builtByDefault: cutehmi.product.enabled
+	//</qbs-imports-cutehmi-1.workaround>
+
 	property string cutehmiType: "product"	///< CuteHMI product type.
 
 	property string vendor					///< Product vendor.
@@ -29,6 +35,16 @@ Product {
 	property int minor						///< Minor version number (deprecated).
 
 	property int micro						///< Micro version number (deprecated).
+
+	Export {
+		Depends { name: "cutehmi.product" }
+
+		//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
+		cutehmi.product.disabledProducts: product.builtByDefault ? [] : product.name
+		//</qbs-imports-cutehmi-1.workaround>
+	}
+
+	Depends { name: "cutehmi.product" }
 }
 
 //(c)C: Copyright © 2018-2019, Michal Policht <michpolicht@gmail.com>, CuteBOT <michpolicht@gmail.com>, Mr CuteBOT <michpolicht@gmail.com>, Michal Policht <michal@policht.pl>. All rights reserved.

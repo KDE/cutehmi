@@ -12,7 +12,7 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
-		condition: cutehmi.libgpiod.available
+		cutehmi.product.enabled: cutehmi.libgpiod.available
 
 		minor: 0
 
@@ -67,6 +67,8 @@ Project {
 		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
+			Depends { name: "cutehmi.libgpiod" }
+
 			Depends { name: "CuteHMI.2" }
 		}
 	}

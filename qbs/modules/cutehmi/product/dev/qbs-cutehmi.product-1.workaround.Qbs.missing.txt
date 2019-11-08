@@ -1,0 +1,12 @@
+Problem:
+
+Qbs does not propagate information about disabled products accross dependencies.
+This leads to compilation errors, when project is being built from a console (Qt
+Creator tracks dependencies on its own to some extent; tho' it crashes when it
+has to deal with special cases). Option `--keep-going` does not help.
+
+Workaround:
+
+A workaround is to use 'cutehmi.product' module to propagate information about
+disabled products.
+

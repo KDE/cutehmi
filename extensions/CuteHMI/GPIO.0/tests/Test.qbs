@@ -6,8 +6,6 @@ cutehmi.Test
 {
 	testNamePrefix: parent.parent.name
 
-	Depends { name: "cutehmi.libgpiod" }
-
 	Depends { name: "CuteHMI.GPIO.0" }
 	Depends { name: "CuteHMI.Test.0" }
 }
