@@ -19,10 +19,6 @@ class test_functions:
 		void testClt();
 
 		void testCgt();
-
-		void testEps();
-
-		void testAbsEps();
 };
 
 void test_functions::testApe()
@@ -91,43 +87,6 @@ void test_functions::testCgt()
 
 	QCOMPARE(cgt(2000, 1000, 0.25), true);
 	QCOMPARE(cgt(1001, 1000, 0.25), false);
-}
-
-void test_functions::testEps()
-{
-	QVERIFY(eps(1.0) > 0.0);
-	QVERIFY(eps(-1.0) < 0.0);
-
-	QCOMPARE(1.0 == 1.0 + eps(1.0), false);
-	QCOMPARE(1.0 == 1.0 + eps(1.0) * 0.5, true);
-
-	QCOMPARE(2.0 == 2.0 + eps(2.0), false);
-	QCOMPARE(2.0 == 2.0 + eps(2.0) * 0.5, true);
-
-	qreal r = test::randPick<qreal>();
-	if (r >= 0)
-		QVERIFY(eps(r) > 0);
-	else
-		QVERIFY(eps(r) < 0);
-	QCOMPARE(r == r + eps(r), false);
-	QCOMPARE(r == r + eps(r) * 0.25, true);
-}
-
-void test_functions::testAbsEps()
-{
-	QVERIFY(absEps(1.0) > 0.0);
-	QVERIFY(absEps(-1.0) > 0.0);
-
-	QCOMPARE(1.0 == 1.0 + absEps(1.0), false);
-	QCOMPARE(1.0 == 1.0 + absEps(1.0) * 0.5, true);
-
-	QCOMPARE(2.0 == 2.0 + absEps(2.0), false);
-	QCOMPARE(2.0 == 2.0 + absEps(2.0) * 0.5, true);
-
-	qreal r = test::randPick<qreal>();
-	QVERIFY(absEps(r) > 0);
-	QCOMPARE(r == r + absEps(r), false);
-	QCOMPARE(r == r + absEps(r) * 0.25, true);
 }
 
 }
