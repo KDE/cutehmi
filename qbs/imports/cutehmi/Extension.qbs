@@ -25,7 +25,20 @@ CommonProduct {
 	Depends { name: "cutehmi.metadata" }
 
 	FileTagger {
-		patterns: ["*.jpg", "*.svg"]
+		patterns: ["*.bdf", "*.otf", "*.pcf", "*.ttf"]
+		fileTags: ["Fonts"]
+	}
+
+	Group {
+		name: "Fonts"
+		fileTagsFilter: ["Fonts"]
+		qbs.install: true
+		qbs.installSourceBase: sourceDirectory
+		qbs.installDir: installDir
+	}
+
+	FileTagger {
+		patterns: ["*.bmp", "*.gif", "*.ico", "*.jpg", "*.png", "*.svg"]
 		fileTags: ["Images"]
 	}
 
