@@ -1,0 +1,10 @@
+Problem:
+
+Program _qmlplugindump_, which is shipped with Qt can be used only with release version of Qt libraries. Attempt to generate
+_qmlptypes_ files with debug version of libraries ends with error message: "cannot mix debug and release libraries".
+
+Workaround:
+
+A workaround is to provide own fork of _qmlplugindump_, which can be build in debug mode and use it instead of _qmlplugindump_
+provided with Qt.
+
