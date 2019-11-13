@@ -15,17 +15,31 @@ Module {
 	Depends { name: "cutehmi.dirs" }
 
 	Rule {
-//<qbs-cutehmi.qmltypes-1.workaround target="qmlplugindump" cause="QTBUG-66669">
-		condition: qbs.targetOS.contains("windows") && qbs.buildVariant == "release"
-//</qbs-cutehmi.qmltypes-1.workaround>
+		condition: !qbs.targetOS.contains("android")	// Android builds are not supported by this module.
 
 		multiplex: true
-		inputs: ["qml", "dynamiclibrary"]
+		//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
+		explicitlyDependsOn: ["qml", "js", "dynamiclibrary", "qmlplugindump"]
+		// Instead of:
+		// explicitlyDependsOn: ["qml", "js", "dynamiclibrary"]
+		///</cutehmi_qmlplugindump-1.workaround>
 
 		prepare: {
-			var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
-			dumpCmd.workingDirectory = product.cutehmi.dirs.installDir
-			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallDirname]).join(product.qbs.pathListSeparator)
+			var qmlplugindump = "cutehmi_qmlplugindump"
+			if (product.qbs.buildVariant == "debug")
+				qmlplugindump += "_debug"
+			//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
+			// Custom built cutehmi_qmlplugindump is used to generate qmltypes in debug builds.
+			var dumpCmd = new Command(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.toolInstallDirname + "/" + qmlplugindump,
+									  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
+			// Instead of:
+			// var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
+			///</cutehmi_qmlplugindump-1.workaround>
+			dumpCmd.workingDirectory = product.cutehmi.dirs.installDir // + "/" + product.cutehmi.dirs.extensionInstallDirname
+			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallDirname,
+														 product.Qt.core.libPath,
+														 product.Qt.core.binPath,	// On Windows runtime libraries are installed to 'binPath' and not 'libPath'.
+														]).join(product.qbs.pathListSeparator)
 			if (product.qbs.targetOS.contains("windows"))
 				dumpCmd.environment = ["PATH=" + Environment.getEnv("PATH") + product.qbs.pathListSeparator + paths]
 			else if (product.qbs.targetOS.contains("macos"))

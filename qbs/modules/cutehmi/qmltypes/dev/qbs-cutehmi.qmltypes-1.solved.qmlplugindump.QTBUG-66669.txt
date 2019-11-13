@@ -14,3 +14,8 @@ Workaround:
 Temporarily disable generation of `plugins.qmltypes` files on Linux until bug is fixed.
 
 Snippet:
+
+Solution:
+
+Bug has been fixed.
+
