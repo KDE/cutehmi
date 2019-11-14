@@ -4,9 +4,9 @@
 Module {
 //<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
 	/**
-	  Whether product is enabled. Use this property to signal that product should not be build.
+	  Whether product is enabled. Use this property to signal that product should not be built.
 	  */
-	property bool enabled: cutehmi.product.disabledProducts.length == 0
+	property bool enabled: true
 
 	/**
 	  A list of disabled products. This list propagates to dependent items, thus each product has a list of disabled products it

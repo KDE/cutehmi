@@ -32,19 +32,28 @@ Product {
 
 	property int major						///< Major version number.
 
-	property int minor						///< Minor version number (deprecated).
+	property int minor: 0					///< Minor version number (deprecated).
 
-	property int micro						///< Micro version number (deprecated).
+	property int micro: 0					///< Micro version number (deprecated).
+
+	//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
 
 	Export {
 		Depends { name: "cutehmi.product" }
-
+		Properties {
+			//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
+			condition: !product.builtByDefault
+			//</qbs-imports-cutehmi-1.workaround>
+			cutehmi.product.disabledProducts: product.name
+		}
 		//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
-		cutehmi.product.disabledProducts: product.builtByDefault ? [] : product.name
+		cutehmi.product.enabled: product.builtByDefault ? importingProduct.cutehmi.product.disabledProducts.length == 0 : false
 		//</qbs-imports-cutehmi-1.workaround>
 	}
 
 	Depends { name: "cutehmi.product" }
+
+	//</qbs-cutehmi.product-1.workaround>
 }
 
 //(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.
