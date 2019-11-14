@@ -15,7 +15,8 @@ Module {
 	Depends { name: "cutehmi.dirs" }
 
 	Rule {
-		condition: !qbs.targetOS.contains("android")	// Android builds are not supported by this module.
+	    condition: false // Temporarily disable generation of qmltypes.
+		// condition: !qbs.targetOS.contains("android")	// Android builds are not supported by this module.
 
 		multiplex: true
 		explicitlyDependsOn: ["qml", "js", "dynamiclibrary"]

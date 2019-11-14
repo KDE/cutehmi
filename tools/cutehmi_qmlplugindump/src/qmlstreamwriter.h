@@ -26,8 +26,8 @@
 **
 ****************************************************************************/
 
-#ifndef QMLSTREAMWRITER_H
-#define QMLSTREAMWRITER_H
+#ifndef H_TOOLS_CUTEHMI_u_QMLPLUGINDUMP_SRC_QMLSTREAMWRITER_H
+#define H_TOOLS_CUTEHMI_u_QMLPLUGINDUMP_SRC_QMLSTREAMWRITER_H
 
 #include <QtCore/QIODevice>
 #include <QtCore/QList>
@@ -64,4 +64,4 @@ private:
     QScopedPointer<QIODevice> m_stream;
 };
 
-#endif // QMLSTREAMWRITER_H
+#endif
