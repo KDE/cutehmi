@@ -18,10 +18,9 @@ Module {
 		condition: !qbs.targetOS.contains("android")	// Android builds are not supported by this module.
 
 		multiplex: true
+		explicitlyDependsOn: ["qml", "js", "dynamiclibrary"]
 		//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
-		explicitlyDependsOn: ["qml", "js", "dynamiclibrary", "qmlplugindump"]
-		// Instead of:
-		// explicitlyDependsOn: ["qml", "js", "dynamiclibrary"]
+		explicitlyDependsOnFromDependencies: ["qmlplugindump"]
 		///</cutehmi_qmlplugindump-1.workaround>
 
 		prepare: {
@@ -41,11 +40,11 @@ Module {
 														 product.Qt.core.binPath,	// On Windows runtime libraries are installed to 'binPath' and not 'libPath'.
 														]).join(product.qbs.pathListSeparator)
 			if (product.qbs.targetOS.contains("windows"))
-				dumpCmd.environment = ["PATH=" + Environment.getEnv("PATH") + product.qbs.pathListSeparator + paths]
+				dumpCmd.environment = ["PATH=" + paths + product.qbs.pathListSeparator + Environment.getEnv("PATH")]
 			else if (product.qbs.targetOS.contains("macos"))
-				dumpCmd.environment = ["DYLD_LIBRARY_PATH=" + Environment.getEnv("DYLD_LIBRARY_PATH") + product.qbs.pathListSeparator + paths]
+				dumpCmd.environment = ["DYLD_LIBRARY_PATH=" + paths + product.qbs.pathListSeparator + Environment.getEnv("DYLD_LIBRARY_PATH")]
 			else
-				dumpCmd.environment = ["LD_LIBRARY_PATH=" + Environment.getEnv("LD_LIBRARY_PATH") + product.qbs.pathListSeparator + paths]
+				dumpCmd.environment = ["LD_LIBRARY_PATH=" + paths + product.qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH")]
 			dumpCmd.description = "invoking 'qmlplugindump' program to generate " + product.sourceDirectory + "/plugins.qmltypes";
 			dumpCmd.highlight = "codegen"
 			dumpCmd.stdoutFilePath = product.sourceDirectory + "/plugins.qmltypes"
