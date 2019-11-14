@@ -24,12 +24,9 @@ Module {
 		///</cutehmi_qmlplugindump-1.workaround>
 
 		prepare: {
-			var qmlplugindump = "cutehmi_qmlplugindump"
-			if (product.qbs.buildVariant == "debug")
-				qmlplugindump += "_debug"
 			//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
 			// Custom built cutehmi_qmlplugindump is used to generate qmltypes in debug builds.
-			var dumpCmd = new Command(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.toolInstallDirname + "/" + qmlplugindump,
+			var dumpCmd = new Command(explicitlyDependsOn["qmlplugindump"][0].filePath,
 									  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
 			// Instead of:
 			// var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
