@@ -24,6 +24,8 @@ CommonProduct {
 
 	Depends { name: "cutehmi.metadata" }
 
+	Depends { name: "cutehmi_qmlplugindump" }
+
 	FileTagger {
 		patterns: ["*.bdf", "*.otf", "*.pcf", "*.ttf"]
 		fileTags: ["Fonts"]
