@@ -34,7 +34,7 @@ Module {
 			// Instead of:
 			// var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
 			///</cutehmi_qmlplugindump-1.workaround>
-			dumpCmd.workingDirectory = product.cutehmi.dirs.installDir // + "/" + product.cutehmi.dirs.extensionInstallDirname
+			dumpCmd.workingDirectory = product.cutehmi.dirs.installDir
 			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallDirname,
 														 product.Qt.core.libPath,
 														 product.Qt.core.binPath,	// On Windows runtime libraries are installed to 'binPath' and not 'libPath'.
