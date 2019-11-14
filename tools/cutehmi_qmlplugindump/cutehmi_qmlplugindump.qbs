@@ -7,8 +7,12 @@ import cutehmi
 Project {
 	name: "cutehmi_qmlplugindump"
 
+	condition: !qbs.targetOS.contains("android")
+
 	cutehmi.Tool {
 		name: parent.name
+
+		consoleApplication: true
 
 		major: 0
 
