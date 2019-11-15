@@ -76,6 +76,11 @@ Module {
 	property var additionalEntries: []
 
 	/**
+	  Array containg file names that should be excluded from 'qmldir'. Regular expressions are used for matching.
+	  */
+	property var exclude: []
+
+	/**
 	  Files map. This property can be used to override default-generated type entries of QML and Javascript files. The syntax of
 	  these entries is described
 	  [here](https://doc.qt.io/qt-5/qtqml-modules-qmldir.html#contents-of-a-module-definition-qmldir-file).
@@ -133,20 +138,39 @@ Module {
 
 					if (inputs.qml !== undefined) {
 						f.writeLine("")
-						for (var i = 0; i < inputs.qml.length; i++)
-							if (product.cutehmi.qmldir.filesMap[inputs.qml[i].fileName] !== undefined)
-								f.writeLine(product.cutehmi.qmldir.filesMap[inputs.qml[i].fileName] + " " + inputs.qml[i].fileName)
+						for (var i = 0; i < inputs.qml.length; i++) {
+							var relativePath = FileInfo.relativePath(product.sourceDirectory, inputs.qml[i].filePath)
+
+							var j
+							for (j = 0; j < product.cutehmi.qmldir.exclude.length; j++)
+								if (relativePath.match(product.cutehmi.qmldir.exclude[j]))
+									break
+							if (j !== product.cutehmi.qmldir.exclude.length)	// This means pattern has been found.
+								continue
+
+							if (product.cutehmi.qmldir.filesMap[relativePath] !== undefined)
+								f.writeLine(product.cutehmi.qmldir.filesMap[inputs.qml[i].fileName] + " " + relativePath)
 							else
-								f.writeLine(inputs.qml[i].baseName + " " + product.cutehmi.qmldir.major + "." + product.cutehmi.qmldir.minor + " " + inputs.qml[i].fileName)
+								f.writeLine(inputs.qml[i].baseName + " " + product.cutehmi.qmldir.major + "." + product.cutehmi.qmldir.minor + " " + relativePath)
+						}
 					}
 
 					if (inputs.js !== undefined) {
 						f.writeLine("")
-						for (var i = 0; i < inputs.js.length; i++)
-							if (product.cutehmi.qmldir.filesMap[inputs.js[i].fileName] !== undefined)
-								f.writeLine(product.cutehmi.qmldir.filesMap[inputs.js[i].fileName] + " " + inputs.js[i].fileName)
+						for (var i = 0; i < inputs.js.length; i++) {
+							relativePath = FileInfo.relativePath(product.sourceDirectory, inputs.js[i].filePath)
+
+							for (j = 0; j < product.cutehmi.qmldir.exclude.length; j++)
+								if (relativePath.match(product.cutehmi.qmldir.exclude[j]))
+									break
+							if (j !== product.cutehmi.qmldir.exclude.length)	// This means pattern has been found.
+								continue
+
+							if (product.cutehmi.qmldir.filesMap[relativePath] !== undefined)
+								f.writeLine(product.cutehmi.qmldir.filesMap[inputs.js[i].fileName] + " " + relativePath)
 							else
-								f.writeLine(inputs.js[i].baseName + " " + product.cutehmi.qmldir.major + "." + product.cutehmi.qmldir.minor + " " + inputs.js[i].fileName)
+								f.writeLine(inputs.js[i].baseName + " " + product.cutehmi.qmldir.major + "." + product.cutehmi.qmldir.minor + " " + relativePath)
+						}
 					}
 
 					if (product.type.contains("dynamiclibrary") && inputs["cutehmi.qmldir.qmlPlugin"] !== undefined) {
