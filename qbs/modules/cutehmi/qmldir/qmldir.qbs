@@ -38,6 +38,13 @@ Module {
 	property int minor: 0
 
 	/**
+	  Plugin class headers. If files with given patterns are present in product file list, then `plugin` and `classname` entries
+	  will be generated. Additionaly product type must contain `dynamiclibrary`. Files matching given patterns receive
+	  'cutehmi.qmldir.qmlPlugin' file tag.
+	  */
+	property stringList qmlPluginClassHeaders: ["QMLPlugin.hpp"]
+
+	/**
 	  Plugin name. This property stands for `<Name>` in 'qmldir' entry `plugin <Name> [<Path>]`.
 	  */
 	property string pluginName: product.baseName
@@ -47,12 +54,6 @@ Module {
 	  file. This property stands for `<Path>` in 'qmldir' entry `plugin <Name> [<Path>]`.
 	  */
 	property string pluginDir: FileInfo.relativePath(product.sourceDirectory, cutehmi.dirs.extensionsSourceDir)
-
-	/**
-	  Name of plugin class header. If file with given pattern is present in product file list, then `plugin` and `classname` entries
-	  will be generated. Additionaly product type must contain `dynamiclibrary`.
-	  */
-	property string qmlPluginClassHeader: "QMLPlugin.hpp"
 
 	/**
 	  Plugin class name. Default class name is fabricated out of product base name converted into a namespace and
@@ -79,6 +80,11 @@ Module {
 	  Array containg file names that should be excluded from 'qmldir'. Regular expressions are used for matching.
 	  */
 	property var exclude: []
+
+	/**
+	  List of QML types that should be marked as singletons.
+	  */
+	property var singletons: []
 
 	/**
 	  Files map. This property can be used to override default-generated type entries of QML and Javascript files. The syntax of
@@ -116,7 +122,7 @@ Module {
 	}
 
 	FileTagger {
-		patterns: [qmlPluginClassHeader]
+		patterns: qmlPluginClassHeaders
 		fileTags: ["cutehmi.qmldir.qmlPlugin"]
 	}
 
@@ -148,10 +154,14 @@ Module {
 							if (j !== product.cutehmi.qmldir.exclude.length)	// This means pattern has been found.
 								continue
 
+							var maybeSingleton = ""
+							if (product.cutehmi.qmldir.singletons.contains(inputs.qml[i].baseName))
+								maybeSingleton = "singleton "
+
 							if (product.cutehmi.qmldir.filesMap[relativePath] !== undefined)
 								f.writeLine(product.cutehmi.qmldir.filesMap[inputs.qml[i].fileName] + " " + relativePath)
 							else
-								f.writeLine(inputs.qml[i].baseName + " " + product.cutehmi.qmldir.major + "." + product.cutehmi.qmldir.minor + " " + relativePath)
+								f.writeLine(maybeSingleton + inputs.qml[i].baseName + " " + product.cutehmi.qmldir.major + "." + product.cutehmi.qmldir.minor + " " + relativePath)
 						}
 					}
 

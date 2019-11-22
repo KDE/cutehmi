@@ -98,6 +98,7 @@ Project {
 		cutehmi.init.initializerClass: "cutehmi::Initializer"
 
 		Depends { name: "cutehmi.qmldir" }
+		cutehmi.qmldir.singletons: ["Palette"]
 
 		Depends { name: "cutehmi.qmltypes" }
 
