@@ -22,7 +22,7 @@ Module {
 		//</qbs-cutehmi.qmltypes-2.workaround>
 
 		multiplex: true
-		explicitlyDependsOn: ["qml", "js", "dynamiclibrary"]
+		explicitlyDependsOn: ["qml", "js", "qmldir", "dynamiclibrary"]
 		//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
 		explicitlyDependsOnFromDependencies: ["qmlplugindump"]
 		///</cutehmi_qmlplugindump-1.workaround>
