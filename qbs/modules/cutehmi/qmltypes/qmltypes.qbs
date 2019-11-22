@@ -1,6 +1,6 @@
 import qbs
 import qbs.Environment
-import qbs.Utilities
+import qbs.File
 
 import "functions.js" as Functions
 
@@ -15,7 +15,11 @@ Module {
 	Depends { name: "cutehmi.dirs" }
 
 	Rule {
-		condition: !qbs.targetOS.contains("android")	// Android builds are not supported by this module.
+		// Android builds are not supported by this module.
+		//<qbs-cutehmi.qmltypes-2.workaround target="Qbs" cause="missing">
+		// Checking if directory exists as a dirty workaround to check if `--no-install` options has been set from command line.
+		condition: !qbs.targetOS.contains("android") && File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallDirname)
+		//</qbs-cutehmi.qmltypes-2.workaround>
 
 		multiplex: true
 		explicitlyDependsOn: ["qml", "js", "dynamiclibrary"]

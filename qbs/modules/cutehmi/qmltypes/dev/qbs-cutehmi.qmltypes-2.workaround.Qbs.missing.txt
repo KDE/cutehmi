@@ -1,0 +1,12 @@
+Problem:
+
+In case artifacts are not installed, _qmlplugindump_ will fail causing a build error. There is unfortunately no way to determine
+through some Qbs property if `--no-install` option has been turned on from command line.
+
+Workaround:
+
+A simple workaround is to check wheter extensions install directory exists.
+
+Snippet:
+
+
