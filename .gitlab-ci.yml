@@ -40,30 +40,69 @@ stages:
     - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
     - zypper --non-interactive in libgpiod-devel
 
-gcc ci-suse-qt512 debug build:
-  extends: .build_ci-suse-qt512
+# gcc ci-suse-qt512 debug build:
+#   extends: .build_ci-suse-qt512
+#   variables:
+#     QBS_BASE_PROFILE: "gcc"
+#     QBS_CONFIG: "debug"
+
+# clang ci-suse-qt512 debug build:
+#   extends: .build_ci-suse-qt512
+#   variables:
+#     QBS_BASE_PROFILE: "clang"
+#     QBS_CONFIG: "debug"
+
+# gcc ci-suse-qt512 release build:
+#   extends: .build_ci-suse-qt512
+#   variables:
+#     QBS_BASE_PROFILE: "gcc"
+#     QBS_CONFIG: "release"
+
+# clang ci-suse-qt512 release build:
+#   extends: .build_ci-suse-qt512
+#   variables:
+#     QBS_BASE_PROFILE: "clang"
+#     QBS_CONFIG: "release"
+
+.build_ubuntu-19.04-qt-5.13.1:
+  image: "cutehmi/qt:ubuntu-19.04-qt-5.13.1"
+  extends: .build
+  variables:
+    QBS_PROFILE: "qt-5-13-1"
+  before_script:
+    - uname -a
+    - qbs --version
+    - qmake --version
+    - qbs setup-toolchains --detect
+    - qbs setup-qt --detect
+    - qbs config --list profiles
+    - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
+    - sudo apt-get update
+    - sudo apt-get install libgpiod-dev --yes
+
+gcc ubuntu-19.04-qt-5.13.1 debug build:
+  extends: .build_ubuntu-19.04-qt-5.13.1
   variables:
     QBS_BASE_PROFILE: "gcc"
     QBS_CONFIG: "debug"
 
-clang ci-suse-qt512 debug build:
-  extends: .build_ci-suse-qt512
+clang ubuntu-19.04-qt-5.13.1 debug build:
+  extends: .build_ubuntu-19.04-qt-5.13.1
   variables:
     QBS_BASE_PROFILE: "clang"
     QBS_CONFIG: "debug"
 
-gcc ci-suse-qt512 release build:
-  extends: .build_ci-suse-qt512
+gcc ubuntu-19.04-qt-5.13.1 release build:
+  extends: .build_ubuntu-19.04-qt-5.13.1
   variables:
     QBS_BASE_PROFILE: "gcc"
     QBS_CONFIG: "release"
 
-clang ci-suse-qt512 release build:
-  extends: .build_ci-suse-qt512
+clang ubuntu-19.04-qt-5.13.1 release build:
+  extends: .build_ubuntu-19.04-qt-5.13.1
   variables:
     QBS_BASE_PROFILE: "clang"
     QBS_CONFIG: "release"
-
 
 # Build tests stage.
 
