@@ -26,7 +26,11 @@ void test_cutehmi_view::initTestCase()
 	QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
 	QVERIFY(!m_installDir.isEmpty());
 
-	m_programPath = m_installDir + "/bin/cutehmi_view";
+	QString toolInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOL_INSTALL_SUBDIR");
+	if (!toolInstallSubdir.isEmpty())
+		m_installDir += "/" + toolInstallSubdir;
+
+	m_programPath = m_installDir + "/cutehmi_view";
 #ifndef CUTEHMI_NDEBUG
 	m_programPath += "_debug";
 #endif
