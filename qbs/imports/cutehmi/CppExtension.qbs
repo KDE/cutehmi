@@ -20,8 +20,6 @@ Extension {
 		targetName: "android_" + name
 	}
 
-	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]	// QML import paths for QtCreator.
-
 	property string macroName: baseName.toUpperCase().replace(/\./g, '_')
 
 	Export {
@@ -71,6 +69,13 @@ Extension {
 	// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
 	cutehmi.cpp.exportedIncludePaths: [sourceDirectory + "/include"]
 	//</qbs-cutehmi.cpp-1.workaround>
+
+	Group {
+		name: "Library"
+		fileTagsFilter: "dynamiclibrary"
+		qbs.install: true
+		qbs.installDir: cutehmi.dirs.extensionInstallSubdir
+	}
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

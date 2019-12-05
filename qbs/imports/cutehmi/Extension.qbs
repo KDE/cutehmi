@@ -16,15 +16,24 @@ CommonProduct {
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
-	property string installDir: cutehmi.dirs.extensionInstallDirname + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
+	property string installSourceBase: sourceDirectory
 
-	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]	// QML import paths for QtCreator.
+	property string dedicatedInstallSubdir: cutehmi.dirs.extensionInstallSubdir + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
+
+	//<qbs-imports-cutehmi-3.workaround target="Qbs" cuase="bug_or_missing">
+	// Using 'qmlImportPaths' instead of 'qmlDesignerImportPaths' for puppets.
+	// property stringList qmlDesignerImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.puppetInstallSubdir]	// QML import paths for QtCreator's Designer.
+	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.puppetInstallSubdir,
+										 cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallSubdir]	// QML import paths for QtCreator.
+	//</qbs-imports-cutehmi-3.workaround>
 
 	Depends { name: "cutehmi.dirs" }
 
 	Depends { name: "cutehmi.metadata" }
 
 	Depends { name: "cutehmi_qmlplugindump" }
+
+	Depends { name: "cutehmi.conventions" }
 
 	FileTagger {
 		patterns: ["*.bdf", "*.otf", "*.pcf", "*.ttf"]
@@ -35,8 +44,8 @@ CommonProduct {
 		name: "Fonts"
 		fileTagsFilter: ["Fonts"]
 		qbs.install: true
-		qbs.installSourceBase: sourceDirectory
-		qbs.installDir: installDir
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
 	}
 
 	FileTagger {
@@ -48,15 +57,8 @@ CommonProduct {
 		name: "Images"
 		fileTagsFilter: ["Images"]
 		qbs.install: true
-		qbs.installSourceBase: sourceDirectory
-		qbs.installDir: installDir
-	}
-
-	Group {
-		name: "Library"
-		fileTagsFilter: "dynamiclibrary"
-		qbs.install: true
-		qbs.installDir: cutehmi.dirs.extensionInstallDirname
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
 	}
 
 	FileTagger {
@@ -68,8 +70,8 @@ CommonProduct {
 		name: "Metainfo"
 		fileTagsFilter: ["metainfo"]
 		qbs.install: true
-		qbs.installSourceBase: sourceDirectory
-		qbs.installDir: installDir
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
 	}
 
 	FileTagger {
@@ -96,8 +98,8 @@ CommonProduct {
 		name: "QML"
 		fileTagsFilter: ["js", "qml", "qmldir", "qmltypes"]
 		qbs.install: true
-		qbs.installSourceBase: sourceDirectory
-		qbs.installDir: installDir
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
 	}
 
 	FileTagger {
@@ -109,8 +111,8 @@ CommonProduct {
 		name: "Readme files"
 		fileTagsFilter: ["ReadmeFiles"]
 		qbs.install: true
-		qbs.installSourceBase: sourceDirectory
-		qbs.installDir: installDir
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
 	}
 }
 

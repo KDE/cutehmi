@@ -16,8 +16,6 @@ CommonProduct {
 
 	baseName: name
 
-	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]
-
 	Depends { name: "cpp" }
 	Properties {
 		condition: qbs.targetOS.contains("linux")
@@ -39,7 +37,7 @@ CommonProduct {
 		name: "Application"
 		fileTagsFilter: "application"
 		qbs.install: true
-		qbs.installDir: cutehmi.dirs.toolInstallDirname
+		qbs.installDir: cutehmi.dirs.toolInstallSubdir
 	}
 }
 

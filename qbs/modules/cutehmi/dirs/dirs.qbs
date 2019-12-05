@@ -1,58 +1,108 @@
 import qbs
 import qbs.TextFile
-import qbs.Environment
 
-import "functions.js" as Functions
+import "private.js" as Private
 
+/**
+  Project directories. This module acts as central configuration point and lookup facility for project directories. It can also
+  generate 'cutehmi.dirs.hpp' artifact for a product, which contains macros describing directory locations.
+  */
 Module {
-	additionalProductTypes: ["cutehmi.dirs.hpp"]
-
 	setupRunEnvironment: {
-		Functions.setupEnvironment()
+		Private.setupEnvironment()
 	}
 
 	setupBuildEnvironment: {
-		Functions.setupEnvironment()
+		Private.setupEnvironment()
 	}
 
-	property bool generateHeaderFile: false
+	PropertyOptions {
+		name: "artifacts"
+		description: "Whether to generate any artifacts."
+	}
+	property bool artifacts: false
 
-	property string installDir: product.qbs.installPrefix ? product.qbs.installRoot + product.qbs.installPrefix : product.qbs.installRoot // Note: qbs.installPrefix starts with "/".
+	PropertyOptions {
+		name: "dirsHppArtifact"
+		description: "Actual filename of artifact tagged as 'cutehmi.dirs.hpp'. If set to undefined artifact won't be generated."
+	}
+	property path dirsHppArtifact: artifacts ? "cutehmi.dirs.hpp" : undefined
 
-	property string examplesInstallDirname: "examples"
+	PropertyOptions {
+		name: "installDir"
+		description: "Project instalation directory composed of 'qbs' properties describing instalation path."
+	}
+	readonly property string installDir: product.qbs.installPrefix ? product.qbs.installRoot + product.qbs.installPrefix : product.qbs.installRoot // Note: qbs.installPrefix starts with "/".
 
+	readonly property string examplesInstallSubdir: "examples" 	///< @deprecated Examples are going to be entirely replaced by appropriate example extensions.
+
+	PropertyOptions {
+		name: "extensionInstallSubdir"
+		description: "Target intallation subdirectory for an extension."
+	}
 	// <qbs-cutehmi.dirs-1.workaround target="Qt" cause="design">
 	// Android expects QML files to be installed in 'qml' directory, so we're changing installation path of extension files.
-	property string extensionInstallDirname: qbs.targetOS.contains("android") ? "qml" : "bin"
+	readonly property string extensionInstallSubdir: qbs.targetOS.contains("android") ? "qml" : "cutehmi"
 	// </qbs-cutehmi.dirs-1.workaround>
 
-	property string extensionsSourceDir: project.sourceDirectory + "/extensions"
-
-	property string externalDeployDir: project.sourceDirectory + "/external/deploy"
-
-	property string externalLibDir: externalDeployDir + "/lib"
-
-	property string externalIncludeDir: externalDeployDir + "/include"
-
-	property string testInstallDirname: "bin"
-
-	property string toolInstallDirname: "bin"
-
-	FileTagger {
-		patterns: ["*.qbs"]
-		fileTags: ["qbs"]
+	PropertyOptions {
+		name: "extensionsSourceDir"
+		description: "Directory where source code of extensions reside."
 	}
+	readonly property string extensionsSourceDir: project.sourceDirectory + "/extensions"
+
+	PropertyOptions {
+		name: "externalDeployDir"
+		description: "Deployment directory of external libraries."
+	}
+	readonly property string externalDeployDir: project.sourceDirectory + "/external/deploy"
+
+	PropertyOptions {
+		name: "externalLibDir"
+		description: "Directory containing external libraries binaries."
+	}
+	readonly property string externalLibDir: externalDeployDir + "/lib"
+
+	PropertyOptions {
+		name: "externalIncludeDir"
+		description: "Directory containing external libraries includes."
+	}
+	readonly property string externalIncludeDir: externalDeployDir + "/include"
+
+	PropertyOptions {
+		name: "puppetSourceSubdir"
+		description: "subdirectory containing QML puppet files to be used with Qt Designer."
+	}
+	readonly property string puppetSourceSubdir: "puppet"
+
+	PropertyOptions {
+		name: "puppetInstallSubdir"
+		description: "Installation subdirectory of puppet extensions that are used by Qt Designer."
+	}
+	readonly property string puppetInstallSubdir: "cutehmi_puppets"
+
+	PropertyOptions {
+		name: "testInstallSubdir"
+		description: "Target intallation subdirectory for a test."
+	}
+	readonly property string testInstallSubdir: "cutehmi"
+
+	PropertyOptions {
+		name: "toolInstallSubdir"
+		description: "Target intallation subdirectory for a tool."
+	}
+	readonly property string toolInstallSubdir: "cutehmi"
 
 	Rule {
-		condition: product.cutehmi.dirs.generateHeaderFile
-		inputs: ["qbs"]
+		condition: product.cutehmi.dirs.dirsHppArtifact !== undefined
+		multiplex: true
 
 		prepare: {
 			var hppCmd = new JavaScriptCommand();
-			hppCmd.description = "generating " + product.sourceDirectory + "/cutehmi.dirs.hpp"
+			hppCmd.description = "generating " + output.filePath
 			hppCmd.highlight = "codegen";
 			hppCmd.sourceCode = function() {
-				var f = new TextFile(product.sourceDirectory + "/cutehmi.dirs.hpp", TextFile.WriteOnly);
+				var f = new TextFile(output.filePath, TextFile.WriteOnly);
 				try {
 					var prefix = "CUTEHMI_DIRS"
 
@@ -63,9 +113,10 @@ Module {
 					f.writeLine("// This file has been autogenerated by 'cutehmi.dirs' Qbs module.")
 					f.writeLine("")
 
-					f.writeLine("#define " + prefix + "_TOOL_INSTALL_DIRNAME \"" + product.cutehmi.dirs.toolInstallDirname + "\"")
-					f.writeLine("#define " + prefix + "_TEST_INSTALL_DIRNAME \"" + product.cutehmi.dirs.testInstallDirname + "\"")
-					f.writeLine("#define " + prefix + "_EXTENSION_INSTALL_DIRNAME \"" + product.cutehmi.dirs.extensionInstallDirname + "\"")
+					f.writeLine("#define " + prefix + "_TOOL_INSTALL_SUBDIR \"" + product.cutehmi.dirs.toolInstallSubdir + "\"")
+					f.writeLine("#define " + prefix + "_TEST_INSTALL_SUBDIR \"" + product.cutehmi.dirs.testInstallSubdir + "\"")
+					f.writeLine("#define " + prefix + "_EXTENSION_INSTALL_SUBDIR \"" + product.cutehmi.dirs.extensionInstallSubdir + "\"")
+					f.writeLine("#define " + prefix + "_PUPPET_INSTALL_SUBDIR \"" + product.cutehmi.dirs.puppetInstallSubdir + "\"")
 					f.writeLine("")
 					f.writeLine("#endif")
 				} finally {
@@ -77,7 +128,7 @@ Module {
 		}
 
 		Artifact {
-			filePath: product.sourceDirectory + "/cutehmi.dirs.hpp"
+			filePath: product.cutehmi.dirs.dirsHppArtifact
 			fileTags: ["cutehmi.dirs.hpp", "hpp"]
 		}
 	}

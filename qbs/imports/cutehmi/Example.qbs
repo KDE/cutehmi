@@ -17,7 +17,7 @@ CommonProduct {
 
 	property string installPrefix: parent.parent.name
 
-	property string installDir: cutehmi.dirs.examplesInstallDirname + "/" + installPrefix + "/" + FileInfo.baseName(sourceDirectory)
+	property string installDir: cutehmi.dirs.examplesInstallSubdir + "/" + installPrefix + "/" + FileInfo.baseName(sourceDirectory)
 
 	Depends { name: "cutehmi.dirs" }
 

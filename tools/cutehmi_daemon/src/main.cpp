@@ -108,7 +108,7 @@ int main(int argc, char * argv[])
 			CUTEHMI_DEBUG("Library paths: " << QCoreApplication::libraryPaths());
 
 			QQmlApplicationEngine engine;
-			engine.addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSION_INSTALL_DIRNAME);
+			engine.addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSION_INSTALL_SUBDIR);
 			CUTEHMI_DEBUG("QML import paths: " << engine.importPathList());
 
 			//<cutehmi_daemon-1.workaround target="Qt" cause="QTBUG-73649">

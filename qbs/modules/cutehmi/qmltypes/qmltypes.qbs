@@ -2,10 +2,8 @@ import qbs
 import qbs.Environment
 import qbs.File
 
-import "functions.js" as Functions
-
 /**
-  This module generates 'plugins.qmltypes' artifact.
+  This module generates 'qmltypes' artifact.
   */
 Module {
 	additionalProductTypes: ["qmltypes"]
@@ -18,7 +16,7 @@ Module {
 		// Android builds are not supported by this module.
 		//<qbs-cutehmi.qmltypes-2.workaround target="Qbs" cause="missing">
 		// Checking if directory exists as a dirty workaround to check if `--no-install` options has been set from command line.
-		condition: !qbs.targetOS.contains("android") && File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallDirname)
+		condition: !qbs.targetOS.contains("android") && File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir)
 		//</qbs-cutehmi.qmltypes-2.workaround>
 
 		multiplex: true
@@ -31,12 +29,12 @@ Module {
 			//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
 			// Custom built cutehmi_qmlplugindump is used to generate qmltypes in debug builds.
 			var dumpCmd = new Command(explicitlyDependsOn["qmlplugindump"][0].filePath,
-									  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
+									  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir]);
 			// Instead of:
-			// var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallDirname]);
+			// var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir]);
 			///</cutehmi_qmlplugindump-1.workaround>
 			dumpCmd.workingDirectory = product.cutehmi.dirs.installDir
-			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallDirname,
+			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir,
 														 product.Qt.core.libPath,
 														 product.Qt.core.binPath,	// On Windows runtime libraries are installed to 'binPath' and not 'libPath'.
 														]).join(product.qbs.pathListSeparator)

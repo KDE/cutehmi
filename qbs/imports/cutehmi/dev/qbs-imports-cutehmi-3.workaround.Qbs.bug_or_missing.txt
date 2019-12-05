@@ -1,0 +1,18 @@
+Problem:
+
+Property 'qmlDesignerImportPaths' (or its Qmake counterpart 'QML_DESIGNER_IMPORT_PATH') allows one to mock only C++ types in
+Qt Designer. Moreover "render mode" sometimes does not display mockup type, while "preview mode" (view with states) does.
+
+Investigation:
+
+NodeInstanceView explicitly checks for C++ types when creating a scene and setting up 'mockupTypesVector'
+('qt-creator\src\plugins\qmldesigner\designercore\instances\nodeinstanceview.cpp:929' #9298bf8ff8683a5e9576b33ed6e8c14b2286b828).
+
+Due to time constrainst it has not been investigated why "preview mode" does display some components, while "render mode" not.
+
+Workaround:
+
+Instead of using 'qmlDesignerImportPaths' one can prepend 'qmlImportPaths' with additional path for mockup types to achieve desired
+functionality. It should not be a problem to "Edit" mode to encounter mockup/puppet version of an extension rather than original
+one.
+

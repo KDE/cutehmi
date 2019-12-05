@@ -3,28 +3,28 @@ import qbs.TextFile
 import qbs.Environment
 
 Module {
-	additionalProductTypes: ["cutehmi.init.cpp"]
-
-	property string initializerClass
+	property string initializerClass	//@todo rename to initClass and use cutehmi.conventions
 
 	property string initializerHeader: initializerClass ? initializerClass.replace(/::/g, '\/') + ".hpp" : ""
 
-	property path initArtifact: "cutehmi.init.cpp"
-
-	FileTagger {
-		patterns: ["*.qbs"]
-		fileTags: ["qbs"]
+	PropertyOptions {
+		name: "artifacts"
+		description: "Whether to generate any artifacts."
 	}
+	property bool artifacts: true
+
+	property path initCppArtifact: artifacts ? "cutehmi.init.cpp" : undefined
 
 	Rule {
-		inputs: ["qbs"]
+		condition: initCppArtifact !== undefined
+		multiplex: true
 
 		prepare: {
 			var cppCmd = new JavaScriptCommand();
-			cppCmd.description = "generating " + product.cutehmi.init.initArtifact
+			cppCmd.description = "generating " + output.filePath
 			cppCmd.highlight = "codegen";
 			cppCmd.sourceCode = function() {
-				var f = new TextFile(product.cutehmi.init.initArtifact, TextFile.WriteOnly);
+				var f = new TextFile(output.filePath, TextFile.WriteOnly);
 				try {
 					var prefix = "CUTEHMI_INIT"
 
@@ -63,7 +63,7 @@ Module {
 		}
 
 		Artifact {
-			filePath: product.cutehmi.init.initArtifact
+			filePath: product.cutehmi.init.initCppArtifact
 			fileTags: ["cpp"]
 		}
 	}

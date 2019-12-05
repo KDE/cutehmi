@@ -59,13 +59,8 @@ Module {
 	  */
 	property var tags: ({})
 
-	FileTagger {
-		patterns: ["*.qbs"]
-		fileTags: ["qbs"]
-	}
-
 	Rule {
-		inputs: ['qbs']
+		multiplex: true
 
 		prepare: {
 			var doxCmd = new JavaScriptCommand();

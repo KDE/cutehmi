@@ -47,7 +47,7 @@ Project {
 			"qml/NotificationListView.qml",
 		]
 
-		cutehmi.dirs.generateHeaderFile: true
+		cutehmi.dirs.artifacts: true
 
 		Depends { name: "CuteHMI.App.2" }
 

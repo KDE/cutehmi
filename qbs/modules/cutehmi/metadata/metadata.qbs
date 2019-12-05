@@ -8,22 +8,19 @@ import qbs.Utilities
 /**
   This module collects properties defined within Qbs product and generates 'cutehmi.metadata.json' and 'cutehmi.metadata.hpp'
   artifacts.
-
-  @warning generated artifact 'cutehmi.metadata.json' must not be added to the 'files' list of the product! Otherwise Qbs will not
-  regenerate it automatically upon source 'qbs' modification.
   */
 Module {
-	additionalProductTypes: ["cutehmi.metadata.json", "cutehmi.metadata.hpp"]
+	additionalProductTypes: ["metadata"]
 
-	FileTagger {
-		patterns: ["*.qbs"]
-		fileTags: ["qbs"]
+	PropertyOptions {
+		name: "artifacts"
+		description: "Whether to generate any artifacts."
 	}
+	property bool artifacts: true
 
 	Rule {
+		condition: artifacts
 		multiplex: true
-		inputs: ["qbs"]
-		inputsFromDependencies: "qbs"
 
 		prepare: {
 			var productRequiredProperties = [
@@ -139,12 +136,12 @@ Module {
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.json"
-			fileTags: ["cutehmi.metadata.json", "qt.core.resource_data", "qt_plugin_metadata"]
+			fileTags: ["cutehmi.metadata.json", "metadata", "qt.core.resource_data", "qt_plugin_metadata"]
 		}
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.hpp"
-			fileTags: ["cutehmi.metadata.hpp", "hpp"]
+			fileTags: ["cutehmi.metadata.hpp", "metadata", "hpp"]
 		}
 	}
 

@@ -65,7 +65,7 @@ Project {
 			]
 		}
 
-		cutehmi.dirs.generateHeaderFile: true
+		cutehmi.dirs.artifacts: true
 
 		Depends { name: "CuteHMI.2" }
 
