@@ -31,7 +31,9 @@ CommonProduct {
 
 	Depends { name: "cutehmi.metadata" }
 
-	Depends { name: "cutehmi_qmlplugindump" }
+	//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
+	Depends { name: "cutehmi_qmlplugindump"; required: false }
+	//</cutehmi_qmlplugindump-1.workaround>
 
 	Depends { name: "cutehmi.conventions" }
 

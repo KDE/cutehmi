@@ -12,11 +12,19 @@ Module {
 
 	Depends { name: "cutehmi.dirs" }
 
+	readonly property bool qmlplugindumpAvailable: {
+		// Unfortunately validate script is not applicable here, because it seems to run before 'present' property is set to correct value.
+		if (!product.cutehmi_qmlplugindump.present)
+			console.error("Can not use 'cutehmi.qmltypes' module without 'cutehmi_qmlplugindump' tool.")
+
+		return product.cutehmi_qmlplugindump.present
+	}
+
 	Rule {
 		// Android builds are not supported by this module.
 		//<qbs-cutehmi.qmltypes-2.workaround target="Qbs" cause="missing">
 		// Checking if directory exists as a dirty workaround to check if `--no-install` options has been set from command line.
-		condition: !qbs.targetOS.contains("android") && File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir)
+		condition: !qbs.targetOS.contains("android") && File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir) && qmlplugindumpAvailable
 		//</qbs-cutehmi.qmltypes-2.workaround>
 
 		multiplex: true
