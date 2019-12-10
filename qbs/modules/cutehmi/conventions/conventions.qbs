@@ -90,10 +90,10 @@ Module {
 	readonly property string qmlPluginSource: "QMLPlugin.cpp"
 
 	PropertyOptions {
-		name: "qmlPluginClass"
+		name: "qmlPluginClassName"
 		description: "Standard, qualified name of a QQmlExtensionPlugin derived class."
 	}
-	readonly property string qmlPluginClass: namespace + "::internal::QMLPlugin"
+	readonly property string qmlPluginClassName: namespace + "::internal::QMLPlugin"
 
 	PropertyOptions {
 		name: "qmlTypeInfo"
@@ -134,7 +134,7 @@ Module {
 			console.info("qmlModuleIdentifier: '" + qmlModuleIdentifier + "'")
 			console.info("qmlPluginName : '" + qmlPluginName + "'")
 			console.info("qmlPluginSource: '" + qmlPluginSource + "'")
-			console.info("qmlPluginClass: '" + qmlPluginClass + "'")
+			console.info("qmlPluginClassName: '" + qmlPluginClassName + "'")
 			console.info("qmlTypeInfo: '" + qmlTypeInfo + "'")
 			console.info("initClassName: '" + initClassName + "'")
 			console.info("initHeader: '" + initHeader + "'")

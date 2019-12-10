@@ -77,7 +77,7 @@ Module {
 		description: "Plugin class name. For some reason 'qmldir' specification allows for many plugins, but only one plugin class"
 		+ " can be specified. This entry is relevant only for static builds though."
 	}
-	property string className: product.cutehmi.conventions.qmlPluginClass
+	property string className: product.cutehmi.conventions.qmlPluginClassName
 
 	PropertyOptions {
 		name: "typeInfo"
