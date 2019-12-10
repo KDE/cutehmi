@@ -9,7 +9,7 @@ Module {
 
 	Qt.android_support.extraLibs: androidExtensionsProbe.extensionPaths
 
-	Qt.android_support.extraPlugins: cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname
+	Qt.android_support.extraPlugins: cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallSubdir
 
 	Qt.android_support.qmlRootDir: cutehmi.dirs.installDir
 
@@ -24,7 +24,7 @@ Module {
 	Probe {
 		id: androidExtensionsProbe
 
-		property pathList searchPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallDirname]
+		property pathList searchPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionSubdir]
 
 		property string nameSuffix: ".so"
 
