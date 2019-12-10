@@ -148,6 +148,93 @@ Module {
 	}
 
 	Rule {
+		condition: puppet
+		explicitlyDependsOn: ["cutehmi.qmldir.entity." + product.name]	// Note: puppet extension can not have **regular** plugin binary on its own.
+
+		//<qbs-cutehmi.qmldirs-1.workaround target="Qt" cause="bug">
+		inputsFromDependencies: ["cutehmi.qmldir.entity." + product.originalExtension, "cutehmi.qmldir.qmlPlugin"]
+		// Instead of:
+		// explicitlyDependsOnFromDependencies: ["cutehmi.qmldir.entity." + product.originalExtension, "cutehmi.qmldir.qmlPlugin"]
+		//</qbs-cutehmi.qmldirs-1.workaround>
+
+		multiplex: true
+
+		prepare: {
+			var qmldirCmd = new JavaScriptCommand();
+			qmldirCmd.description = 'generating ' + output.filePath
+			qmldirCmd.highlight = 'codegen';
+			qmldirCmd.sourceCode = function() {
+				var f = new TextFile(output.filePath, TextFile.WriteOnly);
+				try {
+					// Puppet must pretend to be an original extension.
+					var originalProduct
+					for (i in product.dependencies)
+						if (product.dependencies[i].name === product.originalExtension)
+							originalProduct = product.dependencies[i]
+
+					// Path prefix pointing from puppet's dedicated directory to dedicated directory of an extension.
+					var prefix = FileInfo.relativePath(product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
+													   originalProduct.cutehmi.dirs.installDir + "/" + originalProduct.dedicatedInstallSubdir)
+					// Affixate path corrections when looking from puppet's 'qmldir' file for a plugin binary.
+					var pluginsCopy = JSON.parse(JSON.stringify(originalProduct.cutehmi.qmldir.plugins))
+					for (i in pluginsCopy)
+						pluginsCopy[i].path = FileInfo.cleanPath(prefix + "/" + pluginsCopy[i].path)
+
+					// Affixate type info path corrections.
+					var typeInfo = FileInfo.cleanPath(prefix + "/" + originalProduct.cutehmi.qmldir.typeInfo)
+
+					var config = {
+						moduleIdentifier: originalProduct.cutehmi.qmldir.moduleIdentifier,
+						major: originalProduct.cutehmi.qmldir.major,
+						minor: originalProduct.cutehmi.qmldir.minor,
+						singletons: originalProduct.cutehmi.qmldir.singletons,
+						output: output,
+						outputSourceBase: product.installSourceBase,
+						outputInstallDir: product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
+						inputs: inputs["cutehmi.qmldir.entity." + originalProduct.name],
+						overridingInputs: explicitlyDependsOn["cutehmi.qmldir.entity." + product.name],
+						inputsSourceBase: originalProduct.installSourceBase,
+						inputsInstallDir: originalProduct.cutehmi.dirs.installDir + "/" + originalProduct.dedicatedInstallSubdir,
+						excludedInputs: originalProduct.cutehmi.qmldir.exclude,
+						filesMap: originalProduct.cutehmi.qmldir.filesMap,
+						hasPlugin: originalProduct.type.contains("dynamiclibrary") && inputs["cutehmi.qmldir.qmlPlugin"] !== undefined,
+						plugins: product.cutehmi.qmldir.plugins.concat(pluginsCopy),
+						className: originalProduct.cutehmi.qmldir.className,
+						typeInfo: typeInfo,
+						designerSupported: originalProduct.cutehmi.qmldir.designerSupported,
+						additionalEntries: originalProduct.cutehmi.qmldir.additionalEntries
+					}
+					Prepare.writeEntries(f, config)
+				} finally {
+					f.close()
+				}
+			}
+
+			var gitignoreCmd = new JavaScriptCommand();
+			gitignoreCmd.description = 'generating ' + product.sourceDirectory + '/.gitignore'
+			gitignoreCmd.highlight = 'codegen';
+			gitignoreCmd.sourceCode = function() {
+				var f = new TextFile(product.sourceDirectory + "/.gitignore", TextFile.ReadWrite);
+				try {
+					Prepare.writeGitignore(f)
+				} finally {
+					f.close()
+				}
+			}
+
+			if (product.cutehmi.qmldir.modifyGitignore)
+				return [qmldirCmd, gitignoreCmd]
+			else
+				return [qmldirCmd]
+		}
+
+		Artifact {
+			filePath: product.installSourceBase + "/qmldir"
+			fileTags: ["qmldir"]
+		}
+	}
+
+	Rule {
 		condition: !puppet
 		explicitlyDependsOn: ["cutehmi.qmldir.entity." + product.name, "cutehmi.qmldir.qmlPlugin"]
 		multiplex: true
@@ -168,6 +255,7 @@ Module {
 						outputSourceBase: product.installSourceBase,
 						outputInstallDir: product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
 						inputs: explicitlyDependsOn["cutehmi.qmldir.entity." + product.name],
+						overridingInputs: undefined,
 						inputsSourceBase: product.installSourceBase,
 						inputsInstallDir: product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
 						excludedInputs: product.cutehmi.qmldir.exclude,

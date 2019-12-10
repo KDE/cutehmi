@@ -1,0 +1,11 @@
+Problem:
+
+Rule item does not make files collected through 'explicitlyDependsOnFromDependencies' tags available to 'prepare' script within
+'explicitlyDependsOn' variable. On the other hand files collected through 'inputsFromDependencies' tags are available within
+'inputs' variable.
+
+Workaround:
+
+Workaround is to use 'inputsFromDependencies' rather than 'explicitlyDependsOnFromDependencies'.
+
+Snippet:
