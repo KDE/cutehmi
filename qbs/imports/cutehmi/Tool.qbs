@@ -31,8 +31,6 @@ CommonProduct {
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.metadata" }
-
 	Group {
 		name: "Application"
 		fileTagsFilter: "application"

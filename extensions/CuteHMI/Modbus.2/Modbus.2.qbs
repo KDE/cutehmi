@@ -160,7 +160,10 @@ Project {
 		Depends { name: "cutehmi.init" }
 		cutehmi.init.initializerClass: "cutehmi::modbus::Initializer"
 
+		Depends { name: "cutehmi.metadata" }
+
 		Depends { name: "cutehmi.qmldir" }
+		cutehmi.qmldir.exclude: ["^designer/.*", "\.js$"]
 
 		Depends { name: "cutehmi.qmltypes" }
 

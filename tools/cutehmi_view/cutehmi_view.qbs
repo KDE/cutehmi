@@ -53,6 +53,8 @@ Project {
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.exclude: ['tests']
+
+		Depends { name: "cutehmi.metadata" }
 	}
 }
 

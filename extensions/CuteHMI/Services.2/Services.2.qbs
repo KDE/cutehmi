@@ -66,6 +66,8 @@ Project {
 		Depends { name: "cutehmi.init" }
 		cutehmi.init.initializerClass: "cutehmi::services::Initializer"
 
+		Depends { name: "cutehmi.metadata" }
+
 		Depends { name: "cutehmi.qmldir" }
 
 		Depends { name: "cutehmi.qmltypes" }

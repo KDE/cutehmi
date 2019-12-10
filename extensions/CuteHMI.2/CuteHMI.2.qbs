@@ -97,6 +97,8 @@ Project {
 		Depends { name: "cutehmi.init" }
 		cutehmi.init.initializerClass: "cutehmi::Initializer"
 
+		Depends { name: "cutehmi.metadata" }
+
 		Depends { name: "cutehmi.qmldir" }
 		cutehmi.qmldir.singletons: ["Palette"]
 
@@ -104,6 +106,7 @@ Project {
 
 		Export {
 			Depends { name: "Qt.core" }
+
 			Depends { name: "Qt.qml" }
 		}
 	}

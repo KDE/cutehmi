@@ -33,11 +33,11 @@ Project {
 		files: [
 			"README.md",
 			"LICENSE",
-//			"include/templates/skeleton/internal/platform.hpp",
-//			"include/templates/skeleton/internal/common.hpp",
-//			"include/templates/skeleton/logging.hpp",
-//			"include/templates/skeleton/metadata.hpp",
-//			"src/templates/skeleton/logging.cpp",
+			"include/templates/skeleton/internal/platform.hpp",
+			"include/templates/skeleton/internal/common.hpp",
+			"include/templates/skeleton/logging.hpp",
+			"include/templates/skeleton/metadata.hpp",
+			"src/templates/skeleton/logging.cpp",
 		]
 
 		Depends { name: "CuteHMI.2" }
@@ -46,6 +46,8 @@ Project {
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
 		cutehmi.doxygen.exclude: ['tests']
+
+		Depends { name: "cutehmi.metadata" }
 
 		Export {
 			Depends { name: "CuteHMI.2" }

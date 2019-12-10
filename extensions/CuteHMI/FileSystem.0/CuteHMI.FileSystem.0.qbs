@@ -41,6 +41,8 @@ Project {
 			"src/cutehmi/filesystem/logging.cpp",
 		]
 
+		Depends { name: "cutehmi.metadata" }
+
 		Depends { name: "CuteHMI.2" }
 
 //		Depends { name: "cutehmi.doxygen" }
