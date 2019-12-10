@@ -95,7 +95,6 @@ Project {
 		cutehmi.doxygen.exclude: ['tests']
 
 		Depends { name: "cutehmi.init" }
-		cutehmi.init.initializerClass: "cutehmi::Init"
 
 		Depends { name: "cutehmi.metadata" }
 

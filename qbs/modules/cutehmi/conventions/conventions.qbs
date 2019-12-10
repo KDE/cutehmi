@@ -54,16 +54,22 @@ Module {
 	readonly property string loggingCategory: productName.toLowerCase().replace(/\./g, '_')
 
 	PropertyOptions {
+		name: "dedicatedSubdir"
+		description: "Subdirectory dedicated to keep product-specific files."
+	}
+	readonly property string dedicatedSubdir: baseName.toLowerCase().replace(/\./g, '/')
+
+	PropertyOptions {
 		name: "includeDir"
 		description: "Directory dedicated to keep product's public C++ header files."
 	}
-	readonly property string includeDir: product.sourceDirectory + "/include/" + baseName.toLowerCase().replace(/\./g, '/')
+	readonly property string includeDir: product.sourceDirectory + "/include/" + dedicatedSubdir
 
 	PropertyOptions {
 		name: "sourceDir"
 		description: "Directory dedicated to keep product's C++ source files."
 	}
-	readonly property string sourceDir: product.sourceDirectory + "/src/" + baseName.toLowerCase().replace(/\./g, '/')
+	readonly property string sourceDir: product.sourceDirectory + "/src/" + dedicatedSubdir
 
 	PropertyOptions {
 		name: "qmlModuleIdentifier"
@@ -96,6 +102,18 @@ Module {
 	readonly property string qmlTypeInfo: "plugins.qmltypes"
 
 	PropertyOptions {
+		name: "initClassName"
+		description: "Standard name of Init class used to initialize extension."
+	}
+	readonly property string initClassName: namespace + "::Init"
+
+	PropertyOptions {
+		name: "initHeader"
+		description: "Header file with Init class declaration."
+	}
+	readonly property string initHeader: dedicatedSubdir + "/Init.hpp"
+
+	PropertyOptions {
 		name: "functions"
 		description: "This property exposes various helper functions."
 	}
@@ -110,6 +128,7 @@ Module {
 			console.info("macroPrefix: '" + macroPrefix + "'")
 			console.info("longMacroPrefix: '" + longMacroPrefix + "'")
 			console.info("loggingCategory: '" + loggingCategory + "'")
+			console.info("dedicatedSubdir: '" + dedicatedSubdir + "'")
 			console.info("includeDir: '" + includeDir + "'")
 			console.info("sourceDir: '" + sourceDir + "'")
 			console.info("qmlModuleIdentifier: '" + qmlModuleIdentifier + "'")
@@ -117,6 +136,8 @@ Module {
 			console.info("qmlPluginSource: '" + qmlPluginSource + "'")
 			console.info("qmlPluginClass: '" + qmlPluginClass + "'")
 			console.info("qmlTypeInfo: '" + qmlTypeInfo + "'")
+			console.info("initClassName: '" + initClassName + "'")
+			console.info("initHeader: '" + initHeader + "'")
 			console.info("---")
 		}
 	}

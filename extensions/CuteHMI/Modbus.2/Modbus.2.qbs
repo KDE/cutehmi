@@ -31,7 +31,7 @@ Project {
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
-         "LICENSE",
+		 "LICENSE",
          "README.md",
          "include/cutehmi/modbus/AbstractClient.hpp",
          "include/cutehmi/modbus/AbstractDevice.hpp",
@@ -158,7 +158,6 @@ Project {
 		Depends { name: "CuteHMI.Services.2" }
 
 		Depends { name: "cutehmi.init" }
-		cutehmi.init.initializerClass: "cutehmi::modbus::Init"
 
 		Depends { name: "cutehmi.metadata" }
 
