@@ -40,7 +40,7 @@ Project {
          "PropItem.qml",
          "include/cutehmi/Dialog.hpp",
          "include/cutehmi/Dialogist.hpp",
-         "include/cutehmi/ExtensionInitializer.hpp",
+         "include/cutehmi/Init.hpp",
          "include/cutehmi/Initializer.hpp",
          "include/cutehmi/InplaceError.hpp",
          "include/cutehmi/Notifier.hpp",
@@ -72,7 +72,7 @@ Project {
          "src/cutehmi/ErrorException.cpp",
          "src/cutehmi/ErrorInfo.cpp",
          "src/cutehmi/Exception.cpp",
-         "src/cutehmi/Initializer.cpp",
+         "src/cutehmi/Init.cpp",
          "src/cutehmi/InplaceError.cpp",
          "src/cutehmi/Notification.cpp",
          "src/cutehmi/NotificationListModel.cpp",
@@ -95,7 +95,7 @@ Project {
 		cutehmi.doxygen.exclude: ['tests']
 
 		Depends { name: "cutehmi.init" }
-		cutehmi.init.initializerClass: "cutehmi::Initializer"
+		cutehmi.init.initializerClass: "cutehmi::Init"
 
 		Depends { name: "cutehmi.metadata" }
 

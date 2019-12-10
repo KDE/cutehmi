@@ -1,19 +1,19 @@
-#include <cutehmi/Initializer.hpp>
-#include <cutehmi/ErrorInfo.hpp>
-#include <cutehmi/InplaceError.hpp>
+#include <cutehmi/services/Init.hpp>
+#include <cutehmi/services/Serviceable.hpp>
 
 namespace cutehmi {
+namespace services {
 
-Initializer::Initializer():
-	ExtensionInitializer<Initializer>(
-		[]() {
-			qRegisterMetaType<cutehmi::ErrorInfo>();
-			qRegisterMetaType<cutehmi::InplaceError>();
-		}
-	)
+Init::Init():
+	Initializer<Init>(
+			[]() {
+	qRegisterMetaType<cutehmi::services::Serviceable * >();
+}
+)
 {
 }
 
+}
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

@@ -1,13 +1,13 @@
-#include <cutehmi/services/Initializer.hpp>
-#include <cutehmi/services/Serviceable.hpp>
+#include <cutehmi/modbus/Init.hpp>
+#include <cutehmi/modbus/AbstractDevice.hpp>
 
 namespace cutehmi {
-namespace services {
+namespace modbus {
 
-Initializer::Initializer():
-	ExtensionInitializer<Initializer>(
+Init::Init():
+	Initializer<Init>(
 			[]() {
-	qRegisterMetaType<cutehmi::services::Serviceable * >();
+	qRegisterMetaType<cutehmi::modbus::AbstractDevice::State>();
 }
 )
 {

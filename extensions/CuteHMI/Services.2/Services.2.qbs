@@ -34,7 +34,7 @@ Project {
          "README.md",
          "LICENSE",
          "dev/StandardStates.scxml",
-         "include/cutehmi/services/Initializer.hpp",
+         "include/cutehmi/services/Init.hpp",
          "include/cutehmi/services/PollingTimer.hpp",
          "include/cutehmi/services/Service.hpp",
          "include/cutehmi/services/ServiceListModel.hpp",
@@ -47,7 +47,7 @@ Project {
          "include/cutehmi/services/internal/common.hpp",
          "include/cutehmi/services/logging.hpp",
          "include/cutehmi/services/metadata.hpp",
-         "src/cutehmi/services/Initializer.cpp",
+         "src/cutehmi/services/Init.cpp",
          "src/cutehmi/services/PollingTimer.cpp",
          "src/cutehmi/services/Service.cpp",
          "src/cutehmi/services/ServiceListModel.cpp",
@@ -64,7 +64,7 @@ Project {
 //		cutehmi.doxygen.exclude: ['tests']
 
 		Depends { name: "cutehmi.init" }
-		cutehmi.init.initializerClass: "cutehmi::services::Initializer"
+		cutehmi.init.initializerClass: "cutehmi::services::Init"
 
 		Depends { name: "cutehmi.metadata" }
 

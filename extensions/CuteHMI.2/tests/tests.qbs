@@ -20,10 +20,10 @@ Project {
 	}
 
 	Test {
-		testName: "test_Initializer"
+		testName: "test_Init"
 
 		files: [
-			"test_Initializer.cpp",
+			"test_Init.cpp",
 		]
 	}
 

@@ -10,7 +10,7 @@ namespace cutehmi {
 /**
  * In-place error. This class can be more conveniently used with CUTEHMI_ERROR macro.
  *
- * @remark This class is registered as metatype by Initializer instance.
+ * @remark This class is registered as metatype by Init instance.
  */
 struct CUTEHMI_API InplaceError:
 	public Error

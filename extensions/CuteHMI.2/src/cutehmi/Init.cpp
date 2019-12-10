@@ -1,19 +1,19 @@
-#include <cutehmi/modbus/Initializer.hpp>
-#include <cutehmi/modbus/AbstractDevice.hpp>
+#include <cutehmi/Init.hpp>
+#include <cutehmi/ErrorInfo.hpp>
+#include <cutehmi/InplaceError.hpp>
 
 namespace cutehmi {
-namespace modbus {
 
-Initializer::Initializer():
-	ExtensionInitializer<Initializer>(
-			[]() {
-	qRegisterMetaType<cutehmi::modbus::AbstractDevice::State>();
-}
-)
+Init::Init():
+	Initializer<Init>(
+		[]() {
+			qRegisterMetaType<cutehmi::ErrorInfo>();
+			qRegisterMetaType<cutehmi::InplaceError>();
+		}
+	)
 {
 }
 
-}
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

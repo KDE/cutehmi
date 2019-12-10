@@ -31,9 +31,9 @@ Project {
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
-		 "LICENSE",
+         "LICENSE",
          "README.md",
-		 "include/cutehmi/modbus/AbstractClient.hpp",
+         "include/cutehmi/modbus/AbstractClient.hpp",
          "include/cutehmi/modbus/AbstractDevice.hpp",
          "include/cutehmi/modbus/AbstractRegisterController.hpp",
          "include/cutehmi/modbus/AbstractServer.hpp",
@@ -45,7 +45,7 @@ Project {
          "include/cutehmi/modbus/Exception.hpp",
          "include/cutehmi/modbus/HoldingRegister.hpp",
          "include/cutehmi/modbus/HoldingRegisterController.hpp",
-         "include/cutehmi/modbus/Initializer.hpp",
+         "include/cutehmi/modbus/Init.hpp",
          "include/cutehmi/modbus/InputRegister.hpp",
          "include/cutehmi/modbus/InputRegisterController.hpp",
          "include/cutehmi/modbus/RTUClient.hpp",
@@ -103,7 +103,7 @@ Project {
          "src/cutehmi/modbus/DiscreteInputController.cpp",
          "src/cutehmi/modbus/DummyClient.cpp",
          "src/cutehmi/modbus/HoldingRegisterController.cpp",
-         "src/cutehmi/modbus/Initializer.cpp",
+         "src/cutehmi/modbus/Init.cpp",
          "src/cutehmi/modbus/InputRegisterController.cpp",
          "src/cutehmi/modbus/RTUClient.cpp",
          "src/cutehmi/modbus/RTUServer.cpp",
@@ -158,7 +158,7 @@ Project {
 		Depends { name: "CuteHMI.Services.2" }
 
 		Depends { name: "cutehmi.init" }
-		cutehmi.init.initializerClass: "cutehmi::modbus::Initializer"
+		cutehmi.init.initializerClass: "cutehmi::modbus::Init"
 
 		Depends { name: "cutehmi.metadata" }
 

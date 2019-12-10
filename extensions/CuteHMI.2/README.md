@@ -21,7 +21,7 @@ cutehmi::MPtr can be helpful, when class uses PImpl idiom to maintain binary com
 cutehmi::Error, cutehmi::InplaceError, cutehmi::ErrorInfo, cutehmi::Exception and cutehmi::ExceptionMixin may be useful, when
 dealing with errors and exceptions.
 
-cutehmi::ExtensionInitializer can be used to initialize extension.
+cutehmi::Initializer can be used to initialize extension.
 
 ## QML components
 

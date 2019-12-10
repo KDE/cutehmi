@@ -12,7 +12,7 @@ namespace cutehmi {
 /**
  * %Error info.
  *
- * @remark This class is registered as metatype by Initializer instance.
+ * @remark This class is registered as metatype by Init instance.
  *
  * @see errorInfo()
  */

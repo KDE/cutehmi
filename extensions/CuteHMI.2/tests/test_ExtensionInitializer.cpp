@@ -1,11 +1,11 @@
-#include <cutehmi/ExtensionInitializer.hpp>
+#include <cutehmi/Initializer.hpp>
 
 #include <QtTest/QtTest>
 
 namespace cutehmi {
 
 class InitializerMock:
-	public ExtensionInitializer<InitializerMock>
+	public Initializer<InitializerMock>
 {
 	public:
 		InitializerMock();
@@ -20,7 +20,7 @@ int InitializerMock::DeinitCtr = 0;
 int InitializerMock::CtorCtr = 0;
 
 InitializerMock::InitializerMock():
-	ExtensionInitializer<InitializerMock>(
+	Initializer<InitializerMock>(
 		[]() {
 			InitCtr++;
 		},

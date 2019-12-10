@@ -4,7 +4,7 @@
 
 namespace cutehmi {
 
-class test_Initializer:
+class test_Init:
 	public QObject
 {
 	Q_OBJECT
@@ -13,7 +13,7 @@ class test_Initializer:
 		void metaTypes();
 };
 
-void test_Initializer::metaTypes()
+void test_Init::metaTypes()
 {
 	QVERIFY(QMetaType::type("cutehmi::ErrorInfo") != QMetaType::UnknownType);
 	QVERIFY(QMetaType::type("cutehmi::InplaceError") != QMetaType::UnknownType);
@@ -21,8 +21,8 @@ void test_Initializer::metaTypes()
 
 }
 
-QTEST_MAIN(cutehmi::test_Initializer)
-#include "test_Initializer.moc"
+QTEST_MAIN(cutehmi::test_Init)
+#include "test_Init.moc"
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

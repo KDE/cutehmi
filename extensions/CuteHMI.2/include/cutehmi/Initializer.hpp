@@ -1,32 +1,79 @@
-#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INITIALIZER_HPP
-#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INITIALIZER_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_EXTENSIONINITIALIZER_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_EXTENSIONINITIALIZER_HPP
 
-#include "ExtensionInitializer.hpp"
+#include "internal/common.hpp"
+#include "NonCopyable.hpp"
+
+#include <functional>
 
 namespace cutehmi {
 
 /**
- * Extension initializer. This class performs initialization of CuteHMI extension.
+ * Initializer template. Initializer can be used to initialize an extension. This is achieved by subclassing the template and
+ * creating a global instance of a derived class, which is a subject of static initialization. This relies on following C++
+ * principle.
  *
- * Normally it is not advisable to create custom instances of this class as extension provides an instance on its own. This can be
- * invalidated particulary by static builds in which case a global variable may not get into resulting binary.
+ * > "If a variable with static storage duration has initialization or a destructor with side eﬀects, it shall not be eliminated
+ * >  even if it appears to be unused, except that a class object or its copy/move may be eliminated as speciﬁed in 11.9.5."
+ *                                                                      @quote{-- C++ Standard (6.6.5.1/2 N4810) [basic.stc.static]}
  *
- * Classes registered as meta types:
- *	- ErrorInfo
- *  .
+ * Initializer counts its own references and runs initialization and deinitialization code only once - for the first constructed and
+ * last destroyed instance.
  *
- * Classes registered as meta types can be used in string-based, queued signal-slot connections and various functions that rely on
- * QMetaType features.
+ * @note Special care must be taken for static builds, because a global variable may be skipped by a linker, if it is not used by
+ * resulting binary.
+ *
+ * @warning Beware of static initialization order fiasco (SIOF)! The order in which global instances are initialized is undefined.
+ * This means that initialization code should be self-contained and it can not rely on other statically initialized objects,
+ * including initialization based on this template performed by other extensions.
  */
-class CUTEHMI_API Initializer final:
-	public ExtensionInitializer<Initializer>
+template <class DERIVED>
+class Initializer:
+	public NonCopyable
 {
 	public:
 		/**
-		 * Default constructor.
+		 * Constructor.
+		 * @param init initialization code. Typically a lambda expression can be passed for initialization code.
+		 * @param deinit deinitialization code or @p nullptr if there is no deinitialization.
 		 */
-		Initializer();
+		Initializer(std::function<void()> init, std::function<void()> deinit = nullptr);
+
+	protected:
+		~Initializer();
+
+	private:
+		struct Members
+		{
+			std::function<void()> init;
+			std::function<void()> deinit;
+		};
+
+		MPtr<Members> m;
+
+		static QAtomicInt M_RefCtr;
 };
+
+template <class DERIVED>
+QAtomicInt Initializer<DERIVED>::M_RefCtr;
+
+template <class DERIVED>
+Initializer<DERIVED>::Initializer(std::function<void()> init, std::function<void()> deinit):
+	m(new Members{init, deinit})
+{
+	M_RefCtr.ref();
+	if (M_RefCtr == 1)
+		m->init();
+}
+
+template <class DERIVED>
+Initializer<DERIVED>::~Initializer()
+{
+	if (!M_RefCtr.deref()) {
+		if (m->deinit)
+			m->deinit();
+	}
+}
 
 }
 
