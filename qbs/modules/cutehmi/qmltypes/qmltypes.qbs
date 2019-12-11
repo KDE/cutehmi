@@ -7,7 +7,7 @@ import qbs.TextFile
   This module generates 'qmltypes' artifact.
   */
 Module {
-	additionalProductTypes: ["qmltypes"]
+	additionalProductTypes: ["cutehmi.qmltypes"]
 
 	Depends { name: "Qt.core" }
 
@@ -70,7 +70,7 @@ Module {
 
 		Artifact {
 			filePath: product.sourceDirectory + "/plugins.qmltypes"
-			fileTags: ["qmltypes"]
+			fileTags: ["cutehmi.qmltypes", "qmltypes"]
 		}
 	}
 }
