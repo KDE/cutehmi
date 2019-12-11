@@ -12,7 +12,7 @@ import "prepare.js" as Prepare
   [here](https://doc.qt.io/qt-5/qtqml-modules-qmldir.html).
   */
 Module {
-	additionalProductTypes: ["qmldir"]
+	additionalProductTypes: ["cutehmi.qmldir"]
 
 	PropertyOptions {
 		name: "puppet"
@@ -230,7 +230,7 @@ Module {
 
 		Artifact {
 			filePath: product.installSourceBase + "/qmldir"
-			fileTags: ["qmldir"]
+			fileTags: ["cutehmi.qmldir", "qmldir"]
 		}
 	}
 
@@ -293,7 +293,7 @@ Module {
 
 		Artifact {
 			filePath: product.sourceDirectory + "/qmldir"
-			fileTags: ["qmldir"]
+			fileTags: ["cutehmi.qmldir", "qmldir"]
 		}
 	}
 }

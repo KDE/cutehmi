@@ -10,7 +10,7 @@ import qbs.Utilities
   artifacts.
   */
 Module {
-	additionalProductTypes: ["metadata"]
+	additionalProductTypes: ["cutehmi.metadata"]
 
 	PropertyOptions {
 		name: "artifacts"
@@ -136,12 +136,12 @@ Module {
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.json"
-			fileTags: ["cutehmi.metadata.json", "metadata", "qt.core.resource_data", "qt_plugin_metadata"]
+			fileTags: ["cutehmi.metadata", "cutehmi.metadata.json", "qt.core.resource_data", "qt_plugin_metadata"]
 		}
 
 		Artifact {
 			filePath: product.sourceDirectory + "/cutehmi.metadata.hpp"
-			fileTags: ["cutehmi.metadata.hpp", "metadata", "hpp"]
+			fileTags: ["cutehmi.metadata", "cutehmi.metadata.hpp", "hpp"]
 		}
 	}
 
