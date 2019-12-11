@@ -10,6 +10,8 @@ Project {
 	condition: !qbs.targetOS.contains("android")
 
 	cutehmi.Tool {
+		condition: Qt.core.versionMajor === 5 && [12, 13].contains(Qt.core.versionMinor)
+
 		name: parent.name
 
 		consoleApplication: true
@@ -30,14 +32,37 @@ Project {
 
 		license: "GNU General Public License, v. 3.0"
 
+		Group {
+			name: "5.12 branch"
+
+			condition: Qt.core.versionMajor === 5 && Qt.core.versionMinor === 12
+
+			files: [
+			 "src/5/12/6/main.cpp",
+			 "src/5/12/6/qmlstreamwriter.cpp",
+			 "src/5/12/6/qmlstreamwriter.h",
+			 "src/5/12/6/qmltypereader.cpp",
+			 "src/5/12/6/qmltypereader.h",
+			 ]
+		}
+
+		Group {
+			name: "5.13 branch"
+
+			condition: Qt.core.versionMajor === 5 && Qt.core.versionMinor === 13
+
+			files: [
+				"src/5/13/2/main.cpp",
+				"src/5/13/2/qmlstreamwriter.cpp",
+				"src/5/13/2/qmlstreamwriter.h",
+				"src/5/13/2/qmltypereader.cpp",
+				"src/5/13/2/qmltypereader.h",
+			 ]
+		}
+
 		files: [
-         "README.md",
-         "src/main.cpp",
-         "src/qmlstreamwriter.cpp",
-         "src/qmlstreamwriter.h",
-         "src/qmltypereader.cpp",
-         "src/qmltypereader.h",
-     ]
+			"README.md",
+		]
 
 		Group {
 			fileTagsFilter: ["application"]
