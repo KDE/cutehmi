@@ -40,8 +40,6 @@ Project {
          "include/cutehmi/services/ServiceListModel.hpp",
          "include/cutehmi/services/ServiceManager.hpp",
          "include/cutehmi/services/Serviceable.hpp",
-         "include/cutehmi/services/internal/QMLPlugin.cpp",
-         "include/cutehmi/services/internal/QMLPlugin.hpp",
          "include/cutehmi/services/internal/StateInterface.hpp",
          "include/cutehmi/services/internal/platform.hpp",
          "include/cutehmi/services/internal/common.hpp",
@@ -52,6 +50,8 @@ Project {
          "src/cutehmi/services/Service.cpp",
          "src/cutehmi/services/ServiceListModel.cpp",
          "src/cutehmi/services/ServiceManager.cpp",
+         "src/cutehmi/services/internal/QMLPlugin.cpp",
+         "src/cutehmi/services/internal/QMLPlugin.hpp",
          "src/cutehmi/services/internal/StateInterface.cpp",
          "src/cutehmi/services/logging.cpp",
      ]
