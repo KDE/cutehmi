@@ -332,7 +332,7 @@ void QtServerBackend::onStateChanged(QModbusDevice::State state)
 {
 	CUTEHMI_DEBUG("Server changed state to: '" << state << "'.");
 
-	switch (m->qServer->state()) {
+	switch (state) {
 		case QModbusDevice::ConnectingState:
 			emit stateChanged(AbstractDevice::OPENING);
 			break;
