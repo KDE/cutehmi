@@ -16,7 +16,7 @@ void QMLPlugin::registerTypes(const char * uri)
 
 	qmlRegisterType<cutehmi::services::Service>(uri, CUTEHMI_SERVICES_MAJOR, 0, "Service");
 	qmlRegisterType<cutehmi::services::PollingTimer>(uri, CUTEHMI_SERVICES_MAJOR, 0, "PollingController");
-	qmlRegisterSingletonType<cutehmi::services::ServiceManager>(uri, CUTEHMI_MAJOR, 0, "ServiceManager", ServiceManagerProvider);
+	qmlRegisterSingletonType<cutehmi::services::ServiceManager>(uri, CUTEHMI_SERVICES_MAJOR, 0, "ServiceManager", ServiceManagerProvider);
 }
 
 QObject * QMLPlugin::ServiceManagerProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
