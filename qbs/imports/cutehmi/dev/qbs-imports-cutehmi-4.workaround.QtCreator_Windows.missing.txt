@@ -1,0 +1,38 @@
+Problem:
+
+On Windows Qt Creator in "Design" mode won't load dependencies from install root directory. This shows up as Qt Creator showing
+error message that it failed to load a module (for QML extensions that contain plugins that depend on libraries from install root).
+
+Investigation:
+
+This happens, because directories from which extensions are loaded by Qt Creator are not searched for implicitly loaded DLLs on
+which they depend. Details on how directories are searched are covered in a following
+[document](https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order).
+
+Search paths for QML plugins, which are explicitly loaded can be specified as described in
+[Using QML Modules with Plugins](https://doc.qt.io/qtcreator/creator-qml-modules-with-plugins.html)). But Qt Creator seems to lack
+an option to specify search path for implicitly loaded libraries.
+
+Program responsible for loading and displaying QML extensions in "Design" mode is called Qml2Puppet. It communicates with Qt Creator
+"qmldesigner" plugin through its own sockets API.
+
+One options to workaround this issue would be to set PATH environmental variable. It is however a bit cumbersome to force user to
+set PATH before each QtCreator use. Even with batch files it may be hard to remember that "Design" mode won't work out of the box.
+
+[Assembly manifests](https://docs.microsoft.com/en-us/dotnet/standard/assembly/manifest) appear as a second possibility. They might
+be best approach to workaround the issue, but a burden of maintaining them seems so heavy, that they are put aside for now.
+
+Workaround:
+
+The third option is to use SetDllDirectory() from Windows API and this option.
+
+Main problem with the latter method is that it is the application (like Qt Creator), which should control the environment and set
+search paths accordingly (with SetDllDirectory() for example). Modifying search paths from within a library, thus affecting a state
+of application environemnt is obviously hackish.
+
+Another issue is that SetDllDirectory() effectively disables SafeDllSearchMode.
+
+To mitigate above problems special plugin called PuppetBootloader is provided and it is intended to be used only with Qt Creator
+[mockup extensions](https://doc.qt.io/qtcreator/creator-qml-modules-with-plugins.html#running-qml-modules-in-design-mode).
+PuppetExtension product prepends PuppetBootloader plugin to 'qmldir' of each extension it mocks. PuppetBootloader then adds
+install root libraries directory to DLL search paths with SetDllDirectory() function.
