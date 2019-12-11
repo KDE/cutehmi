@@ -2,7 +2,7 @@ var Environment = require("qbs.Environment");
 
 function setupEnvironment()
 {
-	if (product.qbs.targetOS.contains("windows"))
+	if (product.qbs.hostOS.contains("windows"))
 		Environment.putEnv("PATH", product.cutehmi.dirs.externalLibDir + product.qbs.pathListSeparator + Environment.getEnv("PATH"))
 	else
 		Environment.putEnv("LD_LIBRARY_PATH", product.cutehmi.dirs.externalLibDir + product.qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
