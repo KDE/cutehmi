@@ -21,7 +21,7 @@ Module {
 		//</qbs-cutehmi.qmltypes-2.workaround>
 
 		multiplex: true
-		explicitlyDependsOn: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
+		inputs: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
 		//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
 		explicitlyDependsOnFromDependencies: ["qmlplugindump"]
 		///</cutehmi_qmlplugindump-1.workaround>
