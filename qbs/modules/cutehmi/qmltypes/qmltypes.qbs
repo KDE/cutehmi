@@ -15,10 +15,7 @@ Module {
 
 	Rule {
 		// Android builds are not supported by this module.
-		//<qbs-cutehmi.qmltypes-2.workaround target="Qbs" cause="missing">
-		// Checking if directory exists as a dirty workaround to check if `--no-install` options has been set from command line.
-		condition: !qbs.targetOS.contains("android") && File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir)
-		//</qbs-cutehmi.qmltypes-2.workaround>
+		condition: !qbs.targetOS.contains("android")
 
 		multiplex: true
 		inputs: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
@@ -27,31 +24,38 @@ Module {
 		///</cutehmi_qmlplugindump-1.workaround>
 
 		prepare: {
-			//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
-			// Custom built cutehmi_qmlplugindump is used to generate qmltypes in debug builds.
-			if (explicitlyDependsOn["qmlplugindump"] !== undefined) {
-				var dumpCmd = new Command(explicitlyDependsOn["qmlplugindump"][0].filePath,
-										  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir])
-				dumpCmd.description = "invoking 'cutehmi_qmlplugindump' program to generate '" + output.filePath + "'"
-			} else {
-				console.warn("Tool 'cutehmi_qmlplugindump' unavailable")
-				if ((product.qbs.buildVariant == "debug") && product.qbs.hostOS.contains("windows")) {
-					var dumpCmd = new JavaScriptCommand()
-					dumpCmd.description = "generating empty artifact '" + output.filePath + "'"
-					dumpCmd.sourceCode = function () {
-						console.warn("Can not create proper '" + output.filePath + "' artifact without 'cutehmi_qmlplugindump' in debug mode")
-
-						// Create empty artifact.
-						var f = new TextFile(output.filePath, TextFile.WriteOnly);
-						f.close()
-					}
-				} else {
-					console.warn("Reverting to 'qmlplugindump' provided by Qt, which may not work for debug builds")
-					var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir])
-					dumpCmd.description = "invoking 'qmlplugindump' program to generate " + output.filePath
+			//<qbs-cutehmi.qmltypes-2.workaround target="Qbs" cause="missing">
+			// Checking if directory exists as a dirty workaround to check if `--no-install` options has been set from command line.
+			if (!File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir)) {
+				var dumpCmd = new JavaScriptCommand()
+				dumpCmd.description = "can not generate artifact '" + output.filePath + "' when '--no-install` options has been set from command line"
+				dumpCmd.sourceCode = function () {
+					console.warn("Can not create '" + output.filePath + "' artifact when '--no-install` options has been set from command line (tip: remove your build directory entirely after unchecking '--no-install' option)")
 				}
+			} else {
+				//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
+				// Custom built cutehmi_qmlplugindump is used to generate qmltypes in debug builds.
+				if (explicitlyDependsOn["qmlplugindump"] !== undefined) {
+					var dumpCmd = new Command(explicitlyDependsOn["qmlplugindump"][0].filePath,
+											  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir])
+					dumpCmd.description = "invoking 'cutehmi_qmlplugindump' program to generate '" + output.filePath + "'"
+				} else {
+					console.warn("Tool 'cutehmi_qmlplugindump' unavailable")
+					if ((product.qbs.buildVariant == "debug") && product.qbs.hostOS.contains("windows")) {
+						var dumpCmd = new JavaScriptCommand()
+						dumpCmd.description = "can not generate artifact '" + output.filePath + "' without 'cutehmi_qmlplugindump' in debug mode"
+						dumpCmd.sourceCode = function () {
+							console.warn("Can not create '" + output.filePath + "' artifact without 'cutehmi_qmlplugindump' in debug mode")
+						}
+					} else {
+						console.warn("Reverting to 'qmlplugindump' provided by Qt, which may not work for debug builds")
+						var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir])
+						dumpCmd.description = "invoking 'qmlplugindump' program to generate " + output.filePath
+					}
+				}
+				///</cutehmi_qmlplugindump-1.workaround>
 			}
-			///</cutehmi_qmlplugindump-1.workaround>
+			//</qbs-cutehmi.qmltypes-2.workaround>
 			dumpCmd.workingDirectory = product.cutehmi.dirs.installDir
 			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir,
 														 product.Qt.core.libPath,
