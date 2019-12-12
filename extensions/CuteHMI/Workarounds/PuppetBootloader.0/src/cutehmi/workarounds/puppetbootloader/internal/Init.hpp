@@ -29,4 +29,4 @@ class Init final
 }
 }
 
-#endif // INIT_HPP
+#endif
