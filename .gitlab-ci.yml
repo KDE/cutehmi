@@ -32,6 +32,7 @@ stages:
   before_script:
     - uname -a
     - export PATH=$PATH:/usr/lib64/qt5/bin/:/usr/bin/
+    - mkdir -pm 0700 $XDG_RUNTIME_DIR
     - qbs --version
     - qmake --version
     - qbs setup-toolchains --detect
@@ -71,6 +72,7 @@ stages:
     QBS_PROFILE: "qt-5-13-1"
   before_script:
     - uname -a
+    - mkdir -pm 0700 $XDG_RUNTIME_DIR
     - qbs --version
     - qmake --version
     - qbs setup-toolchains --detect
@@ -129,6 +131,7 @@ clang ubuntu-19.04-qt-5.13.1 release build:
     QBS_PROFILE: "qt-5-13-1"
   before_script:
     - uname -a
+    - mkdir -pm 0700 $XDG_RUNTIME_DIR
     - qbs --version
     - qmake --version
     - qbs setup-toolchains --detect
@@ -165,7 +168,7 @@ gcc ubuntu-19.04-qt-5.13.1 debug test:
     - gcc ubuntu-19.04-qt-5.13.1 debug build tests
   before_script:
     - uname -a
-    - mkdir $XDG_RUNTIME_DIR
+    - mkdir -pm 0700 $XDG_RUNTIME_DIR
     - Xvfb $DISPLAY -ac -screen 0 1600x1200x24+32 -nolisten tcp -nolisten unix &
     - sleep 1
     - qbs --version
