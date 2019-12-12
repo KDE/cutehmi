@@ -26,8 +26,8 @@
 **
 ****************************************************************************/
 
-#ifndef H_TOOLS_CUTEHMI_u_QMLPLUGINDUMP_SRC_QMLTYPEREADER_H
-#define H_TOOLS_CUTEHMI_u_QMLPLUGINDUMP_SRC_QMLTYPEREADER_H
+#ifndef H_TOOLS_CUTEHMI_u_QMLPLUGINDUMP_SRC_5_12_6_QMLTYPEREADER_H
+#define H_TOOLS_CUTEHMI_u_QMLPLUGINDUMP_SRC_5_12_6_QMLTYPEREADER_H
 
 #include <QString>
 #include <QStringList>
