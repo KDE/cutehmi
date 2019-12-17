@@ -41,8 +41,9 @@ function writeInputs(f, config)
 			}
 
 		var j
+		var excludePath = FileInfo.relativePath(config.inputsSourceBase, input.filePath)
 		for (j = 0; j < config.excludedInputs.length; j++)
-			if (relativePath.match(config.excludedInputs[j]))
+			if (excludePath.match(config.excludedInputs[j]))
 				break
 		if (j !== config.excludedInputs.length)	// This means pattern has been found.
 			continue

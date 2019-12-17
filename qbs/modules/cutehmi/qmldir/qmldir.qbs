@@ -176,7 +176,7 @@ Module {
 					var prefix = FileInfo.relativePath(product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
 													   originalProduct.cutehmi.dirs.installDir + "/" + originalProduct.dedicatedInstallSubdir)
 					// Affixate path corrections when looking from puppet's 'qmldir' file for a plugin binary.
-					var pluginsCopy = JSON.parse(JSON.stringify(originalProduct.cutehmi.qmldir.plugins))
+					var pluginsCopy = JSON.parse(JSON.stringify(originalProduct.cutehmi.qmldir.plugins))	// JSON.stringify/parse makes a copy.
 					for (i in pluginsCopy)
 						pluginsCopy[i].path = FileInfo.cleanPath(prefix + "/" + pluginsCopy[i].path)
 
