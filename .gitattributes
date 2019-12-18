@@ -19,5 +19,8 @@ extra/logo/*.svg -crlf
 extra/logo/*.png -crlf
 extra/logo/*.ico -crlf
 
+# Documentation SVG files
+doc/images/*.svg -crlf
+
 # SCXML files.
 *.scxml -crlf

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="420"
+   height="120"
+   viewBox="-2 58 232.75636 59.508572"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="general_dependencies.svg"
+   inkscape:export-filename="D:\general_dependencies.png"
+   inkscape:export-xdpi="52"
+   inkscape:export-ydpi="52"
+   style="shape-rendering:crispEdges">
+  <metadata
+     id="metadata58">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs56" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1096"
+     id="namedview54"
+     showgrid="false"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="2.0884444"
+     inkscape:cx="267.39879"
+     inkscape:cy="-7.9720003"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <g
+     id="g4186"
+     transform="matrix(0.53928722,0,0,0.53928722,-1.4607128,23.431475)">
+    <g
+       transform="translate(0,1.065341e-6)"
+       id="g4">
+      <rect
+         id="rect6"
+         height="120"
+         width="300"
+         y="60"
+         x="0"
+         style="fill:#90ee90" />
+      <rect
+         id="rect8"
+         height="120"
+         width="300"
+         y="60"
+         x="0"
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+    </g>
+    <g
+       transform="translate(0,1.065341e-6)"
+       id="g10">
+      <rect
+         id="rect12"
+         height="36"
+         width="105"
+         y="120"
+         x="160"
+         style="fill:#ffffff" />
+      <rect
+         id="rect14"
+         height="36"
+         width="105"
+         y="120"
+         x="160"
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+      <text
+         id="text16"
+         y="142"
+         x="212.5"
+         style="font-style:normal;font-weight:normal;font-size:12.80000019px;font-family:monospace;text-anchor:middle;fill:#000000"
+         font-size="12.8">extensions</text>
+    </g>
+    <g
+       transform="translate(0,1.065341e-6)"
+       id="g18">
+      <rect
+         id="rect20"
+         height="36"
+         width="66.5"
+         y="120"
+         x="20"
+         style="fill:#ffffff" />
+      <rect
+         id="rect22"
+         height="36"
+         width="66.5"
+         y="120"
+         x="20"
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+      <text
+         id="text24"
+         y="142"
+         x="53.25"
+         style="font-style:normal;font-weight:normal;font-size:12.80000019px;font-family:monospace;text-anchor:middle;fill:#000000"
+         font-size="12.8">tools</text>
+    </g>
+    <g
+       transform="translate(0,1.065341e-6)"
+       id="g26">
+      <line
+         id="line28"
+         y2="138"
+         x2="149.256"
+         y1="138"
+         x1="87.483299"
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+      <polygon
+         id="polygon30"
+         points="146.756,143 149.256,138 146.756,133 156.756,138 "
+         style="fill:#000000" />
+      <polygon
+         id="polygon32"
+         points="146.756,143 149.256,138 146.756,133 156.756,138 "
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+    </g>
+    <text
+       id="text34"
+       y="100"
+       x="20"
+       style="font-style:normal;font-weight:normal;font-size:18.44599915px;font-family:sans-serif;text-anchor:start;fill:#000000"
+       font-size="18.446">
+      <tspan
+         id="tspan36"
+         y="100"
+         x="20">Qt</tspan>
+    </text>
+    <g
+       transform="translate(0,1.065341e-6)"
+       id="g38">
+      <rect
+         id="rect40"
+         height="36"
+         width="89.599998"
+         y="120"
+         x="340"
+         style="fill:#ffffff" />
+      <rect
+         id="rect42"
+         height="36"
+         width="89.599998"
+         y="120"
+         x="340"
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+      <text
+         id="text44"
+         y="142"
+         x="384.79999"
+         style="font-style:normal;font-weight:normal;font-size:12.80000019px;font-family:monospace;text-anchor:middle;fill:#000000"
+         font-size="12.8">external</text>
+    </g>
+    <g
+       transform="translate(0,1.065341e-6)"
+       id="g46">
+      <line
+         id="line48"
+         y2="138"
+         x2="329.276"
+         y1="138"
+         x1="265.83899"
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+      <polygon
+         id="polygon50"
+         points="326.776,143 329.276,138 326.776,133 336.776,138 "
+         style="fill:#000000" />
+      <polygon
+         id="polygon52"
+         points="326.776,143 329.276,138 326.776,133 336.776,138 "
+         style="fill:none;fill-opacity:0;stroke:#000000;stroke-width:2" />
+    </g>
+  </g>
+</svg>

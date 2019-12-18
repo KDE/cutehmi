@@ -82,7 +82,7 @@ Directory structure of the project is organized as follows.
 - *qbs* - Qbs modules and imports.
 - [tools](tools/) - executable programs.
 
-![Dependencies between tools, extensions and external libraries](doc/images/general_dependencies.png)
+![Dependencies between tools, extensions and external libraries](doc/images/general_dependencies.svg)
 
 Two most important directories are [extensions](extensions/) and
 [tools](tools/). Extensions combine functionality of QML extensions and
