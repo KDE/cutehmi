@@ -3,6 +3,7 @@
 #include <cutehmi/modbus/TCPServer.hpp>
 #include <cutehmi/modbus/TCPClient.hpp>
 #include <cutehmi/modbus/RTUClient.hpp>
+#include <cutehmi/modbus/RTUServer.hpp>
 #include <cutehmi/modbus/DummyClient.hpp>
 #include <cutehmi/modbus/CoilController.hpp>
 #include <cutehmi/modbus/HoldingRegisterController.hpp>
@@ -30,10 +31,11 @@ void QMLPlugin::registerTypes(const char * uri)
 	qmlRegisterUncreatableType<cutehmi::modbus::AbstractClient>(uri, CUTEHMI_MODBUS_MAJOR, 0, "AbstractClient", "Class 'cutehmi::modbus::AbstractClient' is abstract and its instance can not be created from QML.");
 	qmlRegisterUncreatableType<cutehmi::modbus::AbstractServer>(uri, CUTEHMI_MODBUS_MAJOR, 0, "AbstractServer", "Class 'cutehmi::modbus::AbstractServer' is abstract and its instance can not be created from QML.");
 
-	qmlRegisterType<cutehmi::modbus::TCPServer>(uri, CUTEHMI_MODBUS_MAJOR, 0, "TCPServer");
 	qmlRegisterType<cutehmi::modbus::DummyClient>(uri, CUTEHMI_MODBUS_MAJOR, 0, "DummyClient");
 	qmlRegisterType<cutehmi::modbus::TCPClient>(uri, CUTEHMI_MODBUS_MAJOR, 0, "TCPClient");
+	qmlRegisterType<cutehmi::modbus::TCPServer>(uri, CUTEHMI_MODBUS_MAJOR, 0, "TCPServer");
 	qmlRegisterType<cutehmi::modbus::RTUClient>(uri, CUTEHMI_MODBUS_MAJOR, 0, "RTUClient");
+	qmlRegisterType<cutehmi::modbus::RTUServer>(uri, CUTEHMI_MODBUS_MAJOR, 0, "RTUServer");
 }
 
 }
