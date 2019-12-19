@@ -8,8 +8,7 @@
 
 #include <QtQml>
 
-namespace cutehmi {
-namespace internal {
+namespace CuteHMI {
 
 /**
  * @class CuteHMI::Dialog
@@ -30,6 +29,12 @@ namespace internal {
  * @class CuteHMI::Notifier
  * Exposes cutehmi::Notifier to QML.
  */
+
+}
+
+
+namespace cutehmi {
+namespace internal {
 
 /**
  * Register QML types.
