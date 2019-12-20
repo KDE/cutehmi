@@ -27,10 +27,7 @@ class IterableTasks;
 }
 
 /**
- * Abstract Modbus device. Modbus protocol is oriented around four memory regions: holding registers, input registers, coils and
- * discrete inputs. Clients can read and write to holding registers and coils; input registers and discrete inputs provide read-only
- * access for clients. Holding registers and input registers are addressed with 16 bit byte, while byte is 1 bit wide for discrete
- * inputs and coils (byte is smallest addressable unit of memory).
+ * Abstract Modbus device.
  */
 class CUTEHMI_MODBUS_API AbstractDevice:
 	public QObject,
