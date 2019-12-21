@@ -27,6 +27,7 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 		Q_PROPERTY(int maxActiveServices READ maxActiveServices WRITE setMaxActiveServices NOTIFY maxActiveServicesChanged)
 		Q_PROPERTY(int repairInterval READ repairInterval WRITE setRepairInterval NOTIFY repairIntervalChanged)
+		Q_PROPERTY(int runningServices READ runningServices NOTIFY runningServicesChanged) // Amount of running services, that is services which are in any state other than "stopped" state.
 
 		int maxActiveServices() const;
 
@@ -35,6 +36,8 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		int repairInterval() const;
 
 		void setRepairInterval(int repairInterval);
+
+		int runningServices() const;
 
 	public slots:
 		void start();
@@ -45,6 +48,8 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		void maxActiveServicesChanged();
 
 		void repairIntervalChanged();
+
+		void runningServicesChanged();
 
 	protected:
 		explicit ServiceManager(QObject * parent = nullptr);
@@ -63,6 +68,7 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 		struct Members {
 			int activeServices;
+			int runningServices;
 			int maxActiveServices;
 			int repairInterval;
 			std::unique_ptr<ServiceListModel> services;
@@ -71,6 +77,7 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 			Members():
 				activeServices(0),
+				runningServices(0),
 				maxActiveServices(INITIAL_MAX_ACTIVE_SERVICES),
 				repairInterval(INITIAL_REPAIR_INTERVAL),
 				services(new ServiceListModel)

@@ -32,6 +32,11 @@ void ServiceManager::setRepairInterval(int repairInterval)
 	}
 }
 
+int ServiceManager::runningServices() const
+{
+	return m->runningServices;
+}
+
 void ServiceManager::add(Service * service)
 {
 	m->services->append(service);
@@ -95,6 +100,18 @@ void ServiceManager::manage(Service * service)
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 	}
+
+	// Count running services.
+	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::exited, [this]() {
+		m->runningServices++;
+		emit runningServicesChanged();
+	});
+	m->stateInterfaceConnections.insert(service->stateInterface(), connection);
+	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::entered, [this]() {
+		m->runningServices--;
+		emit runningServicesChanged();
+	});
+	m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 }
 
 void ServiceManager::leave(Service * service)
