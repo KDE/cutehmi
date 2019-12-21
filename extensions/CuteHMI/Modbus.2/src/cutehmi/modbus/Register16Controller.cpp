@@ -126,7 +126,7 @@ void Register16Controller::resetRegister()
 
 	if (device()) {
 		setBusy(true);
-		m->register16 = registerAt(address());
+		m->register16 = registerAt(static_cast<quint16>(address()));
 		m->register16->awake();
 		updateValue();
 	} else
@@ -181,7 +181,7 @@ void Register16Controller::requestWrite(qreal value)
 	qreal scaledValue = value / m->valueScale;
 	if (ValidateEncoding(scaledValue, encoding())) {
 		setBusy(true);
-		requestWriteRegister(address(), Encode(scaledValue, encoding()), & m->requestId);
+		requestWriteRegister(static_cast<quint16>(address()), Encode(scaledValue, encoding()), & m->requestId);
 	} else {
 		CUTEHMI_CRITICAL("Can not represent requested value '" << scaledValue << "' using selected encoding '" << encoding() << "'.");
 		emit valueFailed();

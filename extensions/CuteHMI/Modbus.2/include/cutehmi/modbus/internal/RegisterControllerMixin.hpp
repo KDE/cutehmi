@@ -112,7 +112,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 			if (success) {
 				if (derived().readOnWrite())
 					// Non-null requestId implies that device is not null (see setDevice() and setupRegister()).
-					derived().requestReadRegisters(derived().address(), derived().bytes(), & derived().m->requestId);
+					derived().requestReadRegisters(static_cast<quint16>(derived().address()), derived().bytes(), & derived().m->requestId);
 				else {
 					derived().setBusy(derived().m->postponedWritePending);
 
@@ -135,7 +135,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 		}
 	} else if (function == derived().readRegistersFunction()) {
 		quint16 endAddress = address + static_cast<quint16>(request.value("payload").toObject().value("amount").toDouble()) - 1;
-		if (derived().address() >= address && derived().address() <= endAddress) {
+		if (static_cast<quint16>(derived().address()) >= address && static_cast<quint16>(derived().address()) <= endAddress) {
 			if (requestId == derived().m->requestId) {
 				// If requestId == m->requestId, then request must have been made by controller due to readOnWrite.
 

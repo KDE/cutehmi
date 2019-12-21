@@ -26,14 +26,16 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		};
 		Q_ENUM(WriteMode)
 
-		static constexpr quint16 INITIAL_ADDRESS = 0;
+		static constexpr unsigned int INITIAL_ADDRESS = 0;
 		static constexpr WriteMode INITIAL_WRITE_MODE = WRITE_DELAYED;
 		static constexpr int INITIAL_WRITE_DELAY = 500;
 		static constexpr bool INITIAL_BUSY = true;
 		static constexpr bool INITIAL_READ_ON_WRITE = true;
 
 		Q_PROPERTY(AbstractDevice * device READ device WRITE setDevice NOTIFY deviceChanged)
-		Q_PROPERTY(quint16 address READ address WRITE setAddress NOTIFY addressChanged)
+		// Note: unsigned int is guranteed to be at least 16 bits wide by the standard. Using unsigned int instead of quint16 (aka
+		// ushort), because when using quint16 QML throws an error (unsupported type "ushort") for an alias to quint16 property.
+		Q_PROPERTY(unsigned int address READ address WRITE setAddress NOTIFY addressChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 		Q_PROPERTY(bool readOnWrite READ readOnWrite WRITE setReadOnWrite NOTIFY readOnWriteChanged)
 		Q_PROPERTY(WriteMode writeMode READ writeMode WRITE setWriteMode NOTIFY writeModeChanged)
@@ -45,9 +47,9 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 
 		void setDevice(AbstractDevice * device);
 
-		quint16 address() const;
+		unsigned int address() const;
 
-		void setAddress(quint16 address);
+		void setAddress(unsigned int address);
 
 		bool busy() const;
 
@@ -98,7 +100,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		struct Members
 		{
 			AbstractDevice * device;
-			quint16 address;
+			unsigned int address;
 			bool busy;
 			bool readOnWrite;
 			WriteMode writeMode;

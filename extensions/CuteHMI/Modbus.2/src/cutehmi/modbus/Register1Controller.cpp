@@ -97,7 +97,7 @@ void Register1Controller::resetRegister()
 
 	if (device()) {
 		setBusy(true);
-		m->register1 = registerAt(address());
+		m->register1 = registerAt(static_cast<quint16>(address()));
 		m->register1->awake();
 		updateValue();
 	} else
@@ -107,7 +107,7 @@ void Register1Controller::resetRegister()
 void Register1Controller::requestWrite(bool value)
 {
 	setBusy(true);
-	requestWriteRegister(address(), value, & m->requestId);
+	requestWriteRegister(static_cast<quint16>(address()), value, & m->requestId);
 }
 
 bool Register1Controller::verifyRegisterValue() const

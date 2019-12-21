@@ -5,7 +5,7 @@
 namespace cutehmi {
 namespace modbus {
 
-constexpr quint16 AbstractRegisterController::INITIAL_ADDRESS;
+constexpr unsigned int AbstractRegisterController::INITIAL_ADDRESS;
 constexpr bool AbstractRegisterController::INITIAL_BUSY;
 constexpr bool AbstractRegisterController::INITIAL_READ_ON_WRITE;
 constexpr AbstractRegisterController::WriteMode AbstractRegisterController::INITIAL_WRITE_MODE;
@@ -40,27 +40,27 @@ void AbstractRegisterController::setDevice(AbstractDevice * device)
 			});
 			connect(m->device, & AbstractDevice::readyChanged, this, [this]() {
 				if (deviceReady())
-					requestReadRegisters(address(), bytes(), nullptr);
+					requestReadRegisters(static_cast<quint16>(address()), bytes(), nullptr);
 			});
 			if (!m->deferRequestRead && deviceReady())
-				requestReadRegisters(address(), bytes(), nullptr);
+				requestReadRegisters(static_cast<quint16>(address()), bytes(), nullptr);
 
 		}
 		emit deviceChanged();
 	}
 }
 
-quint16 AbstractRegisterController::address() const
+unsigned int AbstractRegisterController::address() const
 {
 	return m->address;
 }
 
-void AbstractRegisterController::setAddress(quint16 address)
+void AbstractRegisterController::setAddress(unsigned int address)
 {
 	if (m->address != address) {
 		m->address = address;
 		if (!m->deferRequestRead && deviceReady())
-			requestReadRegisters(address, bytes(), nullptr);
+			requestReadRegisters(static_cast<quint16>(address), bytes(), nullptr);
 		emit addressChanged();
 	}
 }
@@ -119,7 +119,7 @@ void AbstractRegisterController::componentComplete()
 	m->deferRequestRead = false;
 
 	if (deviceReady())
-		requestReadRegisters(address(), bytes(), nullptr);
+		requestReadRegisters(static_cast<quint16>(address()), bytes(), nullptr);
 }
 
 void AbstractRegisterController::setBusy(bool busy)
