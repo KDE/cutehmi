@@ -39,10 +39,10 @@ void AbstractRegisterController::setDevice(AbstractDevice * device)
 				setDevice(nullptr);
 			});
 			connect(m->device, & AbstractDevice::readyChanged, this, [this]() {
-				if (m->device->ready())
+				if (deviceReady())
 					requestReadRegisters(address(), bytes(), nullptr);
 			});
-			if (!m->deferRequestRead && m->device->ready())
+			if (!m->deferRequestRead && deviceReady())
 				requestReadRegisters(address(), bytes(), nullptr);
 
 		}
@@ -59,7 +59,7 @@ void AbstractRegisterController::setAddress(quint16 address)
 {
 	if (m->address != address) {
 		m->address = address;
-		if (!m->deferRequestRead && m->device->ready())
+		if (!m->deferRequestRead && deviceReady())
 			requestReadRegisters(address, bytes(), nullptr);
 		emit addressChanged();
 	}
@@ -118,7 +118,7 @@ void AbstractRegisterController::componentComplete()
 {
 	m->deferRequestRead = false;
 
-	if (m->device->ready())
+	if (deviceReady())
 		requestReadRegisters(address(), bytes(), nullptr);
 }
 
@@ -128,6 +128,11 @@ void AbstractRegisterController::setBusy(bool busy)
 		m->busy = busy;
 		emit busyChanged();
 	}
+}
+
+bool AbstractRegisterController::deviceReady() const
+{
+	return (m->device != nullptr) && m->device->ready();
 }
 
 }

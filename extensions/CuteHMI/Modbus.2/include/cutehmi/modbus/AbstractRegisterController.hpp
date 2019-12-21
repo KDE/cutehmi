@@ -93,6 +93,8 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		virtual void onRequestCompleted(QJsonObject request, QJsonObject reply) = 0;
 
 	private:
+		bool deviceReady() const;
+
 		struct Members
 		{
 			AbstractDevice * device;

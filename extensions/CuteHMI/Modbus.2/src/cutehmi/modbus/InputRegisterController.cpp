@@ -10,16 +10,22 @@ InputRegisterController::InputRegisterController(QObject * parent):
 
 Register16 * InputRegisterController::registerAt(quint16 address) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	return device()->inputRegisterAt(address);
 }
 
 void InputRegisterController::requestReadRegisters(quint16 address, quint16 amount, QUuid * requestId) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	device()->requestReadInputRegisters(address, amount, requestId);
 }
 
 void InputRegisterController::requestWriteRegister(quint16 address, quint16 value, QUuid * requestId) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	device()->requestWriteInputRegister(address, value, requestId);
 }
 

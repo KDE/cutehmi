@@ -112,6 +112,8 @@ void Register1Controller::requestWrite(bool value)
 
 bool Register1Controller::verifyRegisterValue() const
 {
+	CUTEHMI_ASSERT(m->register1 != nullptr, "m->register1 can not be nullptr when calling this function");
+
 	return m->register1->value() == m->value;
 }
 

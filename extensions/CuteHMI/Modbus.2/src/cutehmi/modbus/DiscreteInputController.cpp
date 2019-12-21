@@ -10,16 +10,22 @@ DiscreteInputController::DiscreteInputController(QObject * parent):
 
 Register1 * DiscreteInputController::registerAt(quint16 address) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	return device()->discreteInputAt(address);
 }
 
 void DiscreteInputController::requestReadRegisters(quint16 address, quint16 amount, QUuid * requestId) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	device()->requestReadDiscreteInputs(address, amount, requestId);
 }
 
 void DiscreteInputController::requestWriteRegister(quint16 address, bool value, QUuid * requestId) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	device()->requestWriteDiscreteInput(address, value, requestId);
 }
 

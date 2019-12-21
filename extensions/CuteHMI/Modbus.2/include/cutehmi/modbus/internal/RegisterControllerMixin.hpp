@@ -111,7 +111,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 		if (requestId == derived().m->requestId) {
 			if (success) {
 				if (derived().readOnWrite())
-					// Non-null m->requestId implies that m->device is not null (see setDevice() and setupRegister()).
+					// Non-null requestId implies that device is not null (see setDevice() and setupRegister()).
 					derived().requestReadRegisters(derived().address(), derived().bytes(), & derived().m->requestId);
 				else {
 					derived().setBusy(derived().m->postponedWritePending);
@@ -141,7 +141,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 
 				derived().setBusy(!success || derived().m->postponedWritePending);
 
-				// Non-null m->requestId implies that m->register16 is not null (see setDevice() and setupRegister()).
+				// Non-null requestId implies that register is not null (see setDevice() and setupRegister()).
 				if (success && (derived().verifyRegisterValue()))
 					emit derived().valueWritten();
 				else

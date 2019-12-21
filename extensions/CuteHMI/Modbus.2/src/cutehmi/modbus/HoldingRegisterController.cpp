@@ -10,16 +10,22 @@ HoldingRegisterController::HoldingRegisterController(QObject * parent):
 
 Register16 * HoldingRegisterController::registerAt(quint16 address) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	return device()->holdingRegisterAt(address);
 }
 
 void HoldingRegisterController::requestReadRegisters(quint16 address, quint16 amount, QUuid * requestId) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	device()->requestReadHoldingRegisters(address, amount, requestId);
 }
 
 void HoldingRegisterController::requestWriteRegister(quint16 address, quint16 value, QUuid * requestId) const
 {
+	CUTEHMI_ASSERT(device() != nullptr, "device() must not be nullptr when calling this function");
+
 	device()->requestWriteHoldingRegister(address, value, requestId);
 }
 

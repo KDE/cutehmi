@@ -190,6 +190,8 @@ void Register16Controller::requestWrite(qreal value)
 
 bool Register16Controller::verifyRegisterValue() const
 {
+	CUTEHMI_ASSERT(m->register16 != nullptr, "m->register16 can not be nullptr when calling this function");
+
 	return Decode(m->register16->value(), encoding()) == m->value;
 }
 
