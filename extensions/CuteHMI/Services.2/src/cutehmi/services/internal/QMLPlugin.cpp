@@ -15,7 +15,7 @@ void QMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Services"));
 
 	qmlRegisterType<cutehmi::services::Service>(uri, CUTEHMI_SERVICES_MAJOR, 0, "Service");
-	qmlRegisterType<cutehmi::services::PollingTimer>(uri, CUTEHMI_SERVICES_MAJOR, 0, "PollingController");
+	qmlRegisterType<cutehmi::services::PollingTimer>(uri, CUTEHMI_SERVICES_MAJOR, 0, "PollingTimer");
 	qmlRegisterSingletonType<cutehmi::services::ServiceManager>(uri, CUTEHMI_SERVICES_MAJOR, 0, "ServiceManager", ServiceManagerProvider);
 }
 
