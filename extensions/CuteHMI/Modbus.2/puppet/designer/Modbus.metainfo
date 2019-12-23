@@ -1,0 +1,50 @@
+MetaInfo {
+    Type {
+	name: "CuteHMI.Modbus.HoldingRegisterItem"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+	    name: "Holding Register Item"
+	    category: "CuteHMI - Modbus 2"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+	    version: "2.0"
+	    requiredImport: "CuteHMI.Modbus"
+	}
+    }
+    Type {
+	name: "CuteHMI.Modbus.InputRegisterItem"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+	    name: "Input Register Item"
+	    category: "CuteHMI - Modbus 2"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+	    version: "2.0"
+	    requiredImport: "CuteHMI.Modbus"
+	}
+    }
+    Type {
+	name: "CuteHMI.Modbus.DiscreteInputItem"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+	    name: "Discrete Input Item"
+	    category: "CuteHMI - Modbus 2"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+	    version: "2.0"
+	    requiredImport: "CuteHMI.Modbus"
+	}
+    }
+    Type {
+	name: "CuteHMI.Modbus.CoilItem"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+	    name: "Coil Item"
+	    category: "CuteHMI - Modbus 2"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+	    version: "2.0"
+	    requiredImport: "CuteHMI.Modbus"
+	}
+    }
+}
