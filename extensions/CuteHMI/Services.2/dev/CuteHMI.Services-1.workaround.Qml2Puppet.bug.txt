@@ -1,0 +1,9 @@
+Problem:
+
+Qml2Puppet can not handle indefinitely recursive properties.
+
+Workaround:
+
+Workaround is to detect if current application is Qml2Puppet and return nullptr if so.
+
+Snippet:

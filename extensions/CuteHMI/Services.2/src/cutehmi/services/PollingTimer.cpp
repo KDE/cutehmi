@@ -2,6 +2,10 @@
 
 #include <QTimer>
 
+//<CuteHMI.Services-1.workaround target="Qml2Puppet" cause="bug">
+#include <QCoreApplication>
+//</CuteHMI.Services-1.workaround>
+
 namespace cutehmi {
 namespace services {
 
@@ -29,6 +33,11 @@ void PollingTimer::setlInterval(int pollInterval)
 
 PollingTimer * PollingTimer::subtimer()
 {
+	//<CuteHMI.Services-1.workaround target="Qml2Puppet" cause="bug">
+	if (QCoreApplication::applicationName() == "Qml2Puppet")
+		return nullptr;
+	//</CuteHMI.Services-1.workaround>
+
 	if (m->subtimer == nullptr)
 		m->subtimer = new PollingTimer(INITIAL_SUBTIMER_INTERVAL, this);
 	return m->subtimer;

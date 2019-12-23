@@ -33,6 +33,7 @@ Project {
 		files: [
          "README.md",
          "LICENSE",
+         "dev/CuteHMI.Services-1.workaround.Qml2Puppet.bug.txt",
          "dev/StandardStates.scxml",
          "include/cutehmi/services/Init.hpp",
          "include/cutehmi/services/PollingTimer.hpp",
