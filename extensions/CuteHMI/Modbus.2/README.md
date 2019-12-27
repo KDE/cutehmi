@@ -30,7 +30,7 @@ cutehmi::modbus::DummyClient is a special client that does not need a server to 
 Device classes are lowest level API of the extension. They are centered around an idea of JSON requests and replies, inspired by web
 REST interfaces. Additionaly classes have various properties allowing one to configure devices or check their statuses from QML.
 
-Device classes are intended to be used with [CuteHMI.Services](../Services.2/README.md). Notably device object will not perform
+Device classes are intended to be used with [CuteHMI.Services](../Services.2/). Notably device object will not perform
 polling on its own. For this purpose device classes implement cutehmi::services::Serviceable interface. Device object must be
 embedded in cutehmi::services::Service object to perform polling (after services are started by cutehmi::services::ServiceManager).
 In return its state is managed by the state machine, which will handle start/stop requests, try to repair broken connections etc.

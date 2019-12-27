@@ -15,7 +15,9 @@ namespace cutehmi {
 namespace services {
 
 /**
- * Service.
+ * %Service. %Service object acts as a container that wraps Serviceable instance and makes it accessible through QObject properties
+ * defined by it. This approach decouples state interface API from the rest of QObject allowing classes to implement interface,
+ * without disturbing their, perhaps more natural, hierarchy (class may inherit only after a single QObject).
  */
 class CUTEHMI_SERVICES_API Service:
 	public QObject

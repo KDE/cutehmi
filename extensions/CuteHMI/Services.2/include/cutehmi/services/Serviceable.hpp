@@ -11,7 +11,17 @@ namespace cutehmi {
 namespace services {
 
 /**
- * Serviceable interface.
+ * %Serviceable interface. By implementing this interface object is allowed to be embedded inside Service instance.
+ *
+ * Implementing Serviceable interface involves configuring states and defining transitions. During configuration state interface
+ * can be extended by adding additional child states to the states passed by configuration functions.
+ *
+ * Standard states and transitions are shown on the following state chart diagram.
+ * @image html doc/standard_states.png "State interface"
+ * @image latex doc/standard_states.png "State interface"
+ *
+ * By adding custom states to the existing ones, implementing object can customize operations performed in each state according to
+ * its needs.
  */
 class CUTEHMI_SERVICES_API Serviceable
 {

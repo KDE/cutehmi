@@ -12,6 +12,13 @@
 namespace cutehmi {
 namespace services {
 
+/**
+ * %Service manager. Service manager is a singleton that manages Service objects. Two most important functions are start() and
+ * stop() slots, which start and stop services. Services are added to the manager and removed automatically.
+ *
+ * Activities of services, which are capable of idling and yielding are serialized. Property maxActiveServices controls how many
+ * services can be active at the same time.
+ */
 class CUTEHMI_SERVICES_API ServiceManager:
 	public QObject,
 	public Singleton<ServiceManager>
@@ -25,9 +32,20 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		static constexpr int INITIAL_MAX_ACTIVE_SERVICES = 1;
 		static constexpr int INITIAL_REPAIR_INTERVAL = 10000;
 
+		/**
+		  Maximum amount of the services that can be active at the same time.
+		  */
 		Q_PROPERTY(int maxActiveServices READ maxActiveServices WRITE setMaxActiveServices NOTIFY maxActiveServicesChanged)
+
+		/**
+		  Repair interval. Amount of time [ms] that needs to pass before attempting to repair broken service.
+		  */
 		Q_PROPERTY(int repairInterval READ repairInterval WRITE setRepairInterval NOTIFY repairIntervalChanged)
-		Q_PROPERTY(int runningServices READ runningServices NOTIFY runningServicesChanged) // Amount of running services, that is services which are in any state other than "stopped" state.
+
+		/**
+		  Amount of running services, that is services which are in any state other than "stopped" state.
+		  */
+		Q_PROPERTY(int runningServices READ runningServices NOTIFY runningServicesChanged)
 
 		int maxActiveServices() const;
 
@@ -40,8 +58,14 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		int runningServices() const;
 
 	public slots:
+		/**
+		 * Start services.
+		 */
 		void start();
 
+		/**
+		 * Stop services.
+		 */
 		void stop();
 
 	signals:
