@@ -30,6 +30,11 @@ Module {
 	property bool useDoxyqml: false
 
 	/**
+	  Namespace argument for Doxyqml, which wraps generated documentation within given C++ namespace.
+	  */
+	property string doxyqmlNamespace: cutehmi.conventions.baseName
+
+	/**
 	  Whether to use input filter. If this property is set to true a _sed_ script will be used for _Doxygen_ `INPUT_FILTER`. This
 	  script appends `index.html` to Markdown links which end with slash (/). This is required for offline documentation. Web
 	  browser won't load index.html` without the aid of HTTP.
@@ -59,6 +64,8 @@ Module {
 	  */
 	property var tags: ({})
 
+	Depends { name: "cutehmi.conventions" }
+
 	Rule {
 		multiplex: true
 
@@ -66,6 +73,7 @@ Module {
 			var doxCmd = new JavaScriptCommand();
 			doxCmd.description = 'generating ' + product.sourceDirectory + '/cutehmi.doxygen.Doxyfile'
 			doxCmd.highlight = 'codegen';
+			doxCmd.doxyqmlArgs = product.cutehmi.doxygen.doxyqmlNamespace === undefined ? '' : ' --namespace ' + product.cutehmi.doxygen.doxyqmlNamespace
 			doxCmd.sourceCode = function() {
 				var outputDir = product.cutehmi.doxygen.docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory) // Absolute.
 				var doxygenOptions = {
@@ -106,7 +114,7 @@ Module {
 					'SHOW_USED_FILES': false,
 					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,
 					'WARN_NO_PARAMDOC': true,
-					'FILTER_PATTERNS': product.cutehmi.doxygen.useDoxyqml ? ['*.qml=doxyqml'] : undefined,
+					'FILTER_PATTERNS': product.cutehmi.doxygen.useDoxyqml ? ['*.qml=doxyqml' + doxyqmlArgs] : undefined,
 					'FILE_PATTERNS' : product.cutehmi.doxygen.useDoxyqml ? ['*.qml'] : undefined,
 					'EXTENSION_MAPPING' : product.cutehmi.doxygen.useDoxyqml ? ['qml=C++'] : undefined,
 					'EXCLUDE': product.cutehmi.doxygen.exclude,
