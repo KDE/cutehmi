@@ -50,7 +50,7 @@ bool QtServerMixin<DERIVED>::readData(QModbusDataUnit * newData) const
 			for (quint16 index = 0, address = static_cast<quint16>(newData->startAddress()); index < static_cast<quint16>(newData->valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-7.workaround target="Qt" cause="design">
 				// QModbusDataUnit::setValue() function accepts `int` type as its `index` parameter. It should be however safe to
-				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				newData->setValue(static_cast<int>(index), derived().m->coilData->value(address)->value());
 				//</CuteHMI.Modbus-7.workaround>
 			}
@@ -59,7 +59,7 @@ bool QtServerMixin<DERIVED>::readData(QModbusDataUnit * newData) const
 			for (quint16 index = 0, address = static_cast<quint16>(newData->startAddress()); index < static_cast<quint16>(newData->valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-7.workaround target="Qt" cause="design">
 				// QModbusDataUnit::setValue() function accepts `int` type as its `index` parameter. It should be however safe to
-				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				newData->setValue(static_cast<int>(index), derived().m->discreteInputData->value(address)->value());
 				//</CuteHMI.Modbus-7.workaround>
 			}
@@ -68,7 +68,7 @@ bool QtServerMixin<DERIVED>::readData(QModbusDataUnit * newData) const
 			for (quint16 index = 0, address = static_cast<quint16>(newData->startAddress()); index < static_cast<quint16>(newData->valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-7.workaround target="Qt" cause="design">
 				// QModbusDataUnit::setValue() function accepts `int` type as its `index` parameter. It should be however safe to
-				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				newData->setValue(static_cast<int>(index), derived().m->holdingRegisterData->value(address)->value());
 				//</CuteHMI.Modbus-7.workaround>
 			}
@@ -77,7 +77,7 @@ bool QtServerMixin<DERIVED>::readData(QModbusDataUnit * newData) const
 			for (quint16 index = 0, address = static_cast<quint16>(newData->startAddress()); index < static_cast<quint16>(newData->valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-7.workaround target="Qt" cause="design">
 				// QModbusDataUnit::setValue() function accepts `int` type as its `index` parameter. It should be however safe to
-				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// cast `quint16` to `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				newData->setValue(static_cast<int>(index), derived().m->inputRegisterData->value(address)->value());
 				//</CuteHMI.Modbus-7.workaround>
 			}
@@ -103,7 +103,7 @@ bool QtServerMixin<DERIVED>::writeData(const QModbusDataUnit & newData)
 			for (quint16 index = 0, address = static_cast<quint16>(newData.startAddress()); index < static_cast<quint16>(newData.valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-3.workaround target="Qt" cause="design">
 				// QModbusDataUnit::value() function accepts `int` type as its `index` parameter. It should be however safe to cast `quint16` to
-				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				derived().m->coilData->value(address)->setValue(static_cast<bool>(newData.value(static_cast<int>(index))));
 				//</CuteHMI.Modbus-3.workaround>
 			}
@@ -112,7 +112,7 @@ bool QtServerMixin<DERIVED>::writeData(const QModbusDataUnit & newData)
 			for (quint16 index = 0, address = static_cast<quint16>(newData.startAddress()); index < static_cast<quint16>(newData.valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-3.workaround target="Qt" cause="design">
 				// QModbusDataUnit::value() function accepts `int` type as its `index` parameter. It should be however safe to cast `quint16` to
-				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				derived().m->discreteInputData->value(address)->setValue(static_cast<bool>(newData.value(static_cast<int>(index))));
 				//</CuteHMI.Modbus-3.workaround>
 			}
@@ -121,7 +121,7 @@ bool QtServerMixin<DERIVED>::writeData(const QModbusDataUnit & newData)
 			for (quint16 index = 0, address = static_cast<quint16>(newData.startAddress()); index < static_cast<quint16>(newData.valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-3.workaround target="Qt" cause="design">
 				// QModbusDataUnit::value() function accepts `int` type as its `index` parameter. It should be however safe to cast `quint16` to
-				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				derived().m->holdingRegisterData->value(address)->setValue(newData.value(static_cast<int>(index)));
 				//</CuteHMI.Modbus-3.workaround>
 			}
@@ -130,7 +130,7 @@ bool QtServerMixin<DERIVED>::writeData(const QModbusDataUnit & newData)
 			for (quint16 index = 0, address = static_cast<quint16>(newData.startAddress()); index < static_cast<quint16>(newData.valueCount()); index++, address++)	{ // Note: `uint` returned by valueCount() is guaranteed to be at least 16 bit wide.
 				//<CuteHMI.Modbus-3.workaround target="Qt" cause="design">
 				// QModbusDataUnit::value() function accepts `int` type as its `index` parameter. It should be however safe to cast `quint16` to
-				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+				// `int` here, even if `int` is 16 bit wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 				derived().m->inputRegisterData->value(address)->setValue(newData.value(static_cast<int>(index)));
 				//</CuteHMI.Modbus-3.workaround>
 			}
@@ -149,7 +149,7 @@ bool QtServerMixin<DERIVED>::writeData(const QModbusDataUnit & newData)
 	//<CuteHMI.Modbus-9.workaround target="Qt" cause="design">
 	// QModbusDataUnit::dataWritten() signal accepts `int` type as its `size` parameter, while QModbusDataUnit::valueCount() uses
 	// `uint` as return type. As such it is incompatible with `size` parameter, which might not be able to represent all returned
-	// values. It should be safe however to cas it to `int`, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+	// values. It should be safe however to cas it to `int`, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 	emit derived().dataWritten(newData.registerType(), newData.startAddress(), static_cast<int>(newData.valueCount()));
 	//</CuteHMI.Modbus-9.workaround>
 

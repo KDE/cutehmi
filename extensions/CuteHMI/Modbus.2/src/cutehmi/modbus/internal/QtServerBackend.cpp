@@ -297,28 +297,28 @@ void QtServerBackend::onDataWritten(QModbusDataUnit::RegisterType table, int add
 		case QModbusDataUnit::Coils:
 			//<CuteHMI.Modbus-8.workaround target="Qt" cause="design">
 			// Parameter `size` is of type `int`. It should be however safe to cast `int` to `quint16` here, even if `int` is 16 bit
-			// wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+			// wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 			emit coilsWritten(static_cast<quint16>(address), static_cast<quint16>(size));
 			//</CuteHMI.Modbus-8.workaround>
 			break;
 		case QModbusDataUnit::DiscreteInputs:
 			//<CuteHMI.Modbus-8.workaround target="Qt" cause="design">
 			// Parameter `size` is of type `int`. It should be however safe to cast `int` to `quint16` here, even if `int` is 16 bit
-			// wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+			// wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 			emit discreteInputsWritten(static_cast<quint16>(address), static_cast<quint16>(size));
 			//</CuteHMI.Modbus-8.workaround>
 			break;
 		case QModbusDataUnit::HoldingRegisters:
 			//<CuteHMI.Modbus-8.workaround target="Qt" cause="design">
 			// Parameter `size` is of type `int`. It should be however safe to cast `int` to `quint16` here, even if `int` is 16 bit
-			// wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+			// wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 			emit holdingRegistersWritten(static_cast<quint16>(address), static_cast<quint16>(size));
 			//</CuteHMI.Modbus-8.workaround>
 			break;
 		case QModbusDataUnit::InputRegisters:
 			//<CuteHMI.Modbus-8.workaround target="Qt" cause="design">
 			// Parameter `size` is of type `int`. It should be however safe to cast `int` to `quint16` here, even if `int` is 16 bit
-			// wide, because of @ref cutehmi::modbus::AbstractDevice-query_limits.
+			// wide, because of @ref cutehmi-modbus-AbstractDevice-query_limits.
 			emit inputRegistersWritten(static_cast<quint16>(address), static_cast<quint16>(size));
 			//</CuteHMI.Modbus-8.workaround>
 			break;

@@ -12,8 +12,8 @@ communication interface.
 Modbus devices can be divided into two basic categories: servers and clients. In Modbus nomenclature clients are often called
 masters and servers are called slaves.
 
-Modbus is a higher level protocol [1][National Instruments - The Modbus Protocol In-Depth]
-[2][Acromag - Introdution To Modbus TCP/IP], hence each server or client can perform communication over arbitrary lower level
+Modbus is a higher level protocol [[1]][National Instruments - The Modbus Protocol In-Depth]
+[[2]][Acromag - Introdution To Modbus TCP/IP], hence each server or client can perform communication over arbitrary lower level
 protocol stack. Two most common solutions are TCP/IP and RTU (Remote Terminal Unit, which again is a sort of abstraction, but
 typically means serial port communcation).
 
@@ -27,10 +27,15 @@ cutehmi::modbus::TCPClient and cutehmi::modbus::TCPServer implement client and s
 
 cutehmi::modbus::DummyClient is a special client that does not need a server to communicate with and it can be used to test UI for example.
 
-Device classes are lowest level API of the extesnion. They are centered around an idea of JSON requests and replies, inspired by web
+Device classes are lowest level API of the extension. They are centered around an idea of JSON requests and replies, inspired by web
 REST interfaces. Additionaly classes have various properties allowing one to configure devices or check their statuses from QML.
 
-## Controllers
+Device classes are intended to be used with [CuteHMI.Services](../Services.2/README.md). Notably device object will not perform
+polling on its own. For this purpose device classes implement cutehmi::services::Serviceable interface. Device object must be
+embedded in cutehmi::services::Service object to perform polling (after services are started by cutehmi::services::ServiceManager).
+In return its state is managed by the state machine, which will handle start/stop requests, try to repair broken connections etc.
+
+## Register controllers
 
 Modbus protocol is oriented around four classes of registers, which can be viewed as four contiguous memory regions. These are:
 holding registers, input registers, coils and discrete inputs. Clients can read and write to holding registers and coils; input
@@ -46,3 +51,16 @@ there is not much of the difference between them.
 Controllers are better suited for accessing registers from QML, because they reveal various register aspects through a set of
 properties. They allow one to easily control how reads and writes are performed. They track requests, interpret responses and
 translate the sequence of events in between into convenient signals. Their properties can be binded with other QML components.
+
+## Register items
+
+Register items are convenient components, which are composed of a controller and visual indicator item. They are particularly
+useful in "Design" mode. For each register controller there is corresponding register item, that is: CuteHMI::Modbus::CoilItem,
+CuteHMI::Modbus::DiscreteInputItem, CuteHMI::Modbus::HoldingRegisterItem and CuteHMI::Modbus::InputRegisterItem.
+
+Relationship between extension classes is conceptually shown on the following quasi-UML diagram.
+
+![Relationship between extension classes](doc/quasi_uml.svg)
+
+[National Instruments - The Modbus Protocol In-Depth]: https://www.ni.com/pl-pl/innovations/white-papers/14/the-modbus-protocol-in-depth.html
+[Acromag - Introdution To Modbus TCP/IP]: https://www.prosoft-technology.com/kb/assets/intro_modbustcp.pdf

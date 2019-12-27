@@ -174,6 +174,11 @@ Project {
 
 		Depends { name: "CuteHMI.Services.2" }
 
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.warnIfUndocumented: false
+		cutehmi.doxygen.useDoxyqml: true
+		cutehmi.doxygen.exclude: ['tests', 'puppet']
+
 		Depends { name: "cutehmi.init" }
 
 		Depends { name: "cutehmi.metadata" }

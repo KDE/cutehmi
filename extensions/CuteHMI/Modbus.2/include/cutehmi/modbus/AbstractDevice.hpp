@@ -100,14 +100,14 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		Q_ENUM(DiagnosticsSubfunction)
 
 		/**
-		 * @anchor cutehmi::modbus::AbstractDevice-query_limits
+		 * @anchor cutehmi-modbus-AbstractDevice-query_limits
 		 * @name Query limits.
 		 *
 		 * Modbus protocol imposes following restriction on amount of data that can be read or write at once.
 		 *
 		 * > "The quantity of registers to be read, combined with all other fields in the expected response, must not exceed the
 		 * >  allowable length of Modbus messages: 256 bytes."
-		 *                                                     quote{-- Modicon Modbus Protocol Reference Guide PI–MBUS–300  Rev. J}
+		 *                                                    @quote{-- Modicon Modbus Protocol Reference Guide PI–MBUS–300  Rev. J}
 		 *
 		 * This means that Modbus message must not exceed 256 octets in size. In Modbus over TCP, device address and CRC (3 octets)
 		 * are traded for 6 octet header and 1 octet unit identifier, which gives 4 octets less to store values. Theoretical maximal
@@ -255,7 +255,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		 * @param address starting address.
 		 * @param amount number of coils to query. Note that Modbus specification expects it to be 16 bit unsigned value, so 65535
 		 * is maximal number of coils that can be queried at once (Modbus address range 0-65535 contains 65536 addresses). Modbus
-		 * message size imposes further restriction - see @ref cutehmi::modbus::AbstractDevice-query_limits "query limits".
+		 * message size imposes further restriction - see @ref cutehmi-modbus-AbstractDevice-query_limits "query limits".
 		 * @param requestId request id. If not @p nullptr, function will set pointee to generated request id before handling the
 		 * request.
 		 */
@@ -286,7 +286,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		 * @param address starting address.
 		 * @param amount number of inputs to query. Note that Modbus specification expects it to be 16 bit unsigned value, so
 		 * 65535 is maximal number of inputs that can be queried at once (Modbus address range 0-65535 contains 65536 addresses).
-		 * Modbus message size imposes further restriction - see @ref cutehmi::modbus::AbstractDevice-query_limits "query limits".
+		 * Modbus message size imposes further restriction - see @ref cutehmi-modbus-AbstractDevice-query_limits "query limits".
 		 * @param requestId request id. If not @p nullptr, function will set pointee to generated request id before handling the
 		 * request.
 		 */
@@ -319,7 +319,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		 * @param amount number of registers to query. Note that Modbus specification expects it to be 16 bit unsigned value, so
 		 * 65535 is maximal number of registers  that can be queried at once (Modbus address range 0-65535 contains 65536
 		 * addresses). Modbus message size imposes further restriction - see
-		 * @ref cutehmi::modbus::AbstractDevice-query_limits "query limits".
+		 * @ref cutehmi-modbus-AbstractDevice-query_limits "query limits".
 		 * @param requestId request id. If not @p nullptr, function will set pointee to generated request id before handling the
 		 * request.
 		 */
@@ -352,7 +352,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		 * @param amount number of registers to query. Note that Modbus specification expects it to be 16 bit unsigned value, so
 		 * 65535 is maximal number of registers  that can be queried at once (Modbus address range 0-65535 contains 65536
 		 * addresses). Modbus message size imposes further restriction - see
-		 * @ref cutehmi::modbus::AbstractDevice-query_limits "query limits".
+		 * @ref cutehmi-modbus-AbstractDevice-query_limits "query limits".
 		 * @param requestId request id. If not @p nullptr, function will set pointee to generated request id before handling the
 		 * request.
 		 */

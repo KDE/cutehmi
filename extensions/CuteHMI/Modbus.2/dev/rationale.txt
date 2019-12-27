@@ -1,0 +1,8 @@
+## AbstractDevice API
+
+AbstractDevice uses JSON objects for requests and replies.
+
+Using JSON instead of full blown objects has an advantage for an API to be light-weight, flexible and it fit naturally into
+QML/JavaScript. The drawbacks may seem to be a performance overhead, but JSON objects are implicitly shared in Qt, so it should not
+be a problem in most cases. Another problem is type safety, but this can be compensated with validation and sanitization.
+JSON-based API also offers interesting possibilities in terms of forwarding it to web REST API.
