@@ -6,7 +6,7 @@ It provides various utility classes and bridges that help other extensions and t
 
 ## Bridges
 
-[Logging macros](@ref loggingMacros.hpp) help deliver consistently looking logging messages to power users and developers.
+[Logging macros](@ref cutehmi-loggingMacros) help deliver consistently looking logging messages to power users and developers.
 
 Messages that should show up in user interface can be delivered through cutehmi::Dialog and cutehmi::Notification classes.
 
