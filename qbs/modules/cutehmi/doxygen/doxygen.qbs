@@ -110,7 +110,7 @@ Module {
 								   //</qbs-cutehmi.doxygen-3.workaround target="Doxygen" cause="bug">
 					],
 					'LAYOUT_FILE': product.cutehmi.doxygen.layoutTemplateFile !== undefined ? product.sourceDirectory + '/cutehmi.doxygen.Layout.xml' : undefined,
-					'SHOW_FILES': true,
+					'SHOW_FILES': false,
 					'SHOW_USED_FILES': false,
 					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,
 					'WARN_NO_PARAMDOC': true,
