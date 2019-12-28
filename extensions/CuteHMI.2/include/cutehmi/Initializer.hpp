@@ -9,7 +9,7 @@
 namespace cutehmi {
 
 /**
- * Initializer template. Initializer can be used to initialize an extension. This is achieved by subclassing the template and
+ * %Initializer template. %Initializer can be used to initialize an extension. This is achieved by subclassing the template and
  * creating a global instance of a derived class, which is a subject of static initialization. This relies on following C++
  * principle.
  *
@@ -17,7 +17,7 @@ namespace cutehmi {
  * >  even if it appears to be unused, except that a class object or its copy/move may be eliminated as speciﬁed in 11.9.5."
  *                                                                      @quote{-- C++ Standard (6.6.5.1/2 N4810) [basic.stc.static]}
  *
- * Initializer counts its own references and runs initialization and deinitialization code only once - for the first constructed and
+ * %Initializer counts its own references and runs initialization and deinitialization code only once - for the first constructed and
  * last destroyed instance.
  *
  * @note Special care must be taken for static builds, because a global variable may be skipped by a linker, if it is not used by

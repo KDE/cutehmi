@@ -13,11 +13,11 @@ namespace cutehmi {
 namespace services {
 
 /**
- * %Service manager. Service manager is a singleton that manages Service objects. Two most important functions are start() and
+ * %Service manager. %Service manager is a singleton that manages Service objects. Two most important functions are start() and
  * stop() slots, which start and stop services. Services are added to the manager and removed automatically.
  *
- * Activities of services, which are capable of idling and yielding are serialized. Property maxActiveServices controls how many
- * services can be active at the same time.
+ * Activities of services, which are capable of idling and yielding are serialized. Property @ref maxActiveServices controls how
+ * many services can be active at the same time.
  */
 class CUTEHMI_SERVICES_API ServiceManager:
 	public QObject,
