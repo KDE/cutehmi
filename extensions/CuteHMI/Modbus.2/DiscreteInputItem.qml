@@ -5,6 +5,10 @@ import CuteHMI.Modbus 2.0
 
 import "RegisterItem.js" as Private
 
+/**
+  Discrete input item. This item is provided as a supplement to DiscreteInputController and it is intended to be used in Qt Creator
+  "Design" mode.
+  */
 Item
 {
 	id: root

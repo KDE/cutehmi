@@ -6,7 +6,7 @@ import CuteHMI.Modbus 2.0
 import "RegisterItem.js" as Private
 
 /**
-  CoilItem. This item is provided as a supplement to CoilController and it is designed to be used with QML Designer.
+  %Coil item. This item is provided as a supplement to CoilController and it is intended to be used in Qt Creator "Design" mode.
   */
 Item
 {
