@@ -18,7 +18,7 @@ class QMLPlugin:
 		void registerTypes(const char * uri) override;
 
 	private:
-		static QObject * DialogistProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+		static QObject * MessengerProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 
 		static QObject * NotifierProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 };

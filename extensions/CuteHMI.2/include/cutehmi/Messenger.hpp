@@ -2,7 +2,7 @@
 #define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_DIALOGIST_HPP
 
 #include "internal/common.hpp"
-#include "Dialog.hpp"
+#include "Message.hpp"
 #include "ExceptionMixin.hpp"
 #include "Singleton.hpp"
 
@@ -12,15 +12,15 @@
 namespace cutehmi {
 
 /**
- * %Dialogist.
+ * %Messenger.
  */
-class CUTEHMI_API Dialogist:
+class CUTEHMI_API Messenger:
 	public QObject,
-	public Singleton<Dialogist>
+	public Singleton<Messenger>
 {
-	Q_OBJECT
+		Q_OBJECT
 
-	friend class Singleton<Dialogist>;
+		friend class Singleton<Messenger>;
 
 	public:
 		/**
@@ -29,60 +29,60 @@ class CUTEHMI_API Dialogist:
 		class CUTEHMI_API NoAdvertiserException:
 			public ExceptionMixin<NoAdvertiserException>
 		{
-			typedef ExceptionMixin<NoAdvertiserException> Parent;
+				typedef ExceptionMixin<NoAdvertiserException> Parent;
 
 			public:
-				explicit NoAdvertiserException(Dialog & dialog);
+				explicit NoAdvertiserException(Message & message);
 
 				NoAdvertiserException(const NoAdvertiserException & other);
 
 				NoAdvertiserException & operator =(const NoAdvertiserException & other);
 
 				/**
-				 * Recall dialog.
-				 * @return dialog object.
+				 * Recall message.
+				 * @return message object.
 				 */
-				const Dialog * dialog() const;
+				const Message * message() const;
 
 			private:
 				struct Members
 				{
-					std::unique_ptr<Dialog> dialog;
+					std::unique_ptr<Message> message;
 				};
 
 				MPtr<Members> m;
 		};
 
 		/**
-		 * Advertise dialog.
-		 * @param dialog_l dialog to advertise. Parameter will be used locally by this function.
+		 * Advertise message.
+		 * @param message_l message to advertise. Parameter will be used locally by this function.
 		 * It's passed by a pointer instead of a reference for easier integration with QML.
 		 *
 		 * @threadsafe
 		 *
 		 * @throw NoAdvertiserException thrown in case advertiser has not been set.
 		 */
-		Q_INVOKABLE void advertise(Dialog * dialog_l);
+		Q_INVOKABLE void advertise(Message * message_l);
 
 		/**
 		  * Reset advertiser. Advertiser will be connected to dialogRequested() signal. There can be only one advertiser at a time.
 		  * Subsequent call of this function will disconnect previous advertiser.
 		  * @param advertiser advertiser object. Advertiser must implement createDialog(QVariant) slot. Parameter of type QVariant
-		  * wraps `Dialog *` pointer.
+		  * wraps `Message *` pointer.
 		  */
 		Q_INVOKABLE void resetAdvertiser(QObject * advertiser);
 
 	signals:
 		/**
-		 * Dialog requested. This signal is emitted each time advertise() function has been called. This signal will trigger
+		 * Message requested. This signal is emitted each time advertise() function has been called. This signal will trigger
 		 * execution of createDialog() slot in advertiser.
-		 * @param dialog parameter wraps `Dialog * pointer`. Advertiser should present adequate control to the user and provide a
-		 * response by calling Dialog::acceptResponse() function.
+		 * @param message parameter wraps `Message * pointer`. Advertiser should present adequate control to the user and provide a
+		 * response by calling Message::acceptResponse() function.
 		 */
-		void dialogRequested(QVariant dialog);
+		void messageRequested(QVariant message);
 
 	protected:
-		explicit Dialogist(QObject * parent = nullptr);
+		explicit Messenger(QObject * parent = nullptr);
 
 		struct Members
 		{

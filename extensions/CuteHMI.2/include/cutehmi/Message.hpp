@@ -14,9 +14,9 @@
 namespace cutehmi {
 
 /**
- * %Dialog message.
+ * %Message.
  */
-class CUTEHMI_API Dialog:
+class CUTEHMI_API Message:
 	public QObject
 {
 		Q_OBJECT
@@ -38,7 +38,7 @@ class CUTEHMI_API Dialog:
 		Q_ENUM(Type)
 
 		/**
-		 * %Dialog button. Button is registered as meta type by Dialog constructors.
+		 * %Dialog button. Button is registered as meta type by Message constructors.
 		 */
 		enum Button : qint32 {
 			BUTTON_OK = 0x00000400,
@@ -66,70 +66,70 @@ class CUTEHMI_API Dialog:
 		Q_ENUM(Button)
 
 		/**
-		 * Register Button as meta type and return its metatype type id. This method is called by Dialog constructors.
+		 * Register Button as meta type and return its metatype type id. This method is called by Message constructors.
 		 * @return meta type id of Button.
 		 */
 		static int RegisterButtonMetaType() noexcept;
 
 		/**
-		 * Notice message. Convenient function that creates informative dialog and advertises it through Dialogist instance.
+		 * Notice message. Convenient function that creates informative dialog and advertises it through Messenger instance.
 		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
+		 * @param buttons message dialog buttons.
+		 * @return message instance.
 		 */
-		static std::unique_ptr<Dialog> Info(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+		static std::unique_ptr<Message> Info(const QString & text, Message::Buttons buttons = Message::BUTTON_OK);
 
 		/**
-		 * Warning message. Convenient function that creates warning dialog and advertises it through Dialogist instance.
+		 * Warning message. Convenient function that creates warning dialog and advertises it through Messenger instance.
 		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
+		 * @param buttons message dialog buttons.
+		 * @return message instance.
 		 */
-		static std::unique_ptr<Dialog> Warning(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+		static std::unique_ptr<Message> Warning(const QString & text, Message::Buttons buttons = Message::BUTTON_OK);
 
 		/**
-		 * Question. Convenient function that creates question dialog and advertises it through Dialogist instance.
+		 * Question. Convenient function that creates question dialog and advertises it through Messenger instance.
 		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
+		 * @param buttons message dialog buttons.
+		 * @return message instance.
 		 */
-		static std::unique_ptr<Dialog> Question(const QString & text, Dialog::Buttons buttons = Dialog::Buttons{Dialog::BUTTON_YES, Dialog::BUTTON_NO});
+		static std::unique_ptr<Message> Question(const QString & text, Message::Buttons buttons = Message::Buttons{Message::BUTTON_YES, Message::BUTTON_NO});
 
 		/**
-		 * Critical message. Convenient function that creates critical dialog and advertises it through Dialogist instance.
+		 * Critical message. Convenient function that creates critical dialog and advertises it through Messenger instance.
 		 * @param text message for the user.
-		 * @param buttons dialog buttons.
-		 * @return dialog.
+		 * @param buttons message dialog buttons.
+		 * @return message instance.
 		 */
-		static std::unique_ptr<Dialog> Critical(const QString & text, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+		static std::unique_ptr<Message> Critical(const QString & text, Message::Buttons buttons = Message::BUTTON_OK);
 
 		/**
 		* Critical message. Convenient function that creates critical dialog from ErrorInfo object and advertises it through
-		* Dialogist instance.
+		* Messenger instance.
 		* @param errorInfo error info object.
-		* @param buttons dialog buttons.
-		* @return dialog.
+		* @param buttons message dialog buttons.
+		* @return message instance.
 		*/
-		static std::unique_ptr<Dialog> Critical(const ErrorInfo & errorInfo, Dialog::Buttons buttons = Dialog::BUTTON_OK);
+		static std::unique_ptr<Message> Critical(const ErrorInfo & errorInfo, Message::Buttons buttons = Message::BUTTON_OK);
 
 		/**
 		 * Constructor.
 		 * @param type dialog type.
 		 * @param text message for the user.
-		 * @param buttons dialog buttons.
+		 * @param buttons message dialog buttons.
 		 * @param parent parent object.
 		 */
-		explicit Dialog(Type type = INFO, const QString & text = QString(), Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
+		explicit Message(Type type = INFO, const QString & text = QString(), Buttons buttons = Message::NO_BUTTON, QObject * parent = nullptr);
 
 		/**
 		 * Constructor.
 		 * @param type dialog type.
 		 * @param text message for the user.
 		 * @param informativeText informative message.
-		 * @param buttons dialog buttons.
+		 * @param buttons message dialog buttons.
 		 * @param parent parent object.
 		 */
-		Dialog(Type type, const QString & text, const QString & informativeText, Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
+		Message(Type type, const QString & text, const QString & informativeText, Buttons buttons = Message::NO_BUTTON, QObject * parent = nullptr);
 
 		/**
 		 * Constructor.
@@ -137,15 +137,15 @@ class CUTEHMI_API Dialog:
 		 * @param text message for the user.
 		 * @param informativeText informative message.
 		 * @param detailedText detailed message.
-		 * @param buttons dialog buttons.
+		 * @param buttons message dialog buttons.
 		 * @param parent parent object.
 		 */
-		Dialog(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Dialog::NO_BUTTON, QObject * parent = nullptr);
+		Message(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons = Message::NO_BUTTON, QObject * parent = nullptr);
 
 		/**
 		 * Destructor.
 		 */
-		~Dialog() override = default;
+		~Message() override = default;
 
 		/**
 		 * Get dialog type.
@@ -196,8 +196,8 @@ class CUTEHMI_API Dialog:
 		void setDetailedText(const QString & detailedText);
 
 		/**
-		 * Get dialog buttons.
-		 * @return dialog buttons available to the user.
+		 * Get message dialog buttons.
+		 * @return message dialog buttons available to the user.
 		 */
 		Buttons buttons() const;
 
@@ -208,16 +208,16 @@ class CUTEHMI_API Dialog:
 		void setButtons(Buttons buttons);
 
 		/**
-		  * Get dialog response.
-		  * @return button that has been pressed by the user or Dialog::NO_BUTTON if user didn't make a choice.
+		  * Get user response.
+		  * @return button that has been pressed by the user or Message::NO_BUTTON if user didn't make a choice.
 		  */
 		Button response() const;
 
 		/**
-		 * Clone dialog.
-		 * @return dialog clone.
+		 * Clone message.
+		 * @return message clone.
 		 */
-		std::unique_ptr<Dialog> clone() const;
+		std::unique_ptr<Message> clone() const;
 
 		/**
 		 * Block until user provides a response. This function creates local event loop and blocks until user provides a response.
@@ -251,7 +251,7 @@ class CUTEHMI_API Dialog:
 
 		void responseChanged();
 
-		void responseArrived(cutehmi::Dialog::Button response);
+		void responseArrived(cutehmi::Message::Button response);
 
 	private:
 		struct Members
@@ -269,7 +269,7 @@ class CUTEHMI_API Dialog:
 
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Dialog::Buttons)
+Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Message::Buttons)
 
 #endif
 

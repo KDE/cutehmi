@@ -71,10 +71,10 @@ ApplicationWindow {
 		source: cutehmi_view_initURL
 	}
 
-	function createDialog(dialog) {
+	function createDialog(message) {
 		var messageDialogComponent = Qt.createComponent("MessageDialog.qml")
-		var messageDialog = messageDialogComponent.createObject(mainWindow, {"dialog" : dialog})
-		messageDialog.dialogChanged.connect(messageDialog.destroy)
+		var messageDialog = messageDialogComponent.createObject(mainWindow, {"message" : message})
+		messageDialog.messageChanged.connect(messageDialog.destroy)
 		messageDialog.open()
 	}
 
@@ -83,7 +83,7 @@ ApplicationWindow {
 			if (Qt.application.arguments[i] === "--fullscreen")
 				mainWindow.visibility = Window.FullScreen
 
-		Dialogist.resetAdvertiser(mainWindow)
+		Messenger.resetAdvertiser(mainWindow)
 	}
 
 	onClosing: {

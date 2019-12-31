@@ -18,29 +18,29 @@ Item {
 		visible: true
 		title: "Dialog"
 
-		function createDialog(dialog) {
-			if (dialog) {
-				switch (dialog.type) {
-					case CuteHMI.Dialog.NOTE:
+		function createDialog(message) {
+			if (message) {
+				switch (message.type) {
+					case CuteHMI.Message.NOTE:
 						title = "Note"
 						break
-					case CuteHMI.Dialog.WARNING:
+					case CuteHMI.Message.WARNING:
 						title = "Warning"
 						break
-					case CuteHMI.Dialog.QUESTION:
+					case CuteHMI.Message.QUESTION:
 						title = "Question"
 						break
-					case CuteHMI.Dialog.CRITICAL:
+					case CuteHMI.Message.CRITICAL:
 						title = "Critical"
 						break
 					default:
-						title = "Unrecognized dialog type (" + dialog.type + ")."
+						title = "Unrecognized dialog type (" + message.type + ")."
 				}
 
-				text.text = dialog.text
-				informativeText.text = dialog.informativeText
-				detailedText.text = dialog.detailedText
-				standardButtons = dialog.buttons
+				text.text = message.text
+				informativeText.text = message.informativeText
+				detailedText.text = message.detailedText
+				standardButtons = message.buttons
 			}
 		}
 
@@ -54,26 +54,26 @@ Item {
 	}
 
 	TestCase {
-		name: "Dialogist"
+		name: "Messenger"
 		when: windowShown
 
 		function initTestCase() {
-			dialogist.resetAdvertiser(dialog)
+			messenger.resetAdvertiser(dialog)
 		}
 
 		function test_advertise() {
-			var cutehmiDialog = Qt.createQmlObject('
+			var message = Qt.createQmlObject('
 				import CuteHMI 2.0
 
-				Dialog {
-					type: Dialog.QUESTION
+				Message {
+					type: Message.QUESTION
 					text: "Text?"
 					informativeText: "Informative text."
 					detailedText: "Detailed text."
-					buttons: { Dialog.BUTTON_YES | Dialog.BUTTON_NO }
+					buttons: { Message.BUTTON_YES | Message.BUTTON_NO }
 				}', root);
 
-			dialogist.advertise(cutehmiDialog)
+			messenger.advertise(message)
 			waitForRendering(root)
 
 			verify(dialog.standardButton(Dialog.Yes))

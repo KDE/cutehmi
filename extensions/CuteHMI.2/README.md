@@ -8,7 +8,7 @@ It provides various utility classes and bridges that help other extensions and t
 
 [Logging macros](@ref cutehmi-loggingMacros) help deliver consistently looking logging messages to power users and developers.
 
-Messages that should show up in user interface can be delivered through cutehmi::Dialog and cutehmi::Notification classes.
+Messages that should show up in user interface can be delivered through cutehmi::Message and cutehmi::Notification classes.
 
 ## Utility classes
 
@@ -33,5 +33,5 @@ CuteHMI::NumberDisplay provides convenient display.
 
 ## Frontend tools
 
-Frontend tools should take care about cutehmi::Notifier and cutehmi::Dialogist classes to deliver messages to the users. They should
+Frontend tools should take care about cutehmi::Notifier and cutehmi::Messenger classes to deliver messages to the users. They should
 also call cutehmi::destroySingletonInstances() function.

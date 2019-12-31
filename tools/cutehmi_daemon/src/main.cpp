@@ -5,7 +5,7 @@
 #include "cutehmi/daemon/CoreData.hpp"
 #include "cutehmi/daemon/Exception.hpp"
 
-#include <cutehmi/Dialogist.hpp>
+#include <cutehmi/Messenger.hpp>
 #include <cutehmi/Singleton.hpp>
 
 #include <QCoreApplication>
@@ -151,13 +151,13 @@ int main(int argc, char * argv[])
 
 		} catch (const Exception & e) {
 			CUTEHMI_CRITICAL(e.what());
-		} catch (const cutehmi::Dialogist::NoAdvertiserException & e) {
-			CUTEHMI_CRITICAL("Dialog message: " << e.dialog()->text());
-			if (!e.dialog()->informativeText().isEmpty())
-				CUTEHMI_CRITICAL("Informative text: " << e.dialog()->informativeText());
-			if (!e.dialog()->detailedText().isEmpty())
-				CUTEHMI_CRITICAL("Detailed text: " << e.dialog()->detailedText());
-			CUTEHMI_CRITICAL("Available buttons: " << e.dialog()->buttons());
+		} catch (const cutehmi::Messenger::NoAdvertiserException & e) {
+			CUTEHMI_CRITICAL("Dialog message: " << e.message()->text());
+			if (!e.message()->informativeText().isEmpty())
+				CUTEHMI_CRITICAL("Informative text: " << e.message()->informativeText());
+			if (!e.message()->detailedText().isEmpty())
+				CUTEHMI_CRITICAL("Detailed text: " << e.message()->detailedText());
+			CUTEHMI_CRITICAL("Available buttons: " << e.message()->buttons());
 		} catch (const std::exception & e) {
 			CUTEHMI_CRITICAL(e.what());
 		} catch (...) {

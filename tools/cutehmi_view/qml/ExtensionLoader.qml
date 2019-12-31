@@ -6,16 +6,16 @@ import CuteHMI 2.0 as CuteHMI
 Item {
 	id: extensionContainer
 
-	CuteHMI.Dialog {
-		id: dialog
+	CuteHMI.Message {
+		id: message
 
-		type: CuteHMI.Dialog.CRITICAL
-		text: "Could not load extension '" + cutehmi_view_extensionBasename + "." + cutehmi_view_extensionMajor + "'."
-		buttons: CuteHMI.Dialog.BUTTON_OK
+		type: CuteHMI.Message.CRITICAL
+		text: "Could not load extension '" + cutehmi_view_extensionBasename + (cutehmi_view_extensionMajor ? "." + cutehmi_view_extensionMajor : "") + "'."
+		buttons: CuteHMI.Message.BUTTON_OK
 	}
 
 	Component.onCompleted: {
-		if (cutehmi_view_extensionBasename && cutehmi_view_extensionMajor) {
+		if (cutehmi_view_extensionBasename || cutehmi_view_extensionMajor) {
 			var qmlData = "import " + cutehmi_view_extensionBasename + " " + cutehmi_view_extensionMajor
 			qmlData += "\n" + cutehmi_view_extensionComponent + " { anchors.fill: parent }\n"
 
@@ -23,9 +23,9 @@ Item {
 				Qt.createQmlObject(qmlData, extensionContainer)
 			} catch(error) {
 				showDefaultScreen()
-				dialog.informativeText = error.qmlErrors.length > 1 ? qsTr("Reasons: ") : qsTr("Reason: ")
-				dialog.informativeText += error.qmlErrors.map(function (obj) { return obj.message }).join("; ") + "."
-				createDialog(dialog)
+				message.informativeText = error.qmlErrors.length > 1 ? qsTr("Reasons: ") : qsTr("Reason: ")
+				message.informativeText += error.qmlErrors.map(function (obj) { return obj.message }).join("; ") + "."
+				createDialog(message)
 			}
 		} else {
 			showDefaultScreen()

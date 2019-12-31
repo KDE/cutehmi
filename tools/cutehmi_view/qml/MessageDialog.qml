@@ -5,23 +5,23 @@ import CuteHMI 2.0 as CuteHMI
 
 MessageDialog
 {
-	property CuteHMI.Dialog dialog
+	property CuteHMI.Message message
 
-	onDialogChanged: {
-		if (dialog) {
-			text = dialog.text
-			informativeText = dialog.informativeText
-			detailedText = dialog.detailedText
-			standardButtons = dialog.buttons
-			icon = dialog.type
+	onMessageChanged: {
+		if (message) {
+			text = message.text
+			informativeText = message.informativeText
+			detailedText = message.detailedText
+			standardButtons = message.buttons
+			icon = message.type
 		}
 	}
 
-	onClickedButtonChanged: if (dialog) { dialog.acceptResponse(clickedButton); dialog = null }
+	onClickedButtonChanged: if (message) { message.acceptResponse(clickedButton); message = null }
 
-	onRejected: if (dialog) { dialog.acceptResponse(clickedButton); dialog = null }
+	onRejected: if (message) { message.acceptResponse(clickedButton); message = null }
 
-	Component.onDestruction: if (dialog) dialog.deleteLater()
+	Component.onDestruction: if (message) message.deleteLater()
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

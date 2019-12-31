@@ -1,4 +1,4 @@
-#include <cutehmi/Dialogist.hpp>
+#include <cutehmi/Messenger.hpp>
 
 #include <QtQuickTest>
 #include <QQmlEngine>
@@ -7,7 +7,7 @@
 class test_QML:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	public slots:
 		void applicationAvailable()
@@ -16,7 +16,7 @@ class test_QML:
 
 		void qmlEngineAvailable(QQmlEngine * engine)
 		{
-			engine->rootContext()->setContextProperty("dialogist", & cutehmi::Dialogist::Instance());
+			engine->rootContext()->setContextProperty("messenger", & cutehmi::Messenger::Instance());
 		}
 
 		void cleanupTestCase()

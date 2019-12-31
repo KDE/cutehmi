@@ -3,8 +3,8 @@
 #include "cutehmi/view/logging.hpp"
 
 #include <cutehmi/ErrorInfo.hpp>
-#include <cutehmi/Dialog.hpp>
-#include <cutehmi/Dialogist.hpp>
+#include <cutehmi/Message.hpp>
+#include <cutehmi/Messenger.hpp>
 #include <cutehmi/Singleton.hpp>
 
 #include <cutehmi/app/CuteApp.hpp>
@@ -142,7 +142,13 @@ int main(int argc, char * argv[])
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 
 		QStringList extensionNameParts = cmd.value(extensionOption).split('.');
-		QString extensionMajor = extensionNameParts.takeLast();
+		QString extensionMajor;
+		if (!extensionNameParts.isEmpty()) {
+			bool hasExtensionMajor;
+			extensionNameParts.last().toInt(& hasExtensionMajor);
+			if (hasExtensionMajor)
+				extensionMajor = extensionNameParts.takeLast();
+		}
 		QString extensionBasename = extensionNameParts.join('.');
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionBasename", extensionBasename);
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionMajor", extensionMajor);
@@ -159,19 +165,19 @@ int main(int argc, char * argv[])
 			if (initUrl.isValid()) {
 				// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
 				if (!initUrl.scheme().isEmpty() && QDir::isRelativePath(initUrl.path()))
-					cutehmi::Dialog::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(initUrl.url()));
+					cutehmi::Message::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(initUrl.url()));
 				else {
 					// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
 					if (initUrl.isRelative())
 						initUrl = QUrl::fromLocalFile(baseDirPath).resolved(initUrl);
 					// Check if file exists and eventually set context property.
 					if (initUrl.isLocalFile() && !QFile::exists(initUrl.toLocalFile()))
-						cutehmi::Dialog::Critical(QObject::tr("QML file '%1' does not exist.").arg(initUrl.url()));
+						cutehmi::Message::Critical(QObject::tr("QML file '%1' does not exist.").arg(initUrl.url()));
 					else
 						engine->rootContext()->setContextProperty("cutehmi_view_initURL", initUrl.url());
 				}
 			} else
-				cutehmi::Dialog::Critical(QObject::tr("Invalid format of QML file URL '%1'.").arg(cmd.value(initOption)));
+				cutehmi::Message::Critical(QObject::tr("Invalid format of QML file URL '%1'.").arg(cmd.value(initOption)));
 		}
 
 		//<Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec.assumption>
@@ -203,13 +209,13 @@ int main(int argc, char * argv[])
 
 		//</Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec.assumption>
 
-	} catch (const cutehmi::Dialogist::NoAdvertiserException & e) {
-		CUTEHMI_CRITICAL("Dialog message: " << e.dialog()->text());
-		if (!e.dialog()->informativeText().isEmpty())
-			CUTEHMI_CRITICAL("Informative text: " << e.dialog()->informativeText());
-		if (!e.dialog()->detailedText().isEmpty())
-			CUTEHMI_CRITICAL("Detailed text: " << e.dialog()->detailedText());
-		CUTEHMI_CRITICAL("Available buttons: " << e.dialog()->buttons());
+	} catch (const cutehmi::Messenger::NoAdvertiserException & e) {
+		CUTEHMI_CRITICAL("Dialog message: " << e.message()->text());
+		if (!e.message()->informativeText().isEmpty())
+			CUTEHMI_CRITICAL("Informative text: " << e.message()->informativeText());
+		if (!e.message()->detailedText().isEmpty())
+			CUTEHMI_CRITICAL("Detailed text: " << e.message()->detailedText());
+		CUTEHMI_CRITICAL("Available buttons: " << e.message()->buttons());
 	} catch (const QException & e) {
 		CUTEHMI_CRITICAL(e.what());
 	} catch (const std::exception & e) {

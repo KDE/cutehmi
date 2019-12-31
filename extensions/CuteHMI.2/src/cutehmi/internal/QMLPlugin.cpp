@@ -1,8 +1,8 @@
 #include "QMLPlugin.hpp"
 
 #include <cutehmi/metadata.hpp>
-#include <cutehmi/Dialog.hpp>
-#include <cutehmi/Dialogist.hpp>
+#include <cutehmi/Message.hpp>
+#include <cutehmi/Messenger.hpp>
 #include <cutehmi/Notification.hpp>
 #include <cutehmi/Notifier.hpp>
 
@@ -11,8 +11,8 @@
 namespace CuteHMI {
 
 /**
- * @class CuteHMI::Dialog
- * Exposes cutehmi::Dialog to QML.
+ * @class CuteHMI::Message
+ * Exposes cutehmi::Message to QML.
  */
 
 /**
@@ -21,8 +21,8 @@ namespace CuteHMI {
  */
 
 /**
- * @class CuteHMI::Dialogist
- * Exposes cutehmi::Dialogist to QML.
+ * @class CuteHMI::Messenger
+ * Exposes cutehmi::Messenger to QML.
  */
 
 /**
@@ -44,19 +44,19 @@ void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI"));
 
-	qmlRegisterType<cutehmi::Dialog>(uri, CUTEHMI_MAJOR, 0, "Dialog");
+	qmlRegisterType<cutehmi::Message>(uri, CUTEHMI_MAJOR, 0, "Message");
 	qmlRegisterType<cutehmi::Notification>(uri, CUTEHMI_MAJOR, 0, "Notification");
-	qmlRegisterSingletonType<cutehmi::Dialogist>(uri, CUTEHMI_MAJOR, 0, "Dialogist", DialogistProvider);
+	qmlRegisterSingletonType<cutehmi::Messenger>(uri, CUTEHMI_MAJOR, 0, "Messenger", MessengerProvider);
 	qmlRegisterSingletonType<cutehmi::Notifier>(uri, CUTEHMI_MAJOR, 0, "Notifier", NotifierProvider);
 }
 
-QObject * QMLPlugin::DialogistProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
+QObject * QMLPlugin::MessengerProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
 {
 	Q_UNUSED(scriptEngine)
 
-	cutehmi::Dialogist * dialogist = & cutehmi::Dialogist::Instance();
-	engine->setObjectOwnership(dialogist, QQmlEngine::CppOwnership);
-	return dialogist;
+	cutehmi::Messenger * messenger = & cutehmi::Messenger::Instance();
+	engine->setObjectOwnership(messenger, QQmlEngine::CppOwnership);
+	return messenger;
 }
 
 QObject * QMLPlugin::NotifierProvider(QQmlEngine * engine, QJSEngine * scriptEngine)

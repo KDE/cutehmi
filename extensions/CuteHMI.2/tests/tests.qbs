@@ -4,18 +4,18 @@ import "Test.qbs" as Test
 
 Project {
 	Test {
-		testName: "test_Dialog"
+		testName: "test_Message"
 
 		files: [
-			"test_Dialog.cpp",
+			"test_Message.cpp",
 		]
 	}
 
 	Test {
-		testName: "test_Dialogist"
+		testName: "test_Messenger"
 
 		files: [
-			"test_Dialogist.cpp",
+			"test_Messenger.cpp",
 		]
 	}
 
@@ -84,7 +84,7 @@ Project {
 
 		files: [
 			"test_QML.cpp",
-			"tst_Dialogist.qml",
+			"tst_Messenger.qml",
 		]
 
 		Depends { name: "Qt.quick" }
