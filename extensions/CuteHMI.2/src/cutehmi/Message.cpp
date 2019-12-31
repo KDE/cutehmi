@@ -6,12 +6,6 @@
 
 namespace cutehmi {
 
-int Message::RegisterButtonMetaType() noexcept
-{
-	static const int Id = qRegisterMetaType<cutehmi::Message::Button>();
-	return Id;
-}
-
 std::unique_ptr<Message> Message::Info(const QString & text, Message::Buttons buttons)
 {
 	std::unique_ptr<Message> result(new Message(Message::INFO, text, buttons));
@@ -49,21 +43,18 @@ Message::Message(Type type, const QString & text, Buttons buttons, QObject * par
 	QObject(parent),
 	m(new Members{type, text, {}, {}, buttons, NO_BUTTON})
 {
-	RegisterButtonMetaType();
 }
 
 Message::Message(Type type, const QString & text, const QString & informativeText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, {}, buttons, NO_BUTTON})
 {
-	RegisterButtonMetaType();
 }
 
 Message::Message(Type type, const QString & text, const QString & informativeText, const QString & detailedText, Buttons buttons, QObject * parent):
 	QObject(parent),
 	m(new Members{type, text, informativeText, detailedText, buttons, NO_BUTTON})
 {
-	RegisterButtonMetaType();
 }
 
 Message::Type Message::type() const

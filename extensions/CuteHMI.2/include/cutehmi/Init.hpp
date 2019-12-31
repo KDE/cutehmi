@@ -13,6 +13,8 @@ namespace cutehmi {
  *
  * Classes registered as meta types:
  *	- ErrorInfo
+ *	- InplaceError
+ *	- Message::Button
  *  .
  *
  * Classes registered as meta types can be used in string-based, queued signal-slot connections and various functions that rely on

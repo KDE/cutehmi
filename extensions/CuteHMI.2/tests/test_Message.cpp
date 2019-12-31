@@ -33,7 +33,6 @@ class test_Message:
 
 void test_Message::initTestCase()
 {
-	qRegisterMetaType<cutehmi::Message::Button>();
 }
 
 void test_Message::properties()

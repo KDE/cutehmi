@@ -1,16 +1,18 @@
 #include <cutehmi/Init.hpp>
 #include <cutehmi/ErrorInfo.hpp>
 #include <cutehmi/InplaceError.hpp>
+#include <cutehmi/Message.hpp>
 
 namespace cutehmi {
 
 Init::Init():
 	Initializer<Init>(
-		[]() {
-			qRegisterMetaType<cutehmi::ErrorInfo>();
-			qRegisterMetaType<cutehmi::InplaceError>();
-		}
-	)
+			[]() {
+	qRegisterMetaType<cutehmi::ErrorInfo>();
+	qRegisterMetaType<cutehmi::InplaceError>();
+	qRegisterMetaType<cutehmi::Message::Button>();
+}
+)
 {
 }
 

@@ -34,7 +34,6 @@ class AdvertiserMock:
 
 void test_Messenger::initTestCase()
 {
-	qRegisterMetaType<cutehmi::Message::Button>();
 }
 
 void test_Messenger::noAdvertiser()

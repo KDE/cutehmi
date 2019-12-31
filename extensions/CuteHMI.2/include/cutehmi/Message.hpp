@@ -38,7 +38,9 @@ class CUTEHMI_API Message:
 		Q_ENUM(Type)
 
 		/**
-		 * %Dialog button. Button is registered as meta type by Message constructors.
+		 * %Dialog button.
+		 *
+		 * @remark This enum is registered as metatype by Init instance.
 		 */
 		enum Button : qint32 {
 			BUTTON_OK = 0x00000400,
@@ -64,12 +66,6 @@ class CUTEHMI_API Message:
 		Q_DECLARE_FLAGS(Buttons, Button)
 		Q_FLAG(Buttons)
 		Q_ENUM(Button)
-
-		/**
-		 * Register Button as meta type and return its metatype type id. This method is called by Message constructors.
-		 * @return meta type id of Button.
-		 */
-		static int RegisterButtonMetaType() noexcept;
 
 		/**
 		 * Notice message. Convenient function that creates informative dialog and advertises it through Messenger instance.
@@ -270,6 +266,7 @@ class CUTEHMI_API Message:
 }
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(cutehmi::Message::Buttons)
+Q_DECLARE_METATYPE(cutehmi::Message::Button)	// Must use this macro despite using Q_ENUM to register metatype inside Init.
 
 #endif
 
