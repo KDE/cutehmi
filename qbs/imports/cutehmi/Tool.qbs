@@ -14,7 +14,9 @@ CommonProduct {
 
 	condition: project.buildTools
 
-	baseName: name
+	baseName: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? name : name.substring(0, name.lastIndexOf(".", name.length - 1))
+
+	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
 	Depends { name: "cpp" }
 	Properties {

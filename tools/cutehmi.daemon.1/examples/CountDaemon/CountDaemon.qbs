@@ -2,42 +2,26 @@ import qbs
 
 import cutehmi
 
-Project {
-	name: "CuteHMI.Examples.SimpleView.0"
+cutehmi.Example {
+	name: "CountDaemon"
 
-	cutehmi.Extension {
-		name: parent.name
+	vendor: "CuteHMI"
 
-		minor: 0
+	friendlyName: "Counting Daemon"
 
-		micro: 0
+	description: "Daemon demonstration with counter."
 
-		vendor: "CuteHMI"
+	author: "Michal Policht"
 
-		domain: "cutehmi.kde.org"
+	copyright: "Michal Policht"
 
-		friendlyName: "Simple View"
+	license: "GNU Lesser General Public License, v. 3.0"
 
-		description: "Simple QML project demonstrating how to provide visual indication of device operational status with CuteHMI.Element component."
+	files: [
+        "Main.qml",
+    ]
 
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
-
-		files: [
-         "LICENSE",
-         "RectangularElement.qml",
-         "Main.qml",
-     ]
-
-		Depends { name: "cutehmi.qmldir" }
-
-		Depends { name: "cutehmi.qmltypes" }
-
-		Depends { name: "cutehmi.view.2" }
-	}
+	Depends { name: "cutehmi.daemon.1" }
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

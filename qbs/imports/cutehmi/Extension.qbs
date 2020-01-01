@@ -29,9 +29,9 @@ CommonProduct {
 
 	Depends { name: "cutehmi.dirs" }
 
-	//<cutehmi_qmlplugindump-1.workaround target="Qt" cause="missing">
-	Depends { name: "cutehmi_qmlplugindump"; required: false }
-	//</cutehmi_qmlplugindump-1.workaround>
+	//<cutehmi.qmlplugindump.0-1.workaround target="Qt" cause="missing">
+	Depends { name: "cutehmi.qmlplugindump.0"; required: false }
+	//</cutehmi.qmlplugindump.0-1.workaround>
 
 	Depends { name: "cutehmi.conventions" }
 

@@ -61,7 +61,7 @@ Project {
 
 		Depends { name: "cutehmi.qmltypes" }
 
-		Depends { name: "cutehmi_view" }
+		Depends { name: "cutehmi.view.2" }
 
 		Depends { name: "CuteHMI.Modbus.2" }
 	}

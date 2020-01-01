@@ -1,44 +1,23 @@
-import qbs
+#ifndef H_TOOLS_CUTEHMI_u_VIEW_SRC_CUTEHMI_VIEW_LOGGING_HPP
+#define H_TOOLS_CUTEHMI_u_VIEW_SRC_CUTEHMI_VIEW_LOGGING_HPP
 
-import cutehmi
+#include <cutehmi/loggingMacros.hpp>
 
-Project {
-	name: "CuteHMI.Examples.SimpleView.0"
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_view_2_loggingCategory)
 
-	cutehmi.Extension {
-		name: parent.name
+namespace cutehmi {
+namespace view {
 
-		minor: 0
-
-		micro: 0
-
-		vendor: "CuteHMI"
-
-		domain: "cutehmi.kde.org"
-
-		friendlyName: "Simple View"
-
-		description: "Simple QML project demonstrating how to provide visual indication of device operational status with CuteHMI.Element component."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
-
-		files: [
-         "LICENSE",
-         "RectangularElement.qml",
-         "Main.qml",
-     ]
-
-		Depends { name: "cutehmi.qmldir" }
-
-		Depends { name: "cutehmi.qmltypes" }
-
-		Depends { name: "cutehmi.view.2" }
-	}
+inline
+const QLoggingCategory & loggingCategory()
+{
+	return cutehmi_view_2_loggingCategory();
 }
+
+}
+}
+
+#endif
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
