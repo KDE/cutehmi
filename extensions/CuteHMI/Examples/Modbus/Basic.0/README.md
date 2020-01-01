@@ -40,7 +40,7 @@ side.
 This may look suspicious on a localhost, but the whole communication is done over TCP/IP protocol.
 
 Now let's introduce cutehmi::modbus::CoilController. Controllers typically are a better mean of control as they allow for property
-bidning.
+binding.
 
 \snippet Main.qml Coil controller
 
