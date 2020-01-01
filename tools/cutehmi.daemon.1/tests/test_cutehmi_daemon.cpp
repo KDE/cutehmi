@@ -32,9 +32,9 @@ void test_cutehmi_daemon::initTestCase()
 	if (!toolInstallSubdir.isEmpty())
 	    m_installDir += "/" + toolInstallSubdir;
 
-	m_programPath = m_installDir + "/cutehmi_daemon";
+	m_programPath = m_installDir + "/cutehmi.daemon.1";
 #ifndef CUTEHMI_NDEBUG
-	m_programPath += "_debug";
+	m_programPath += ".debug";
 #endif
 }
 
@@ -77,7 +77,7 @@ void test_cutehmi_daemon::versionOption()
 void test_cutehmi_daemon::countDaemonExample()
 {
 	QProcess process;
-	QStringList arguments { {"--app"}, {"--project=examples/cutehmi_daemon/CountDaemon/Main.qml"} };
+	QStringList arguments { {"--app"}, {"--project=examples/cutehmi.daemon.1/CountDaemon/Main.qml"} };
 	process.start(m_programPath, arguments);
 	QVERIFY(process.waitForFinished());
 
