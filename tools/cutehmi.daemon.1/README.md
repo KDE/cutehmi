@@ -10,7 +10,7 @@ For example to run *CountDaemon* example use following command.
 ```
 cutehmi.daemon.1 --project="examples/cutehmi.daemon.1/CountDaemon/Main.qml"
 ```
-Fore debug builds use `cutehmi.daemon.1_debug` instead of `cutehmi.daemon.1`. Read system logs to investigate whether daemon is running
+Fore debug builds use `cutehmi.daemon.1.debug` instead of `cutehmi.daemon.1`. Read system logs to investigate whether daemon is running
 (e.g. `journalctl -n20` on a system with *systemd*).
 
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).

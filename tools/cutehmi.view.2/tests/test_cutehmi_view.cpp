@@ -32,7 +32,7 @@ void test_cutehmi_view::initTestCase()
 
 	m_programPath = m_installDir + "/cutehmi.view.2";
 #ifndef CUTEHMI_NDEBUG
-	m_programPath += "_debug";
+	m_programPath += ".debug";
 #endif
 }
 

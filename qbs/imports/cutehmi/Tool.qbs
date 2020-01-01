@@ -10,7 +10,7 @@ CommonProduct {
 
 	cutehmiType: "tool"
 
-	targetName: qbs.buildVariant.contains("debug") ? name + "_debug" : name
+	targetName: qbs.buildVariant.contains("debug") ? name + ".debug" : name
 
 	condition: project.buildTools
 

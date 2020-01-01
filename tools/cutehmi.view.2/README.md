@@ -12,7 +12,7 @@ To run project from QtCreator click `Projects` -> `Run`. Select `cutehmi.view.2`
 The window should look similar to the screenshot below.
 ![SimpleView screenshot](doc/SimpleView.png)
 
-For debug builds use `cutehmi.view.2_debug` instead of `cutehmi.view.2`.
+For debug builds use `cutehmi.view.2.debug` instead of `cutehmi.view.2`.
 
 Default loader picks `Main.qml` as default QML component to load. Component can be specified with `--component` option. One can also
 use `--init` option to replace default loader with custom one.
