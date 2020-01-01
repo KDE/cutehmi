@@ -87,6 +87,7 @@ Module {
 					'JAVADOC_AUTOBRIEF': true,
 					'EXTRACT_ALL': true,
 					'INPUT': '.',
+					'EXAMPLE_PATH': '.',
 					'RECURSIVE': true,
 					'USE_MDFILE_AS_MAINPAGE': 'README.md',
 					'GENERATE_LATEX': false,
