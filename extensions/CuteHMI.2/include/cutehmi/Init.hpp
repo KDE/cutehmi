@@ -6,7 +6,7 @@
 namespace cutehmi {
 
 /**
- * Init. This class performs initialization of CuteHMI extension.
+ * %Init. This class performs initialization of CuteHMI extension.
  *
  * Normally it is not advisable to create custom instances of this class as extension provides an instance on its own. This can be
  * invalidated particulary by static builds in which case a global variable may not get into resulting binary.

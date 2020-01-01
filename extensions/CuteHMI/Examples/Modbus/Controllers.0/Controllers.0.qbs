@@ -27,16 +27,19 @@ Project {
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
-         "CoilControl.qml",
-         "DeviceControl.qml",
-         "DeviceLoader.qml",
-         "DummyClientConfiguration.qml",
-         "HoldingRegisterControl.qml",
-         "LICENSE",
-         "Main.qml",
-         "README.md",
-         "ServiceControl.qml",
-     ]
+			"CoilControl.qml",
+			"DeviceControl.qml",
+			"DeviceLoader.qml",
+			"DummyClientConfiguration.qml",
+			"HoldingRegisterControl.qml",
+			"LICENSE",
+			"Main.qml",
+			"README.md",
+			"ServiceControl.qml",
+		]
+
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.useDoxyqml: true
 
 		Depends { name: "cutehmi.qmldir" }
 

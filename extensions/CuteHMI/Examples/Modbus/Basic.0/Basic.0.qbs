@@ -27,10 +27,13 @@ Project {
 		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
-         "LICENSE",
-         "Main.qml",
-         "README.md",
-     ]
+			"LICENSE",
+			"Main.qml",
+			"README.md",
+		]
+
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.useDoxyqml: true
 
 		Depends { name: "cutehmi.qmldir" }
 

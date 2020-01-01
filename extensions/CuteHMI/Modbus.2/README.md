@@ -58,9 +58,23 @@ Register items are convenient components, which are composed of a controller and
 useful in "Design" mode. For each register controller there is corresponding register item, that is: CuteHMI::Modbus::CoilItem,
 CuteHMI::Modbus::DiscreteInputItem, CuteHMI::Modbus::HoldingRegisterItem and CuteHMI::Modbus::InputRegisterItem.
 
-Relationship between extension classes is conceptually shown on the following quasi-UML diagram.
+## Relationship between classes
+
+Structural relationship between extension classes is conceptually shown on the following quasi-UML diagram.
 
 ![Relationship between extension classes](doc/quasi_uml.svg)
 
 [National Instruments - The Modbus Protocol In-Depth]: https://www.ni.com/pl-pl/innovations/white-papers/14/the-modbus-protocol-in-depth.html
 [Acromag - Introdution To Modbus TCP/IP]: https://www.prosoft-technology.com/kb/assets/intro_modbustcp.pdf
+
+## Examples
+
+The extension is supplemented by following examples.
+
+- [CuteHMI.Examples.Modbus.Basic.0](../Examples/Modbus/Basic.0/)
+- [CuteHMI.Examples.Modbus.ClientServer.0](../Examples/Modbus/ClientServer.0/)
+- [CuteHMI.Examples.Modbus.Controllers.0](../Examples/Modbus/Controllers.0/)
+- [CuteHMI.Examples.Modbus.Requests.0](../Examples/Modbus/Requests.0/)
+
+The one to get started with is [CuteHMI.Examples.Modbus.Basic.0](../Examples/Modbus/Basic.0/). This example shows basic usage of QML
+components. The other examples are provided to demonstrate more advanced features.

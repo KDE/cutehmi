@@ -6,8 +6,9 @@ import CuteHMI.Modbus 2.0
 import "RegisterItem.js" as Private
 
 /**
-  Input register item. This item is provided as a supplement to InputRegisterController and it is intended to be used in Qt Creator
-  "Design" mode.
+  Input register item.
+
+  This item is provided as a supplement to InputRegisterController and it is intended to be used in Qt Creator "Design" mode.
   */
 Item
 {

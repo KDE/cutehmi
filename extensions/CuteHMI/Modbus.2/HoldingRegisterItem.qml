@@ -7,8 +7,9 @@ import CuteHMI.Modbus 2.0
 import "RegisterItem.js" as Private
 
 /**
-  Holding register item. This item is provided as a supplement to HoldingRegisterController and it is intended to be used in Qt
-  Creator "Design" mode.
+  Holding register item.
+
+  This item is provided as a supplement to HoldingRegisterController and it is intended to be used in Qt Creator "Design" mode.
   */
 Item
 {

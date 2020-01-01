@@ -41,6 +41,9 @@ Project {
          "TCPServerConfiguration.qml",
      ]
 
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.useDoxyqml: true
+
 		Depends { name: "cutehmi.qmldir" }
 
 		Depends { name: "cutehmi.qmltypes" }
