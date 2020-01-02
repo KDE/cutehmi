@@ -133,7 +133,7 @@ doc: | $(MAKE)
 
 doc_doxygen: | $(FIND) $(SED) $(DOXYGEN)
 		@echo Doxygen path: "$(DOXYGEN)"
-		@echo Doxygen version: $(shell $(DOXYGEN) -v)
+		@echo Doxygen version: "$(shell $(DOXYGEN) -v)"
 		@$(FIND) $(DOXYGEN_INPUT_DIRS) \
 		\( -name 'Doxyfile' -o -name '*.Doxyfile' \) \
 		-execdir $(DOXYGEN) {} \;
