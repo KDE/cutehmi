@@ -1,5 +1,5 @@
-#ifndef H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
-#define H_TOOLS_CUTEHMI_u_DAEMON_SRC_CUTEHMI_DAEMON_DAEMON_HPP
+#ifndef H_TOOLS_CUTEHMI_DAEMON_1_SRC_CUTEHMI_DAEMON_DAEMON_HPP
+#define H_TOOLS_CUTEHMI_DAEMON_1_SRC_CUTEHMI_DAEMON_DAEMON_HPP
 
 #include "CoreData.hpp"
 
@@ -46,7 +46,7 @@ class Daemon final
 
 #endif
 
-//(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
