@@ -1,7 +1,7 @@
 Problem:
 
 QModbusDataUnit::dataWritten() signal accepts `int` type as its `size` parameter,
-whilQModbusDataUnit::valueCount() uses `uint` as return type. As such it is
+while QModbusDataUnit::valueCount() uses `uint` as return type. As such it is
 incompatible with `size` parameter, which might not be able to represent all
 returned values.
 
