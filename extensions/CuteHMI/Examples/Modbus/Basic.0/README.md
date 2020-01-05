@@ -14,7 +14,7 @@ First thing to notice are %CuteHMI imports.
 
 \snippet Main.qml Import statements
 
-Example uses [CuteHMI.Modbus.2](../../../Modbus.2) and [CuteHMI.Services.2](../../../Services.2) extension.
+Example uses [CuteHMI.Modbus.2](../../../Modbus.2) and [CuteHMI.Services.2](../../../Services.2) extensions.
 
 Next thing to notice is a configuration of a Modbus server. The server is given an IP address, a port and a slave address.
 
@@ -49,7 +49,7 @@ binding.
 
 \snippet Main.qml Coil controller
 
-We assing a device using \a id of of the client. We also set up the same address as used by buttons. We use `onValueChanged` signal
+We assign a device using \a id of of the client. We also set up the same address as used by buttons. We use `onValueChanged` signal
 handler to update value of a corresponding switch once the value in the controller changes. The switch itself updates the value of
 a controller once the user changes its value.
 
