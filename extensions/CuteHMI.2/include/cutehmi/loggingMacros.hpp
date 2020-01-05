@@ -6,10 +6,12 @@
 /**
  * @defgroup cutehmi-loggingMacros Logging macros
  *
- * Logging macros. Convenient macros to log messages with Qt logging categories. These macros can be used by other modules
- * providing that they implement loggingCategory() function in their own namespace. This function should return QLoggingCategory
- * object, which is declared and defined with Q_DECLARE_LOGGING_CATEGORY and Q_LOGGING_CATEGORY macros, as described in Qt
- * documentation. Macros are corresponding to Qt debug streams.
+ * Logging macros.
+ *
+ * Convenient macros to log messages with Qt logging categories. These macros can be used by other modules providing that they
+ * implement loggingCategory() function in their own namespace. This function should return QLoggingCategory object, which is
+ * declared and defined with Q_DECLARE_LOGGING_CATEGORY and Q_LOGGING_CATEGORY macros, as described in Qt documentation. Macros are
+ * corresponding to Qt debug streams.
  *	- CUTEHMI_DEBUG - debug message (qCDebug()).
  *	- CUTEHMI_INFO - informative message (qCInfo()).
  *	- CUTEHMI_WARNING - informative message (qCWarning()).
