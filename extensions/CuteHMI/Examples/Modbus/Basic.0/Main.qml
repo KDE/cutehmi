@@ -3,8 +3,10 @@ import QtQuick 2.11
 import QtQuick.Controls 2.1
 import QtQuick.Extras 1.4
 
+//! [Import statements]
 import CuteHMI.Modbus 2.0
 import CuteHMI.Services 2.0
+//! [Import statements]
 
 /**
   %Main component.
@@ -68,7 +70,7 @@ Item {
 			//! [Server reset coil button]
 			Button {
 				text: "Server reset coil"
-				onClicked: client.requestWriteCoil(10, false)
+				onClicked: server.requestWriteCoil(10, false)
 			}
 			//! [Server reset coil button]
 
@@ -110,7 +112,7 @@ Item {
 
 			Button {
 				text: "Server reset holding register"
-				onClicked: client.requestWriteHoldingRegister(10, 0)
+				onClicked: server.requestWriteHoldingRegister(10, 0)
 			}
 
 			SpinBox {
