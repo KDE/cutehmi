@@ -86,7 +86,6 @@ Module {
 				var outputDir = product.cutehmi.doxygen.docDir +  '/' + FileInfo.relativePath(project.sourceDirectory, product.sourceDirectory) // Absolute.
 				var doxygenOptions = {
 					'PROJECT_NAME': product.vendor + ' - ' + product.friendlyName + ' (' + product.name + ')',
-					'PROJECT_NUMBER': product.major + '.' + product.minor + '.' + product.micro,
 					'PROJECT_LOGO': 'doc/project_logo.png',
 					'OUTPUT_DIRECTORY': FileInfo.relativePath(product.sourceDirectory, outputDir),
 					'HTML_OUTPUT': '.',
