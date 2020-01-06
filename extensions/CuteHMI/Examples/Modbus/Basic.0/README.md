@@ -1,6 +1,6 @@
 # Basic Modbus Example
 
-Baisc Modbus example. Example demonstrates basic usage of QML components provided by [CuteHMI.Modbus.2](../../../Modbus.2)
+Baisc Modbus example. Example demonstrates basic usage of QML components provided by [CuteHMI.Modbus.2](../../../Modbus.2/)
 extension.
 
 To run the example use [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
@@ -14,7 +14,7 @@ First thing to notice are %CuteHMI imports.
 
 \snippet Main.qml Import statements
 
-Example uses [CuteHMI.Modbus.2](../../../Modbus.2) and [CuteHMI.Services.2](../../../Services.2) extensions.
+Example uses [CuteHMI.Modbus.2](../../../Modbus.2/) and [CuteHMI.Services.2](../../../Services.2/) extensions.
 
 Next thing to notice is a configuration of a Modbus server. The server is given an IP address, a port and a slave address.
 
