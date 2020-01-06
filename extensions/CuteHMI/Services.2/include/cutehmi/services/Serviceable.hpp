@@ -20,8 +20,11 @@ namespace services {
  * @image html doc/standard_states.png "State interface"
  * @image latex doc/standard_states.png "State interface"
  *
- * By adding custom states to the existing ones, implementing object can customize operations performed in each state according to
- * its needs.
+ * Implementing object can utilize the state machine according to its needs by:
+ *		- defining when standard transitions take place (and likely trigger them)
+ *		- adding custom states to the standard ones
+ *		- connecting slots to QState signals (custom or standard ones)
+ *		.
  */
 class CUTEHMI_SERVICES_API Serviceable
 {
