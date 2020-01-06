@@ -67,14 +67,20 @@ Structural relationship between extension classes is conceptually shown on the f
 [National Instruments - The Modbus Protocol In-Depth]: https://www.ni.com/pl-pl/innovations/white-papers/14/the-modbus-protocol-in-depth.html
 [Acromag - Introdution To Modbus TCP/IP]: https://www.prosoft-technology.com/kb/assets/intro_modbustcp.pdf
 
+## QML components
+
+Classes exposed as QML components are listed within CuteHMI::Modbus namespace.
+
 ## Examples
 
 The extension is supplemented by following examples.
 
 - [CuteHMI.Examples.Modbus.Basic.0](../Examples/Modbus/Basic.0/)
 - [CuteHMI.Examples.Modbus.ClientServer.0](../Examples/Modbus/ClientServer.0/)
+- [CuteHMI.Examples.Modbus.ControllerItems.0](../Examples/Modbus/ControllerItems.0/)
 - [CuteHMI.Examples.Modbus.Controllers.0](../Examples/Modbus/Controllers.0/)
 - [CuteHMI.Examples.Modbus.Requests.0](../Examples/Modbus/Requests.0/)
 
 The one to get started with is [CuteHMI.Examples.Modbus.Basic.0](../Examples/Modbus/Basic.0/). This example shows basic usage of QML
-components. The other examples are provided to demonstrate more advanced features.
+components. Another simple example [CuteHMI.Examples.Modbus.ControllerItems.0](../Examples/Modbus/ControllerItems.0/) is provided to
+work with Qt Creator in "Design" mode. The other examples are provided to demonstrate more advanced features.
