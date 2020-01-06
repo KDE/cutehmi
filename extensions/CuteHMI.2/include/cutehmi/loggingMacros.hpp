@@ -6,10 +6,12 @@
 /**
  * @defgroup cutehmi-loggingMacros Logging macros
  *
- * Logging macros. Convenient macros to log messages with Qt logging categories. These macros can be used by other modules
- * providing that they implement loggingCategory() function in their own namespace. This function should return QLoggingCategory
- * object, which is declared and defined with Q_DECLARE_LOGGING_CATEGORY and Q_LOGGING_CATEGORY macros, as described in Qt
- * documentation. Macros are corresponding to Qt debug streams.
+ * Logging macros.
+ *
+ * Convenient macros to log messages with Qt logging categories. These macros can be used by other modules providing that they
+ * implement loggingCategory() function in their own namespace. This function should return QLoggingCategory object, which is
+ * declared and defined with Q_DECLARE_LOGGING_CATEGORY and Q_LOGGING_CATEGORY macros, as described in Qt documentation. Macros are
+ * corresponding to Qt debug streams.
  *	- CUTEHMI_DEBUG - debug message (qCDebug()).
  *	- CUTEHMI_INFO - informative message (qCInfo()).
  *	- CUTEHMI_WARNING - informative message (qCWarning()).
@@ -89,7 +91,7 @@
 
 #endif
 
-//(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
