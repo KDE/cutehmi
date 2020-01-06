@@ -6,9 +6,15 @@ The purpose of this example is to demonstrate the use of controller items, which
 Read a documentation on [Using Qt Creator in Design mode](using-qt-creator-in-design-mode.md) to see how to set up environment for
 this example.
 
-In this example component \ref Screen.ui.qml is intended to be edited in "Design" mode.
+In this example component \ref Screen.ui.qml is intended to be edited in "Design" mode. This should look similar to the screenshot
+below.
 
-The example can be also run with [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
+![Design mode](doc/design_mode.png)
+
+As one can observe CuteHMI::Modbus::CoilItem and CuteHMI::Modbus::HoldingRegisterItem are created as child items of respective Qt
+Quick controls, which they use as their delegates. Binding is established between controller and specified delegate property.
+
+The example can be run with [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
 ```
 cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.ControllerItems.0"
 ```
