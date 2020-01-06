@@ -20,5 +20,7 @@ USE_MDFILE_AS_MAINPAGE = ./README.md
 
 HTML_EXTRA_STYLESHEET  = ../doc/CSS/extra.css
 
+GENERATE_TAGFILE = "doxygen.tag"
+
 # </Doxygen-2.workaround>
 
