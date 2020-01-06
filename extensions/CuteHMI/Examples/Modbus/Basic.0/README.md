@@ -59,8 +59,8 @@ Value of the coil can be binded to other properties as it is done with `active` 
 
 \snippet Main.qml Status indicator binding
 
-The same procedure is repeated for a holding register, of course using different set of controls adequate to holding register 16 bit
-integer capacity.
+The same procedure is repeated for a holding register, of course using different set of controls - adequate to holding register 16
+bit integer capacity.
 
 \snippet Main.qml Holding register controls
 
