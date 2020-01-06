@@ -7,8 +7,8 @@ specify an extension. To run 'Simple View' example use following command.
 ```
 cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"
 ```
-To run project from QtCreator click `Projects` -> `Run`. Select `cutehmi.view.2` from `Run configuration:`. In the
-`Command line arguments:` box type: `cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"`.
+To run project from QtCreator click `Projects` -> `Run`. Select `cutehmi.view.2` from `Run configuration`. In the
+`Command line arguments` box type: `cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"`.
 The window should look similar to the screenshot below.
 ![SimpleView screenshot](doc/SimpleView.png)
 
