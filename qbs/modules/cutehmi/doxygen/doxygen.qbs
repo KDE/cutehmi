@@ -64,6 +64,14 @@ Module {
 	  */
 	property var tags: ({})
 
+	/**
+	  Tagged project directories. This array contains a list of project directories containing 'doxygen.tag' files. Directories
+	  should be specified with absolute paths.
+	  */
+	property var taggedDirectories: [
+		project.sourceDirectory + "/doc"
+	]
+
 	Depends { name: "cutehmi.conventions" }
 
 	Rule {
@@ -167,6 +175,15 @@ Module {
 							var htmlLoc = FileInfo.relativePath(outputDir, dependencyOutputDir)
 							f.writeLine('TAGFILES += ' + '"' +  tagLoc + ' = ' + htmlLoc + '"')
 						}
+					}
+
+					// Append '.tags' from tagged project directories.
+					for (i in product.cutehmi.doxygen.taggedDirectories) {
+						var directory = product.cutehmi.doxygen.taggedDirectories[i]
+						var directoryOutputDir = product.cutehmi.doxygen.docDir + '/' + FileInfo.relativePath(project.sourceDirectory, directory) // Absolute.
+						var tagLoc = FileInfo.relativePath(product.sourceDirectory, directory) + '/doxygen.tag'
+						var htmlLoc = FileInfo.relativePath(outputDir, directoryOutputDir)
+						f.writeLine('TAGFILES += ' + '"' +  tagLoc + ' = ' + htmlLoc + '"')
 					}
 				} finally {
 					f.close()
