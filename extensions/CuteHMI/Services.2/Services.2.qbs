@@ -62,7 +62,7 @@ Project {
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
-		cutehmi.doxygen.exclude: ['tests']
+		cutehmi.doxygen.exclude: ['dev', 'tests']
 
 		Depends { name: "cutehmi.init" }
 

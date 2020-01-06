@@ -65,7 +65,7 @@ Project {
 		Depends { name: "CuteHMI.2" }
 
 		Depends { name: "cutehmi.doxygen" }
-		cutehmi.doxygen.exclude: ['tests', 'examples']
+		cutehmi.doxygen.exclude: ['dev', 'examples', 'tests']
 
 		Depends { name: "cutehmi.metadata" }
 	}
