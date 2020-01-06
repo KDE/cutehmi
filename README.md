@@ -64,8 +64,8 @@ option to force Qbs to not use cached results.
 ## Examples
 
 Refer to documentation of each individual
-[tool](https://cutehmi.kde.org/docs/tools_list.html) on how to run some basic
-examples.
+[tool](https://cutehmi.kde.org/docs/master/tools_list.html) on how to run some
+basic examples.
 
 
 ## Internals
