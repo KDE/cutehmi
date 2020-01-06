@@ -12,6 +12,82 @@
 
 #include <QtQml>
 
+namespace CuteHMI {
+namespace Modbus {
+
+/**
+ * @class CuteHMI::Modbus::AbstractRegisterController
+ * Exposes cutehmi::modbus::AbstractRegisterController to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::Register16Controller
+ * Exposes cutehmi::modbus::Register16Controller to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::CoilController
+ * Exposes cutehmi::modbus::CoilController to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::HoldingRegisterController
+ * Exposes cutehmi::modbus::HoldingRegisterController to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::DiscreteInputController
+ * Exposes cutehmi::modbus::DiscreteInputController to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::InputRegisterController
+ * Exposes cutehmi::modbus::InputRegisterController to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::AbstractDevice
+ * Exposes cutehmi::modbus::AbstractDevice to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::AbstractClient
+ * Exposes cutehmi::modbus::AbstractClient to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::AbstractServer
+ * Exposes cutehmi::modbus::AbstractServer to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::DummyClient
+ * Exposes cutehmi::modbus::DummyClient to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::TCPClient
+ * Exposes cutehmi::modbus::TCPClient to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::TCPServer
+ * Exposes cutehmi::modbus::TCPServer to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::RTUClient
+ * Exposes cutehmi::modbus::RTUClient to QML.
+ */
+
+/**
+ * @class CuteHMI::Modbus::RTUServer
+ * Exposes cutehmi::modbus::RTUServer to QML.
+ */
+
+}
+}
+
 namespace cutehmi {
 namespace modbus {
 namespace internal {
@@ -22,6 +98,7 @@ void QMLPlugin::registerTypes(const char * uri)
 
 	qmlRegisterUncreatableType<cutehmi::modbus::AbstractRegisterController>(uri, CUTEHMI_MODBUS_MAJOR, 0, "AbstractRegisterController", "Class 'cutehmi::modbus::AbstractRegisterController' is abstract and it can not be instantiated from QML.");
 	qmlRegisterUncreatableType<cutehmi::modbus::Register16Controller>(uri, CUTEHMI_MODBUS_MAJOR, 0, "Register16Controller", "Class 'cutehmi::modbus::Register16Controller' is abstract and it can not be instantiated from QML.");
+	qmlRegisterUncreatableType<cutehmi::modbus::Register1Controller>(uri, CUTEHMI_MODBUS_MAJOR, 0, "Register1Controller", "Class 'cutehmi::modbus::Register1Controller' is abstract and it can not be instantiated from QML.");
 	qmlRegisterType<cutehmi::modbus::CoilController>(uri, CUTEHMI_MODBUS_MAJOR, 0, "CoilController");
 	qmlRegisterType<cutehmi::modbus::HoldingRegisterController>(uri, CUTEHMI_MODBUS_MAJOR, 0, "HoldingRegisterController");
 	qmlRegisterType<cutehmi::modbus::DiscreteInputController>(uri, CUTEHMI_MODBUS_MAJOR, 0, "DiscreteInputController");
