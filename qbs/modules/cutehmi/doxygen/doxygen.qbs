@@ -127,7 +127,10 @@ Module {
 					'EXTENSION_MAPPING' : product.cutehmi.doxygen.useDoxyqml ? ['qml=C++'] : undefined,
 					'EXCLUDE': product.cutehmi.doxygen.exclude,
 					'CASE_SENSE_NAMES': false,
-					'IMAGE_PATH': 'doc'
+					'IMAGE_PATH': 'doc',
+					'HIDE_IN_BODY_DOCS': true,
+					'FULL_PATH_NAMES': true,
+					'STRIP_FROM_INC_PATH': "include"
 				}
 				// Merge doxygenOptions with product.cutehmi.doxygen.tags (Object.assign() is unfortunately not available in Qbs 1.12).
 				for (var option in product.cutehmi.doxygen.tags)
