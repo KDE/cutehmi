@@ -21,8 +21,6 @@ namespace modbus {
  * (server). Contrary to real client it can be forced to write to memory regions specified by Modbus protocol as read-only (discrete
  * inputs and input registers). This class is useful when prototyping and testing behavior of client application as it can also
  * emulate latency and it does not require running Modbus slave (server) to work with.
- *
- * @todo random failures (unsuccesful requests, broken connections etc).
  */
 class CUTEHMI_MODBUS_API DummyClient:
 	public AbstractClient
