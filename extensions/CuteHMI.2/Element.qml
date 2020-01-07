@@ -124,7 +124,7 @@ Item {
 		shade: Qt.lighter(palette.warning.shade)
 		foreground: Qt.lighter(palette.warning.foreground)
 		background: Qt.lighter(palette.warning.background)
-		stroke: palette.warning.stroke
+		stroke: Qt.lighter(palette.warning.stroke, 2.0)
 	}
 
 	ColorSet {
