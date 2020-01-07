@@ -8,30 +8,35 @@
 
 #include <QtQml>
 
+//<Doxygen-3.workaround target="Doxygen" cause="missing">
+#ifdef DOXYGEN_WORKAROUND
+
 namespace CuteHMI {
 
 /**
- * @class CuteHMI::Message
  * Exposes cutehmi::Message to QML.
  */
+class Message {};
 
 /**
- * @class CuteHMI::Notificatoin
  * Exposes cutehmi::Notification to QML.
  */
+class Notificatoin {};
 
 /**
- * @class CuteHMI::Messenger
  * Exposes cutehmi::Messenger to QML.
  */
+class Messenger {};
 
 /**
- * @class CuteHMI::Notifier
  * Exposes cutehmi::Notifier to QML.
  */
+class Notifier {};
 
 }
 
+#endif
+//</Doxygen-3.workaround>
 
 namespace cutehmi {
 namespace internal {

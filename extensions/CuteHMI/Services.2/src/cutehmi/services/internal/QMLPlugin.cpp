@@ -6,6 +6,34 @@
 
 #include <QtQml>
 
+//<Doxygen-3.workaround target="Doxygen" cause="missing">
+#ifdef DOXYGEN_WORKAROUND
+
+namespace CuteHMI {
+namespace Services {
+
+/**
+ * Exposes cutehmi::services::Service to QML.
+ */
+class Service {};
+
+/**
+ * Exposes cutehmi::services::PollingTimer to QML.
+ */
+class PollingTimer {};
+
+/**
+ * Exposes cutehmi::services::ServiceManager to QML.
+ */
+class ServiceManager {};
+
+}
+}
+
+#endif
+//</Doxygen-3.workaround>
+
+
 namespace cutehmi {
 namespace services {
 namespace internal {

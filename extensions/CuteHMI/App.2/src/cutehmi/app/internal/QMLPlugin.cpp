@@ -4,16 +4,22 @@
 
 #include <QtQml>
 
+//<Doxygen-3.workaround target="Doxygen" cause="missing">
+#ifdef DOXYGEN_WORKAROUND
+
 namespace CuteHMI {
 namespace App {
 
 /**
- * @class CuteHMI::App::CuteApp
  * Exposes cutehmi::app::CuteApp to QML.
  */
+class CuteApp {};
 
 }
 }
+
+#endif
+//</Doxygen-3.workaround>
 
 namespace cutehmi {
 namespace app {

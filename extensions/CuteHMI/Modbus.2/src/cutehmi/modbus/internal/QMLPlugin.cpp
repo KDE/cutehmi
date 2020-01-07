@@ -12,81 +12,87 @@
 
 #include <QtQml>
 
+//<Doxygen-3.workaround target="Doxygen" cause="missing">
+#ifdef DOXYGEN_WORKAROUND
+
 namespace CuteHMI {
 namespace Modbus {
 
 /**
- * @class CuteHMI::Modbus::AbstractRegisterController
  * Exposes cutehmi::modbus::AbstractRegisterController to QML.
  */
+class AbstractRegisterController {};
 
 /**
- * @class CuteHMI::Modbus::Register16Controller
  * Exposes cutehmi::modbus::Register16Controller to QML.
  */
+class Register16Controller {};
 
 /**
- * @class CuteHMI::Modbus::CoilController
  * Exposes cutehmi::modbus::CoilController to QML.
  */
+class CoilController {};
 
 /**
- * @class CuteHMI::Modbus::HoldingRegisterController
  * Exposes cutehmi::modbus::HoldingRegisterController to QML.
  */
+class HoldingRegisterController {};
 
 /**
- * @class CuteHMI::Modbus::DiscreteInputController
  * Exposes cutehmi::modbus::DiscreteInputController to QML.
  */
+class DiscreteInputController {};
 
 /**
- * @class CuteHMI::Modbus::InputRegisterController
  * Exposes cutehmi::modbus::InputRegisterController to QML.
  */
+class InputRegisterController {};
 
 /**
- * @class CuteHMI::Modbus::AbstractDevice
  * Exposes cutehmi::modbus::AbstractDevice to QML.
  */
+class AbstractDevice {};
 
 /**
- * @class CuteHMI::Modbus::AbstractClient
  * Exposes cutehmi::modbus::AbstractClient to QML.
  */
+class AbstractClient {};
 
 /**
- * @class CuteHMI::Modbus::AbstractServer
  * Exposes cutehmi::modbus::AbstractServer to QML.
  */
+class AbstractServer {};
 
 /**
- * @class CuteHMI::Modbus::DummyClient
  * Exposes cutehmi::modbus::DummyClient to QML.
  */
+class DummyClient {};
 
 /**
- * @class CuteHMI::Modbus::TCPClient
  * Exposes cutehmi::modbus::TCPClient to QML.
  */
+class TCPClient {};
 
 /**
- * @class CuteHMI::Modbus::TCPServer
  * Exposes cutehmi::modbus::TCPServer to QML.
  */
+class TCPServer {};
 
 /**
- * @class CuteHMI::Modbus::RTUClient
  * Exposes cutehmi::modbus::RTUClient to QML.
  */
+class RTUClient {};
 
 /**
- * @class CuteHMI::Modbus::RTUServer
  * Exposes cutehmi::modbus::RTUServer to QML.
  */
+class RTUServer {};
 
 }
 }
+
+#endif
+//</Doxygen-3.workaround>
 
 namespace cutehmi {
 namespace modbus {
