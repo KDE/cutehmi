@@ -3,11 +3,11 @@
 The purpose of this example is to demonstrate the use of controller items, which are especially useful, when dealing with Qt Creator
 "Design" mode.
 
-Read a documentation on [Using Qt Creator in Design mode](using-qt-creator-in-design-mode.md) to see how to set up environment for
-this example.
+Read a documentation on \ref using-qt-creator-in-design-mode.md "Using Qt Creator in Design mode" to see how to set up environment
+for this example.
 
-In this example component \ref Screen.ui.qml is intended to be edited in "Design" mode. This should look similar to the screenshot
-below.
+In this example component \ref Screen.ui.qml "Screen" is intended to be edited in "Design" mode. This should look similar to the
+screenshot below.
 
 ![Design mode](doc/design_mode.png)
 
