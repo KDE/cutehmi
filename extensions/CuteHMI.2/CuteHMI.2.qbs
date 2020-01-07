@@ -38,6 +38,7 @@ Project {
          "NumberDisplay.qml",
          "Palette.qml",
          "PropItem.qml",
+         "Theme.qml",
          "include/cutehmi/Init.hpp",
          "include/cutehmi/Initializer.hpp",
          "include/cutehmi/InplaceError.hpp",

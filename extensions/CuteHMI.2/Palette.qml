@@ -10,74 +10,47 @@ import QtQuick 2.0
 QtObject
 {
 	/**
+	  Default theme.
+	  */
+	readonly property Theme defaultTheme: Theme {}
+
+	/**
+	  Current theme
+	  */
+	property Theme theme: defaultTheme
+
+	/**
 	  Background color.
 	  */
-	property color background: "white"
+	property color background: theme.background
 
 	/**
 	  Alarm color set.
 	  */
-	property ColorSet alarm: ColorSet {
-		base: "#FF3300"
-		fill: base
-		tint: "#FF4B1D"
-		shade: Qt.darker(base)
-		foreground: "black"
-		background: tint
-		stroke: "black"
-	}
+	property ColorSet alarm: theme.alarm
 
 	/**
 	  Warning color set.
 	  */
-	property ColorSet warning: ColorSet {
-		base: "#FF9933"
-		fill: base
-		tint: "#FFA64D"
-		shade: Qt.darker(base)
-		foreground: "black"
-		background: tint
-		stroke: "black"
-	}
+	property ColorSet warning: theme.warning
 
 	/**
 	  Active color set.
 	  */
-	property ColorSet active: ColorSet {
-		base: "#66CC33"
-		fill: base
-		tint: "#CCF4CC"
-		shade: Qt.darker(base)
-		foreground: "black"
-		background: tint
-		stroke: "black"
-	}
+	property ColorSet active: theme.active
 
 	/**
 	  Inactive color set.
 	  */
-	property ColorSet inactive: ColorSet {
-		base: "#CECECE"
-		fill: base
-		tint: "#E3E3E3"
-		shade: Qt.darker(base)
-		foreground: "black"
-		background: tint
-		stroke: "black"
-	}
+	property ColorSet inactive: theme.inactive
 
 	/**
 	  Neutral color set is for items that do not distinguish between active and inactive states.
 	  */
-	property ColorSet neutral: ColorSet {
-		base: "black"
-		fill: "white"
-		tint: Qt.lighter(base)
-		shade: Qt.darker(base)
-		foreground: "black"
-		background: "white"
-		stroke: "black"
-	}
+	property ColorSet neutral: theme.neutral
+
+	// Prevent warnings about accessing properties of null. This often happens with custom Themes as they are destroyed before Palette component.
+	onThemeChanged: if (theme === null) theme = defaultTheme
 }
 
 //(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.
