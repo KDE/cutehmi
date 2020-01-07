@@ -78,6 +78,7 @@ Element
 		width: contentItem.width + leftPadding + rightPadding
 		height: contentItem.height + topPadding + bottomPadding
 		color: backgroundColor
+		border.color: strokeColor
 		border.width: lineWidth
 		radius: height / 5
 	}
