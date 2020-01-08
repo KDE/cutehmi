@@ -43,9 +43,9 @@ registers and discrete inputs provide read-only access for clients. Holding regi
 byte, while byte is 1 bit wide for discrete inputs and coils (byte is smallest addressable unit of memory).
 
 While registers can be accessed with device classes, in most cases imperative function calls do not fit well into QML declarative
-syntax. Typically it is better to access a register from QML using one of the controller classes. There is one controller class for
-each of the Modbus register types: cutehmi::modbus::CoilController, cutehmi::modbus::DiscreteInputController,
-cutehmi::modbus::InputRegisterController and cutehmi::modbus::HoldingRegisterController, but they share most of the code, because
+syntax. Typically it is better to access a register from QML using one of the controller classes. There is one class registered as
+QML component for each of the Modbus register types: CuteHMI.Modbus.CoilController, CuteHMI.Modbus.DiscreteInputController,
+CuteHMI.Modbus.InputRegisterController and CuteHMI.Modbus.HoldingRegisterController, but they share most of the code, because
 there is not much of the difference between them.
 
 Controllers are better suited for accessing registers from QML, because they reveal various register aspects through a set of
@@ -55,8 +55,8 @@ translate the sequence of events in between into convenient signals. Their prope
 ## Register items
 
 Register items are convenient components, which are composed of a controller and visual indicator item. They are particularly
-useful in "Design" mode. For each register controller there is corresponding register item, that is: CuteHMI::Modbus::CoilItem,
-CuteHMI::Modbus::DiscreteInputItem, CuteHMI::Modbus::HoldingRegisterItem and CuteHMI::Modbus::InputRegisterItem.
+useful in "Design" mode. For each register controller there is corresponding register item, that is: CuteHMI.Modbus.CoilItem,
+CuteHMI.Modbus.DiscreteInputItem, CuteHMI.Modbus.HoldingRegisterItem and CuteHMI.Modbus.InputRegisterItem.
 
 ## Relationship between classes
 
@@ -69,7 +69,7 @@ Structural relationship between extension classes is conceptually shown on the f
 
 ## QML components
 
-Classes exposed as QML components are listed within CuteHMI::Modbus namespace.
+Classes exposed as QML components are listed within CuteHMI.Modbus namespace.
 
 ## Examples
 

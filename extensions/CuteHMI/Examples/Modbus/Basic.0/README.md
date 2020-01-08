@@ -10,7 +10,7 @@ cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.Basic.0"
 
 Let's make a quick tour over `Main.qml` file.
 
-First thing to notice are %CuteHMI imports.
+First thing to notice are CuteHMI imports.
 
 \snippet Main.qml Import statements
 
@@ -24,8 +24,8 @@ Similarly we configure Modbus client.
 
 \snippet Main.qml Configuring a client
 
-We want our server to be managed by cutehmi::services::ServiceManager, so that we don't need to worry about its connection status.
-This is simply done by embedding it inside cutehmi::services::Service component.
+We want our server to be managed by CuteHMI.Services.ServiceManager, so that we don't need to worry about its connection status.
+This is simply done by embedding it inside CuteHMI.Services.Service component.
 
 \snippet Main.qml Setting up server service
 
@@ -44,7 +44,7 @@ the whole communication is done over TCP/IP protocol. Now let's reset coil value
 
 \snippet Main.qml  Server reset coil button
 
-Now let's introduce cutehmi::modbus::CoilController. Controllers typically are a better mean of control as they allow for property
+Now let's introduce CuteHMI.Modbus.CoilController. Controllers typically are a better mean of control as they allow for property
 binding.
 
 \snippet Main.qml Coil controller
@@ -64,7 +64,7 @@ bit integer capacity.
 
 \snippet Main.qml Holding register controls
 
-Last, but not least. We start the services by calling cutehmi::services::ServiceManager::start() slot.
+Last, but not least. We start the services by calling CuteHMI.Services.ServiceManager.start() slot.
 
 \snippet Main.qml Start services
 

@@ -25,11 +25,11 @@ cutehmi::Initializer can be used to initialize extension.
 
 ## QML components
 
-CuteHMI::Palette and CuteHMI::ColorSet help provide consistent color codes accross projects.
+CuteHMI.Palette, CuteHMI.Theme and CuteHMI.ColorSet help provide consistent color codes accross projects.
 
-CuteHMI::Element component should be used to create color code aware items.
+CuteHMI.Element component should be used to create color code aware items.
 
-CuteHMI::NumberDisplay provides convenient display.
+CuteHMI.NumberDisplay provides convenient display.
 
 ## Frontend tools
 

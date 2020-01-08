@@ -16,22 +16,22 @@ namespace CuteHMI {
 /**
  * Exposes cutehmi::Message to QML.
  */
-class Message {};
+class Message: public cutehmi::Message {};
 
 /**
  * Exposes cutehmi::Notification to QML.
  */
-class Notificatoin {};
+class Notificatoin: public cutehmi::Notificatoin {};
 
 /**
  * Exposes cutehmi::Messenger to QML.
  */
-class Messenger {};
+class Messenger: public cutehmi::Messenger {};
 
 /**
  * Exposes cutehmi::Notifier to QML.
  */
-class Notifier {};
+class Notifier: public cutehmi::Notifier {};
 
 }
 

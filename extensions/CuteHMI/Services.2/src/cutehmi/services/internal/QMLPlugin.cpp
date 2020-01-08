@@ -15,17 +15,17 @@ namespace Services {
 /**
  * Exposes cutehmi::services::Service to QML.
  */
-class Service {};
+class Service: public cutehmi::services::Service {};
 
 /**
  * Exposes cutehmi::services::PollingTimer to QML.
  */
-class PollingTimer {};
+class PollingTimer: public cutehmi::services::PollingTimer {};
 
 /**
  * Exposes cutehmi::services::ServiceManager to QML.
  */
-class ServiceManager {};
+class ServiceManager: public cutehmi::services::ServiceManager {};
 
 }
 }

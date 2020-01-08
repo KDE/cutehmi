@@ -13,7 +13,7 @@ namespace App {
 /**
  * Exposes cutehmi::app::CuteApp to QML.
  */
-class CuteApp {};
+class CuteApp: public cutehmi::app::CuteApp {};
 
 }
 }

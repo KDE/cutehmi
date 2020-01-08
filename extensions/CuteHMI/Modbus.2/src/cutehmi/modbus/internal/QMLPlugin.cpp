@@ -21,72 +21,72 @@ namespace Modbus {
 /**
  * Exposes cutehmi::modbus::AbstractRegisterController to QML.
  */
-class AbstractRegisterController {};
+class AbstractRegisterController: public cutehmi::modbus::AbstractRegisterController {};
 
 /**
  * Exposes cutehmi::modbus::Register16Controller to QML.
  */
-class Register16Controller {};
+class Register16Controller: public cutehmi::modbus::Register16Controller {};
 
 /**
  * Exposes cutehmi::modbus::CoilController to QML.
  */
-class CoilController {};
+class CoilController: public cutehmi::modbus::CoilController {};
 
 /**
  * Exposes cutehmi::modbus::HoldingRegisterController to QML.
  */
-class HoldingRegisterController {};
+class HoldingRegisterController: public cutehmi::modbus::HoldingRegisterController {};
 
 /**
  * Exposes cutehmi::modbus::DiscreteInputController to QML.
  */
-class DiscreteInputController {};
+class DiscreteInputController: public cutehmi::modbus::DiscreteInputController {};
 
 /**
  * Exposes cutehmi::modbus::InputRegisterController to QML.
  */
-class InputRegisterController {};
+class InputRegisterController: public cutehmi::modbus::InputRegisterController {};
 
 /**
  * Exposes cutehmi::modbus::AbstractDevice to QML.
  */
-class AbstractDevice {};
+class AbstractDevice: public cutehmi::modbus::AbstractDevice {};
 
 /**
  * Exposes cutehmi::modbus::AbstractClient to QML.
  */
-class AbstractClient {};
+class AbstractClient: public cutehmi::modbus::AbstractClient {};
 
 /**
  * Exposes cutehmi::modbus::AbstractServer to QML.
  */
-class AbstractServer {};
+class AbstractServer: public cutehmi::modbus::AbstractServer {};
 
 /**
  * Exposes cutehmi::modbus::DummyClient to QML.
  */
-class DummyClient {};
+class DummyClient: public cutehmi::modbus::DummyClient {};
 
 /**
  * Exposes cutehmi::modbus::TCPClient to QML.
  */
-class TCPClient {};
+class TCPClient: public cutehmi::modbus::TCPClient {};
 
 /**
  * Exposes cutehmi::modbus::TCPServer to QML.
  */
-class TCPServer {};
+class TCPServer: public cutehmi::modbus::TCPServer {};
 
 /**
  * Exposes cutehmi::modbus::RTUClient to QML.
  */
-class RTUClient {};
+class RTUClient: public cutehmi::modbus::RTUClient {};
 
 /**
  * Exposes cutehmi::modbus::RTUServer to QML.
  */
-class RTUServer {};
+class RTUServer: public cutehmi::modbus::RTUServer {};
 
 }
 }

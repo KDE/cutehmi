@@ -1,11 +1,11 @@
 import QtQuick 2.0
 
 /**
-  Color set defines standard colors to be used by CuteHMI components.
+  Color set defines standard colors to be used by HMI @ref Element "elements".
 
-  CuteHMI components are using color codes to signal
-  specific states of an equipment, such as "active", warning", "alarm", "inactive". To improve a visual appearance of
-  a component a set of adjacent colors is provided to represent a state of the component.
+  %CuteHMI @ref Element "elements" are using color codes to signal specific states of an equipment, such as "active", warning",
+  "alarm", "inactive". To improve a visual appearance of a component a set of adjacent colors is provided to represent a state of
+  the component.
   */
 QtObject {
 	/**
