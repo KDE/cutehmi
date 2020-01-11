@@ -77,8 +77,8 @@ Element
 		x: -0.5 * valueDisplay.overfull
 		width: contentItem.width + leftPadding + rightPadding
 		height: contentItem.height + topPadding + bottomPadding
-		color: backgroundColor
-		border.color: strokeColor
+		color: root.color.background
+		border.color: root.color.stroke
 		border.width: lineWidth
 		radius: height / 5
 	}
@@ -94,7 +94,7 @@ Element
 		{
 			id: valueDisplay
 
-			color: foregroundColor
+			color: root.color.foreground
 			text: textFormatter(root.value)
 			horizontalAlignment: Text.AlignRight
 			width: Math.max(contentWidth, nominaLWidth)
@@ -108,7 +108,7 @@ Element
 			id: unitDisplay
 
 			font: root.font
-			color: foregroundColor
+			color: root.color.foreground
 			text: root.unit
 		}
 	}

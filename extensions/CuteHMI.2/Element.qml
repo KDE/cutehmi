@@ -21,58 +21,42 @@ Item {
 	property Palette palette: Palette
 
 	/**
+	  This property defines current colors that should be used to draw element contents. By default, @a color properties are binded
+	  to the respective properties of active @ref colorSet "color set". However, current color values may differ from those of
+	  active color set, when color transitions take place.
+	  */
+	property ColorSet color: ColorSet {
+		base: colorSet.base
+
+		fill: colorSet.fill
+
+		tint: colorSet.tint
+
+		shade: colorSet.shade
+
+		foreground: colorSet.foreground
+
+		background: colorSet.background
+
+		stroke: colorSet.stroke
+
+		property color blank: palette.neutral.fill
+
+		Behavior on base { ColorAnimation {} }
+		Behavior on fill { ColorAnimation {} }
+		Behavior on tint { ColorAnimation {} }
+		Behavior on shade { ColorAnimation {} }
+		Behavior on foreground { ColorAnimation {} }
+		Behavior on background { ColorAnimation {} }
+		Behavior on stroke { ColorAnimation {} }
+		Behavior on blank { ColorAnimation {} }
+	}
+
+	/**
 	  Active color set. Normally this is controlled by currentStateColorSet() function, which sets appropriate color
 	  according to the state of @a active, @a warning and @a alarm properties.
 	  */
 	property ColorSet colorSet: currentStateColorSet()
-
-	/**
-	  Base color. Base color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color baseColor: colorSet.base
-
-	/**
-	  Fill color. Fill color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color fillColor: colorSet.fill
-
-	/**
-	  Tint color. Tint color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color tintColor: colorSet.tint
-
-	/**
-	  Shade color. Shade color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color shadeColor: colorSet.shade
-
-	/**
-	  Foreground color. Foreground color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color foregroundColor: colorSet.foreground
-
-	/**
-	  Background color. Background color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color backgroundColor: colorSet.background
-
-	/**
-	  Stroke color. Stroke color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color strokeColor: colorSet.stroke
-
-	/**
-	  Blank color. Blank color that should be used by an item to draw its contents.
-	  Refer to ColorSet documentation to see how to use color sets.
-	  */
-	property color blankColor: palette.neutral.fill
 
 	/**
 	  Line width. Line width that should be used by an item to draw its contents.
@@ -106,14 +90,6 @@ Item {
 			   warning ? (blinkTimer.blink ? warningBlink : palette.warning) :
 			   active ? palette.active : palette.inactive
 	}
-
-	Behavior on baseColor { ColorAnimation {} }
-	Behavior on fillColor { ColorAnimation {} }
-	Behavior on tintColor { ColorAnimation {} }
-	Behavior on shadeColor { ColorAnimation {} }
-	Behavior on foregroundColor { ColorAnimation {} }
-	Behavior on backgroundColor { ColorAnimation {} }
-	Behavior on strokeColor { ColorAnimation {} }
 
 	ColorSet {
 		id: warningBlink

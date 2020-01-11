@@ -6,8 +6,8 @@ Element {
 	Rectangle {
 		width: parent.width
 		height: parent.height
-		color: parent.fillColor
-		border.color: parent.strokeColor
+		color: parent.color.fill
+		border.color: parent.color.stroke
 		border.width: parent.lineWidth
 	}
 }

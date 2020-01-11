@@ -9,7 +9,6 @@ ColumnLayout {
 	anchors.fill: parent
 
 	Column {
-//		Layout.fillHeight: true
 		Layout.alignment: Qt.AlignCenter
 
 		Slider {
