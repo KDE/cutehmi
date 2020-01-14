@@ -10,7 +10,7 @@ Project {
 	condition: !qbs.targetOS.contains("android")
 
 	cutehmi.Tool {
-		condition: Qt.core.versionMajor === 5 && [12, 13].contains(Qt.core.versionMinor)
+		condition: Qt.core.versionMajor === 5 && [12, 13, 14].contains(Qt.core.versionMinor)
 
 		name: parent.name
 
@@ -55,6 +55,20 @@ Project {
 				"src/5/13/2/qmlstreamwriter.h",
 				"src/5/13/2/qmltypereader.cpp",
 				"src/5/13/2/qmltypereader.h",
+			 ]
+		}
+
+		Group {
+			name: "5.14 branch"
+
+			condition: Qt.core.versionMajor === 5 && Qt.core.versionMinor === 14
+
+			files: [
+				"src/5/14/0/main.cpp",
+				"src/5/14/0/qmlstreamwriter.cpp",
+				"src/5/14/0/qmlstreamwriter.h",
+				"src/5/14/0/qmltypereader.cpp",
+				"src/5/14/0/qmltypereader.h",
 			 ]
 		}
 
