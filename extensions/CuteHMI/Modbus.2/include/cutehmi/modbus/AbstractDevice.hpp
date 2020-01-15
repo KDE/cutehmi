@@ -673,6 +673,8 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 }
 }
 
+Q_DECLARE_METATYPE(cutehmi::modbus::AbstractDevice::State)	// Must use this macro despite using Q_ENUM to register metatype inside Init.
+
 #endif
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
