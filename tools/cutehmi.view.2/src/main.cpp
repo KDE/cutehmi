@@ -46,9 +46,13 @@ int main(int argc, char * argv[])
 
 	try {
 
+#ifdef CUTEHMI_VIEW_VIRTUAL_KEYBOARD
 		if (qgetenv("QT_IM_MODULE").isEmpty())
 			qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 		CUTEHMI_DEBUG("Input method: " << qgetenv("QT_IM_MODULE"));
+#else
+		CUTEHMI_DEBUG("Support for virtual keyboard is disabled.");
+#endif
 
 		if (qgetenv("QT_IM_MODULE") == "qtvirtualkeyboard") {
 			if (qgetenv("QT_VIRTUALKEYBOARD_LAYOUT_PATH").isEmpty())
@@ -79,27 +83,60 @@ int main(int argc, char * argv[])
 				qFatal("Could not open ':/" CUTEHMI_VIEW_NAME "/cutehmi.metadata.json' file.");
 		}
 
+
 		QCommandLineParser cmd;
 		cmd.setApplicationDescription(QCoreApplication::applicationName() + "\n" + metadataJson.object().value("description").toString());
 		cmd.addHelpOption();
 		cmd.addVersionOption();
+
 		QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
 		cmd.addOption(fullScreenOption);
-		QCommandLineOption initOption("init", QCoreApplication::translate("main", "Specify <initial> QML file to load."), QCoreApplication::translate("main", "initial"), "qrc:/qml/ExtensionLoader.qml");
+
+		QCommandLineOption initOption("init", QCoreApplication::translate("main", "Override loader and specify initial QML <file> to load."), QCoreApplication::translate("main", "file"));
+#ifdef CUTEHMI_VIEW_DEFAULT_INIT
+		initOption.setDefaultValue(CUTEHMI_VIEW_DEFAULT_INIT);
+#else
+		initOption.setDefaultValue("qrc:/qml/ExtensionLoader.qml");
+#endif
+#ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
+		initOption.setFlags(QCommandLineOption::HiddenFromHelp);
+#endif
 		cmd.addOption(initOption);
+
 		QCommandLineOption extensionOption("extension", QCoreApplication::translate("main", "Load extension specified by QML <import>."), QCoreApplication::translate("main", "import"));
+#ifdef CUTEHMI_VIEW_DEFAULT_EXTENSION
+		extensionOption.setDefaultValue(CUTEHMI_VIEW_DEFAULT_EXTENSION);
+#endif
+#ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
+		extensionOption.setFlags(QCommandLineOption::HiddenFromHelp);
+#endif
 		cmd.addOption(extensionOption);
-		QCommandLineOption componentOption("component", QCoreApplication::translate("main", "Use <name> to specify extension QML component."), QCoreApplication::translate("main", "name"), "Main");
+
+		QCommandLineOption componentOption("component", QCoreApplication::translate("main", "Extension component <name>."), QCoreApplication::translate("main", "name"));
+#ifdef CUTEHMI_VIEW_DEFAULT_COMPONENT
+		componentOption.setDefaultValue(CUTEHMI_VIEW_DEFAULT_COMPONENT);
+#else
+		componentOption.setDefaultValue("Main");
+#endif
+#ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
+		componentOption.setFlags(QCommandLineOption::HiddenFromHelp);
+#endif
 		cmd.addOption(componentOption);
+
 		QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
 		cmd.addOption(hideCursorOption);
+
 		QCommandLineOption styleOption("qstyle", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
 		cmd.addOption(styleOption);
+
 		QCommandLineOption langOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language"));
 		cmd.addOption(langOption);
+
 		QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
 		cmd.addOption(basedirOption);
+
 		cmd.process(app);
+
 
 		CUTEHMI_DEBUG("Default locale: " << QLocale());
 
@@ -141,27 +178,44 @@ int main(int argc, char * argv[])
 
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 
-		QStringList extensionNameParts = cmd.value(extensionOption).split('.');
+#ifndef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
+		QString extension = cmd.value(extensionOption);
+		QString init = cmd.value(initOption);
+		QString component = cmd.value(componentOption);
+#else
+		QString extension = extensionOption.defaultValues().first();
+		QString init = initOption.defaultValues().first();
+		QString component = componentOption.defaultValues().first();
+
+		if (cmd.value(extensionOption) != extension)
+			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compliation time.").arg(extensionOption.names().join(", ")).toLocal8Bit().constData());
+		if (cmd.value(initOption) != init)
+			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compliation time.").arg(initOption.names().join(", ")).toLocal8Bit().constData());
+		if (cmd.value(componentOption) != component)
+			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compliation time.").arg(componentOption.names().join(", ")).toLocal8Bit().constData());
+#endif
+
+		QStringList extensionParts = extension.split('.');
 		QString extensionMajor;
-		if (!extensionNameParts.isEmpty()) {
+		if (!extensionParts.isEmpty()) {
 			bool hasExtensionMajor;
-			extensionNameParts.last().toInt(& hasExtensionMajor);
+			extensionParts.last().toInt(& hasExtensionMajor);
 			if (hasExtensionMajor)
-				extensionMajor = extensionNameParts.takeLast();
+				extensionMajor = extensionParts.takeLast();
 		}
-		QString extensionBasename = extensionNameParts.join('.');
+		QString extensionBasename = extensionParts.join('.');
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionBasename", extensionBasename);
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionMajor", extensionMajor);
-		engine->rootContext()->setContextProperty("cutehmi_view_extensionComponent", cmd.value(componentOption));
+		engine->rootContext()->setContextProperty("cutehmi_view_extensionComponent", component);
 		engine->rootContext()->setContextProperty("cutehmi_view_initURL", "qrc:/qml/DefaultScreen.qml");
 
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 
-		if (!cmd.value(initOption).isNull()) {
-			CUTEHMI_DEBUG("Init: '" << cmd.value(initOption) << "'");
-			CUTEHMI_DEBUG("Component: '" << cmd.value(componentOption) << "'");
-			CUTEHMI_DEBUG("Extension: '" << cmd.value(extensionOption) << "'");
-			QUrl initUrl(cmd.value(initOption));
+		if (!init.isNull()) {
+			CUTEHMI_DEBUG("Init: '" << init << "'");
+			CUTEHMI_DEBUG("Component: '" << component << "'");
+			CUTEHMI_DEBUG("Extension: '" << extension << "'");
+			QUrl initUrl(init);
 			if (initUrl.isValid()) {
 				// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
 				if (!initUrl.scheme().isEmpty() && QDir::isRelativePath(initUrl.path()))
@@ -177,7 +231,7 @@ int main(int argc, char * argv[])
 						engine->rootContext()->setContextProperty("cutehmi_view_initURL", initUrl.url());
 				}
 			} else
-				cutehmi::Message::Critical(QObject::tr("Invalid format of QML file URL '%1'.").arg(cmd.value(initOption)));
+				cutehmi::Message::Critical(QObject::tr("Invalid format of QML file URL '%1'.").arg(init));
 		}
 
 		//<Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec.assumption>

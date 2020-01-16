@@ -47,6 +47,37 @@ Project {
 			"qml/NotificationListView.qml",
 		]
 
+		property string defaultExtension
+
+		property string defaultInit
+
+		property string defaultComponent
+
+		property bool forceDefaultOptions: false
+
+		property bool virtualKeyboard: false
+
+		cpp.defines: {
+			var result = []
+
+			if (virtualKeyboard)
+				result.push("CUTEHMI_VIEW_VIRTUAL_KEYBOARD")
+
+			if (defaultExtension)
+				result.push("CUTEHMI_VIEW_DEFAULT_EXTENSION=\"" + defaultExtension + "\"")
+
+			if (defaultInit)
+				result.push("CUTEHMI_VIEW_DEFAULT_INIT=\"" + defaultInit + "\"")
+
+			if (defaultComponent)
+				result.push("CUTEHMI_VIEW_DEFAULT_COMPONENT=\"" + defaultComponent + "\"")
+
+			if (forceDefaultOptions)
+				result.push("CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS")
+
+			return result
+		}
+
 		cutehmi.dirs.artifacts: true
 
 		Depends { name: "CuteHMI.GUI.0" }
