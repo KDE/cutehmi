@@ -7,7 +7,7 @@
 #include <cutehmi/Messenger.hpp>
 #include <cutehmi/Singleton.hpp>
 
-#include <cutehmi/app/CuteApp.hpp>
+#include <cutehmi/gui/CuteApplication.hpp>
 
 //<cutehmi.view.2-4.workaround target="Qt" cause="bug">
 #include <QApplication>
@@ -63,7 +63,7 @@ int main(int argc, char * argv[])
 
 		//<cutehmi.view.2-4.workaround target="Qt" cause="bug">
 		QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-		cutehmi::app::CuteApp app(argc, argv);
+		cutehmi::gui::CuteApplication app(argc, argv);
 		// Instead of:
 		//	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 		//	QGuiApplication app(argc, argv);
@@ -185,7 +185,7 @@ int main(int argc, char * argv[])
 		//  platforms the exec() call may not return. For example, on Windows when the user logs off, the system terminates the process after Qt closes all top-level
 		//  windows. Hence, there is no guarantee that the application will have time to exit its event loop and execute code at the end of the main() function after
 		//  the exec() call."
-		QObject::connect(& app, & cutehmi::app::CuteApp::aboutToQuit, [&]() {
+		QObject::connect(& app, & cutehmi::gui::CuteApplication::aboutToQuit, [&]() {
 			// It's quite important to destroy "engine" before cutehmi::CuteHMI::Instance() members, because they
 			// may still be used by some QML components (for example in "Component.onDestroyed" handlers).
 			engine.reset();

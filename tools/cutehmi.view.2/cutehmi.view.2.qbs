@@ -28,33 +28,37 @@ Project {
 
 		// Add also QML files from qrc, because for eg. androiddeployqt needs them installed to scan them.
 		files: [
-         "README.md",
-         "dev/cutehmi.view.2-1.solved.Qt.design.txt",
-         "dev/cutehmi.view.2-2.unsolved.Qt.bug.txt",
-         "dev/cutehmi.view.2-3.solved.Qt.bug.txt",
-         "dev/cutehmi.view.2-4.workaround.Qt.bug.txt",
-         "dev/cutehmi.view.2-5.workaround.Qt.bug.txt",
-         "dev/cutehmi.view.2-6.workaround.Qt.bug.txt",
-         "resources.qrc",
-         "resources.rc",
-         "src/cutehmi/view/logging.cpp",
-         "src/cutehmi/view/logging.hpp",
-         "src/main.cpp",
-         "qml/DefaultScreen.qml",
-         "qml/ExtensionLoader.qml",
-         "qml/MainWindow.qml",
-         "qml/MessageDialog.qml",
-         "qml/NotificationListView.qml",
-     ]
+			"README.md",
+			"dev/cutehmi.view.2-1.solved.Qt.design.txt",
+			"dev/cutehmi.view.2-2.unsolved.Qt.bug.txt",
+			"dev/cutehmi.view.2-3.solved.Qt.bug.txt",
+			"dev/cutehmi.view.2-4.workaround.Qt.bug.txt",
+			"dev/cutehmi.view.2-5.workaround.Qt.bug.txt",
+			"dev/cutehmi.view.2-6.workaround.Qt.bug.txt",
+			"resources.qrc",
+			"resources.rc",
+			"src/cutehmi/view/logging.cpp",
+			"src/cutehmi/view/logging.hpp",
+			"src/main.cpp",
+			"qml/DefaultScreen.qml",
+			"qml/ExtensionLoader.qml",
+			"qml/MainWindow.qml",
+			"qml/MessageDialog.qml",
+			"qml/NotificationListView.qml",
+		]
 
 		cutehmi.dirs.artifacts: true
 
-		Depends { name: "CuteHMI.App.2" }
+		Depends { name: "CuteHMI.GUI.0" }
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.exclude: ['dev', 'tests']
 
 		Depends { name: "cutehmi.metadata" }
+
+		Export {
+			Depends { name: "CuteHMI.GUI.0" }
+		}
 	}
 }
 
