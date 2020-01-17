@@ -8,7 +8,7 @@ Element {
 		height: parent.height
 		color: parent.color.fill
 		border.color: parent.color.stroke
-		border.width: parent.lineWidth
+		border.width: parent.strokeWidth
 	}
 }
 

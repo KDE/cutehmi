@@ -77,7 +77,7 @@ Element
 		radius: height / 5
 		color: root.color.background
 		border.color: root.color.stroke
-		border.width: lineWidth
+		border.width: strokeWidth
 	}
 
 	Row {

@@ -55,9 +55,9 @@ Item {
 	property ColorSet colorSet: currentStateColorSet()
 
 	/**
-	  Line width. Line width that should be used by an item to draw its contents.
+	  Stroke width. Width of the stoke that should be used by the item to draw its contents.
 	  */
-	property real lineWidth: CuteApplication.theme.units.strokeWidth
+	property real strokeWidth: CuteApplication.theme.units.strokeWidth
 
 	/**
 	  Denotes if an item is in active state.
