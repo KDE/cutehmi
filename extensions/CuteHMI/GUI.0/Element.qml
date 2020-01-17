@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
   This component should be used to implement color code aware items.
   */
 Item {
-    implicitWidth: 40.0
-    implicitHeight: 40.0
+	implicitWidth: CuteApplication.theme.units.quadrat
+	implicitHeight: CuteApplication.theme.units.quadrat
 
 	/**
 	  %Palette. %Palette to be used by an element.
@@ -57,7 +57,7 @@ Item {
 	/**
 	  Line width. Line width that should be used by an item to draw its contents.
 	  */
-	property real lineWidth: 2.0
+	property real lineWidth: CuteApplication.theme.units.strokeWidth
 
 	/**
 	  Denotes if an item is in active state.

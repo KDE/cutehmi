@@ -17,7 +17,7 @@ Canvas {
 	/**
 	  Prop thickness.
 	  */
-	property real thickness: 2.0
+	property real thickness: CuteApplication.theme.units.strokeWidth
 
 	/**
 	  Prop color.

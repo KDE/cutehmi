@@ -14,6 +14,7 @@ Element
 
 	implicitWidth: background.width - valueDisplay.overfull
 	implicitHeight: background.height
+
 	active: value === value		// NaN === NaN equals false, thus NaN value deactivates display.
 
 	/**
@@ -72,10 +73,11 @@ Element
 		x: -0.5 * valueDisplay.overfull
 		width: contentItem.width + leftPadding + rightPadding
 		height: contentItem.height + topPadding + bottomPadding
+
+		radius: height / 5
 		color: root.color.background
 		border.color: root.color.stroke
 		border.width: lineWidth
-		radius: height / 5
 	}
 
 	Row {
@@ -83,28 +85,30 @@ Element
 
 		x: leftPadding - 0.5 * valueDisplay.overfull
 		y: topPadding
+
 		spacing: root.font.pixelSize * 0.25
 
-		Text
-		{
+		Text {
 			id: valueDisplay
 
-			color: root.color.foreground
-			text: textFormatter(root.value)
-			horizontalAlignment: Text.AlignRight
 			width: Math.max(contentWidth, nominaLWidth)
+
+			text: textFormatter(root.value)
+			color: root.color.foreground
+			horizontalAlignment: Text.AlignRight
+			font.pixelSize: CuteApplication.theme.units.quadrat * 0.25
+			font.family: CuteApplication.theme.fonts.monospace.family
 
 			property real overfull: width - nominaLWidth
 			property real nominaLWidth: contentWidth / text.length * (root.fractionalWidth + root.integralWidth + 1)
 		}
 
-		Text
-		{
+		Text {
 			id: unitDisplay
 
+			text: root.unit
 			font: root.font
 			color: root.color.foreground
-			text: root.unit
 		}
 	}
 }

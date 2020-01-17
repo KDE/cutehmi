@@ -3,6 +3,8 @@
 #include <cutehmi/gui/CuteApplication.hpp>
 #include <cutehmi/gui/ColorSet.hpp>
 #include <cutehmi/gui/Palette.hpp>
+#include <cutehmi/gui/Fonts.hpp>
+#include <cutehmi/gui/Units.hpp>
 #include <cutehmi/gui/Theme.hpp>
 
 #include <QtQml>
@@ -29,6 +31,16 @@ class ColorSet: public cutehmi::gui::ColorSet {};
 class Palette: public cutehmi::gui::Palette  {};
 
 /**
+ * Exposes cutehmi::gui::Fonts to QML.
+ */
+class Fonts: public cutehmi::gui::Fonts {};
+
+/**
+ * Exposes cutehmi::gui::Units to QML.
+ */
+class Units: public cutehmi::gui::Units {};
+
+/**
  * Exposes cutehmi::gui::Theme to QML.
  */
 class Theme: public cutehmi::gui::Theme {};
@@ -53,6 +65,8 @@ void QMLPlugin::registerTypes(const char * uri)
 
 	qmlRegisterType<cutehmi::gui::ColorSet>(uri, CUTEHMI_GUI_MAJOR, 0, "ColorSet");
 	qmlRegisterType<cutehmi::gui::Palette>(uri, CUTEHMI_GUI_MAJOR, 0, "Palette");
+	qmlRegisterType<cutehmi::gui::Fonts>(uri, CUTEHMI_GUI_MAJOR, 0, "Fonts");
+	qmlRegisterType<cutehmi::gui::Units>(uri, CUTEHMI_GUI_MAJOR, 0, "Units");
 	qmlRegisterType<cutehmi::gui::Theme>(uri, CUTEHMI_GUI_MAJOR, 0, "Theme");
 
 	//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">

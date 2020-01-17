@@ -1,0 +1,10 @@
+Problem:
+
+QFont "font matching algorithm" does not work as expected. Documentation on QFont states "1. The specified font families (set by
+setFamilies()) are searched for". But families set with QFont::setFamilies() function are not searched, except for the first one.
+Alternative families seem to be ignored. Moreover QML engine won't set `font.family` property, when font has been specified with
+QFont::setFamilies() function instead of QFont::setFamily().
+
+Workaround:
+
+Workaround is to manually search QFontDatabase for available families and use QFont::setFamily() function.

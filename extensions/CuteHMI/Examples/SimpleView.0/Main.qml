@@ -8,6 +8,8 @@ import CuteHMI.GUI 0.0
 ColumnLayout {
 	anchors.fill: parent
 
+	property real quadrat: CuteApplication.theme.units.quadrat
+
 	Column {
 		Layout.alignment: Qt.AlignCenter
 
@@ -19,20 +21,19 @@ ColumnLayout {
 		}
 
 		Item {
-			width: 200
-			height: 300
+			width: quadrat * 2.5
+			height: quadrat * 3.75
 
 			PropItem {
-				id: twoPropNumberDisplay
+				id: sidePropNumberDisplay
 
 				anchors.horizontalCenter: parent.horizontalCenter
 
-				leftPadding: 20
-				rightPadding: 20
-				bottomPadding: 40
+				leftPadding: quadrat * 0.25
+				rightPadding: quadrat * 0.25
+				bottomPadding: quadrat * 0.5
 
 				NumberDisplay {
-					font.pixelSize: 20
 					value: slider.value * 10
 					integralWidth: 4
 					fractionalWidth: 0
@@ -46,9 +47,9 @@ ColumnLayout {
 			RectangularElement {
 				id: element
 
-				anchors.top: twoPropNumberDisplay.bottom
+				anchors.top: sidePropNumberDisplay.bottom
 				width: parent.width
-				height: parent.height - twoPropNumberDisplay.height - propNumberDisplay.height
+				height: parent.height - sidePropNumberDisplay.height - propNumberDisplay.height
 
 				active: slider.value > 0
 				warning: slider.value > 80
@@ -59,7 +60,6 @@ ColumnLayout {
 
 					anchors.centerIn: parent
 
-					font.pixelSize: 20
 					value: slider.value
 
 					warning: value > 30
@@ -73,10 +73,9 @@ ColumnLayout {
 				anchors.top: element.bottom
 				anchors.horizontalCenter: parent.horizontalCenter
 
-				topPadding: 20
+				topPadding: quadrat * 0.25
 
 				NumberDisplay {
-					font.pixelSize: 20
 					value: slider.value
 					fractionalWidth: 2
 					unit: "Pa"
@@ -86,6 +85,10 @@ ColumnLayout {
 				}
 			}
 		}
+	}
+
+	Component.onCompleted: {
+		CuteApplication.theme.units.quadrat = 80
 	}
 }
 

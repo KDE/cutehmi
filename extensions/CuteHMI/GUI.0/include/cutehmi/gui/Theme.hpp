@@ -3,6 +3,8 @@
 
 #include "internal/common.hpp"
 #include "Palette.hpp"
+#include "Units.hpp"
+#include "Fonts.hpp"
 
 #include <QObject>
 
@@ -12,7 +14,7 @@ namespace gui {
 /**
  * %Theme.
  *
- * %Theme defines palette used by CuteApplication. In future it may also cover other aspects of user interface appearance.
+ * %Theme defines palette, units and fonts used by CuteApplication.
  */
 class CUTEHMI_GUI_API Theme:
 	public QObject
@@ -22,6 +24,10 @@ class CUTEHMI_GUI_API Theme:
 	public:
 		Q_PROPERTY(Palette * palette READ palette WRITE setPalette NOTIFY paletteChanged RESET resetPalette)
 
+		Q_PROPERTY(Units * units READ units WRITE setUnits NOTIFY unitsChanged RESET resetUnits)
+
+		Q_PROPERTY(Fonts * fonts READ fonts WRITE setFonts NOTIFY fontsChanged RESET resetFonts)
+
 		Theme(QObject * parent = nullptr);
 
 		Palette * palette() const;
@@ -30,21 +36,45 @@ class CUTEHMI_GUI_API Theme:
 
 		void resetPalette();
 
-	signals:
-		void alarmChanged();
+		Units * units() const;
 
+		void setUnits(Units * units);
+
+		void resetUnits();
+
+		Fonts * fonts() const;
+
+		void setFonts(Fonts * fonts);
+
+		void resetFonts();
+
+	signals:
 		void paletteChanged();
+
+		void unitsChanged();
+
+		void fontsChanged();
 
 	protected:
 		static Palette & DefaultPalette();
 
+		static Units & DefaultUnits();
+
+		static Fonts & DefaultFonts();
+
 	private:
+		void establishFontBindings();
+
 		struct Members
 		{
 			Palette * palette;
+			Units * units;
+			Fonts * fonts;
 
 			Members():
-				palette(& DefaultPalette())
+				palette(& DefaultPalette()),
+				units(& DefaultUnits()),
+				fonts(& DefaultFonts())
 			{
 			}
 		};
