@@ -20,13 +20,13 @@ Product {
 
 	property string friendlyName			///< Descriptive product name for ordinary humans.
 
-	property string description				///< Product description.
+	property string description				///< Short product description.
 
-	property string author					///< Author(s).
+	property string author					///< Author(s) (deprecated).
 
-	property string copyright				///< Copyright holder(s).
+	property string copyright				///< Copyright holder(s) (deprecated).
 
-	property string license					///< License(s).
+	property string license					///< License(s) (deprecated).
 
 	property string baseName				///< Base name of the product (without the major version suffix).
 
