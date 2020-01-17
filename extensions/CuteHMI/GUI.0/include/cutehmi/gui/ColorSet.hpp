@@ -210,4 +210,4 @@ class CUTEHMI_GUI_API ColorSet:
 }
 }
 
-#endif // COLORSET_HPP
+#endif

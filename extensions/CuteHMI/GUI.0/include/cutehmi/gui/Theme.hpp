@@ -1,5 +1,5 @@
-#ifndef THEME_HPP
-#define THEME_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_GUI_0_INCLUDE_CUTEHMI_GUI_THEME_HPP
+#define H_EXTENSIONS_CUTEHMI_GUI_0_INCLUDE_CUTEHMI_GUI_THEME_HPP
 
 #include "internal/common.hpp"
 #include "Palette.hpp"
@@ -55,4 +55,4 @@ class CUTEHMI_GUI_API Theme:
 }
 }
 
-#endif // THEME_HPP
+#endif

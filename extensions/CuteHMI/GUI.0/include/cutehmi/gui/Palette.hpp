@@ -117,4 +117,4 @@ class CUTEHMI_GUI_API Palette:
 }
 }
 
-#endif // PALETTE_HPP
+#endif
