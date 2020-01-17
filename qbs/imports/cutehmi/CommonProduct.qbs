@@ -22,11 +22,11 @@ Product {
 
 	property string description				///< Short product description.
 
-	property string author					///< Author(s) (deprecated).
+	property string author: ""					///< Author(s) (deprecated).
 
-	property string copyright				///< Copyright holder(s) (deprecated).
+	property string copyright: ""				///< Copyright holder(s) (deprecated).
 
-	property string license					///< License(s) (deprecated).
+	property string license: ""					///< License(s) (deprecated).
 
 	property string baseName				///< Base name of the product (without the major version suffix).
 
