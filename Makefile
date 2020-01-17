@@ -108,6 +108,7 @@ env:
 		@echo --------------------------------------------------------------------------------
 		@echo OS = "$(OS)"
 		@echo PATH = "$(PATH)"
+		@echo BUILD_MACHINE = "$(BUILD_MACHINE)"
 
 license: license_dslash license_hash license_xml
 
