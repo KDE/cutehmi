@@ -14,7 +14,7 @@ class CUTEHMI_GUI_API Units:
 		Q_OBJECT
 
 	public:
-		static constexpr qreal INITIAL_QUADRAT = 40.0;
+		static constexpr qreal INITIAL_QUADRAT = 80.0;
 
 		static constexpr bool INITIAL_ROUND_STROKE_WIDTH = true;
 
