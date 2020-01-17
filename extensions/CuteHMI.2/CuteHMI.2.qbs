@@ -33,12 +33,6 @@ Project {
 		files: [
          "README.md",
          "LICENSE",
-         "ColorSet.qml",
-         "Element.qml",
-         "NumberDisplay.qml",
-         "Palette.qml",
-         "PropItem.qml",
-         "Theme.qml",
          "include/cutehmi/Init.hpp",
          "include/cutehmi/Initializer.hpp",
          "include/cutehmi/InplaceError.hpp",

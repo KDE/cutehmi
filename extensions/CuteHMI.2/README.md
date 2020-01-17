@@ -23,14 +23,6 @@ dealing with errors and exceptions.
 
 cutehmi::Initializer can be used to initialize extension.
 
-## QML components
-
-CuteHMI.Palette, CuteHMI.Theme and CuteHMI.ColorSet help provide consistent color codes accross projects.
-
-CuteHMI.Element component should be used to create color code aware items.
-
-CuteHMI.NumberDisplay provides convenient display.
-
 ## Frontend tools
 
 Frontend tools should take care about cutehmi::Notifier and cutehmi::Messenger classes to deliver messages to the users. They should
