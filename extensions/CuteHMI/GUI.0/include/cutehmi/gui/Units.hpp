@@ -1,5 +1,5 @@
-#ifndef UNIT_HPP
-#define UNIT_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_GUI_0_INCLUDE_CUTEHMI_GUI_UNITS_HPP
+#define H_EXTENSIONS_CUTEHMI_GUI_0_INCLUDE_CUTEHMI_GUI_UNITS_HPP
 
 #include "internal/common.hpp"
 
@@ -66,4 +66,4 @@ class CUTEHMI_GUI_API Units:
 }
 }
 
-#endif // UNIT_HPP
+#endif

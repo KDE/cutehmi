@@ -1,5 +1,5 @@
-#ifndef FONTS_HPP
-#define FONTS_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_GUI_0_INCLUDE_CUTEHMI_GUI_FONTS_HPP
+#define H_EXTENSIONS_CUTEHMI_GUI_0_INCLUDE_CUTEHMI_GUI_FONTS_HPP
 
 #include "internal/common.hpp"
 
@@ -38,4 +38,4 @@ class CUTEHMI_GUI_API Fonts:
 }
 }
 
-#endif // FONTSET_HPP
+#endif
