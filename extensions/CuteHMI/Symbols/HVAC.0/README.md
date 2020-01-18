@@ -1,6 +1,6 @@
 # HVAC Symbols
 
-Collection of symbols used in HVAC(R) industry.
+Collection of \ref active-symbols.md "active symbols" used in HVAC(R) industry.
 
 ![Symbols preview](doc/gallery.png)
 
