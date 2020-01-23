@@ -10,10 +10,6 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
-		minor: 0
-
-		micro: 0
-
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"
@@ -21,12 +17,6 @@ Project {
 		friendlyName: "Puppet Bootloader"
 
 		description: "Hackish initialization plugin intended to be used by Qt Creator in Design mode."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"src/cutehmi/workarounds/puppetbootloader/internal/Init.cpp",

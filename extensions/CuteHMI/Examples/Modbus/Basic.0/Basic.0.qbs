@@ -8,10 +8,6 @@ Project {
 	cutehmi.Extension {
 		name: parent.name
 
-		minor: 0
-
-		micro: 0
-
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"
@@ -19,12 +15,6 @@ Project {
 		friendlyName: "Basic Modbus Example"
 
 		description: "Example demonstrates basic usage of QML components provided by CuteHMI.Modbus.2 extension."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"LICENSE",

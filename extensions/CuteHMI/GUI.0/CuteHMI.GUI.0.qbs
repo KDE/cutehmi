@@ -16,10 +16,6 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
-		minor: 0
-
-		micro: 0
-
 		friendlyName: "Graphical User Interface"
 
 		vendor: "CuteHMI"
@@ -27,12 +23,6 @@ Project {
 		domain: "cutehmi.kde.org"
 
 		description: "Provides foundation for GUI applications."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
          "Element.qml",

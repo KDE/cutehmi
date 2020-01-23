@@ -11,12 +11,6 @@ cutehmi.Example {
 
 	description: "Daemon demonstration with counter."
 
-	author: "Michal Policht"
-
-	copyright: "Michal Policht"
-
-	license: "GNU Lesser General Public License, v. 3.0"
-
 	files: [
         "Main.qml",
     ]

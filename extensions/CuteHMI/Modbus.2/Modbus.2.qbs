@@ -24,10 +24,6 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
-		minor: 0
-
-		micro: 0
-
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"
@@ -35,12 +31,6 @@ Project {
 		friendlyName: "Modbus"
 
 		description: "Modbus protocol support."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"CoilItem.qml",

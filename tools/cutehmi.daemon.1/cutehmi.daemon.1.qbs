@@ -25,12 +25,6 @@ Project {
 
 		description: "Daemon, which allows one to run QML project in a background."
 
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
-
 		files: [
          "README.md",
          "dev/cutehmi.daemon.1-1.workaround.Qt.QTBUG-73649.txt",

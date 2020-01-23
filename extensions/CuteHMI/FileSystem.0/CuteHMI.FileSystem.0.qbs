@@ -12,10 +12,6 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
-		minor: 0
-
-		micro: 0
-
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"
@@ -23,12 +19,6 @@ Project {
 		friendlyName: "File System"
 
 		description: "Wraps QT file system manipulation classes into QML API."
-
-		author: "Wojciech Zygmuntowicz"
-
-		copyright: "Wojciech Zygmuntowicz"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"README.md",

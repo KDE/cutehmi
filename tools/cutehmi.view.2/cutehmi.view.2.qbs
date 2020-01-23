@@ -20,12 +20,6 @@ Project {
 
 		description: "GUI application, which allows one to run QML project in a window."
 
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
-
 		// Add also QML files from qrc, because for eg. androiddeployqt needs them installed to scan them.
 		files: [
 			"README.md",

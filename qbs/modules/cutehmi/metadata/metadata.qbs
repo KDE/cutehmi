@@ -33,9 +33,6 @@ Module {
 						'vendor',
 						'domain',
 						'description',
-						'author',
-						'copyright',
-						'license'
 			]
 			for (var prop in productRequiredProperties)
 				if (product[productRequiredProperties[prop]] === undefined)
@@ -56,9 +53,6 @@ Module {
 					"vendor": product.vendor,
 					"domain": product.domain,
 					"description": product.description,
-					"author": product.author,
-					"copyright": product.copyright,
-					"license": product.license,
 					"dependencies": []
 				}
 

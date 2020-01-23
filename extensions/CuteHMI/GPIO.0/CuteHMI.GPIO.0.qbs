@@ -14,10 +14,6 @@ Project {
 
 		cutehmi.product.enabled: cutehmi.libs.libgpiod.available
 
-		minor: 0
-
-		micro: 0
-
 		friendlyName: "General-purpose Input/Output"
 
 		vendor: "CuteHMI"
@@ -25,12 +21,6 @@ Project {
 		domain: "cutehmi.kde.org"
 
 		description: "An extension built on top of 'libgpiod' library to deal with GPIO chips."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 		 "README.md",

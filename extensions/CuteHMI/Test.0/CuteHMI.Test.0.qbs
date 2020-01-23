@@ -12,10 +12,6 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
-		minor: 0
-
-		micro: 0
-
 		friendlyName: "Test"
 
 		vendor: "CuteHMI"
@@ -23,12 +19,6 @@ Project {
 		domain: "cutehmi.kde.org"
 
 		description: "Testing helpers."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"include/cutehmi/test/IsAnyOfTypes.hpp",

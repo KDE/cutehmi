@@ -24,12 +24,6 @@ Project {
 
 		description: "A tool that generates qmltypes files."
 
-		author: "The Qt Company Ltd"
-
-		copyright: "The Qt Company Ltd"
-
-		license: "GNU General Public License, v. 3.0"
-
 		Group {
 			name: "5.12 branch"
 

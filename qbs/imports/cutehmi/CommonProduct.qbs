@@ -22,19 +22,13 @@ Product {
 
 	property string description				///< Short product description.
 
-	property string author: ""					///< Author(s) (deprecated).
-
-	property string copyright: ""				///< Copyright holder(s) (deprecated).
-
-	property string license: ""					///< License(s) (deprecated).
-
 	property string baseName				///< Base name of the product (without the major version suffix).
 
 	property int major						///< Major version number.
 
-	property int minor: 0					///< Minor version number (deprecated).
+	property int minor: 0					///< Minor version number.
 
-	property int micro: 0					///< Micro version number (deprecated).
+	property int micro: 0					///< Micro version number.
 
 	//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
 

@@ -8,10 +8,6 @@ Project {
 	cutehmi.Extension {
 		name: parent.name
 
-		minor: 0
-
-		micro: 0
-
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"
@@ -19,12 +15,6 @@ Project {
 		friendlyName: "Modbus Controllers Example"
 
 		description: "Example featuring register controllers."
-
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
 
 		files: [
 			"CoilControl.qml",
