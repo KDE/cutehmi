@@ -34,6 +34,7 @@ numbers denote successive iterations of the project.
 | Branch                                         | Build status                                                                                                                   | Development status |
 |------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
 | [master](https://invent.kde.org/kde/cutehmi)   | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | alpha              |
+| [2](https://invent.kde.org/kde/cutehmi/tree/2) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=2)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | perpetual-beta     |
 | [1](https://invent.kde.org/kde/cutehmi/tree/1) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
 
 [//]: # (\endhtmlonly)
