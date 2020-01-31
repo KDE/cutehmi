@@ -23,7 +23,10 @@ Note: While most of the project uses GNU Lesser General Public License version
 
 Branch "master" is a development branch. Development branch may contain source
 code that is undergoing deep changes, rendering it unusable. Consecutive branch
-numbers denote successive iterations of the project.
+numbers denote successive iterations of the project. Iteration of the project
+is related to build framework (repository layout and Qbs items). Extensions and
+tools are versioned independently and they have their own development status.
+Hence "perpetual beta" is desired development status of each branch.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
@@ -34,6 +37,7 @@ numbers denote successive iterations of the project.
 | Branch                                         | Build status                                                                                                                   | Development status |
 |------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
 | [master](https://invent.kde.org/kde/cutehmi)   | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | alpha              |
+| [2](https://invent.kde.org/kde/cutehmi)        | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)      | perpetual beta     |
 | [1](https://invent.kde.org/kde/cutehmi/tree/1) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
 
 [//]: # (\endhtmlonly)
