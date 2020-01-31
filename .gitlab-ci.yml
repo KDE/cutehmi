@@ -19,7 +19,7 @@ stages:
   stage: build
   only:
     - master
-    - 2
+    - "2"
     - merge_requests
   script:
     - echo "Qbs base profile:" $QBS_BASE_PROFILE
@@ -113,7 +113,7 @@ clang ubuntu-19.04-qt-5.13.1 release build:
   stage: build tests
   only:
     - master
-    - 2
+    - "2"
     - merge_requests
   artifacts:
     paths:
@@ -157,7 +157,7 @@ gcc ubuntu-19.04-qt-5.13.1 debug build tests:
   allow_failure: true
   only:
     - master
-    - 2
+    - "2"
     - merge_requests
   script:
     - qbs build -f TestCuteHMI.qbs -d build_tests -p autotest-runner --jobs 1 modules.autotest.arguments:'[$QBS_AUTOTEST_ARGUMENTS]' profile:$QBS_PROFILE config:$QBS_CONFIG
