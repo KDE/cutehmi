@@ -17,16 +17,17 @@ Project {
 		description: "Gallery of HVAC symbols provided by CuteHMI.Symbols.HVAC.0 extension."
 
 		files: [
-			"AirFilterSettings.qml",
-			"BasicDiscreteInstrumentSettings.qml",
-			"CentrifugalFanSettings.qml",
-			"ElementSettings.qml",
-			"LICENSE",
-			"Main.qml",
-			"MotorActuatorSettings.qml",
-			"PumpSettings.qml",
-			"README.md",
-		]
+         "AirFilterSettings.qml",
+         "BasicDiscreteInstrumentSettings.qml",
+         "CentrifugalFanSettings.qml",
+         "ElementSettings.qml",
+         "HeatRecoveryWheelSettings.qml",
+         "LICENSE",
+         "Main.qml",
+         "MotorActuatorSettings.qml",
+         "PumpSettings.qml",
+         "README.md",
+     ]
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.useDoxyqml: true
