@@ -199,6 +199,24 @@ Rectangle {
 					Label {
 						Layout.alignment: Qt.AlignCenter
 
+						text: qsTr("Heat revovery wheel")
+					}
+
+					HeatRecoveryWheel {
+						id: wheel
+
+						Layout.alignment: Qt.AlignCenter
+					}
+
+					HeatRecoveryWheelSettings {
+						Layout.alignment: Qt.AlignTop
+
+						wheel: wheel
+					}
+
+					Label {
+						Layout.alignment: Qt.AlignCenter
+
 						text: qsTr("Motor actuator")
 					}
 

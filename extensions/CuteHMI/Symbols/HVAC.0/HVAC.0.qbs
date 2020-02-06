@@ -17,20 +17,21 @@ Project {
 		description: "Symbols for heating, ventilation and air conditioning."
 
 		files: [
-			"AirFilter.qml",
-			"BasicCooler.qml",
-			"BasicDiscreteInstrument.qml",
-			"BasicHeater.qml",
-			"CentrifugalFan.qml",
-			"Cooler.qml",
-			"HeatExchanger.qml",
-			"Heater.qml",
-			"LICENSE",
-			"MotorActuator.qml",
-			"Pump.qml",
-			"README.md",
-			"SymbolCanvas.qml",
-		]
+         "AirFilter.qml",
+         "BasicCooler.qml",
+         "BasicDiscreteInstrument.qml",
+         "BasicHeater.qml",
+         "CentrifugalFan.qml",
+         "Cooler.qml",
+         "HeatExchanger.qml",
+         "HeatRecoveryWheel.qml",
+         "Heater.qml",
+         "LICENSE",
+         "MotorActuator.qml",
+         "Pump.qml",
+         "README.md",
+         "SymbolCanvas.qml",
+     ]
 
 		Depends { name: "CuteHMI.2" }
 
