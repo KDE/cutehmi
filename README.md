@@ -16,6 +16,9 @@
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++
 and QML, using Qt libraries as a framework.
 
+![Qt Designer](doc/images/design_mode.png)
+![Demo](doc/images/demo.png)
+
 Note: While most of the project uses GNU Lesser General Public License version
 3, some files are distributed under different licenses.
 
