@@ -62,3 +62,6 @@ userEnv.bat
 
 # Temporary documentation artifacts.
 doc/_temp
+
+# Doxygen artifacts.
+doc/Doxygen

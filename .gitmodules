@@ -1,4 +1,0 @@
-[submodule "doc/Doxygen"]
-	path = doc/Doxygen
-	url = https://invent.kde.org/kde/cutehmi-doxygen.git
-
