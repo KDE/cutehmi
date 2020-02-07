@@ -10,6 +10,12 @@ Project {
 	]
 
 	cutehmi.PuppetExtension {
+		files: [
+			"puppet/CuteApplication.qml",
+		]
+
+		cutehmi.qmldir.singletons: ["CuteApplication"]
+
 		originalExtension: parent.name
 	}
 
@@ -25,33 +31,33 @@ Project {
 		description: "Provides foundation for GUI applications."
 
 		files: [
-         "Element.qml",
-         "LICENSE",
-         "NumberDisplay.qml",
-         "PropItem.qml",
-         "README.md",
-         "dev/CuteHMI.GUI-1.workaround.Qt.bug.txt",
-         "dev/CuteHMI.GUI-2.workaround.Qt.bug.txt",
-         "include/cutehmi/gui/ColorSet.hpp",
-         "include/cutehmi/gui/CuteApplication.hpp",
-         "include/cutehmi/gui/Fonts.hpp",
-         "include/cutehmi/gui/Palette.hpp",
-         "include/cutehmi/gui/Theme.hpp",
-         "include/cutehmi/gui/Units.hpp",
-         "include/cutehmi/gui/internal/common.hpp",
-         "include/cutehmi/gui/internal/platform.hpp",
-         "include/cutehmi/gui/logging.hpp",
-         "include/cutehmi/gui/metadata.hpp",
-         "src/cutehmi/gui/ColorSet.cpp",
-         "src/cutehmi/gui/CuteApplication.cpp",
-         "src/cutehmi/gui/Fonts.cpp",
-         "src/cutehmi/gui/Palette.cpp",
-         "src/cutehmi/gui/Theme.cpp",
-         "src/cutehmi/gui/Units.cpp",
-         "src/cutehmi/gui/internal/QMLPlugin.cpp",
-         "src/cutehmi/gui/internal/QMLPlugin.hpp",
-         "src/cutehmi/gui/logging.cpp",
-     ]
+			"Element.qml",
+			"LICENSE",
+			"NumberDisplay.qml",
+			"PropItem.qml",
+			"README.md",
+			"dev/CuteHMI.GUI-1.workaround.Qt.bug.txt",
+			"dev/CuteHMI.GUI-2.workaround.Qt.bug.txt",
+			"include/cutehmi/gui/ColorSet.hpp",
+			"include/cutehmi/gui/CuteApplication.hpp",
+			"include/cutehmi/gui/Fonts.hpp",
+			"include/cutehmi/gui/Palette.hpp",
+			"include/cutehmi/gui/Theme.hpp",
+			"include/cutehmi/gui/Units.hpp",
+			"include/cutehmi/gui/internal/common.hpp",
+			"include/cutehmi/gui/internal/platform.hpp",
+			"include/cutehmi/gui/logging.hpp",
+			"include/cutehmi/gui/metadata.hpp",
+			"src/cutehmi/gui/ColorSet.cpp",
+			"src/cutehmi/gui/CuteApplication.cpp",
+			"src/cutehmi/gui/Fonts.cpp",
+			"src/cutehmi/gui/Palette.cpp",
+			"src/cutehmi/gui/Theme.cpp",
+			"src/cutehmi/gui/Units.cpp",
+			"src/cutehmi/gui/internal/QMLPlugin.cpp",
+			"src/cutehmi/gui/internal/QMLPlugin.hpp",
+			"src/cutehmi/gui/logging.cpp",
+		]
 
 		Depends { name: "CuteHMI.2" }
 
