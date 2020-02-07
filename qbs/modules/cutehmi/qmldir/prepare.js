@@ -10,48 +10,70 @@ function writeModule(f, moduleIdentifier)
 	f.writeLine("module " + moduleIdentifier)
 }
 
+// Qbs does not allow for copying of cyclic structures like inputs or overridingInputs, which prevents us from merging inputs
+// and overridingInputs into single array or perform non-destructive operations on these arrays without touching original references,
+// so this ugly helper function is provided to share code in writeInputs() function.
+function writeInput(f, puppetPrefix, config, input, overridingInputs)
+{
+	var usedOverride = undefined
+
+	// Calculate relative path between given input and 'qmldir' file (output) location.
+	// FileInfo.relativePath() assumes first argument to be a directory, thus get directory of 'qmldir' with FileInfo.path().
+	var relativePath = FileInfo.relativePath(FileInfo.path(config.output.filePath), input.filePath)
+	// Add prefix and clean path from redundant '..' and '.'.
+	relativePath = FileInfo.cleanPath(puppetPrefix + "/" + relativePath)
+
+	// If there are overriding inputs check if current input is overriden and reassign input variable if necessary. Modify
+	// relativePath accordingly.
+	if (overridingInputs !== undefined)
+		for (var ii = 0; ii < overridingInputs.length; ii++) {
+			if (overridingInputs[ii].baseName === input.baseName) {
+				input = overridingInputs[ii]
+				// Calculate relative path between given input and 'qmldir' file (output) location.
+				// FileInfo.relativePath() assumes first argument to be a directory, thus get directory of 'qmldir' with FileInfo.path().
+				relativePath = FileInfo.relativePath(FileInfo.path(config.output.filePath), overridingInputs[ii].filePath)
+				usedOverride = ii
+				break
+			}
+		}
+
+	var j
+	var excludePath = FileInfo.relativePath(config.inputsSourceBase, input.filePath)
+	for (j = 0; j < config.excludedInputs.length; j++)
+		if (excludePath.match(config.excludedInputs[j]))
+			break
+	if (j !== config.excludedInputs.length)	// This means pattern has been found.
+		return usedOverride
+
+	if (input.fileTags.contains("qml"))
+		writeQmlType(f, input, relativePath, config.major, config.minor, config.filesMap, config.singletons)
+	else if (input.fileTags.contains("js"))
+		writeJsResource(f, input, relativePath, config.major, config.minor, config.filesMap)
+
+	return usedOverride
+}
+
 function writeInputs(f, config)
 {
-	// Take into account source base difference, betewn inputs and 'qmldir', which happens, when 'qmldir' belongs to a puppet.
+	// Take into account source base difference, between inputs and 'qmldir', which happens, when 'qmldir' belongs to a puppet.
 	var puppetPrefix = FileInfo.relativePath(config.inputsSourceBase, config.outputSourceBase)
 
-	// Take into account difference between installation direcotry of 'qmldir' file and inputs, which happens for puppets.
+	// Take into account difference between installation directory of 'qmldir' file and inputs, which happens for puppets.
 	puppetPrefix = FileInfo.relativePath(config.outputInstallDir, config.inputsInstallDir) + "/" + puppetPrefix
 
+	var usedOverrides = []
 	for (var i = 0; i < config.inputs.length; i++) {
-		var input = config.inputs[i]
+		var usedOverride = writeInput(f, puppetPrefix, config, config.inputs[i], config.overridingInputs)
+		if (usedOverride !== undefined)
+			usedOverrides.push(usedOverride)
+	}
 
-		// Calculate relative path between given input and 'qmldir' file (output) location.
-		// FileInfo.relativePath() assumes first argument to be a directory, thus get directory of 'qmldir' with FileInfo.path().
-		var relativePath = FileInfo.relativePath(FileInfo.path(config.output.filePath), input.filePath)
-		// Add prefix and clean path from redundant '..' and '.'.
-		relativePath = FileInfo.cleanPath(puppetPrefix + "/" + relativePath)
-
-		// If there are overriding inputs check if current input is overriden and reassign input variable if necessary. Modify
-		// relativePath accordingly.
-		if (config.overridingInputs !== undefined)
-			for (var ii = 0; ii < config.overridingInputs.length; ii++) {
-				if (config.overridingInputs[ii].baseName === input.baseName) {
-					input = config.overridingInputs[ii]
-					// Calculate relative path between given input and 'qmldir' file (output) location.
-					// FileInfo.relativePath() assumes first argument to be a directory, thus get directory of 'qmldir' with FileInfo.path().
-					relativePath = FileInfo.relativePath(FileInfo.path(config.output.filePath), config.overridingInputs[ii].filePath)
-					break
-				}
-			}
-
-		var j
-		var excludePath = FileInfo.relativePath(config.inputsSourceBase, input.filePath)
-		for (j = 0; j < config.excludedInputs.length; j++)
-			if (excludePath.match(config.excludedInputs[j]))
-				break
-		if (j !== config.excludedInputs.length)	// This means pattern has been found.
-			continue
-
-		if (input.fileTags.contains("qml"))
-			writeQmlType(f, input, relativePath, config.major, config.minor, config.filesMap, config.singletons)
-		else if (input.fileTags.contains("js"))
-			writeJsResource(f, input, relativePath, config.major, config.minor, config.filesMap)
+	// Additional components provided by a puppet.
+	if (config.overridingInputs !== undefined) {
+		for (i = 0; i < config.overridingInputs.length; i++) {
+			if (!usedOverrides.contains(i))
+				writeInput(f, ".", config, config.overridingInputs[i], undefined)
+		}
 	}
 }
 

@@ -187,7 +187,7 @@ Module {
 						moduleIdentifier: originalProduct.cutehmi.qmldir.moduleIdentifier,
 						major: originalProduct.cutehmi.qmldir.major,
 						minor: originalProduct.cutehmi.qmldir.minor,
-						singletons: originalProduct.cutehmi.qmldir.singletons,
+						singletons: product.cutehmi.qmldir.singletons.concat(originalProduct.cutehmi.qmldir.singletons),
 						output: output,
 						outputSourceBase: product.installSourceBase,
 						outputInstallDir: product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
