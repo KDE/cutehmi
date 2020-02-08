@@ -21,6 +21,7 @@ Project {
          "BasicCooler.qml",
          "BasicDiscreteInstrument.qml",
          "BasicHeater.qml",
+         "BladeDamper.qml",
          "CentrifugalFan.qml",
          "Cooler.qml",
          "HeatExchanger.qml",

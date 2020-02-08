@@ -52,6 +52,19 @@ MetaInfo {
     }
 
     Type {
+        name: "CuteHMI.Symbols.HVAC.BladeDamper"
+        icon: ":/qtquickplugin/images/item-icon16.png"
+
+        ItemLibraryEntry {
+            name: "Blade Damper"
+            category: "CuteHMI - Symbols - HVAC 0"
+            libraryIcon: ":/qtquickplugin/images/item-icon.png"
+            version: "0.0"
+            requiredImport: "CuteHMI.Symbols.HVAC"
+        }
+    }
+
+    Type {
         name: "CuteHMI.Symbols.HVAC.CentrifugalFan"
         icon: ":/qtquickplugin/images/item-icon16.png"
 

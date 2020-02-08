@@ -19,6 +19,7 @@ Project {
 		files: [
          "AirFilterSettings.qml",
          "BasicDiscreteInstrumentSettings.qml",
+         "BladeDamperSettings.qml",
          "CentrifugalFanSettings.qml",
          "ElementSettings.qml",
          "HeatRecoveryWheelSettings.qml",

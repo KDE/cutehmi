@@ -127,6 +127,24 @@ Rectangle {
 					Label {
 						Layout.alignment: Qt.AlignCenter
 
+						text: qsTr("Blade damper")
+					}
+
+					BladeDamper {
+						id: bladeDamper
+
+						Layout.alignment: Qt.AlignCenter
+					}
+
+					BladeDamperSettings {
+						Layout.alignment: Qt.AlignTop
+
+						damper: bladeDamper
+					}
+
+					Label {
+						Layout.alignment: Qt.AlignCenter
+
 						text: qsTr("Centrifugal fan")
 					}
 
