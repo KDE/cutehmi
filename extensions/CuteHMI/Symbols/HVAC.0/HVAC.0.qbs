@@ -31,6 +31,7 @@ Project {
          "Pump.qml",
          "README.md",
          "SymbolCanvas.qml",
+         "designer/HVAC.metainfo",
      ]
 
 		Depends { name: "CuteHMI.2" }
