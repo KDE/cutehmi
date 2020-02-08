@@ -2,12 +2,15 @@ import QtQuick 2.0
 
 import CuteHMI.GUI 0.0
 
-Element
-{
+/**
+  Heat exchanger.
+  */
+Element {
 	id: root
 
 	implicitWidth: CuteApplication.theme.units.quadrat
 	implicitHeight: CuteApplication.theme.units.quadrat * 1.5
+	active: true
 
 	property Component housing: Component {
 		Rectangle {

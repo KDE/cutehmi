@@ -2,11 +2,15 @@ import QtQuick 2.0
 
 import CuteHMI.GUI 0.0
 
+/**
+  Basic discrete instrument.
+  */
 Element {
 	id: root
 
 	implicitWidth: CuteApplication.theme.units.quadrat * 0.5
 	implicitHeight: CuteApplication.theme.units.quadrat * 0.5
+	active: true
 
 	property string symbol: "TT"
 

@@ -2,6 +2,9 @@ import QtQuick 2.5
 
 import CuteHMI.GUI 0.0
 
+/**
+  Symbol canvas. Canvas used to draw active symbols.
+  */
 Canvas {
 	property Element element
 
