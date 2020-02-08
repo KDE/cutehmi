@@ -69,9 +69,11 @@ void QMLPlugin::registerTypes(const char * uri)
 	qmlRegisterType<cutehmi::gui::Units>(uri, CUTEHMI_GUI_MAJOR, 0, "Units");
 	qmlRegisterType<cutehmi::gui::Theme>(uri, CUTEHMI_GUI_MAJOR, 0, "Theme");
 
-	//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">
-	qmlRegisterSingletonType<cutehmi::gui::CuteApplication>(uri, CUTEHMI_GUI_MAJOR, 0, "CuteApplication", CuteApplicationProvider);
-	//</CuteHMI.LockScreen-1.workaround>
+	if (qgetenv("QML_PUPPET_MODE").isNull()) {
+		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">
+		qmlRegisterSingletonType<cutehmi::gui::CuteApplication>(uri, CUTEHMI_GUI_MAJOR, 0, "CuteApplication", CuteApplicationProvider);
+		//</CuteHMI.LockScreen-1.workaround>
+	}
 }
 
 QObject * QMLPlugin::CuteApplicationProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
