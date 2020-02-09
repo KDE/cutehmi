@@ -1,0 +1,27 @@
+MetaInfo {
+    Type {
+        name: "CuteHMI.GUI.NumberDisplay"
+	icon: ":/qtquickplugin/images/item-icon16.png"
+
+	ItemLibraryEntry {
+            name: "Number Display"
+            category: "CuteHMI - GUI 0"
+	    libraryIcon: ":/qtquickplugin/images/item-icon.png"
+            version: "0.0"
+            requiredImport: "CuteHMI.GUI"
+	}
+    }
+
+Type {
+        name: "CuteHMI.GUI.PropItem"
+        icon: ":/qtquickplugin/images/item-icon16.png"
+
+        ItemLibraryEntry {
+            name: "Prop Item"
+            category: "CuteHMI - GUI 0"
+            libraryIcon: ":/qtquickplugin/images/item-icon.png"
+            version: "0.0"
+            requiredImport: "CuteHMI.GUI"
+        }
+    }
+}

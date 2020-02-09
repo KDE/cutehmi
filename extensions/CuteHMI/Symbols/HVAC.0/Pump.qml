@@ -2,8 +2,10 @@ import QtQuick 2.0
 
 import CuteHMI.GUI 0.0
 
-Element
-{
+/**
+  Pump.
+  */
+Element {
 	id: root
 
 	implicitWidth: CuteApplication.theme.units.quadrat

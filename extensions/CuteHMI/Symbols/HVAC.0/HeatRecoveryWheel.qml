@@ -3,10 +3,9 @@ import QtQuick 2.5
 import CuteHMI.GUI 0.0
 
 /**
-  Active symbol of heat recovery wheel.
+  Heat recovery wheel.
   */
-Element
-{
+Element {
 	id: root
 
 	implicitWidth: CuteApplication.theme.units.quadrat * 0.5

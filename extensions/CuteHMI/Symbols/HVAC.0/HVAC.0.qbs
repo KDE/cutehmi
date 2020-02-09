@@ -21,6 +21,7 @@ Project {
          "BasicCooler.qml",
          "BasicDiscreteInstrument.qml",
          "BasicHeater.qml",
+         "BladeDamper.qml",
          "CentrifugalFan.qml",
          "Cooler.qml",
          "HeatExchanger.qml",
@@ -31,6 +32,7 @@ Project {
          "Pump.qml",
          "README.md",
          "SymbolCanvas.qml",
+         "designer/HVAC.metainfo",
      ]
 
 		Depends { name: "CuteHMI.2" }

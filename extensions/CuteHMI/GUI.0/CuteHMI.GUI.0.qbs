@@ -11,8 +11,9 @@ Project {
 
 	cutehmi.PuppetExtension {
 		files: [
-			"puppet/CuteApplication.qml",
-		]
+         "puppet/CuteApplication.qml",
+         "puppet/designer/GUI.metainfo",
+     ]
 
 		cutehmi.qmldir.singletons: ["CuteApplication"]
 

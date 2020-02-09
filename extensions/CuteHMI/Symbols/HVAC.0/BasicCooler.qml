@@ -1,5 +1,8 @@
 import QtQuick 2.0
 
+/**
+  Basic cooler.
+  */
 HeatExchanger {
 	id: root
 

@@ -3,27 +3,22 @@ import QtQuick 2.5
 import CuteHMI.GUI 0.0
 
 /**
-  Air filter.
+  Blade damper.
   */
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat * 0.5
-	implicitHeight: CuteApplication.theme.units.quadrat * 1.5
+	implicitWidth: CuteApplication.theme.units.quadrat * 0.25
+	implicitHeight: CuteApplication.theme.units.quadrat
 	active: true
-	warning: fill >= dirtyWarning
-	alarm: fill >= dirtyAlarm
+
+	property int blades: 4
+
+	property real value: 0.5
+
+	property bool opposedBlade: true
 
 	property bool mirror: false
-
-	// Number of filter pockets.
-	property int pockets: 5
-
-	// Fill level (0.0 - 1.0).
-	property real fill: 0.0
-
-	property real dirtyWarning: 0.75
-	property real dirtyAlarm: 0.9
 
 	property Component frame: Component {
 		SymbolCanvas {
@@ -47,28 +42,20 @@ Element {
 				ctx.fill()
 				ctx.stroke()
 
-				// Draw dirt.
-				ctx.fillStyle = root.color.shade
-				ctx.beginPath()
-				var dirtWidth = (width - 2 * strokeWidth) * fill
-				ctx.fillRect(width - strokeWidth - dirtWidth, strokeWidth, dirtWidth, height - 2 * strokeWidth)
-				ctx.fill()
-
 				ctx.restore()
-			}
-
-			Connections {
-				target: root
-				onFillChanged: requestPaint()
 			}
 		}
 	}
 
-	property Component content: Component {
+	property Component mechanism: Component {
 		SymbolCanvas {
 			transform: Scale { origin.x: width * 0.5; xScale: root.mirror ? -1 : 1 }
 
 			element: root
+
+			property real bladeSize: root.width * 0.75
+
+			property real bearingRadius: bladeSize * 0.125
 
 			onPaint: {
 				var ctx = getContext('2d')
@@ -76,35 +63,44 @@ Element {
 				ctx.reset()
 
 				ctx.strokeStyle = root.color.stroke
-				ctx.fillStyle = root.color.tint
+				ctx.fillStyle = root.color.stroke
 				ctx.lineWidth = strokeWidth
 
-				// Draw pockets.
-				var offset = strokeWidth / 2.0
-				var pocketHeight = (height - strokeWidth) / pockets
+				var bladeMargin = 0.5 * (root.width - bladeSize)
+				var totalBladesHeight = root.blades * (bladeSize + bladeMargin) - bladeMargin
+				var margin = 0.5 * (root.height - totalBladesHeight)
 
-				ctx.beginPath()
-				var y = pocketHeight / 2.0
-				ctx.moveTo(width - strokeWidth, offset)
-				ctx.lineTo(offset, offset)
-				ctx.lineTo(width - strokeWidth, y)
-				for (var i = 1; i < pockets; i++) {
-					y += pocketHeight / 2.0
-					ctx.lineTo(offset, y)
-					y += pocketHeight / 2.0
-					ctx.lineTo(width - strokeWidth, y)
+				var angle = value * Math.PI * 0.5
+				ctx.translate(root.width * 0.5, margin + 0.5 * bladeSize)
+				for (var i = 0; i < blades; i++) {
+					// Draw bearing.
+					ctx.beginPath()
+					ctx.arc(0, 0, bearingRadius, 0, 2 * Math.PI, false)
+					ctx.stroke()
+					ctx.fill()
+
+					// Draw blade.
+					if (root.opposedBlade)
+						angle = -angle
+					ctx.rotate(angle)
+					ctx.beginPath()
+					ctx.moveTo(0, -bladeSize * 0.5)
+					ctx.lineTo(0, bladeSize * 0.5)
+					ctx.stroke()
+					ctx.rotate(-angle)
+
+					ctx.translate(0, bladeSize + bladeMargin)
 				}
-				ctx.lineTo(offset, height - offset)
-				ctx.lineTo(width - strokeWidth, height - offset)
-				ctx.fill()
-				ctx.stroke()
 
 				ctx.restore()
 			}
 
 			Connections {
 				target: root
-				onPocketsChanged: requestPaint()
+				onBladesChanged: requestPaint()
+				onValueChanged: requestPaint()
+				onOpposedBladeChanged: requestPaint()
+				onMirrorChanged: requestPaint()
 			}
 		}
 	}
@@ -118,7 +114,7 @@ Element {
 	Loader {
 		width: root.width
 		height: root.height
-		sourceComponent: content
+		sourceComponent: mechanism
 	}
 }
 
