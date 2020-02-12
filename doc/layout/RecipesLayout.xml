@@ -22,7 +22,7 @@
           <tab type="filelist" visible="yes" title="" intro=""/>
           <tab type="globals" visible="yes" title="" intro=""/>
       </tab>
-      <tab type="examples" visible="yes" title="" intro=""/>
+      <tab type="examples" visible="yes" title="Files" intro=""/>
   </navindex>
 
   <!-- Layout definition for a class page -->
