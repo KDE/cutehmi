@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat * 0.25
-	implicitHeight: CuteApplication.theme.units.quadrat
+	implicitWidth: horizontal ? CuteApplication.theme.units.quadrat : CuteApplication.theme.units.quadrat * 0.25
+	implicitHeight: horizontal ? CuteApplication.theme.units.quadrat * 0.25 : CuteApplication.theme.units.quadrat
 	active: true
 
 	property int blades: 4
@@ -19,6 +19,8 @@ Element {
 	property bool opposedBlade: true
 
 	property bool mirror: false
+
+	property bool horizontal
 
 	property Component frame: Component {
 		SymbolCanvas {
@@ -49,11 +51,14 @@ Element {
 
 	property Component mechanism: Component {
 		SymbolCanvas {
-			transform: Scale { origin.x: width * 0.5; xScale: root.mirror ? -1 : 1 }
+			transform: [
+				Scale { origin.x: width * 0.5; xScale: root.mirror ? -1 : 1 },
+				Rotation { origin.x: root.height * 0.5; origin.y: root.height * 0.5; angle: horizontal ? -90 : 0 }
+			]
 
 			element: root
 
-			property real bladeSize: root.width * 0.75
+			property real bladeSize: width * 0.75
 
 			property real bearingRadius: bladeSize * 0.125
 
@@ -66,12 +71,12 @@ Element {
 				ctx.fillStyle = root.color.stroke
 				ctx.lineWidth = strokeWidth
 
-				var bladeMargin = 0.5 * (root.width - bladeSize)
+				var bladeMargin = 0.5 * (width - bladeSize)
 				var totalBladesHeight = root.blades * (bladeSize + bladeMargin) - bladeMargin
-				var margin = 0.5 * (root.height - totalBladesHeight)
+				var margin = 0.5 * (height - totalBladesHeight)
 
 				var angle = value * Math.PI * 0.5
-				ctx.translate(root.width * 0.5, margin + 0.5 * bladeSize)
+				ctx.translate(width * 0.5, margin + 0.5 * bladeSize)
 				for (var i = 0; i < blades; i++) {
 					// Draw bearing.
 					ctx.beginPath()
@@ -112,8 +117,8 @@ Element {
 	}
 
 	Loader {
-		width: root.width
-		height: root.height
+		width: horizontal ? root.height : root.width
+		height: horizontal ? root.width : root.height
 		sourceComponent: mechanism
 	}
 }

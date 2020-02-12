@@ -33,6 +33,18 @@ ElementSettings {
 			Label {
 				Layout.alignment: Qt.AlignRight
 
+				text: qsTr("Horizontal:")
+			}
+
+			CheckBox {
+				checked: damper.horizontal
+
+				onCheckedChanged: damper.horizontal = checked
+			}
+
+			Label {
+				Layout.alignment: Qt.AlignRight
+
 				text: qsTr("Blades:")
 			}
 
