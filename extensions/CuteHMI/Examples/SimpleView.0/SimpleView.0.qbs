@@ -14,13 +14,16 @@ Project {
 
 		friendlyName: "Simple View"
 
-		description: "Simple QML project demonstrating how to provide visual indication of device operational status with CuteHMI.Element component."
+		description: "Simple example demonstrating how to provide visual indication of device operational status with CuteHMI.GUI components."
 
 		files: [
-         "LICENSE",
-         "RectangularElement.qml",
-         "Main.qml",
-     ]
+			"LICENSE",
+			"README.md",
+			"RectangularElement.qml",
+			"Main.qml",
+		]
+
+		Depends { name: "CuteHMI.GUI.0" }
 
 		Depends { name: "cutehmi.qmldir" }
 

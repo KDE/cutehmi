@@ -6,3 +6,33 @@ To run the example use [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) to
 ```
 cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.ClientServer.0"
 ```
+
+\example CoilControl.qml
+Here is a complete listing of the main component.
+
+\example DeviceControl.qml
+Here is a complete listing of the main component.
+
+\example DiscreteInputControl.qml
+Here is a complete listing of the main component.
+
+\example GridLayoutModel.qml
+Here is a complete listing of the main component.
+
+\example HoldingRegisterControl.qml
+Here is a complete listing of the main component.
+
+\example InputRegisterControl.qml
+Here is a complete listing of the main component.
+
+\example Main.qml
+Here is a complete listing of the main component.
+
+\example ServiceControl.qml
+Here is a complete listing of the main component.
+
+\example TCPClientConfiguration.qml
+Here is a complete listing of the main component.
+
+\example TCPServerConfiguration.qml
+Here is a complete listing of the main component.
