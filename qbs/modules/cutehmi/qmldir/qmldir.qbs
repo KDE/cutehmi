@@ -149,13 +149,17 @@ Module {
 
 	Rule {
 		condition: puppet
-		explicitlyDependsOn: ["cutehmi.qmldir.entity." + product.name]	// Note: puppet extension can not have **regular** plugin binary on its own.
+		//<qbs-cutehmi.qmldirs-2.workaround target="Qbs+QtCreator" cause="bug">
+		inputs: ["cutehmi.qmldir.entity." + product.name]	// Note: puppet extension can not have **regular** plugin binary on its own.
+		// Instead of:
+		// explicitlyDependsOn: ["cutehmi.qmldir.entity." + product.name]
 
-		//<qbs-cutehmi.qmldirs-1.workaround target="Qt" cause="bug">
+		//<qbs-cutehmi.qmldirs-1.workaround target="Qbs" cause="bug">
 		inputsFromDependencies: ["cutehmi.qmldir.entity." + product.originalExtension, "cutehmi.qmldir.qmlPlugin"]
 		// Instead of:
 		// explicitlyDependsOnFromDependencies: ["cutehmi.qmldir.entity." + product.originalExtension, "cutehmi.qmldir.qmlPlugin"]
 		//</qbs-cutehmi.qmldirs-1.workaround>
+		//</qbs-cutehmi.qmldirs-2.workaround>
 
 		multiplex: true
 
@@ -192,7 +196,7 @@ Module {
 						outputSourceBase: product.installSourceBase,
 						outputInstallDir: product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
 						inputs: inputs["cutehmi.qmldir.entity." + originalProduct.name],
-						overridingInputs: explicitlyDependsOn["cutehmi.qmldir.entity." + product.name],
+						overridingInputs: inputs["cutehmi.qmldir.entity." + product.name],
 						inputsSourceBase: originalProduct.installSourceBase,
 						inputsInstallDir: originalProduct.cutehmi.dirs.installDir + "/" + originalProduct.dedicatedInstallSubdir,
 						excludedInputs: originalProduct.cutehmi.qmldir.exclude,
@@ -236,7 +240,11 @@ Module {
 
 	Rule {
 		condition: !puppet
-		explicitlyDependsOn: ["cutehmi.qmldir.entity." + product.name, "cutehmi.qmldir.qmlPlugin"]
+		//<qbs-cutehmi.qmldirs-2.workaround target="Qbs+QtCreator" cause="bug">
+		inputs: ["cutehmi.qmldir.entity." + product.name, "cutehmi.qmldir.qmlPlugin"]
+		// Instead of:
+		// explicitlyDependsOn: ["cutehmi.qmldir.entity." + product.name, "cutehmi.qmldir.qmlPlugin"]
+		//</qbs-cutehmi.qmldirs-2.workaround>
 		multiplex: true
 
 		prepare: {
@@ -254,13 +262,13 @@ Module {
 						output: output,
 						outputSourceBase: product.installSourceBase,
 						outputInstallDir: product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
-						inputs: explicitlyDependsOn["cutehmi.qmldir.entity." + product.name],
+						inputs: inputs["cutehmi.qmldir.entity." + product.name],
 						overridingInputs: undefined,
 						inputsSourceBase: product.installSourceBase,
 						inputsInstallDir: product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
 						excludedInputs: product.cutehmi.qmldir.exclude,
 						filesMap: product.cutehmi.qmldir.filesMap,
-						hasPlugin: product.type.contains("dynamiclibrary") && explicitlyDependsOn["cutehmi.qmldir.qmlPlugin"] !== undefined,
+						hasPlugin: product.type.contains("dynamiclibrary") && inputs["cutehmi.qmldir.qmlPlugin"] !== undefined,
 						plugins: product.cutehmi.qmldir.plugins,
 						className: product.cutehmi.qmldir.className,
 						typeInfo: product.cutehmi.qmldir.typeInfo,

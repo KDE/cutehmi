@@ -1,0 +1,16 @@
+Problem:
+
+When files are added to the product from Qt Creator it seems Qbs is not able to populate 'explicitlyDependsOn' list with newly added
+files.
+
+Investigation:
+
+If Qbs 'files' property is editted from editor, new files oddly appear within 'explicitlyDependsOn' property so as a remedy one
+could modify Qbs file by hand...
+
+Workaround:
+
+Workaround is to use 'inputs' instead of 'explicitlyDependsOn' and 'inputsFromDependencies' rather than
+'explicitlyDependsOnFromDependencies'.
+
+Snippet:
