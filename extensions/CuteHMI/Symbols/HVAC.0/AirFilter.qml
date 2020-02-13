@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat * 0.5
-	implicitHeight: CuteApplication.theme.units.quadrat * 1.5
+	implicitWidth: units.quadrat * 0.5
+	implicitHeight: units.quadrat * 1.5
 	active: true
 	warning: fill >= dirtyWarning
 	alarm: fill >= dirtyAlarm
@@ -38,20 +38,20 @@ Element {
 
 				ctx.strokeStyle = root.color.stroke
 				ctx.fillStyle = root.color.fill
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
-				var offset = strokeWidth / 2.0
+				var offset = units.strokeWidth / 2.0
 
 				// Draw case.
-				ctx.rect(offset, offset, width - strokeWidth, height - strokeWidth)
+				ctx.rect(offset, offset, width - units.strokeWidth, height - units.strokeWidth)
 				ctx.fill()
 				ctx.stroke()
 
 				// Draw dirt.
 				ctx.fillStyle = root.color.shade
 				ctx.beginPath()
-				var dirtWidth = (width - 2 * strokeWidth) * fill
-				ctx.fillRect(width - strokeWidth - dirtWidth, strokeWidth, dirtWidth, height - 2 * strokeWidth)
+				var dirtWidth = (width - 2 * units.strokeWidth) * fill
+				ctx.fillRect(width - units.strokeWidth - dirtWidth, units.strokeWidth, dirtWidth, height - 2 * units.strokeWidth)
 				ctx.fill()
 
 				ctx.restore()
@@ -77,25 +77,25 @@ Element {
 
 				ctx.strokeStyle = root.color.stroke
 				ctx.fillStyle = root.color.tint
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
 				// Draw pockets.
-				var offset = strokeWidth / 2.0
-				var pocketHeight = (height - strokeWidth) / pockets
+				var offset = units.strokeWidth / 2.0
+				var pocketHeight = (height - units.strokeWidth) / pockets
 
 				ctx.beginPath()
 				var y = pocketHeight / 2.0
-				ctx.moveTo(width - strokeWidth, offset)
+				ctx.moveTo(width - units.strokeWidth, offset)
 				ctx.lineTo(offset, offset)
-				ctx.lineTo(width - strokeWidth, y)
+				ctx.lineTo(width - units.strokeWidth, y)
 				for (var i = 1; i < pockets; i++) {
 					y += pocketHeight / 2.0
 					ctx.lineTo(offset, y)
 					y += pocketHeight / 2.0
-					ctx.lineTo(width - strokeWidth, y)
+					ctx.lineTo(width - units.strokeWidth, y)
 				}
 				ctx.lineTo(offset, height - offset)
-				ctx.lineTo(width - strokeWidth, height - offset)
+				ctx.lineTo(width - units.strokeWidth, height - offset)
 				ctx.fill()
 				ctx.stroke()
 

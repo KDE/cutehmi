@@ -8,8 +8,13 @@ import CuteHMI.GUI 0.0
   This component should be used to implement color code aware items.
   */
 Item {
-	implicitWidth: CuteApplication.theme.units.quadrat
-	implicitHeight: CuteApplication.theme.units.quadrat
+	implicitWidth: units.quadrat
+	implicitHeight: units.quadrat
+
+	/**
+	  Units used by the element.
+	  */
+	property Units units: CuteApplication.theme.units
 
 	/**
 	  %Palette. %Palette to be used by an element.
@@ -53,11 +58,6 @@ Item {
 	  according to the state of @a active, @a warning and @a alarm properties.
 	  */
 	property ColorSet colorSet: currentStateColorSet()
-
-	/**
-	  Stroke width. Width of the stoke that should be used by the item to draw its contents.
-	  */
-	property real strokeWidth: CuteApplication.theme.units.strokeWidth
 
 	/**
 	  Denotes if an item is in active state.

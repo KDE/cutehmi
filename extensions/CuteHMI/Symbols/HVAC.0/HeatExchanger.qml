@@ -8,15 +8,15 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat
-	implicitHeight: CuteApplication.theme.units.quadrat * 1.5
+	implicitWidth: units.quadrat
+	implicitHeight: units.quadrat * 1.5
 	active: true
 
 	property Component housing: Component {
 		Rectangle {
 			color: root.color.fill
 			border.color: root.color.stroke
-			border.width: root.strokeWidth
+			border.width: root.units.strokeWidth
 		}
 	}
 
@@ -29,7 +29,7 @@ Element {
 				ctx.save()
 				ctx.reset()
 
-				ctx.lineWidth = root.strokeWidth
+				ctx.lineWidth = root.units.strokeWidth
 				ctx.strokeStyle = root.color.stroke
 
 				// Draw diagonal line.

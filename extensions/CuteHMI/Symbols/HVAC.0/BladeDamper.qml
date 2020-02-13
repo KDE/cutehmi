@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: horizontal ? CuteApplication.theme.units.quadrat : CuteApplication.theme.units.quadrat * 0.25
-	implicitHeight: horizontal ? CuteApplication.theme.units.quadrat * 0.25 : CuteApplication.theme.units.quadrat
+	implicitWidth: horizontal ? units.quadrat : units.quadrat * 0.25
+	implicitHeight: horizontal ? units.quadrat * 0.25 : units.quadrat
 	active: true
 
 	property int blades: 4
@@ -35,12 +35,12 @@ Element {
 
 				ctx.strokeStyle = root.color.stroke
 				ctx.fillStyle = root.color.fill
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
-				var offset = strokeWidth / 2.0
+				var offset = units.strokeWidth / 2.0
 
 				// Draw case.
-				ctx.rect(offset, offset, width - strokeWidth, height - strokeWidth)
+				ctx.rect(offset, offset, width - units.strokeWidth, height - units.strokeWidth)
 				ctx.fill()
 				ctx.stroke()
 
@@ -69,7 +69,7 @@ Element {
 
 				ctx.strokeStyle = root.color.stroke
 				ctx.fillStyle = root.color.stroke
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
 				var bladeMargin = 0.5 * (width - bladeSize)
 				var totalBladesHeight = root.blades * (bladeSize + bladeMargin) - bladeMargin

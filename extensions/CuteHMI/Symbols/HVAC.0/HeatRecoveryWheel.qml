@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat * 0.5
-	implicitHeight: CuteApplication.theme.units.quadrat * 2.0
+	implicitWidth: units.quadrat * 0.5
+	implicitHeight: units.quadrat * 2.0
 
 	property int segments: 16
 
@@ -30,12 +30,12 @@ Element {
 
 				ctx.strokeStyle = root.color.stroke
 				ctx.fillStyle = root.color.shade
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
-				var offset = strokeWidth / 2.0
+				var offset = units.strokeWidth / 2.0
 
 				// Draw case.
-				ctx.rect(offset, offset, width - strokeWidth, height - strokeWidth)
+				ctx.rect(offset, offset, width - units.strokeWidth, height - units.strokeWidth)
 				ctx.fill()
 				ctx.stroke()
 
@@ -63,12 +63,12 @@ Element {
 
 				ctx.strokeStyle = root.color.stroke
 				ctx.fillStyle = root.color.fill
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
-				var offset = strokeWidth / 2.0
+				var offset = units.strokeWidth / 2.0
 
 				// Draw background.
-				ctx.rect(offset + (width - wheelWidth) * 0.5, offset, width - strokeWidth - (width - wheelWidth), height - strokeWidth)
+				ctx.rect(offset + (width - wheelWidth) * 0.5, offset, width - units.strokeWidth - (width - wheelWidth), height - units.strokeWidth)
 				ctx.stroke()
 				ctx.fill()
 
@@ -81,7 +81,7 @@ Element {
 					currentAngle *= Math.PI / 180
 					var y = height * 0.5 + Math.sin(currentAngle) * r
 					ctx.moveTo(offset + (width - wheelWidth) * 0.5, y)
-					ctx.lineTo(width - strokeWidth - (width - wheelWidth) * 0.5, y)
+					ctx.lineTo(width - units.strokeWidth - (width - wheelWidth) * 0.5, y)
 					ctx.stroke()
 				}
 
