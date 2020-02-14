@@ -8,11 +8,11 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: horizontal ? units.quadrat : units.quadrat * 0.25
-	implicitHeight: horizontal ? units.quadrat * 0.25 : units.quadrat
+	implicitWidth: horizontal ? units.quadrat * 1.5 : units.quadrat * 0.25
+	implicitHeight: horizontal ? units.quadrat * 0.25 : units.quadrat * 1.5
 	active: true
 
-	property int blades: 4
+	property int blades: 6
 
 	property real value: 0.5
 
