@@ -77,7 +77,7 @@ Element
 		radius: height / 5
 		color: root.color.background
 		border.color: root.color.stroke
-		border.width: strokeWidth
+		border.width: units.strokeWidth
 	}
 
 	Row {
@@ -96,7 +96,7 @@ Element
 			text: textFormatter(root.value)
 			color: root.color.foreground
 			horizontalAlignment: Text.AlignRight
-			font.pixelSize: CuteApplication.theme.units.quadrat * 0.25
+			font.pixelSize: units.quadrat * 0.25
 			font.family: CuteApplication.theme.fonts.monospace.family
 
 			property real overfull: width - nominaLWidth

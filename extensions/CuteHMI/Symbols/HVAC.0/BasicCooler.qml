@@ -15,7 +15,7 @@ HeatExchanger {
 				ctx.save()
 				ctx.reset()
 
-				ctx.lineWidth = root.strokeWidth
+				ctx.lineWidth = root.units.strokeWidth
 				ctx.fillStyle = root.color.background
 				ctx.strokeStyle = root.color.foreground
 

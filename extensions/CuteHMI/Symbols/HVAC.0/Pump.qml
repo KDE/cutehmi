@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat
-	implicitHeight: CuteApplication.theme.units.quadrat
+	implicitWidth: units.quadrat
+	implicitHeight: units.quadrat
 
 	property real implicitRpm: 30
 
@@ -35,8 +35,8 @@ Element {
 
 				ctx.beginPath()
 				ctx.strokeStyle = color.stroke
-				ctx.lineWidth = strokeWidth
-				ctx.arc(width * 0.5, height * 0.5, (diameter - strokeWidth) * 0.5, 0.0, 2 * Math.PI, false)
+				ctx.lineWidth = units.strokeWidth
+				ctx.arc(width * 0.5, height * 0.5, (diameter - units.strokeWidth) * 0.5, 0.0, 2 * Math.PI, false)
 				ctx.stroke()
 
 				ctx.restore();
@@ -63,10 +63,10 @@ Element {
 				ctx.reset()
 
 				ctx.strokeStyle = color.shade
-				ctx.lineWidth = (diameter - innerDiameter) * 0.5 - strokeWidth
+				ctx.lineWidth = (diameter - innerDiameter) * 0.5 - units.strokeWidth
 
 				// Draw vanes.
-				var arcR = (diameter + innerDiameter) * 0.25 - strokeWidth * 0.5
+				var arcR = (diameter + innerDiameter) * 0.25 - units.strokeWidth * 0.5
 				var angle = Math.PI / 6.0
 				for (var curAngle = 0; curAngle < 2 * Math.PI; curAngle += 2 * angle) {
 					ctx.beginPath()
@@ -122,11 +122,11 @@ Element {
 				ctx.reset()
 
 				ctx.strokeStyle = color.stroke
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
-				var lineOffset = strokeWidth * 0.5
+				var lineOffset = units.strokeWidth * 0.5
 				var symbolOffset = (diameter - innerDiameter) * 0.5
-				var insetDiameter = innerDiameter - strokeWidth
+				var insetDiameter = innerDiameter - units.strokeWidth
 
 				ctx.translate(symbolOffset, symbolOffset)
 

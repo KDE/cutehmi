@@ -8,6 +8,9 @@
 namespace cutehmi {
 namespace gui {
 
+/**
+ * Unit. This class provides relative units of measurment.
+ */
 class CUTEHMI_GUI_API Units:
 	public QObject
 {
@@ -16,14 +19,28 @@ class CUTEHMI_GUI_API Units:
 	public:
 		static constexpr qreal INITIAL_QUADRAT = 80.0;
 
+		static constexpr qreal INITIAL_STROKE_WIDTH_RATIO = 40.0;
+
 		static constexpr bool INITIAL_ROUND_STROKE_WIDTH = true;
 
-		static constexpr qreal STANDARD_STROKE_WIDTH_QUADRAT_RATIO = 40.0;
-
+		/**
+		  Quadrat. Role of this unit is similar to role of @p em unit used in typography.
+		  */
 		Q_PROPERTY(qreal quadrat READ quadrat WRITE setQuadrat NOTIFY quadratChanged)
 
+		/**
+		  Stroke width. By default binded to the formula @a strokeWidth = @a quadrat / @a strokeWidthRatio.
+		  */
 		Q_PROPERTY(qreal strokeWidth READ strokeWidth WRITE setStrokeWidth NOTIFY strokeWidthChanged)
 
+		/**
+		  Stroke width ratio.
+		  */
+		Q_PROPERTY(qreal strokeWidthRatio READ strokeWidthRatio WRITE setStrokeWidthRatio NOTIFY strokeWidthRatioChanged)
+
+		/**
+		  Whether to round stroke width to whole integer.
+		  */
 		Q_PROPERTY(bool roundStrokeWidth READ roundStrokeWidth WRITE setRoundStrokeWidth NOTIFY roundStrokeWidthChanged)
 
 		Units(QObject * parent = nullptr);
@@ -36,6 +53,10 @@ class CUTEHMI_GUI_API Units:
 
 		void setStrokeWidth(qreal strokeWidth);
 
+		qreal strokeWidthRatio() const;
+
+		void setStrokeWidthRatio(qreal ratio);
+
 		bool roundStrokeWidth() const;
 
 		void setRoundStrokeWidth(bool roundStrokeWidth);
@@ -44,6 +65,8 @@ class CUTEHMI_GUI_API Units:
 		void quadratChanged();
 
 		void strokeWidthChanged();
+
+		void strokeWidthRatioChanged();
 
 		void roundStrokeWidthChanged();
 
@@ -56,8 +79,10 @@ class CUTEHMI_GUI_API Units:
 		struct Members {
 			qreal quadrat;
 			qreal strokeWidth;
+			qreal strokeWidthRatio;
 			bool roundStrokeWidth;
 			QMetaObject::Connection strokeWidthBindingConnection;
+			QMetaObject::Connection strokeWidthRatioBindingConnection;
 		};
 
 		MPtr<Members> m;

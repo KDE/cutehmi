@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat * 0.5
-	implicitHeight: CuteApplication.theme.units.quadrat * 0.5
+	implicitWidth: units.quadrat * 0.5
+	implicitHeight: units.quadrat * 0.5
 	active: true
 
 	property string symbol: "TT"
@@ -20,7 +20,7 @@ Element {
 		anchors.fill: parent
 		color: root.color.background
 		border.color: root.color.stroke
-		border.width: strokeWidth
+		border.width: units.strokeWidth
 		radius: height * 0.5
 	}
 
@@ -30,7 +30,7 @@ Element {
 		anchors.centerIn: parent
 		color: root.color.foreground
 		font.family: CuteApplication.theme.fonts.monospace.family
-		font.pixelSize: CuteApplication.theme.units.quadrat * 0.2
+		font.pixelSize: units.quadrat * 0.2
 		text: parent.symbol
 	}
 }

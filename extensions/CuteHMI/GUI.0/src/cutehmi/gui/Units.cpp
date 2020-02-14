@@ -6,16 +6,18 @@ namespace cutehmi {
 namespace gui {
 
 constexpr qreal Units::INITIAL_QUADRAT;
+constexpr qreal Units::INITIAL_STROKE_WIDTH_RATIO;
 constexpr bool Units::INITIAL_ROUND_STROKE_WIDTH;
-constexpr qreal Units::STANDARD_STROKE_WIDTH_QUADRAT_RATIO;
 
 Units::Units(QObject * parent):
 	QObject(parent),
 	m(new Members{INITIAL_QUADRAT,
-					INITIAL_QUADRAT / STANDARD_STROKE_WIDTH_QUADRAT_RATIO,
-					INITIAL_ROUND_STROKE_WIDTH, {}})
+					INITIAL_QUADRAT / INITIAL_STROKE_WIDTH_RATIO,
+					INITIAL_STROKE_WIDTH_RATIO,
+					INITIAL_ROUND_STROKE_WIDTH, {}, {}})
 {
 	m->strokeWidthBindingConnection = connect(this, & Units::quadratChanged, this, & Units::strokeWidthBinding);
+	m->strokeWidthRatioBindingConnection = connect(this, & Units::strokeWidthRatioChanged, this, & Units::strokeWidthBinding);
 }
 
 qreal Units::quadrat() const
@@ -41,6 +43,19 @@ void Units::setStrokeWidth(qreal strokeWidth)
 	setStrokeWidth(strokeWidth, true);
 }
 
+qreal Units::strokeWidthRatio() const
+{
+	return m->strokeWidthRatio;
+}
+
+void Units::setStrokeWidthRatio(qreal ratio)
+{
+	if (m->strokeWidthRatio != ratio) {
+		m->strokeWidthRatio = ratio;
+		emit strokeWidthRatioChanged();
+	}
+}
+
 bool Units::roundStrokeWidth() const
 {
 	return m->roundStrokeWidth;
@@ -56,13 +71,15 @@ void Units::setRoundStrokeWidth(bool roundStrokeWidth)
 
 void Units::strokeWidthBinding()
 {
-	setStrokeWidth(quadrat() / STANDARD_STROKE_WIDTH_QUADRAT_RATIO, false);
+	setStrokeWidth(quadrat() / strokeWidthRatio(), false);
 }
 
 void Units::setStrokeWidth(qreal strokeWidth, bool breakBinding)
 {
-	if (breakBinding)
+	if (breakBinding) {
 		disconnect(m->strokeWidthBindingConnection);
+		disconnect(m->strokeWidthRatioBindingConnection);
+	}
 
 	if (roundStrokeWidth())
 		strokeWidth = std::max(std::round(strokeWidth), 1.0);

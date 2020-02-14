@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: CuteApplication.theme.units.quadrat * 1.25
-	implicitHeight: CuteApplication.theme.units.quadrat
+	implicitWidth: units.quadrat * 1.25
+	implicitHeight: units.quadrat
 
 	property bool mirror: false
 	property real implicitRpm: 30
@@ -30,9 +30,9 @@ Element {
 
 				ctx.strokeStyle = color.stroke
 				ctx.fillStyle = color.tint
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
-				var offset = strokeWidth * 0.5
+				var offset = units.strokeWidth * 0.5
 				var x = width * 0.5
 				var y = height * 0.5
 				var r = diameter * 0.5
@@ -74,7 +74,7 @@ Element {
 
 				ctx.strokeStyle = color.stroke
 				ctx.fillStyle = color.fill
-				ctx.lineWidth = strokeWidth
+				ctx.lineWidth = units.strokeWidth
 
 				// Draw fan wheel.
 				var x = width * 0.5
@@ -87,7 +87,7 @@ Element {
 
 				// Draw bearings
 				ctx.beginPath()
-				ctx.arc(x, y, strokeWidth, 0.0, 2 * Math.PI, false)
+				ctx.arc(x, y, units.strokeWidth, 0.0, 2 * Math.PI, false)
 				ctx.stroke()
 
 				// Draw blades.
@@ -95,7 +95,7 @@ Element {
 				var sinAngle = Math.sin(angle)
 				var cosAngle = Math.cos(angle)
 				var x1 = 0.0
-				var y1 = strokeWidth
+				var y1 = units.strokeWidth
 				var x2 = 0.0
 				var y2 = wheelR
 

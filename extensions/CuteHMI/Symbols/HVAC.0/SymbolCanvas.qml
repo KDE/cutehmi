@@ -22,7 +22,7 @@ Canvas {
 	}
 
 	Connections {
-		target: element
+		target: element.units
 
 		onStrokeWidthChanged: requestPaint()
 	}
