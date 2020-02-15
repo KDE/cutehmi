@@ -29,7 +29,7 @@ HeatExchanger {
 				ctx.lineTo(width, 0)
 				ctx.stroke()
 
-				// Draw cricle.
+				// Draw circle.
 				ctx.beginPath()
 				ctx.arc(symbolPos.x, symbolPos.y, r, 0, 2 * Math.PI)
 				ctx.fill()

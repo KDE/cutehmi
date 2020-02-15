@@ -27,9 +27,9 @@ void LineEventMonitorThread::run()
 			if (gpiod_line_event_read(m->line, & event) == 0)
 				emit eventDetected(event);
 			else
-				CUTEHMI_WARNING("An error occured while reading line event.");
+				CUTEHMI_WARNING("An error occurred while reading line event.");
 		} else if (waitResult == -1)
-			CUTEHMI_WARNING("An error occured while waiting for line event.");
+			CUTEHMI_WARNING("An error occurred while waiting for line event.");
 	}
 }
 

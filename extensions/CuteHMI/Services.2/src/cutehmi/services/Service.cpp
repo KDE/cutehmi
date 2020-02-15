@@ -208,28 +208,28 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 			if (stopTimeout() >= 0)
 				m->timeoutTimer.start(stopTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->stopping(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 		connect(& m->stateInterface->evacuating(), & QState::entered, [this]() {
 			if (stopTimeout() >= 0)
 				m->timeoutTimer.start(stopTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->evacuating(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 		connect(& m->stateInterface->starting(), & QState::entered, [this]() {
 			if (startTimeout() >= 0)
 				m->timeoutTimer.start(startTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->starting(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 		connect(& m->stateInterface->repairing(), & QState::entered, [this]() {
 			if (repairTimeout() >= 0)
 				m->timeoutTimer.start(repairTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->repairing(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 
@@ -289,7 +289,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 
 
 		m->stateMachine->start();
-		QCoreApplication::processEvents();	// This is required in order to trully start state machine and prevent it from ignoring incomming events.
+		QCoreApplication::processEvents();	// This is required in order to truly start state machine and prevent it from ignoring incoming events.
 	} catch (const std::exception & e) {
 		CUTEHMI_CRITICAL("Could not initialize new state machine, because of following exception: " << e.what());
 	}

@@ -229,7 +229,7 @@ void Address::onNetworkAccessManagerFinished(QNetworkReply * reply)
 				setUpdated(false);
 			}
 		} else {
-			CUTEHMI_WARNING("Could not parse nework reply in JSON format.");
+			CUTEHMI_WARNING("Could not parse network reply in JSON format.");
 			setUpdated(false);
 		}
 	} else {

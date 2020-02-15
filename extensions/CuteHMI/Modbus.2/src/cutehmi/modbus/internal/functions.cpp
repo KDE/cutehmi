@@ -10,7 +10,7 @@ namespace internal {
 
 quint16 intToUint16(int value)
 {
-	// Note: int is guranteed to be at least 16 bits wide by a standard.
+	// Note: int is guaranteed to be at least 16 bits wide by a standard.
 
 	// Check if value can be stored in 16 bits.
 	Q_ASSERT_X(value <= std::numeric_limits<qint16>::max(), __func__, "value is below a limit of 16 bit storage");

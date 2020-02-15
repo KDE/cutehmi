@@ -52,7 +52,7 @@ T fromLittleEndian(T src)
 /**
  * Store integer as 16 bit unsigned integer. This is convenient function that casts @p int to 16 bit integer and then stores it as
  * 16 bit unsigned integer.
- * @param value value to be stored. Must be within 16 bit interger range (@p int is guranteed to be at least 16 bits wide by the
+ * @param value value to be stored. Must be within 16 bit interger range (@p int is guaranteed to be at least 16 bits wide by the
  * standard).
  * @return value converted to 16 bit unsigned integer.
  *

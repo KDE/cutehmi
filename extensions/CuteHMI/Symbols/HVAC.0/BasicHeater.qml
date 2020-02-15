@@ -24,7 +24,7 @@ HeatExchanger {
 				var xCenter = width * 0.5
 				var yCenter = height * 0.5
 
-				// Draw cricle.
+				// Draw circle.
 				ctx.beginPath()
 				ctx.arc(xCenter, yCenter, r, 0, 2 * Math.PI)
 				ctx.fill()

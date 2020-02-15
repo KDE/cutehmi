@@ -27,7 +27,7 @@ RowLayout {
 			ListElement { key: qsTr("Return query data"); value: AbstractDevice.DIAGNOSTICS_RETURN_QUERY_DATA }
 			ListElement { key: qsTr("Restart communications option"); value: AbstractDevice.DIAGNOSTICS_RESTART_COMM_OPTION }
 			ListElement { key: qsTr("Return diagnostics register"); value: AbstractDevice.DIAGNOSTICS_RETURN_DIAGNOSTICS_REGISTER }
-			ListElement { key: qsTr("Change ASCII input delimeter"); value: AbstractDevice.DIAGNOSTICS_CHANGE_ASCII_INPUT_DELIMITER }
+			ListElement { key: qsTr("Change ASCII input delimiter"); value: AbstractDevice.DIAGNOSTICS_CHANGE_ASCII_INPUT_DELIMITER }
 			ListElement { key: qsTr("Force listen only mode"); value: AbstractDevice.DIAGNOSTICS_FORCE_LISTEN_ONLY_MODE }
 			ListElement { key: qsTr("Clear counters and diagnostic register"); value: AbstractDevice.DIAGNOSTICS_CLEAR_COUNTERS_AND_DIAGNOSTICS_REGISTER }
 			ListElement { key: qsTr("Return bus message count"); value: AbstractDevice.DIAGNOSTICS_RETURN_BUS_MESSAGE_COUNT }

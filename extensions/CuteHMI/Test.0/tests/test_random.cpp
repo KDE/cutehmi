@@ -53,14 +53,14 @@ void test_random::randPickDouble_data()
 
 	QTest::newRow("extremely small left interval") << std::nextafter(0.0, -1.0) << 0.0;
 	QTest::newRow("extremely small right interval") << 0.0 << std::nextafter(0.0, 1.0);
-	QTest::newRow("extremely small symetric interval") << std::nextafter(0.0, -1.0) << std::nextafter(0.0, 1.0);
+	QTest::newRow("extremely small symmetric interval") << std::nextafter(0.0, -1.0) << std::nextafter(0.0, 1.0);
 
-	QTest::newRow("assymetric right dominated interval") << std::nextafter(0.0, -1.0) << 100.0;
-	QTest::newRow("assymetric left dominated interval") << -100.0 << std::nextafter(0.0, 1.0);
+	QTest::newRow("asymmetric right dominated interval") << std::nextafter(0.0, -1.0) << 100.0;
+	QTest::newRow("asymmetric left dominated interval") << -100.0 << std::nextafter(0.0, 1.0);
 
 	QTest::newRow("positive thousand interval") << 0.0 << 1000.0;
 	QTest::newRow("negative thousand interval") << -1000.0 << 0.0;
-	QTest::newRow("mixed thaousand interval") << -1000.0 << 1000.0;
+	QTest::newRow("mixed thousand interval") << -1000.0 << 1000.0;
 
 	QTest::newRow("positive hundred to thousand interval") << 100.0 << 1000.0;
 	QTest::newRow("negative hundred to thousand interval") << -1000.0 << -100.0;

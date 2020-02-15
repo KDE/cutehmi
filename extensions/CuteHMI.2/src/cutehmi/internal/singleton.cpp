@@ -43,7 +43,7 @@ namespace  {
 
 	typedef QList<SingletonDestroyWrapper> SingletonDestroyFunctionsContainer;
 
-	// Elements are prpeneded to this list (see storeSingletonDestroyCallback()).
+	// Elements are prepended to this list (see storeSingletonDestroyCallback()).
 	SingletonDestroyFunctionsContainer singletonDestroyFunctions;
 
 	//</cutehmi::destroySingletonInstances-determined_destruction_order.principle>

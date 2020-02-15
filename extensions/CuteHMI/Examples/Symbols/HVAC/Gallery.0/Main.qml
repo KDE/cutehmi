@@ -217,7 +217,7 @@ Rectangle {
 					Label {
 						Layout.alignment: Qt.AlignCenter
 
-						text: qsTr("Heat revovery wheel")
+						text: qsTr("Heat recovery wheel")
 					}
 
 					HeatRecoveryWheel {

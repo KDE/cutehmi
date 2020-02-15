@@ -33,7 +33,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		static constexpr bool INITIAL_READ_ON_WRITE = true;
 
 		Q_PROPERTY(AbstractDevice * device READ device WRITE setDevice NOTIFY deviceChanged)
-		// Note: unsigned int is guranteed to be at least 16 bits wide by the standard. Using unsigned int instead of quint16 (aka
+		// Note: unsigned int is guaranteed to be at least 16 bits wide by the standard. Using unsigned int instead of quint16 (aka
 		// ushort), because when using quint16 QML throws an error (unsupported type "ushort") for an alias to quint16 property.
 		Q_PROPERTY(unsigned int address READ address WRITE setAddress NOTIFY addressChanged)
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)

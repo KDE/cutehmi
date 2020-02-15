@@ -22,7 +22,7 @@ static std::unique_ptr<char[]> OldPath;
 
 void Init::_Construct()
 {
-	// Porceed only if we run from target application.
+	// Proceed only if we run from target application.
 	if (QCoreApplication::applicationName() != TARGET_APP)
 		return;
 

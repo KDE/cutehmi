@@ -1,6 +1,6 @@
 Problem:
 
-When changing window visiblity in the following manner:
+When changing window visibility in the following manner:
 Window.Windowed -> Window.Maximized -> Window.FullScreen -> Window.Maximized -> Window.Windowed,
 window does not return to its original size.
 

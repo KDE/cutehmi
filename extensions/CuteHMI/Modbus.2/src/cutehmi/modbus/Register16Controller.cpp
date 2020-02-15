@@ -91,7 +91,7 @@ void Register16Controller::updateValue()
 
 void Register16Controller::updateValue(quint16 value)
 {
-	// Do not update value if user is adjusting it, beacause it could distract user.
+	// Do not update value if user is adjusting it, because it could distract user.
 	if (m->adjustingValue)
 		return;
 
@@ -156,7 +156,7 @@ quint16 Register16Controller::Encode(qreal value, Encoding encoding)
 		case UINT16:
 			return static_cast<quint16>(qRound64(value));
 		case INT16:
-			return internal::int16ToUint16(static_cast<qint16>(qRound(value))); // Note: int (as returned by qRound()) is guranteed to be at least 16 bits wide by a standard.
+			return internal::int16ToUint16(static_cast<qint16>(qRound(value))); // Note: int (as returned by qRound()) is guaranteed to be at least 16 bits wide by a standard.
 	}
 	return 0;
 }
@@ -170,7 +170,7 @@ bool Register16Controller::ValidateEncoding(qreal value, Encoding encoding)
 		case UINT16:
 			return qRound64(value) <= std::numeric_limits<quint16>::max() && qRound64(value) >= std::numeric_limits<quint16>::min();
 		case INT16:
-			// Note: int (as returned by qRound()) is guranteed to be at least 16 bits wide by a standard.
+			// Note: int (as returned by qRound()) is guaranteed to be at least 16 bits wide by a standard.
 			return qRound(value) <= std::numeric_limits<qint16>::max() && qRound(value) >= std::numeric_limits<qint16>::min();
 	}
 	return false;

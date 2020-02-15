@@ -21,7 +21,7 @@ class Message: public cutehmi::Message {};
 /**
  * Exposes cutehmi::Notification to QML.
  */
-class Notificatoin: public cutehmi::Notificatoin {};
+class Notification: public cutehmi::Notification {};
 
 /**
  * Exposes cutehmi::Messenger to QML.

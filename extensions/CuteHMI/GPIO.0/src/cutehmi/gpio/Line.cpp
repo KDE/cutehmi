@@ -91,7 +91,7 @@ void Line::requestLine()
 	m->requestConfig.consumer = m->consumer.data();
 
 
-	// Configure reuest type.
+	// Configure request type.
 
 	switch (m->config->direction()) {
 		case LineConfig::DIRECTION_OUTPUT:

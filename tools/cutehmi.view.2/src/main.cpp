@@ -188,11 +188,11 @@ int main(int argc, char * argv[])
 		QString component = componentOption.defaultValues().first();
 
 		if (cmd.value(extensionOption) != extension)
-			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compliation time.").arg(extensionOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(extensionOption.names().join(", ")).toLocal8Bit().constData());
 		if (cmd.value(initOption) != init)
-			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compliation time.").arg(initOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(initOption.names().join(", ")).toLocal8Bit().constData());
 		if (cmd.value(componentOption) != component)
-			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compliation time.").arg(componentOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(componentOption.names().join(", ")).toLocal8Bit().constData());
 #endif
 
 		QStringList extensionParts = extension.split('.');

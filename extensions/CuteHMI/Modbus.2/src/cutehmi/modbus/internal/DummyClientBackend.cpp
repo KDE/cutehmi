@@ -30,7 +30,7 @@ void DummyClientBackend::ensureClosed()
 
 bool DummyClientBackend::proceedRequest(QUuid requestId)
 {
-	// Normaly client would forward the request to Modbus server and emit reply with received data. Dummy client has no remote side
+	// Normally client would forward the request to Modbus server and emit reply with received data. Dummy client has no remote side
 	// to ask, but it emulates the latency here.
 	QThread::msleep(static_cast<unsigned long>(m->config->latency()));	// Fake processing.
 
@@ -75,7 +75,7 @@ void DummyClientBackend::writeMultipleCoils(QUuid requestId, quint16 startAddres
 {
 	QJsonObject reply;
 
-	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limitted by @ref cutehmi-modbus-AbstractDevice-query_limits.
+	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limited by @ref cutehmi-modbus-AbstractDevice-query_limits.
 	for (quint16 address = startAddress; address <= endAddress; address++)
 		m->coils.value(address)->setValue(values.at(address));
 
@@ -124,7 +124,7 @@ void DummyClientBackend::writeMultipleHoldingRegisters(QUuid requestId, quint16 
 {
 	QJsonObject reply;
 
-	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limitted by @ref cutehmi-modbus-AbstractDevice-query_limits.
+	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limited by @ref cutehmi-modbus-AbstractDevice-query_limits.
 	for (quint16 address = startAddress; address <= endAddress; address++)
 		m->holdingRegisters.value(address)->setValue(values.at(address));
 
