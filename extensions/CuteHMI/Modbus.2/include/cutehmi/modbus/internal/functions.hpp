@@ -52,7 +52,7 @@ T fromLittleEndian(T src)
 /**
  * Store integer as 16 bit unsigned integer. This is convenient function that casts @p int to 16 bit integer and then stores it as
  * 16 bit unsigned integer.
- * @param value value to be stored. Must be within 16 bit interger range (@p int is guranteed to be at least 16 bits wide by the
+ * @param value value to be stored. Must be within 16 bit interger range (@p int is guaranteed to be at least 16 bits wide by the
  * standard).
  * @return value converted to 16 bit unsigned integer.
  *
@@ -84,7 +84,7 @@ qint16 CUTEHMI_MODBUS_PRIVATE int16FromUint16(quint16 value);
 
 #endif
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

@@ -53,14 +53,14 @@ void test_random::randPickDouble_data()
 
 	QTest::newRow("extremely small left interval") << std::nextafter(0.0, -1.0) << 0.0;
 	QTest::newRow("extremely small right interval") << 0.0 << std::nextafter(0.0, 1.0);
-	QTest::newRow("extremely small symetric interval") << std::nextafter(0.0, -1.0) << std::nextafter(0.0, 1.0);
+	QTest::newRow("extremely small symmetric interval") << std::nextafter(0.0, -1.0) << std::nextafter(0.0, 1.0);
 
-	QTest::newRow("assymetric right dominated interval") << std::nextafter(0.0, -1.0) << 100.0;
-	QTest::newRow("assymetric left dominated interval") << -100.0 << std::nextafter(0.0, 1.0);
+	QTest::newRow("asymmetric right dominated interval") << std::nextafter(0.0, -1.0) << 100.0;
+	QTest::newRow("asymmetric left dominated interval") << -100.0 << std::nextafter(0.0, 1.0);
 
 	QTest::newRow("positive thousand interval") << 0.0 << 1000.0;
 	QTest::newRow("negative thousand interval") << -1000.0 << 0.0;
-	QTest::newRow("mixed thaousand interval") << -1000.0 << 1000.0;
+	QTest::newRow("mixed thousand interval") << -1000.0 << 1000.0;
 
 	QTest::newRow("positive hundred to thousand interval") << 100.0 << 1000.0;
 	QTest::newRow("negative hundred to thousand interval") << -1000.0 << -100.0;
@@ -93,7 +93,7 @@ void test_random::randPickDouble()
 QTEST_MAIN(cutehmi::test::test_random)
 #include "test_random.moc"
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

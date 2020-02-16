@@ -208,28 +208,28 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 			if (stopTimeout() >= 0)
 				m->timeoutTimer.start(stopTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->stopping(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 		connect(& m->stateInterface->evacuating(), & QState::entered, [this]() {
 			if (stopTimeout() >= 0)
 				m->timeoutTimer.start(stopTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->evacuating(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 		connect(& m->stateInterface->starting(), & QState::entered, [this]() {
 			if (startTimeout() >= 0)
 				m->timeoutTimer.start(startTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->starting(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 		connect(& m->stateInterface->repairing(), & QState::entered, [this]() {
 			if (repairTimeout() >= 0)
 				m->timeoutTimer.start(repairTimeout());
 		});
-		// It's safer to stop timout, so that it won't make false shot.
+		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->repairing(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
 
@@ -289,7 +289,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 
 
 		m->stateMachine->start();
-		QCoreApplication::processEvents();	// This is required in order to trully start state machine and prevent it from ignoring incomming events.
+		QCoreApplication::processEvents();	// This is required in order to truly start state machine and prevent it from ignoring incoming events.
 	} catch (const std::exception & e) {
 		CUTEHMI_CRITICAL("Could not initialize new state machine, because of following exception: " << e.what());
 	}
@@ -315,7 +315,7 @@ void Service::addStatuses(std::unique_ptr<Serviceable::ServiceStatuses> statuses
 }
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

@@ -30,7 +30,7 @@ void DummyClientBackend::ensureClosed()
 
 bool DummyClientBackend::proceedRequest(QUuid requestId)
 {
-	// Normaly client would forward the request to Modbus server and emit reply with received data. Dummy client has no remote side
+	// Normally client would forward the request to Modbus server and emit reply with received data. Dummy client has no remote side
 	// to ask, but it emulates the latency here.
 	QThread::msleep(static_cast<unsigned long>(m->config->latency()));	// Fake processing.
 
@@ -75,7 +75,7 @@ void DummyClientBackend::writeMultipleCoils(QUuid requestId, quint16 startAddres
 {
 	QJsonObject reply;
 
-	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limitted by @ref cutehmi-modbus-AbstractDevice-query_limits.
+	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limited by @ref cutehmi-modbus-AbstractDevice-query_limits.
 	for (quint16 address = startAddress; address <= endAddress; address++)
 		m->coils.value(address)->setValue(values.at(address));
 
@@ -124,7 +124,7 @@ void DummyClientBackend::writeMultipleHoldingRegisters(QUuid requestId, quint16 
 {
 	QJsonObject reply;
 
-	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limitted by @ref cutehmi-modbus-AbstractDevice-query_limits.
+	quint16 endAddress = startAddress + static_cast<quint16>(values.size()) - 1;	// Size of @a values vector is limited by @ref cutehmi-modbus-AbstractDevice-query_limits.
 	for (quint16 address = startAddress; address <= endAddress; address++)
 		m->holdingRegisters.value(address)->setValue(values.at(address));
 
@@ -177,7 +177,7 @@ void DummyClientBackend::setState(AbstractClient::State state)
 }
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

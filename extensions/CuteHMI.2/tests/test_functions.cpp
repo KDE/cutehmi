@@ -32,7 +32,7 @@ void test_functions::testApe()
 	QCOMPARE(ape(1.0, 1.49, 0.25), true);
 	QCOMPARE(ape(1.0, 1.51, 0.25), false);
 	QCOMPARE(ape(1.0, 1.99, 0.25), false);
-	QCOMPARE(ape(1.0, 2.0, 0.25), true);	// Weirdness comming from the fact that <= is used in comparison.
+	QCOMPARE(ape(1.0, 2.0, 0.25), true);	// Weirdness coming from the fact that <= is used in comparison.
 	QCOMPARE(ape(1.0, 2.01, 0.25), false);
 
 	QCOMPARE(ape(1.01, 1.5, 0.25), true);
@@ -94,7 +94,7 @@ void test_functions::testCgt()
 QTEST_MAIN(cutehmi::test_functions)
 #include "test_functions.moc"
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

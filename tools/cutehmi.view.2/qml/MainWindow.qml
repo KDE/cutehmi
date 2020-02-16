@@ -28,7 +28,7 @@ ApplicationWindow {
 				} else {
 					// Restore visibility or swap to Window.AutomaticVisibility if application was restored to full screen mode on startup.
 					//<unsolved id="cutehmi.view.2-2" target="Qt" cause="bug">
-					// When changing window visiblity in the following manner:
+					// When changing window visibility in the following manner:
 					// Window.Windowed -> Window.Maximized -> Window.FullScreen -> Window.Maximized -> Window.Windowed,
 					// window does not return to its original size.
 					if (settings.visibility != Window.FullScreen)
@@ -91,7 +91,7 @@ ApplicationWindow {
 	}
 }
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

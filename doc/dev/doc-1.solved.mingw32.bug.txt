@@ -17,5 +17,5 @@ One can replace mingw32 find with more recent version if one needs these
 directories to be generated on Windows. Path to find program can be overriden
 with `Makefile.user` file.
 
-Anyways mingw32 is becomming obsolete and switching to mingw64 is desired.
+Anyways mingw32 is becoming obsolete and switching to mingw64 is desired.
 

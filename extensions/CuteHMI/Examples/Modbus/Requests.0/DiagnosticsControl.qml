@@ -27,7 +27,7 @@ RowLayout {
 			ListElement { key: qsTr("Return query data"); value: AbstractDevice.DIAGNOSTICS_RETURN_QUERY_DATA }
 			ListElement { key: qsTr("Restart communications option"); value: AbstractDevice.DIAGNOSTICS_RESTART_COMM_OPTION }
 			ListElement { key: qsTr("Return diagnostics register"); value: AbstractDevice.DIAGNOSTICS_RETURN_DIAGNOSTICS_REGISTER }
-			ListElement { key: qsTr("Change ASCII input delimeter"); value: AbstractDevice.DIAGNOSTICS_CHANGE_ASCII_INPUT_DELIMITER }
+			ListElement { key: qsTr("Change ASCII input delimiter"); value: AbstractDevice.DIAGNOSTICS_CHANGE_ASCII_INPUT_DELIMITER }
 			ListElement { key: qsTr("Force listen only mode"); value: AbstractDevice.DIAGNOSTICS_FORCE_LISTEN_ONLY_MODE }
 			ListElement { key: qsTr("Clear counters and diagnostic register"); value: AbstractDevice.DIAGNOSTICS_CLEAR_COUNTERS_AND_DIAGNOSTICS_REGISTER }
 			ListElement { key: qsTr("Return bus message count"); value: AbstractDevice.DIAGNOSTICS_RETURN_BUS_MESSAGE_COUNT }
@@ -76,7 +76,7 @@ RowLayout {
 	}
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
