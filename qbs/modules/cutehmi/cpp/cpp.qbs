@@ -18,6 +18,11 @@ Module {
 		cpp.defines: outer.concat(["CUTEHMI_NDEBUG", "QT_NO_DEBUG_OUTPUT"])
 	}
 
+	Properties {
+		condition: qbs.targetOS.contains("linux")
+		cpp.linkerFlags: ["--no-undefined"]
+	}
+
 	cpp.defines: ["QT_DEPRECATED_WARNINGS"]
 
 	cpp.cxxLanguageVersion: "c++14"
