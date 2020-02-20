@@ -28,6 +28,7 @@ Project {
          "MotorActuatorSettings.qml",
          "PumpSettings.qml",
          "README.md",
+         "TankSettings.qml",
      ]
 
 		Depends { name: "cutehmi.doxygen" }

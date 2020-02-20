@@ -267,6 +267,24 @@ Rectangle {
 
 						pump: pump
 					}
+
+					Label {
+						Layout.alignment: Qt.AlignCenter
+
+						text: qsTr("Tank")
+					}
+
+					Tank {
+						id: tank
+
+						Layout.alignment: Qt.AlignCenter
+					}
+
+					TankSettings {
+						Layout.alignment: Qt.AlignTop
+
+						tank: tank
+					}
 				}
 			}
 		}
