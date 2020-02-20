@@ -23,6 +23,7 @@ Element {
 	property real fill: 0.0
 
 	property real dirtyWarning: 0.75
+
 	property real dirtyAlarm: 0.9
 
 	property Component frame: Component {
