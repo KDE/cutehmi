@@ -285,6 +285,24 @@ Rectangle {
 
 						tank: tank
 					}
+
+					Label {
+						Layout.alignment: Qt.AlignCenter
+
+						text: qsTr("Valve")
+					}
+
+					Valve {
+						id: valve
+
+						Layout.alignment: Qt.AlignCenter
+					}
+
+					ValveSettings {
+						Layout.alignment: Qt.AlignTop
+
+						valve: valve
+					}
 				}
 			}
 		}
