@@ -21,13 +21,15 @@ Project {
          "BasicDiscreteInstrumentSettings.qml",
          "BladeDamperSettings.qml",
          "CentrifugalFanSettings.qml",
-         "ElementSettings.qml",
+		 "ElementSettings.qml",
          "HeatRecoveryWheelSettings.qml",
          "LICENSE",
          "Main.qml",
          "MotorActuatorSettings.qml",
          "PumpSettings.qml",
          "README.md",
+         "TankSettings.qml",
+         "ValveSettings.qml",
      ]
 
 		Depends { name: "cutehmi.doxygen" }

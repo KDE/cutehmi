@@ -267,6 +267,42 @@ Rectangle {
 
 						pump: pump
 					}
+
+					Label {
+						Layout.alignment: Qt.AlignCenter
+
+						text: qsTr("Tank")
+					}
+
+					Tank {
+						id: tank
+
+						Layout.alignment: Qt.AlignCenter
+					}
+
+					TankSettings {
+						Layout.alignment: Qt.AlignTop
+
+						tank: tank
+					}
+
+					Label {
+						Layout.alignment: Qt.AlignCenter
+
+						text: qsTr("Valve")
+					}
+
+					Valve {
+						id: valve
+
+						Layout.alignment: Qt.AlignCenter
+					}
+
+					ValveSettings {
+						Layout.alignment: Qt.AlignTop
+
+						valve: valve
+					}
 				}
 			}
 		}

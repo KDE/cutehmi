@@ -32,6 +32,8 @@ Project {
          "Pump.qml",
          "README.md",
          "SymbolCanvas.qml",
+         "Tank.qml",
+         "Valve.qml",
          "designer/HVAC.metainfo",
      ]
 
