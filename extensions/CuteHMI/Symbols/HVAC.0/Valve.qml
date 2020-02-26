@@ -13,6 +13,10 @@ Element {
 
 	active: true
 
+	readonly property real wayWidth: units.quadrat * 0.25
+
+	readonly property real wayHeight: units.quadrat * 0.25
+
 	property bool leftWay: true
 
 	property bool rightWay: true
@@ -33,8 +37,8 @@ Element {
 		SymbolCanvas {
 			id: canvas
 
-			implicitWidth: units.quadrat * 0.25
-			implicitHeight: units.quadrat * 0.25
+			implicitWidth: root.wayWidth
+			implicitHeight: root.wayHeight
 
 			element: root
 
@@ -71,8 +75,8 @@ Element {
 
 	Loader {
 		y: topWay ? 0.5 * height : 0
-		width: item ? item.implicitWidth : 0
-		height: item ? item.implicitHeight : 0
+		width: leftWay ? wayWidth : 0
+		height: leftWay ? wayHeight : 0
 		sourceComponent: leftWay ? way : undefined
 
 		property bool closed: leftClosed
@@ -81,8 +85,8 @@ Element {
 	Loader {
 		x: leftWay ? width : (topWay || bottomWay) ? width * 0.5 : 0
 		y: topWay ? 0.5 * height : 0
-		width: item ? item.implicitWidth : 0
-		height: item ? item.implicitHeight : 0
+		width: rightWay ? wayWidth : 0
+		height: rightWay ? wayHeight : 0
 		rotation: 180
 		sourceComponent: rightWay ? way : undefined
 
@@ -91,8 +95,8 @@ Element {
 
 	Loader {
 		x: leftWay ? width * 0.5 : 0
-		width: item ? item.implicitWidth : 0
-		height: item ? item.implicitHeight : 0
+		width: topWay ? wayWidth : 0
+		height: topWay ? wayHeight : 0
 		rotation: 90
 		sourceComponent: topWay ? way : undefined
 
@@ -102,8 +106,8 @@ Element {
 	Loader {
 		x: leftWay ? width * 0.5 : 0
 		y: topWay ? height : (leftWay || rightWay) ? height * 0.5 : 0
-		width: item ? item.implicitWidth : 0
-		height: item ? item.implicitHeight : 0
+		width: bottomWay ? wayWidth : 0
+		height: bottomWay ? wayHeight : 0
 		rotation: -90
 		sourceComponent: bottomWay ? way : undefined
 
