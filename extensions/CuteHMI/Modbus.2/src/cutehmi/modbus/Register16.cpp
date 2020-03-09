@@ -30,7 +30,7 @@ void Register16::awake()
 
 bool Register16::wakeful() const
 {
-	return m->awaken.load();
+	return m->awaken.loadRelaxed();
 }
 
 }
