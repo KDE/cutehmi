@@ -10,6 +10,9 @@
 namespace cutehmi {
 namespace modbus {
 
+/**
+ * Abstract register controller.
+ */
 class CUTEHMI_MODBUS_API AbstractRegisterController:
 	public QObject,
 	public QQmlParserStatus
@@ -18,11 +21,14 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		Q_INTERFACES(QQmlParserStatus)
 
 	public:
+		/**
+		 * Write mode enum.
+		 */
 		enum WriteMode {
-			WRITE_DELAYED,
-			WRITE_POSTPONED,
-			WRITE_IMMEDIATE,
-			WRITE_EXPLICIT,
+			WRITE_DELAYED,		///< Writes are delayed. Write will be requested after amount of time specified by @a writeDelay property has passed.
+			WRITE_POSTPONED,	///< Writes are postponed, which means that write will not be requested until previous write has finished.
+			WRITE_IMMEDIATE,	///< Writes are requested immediately, which may creates a queue of pending writes if they are not proceeded fast enough.
+			WRITE_EXPLICIT,		///< Writes are explicit, i.e. write requires an explicit call to write value function.
 		};
 		Q_ENUM(WriteMode)
 
@@ -32,13 +38,36 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		static constexpr bool INITIAL_BUSY = true;
 		static constexpr bool INITIAL_READ_ON_WRITE = true;
 
+		/**
+		  Device associated with controller.
+		  */
 		Q_PROPERTY(AbstractDevice * device READ device WRITE setDevice NOTIFY deviceChanged)
+
+		/**
+		  Register address.
+		  */
 		// Note: unsigned int is guaranteed to be at least 16 bits wide by the standard. Using unsigned int instead of quint16 (aka
 		// ushort), because when using quint16 QML throws an error (unsupported type "ushort") for an alias to quint16 property.
 		Q_PROPERTY(unsigned int address READ address WRITE setAddress NOTIFY addressChanged)
+
+		/**
+		  Busy status. Controller indicated that it's busy when there's pending read or write.
+		  */
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
+
+		/**
+		  Read-on-write. If @p true, then controller requests subsequent read upon write.
+		  */
 		Q_PROPERTY(bool readOnWrite READ readOnWrite WRITE setReadOnWrite NOTIFY readOnWriteChanged)
+
+		/**
+		  Write mode.
+		  */
 		Q_PROPERTY(WriteMode writeMode READ writeMode WRITE setWriteMode NOTIFY writeModeChanged)
+
+		/**
+		  Write delay [ms]. Relevant only when write mode is set to WRITE_DELAYED.
+		  */
 		Q_PROPERTY(int writeDelay READ writeDelay WRITE setWriteDelay NOTIFY writeDelayChanged)
 
 		AbstractRegisterController(QObject * parent = nullptr);
