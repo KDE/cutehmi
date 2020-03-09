@@ -10,6 +10,7 @@ constexpr bool AbstractRegisterController::INITIAL_BUSY;
 constexpr bool AbstractRegisterController::INITIAL_READ_ON_WRITE;
 constexpr AbstractRegisterController::WriteMode AbstractRegisterController::INITIAL_WRITE_MODE;
 constexpr int AbstractRegisterController::INITIAL_WRITE_DELAY;
+constexpr bool AbstractRegisterController::INITIAL_ENABLED;
 
 AbstractRegisterController::AbstractRegisterController(QObject * parent):
 	QObject(parent),
@@ -106,6 +107,19 @@ void AbstractRegisterController::setWriteDelay(int writeDelay)
 	if (m->writeDelay != writeDelay) {
 		m->writeDelay = writeDelay;
 		emit writeDelayChanged();
+	}
+}
+
+bool AbstractRegisterController::enabled() const
+{
+	return m->enabled;
+}
+
+void AbstractRegisterController::setEnabled(bool enabled)
+{
+	if (m->enabled != enabled) {
+		m->enabled = enabled;
+		emit enabledChanged();
 	}
 }
 

@@ -29,13 +29,17 @@ Item {
 	property alias controller: controller
 
 	property var busyIndicator: BusyIndicator {
-		parent: root
 		anchors.centerIn: parent
+
+		parent: root
+		visible: root.enabled
 		running: controller.busy
 	}
 
 	DiscreteInputController {
 		id: controller
+
+		enabled: root.enabled
 	}
 
 	// Private properties.

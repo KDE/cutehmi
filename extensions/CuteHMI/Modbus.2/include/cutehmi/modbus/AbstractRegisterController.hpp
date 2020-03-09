@@ -37,6 +37,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		static constexpr int INITIAL_WRITE_DELAY = 500;
 		static constexpr bool INITIAL_BUSY = true;
 		static constexpr bool INITIAL_READ_ON_WRITE = true;
+		static constexpr bool INITIAL_ENABLED = true;
 
 		/**
 		  Device associated with controller.
@@ -70,6 +71,11 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		  */
 		Q_PROPERTY(int writeDelay READ writeDelay WRITE setWriteDelay NOTIFY writeDelayChanged)
 
+		/**
+		  Determines whether controller is enabled.
+		  */
+		Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
+
 		AbstractRegisterController(QObject * parent = nullptr);
 
 		AbstractDevice * device() const;
@@ -94,6 +100,10 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 
 		void setWriteDelay(int writeDelay);
 
+		bool enabled() const;
+
+		void setEnabled(bool enabled);
+
 	signals:
 		void deviceChanged();
 
@@ -106,6 +116,8 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		void writeModeChanged();
 
 		void writeDelayChanged();
+
+		void enabledChanged();
 
 	protected:
 		virtual void requestReadRegisters(quint16 address, quint16 amount, QUuid * requestId) const = 0;
@@ -135,6 +147,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 			WriteMode writeMode;
 			int writeDelay;
 			bool postponedWritePending;
+			bool enabled;
 			bool deferRequestRead;
 
 			Members():
@@ -144,6 +157,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 				readOnWrite(INITIAL_READ_ON_WRITE),
 				writeMode(INITIAL_WRITE_MODE),
 				writeDelay(INITIAL_WRITE_DELAY),
+				enabled(INITIAL_ENABLED),
 				deferRequestRead(false)
 			{
 			}

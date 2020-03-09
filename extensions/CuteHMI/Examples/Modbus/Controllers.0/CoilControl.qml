@@ -23,6 +23,7 @@ ColumnLayout {
 		readOnWrite: readOnWriteBox.checked
 		writeDelay: writeDelayBox.value
 		writeMode: writeModeBox.value
+		enabled: enabledBox.checked
 
 		onValueUpdated: delegate.checked = value
 	}
@@ -102,6 +103,18 @@ ColumnLayout {
 
 			CheckBox {
 				id: readOnWriteBox
+
+				checked: true
+			}
+
+			Label {
+				Layout.alignment: Qt.AlignRight
+
+				text: qsTr("Enabled:")
+			}
+
+			CheckBox {
+				id: enabledBox
 
 				checked: true
 			}
