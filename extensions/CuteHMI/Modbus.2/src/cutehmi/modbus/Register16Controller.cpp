@@ -15,6 +15,7 @@ Register16Controller::Register16Controller(QObject * parent):
 {
 	connect(this, & AbstractRegisterController::deviceChanged, this, & Register16Controller::resetRegister);
 	connect(this, & AbstractRegisterController::addressChanged, this, & Register16Controller::resetRegister);
+	connect(this, & AbstractRegisterController::enabledChanged, this, & Register16Controller::resetRegister);
 }
 
 Register16Controller::~Register16Controller()
@@ -29,7 +30,8 @@ qreal Register16Controller::value() const
 
 void Register16Controller::setValue(qreal value)
 {
-	Mixin::setValue(value);
+	if (enabled())
+		Mixin::setValue(value);
 }
 
 qreal Register16Controller::valueScale() const
@@ -62,12 +64,14 @@ void Register16Controller::setEncoding(Encoding encoding)
 
 void Register16Controller::writeValue()
 {
-	Mixin::writeValue();
+	if (enabled())
+		Mixin::writeValue();
 }
 
 void Register16Controller::timerEvent(QTimerEvent * event)
 {
-	Mixin::timerEvent(event);
+	if (enabled())
+		Mixin::timerEvent(event);
 }
 
 quint16 Register16Controller::bytes() const
@@ -112,7 +116,8 @@ void Register16Controller::updateValue(const QJsonValue & value)
 
 void Register16Controller::onRequestCompleted(QJsonObject request, QJsonObject reply)
 {
-	Mixin::onRequestCompleted(request, reply);
+	if (enabled())
+		Mixin::onRequestCompleted(request, reply);
 }
 
 void Register16Controller::resetRegister()
@@ -125,10 +130,13 @@ void Register16Controller::resetRegister()
 		m->register16->rest();
 
 	if (device()) {
-		setBusy(true);
 		m->register16 = registerAt(static_cast<quint16>(address()));
-		m->register16->awake();
-		updateValue();
+		if (enabled()) {
+			setBusy(true);
+			m->register16->awake();
+			updateValue();
+		} else
+			setBusy(false);
 	} else
 		m->register16 = nullptr;
 }

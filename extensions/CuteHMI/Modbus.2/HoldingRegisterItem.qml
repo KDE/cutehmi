@@ -11,8 +11,7 @@ import "RegisterItem.js" as Private
 
   This item is provided as a supplement to HoldingRegisterController and it is intended to be used in Qt Creator "Design" mode.
   */
-Item
-{
+Item {
 	id: root
 
 	implicitWidth: 50.0
@@ -33,19 +32,21 @@ Item
 	property alias controller: controller
 
 	property var busyIndicator: BusyIndicator {
-		parent: root
 		anchors.centerIn: parent
+
+		parent: root
+		visible: root.enabled
 		running: controller.busy
 	}
 
-	HoldingRegisterController
-	{
+	HoldingRegisterController {
 		id: controller
+
+		enabled: root.enabled
 	}
 
 	// Private properties.
-	QtObject
-	{
+	QtObject {
 		id: p
 
 		property var delegateValue: delegate[delegateProperty]

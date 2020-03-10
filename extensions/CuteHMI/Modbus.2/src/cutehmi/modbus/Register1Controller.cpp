@@ -15,6 +15,7 @@ Register1Controller::Register1Controller(QObject * parent):
 {
 	connect(this, & AbstractRegisterController::deviceChanged, this, & Register1Controller::resetRegister);
 	connect(this, & AbstractRegisterController::addressChanged, this, & Register1Controller::resetRegister);
+	connect(this, & AbstractRegisterController::enabledChanged, this, & Register1Controller::resetRegister);
 }
 
 Register1Controller::~Register1Controller()
@@ -29,17 +30,20 @@ bool Register1Controller::value() const
 
 void Register1Controller::setValue(bool value)
 {
-	Mixin::setValue(value);
+	if (enabled())
+		Mixin::setValue(value);
 }
 
 void Register1Controller::writeValue()
 {
-	Mixin::writeValue();
+	if (enabled())
+		Mixin::writeValue();
 }
 
 void Register1Controller::timerEvent(QTimerEvent * event)
 {
-	Mixin::timerEvent(event);
+	if (enabled())
+		Mixin::timerEvent(event);
 }
 
 quint16 Register1Controller::bytes() const
@@ -83,7 +87,8 @@ void Register1Controller::updateValue(const QJsonValue & value)
 
 void Register1Controller::onRequestCompleted(QJsonObject request, QJsonObject reply)
 {
-	Mixin::onRequestCompleted(request, reply);
+	if (enabled())
+		Mixin::onRequestCompleted(request, reply);
 }
 
 void Register1Controller::resetRegister()
@@ -96,10 +101,13 @@ void Register1Controller::resetRegister()
 		m->register1->rest();
 
 	if (device()) {
-		setBusy(true);
 		m->register1 = registerAt(static_cast<quint16>(address()));
-		m->register1->awake();
-		updateValue();
+		if (enabled()) {
+			setBusy(true);
+			m->register1->awake();
+			updateValue();
+		} else
+			setBusy(false);
 	} else
 		m->register1 = nullptr;
 }
@@ -120,7 +128,7 @@ bool Register1Controller::verifyRegisterValue() const
 }
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
