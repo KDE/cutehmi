@@ -16,7 +16,7 @@ ColumnLayout {
 
 		ColumnLayout {
 			CheckBox {
-				text: qsTr("Neutral colors")
+				text: qsTr("Neutral")
 
 				onCheckedChanged: checked ? element.colorSet = CuteApplication.theme.palette.neutral : element.colorSet = Qt.binding(element.currentStateColorSet)
 			}
@@ -43,6 +43,22 @@ ColumnLayout {
 				checked: element.alarm
 
 				onCheckedChanged: element.alarm = checked
+			}
+
+			CheckBox {
+				text: qsTr("Indirect warning")
+
+				checked: element.indirectWarning
+
+				onCheckedChanged: element.indirectWarning = checked
+			}
+
+			CheckBox {
+				text: qsTr("Indirect alarm")
+
+				checked: element.indirectAlarm
+
+				onCheckedChanged: element.indirectAlarm = checked
 			}
 		}
 	}

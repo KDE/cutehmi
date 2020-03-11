@@ -80,6 +80,17 @@ Item {
 	property bool alarm: false
 
 	/**
+	  Denotes if item is in indirect warning state. This kinf of warning may be handy when warning is diagnosed from indirect
+	  measurments.
+	  */
+	property bool indirectWarning: false
+
+	/**
+	  Denotes if item is in indirect alarm state. This kinf of alarm may be handy when alarm is diagnosed from indirect measurments.
+	  */
+	property bool indirectAlarm: false
+
+	/**
 	  Pick color set based on active, warning and alarm property states. Alarm takes precedence before warning and warning takes
 	  precedence over active state. For warning and alarm states this function dynamically alters the colors to carry visual
 	  information more effectively and to provide accessibility to color blind people.
@@ -88,8 +99,10 @@ Item {
 	  */
 	function currentStateColorSet() {
 		return alarm ? (blinkTimer.blink ? alarmBlink : palette.alarm) :
-			   warning ? (blinkTimer.blink ? warningBlink : palette.warning) :
-			   active ? palette.active : palette.inactive
+			   indirectAlarm ? (blinkTimer.blink ? palette.alarm : (warning ? palette.warning : (active ? palette.active : palette.inactive))) :
+				warning ? (blinkTimer.blink ? warningBlink : palette.warning) :
+				indirectWarning ? (blinkTimer.blink ? palette.warning : (active ? palette.active : palette.inactive)) :
+				active ? palette.active : palette.inactive
 	}
 
 	ColorSet {
@@ -119,8 +132,8 @@ Item {
 	Timer {
 		id: blinkTimer
 
-		interval: blink ? 250 : alarm ? 250 : 1500
-		running: warning || alarm
+		interval: blink ? 250 : (alarm || indirectAlarm) ? 250 : 1500
+		running: warning || alarm || indirectAlarm || indirectWarning
 		repeat: true
 
 		property bool blink: false
