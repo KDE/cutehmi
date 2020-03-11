@@ -55,9 +55,14 @@ Item {
 
 	/**
 	  Active color set. Normally this is controlled by currentStateColorSet() function, which sets appropriate color
-	  according to the state of @a active, @a warning and @a alarm properties.
+	  according to the state of @a active, @a warning and @a alarm properties. Neutral elements are binded to neutral color set.
 	  */
-	property ColorSet colorSet: currentStateColorSet()
+	property ColorSet colorSet: neutral ? palette.neutral : currentStateColorSet()
+
+	/**
+	  Denotes if element is neutral (it does not distinguish between active, inactive, warning and alarm states).
+	  */
+	property bool neutral: false
 
 	/**
 	  Denotes if an item is in active state.
