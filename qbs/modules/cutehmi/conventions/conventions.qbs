@@ -72,6 +72,24 @@ Module {
 	readonly property string sourceDir: product.sourceDirectory + "/src/" + dedicatedSubdir
 
 	PropertyOptions {
+		name: "internalIncludeDir"
+		description: "Directory dedicated to keep product's internal C++ header files."
+	}
+	readonly property string internalIncludeDir: includeDir + "/internal"
+
+	PropertyOptions {
+		name: "internalSourceDir"
+		description: "Directory dedicated to keep product's C++ source files corresponding to internal header files."
+	}
+	readonly property string internalSourceDir: sourceDir + "/internal"
+
+	PropertyOptions {
+		name: "testsDir"
+		description: "Directory dedicated to keep product test files."
+	}
+	readonly property string testsDir: product.sourceDirectory + "/tests"
+
+	PropertyOptions {
 		name: "qmlModuleIdentifier"
 		description: "Respective identifier of a QML module represented by an extension."
 	}
@@ -131,6 +149,9 @@ Module {
 			console.info("dedicatedSubdir: '" + dedicatedSubdir + "'")
 			console.info("includeDir: '" + includeDir + "'")
 			console.info("sourceDir: '" + sourceDir + "'")
+			console.info("internalIncludeDir: '" + internalIncludeDir + "'")
+			console.info("internalSourceDir: '" + internalSourceDir + "'")
+			console.info("testsDir: '" + testsDir + "'")
 			console.info("qmlModuleIdentifier: '" + qmlModuleIdentifier + "'")
 			console.info("qmlPluginName : '" + qmlPluginName + "'")
 			console.info("qmlPluginSource: '" + qmlPluginSource + "'")
