@@ -16,9 +16,9 @@ Project {
 
 		domain: "xn--cuthmi-5of.kde.org"
 
-		friendlyName: "C++ QML Plugin Skeleton"
+		friendlyName: "C++ Plugin Skeleton"
 
-		description: "C++ QML plugin extension skeleton."
+		description: "Skeletal C++ extension with QML plugin."
 
 		files: [
 			"README.md",
