@@ -72,7 +72,7 @@ option to force Qbs to not use cached results.
 For an introduction you may want to run one of the existing examples. In CuteHMI
 everything is either a tool or an extension, therefore examples are also provided
 as extensions. Their names follow "CuteHMI.Examples.*" pattern. The most basic
-example `CuteHMI.Examples.SimpleView.0` can be run with `cutehmi.view.2`tool by
+example `CuteHMI.Examples.SimpleView.0` can be run with `cutehmi.view.2` tool by
 issuing following command.
 
 ```
@@ -81,8 +81,9 @@ cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"
 
 To create your own extension you can simply copy one of the examples to your own
 subdirectory in `extensions` directory (e.g. `Me/MyExtension.0`), rename `qbs` file
-accordingly to match extension name (`MyExtension.0.qbs`), then edit `qbs` file
-and change `name` property to match extension name (`name:  "Me.MyExtension.0"`)
+accordingly to match extension name (e.g. `MyExtension.0.qbs`), then edit `qbs`
+file and change `name` property to match extension name
+(e.g. `name:  "Me.MyExtension.0"`)
 
 After that you can use `--force-probe-execution` Qbs option or delete build
 directory and rebuild whole project. Your extension should be installed and it
