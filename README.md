@@ -53,7 +53,7 @@ Hence "perpetual beta" is desired development status of each branch.
 1. Get the Qt toolkit. Open-source and commercial editions can be obtained from
 https://www.qt.io/. Qt can also be shipped with Linux distribution.
 
-2. Open `CuteHMI.qbs` file with *QtCreator* and simply build it.
+2. Open `CuteHMI.qbs` file with QtCreator and simply build it.
 
 3. All extensions dependent on external libraries will be disabled, if these
 libraries could not be found. To make the process of finding the libraries
@@ -71,7 +71,7 @@ option to force Qbs to not use cached results.
 
 For an introduction you may want to run one of the existing examples. In CuteHMI
 everything is either a tool or an extension, therefore examples are also provided
-as extensions. Their names follow "CuteHMI.Examples.*" pattern. The most basic
+as extensions. Their names start with "CuteHMI.Examples" prefix. The most basic
 example `CuteHMI.Examples.SimpleView.0` can be run with `cutehmi.view.2`tool by
 issuing following command.
 
@@ -79,7 +79,7 @@ issuing following command.
 cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"
 ```
 
-To create your own extension you can simply copy one of the examples to your own
+To create your own project you can simply copy one of the examples to your own
 subdirectory in `extensions` directory (e.g. `Me/MyExtension.0`), rename `qbs` file
 accordingly to match extension name (`MyExtension.0.qbs`), then edit `qbs` file
 and change `name` property to match extension name (`name:  "Me.MyExtension.0"`)
@@ -91,6 +91,9 @@ can be run with `cutehmi.view.2` tool.
 ```
 cutehmi.view.2 --extension="Me.MyExtension.0"
 ```
+
+More methodical approach is to use one of the templates. The process of creating
+custom extensions is described in more detail [here](extensions/).
 
 Examples are listed in the documentation along with other extensions.
 
