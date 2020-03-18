@@ -72,6 +72,24 @@ Module {
 	readonly property string sourceDir: product.sourceDirectory + "/src/" + dedicatedSubdir
 
 	PropertyOptions {
+		name: "internalIncludeDir"
+		description: "Directory dedicated to keep product's internal C++ header files."
+	}
+	readonly property string internalIncludeDir: includeDir + "/internal"
+
+	PropertyOptions {
+		name: "internalSourceDir"
+		description: "Directory dedicated to keep product's C++ source files corresponding to internal header files."
+	}
+	readonly property string internalSourceDir: sourceDir + "/internal"
+
+	PropertyOptions {
+		name: "testsDir"
+		description: "Directory dedicated to keep product test files."
+	}
+	readonly property string testsDir: product.sourceDirectory + "/tests"
+
+	PropertyOptions {
 		name: "qmlModuleIdentifier"
 		description: "Respective identifier of a QML module represented by an extension."
 	}
@@ -131,6 +149,9 @@ Module {
 			console.info("dedicatedSubdir: '" + dedicatedSubdir + "'")
 			console.info("includeDir: '" + includeDir + "'")
 			console.info("sourceDir: '" + sourceDir + "'")
+			console.info("internalIncludeDir: '" + internalIncludeDir + "'")
+			console.info("internalSourceDir: '" + internalSourceDir + "'")
+			console.info("testsDir: '" + testsDir + "'")
 			console.info("qmlModuleIdentifier: '" + qmlModuleIdentifier + "'")
 			console.info("qmlPluginName : '" + qmlPluginName + "'")
 			console.info("qmlPluginSource: '" + qmlPluginSource + "'")
@@ -144,7 +165,7 @@ Module {
 
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

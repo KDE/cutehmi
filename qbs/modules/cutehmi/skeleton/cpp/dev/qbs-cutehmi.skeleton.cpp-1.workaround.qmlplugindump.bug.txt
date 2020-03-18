@@ -1,0 +1,11 @@
+Problem:
+
+Program `qmlplugindump` can not handle QML plugins, which do not register any types. It crashes.
+
+Workaround:
+
+Register QObject as QML type.
+
+Snippet:
+
+
