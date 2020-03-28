@@ -3,32 +3,18 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libgpg_errorProbe.path)
-
-	cpp.includePaths: FileInfo.cleanPath(gpg_errorHeaderProbe.path)
-
-	property bool found: libgpg_errorProbe.found && gpg_errorHeaderProbe.found
+	property bool found: libraryProbe.found && headerProbe.found
 
 	property bool available: found
 
-	property string libgpg_errorPath: libgpg_errorProbe.filePath
+	property string libraryPath: libraryProbe.filePath
 
-	property string includePath: gpg_errorHeaderProbe.path
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libgpg-error-0"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["gpg-error"]
-	}
+	property string includePath: headerProbe.path
 
 	Probes.PathProbe {
-		id: libgpg_errorProbe
+		id: libraryProbe
 
-        names: qbs.targetOS.contains("windows") ? ["libgpg-error-0"] : ["libgpg-error"]
+        names: qbs.targetOS.contains("windows") ? ["libmodbus-5"] : ["libmodbus"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
@@ -37,9 +23,9 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: gpg_errorHeaderProbe
+		id: headerProbe
 
-		names: ["gpg-error.h"]
+		names: ["modbus/modbus.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])

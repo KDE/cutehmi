@@ -2,32 +2,19 @@ import qbs 1.0
 import qbs.Probes
 import qbs.FileInfo
 
-/**
-  Library for native language support (part of gettext).
-  */
 Module {
-	property bool found: libintlProbe.found && libintlHeaderProbe.found
+	property bool found: libraryProbe.found && headerProbe.found
 
-	property bool available: found && cutehmi.libs.libiconv.available
+	property bool available: found
 
-	property string libintlPath: libintlProbe.filePath
+	property string libraryPath: libraryProbe.filePath
 
-	property string includePath: libintlHeaderProbe.path
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libintl-8"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux") && found
-		cpp.dynamicLibraries: ["intl"]
-	}
+	property string includePath: headerProbe.path
 
 	Probes.PathProbe {
-		id: libintlProbe
+		id: libraryProbe
 
-        names: qbs.targetOS.contains("windows") ? ["libintl-8"] : ["libintl"]
+        names: qbs.targetOS.contains("windows") ? ["libgpg-error-0"] : ["libgpg-error"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
@@ -36,9 +23,9 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: libintlHeaderProbe
+		id: headerProbe
 
-		names: ["libintl.h"]
+		names: ["gpg-error.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
@@ -48,8 +35,6 @@ Module {
 	Depends { name: "cpp" }
 
 	Depends { name: "cutehmi.dirs" }
-
-	Depends { name: "cutehmi.libs.libiconv" }
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

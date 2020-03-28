@@ -3,32 +3,18 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(libgcryptProbe.path)
+	property bool found: libraryProbe.found && headerProbe.found
 
-	cpp.includePaths: FileInfo.cleanPath(gcryptHeaderProbe.path)
+	property bool available: found
 
-	property bool found: libgcryptProbe.found && gcryptHeaderProbe.found
+	property string libraryPath: libraryProbe.filePath
 
-	property bool available: found && cutehmi.libs.libgpg_error.available
-
-	property string libgcryptPath: libgcryptProbe.filePath
-
-	property string includePath: gcryptHeaderProbe.path
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libgcrypt-20"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["gcrypt"]
-	}
+	property string includePath: headerProbe.path
 
 	Probes.PathProbe {
-		id: libgcryptProbe
+		id: libraryProbe
 
-		names: qbs.targetOS.contains("windows") ? ["libgcrypt-20"] : ["libgcrypt"]
+        names: qbs.targetOS.contains("windows") ? ["libiconv-2"] : ["libiconv"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
@@ -37,9 +23,9 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: gcryptHeaderProbe
+		id: headerProbe
 
-		names: ["gcrypt.h"]
+		names: ["iconv.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
@@ -49,8 +35,6 @@ Module {
 	Depends { name: "cpp" }
 
 	Depends { name: "cutehmi.dirs" }
-
-	Depends { name: "cutehmi.libs.libgpg_error" }
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

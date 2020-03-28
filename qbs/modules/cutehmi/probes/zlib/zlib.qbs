@@ -3,30 +3,16 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(zlibProbe.path)
-
-	cpp.includePaths: FileInfo.cleanPath(zlibHeaderProbe.path)
-
-	property bool found: zlibProbe.found && zlibHeaderProbe.found
+	property bool found: libraryProbe.found && headerProbe.found
 
 	property bool available: found
 
-	property string zlibPath: zlibProbe.filePath
+	property string libraryPath: libraryProbe.filePath
 
-	property string includePath: zlibHeaderProbe.path
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["zlib1"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["z"]
-	}
+	property string includePath: headerProbe.path
 
 	Probes.PathProbe {
-		id: zlibProbe
+		id: libraryProbe
 
         names: qbs.targetOS.contains("windows") ? ["zlib1"] : ["libz"]
         nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
@@ -37,7 +23,7 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: zlibHeaderProbe
+		id: headerProbe
 
 		names: ["zlib.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])

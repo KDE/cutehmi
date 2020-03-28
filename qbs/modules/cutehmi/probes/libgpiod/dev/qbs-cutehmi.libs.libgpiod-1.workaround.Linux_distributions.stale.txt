@@ -1,0 +1,12 @@
+Problem:
+
+GitLab CI uses Docker images of various Linux distributions. Problem is that
+distributions such as Ubuntu, openSUSE and others are slow with packaging new
+versions of Qbs.
+
+Workaround:
+
+Unless packages are upgraded deprecated features such as "pathPrefixes" have to
+be used.
+
+Snippet:

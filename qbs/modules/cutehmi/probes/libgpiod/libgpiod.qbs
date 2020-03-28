@@ -2,44 +2,53 @@ import qbs 1.0
 import qbs.Probes
 import qbs.FileInfo
 
+/**
+  Library for GPIO support.
+  */
 Module {
-	property bool found: libiconvProbe.found && iconvHeaderProbe.found
+	property bool found: libraryProbe.found && headerProbe.found
 
 	property bool available: found
 
-	property string libiconvPath: libiconvProbe.filePath
+	property string libraryPath: libraryProbe.filePath
 
-	property string includePath: iconvHeaderProbe.path
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libiconv-2"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux") && found
-		cpp.dynamicLibraries: ["iconv"]
-	}
+	property string includePath: headerProbe.path
 
 	Probes.PathProbe {
-		id: libiconvProbe
+		id: libraryProbe
 
-        names: qbs.targetOS.contains("windows") ? ["libiconv-2"] : ["libiconv"]
-		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
+		names: ["libgpiod"]
+		nameSuffixes: [".so"]
+		//<qbs-cutehmi.libs.libgpiod-1.workaround target="Linux_distributions" cause="stale">
+		// Unless packages are upgraded deprecated features such as "pathPrefixes" have to be used.
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
 							.concat([cutehmi.dirs.externalLibDir])
+		// Instead of:
+		//	searchPaths: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
+		//					.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
+		//					.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
+		//					.concat([cutehmi.dirs.externalLibDir])
+		//</qbs-cutehmi.libs.libgpiod-1.workaround>
 	}
 
 	Probes.PathProbe {
-		id: iconvHeaderProbe
+		id: headerProbe
 
-		names: ["iconv.h"]
+		names: ["gpiod.h"]
+		//<qbs-cutehmi.libs.libgpiod-1.workaround target="Linux_distributions" cause="stale">
+		// Unless packages are upgraded deprecated features such as "pathPrefixes" have to be used.
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
 							.concat([cutehmi.dirs.externalIncludeDir])
+		// Instead of:
+		//	searchPaths: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
+		//					.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
+		//					.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
+		//					.concat([cutehmi.dirs.externalIncludeDir])
+		//</qbs-cutehmi.libs.libgpiod-1.workaround>
 	}
 
 	Depends { name: "cpp" }
