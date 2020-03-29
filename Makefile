@@ -140,7 +140,7 @@ doc_doxygen: | $(FIND) $(SED) $(DOXYGEN)
 		-execdir $(DOXYGEN) {} \;
 
 doc_clean: | $(FIND)
-		@$(FIND) $(DOXYGEN_OUTPUT_DIRS) -type f -delete
+		@$(FIND) $(DOXYGEN_OUTPUT_DIR) -type f -delete
 
 doc_project_targets: $(DOC_PROJECT_TARGETS)
 
