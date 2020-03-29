@@ -14,6 +14,12 @@ namespace cutehmi {
 /**
  * %Singleton template. It may be necessary to make derived class a friend of inheriting class to grant Singleton<C> access to its
  * constructor.
+ *
+ * Snippet below shows sample class, which uses %Singleton template.
+ * @snippet tests/snippet_Singleton.cpp MySingleton class
+ *
+ * %Singleton instance can be obtained through Instance() function.
+ * @snippet tests/snippet_Singleton.cpp Call singleton function
  */
 template <class C>
 class Singleton:
@@ -56,12 +62,12 @@ class Singleton:
 	protected:
 		// shield the constructor and destructor to prevent outside sources
 		// from creating or destroying a Singleton instance.
-	
+
 		/**
 		 * Default constructor.
 		 */
 		Singleton();
-	
+
 		/**
 		 * Destructor.
 		 */

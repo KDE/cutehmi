@@ -97,6 +97,14 @@ Project {
 			"test_Singleton.cpp",
 		]
 	}
+
+	Test {
+		testName: "snippet_Singleton"
+
+		files: [
+			"snippet_Singleton.cpp",
+		]
+	}
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
