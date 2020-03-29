@@ -12,7 +12,7 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
-		cutehmi.product.enabled: cutehmi.libs.libgpiod.available
+		cutehmi.product.enabled: cutehmi.libs.libgpiod.found
 
 		friendlyName: "General-purpose Input/Output"
 

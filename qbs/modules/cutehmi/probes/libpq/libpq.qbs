@@ -1,33 +1,21 @@
 import qbs 1.0
 import qbs.Probes
 import qbs.FileInfo
+import qbs.Environment
 
-/**
-  Library for native language support (part of gettext).
-  */
 Module {
-	property bool found: libintlProbe.found && libintlHeaderProbe.found
+	property bool found: libraryProbe.found && headerProbe.found
 
-	property bool available: found && cutehmi.libs.libiconv.available
+	property bool available: found && (qbs.targetOS.contains("windows") ? cutehmi.probes.libintl.available : true)
 
-	property string libintlPath: libintlProbe.filePath
+	property string libraryPath: libraryProbe.filePath
 
-	property string includePath: libintlHeaderProbe.path
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["libintl-8"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux") && found
-		cpp.dynamicLibraries: ["intl"]
-	}
+	property string includePath: headerProbe.path
 
 	Probes.PathProbe {
-		id: libintlProbe
+		id: libraryProbe
 
-        names: qbs.targetOS.contains("windows") ? ["libintl-8"] : ["libintl"]
+        names: ["libpq"]
 		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
@@ -36,23 +24,30 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: libintlHeaderProbe
+		id: headerProbe
 
-		names: ["libintl.h"]
+		names: ["libpq-fe"]
+		nameSuffixes: [".h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
 							.concat([cutehmi.dirs.externalIncludeDir])
+        pathSuffixes: ["postgresql"]
 	}
 
 	Depends { name: "cpp" }
 
 	Depends { name: "cutehmi.dirs" }
 
-	Depends { name: "cutehmi.libs.libiconv" }
+	Depends { name: "cutehmi.probes.libintl" }
+
+	validate: {
+		if (!cutehmi.probes.libintl.available)
+			console.warn("Library 'libpq' may not be available, because its dependency 'libintl' may not be available.")
+	}
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

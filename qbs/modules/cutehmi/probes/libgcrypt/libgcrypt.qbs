@@ -3,33 +3,19 @@ import qbs.Probes
 import qbs.FileInfo
 
 Module {
-	cpp.libraryPaths: FileInfo.cleanPath(zlibProbe.path)
+	property bool found: libraryProbe.found && headerProbe.found
 
-	cpp.includePaths: FileInfo.cleanPath(zlibHeaderProbe.path)
+	property bool available: found && cutehmi.probes.libgpg_error.available
 
-	property bool found: zlibProbe.found && zlibHeaderProbe.found
+	property string libraryPath: libraryProbe.filePath
 
-	property bool available: found
-
-	property string zlibPath: zlibProbe.filePath
-
-	property string includePath: zlibHeaderProbe.path
-
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cpp.dynamicLibraries: ["zlib1"]
-	}
-
-	Properties {
-		condition: qbs.targetOS.contains("linux")
-		cpp.dynamicLibraries: ["z"]
-	}
+	property string includePath: headerProbe.path
 
 	Probes.PathProbe {
-		id: zlibProbe
+		id: libraryProbe
 
-        names: qbs.targetOS.contains("windows") ? ["zlib1"] : ["libz"]
-        nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
+		names: qbs.targetOS.contains("windows") ? ["libgcrypt-20"] : ["libgcrypt"]
+		nameSuffixes: qbs.targetOS.contains("windows") ? [".dll"] : [".so"]
 		pathPrefixes: cpp.libraryPaths.concat(cpp.compilerLibraryPaths ? cpp.compilerLibraryPaths : [])
 							.concat(cpp.systemRunPaths ? cpp.systemRunPaths : [])
 							.concat(cpp.distributionLibraryPaths ? cpp.distributionLibraryPaths : [])
@@ -37,9 +23,9 @@ Module {
 	}
 
 	Probes.PathProbe {
-		id: zlibHeaderProbe
+		id: headerProbe
 
-		names: ["zlib.h"]
+		names: ["gcrypt.h"]
 		pathPrefixes: cpp.includePaths.concat(cpp.compilerIncludePaths ? cpp.compilerIncludePaths : [])
 							.concat(cpp.systemIncludePaths ? cpp.systemIncludePaths : [])
 							.concat(cpp.distributionIncludePaths ? cpp.distributionIncludePaths : [])
@@ -49,9 +35,16 @@ Module {
 	Depends { name: "cpp" }
 
 	Depends { name: "cutehmi.dirs" }
+
+	Depends { name: "cutehmi.probes.libgpg_error" }
+
+	validate: {
+		if (!cutehmi.probes.libgpg_error.available)
+			console.warn("Library 'libgcrypt' may not be available, because its dependency 'libgpg_error' may not be available.")
+	}
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
