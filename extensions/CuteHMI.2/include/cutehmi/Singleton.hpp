@@ -14,6 +14,12 @@ namespace cutehmi {
 /**
  * %Singleton template. It may be necessary to make derived class a friend of inheriting class to grant Singleton<C> access to its
  * constructor.
+ *
+ * Snippet below shows sample class, which uses %Singleton template.
+ * @snippet tests/snippet_Singleton.cpp MySingleton class
+ *
+ * %Singleton instance can be obtained through Instance() function.
+ * @snippet tests/snippet_Singleton.cpp Call singleton function
  */
 template <class C>
 class Singleton:
@@ -56,12 +62,12 @@ class Singleton:
 	protected:
 		// shield the constructor and destructor to prevent outside sources
 		// from creating or destroying a Singleton instance.
-	
+
 		/**
 		 * Default constructor.
 		 */
 		Singleton();
-	
+
 		/**
 		 * Destructor.
 		 */
@@ -138,7 +144,7 @@ std::unique_ptr<C> & Singleton<C>::InstancePtr()
 
 #endif
 
-//(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

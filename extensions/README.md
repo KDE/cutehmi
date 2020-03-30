@@ -151,6 +151,22 @@ Following extensions can be used as a reference for creating custom extensions:
 - [Templates.CppSkeleton](Templates/CppSkeleton.0/) - C++ extension
 - [Templates.CppPluginSkeleton](Templates/CppPluginSkeleton.0/) - C++ extension with QML plugin
 
+## Keeping custom extensions in separate repositories
+
+Often you may want to keep your extension in separate repository. A simple
+trick, which makes life easier is to create `.gitignore` file in `extensions`
+directory and make Git ignore the file itself along with your extension(s).
+
+```
+.gitignore
+
+YourExtension/**
+```
+
+This way you can clone your extension to `extensions` subdirectory and your
+reposiotry won't interfere with CuteHMI repository.
+
+
 [1]: https://doc.qt.io/qt-5/qtqml-modules-identifiedmodules.html#semantics-of-identified-modules
 [qmldir]: https://doc.qt.io/qt-5/qtqml-modules-qmldir.html
 
