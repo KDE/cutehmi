@@ -26,13 +26,14 @@ Service::~Service()
 {
 	stop();
 
-	// Wait till either service stops or timeout is reached.
+	// Wait till either service stops or is interrupted.
 	if (m->stateInterface)
 		while (!m->stateInterface->stopped().active() && !m->stateInterface->interrupted().active()) {
-			QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
-			// Due to repair and start timeouts service may end up in broken state.
-			if (m->stateInterface->broken().active())
-				stop();
+			// Due to repair and start timeouts service may end up in broken state. Try to stop the service repeatedly.
+			stop();
+
+			// QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents) slows down shutdown, so execute this loop aggressively.
+			QCoreApplication::processEvents();
 		}
 
 	if (m->serviceable)
@@ -188,17 +189,28 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		} );
 
 
+		// Variable m->lastNotifiableState is used to prevent notification spam, i.e. when service fails to leave notifiable state
+		// through intermediate, non-notifiable state (e.g. 'broken' is a notifiable state, 'repairing' is an intermediate state;
+		// without the condition "Service 'XYZ' broke" message would be posted after each failed repair attempt).
 		connect(& m->stateInterface->interrupted(), & QState::entered, [this]() {
-			Notification::Critical(tr("Interrupting stop sequence of '%1' service, because it took more than %2 [ms].").arg(name()).arg(stopTimeout()));
+			if (m->lastNotifiableState != & m->stateInterface->interrupted())
+				Notification::Critical(tr("Stop sequence of '%1' service has been interrupted, because it took more than %2 [ms] to stop the service.").arg(name()).arg(stopTimeout()));
+			m->lastNotifiableState = & m->stateInterface->interrupted();
 		});
 		connect(& m->stateInterface->started(), & QState::entered, [this]() {
-			Notification::Info(tr("Service '%1' has started.").arg(name()));
+			if (m->lastNotifiableState != & m->stateInterface->started())
+				Notification::Info(tr("Service '%1' has started.").arg(name()));
+			m->lastNotifiableState = & m->stateInterface->started();
 		});
 		connect(& m->stateInterface->stopped(), & QState::entered, [this]() {
-			Notification::Info(tr("Service '%1' is stopped.").arg(name()));
+			if (m->lastNotifiableState != & m->stateInterface->stopped())
+				Notification::Info(tr("Service '%1' is stopped.").arg(name()));
+			m->lastNotifiableState = & m->stateInterface->stopped();
 		});
 		connect(& m->stateInterface->broken(), & QState::entered, [this]() {
-			Notification::Warning(tr("Service '%1' broke.").arg(name()));
+			if (m->lastNotifiableState != & m->stateInterface->broken())
+				Notification::Warning(tr("Service '%1' broke.").arg(name()));
+			m->lastNotifiableState = & m->stateInterface->broken();
 		});
 
 

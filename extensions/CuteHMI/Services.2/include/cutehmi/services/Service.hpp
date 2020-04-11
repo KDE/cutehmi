@@ -147,6 +147,7 @@ class CUTEHMI_SERVICES_API Service:
 			QStateMachine * stateMachine = nullptr;
 			internal::StateInterface * stateInterface = nullptr;
 			QTimer timeoutTimer;
+			QState * lastNotifiableState = nullptr;
 		};
 
 		MPtr<Members> m;
