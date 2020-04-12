@@ -15,6 +15,9 @@ class MySingleton:
 		{
 			qInfo() << "I am not married!";
 		}
+
+	protected:
+		MySingleton() = default;
 };
 //! [MySingleton class]
 

@@ -34,9 +34,8 @@ class CUTEHMI_API Worker:
 		Worker(std::function<void()> task = nullptr);
 
 		/**
-		 * Constructor. This constructor acts as if @ref employ(QThread &, bool)
-		 * "employ(@a thread, false)" was called immediately after constructing
-		 * default worker object.
+		 * Constructor. This constructor acts as if @ref employ(QThread &, bool) "employ(@a thread, false)" was called immediately
+		 * after constructing default worker object.
 		 * @param thread thread in which worker's job should be run.
 		 */
 		Worker(QThread & thread);
@@ -50,21 +49,16 @@ class CUTEHMI_API Worker:
 		void setTask(std::function<void()> task);
 
 		/**
-		 * %Worker's job. This function is called when worker receives WorkEvent
-		 * event. Use employ() function to run job in a specified thread. This
-		 * function can be reimplemented. Default implementation calls @a task
-		 * function if it has been set (it can be passed to the
-		 * \ref Worker(std::function<void()>) "constructor" or set via setTask()
-		 * function). Default implementation does nothing if @a task has not
-		 * been set (i.e. @a task = @p nullptr).
+		 * %Worker's job. This function is called when worker receives WorkEvent event. Use employ() function to run job in a
+		 * specified thread. This function can be reimplemented. Default implementation calls @a task function if it has been set
+		 * (it can be passed to the \ref Worker(std::function<void()>) "constructor" or set via setTask() function). Default
+		 * implementation does nothing if @a task has not been set (i.e. @a task = @p nullptr).
 		 */
 		virtual void job();
 
 		/**
-		 * Wait for the worker. Causes calling thread to wait until worker
-		 * finishes its job. Function does not block until work() has been
-		 * called. It also won't block if worker has already
-		 * finished its job.
+		 * Wait for the worker. Causes calling thread to wait until worker finishes its job. Function does not block until work()
+		 * has been called. It also won't block if worker has already finished its job.
 		 *
 		 * @threadsafe
 		 */
@@ -88,34 +82,30 @@ class CUTEHMI_API Worker:
 		bool isWorking() const;
 
 		/**
-		 * Employ worker. Employs worker in another thread. Internally this
-		 * function moves worker object to the specified thread. This function
-		 * imposes same restrictions as QObject::moveToThread().
+		 * Employ worker. Employs worker in another thread. Internally this function moves worker object to the specified thread.
+		 * This function imposes same restrictions as QObject::moveToThread().
 		 * @param thread thread in which worker's job should be run.
-		 * @param start start work. If start is set to @p true, then work() is
-		 * called immediately.
+		 * @param start start work. If start is set to @p true, then work() is called immediately.
 		 */
 		void employ(QThread & thread, bool start = true);
 
 		/**
-		 * Do work. This function posts WorkEvent, which tells worker to process
-		 * the job() inside the thread in which it is employed.
+		 * Do work. This function posts WorkEvent, which tells worker to process the job() inside the thread in which it is
+		 * employed.
 		 *
 		 * @threadsafe
 		 */
 		void work();
 
-	protected:
-		enum class State {
-			UNEMPLOYED,
-			EMPLOYED,
-			WORKING,
-			READY
-		};
-
+	signals:
 		/**
-		 * Work event. This class is provided to interact with Worker through Qt
-		 * event system.
+		 * Results are ready. This signal is emitted when the job() has been completed and the results are ready.
+		 */
+		void ready();
+
+	protected:
+		/**
+		 * Work event. This class is provided to interact with Worker through Qt event system.
 		 */
 		class WorkEvent:
 			public QEvent
@@ -137,14 +127,14 @@ class CUTEHMI_API Worker:
 
 		bool event(QEvent * event) override;
 
-	signals:
-		/**
-		 * Results are ready. This signal is emitted when the job() has been
-		 * completed and the results are ready.
-		 */
-		void ready();
-
 	private:
+		enum class State {
+			UNEMPLOYED,
+			EMPLOYED,
+			WORKING,
+			READY
+		};
+
 		struct Members
 		{
 			State state;
