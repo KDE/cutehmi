@@ -6,12 +6,11 @@ variables:
   QT_DEBUG_PLUGINS: 0
   XDG_RUNTIME_DIR: "/tmp/runtime-kdeci/"
   DISPLAY: ":90"
-  
+
 stages:
   - build
   - build tests
   - test
-
 
 # Build stage.
 
