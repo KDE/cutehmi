@@ -22,15 +22,14 @@ Worker::~Worker()
 	m->workMutex.unlock();	// Mutex should be unlocked before it gets deleted.
 }
 
+std::function<void ()> Worker::task() const
+{
+	return m->task;
+}
+
 void Worker::setTask(std::function<void()> task)
 {
 	m->task = task;
-}
-
-void Worker::job()
-{
-	if (m->task)
-		m->task();
 }
 
 void Worker::wait() const
@@ -56,8 +55,10 @@ bool Worker::isWorking() const
 
 void Worker::employ(QThread & thread, bool start)
 {
-	moveToThread(& thread);
-	m->state = State::EMPLOYED;
+	if (& thread != QThread::currentThread()) {
+		moveToThread(& thread);
+		m->state = State::EMPLOYED;
+	}
 	if (start)
 		work();
 }
@@ -66,9 +67,24 @@ void Worker::work()
 {
 	m->workMutex.lock();
 	m->stateMutex.lock();
-	m->state = State::WORKING;
-	m->stateMutex.unlock();
-	QCoreApplication::postEvent(this, new WorkEvent);
+	// Use QCoreApplication::postEvent() if worker is employed and QCoreApplication::sendEvent() if worker is unemployed.
+	if (m->state == State::UNEMPLOYED) {
+		m->state = State::WORKING;
+		m->stateMutex.unlock();
+		// Do not post event if worker has not been employed or current thread might get stuck waiting on unproceessed work event.
+		WorkEvent workEvent;
+		QCoreApplication::sendEvent(this, & workEvent);
+	} else {
+		m->state = State::WORKING;
+		m->stateMutex.unlock();
+		QCoreApplication::postEvent(this, new WorkEvent);
+	}
+}
+
+void Worker::job()
+{
+	if (m->task)
+		m->task();
 }
 
 bool Worker::event(QEvent * event)

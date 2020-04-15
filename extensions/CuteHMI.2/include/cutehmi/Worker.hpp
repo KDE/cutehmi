@@ -43,18 +43,16 @@ class CUTEHMI_API Worker:
 		~Worker() override;
 
 		/**
+		 * Get task.
+		 * @return task function. See job().
+		 */
+		std::function<void()> task() const;
+
+		/**
 		 * Set task.
 		 * @param task task function. See job().
 		 */
 		void setTask(std::function<void()> task);
-
-		/**
-		 * %Worker's job. This function is called when worker receives WorkEvent event. Use employ() function to run job in a
-		 * specified thread. This function can be reimplemented. Default implementation calls @a task function if it has been set
-		 * (it can be passed to the \ref Worker(std::function<void()>) "constructor" or set via setTask() function). Default
-		 * implementation does nothing if @a task has not been set (i.e. @a task = @p nullptr).
-		 */
-		virtual void job();
 
 		/**
 		 * Wait for the worker. Causes calling thread to wait until worker finishes its job. Function does not block until work()
@@ -124,6 +122,14 @@ class CUTEHMI_API Worker:
 				 */
 				WorkEvent();
 		};
+
+		/**
+		 * %Worker's job. This function is called when worker receives WorkEvent event. Use employ() function to run job in a
+		 * specified thread. This function can be reimplemented. Default implementation calls @a task function if it has been set
+		 * (it can be passed to the \ref Worker(std::function<void()>) "constructor" or set via setTask() function). Default
+		 * implementation does nothing if @a task has not been set (i.e. @a task = @p nullptr).
+		 */
+		virtual void job();
 
 		bool event(QEvent * event) override;
 
