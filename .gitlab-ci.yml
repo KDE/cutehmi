@@ -15,6 +15,7 @@ stages:
 # Build stage.
 
 .build:
+  timeout: 360m
   stage: build
   only:
     - master
