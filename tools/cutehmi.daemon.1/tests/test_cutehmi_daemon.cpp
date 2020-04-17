@@ -28,7 +28,7 @@ void test_cutehmi_daemon::initTestCase()
         QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
 	QVERIFY(!m_installDir.isEmpty());
 
-	QString toolInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOL_INSTALL_SUBDIR");
+	QString toolInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOLS_INSTALL_SUBDIR");
 	if (!toolInstallSubdir.isEmpty())
 	    m_installDir += "/" + toolInstallSubdir;
 
