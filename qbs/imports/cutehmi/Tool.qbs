@@ -37,7 +37,7 @@ CommonProduct {
 		name: "Application"
 		fileTagsFilter: "application"
 		qbs.install: true
-		qbs.installDir: cutehmi.dirs.toolInstallSubdir
+		qbs.installDir: cutehmi.dirs.toolsInstallSubdir
 	}
 }
 

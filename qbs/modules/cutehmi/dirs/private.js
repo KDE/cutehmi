@@ -7,10 +7,10 @@ function setupEnvironment()
 	else
 		Environment.putEnv("LD_LIBRARY_PATH", product.cutehmi.dirs.externalLibDir + product.qbs.pathListSeparator + Environment.getEnv("LD_LIBRARY_PATH"))
 
-	Environment.putEnv("QML2_IMPORT_PATH", product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir)
+	Environment.putEnv("QML2_IMPORT_PATH", product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionsInstallSubdir)
 
 	Environment.putEnv("CUTEHMI_INSTALL_DIR", product.cutehmi.dirs.installDir)
-	Environment.putEnv("CUTEHMI_TOOL_INSTALL_SUBDIR", product.cutehmi.dirs.toolInstallSubdir)
+	Environment.putEnv("CUTEHMI_TOOLS_INSTALL_SUBDIR", product.cutehmi.dirs.toolsInstallSubdir)
 }
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.

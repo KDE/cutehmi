@@ -11,7 +11,7 @@ Extension {
 
 	installSourceBase: sourceDirectory + "/" + cutehmi.dirs.puppetSourceSubdir
 
-	dedicatedInstallSubdir: cutehmi.dirs.puppetInstallSubdir + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
+	dedicatedInstallSubdir: cutehmi.dirs.puppetsInstallSubdir + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
 
 	property string originalExtension
 
@@ -31,7 +31,7 @@ Extension {
 		cutehmi.qmldir.plugins: [{
 				name: "CuteHMI.Workarounds.PuppetBootloader.0",
 				path: FileInfo.relativePath(cutehmi.dirs.installDir + "/" + dedicatedInstallSubdir,
-											cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallSubdir)
+											cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionsInstallSubdir)
 			}]
 	}
 	//</qbs-imports-cutehmi-4.workaround>

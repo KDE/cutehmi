@@ -18,13 +18,13 @@ CommonProduct {
 
 	property string installSourceBase: sourceDirectory
 
-	property string dedicatedInstallSubdir: cutehmi.dirs.extensionInstallSubdir + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
+	property string dedicatedInstallSubdir: cutehmi.dirs.extensionsInstallSubdir + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
 
 	//<qbs-imports-cutehmi-3.workaround target="Qbs" cuase="bug_or_missing">
 	// Using 'qmlImportPaths' instead of 'qmlDesignerImportPaths' for puppets.
-	// property stringList qmlDesignerImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.puppetInstallSubdir]	// QML import paths for QtCreator's Designer.
-	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.puppetInstallSubdir,
-										 cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallSubdir]	// QML import paths for QtCreator.
+	// property stringList qmlDesignerImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.puppetsInstallSubdir]	// QML import paths for QtCreator's Designer.
+	property stringList qmlImportPaths: [cutehmi.dirs.installDir + "/" + cutehmi.dirs.puppetsInstallSubdir,
+										 cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionsInstallSubdir]	// QML import paths for QtCreator.
 	//</qbs-imports-cutehmi-3.workaround>
 
 	Depends { name: "cutehmi.dirs" }

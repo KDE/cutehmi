@@ -74,7 +74,7 @@ Extension {
 		name: "Library"
 		fileTagsFilter: "dynamiclibrary"
 		qbs.install: true
-		qbs.installDir: cutehmi.dirs.extensionInstallSubdir
+		qbs.installDir: cutehmi.dirs.extensionsInstallSubdir
 	}
 }
 

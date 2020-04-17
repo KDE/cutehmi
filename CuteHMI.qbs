@@ -23,7 +23,7 @@ Project {
 	AutotestRunner {
 		environment: {
 			var env = base;
-			env.push("QML2_IMPORT_PATH=" + cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionInstallSubdir);
+			env.push("QML2_IMPORT_PATH=" + cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionsInstallSubdir);
 
 			env.push("QBS_INSTALL_ROOT=" + qbs.installRoot);
 

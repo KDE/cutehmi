@@ -69,7 +69,7 @@ Module {
 		{
 			name: product.cutehmi.conventions.qmlPluginName,
 			path: FileInfo.relativePath(product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
-										product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir)
+										product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionsInstallSubdir)
 		}]
 
 	PropertyOptions {

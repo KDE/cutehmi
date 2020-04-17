@@ -26,7 +26,7 @@ Module {
 		prepare: {
 			//<qbs-cutehmi.qmltypes-2.workaround target="Qbs" cause="missing">
 			// Checking if directory exists as a dirty workaround to check if `--no-install` options has been set from command line.
-			if (!File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir)) {
+			if (!File.exists(product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionsInstallSubdir)) {
 				var dumpCmd = new JavaScriptCommand()
 				dumpCmd.description = "can not generate artifact '" + output.filePath + "' when '--no-install` options has been set from command line"
 				dumpCmd.sourceCode = function () {
@@ -37,7 +37,7 @@ Module {
 				// Custom built 'cutehmi.qmlplugindump.0' is used to generate qmltypes in debug builds.
 				if (explicitlyDependsOn["qmlplugindump"] !== undefined) {
 					var dumpCmd = new Command(explicitlyDependsOn["qmlplugindump"][0].filePath,
-											  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir])
+											  ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionsInstallSubdir])
 					dumpCmd.description = "invoking 'cutehmi.qmlplugindump.0' program to generate '" + output.filePath + "'"
 				} else {
 					console.warn("Tool 'cutehmi.qmlplugindump.0' unavailable")
@@ -49,7 +49,7 @@ Module {
 						}
 					} else {
 						console.warn("Reverting to 'qmlplugindump' provided by Qt, which may not work for debug builds")
-						var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionInstallSubdir])
+						var dumpCmd = new Command(product.Qt.core.binPath + "/qmlplugindump", ["-nonrelocatable", product.baseName, product.major + "." + product.minor, product.cutehmi.dirs.extensionsInstallSubdir])
 						dumpCmd.description = "invoking 'qmlplugindump' program to generate " + output.filePath
 					}
 				}
@@ -57,7 +57,7 @@ Module {
 			}
 			//</qbs-cutehmi.qmltypes-2.workaround>
 			dumpCmd.workingDirectory = product.cutehmi.dirs.installDir
-			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionInstallSubdir,
+			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionsInstallSubdir,
 														 product.Qt.core.libPath,
 														 product.Qt.core.binPath,	// On Windows runtime libraries are installed to 'binPath' and not 'libPath'.
 														]).join(product.qbs.pathListSeparator)

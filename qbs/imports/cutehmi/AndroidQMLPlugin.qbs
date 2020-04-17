@@ -37,7 +37,7 @@ CommonProduct {
 		name: "Android QML plugin"
 		fileTagsFilter: "dynamiclibrary"
 		qbs.install: true
-		qbs.installDir: cutehmi.dirs.extensionInstallSubdir + "/" + extensionRelativePath
+		qbs.installDir: cutehmi.dirs.extensionsInstallSubdir + "/" + extensionRelativePath
 	}
 
 	Depends { name: extensionName }
