@@ -1,5 +1,5 @@
 variables:
-  QBS_BASE_PROFILE: "gcc"
+  QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
   QBS_CONFIG: "debug"
   QBS_PROFILE: "qt"
   QBS_AUTOTEST_ARGUMENTS: "-platform xcb"
