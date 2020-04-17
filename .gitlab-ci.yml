@@ -86,25 +86,25 @@ stages:
 gcc ubuntu-18.04-qt-5.13.1 debug build:
   extends: .build_ubuntu-18.04-qt-5.13.1
   variables:
-    QBS_BASE_PROFILE: "gcc"
+    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
     QBS_CONFIG: "debug"
 
 clang ubuntu-18.04-qt-5.13.1 debug build:
   extends: .build_ubuntu-18.04-qt-5.13.1
   variables:
-    QBS_BASE_PROFILE: "clang"
+    QBS_BASE_PROFILE: "clang-6"
     QBS_CONFIG: "debug"
 
 gcc ubuntu-18.04-qt-5.13.1 release build:
   extends: .build_ubuntu-18.04-qt-5.13.1
   variables:
-    QBS_BASE_PROFILE: "gcc"
+    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
     QBS_CONFIG: "release"
 
 clang ubuntu-18.04-qt-5.13.1 release build:
   extends: .build_ubuntu-18.04-qt-5.13.1
   variables:
-    QBS_BASE_PROFILE: "clang"
+    QBS_BASE_PROFILE: "clang-6"
     QBS_CONFIG: "release"
 
 # Build tests stage.
@@ -146,7 +146,7 @@ clang ubuntu-18.04-qt-5.13.1 release build:
 gcc ubuntu-18.04-qt-5.13.1 debug build tests:
   extends: .build_tests_ubuntu-18.04-qt-5.13.1
   variables:
-    QBS_BASE_PROFILE: "gcc"
+    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
     QBS_CONFIG: "debug"
 
 
