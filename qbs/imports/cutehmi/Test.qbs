@@ -50,6 +50,13 @@ CommonProduct {
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.testsInstallSubdir
 	}
+
+	Group {
+		name: "Translations"
+		fileTagsFilter: ["qm"]
+		qbs.install: true
+		qbs.installDir: cutehmi.dirs.translationsInstallSubdir
+	}
 }
 
 //(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.

@@ -114,6 +114,13 @@ CommonProduct {
 		qbs.installSourceBase: installSourceBase
 		qbs.installDir: dedicatedInstallSubdir
 	}
+
+	Group {
+		name: "Translations"
+		fileTagsFilter: ["qm"]
+		qbs.install: true
+		qbs.installDir: cutehmi.dirs.translationsInstallSubdir
+	}
 }
 
 //(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
