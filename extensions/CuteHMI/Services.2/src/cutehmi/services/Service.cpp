@@ -157,6 +157,8 @@ void Service::setStatus(const QString & status)
 {
 	if (m->status != status) {
 		m->status = status;
+		if (m->serviceable)
+			CUTEHMI_DEBUG(name() << ": " << status);
 		emit statusChanged();
 	}
 }
