@@ -23,6 +23,7 @@ Project {
 		files: [
 			"README.md",
 			"LICENSE",
+			"include/templates/cpppluginskeleton/Exception.hpp",
 			"include/templates/cpppluginskeleton/internal/platform.hpp",
 			"include/templates/cpppluginskeleton/internal/common.hpp",
 			"include/templates/cpppluginskeleton/logging.hpp",
