@@ -23,7 +23,7 @@ Item {
 				Qt.createQmlObject(qmlData, extensionContainer)
 			} catch(error) {
 				showDefaultScreen()
-				message.informativeText = error.qmlErrors.length > 1 ? qsTr("Reasons: ") : qsTr("Reason: ")
+				message.informativeText = error.qmlErrors.length > 1 ? qsTr("Reasons:") + " " : qsTr("Reason:") + " "
 				message.informativeText += error.qmlErrors.map(function (obj) { return obj.message }).join("; ") + "."
 				createDialog(message)
 			}
