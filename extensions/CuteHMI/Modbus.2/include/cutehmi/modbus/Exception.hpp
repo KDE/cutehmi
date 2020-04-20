@@ -8,15 +8,13 @@
 namespace cutehmi {
 namespace modbus {
 
-class Exception:
+class CUTEHMI_MODBUS_API Exception:
 	public ExceptionMixin<Exception>
 {
 		typedef ExceptionMixin<Exception> Parent;
 
 	public:
 		using Parent::Parent;
-
-		~Exception() override = default;
 };
 
 }
