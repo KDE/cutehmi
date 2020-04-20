@@ -55,7 +55,7 @@ Module {
 
 	PropertyOptions {
 		name: "dedicatedSubdir"
-		description: "Subdirectory dedicated to keep product-specific files."
+		description: "Subdirectory dedicated to keep header and source files within product subdirectory."
 	}
 	readonly property string dedicatedSubdir: baseName.toLowerCase().replace(/\./g, '/')
 
