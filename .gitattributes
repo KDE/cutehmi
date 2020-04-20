@@ -24,3 +24,6 @@ extra/logo/*.ico -crlf
 
 # SCXML files.
 *.scxml -crlf
+
+# Translation files.
+*.ts -crlf

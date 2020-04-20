@@ -29,6 +29,8 @@ Project {
 			"dev/cutehmi.view.2-4.workaround.Qt.bug.txt",
 			"dev/cutehmi.view.2-5.workaround.Qt.bug.txt",
 			"dev/cutehmi.view.2-6.workaround.Qt.bug.txt",
+			"i18n/cutehmi-view-2_pl.ts",
+			"i18n/cutehmi-view-2_en.ts",
 			"resources.qrc",
 			"resources.rc",
 			"src/cutehmi/view/logging.cpp",
@@ -46,6 +48,8 @@ Project {
 		property string defaultInit
 
 		property string defaultComponent
+
+		property string defaultLanguage
 
 		property bool forceDefaultOptions: false
 
@@ -69,6 +73,9 @@ Project {
 			if (forceDefaultOptions)
 				result.push("CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS")
 
+			if (defaultLanguage)
+				result.push("CUTEHMI_VIEW_DEFAULT_LANGUAGE=\"" + defaultLanguage + "\"")
+
 			return result
 		}
 
@@ -80,6 +87,8 @@ Project {
 		cutehmi.doxygen.exclude: ['dev', 'tests']
 
 		Depends { name: "cutehmi.metadata" }
+
+		Depends { name: "cutehmi.i18n" }
 
 		Export {
 			Depends { name: "CuteHMI.GUI.0" }

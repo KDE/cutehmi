@@ -74,25 +74,38 @@ int main(int argc, char * argv[])
 		//</cutehmi.view.2-4.workaround>
 		app.setWindowIcon(QIcon(":/img/icon.png"));
 
-		QJsonDocument metadataJson;
-		{
-			QFile metadataFile(":/" CUTEHMI_VIEW_NAME "/cutehmi.metadata.json");
-			if (metadataFile.open(QFile::ReadOnly)) {
-				metadataJson = QJsonDocument::fromJson(metadataFile.readAll());
-			} else
-				qFatal("Could not open ':/" CUTEHMI_VIEW_NAME "/cutehmi.metadata.json' file.");
+
+		QString language = QLocale::system().name();
+#ifdef CUTEHMI_VIEW_DEFAULT_LANGUAGE
+		language = CUTEHMI_VIEW_DEFAULT_LANGUAGE;
+#endif
+		if (!qgetenv("CUTEHMI_LANGUAGE").isEmpty()) {
+			language = qgetenv("CUTEHMI_LANGUAGE");
+			CUTEHMI_DEBUG("Language set by 'CUTEHMI_LANGUAGE' environmental variable: " << qgetenv("CUTEHMI_LANGUAGE"));
 		}
+		QTranslator qtTranslator;
+		if (!qtTranslator.load("qt_" + language, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+			CUTEHMI_WARNING("Could not load translations file '" << "qt_" + language << "'.");
+		app.installTranslator(& qtTranslator);
+
+		QTranslator viewTranslator;
+		QString translationsDir = QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_TRANSLATIONS_INSTALL_SUBDIR);
+		QString viewTranslationFilePrefix = QString(CUTEHMI_VIEW_NAME).replace('.', '-') + "_";
+		QString viewTranslationFile = viewTranslationFilePrefix + language;
+		if (!viewTranslator.load(viewTranslationFile, translationsDir))
+			CUTEHMI_WARNING("Could not load translations file '" << viewTranslationFile << "'.");
+		app.installTranslator(& viewTranslator);
 
 
 		QCommandLineParser cmd;
-		cmd.setApplicationDescription(QCoreApplication::applicationName() + "\n" + metadataJson.object().value("description").toString());
+		cmd.setApplicationDescription(CUTEHMI_VIEW_TRANSLATED_FRIENDLY_NAME + "\n" + CUTEHMI_VIEW_TRANSLATED_DESCRIPTION);
 		cmd.addHelpOption();
 		cmd.addVersionOption();
 
 		QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
 		cmd.addOption(fullScreenOption);
 
-		QCommandLineOption initOption("init", QCoreApplication::translate("main", "Override loader and specify initial QML <file> to load."), QCoreApplication::translate("main", "file"));
+		QCommandLineOption initOption("init", QCoreApplication::translate("main", "Override loader specifying initial QML <file> to load."), QCoreApplication::translate("main", "file"));
 #ifdef CUTEHMI_VIEW_DEFAULT_INIT
 		initOption.setDefaultValue(CUTEHMI_VIEW_DEFAULT_INIT);
 #else
@@ -130,6 +143,7 @@ int main(int argc, char * argv[])
 		cmd.addOption(styleOption);
 
 		QCommandLineOption langOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language"));
+		langOption.setDefaultValue(language);
 		cmd.addOption(langOption);
 
 		QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
@@ -139,13 +153,15 @@ int main(int argc, char * argv[])
 
 
 		CUTEHMI_DEBUG("Default locale: " << QLocale());
+		CUTEHMI_DEBUG("Language: " << cmd.value(langOption));
 
-		QTranslator qtTranslator;
-		if (cmd.isSet(langOption))
-			qtTranslator.load("qt_" + cmd.value(langOption), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-		else
-			qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-		app.installTranslator(& qtTranslator);
+		if (!qtTranslator.load("qt_" + cmd.value(langOption), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+			CUTEHMI_WARNING("Could not load translations file '" << "qt_" + cmd.value(langOption) << "'.");
+
+		viewTranslationFile = viewTranslationFilePrefix + cmd.value(langOption);
+		if (!viewTranslator.load(viewTranslationFile, translationsDir))
+			CUTEHMI_WARNING("Could not load translations file '" << viewTranslationFile << "'.");
+
 
 		if (cmd.isSet(styleOption)) {
 			qputenv("QT_QUICK_CONTROLS_STYLE", cmd.value(styleOption).toLocal8Bit());
@@ -188,11 +204,11 @@ int main(int argc, char * argv[])
 		QString component = componentOption.defaultValues().first();
 
 		if (cmd.value(extensionOption) != extension)
-			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(extensionOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(extensionOption.names().join(", ")).toLocal8Bit().constData());
 		if (cmd.value(initOption) != init)
-			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(initOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(initOption.names().join(", ")).toLocal8Bit().constData());
 		if (cmd.value(componentOption) != component)
-			CUTEHMI_DIE(QObject::tr("You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(componentOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(componentOption.names().join(", ")).toLocal8Bit().constData());
 #endif
 
 		QStringList extensionParts = extension.split('.');
@@ -219,19 +235,19 @@ int main(int argc, char * argv[])
 			if (initUrl.isValid()) {
 				// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.
 				if (!initUrl.scheme().isEmpty() && QDir::isRelativePath(initUrl.path()))
-					cutehmi::Message::Critical(QObject::tr("URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(initUrl.url()));
+					cutehmi::Message::Critical(QCoreApplication::translate("main", "URL '%1' contains relative path along with URL scheme, which is forbidden.").arg(initUrl.url()));
 				else {
 					// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
 					if (initUrl.isRelative())
 						initUrl = QUrl::fromLocalFile(baseDirPath).resolved(initUrl);
 					// Check if file exists and eventually set context property.
 					if (initUrl.isLocalFile() && !QFile::exists(initUrl.toLocalFile()))
-						cutehmi::Message::Critical(QObject::tr("QML file '%1' does not exist.").arg(initUrl.url()));
+						cutehmi::Message::Critical(QCoreApplication::translate("main", "QML file '%1' does not exist.").arg(initUrl.url()));
 					else
 						engine->rootContext()->setContextProperty("cutehmi_view_initURL", initUrl.url());
 				}
 			} else
-				cutehmi::Message::Critical(QObject::tr("Invalid format of QML file URL '%1'.").arg(init));
+				cutehmi::Message::Critical(QCoreApplication::translate("main", "Invalid format of QML file URL '%1'.").arg(init));
 		}
 
 		//<Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec.assumption>
