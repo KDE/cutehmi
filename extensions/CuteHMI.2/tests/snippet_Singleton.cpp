@@ -3,6 +3,7 @@
 #include <cutehmi/test/random.hpp>
 
 #include <QtTest/QtTest>
+#include <QSignalSpy>
 
 //! [MySingleton class]
 class MySingleton:
@@ -21,6 +22,30 @@ class MySingleton:
 };
 //! [MySingleton class]
 
+//! [QObject singleton]
+class QObjectSingleton:
+	public QObject,
+	public cutehmi::Singleton<QObjectSingleton>
+{
+		Q_OBJECT
+
+		friend class cutehmi::Singleton<QObjectSingleton>;
+
+	public:
+		void sayQObject()
+		{
+			qInfo() << "QObject!";
+			emit qobjectSaid();
+		}
+
+	signals:
+		void qobjectSaid();
+
+	protected:
+		QObjectSingleton() = default;
+};
+//! [QObject singleton]
+
 class snippet_Singleton:
 	public QObject
 {
@@ -28,6 +53,8 @@ class snippet_Singleton:
 
 	private slots:
 		void saySomething();
+
+		void sayQObject();
 };
 
 void snippet_Singleton::saySomething()
@@ -36,6 +63,14 @@ void snippet_Singleton::saySomething()
 	MySingleton::Instance().saySomething();
 	//! [Call singleton function]
 }
+
+void snippet_Singleton::sayQObject()
+{
+	QSignalSpy qobjectSaidSpy(& QObjectSingleton::Instance(), & QObjectSingleton::qobjectSaid);
+	QObjectSingleton::Instance().sayQObject();
+	QCOMPARE(qobjectSaidSpy.count(), 1);
+}
+
 
 QTEST_MAIN(snippet_Singleton)
 #include "snippet_Singleton.moc"

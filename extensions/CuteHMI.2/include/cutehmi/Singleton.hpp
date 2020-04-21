@@ -20,6 +20,10 @@ namespace cutehmi {
  *
  * %Singleton instance can be obtained through Instance() function.
  * @snippet tests/snippet_Singleton.cpp Call singleton function
+ *
+ * %Singleton can be a subclass of QObject, providing that QObject is its first base class, as mentioned in
+ * [Qt docs](https://doc.qt.io/archives/qt-4.8/moc.html#multiple-inheritance-requires-qobject-to-be-first).
+ * @snippet tests/snippet_Singleton.cpp QObject singleton
  */
 template <class C>
 class Singleton:
