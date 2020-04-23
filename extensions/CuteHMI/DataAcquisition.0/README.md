@@ -22,7 +22,7 @@ To drop the schema use the following.
 
 @include sql/postgres/drop.sql
 
-### PostgreSQL
+### SQLite
 
 Following script is used for SQLite to create schema. SQLite treats database name as a schema, thereofre schema name is incorporated
 into table names. This requires table names to be wrapped in square brackets. All occurrences of `%1` shall be replaced with given
