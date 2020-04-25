@@ -26,8 +26,6 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QFile>
-#include <QJsonDocument>
-#include <QJsonObject>
 
 using namespace cutehmi::view;
 
