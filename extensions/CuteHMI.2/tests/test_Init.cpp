@@ -7,7 +7,7 @@ namespace cutehmi {
 class test_Init:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	private slots:
 		void metaTypes();
@@ -17,6 +17,7 @@ void test_Init::metaTypes()
 {
 	QVERIFY(QMetaType::type("cutehmi::ErrorInfo") != QMetaType::UnknownType);
 	QVERIFY(QMetaType::type("cutehmi::InplaceError") != QMetaType::UnknownType);
+	QVERIFY(QMetaType::type("cutehmi::Message::Button") != QMetaType::UnknownType);
 }
 
 }
