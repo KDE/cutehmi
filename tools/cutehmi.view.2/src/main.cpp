@@ -103,7 +103,7 @@ int main(int argc, char * argv[])
 		QCommandLineOption fullScreenOption({"f", "fullscreen"}, QCoreApplication::translate("main", "Run application in full screen mode."));
 		cmd.addOption(fullScreenOption);
 
-		QCommandLineOption initOption("init", QCoreApplication::translate("main", "Override loader specifying initial QML <file> to load."), QCoreApplication::translate("main", "file"));
+		QCommandLineOption initOption("init", QCoreApplication::translate("main", "Override loader by specifying initial QML <file> to load."), QCoreApplication::translate("main", "file"));
 #ifdef CUTEHMI_VIEW_DEFAULT_INIT
 		initOption.setDefaultValue(CUTEHMI_VIEW_DEFAULT_INIT);
 #else
