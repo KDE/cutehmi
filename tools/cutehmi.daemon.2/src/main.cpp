@@ -60,7 +60,8 @@ int main(int argc, char * argv[])
 		QCommandLineOption("extension", QCoreApplication::translate("main", "Load extension specified by QML <import>."), QCoreApplication::translate("main", "import")),
 		QCommandLineOption("component", QCoreApplication::translate("main", "Extension component <name>."), QCoreApplication::translate("main", "name")),
 		QCommandLineOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language")),
-		QCommandLineOption("pidfile", QCoreApplication::translate("main", "PID file <path> (Unix-specific)."), QCoreApplication::translate("main", "path"))
+		QCommandLineOption("pidfile", QCoreApplication::translate("main", "PID file <path> (Unix-specific)."), QCoreApplication::translate("main", "path")),
+		QCommandLineOption("nforks", QCoreApplication::translate("main", "Denotes <number> of forks the daemon should perform (Unix-specific)."), QCoreApplication::translate("main", "number")),
 	};
 #ifdef CUTEHMI_DAEMON_DEFAULT_INIT
 	opt.init.setDefaultValue(CUTEHMI_DAEMON_DEFAULT_INIT);
@@ -88,6 +89,8 @@ int main(int argc, char * argv[])
 	opt.pidfile.setDescription(opt.pidfile.description() + "\nDefault value: '" + opt.pidfile.defaultValues().at(0) + "'.");
 	opt.basedir.setDefaultValue(QDir(QCoreApplication::applicationDirPath() + "/..").canonicalPath());
 	opt.basedir.setDescription(opt.basedir.description() + "\nDefault value: '" + opt.basedir.defaultValues().at(0) + "'.");
+	opt.nforks.setDefaultValue("2");
+	opt.nforks.setDescription(opt.nforks.description() + "\nDefault value: '" + opt.nforks.defaultValues().at(0) + "'.");
 	cmd.addOption(opt.app);
 	cmd.addOption(opt.basedir);
 	cmd.addOption(opt.init);
@@ -95,6 +98,7 @@ int main(int argc, char * argv[])
 	cmd.addOption(opt.component);
 	cmd.addOption(opt.lang);
 	cmd.addOption(opt.pidfile);
+	cmd.addOption(opt.nforks);
 	cmd.process(app);
 
 

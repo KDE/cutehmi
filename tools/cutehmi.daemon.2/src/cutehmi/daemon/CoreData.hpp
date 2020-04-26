@@ -21,6 +21,7 @@ struct CoreData
 		QCommandLineOption component;
 		QCommandLineOption lang;
 		QCommandLineOption pidfile;
+		QCommandLineOption nforks;
 	} * opt;
 };
 

@@ -24,6 +24,8 @@ use `--init` option to replace default loader with custom one.
 
 You can use `--help` command line argument to see the list of all possible command line options.
 
+Setting empty path for PID file option (`--pidfile=`) disables creation of PID file.
+
 Fore debug builds use `cutehmi.daemon.2.debug` instead of `cutehmi.daemon.2`.
 
 ## Linux
@@ -81,13 +83,12 @@ standard output, responds to signals, unlocks former working directory, creates 
 umask.
 
 ____________________________________________________________________________________________________________________________________
-------------------------------------------------------------------------------------------------------------------------------------
 
 References:
-[1]: Stephen A. Rago, W. Richard Stevens, "Advanced Programming in the UNIX® Environment: Second Edition", Chapter 13. Daemon Processes.
-[2]: Andries Brouwer, "The Linux kernel".
-[3]: Linux Programmer's Manual, DAEMON(3)
-[4]: Department of Health Technology, "Processes; foreground and background, ps, top, kill, screen, nohup and daemons".
+- [Stephen A. Rago, W. Richard Stevens, "Advanced Programming in the UNIX® Environment: Second Edition", Chapter 13. Daemon Processes.][1]
+- [Andries Brouwer, "The Linux kernel".][2]
+- [Linux Programmer's Manual, DAEMON(3)][3]
+- [Department of Health Technology, "Processes; foreground and background, ps, top, kill, screen, nohup and daemons".][4]
 
 [1]: https://learning.oreilly.com/library/view/advanced-programming-in/0201433079/
 [2]: https://www.win.tue.nl/~aeb/linux/lk/lk-10.html

@@ -90,14 +90,19 @@ void _Daemon::initializeSignalHandling()
 
 void _Daemon::initializePidFile()
 {
-	m_pidFd = createPidFile();
-	lockPidFile();
-	writePidFile();
+	if (!m_pidFile.isEmpty()) {
+		CUTEHMI_DEBUG("PID file path: '" << m_pidFile << "'.");
+		m_pidFd = createPidFile();
+		lockPidFile();
+		writePidFile();
+	} else
+		CUTEHMI_WARNING("PID file disabled.");
 }
 
 void _Daemon::destroyPidFile()
 {
-	removePidFile();
+	if (!m_pidFile.isEmpty())
+		removePidFile();
 }
 
 void _Daemon::handleSignal()
@@ -196,37 +201,54 @@ void Daemon::_init()
 	// As logging has been configured daemon can use logging macros. Standard file descriptors still have to be closed.
 	CUTEHMI_INFO("Starting " << CUTEHMI_DAEMON_NAME << "...");
 
-	pid_t pid, sid;
+	int nForks;
+	{
+		bool ok;
+		nForks = data()->cmd->value(data()->opt->nforks).toInt(& ok);
+		if (!ok)
+			CUTEHMI_DIE("Provided value for parameter '%s' is not a number.", data()->opt->nforks.names()[0].toLocal8Bit().constData());
+		else {
+			if (nForks < 0 || nForks > 2)
+				CUTEHMI_DIE("Value of parameter '%s' is out of range [0, 2].", data()->opt->nforks.names()[0].toLocal8Bit().constData());
+			CUTEHMI_DEBUG("Daemon set up to fork '" << nForks << "' time(s).");
+		}
+	}
 
-	// Detach from controlling tty (tty is given per session).
-	// Note: when using std::exit() stack unwinding is not performed, which means destructors won't be called.
+	if (nForks > 0) {
+		pid_t pid, sid;
 
-	// Fork and exit parent process to become a session leader.
-	pid = fork();
-	if (pid < 0) {
-		CUTEHMI_WARNING("Daemon could not fork.");
-		std::exit(EXIT_FAILURE);
-	} else if (pid > 0)
-		std::exit(EXIT_SUCCESS);	// tty session leader quits.
+		// Detach from controlling tty (tty is given per session).
+		// Note: when using std::exit() stack unwinding is not performed, which means destructors won't be called.
 
-	// "... the child inherits the process group ID of the parent but gets a new process ID, so we’re guaranteed that the child
-	//  is not a process group leader. This is a prerequisite for the call to setsid that is done next."
-	//                       -- Stephen A. Rago, W. Richard Stevens, "Advanced Programming in the UNIX® Environment: Second Edition" [Chapter 13. Daemon Processes].
-	// Now process may become a session leader and detach from parent session.
-	sid = setsid();
-	if (sid < 0)
-		CUTEHMI_DIE("Failed to initialize daemon (could not create session).");
+		// Fork and exit parent process to become a session leader.
+		pid = fork();
+		if (pid < 0) {
+			CUTEHMI_WARNING("Daemon could not fork.");
+			std::exit(EXIT_FAILURE);
+		} else if (pid > 0)
+			std::exit(EXIT_SUCCESS);	// tty session leader quits.
 
-	// Second fork to become orphan and ensure that process will not acquire tty (see daemon(3)).
-	// Additionaly process will not receive modem hang-up signals (see Stephen A. Rago, W. Richard Stevens, "Advanced Programming in the UNIX® Environment: Second Edition" [Chapter 9. Process Relationships - Controlling Terminal]).
-	pid = fork();
-	if (pid < 0) {
-		CUTEHMI_WARNING("Daemon could not fork.");
-		std::exit(EXIT_FAILURE);
-	} else if (pid > 0)
-		std::exit(EXIT_SUCCESS); // Session leader quits.
+		// "... the child inherits the process group ID of the parent but gets a new process ID, so we’re guaranteed that the child
+		//  is not a process group leader. This is a prerequisite for the call to setsid that is done next."
+		//                       -- Stephen A. Rago, W. Richard Stevens, "Advanced Programming in the UNIX® Environment: Second Edition" [Chapter 13. Daemon Processes].
+		// Now process may become a session leader and detach from parent session.
+		sid = setsid();
+		if (sid < 0)
+			CUTEHMI_DIE("Failed to initialize daemon (could not create session).");
 
-	// Orphaned daemon process continues...
+		if (nForks > 1) {
+			// Second fork to become orphan and ensure that process will not acquire tty (see daemon(3)).
+			// Additionaly process will not receive modem hang-up signals (see Stephen A. Rago, W. Richard Stevens, "Advanced Programming in the UNIX® Environment: Second Edition" [Chapter 9. Process Relationships - Controlling Terminal]).
+			pid = fork();
+			if (pid < 0) {
+				CUTEHMI_WARNING("Daemon could not fork.");
+				std::exit(EXIT_FAILURE);
+			} else if (pid > 0)
+				std::exit(EXIT_SUCCESS); // Session leader quits.
+
+			// Orphaned daemon process continues...
+		}
+	}
 
 	umask(0);
 
@@ -243,8 +265,10 @@ void Daemon::_init()
 
 	// Create helper class.
 	QString pidFilePath = data()->cmd->value(data()->opt->pidfile);
-	if (QDir::isRelativePath(data()->cmd->value(data()->opt->pidfile)))
-		pidFilePath.prepend(QDir(data()->cmd->value(data()->opt->basedir)).absolutePath() + "/");
+	if (!pidFilePath.isEmpty()) {
+		if (QDir::isRelativePath(data()->cmd->value(data()->opt->pidfile)))
+			pidFilePath.prepend(QDir(data()->cmd->value(data()->opt->basedir)).absolutePath() + "/");
+	}
 	_daemon = new _Daemon(pidFilePath);
 
 	// Create exit point through 'terminateRequested' signal.
