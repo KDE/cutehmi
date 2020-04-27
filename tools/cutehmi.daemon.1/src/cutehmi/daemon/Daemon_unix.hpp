@@ -17,7 +17,7 @@ class Daemon;
 class _Daemon:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	public:
 		static int signalFd[2];
