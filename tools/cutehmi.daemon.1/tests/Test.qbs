@@ -6,6 +6,7 @@ cutehmi.Test
 {
 	testNamePrefix: parent.parent.name
 
+	Depends { name: "cutehmi.daemon.1" }
 	Depends { name: "CuteHMI.2" }
 	Depends { name: "CuteHMI.Test.0" }
 }
