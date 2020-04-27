@@ -11,6 +11,8 @@ Project {
 		files: [
 			"test_cutehmi_daemon.cpp",
 		]
+
+		Depends { name: "CuteHMI.Examples.CountDaemon.2" }
 	}
 }
 
