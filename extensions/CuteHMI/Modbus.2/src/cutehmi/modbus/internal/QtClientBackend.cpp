@@ -17,9 +17,9 @@ void QtClientBackend::ensureClosed()
 
 QtClientBackend::QtClientBackend(std::unique_ptr<QModbusClient> qClient, QObject * parent):
 	AbstractClientBackend(parent),
-	m(new Members{qClient.get()})
+	m(new Members{qClient.release()})
 {
-	qClient.release()->setParent(this);
+	m->qClient->setParent(this);
 //	connect(& config, & Config::configChanged, this, & QtClientBackend::configureConnection);
 	connect(m->qClient, & QModbusClient::stateChanged, this, & QtClientBackend::onStateChanged);
 	connect(m->qClient, & QModbusClient::errorOccurred, this, & QtClientBackend::onErrorOccurred);

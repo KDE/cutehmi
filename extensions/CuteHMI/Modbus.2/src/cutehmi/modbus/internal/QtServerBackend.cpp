@@ -14,9 +14,9 @@ void QtServerBackend::ensureClosed()
 
 QtServerBackend::QtServerBackend(std::unique_ptr<QModbusServer> qServer, QObject * parent):
 	AbstractServerBackend(parent),
-	m(new Members{qServer.get()})
+	m(new Members{qServer.release()})
 {
-	qServer.release()->setParent(this);
+	m->qServer->setParent(this);
 	connect(m->qServer, & QModbusServer::stateChanged, this, & QtServerBackend::onStateChanged);
 	connect(m->qServer, & QModbusServer::errorOccurred, this, & QtServerBackend::onErrorOccurred);
 	connect(m->qServer, & QModbusServer::dataWritten, this, & QtServerBackend::onDataWritten);
