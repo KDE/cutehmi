@@ -31,6 +31,10 @@ Item {
 		anchors.centerIn: parent
 		spacing: 20
 
+		Label {
+			text: "Reminder: you may need to change default ports to higher numbers."
+		}
+
 		RowLayout {
 			id: serverLayout
 
