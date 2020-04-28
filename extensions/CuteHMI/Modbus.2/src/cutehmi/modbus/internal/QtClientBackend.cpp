@@ -704,11 +704,13 @@ void QtClientBackend::pushWord(uint word, uchar *& destination)
 
 uchar QtClientBackend::pullByte(const uchar *& source)
 {
+	//coverity[return_tainted_data]
 	return *source++;
 }
 
 uint QtClientBackend::pullWord(const uchar *& source)
 {
+	//coverity[byte_swapping]
 	uint result = static_cast<uint>(source[0]) << 8 | static_cast<uint>(source[1]);
 	source += 2;
 	return result;
