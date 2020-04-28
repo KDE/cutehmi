@@ -17,9 +17,9 @@ void QtClientBackend::ensureClosed()
 
 QtClientBackend::QtClientBackend(std::unique_ptr<QModbusClient> qClient, QObject * parent):
 	AbstractClientBackend(parent),
-	m(new Members{qClient.get()})
+	m(new Members{qClient.release()})
 {
-	qClient.release()->setParent(this);
+	m->qClient->setParent(this);
 //	connect(& config, & Config::configChanged, this, & QtClientBackend::configureConnection);
 	connect(m->qClient, & QModbusClient::stateChanged, this, & QtClientBackend::onStateChanged);
 	connect(m->qClient, & QModbusClient::errorOccurred, this, & QtClientBackend::onErrorOccurred);
@@ -718,7 +718,7 @@ uint QtClientBackend::pullWord(const uchar *& source)
 }
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

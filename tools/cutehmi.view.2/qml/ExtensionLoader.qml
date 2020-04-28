@@ -10,7 +10,7 @@ Item {
 		id: message
 
 		type: CuteHMI.Message.CRITICAL
-		text: "Could not load extension '" + cutehmi_view_extensionBasename + (cutehmi_view_extensionMajor ? "." + cutehmi_view_extensionMajor : "") + "'."
+		text: qsTr("Could not load extension '%1'.").arg(cutehmi_view_extensionBasename + (cutehmi_view_extensionMajor ? "." + cutehmi_view_extensionMajor : ""))
 		buttons: CuteHMI.Message.BUTTON_OK
 	}
 
@@ -23,8 +23,8 @@ Item {
 				Qt.createQmlObject(qmlData, extensionContainer)
 			} catch(error) {
 				showDefaultScreen()
-				message.informativeText = error.qmlErrors.length > 1 ? qsTr("Reasons:") + " " : qsTr("Reason:") + " "
-				message.informativeText += error.qmlErrors.map(function (obj) { return obj.message }).join("; ") + "."
+				message.informativeText = qsTr("Reasons:")
+				message.informativeText += "\n" + error.qmlErrors.map(function (obj) { return "- " + obj.message }).join("\n") + "."
 				createDialog(message)
 			}
 		} else {

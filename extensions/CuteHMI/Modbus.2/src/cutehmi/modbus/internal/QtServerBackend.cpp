@@ -14,9 +14,9 @@ void QtServerBackend::ensureClosed()
 
 QtServerBackend::QtServerBackend(std::unique_ptr<QModbusServer> qServer, QObject * parent):
 	AbstractServerBackend(parent),
-	m(new Members{qServer.get()})
+	m(new Members{qServer.release()})
 {
-	qServer.release()->setParent(this);
+	m->qServer->setParent(this);
 	connect(m->qServer, & QModbusServer::stateChanged, this, & QtServerBackend::onStateChanged);
 	connect(m->qServer, & QModbusServer::errorOccurred, this, & QtServerBackend::onErrorOccurred);
 	connect(m->qServer, & QModbusServer::dataWritten, this, & QtServerBackend::onDataWritten);
@@ -366,7 +366,7 @@ void QtServerBackend::printError(InplaceError error) const
 }
 }
 
-//(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

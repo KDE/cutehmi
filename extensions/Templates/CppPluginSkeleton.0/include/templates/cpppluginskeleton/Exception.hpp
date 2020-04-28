@@ -11,7 +11,7 @@ namespace templates {
 namespace cpppluginskeleton {
 
 class TEMPLATES_CPPPLUGINSKELETON_API Exception:
-	public ExceptionMixin<Exception>
+	public ::cutehmi::ExceptionMixin<Exception>
 {
 		typedef ExceptionMixin<Exception> Parent;
 

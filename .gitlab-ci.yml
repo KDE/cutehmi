@@ -117,10 +117,10 @@ clang ubuntu-18.04-qt-5.13.1 release build:
     - "2"
     - "3"
     - merge_requests
-  artifacts:
-    paths:
-      - build_tests/$QBS_CONFIG
-    expire_in: 24h
+#  artifacts:
+#    paths:
+#      - build_tests/$QBS_CONFIG
+#    expire_in: 24h
   script:
     - echo "Qbs base profile:" $QBS_BASE_PROFILE
     - echo "Qbs profile:" $QBS_PROFILE

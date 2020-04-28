@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS [%1.tag];
+DROP INDEX IF EXISTS [%1.index_tag_name];
+DROP TABLE IF EXISTS [%1.recency_bool];
+DROP TABLE IF EXISTS [%1.recency_int];
+DROP TABLE IF EXISTS [%1.recency_real];
+DROP TABLE IF EXISTS [%1.event_bool];
+DROP TABLE IF EXISTS [%1.event_int];
+DROP TABLE IF EXISTS [%1.event_real];
+DROP TABLE IF EXISTS [%1.history_bool];
+DROP TABLE IF EXISTS [%1.history_int];
+DROP TABLE IF EXISTS [%1.history_real];

@@ -25,12 +25,12 @@ class test_cutehmi_daemon:
 
 void test_cutehmi_daemon::initTestCase()
 {
-        QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
+	QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
 	QVERIFY(!m_installDir.isEmpty());
 
 	QString toolInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOLS_INSTALL_SUBDIR");
 	if (!toolInstallSubdir.isEmpty())
-	    m_installDir += "/" + toolInstallSubdir;
+		m_installDir += "/" + toolInstallSubdir;
 
 	m_programPath = m_installDir + "/cutehmi.daemon.1";
 #ifndef CUTEHMI_NDEBUG

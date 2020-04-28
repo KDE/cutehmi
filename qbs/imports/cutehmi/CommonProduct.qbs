@@ -9,7 +9,7 @@ Product {
 	//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
 	// Using 'builtByDefault' instead of 'condition', because products with condition set to false are not evaluated at all, which
 	// gives no chance to propagate condition accross dependencies.
-	builtByDefault: cutehmi.product.enabled
+	builtByDefault: cutehmi.product.disabledProducts.length == 0 && cutehmi.product.enabled
 	//</qbs-imports-cutehmi-1.workaround>
 
 	property string cutehmiType: "product"	///< CuteHMI product type.
@@ -40,9 +40,6 @@ Product {
 			//</qbs-imports-cutehmi-1.workaround>
 			cutehmi.product.disabledProducts: product.name
 		}
-		//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
-		cutehmi.product.enabled: product.builtByDefault ? importingProduct.cutehmi.product.disabledProducts.length == 0 : false
-		//</qbs-imports-cutehmi-1.workaround>
 	}
 
 	Depends { name: "cutehmi.product" }

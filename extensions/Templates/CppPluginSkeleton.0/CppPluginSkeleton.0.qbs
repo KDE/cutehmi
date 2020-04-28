@@ -24,10 +24,12 @@ Project {
 			"README.md",
 			"LICENSE",
 			"include/templates/cpppluginskeleton/Exception.hpp",
+			"include/templates/cpppluginskeleton/Init.hpp",
 			"include/templates/cpppluginskeleton/internal/platform.hpp",
 			"include/templates/cpppluginskeleton/internal/common.hpp",
 			"include/templates/cpppluginskeleton/logging.hpp",
 			"include/templates/cpppluginskeleton/metadata.hpp",
+			"src/templates/cpppluginskeleton/Init.cpp",
 			"src/templates/cpppluginskeleton/internal/QMLPlugin.cpp",
 			"src/templates/cpppluginskeleton/internal/QMLPlugin.hpp",
 			"src/templates/cpppluginskeleton/logging.cpp",
@@ -47,6 +49,8 @@ Project {
 
 		Depends { name: "cutehmi.skeleton.cpp" }
 		cutehmi.skeleton.cpp.generateQMLPlugin: true
+		cutehmi.skeleton.cpp.generateException: true
+		cutehmi.skeleton.cpp.generateInit: true
 
 		Export {
 			Depends { name: "CuteHMI.2" }
