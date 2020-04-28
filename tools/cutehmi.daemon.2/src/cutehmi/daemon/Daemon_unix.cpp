@@ -112,26 +112,43 @@ void _Daemon::handleSignal()
 	m_signalSocketNotifier->setEnabled(false);
 
 	int signal;
-	::read(signalFd[1], & signal, sizeof(signal));
+	QByteArray signalArr(2, 0);
+	std::size_t nRead = 0;
+	do {
+		ssize_t n = ::read(signalFd[1], signalArr.data() + nRead, sizeof(signal) - nRead);
+		if (n == -1) {
+			CUTEHMI_CRITICAL("Fatal error occurred while reading from local socket: " << strerror(errno));
+			break;
+		}
+		if (n == 0) {
+			CUTEHMI_CRITICAL("Unexpected EOF occurred while reading from local socket.");
+			break;
+		}
+		nRead += n;
+	} while (nRead < sizeof(signal));
 
-	switch (signal) {
-		case SIGTERM:
-			CUTEHMI_INFO("Termination requested by SIGTERM (" << signal << ") signal.");
-			emit exitRequested(EXIT_SUCCESS);
-			break;
-		case SIGINT:
-			CUTEHMI_INFO("Interrupt requested by SIGINT (" << signal << ") signal.");
-			emit exitRequested(128 + signal);
-			break;
-		case SIGHUP:
-			CUTEHMI_INFO("Restarting due to SIGHUP (" << signal << ") signal.");
-			emit exitRequested(Daemon::EXIT_AGAIN);
-			break;
-		case SIGQUIT:
-			CUTEHMI_DIE("Aborting due to SIGQUIT (%d) signal.", signal);
-		default:
-			CUTEHMI_WARNING("Captured unhandled signal (" << signal << ").");
-	}
+	if (nRead == sizeof(signal)) {
+		signal = *reinterpret_cast<int *>(signalArr.data());
+		switch (signal) {
+			case SIGTERM:
+				CUTEHMI_INFO("Termination requested by SIGTERM (" << signal << ") signal.");
+				emit exitRequested(EXIT_SUCCESS);
+				break;
+			case SIGINT:
+				CUTEHMI_INFO("Interrupt requested by SIGINT (" << signal << ") signal.");
+				emit exitRequested(128 + signal);
+				break;
+			case SIGHUP:
+				CUTEHMI_INFO("Restarting due to SIGHUP (" << signal << ") signal.");
+				emit exitRequested(Daemon::EXIT_AGAIN);
+				break;
+			case SIGQUIT:
+				CUTEHMI_DIE("Aborting due to SIGQUIT (%d) signal.", signal);
+			default:
+				CUTEHMI_WARNING("Captured unhandled signal (" << signal << ").");
+		}
+	} else
+		CUTEHMI_CRITICAL("Unable to encode signal due to internal errors.");
 
 	m_signalSocketNotifier->setEnabled(true);
 }
