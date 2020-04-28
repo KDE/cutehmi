@@ -73,7 +73,8 @@ void sigHandler(int signal)
 int _Daemon::signalFd[2];
 
 _Daemon::_Daemon(const QString & pidFile):
-	m_pidFile(pidFile)
+	m_pidFile(pidFile),
+	m_pidFd(-1)
 {
 }
 
