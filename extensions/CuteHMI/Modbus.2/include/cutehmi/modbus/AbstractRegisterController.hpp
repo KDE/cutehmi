@@ -146,7 +146,6 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 			bool readOnWrite;
 			WriteMode writeMode;
 			int writeDelay;
-			bool postponedWritePending;
 			bool enabled;
 			bool deferRequestRead;
 
