@@ -112,7 +112,7 @@ void _Daemon::handleSignal()
 	m_signalSocketNotifier->setEnabled(false);
 
 	int signal;
-	QByteArray signalArr(2, 0);
+	QByteArray signalArr(sizeof(signal), 0);
 	std::size_t nRead = 0;
 	do {
 		ssize_t n = ::read(signalFd[1], signalArr.data() + nRead, sizeof(signal) - nRead);
