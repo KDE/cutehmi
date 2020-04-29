@@ -8,7 +8,7 @@
 
 [![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 [![Build Status](https://invent.kde.org/kde/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/16299/badge.svg)](https://scan.coverity.com/projects/michpolicht-cutehmi)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/20988/badge.svg)](https://scan.coverity.com/projects/cutehmi)
 
 [//]: # (\endhtmlonly)
 </div>
