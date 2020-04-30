@@ -6,7 +6,7 @@ CREATE TABLE %1.tag
         name varchar(255) NOT NULL UNIQUE
 );
 
-CREATE INDEX %1.index_tag_name ON %1.tag USING hash (name);
+CREATE INDEX index_tag_name ON %1.tag USING hash (name);
 
 CREATE TABLE %1.recency_bool
 (
