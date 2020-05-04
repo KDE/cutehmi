@@ -38,7 +38,7 @@ class CUTEHMI_SHAREDDATABASE_API DatabaseWorker:
 		 * can be passed to the \ref DatabseWorker(const QString & connectionName, std::function<void(QSqlDatabase & db)> task)
 		 * "constructor" or set via setTask() function). Default implementation does nothing if @a task has not been set (i.e.
 		 * @a task = @p nullptr).
-		 * @paragraph db databse connection to be used by the worker.
+		 * @param db databse connection to be used by the worker.
 		 */
 		virtual void job(QSqlDatabase & db);
 

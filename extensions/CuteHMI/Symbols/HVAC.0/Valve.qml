@@ -8,8 +8,8 @@ import CuteHMI.GUI 0.0
 Element {
 	id: root
 
-	implicitWidth: childrenRect.width
-	implicitHeight: childrenRect.height
+	implicitWidth: loaderWrapper.childrenRect.width
+	implicitHeight: loaderWrapper.childrenRect.height
 
 	active: true
 
@@ -73,47 +73,50 @@ Element {
 		}
 	}
 
-	Loader {
-		y: topWay ? 0.5 * height : 0
-		width: leftWay ? wayWidth : 0
-		height: leftWay ? wayHeight : 0
-		sourceComponent: leftWay ? way : undefined
+	Item {
+		id: loaderWrapper
 
-		property bool closed: leftClosed
+		Loader {
+			y: topWay ? 0.5 * height : 0
+			width: leftWay ? wayWidth : 0
+			height: leftWay ? wayHeight : 0
+			sourceComponent: leftWay ? way : undefined
+
+			property bool closed: leftClosed
+		}
+
+		Loader {
+			x: leftWay ? width : (topWay || bottomWay) ? width * 0.5 : 0
+			y: topWay ? 0.5 * height : 0
+			width: rightWay ? wayWidth : 0
+			height: rightWay ? wayHeight : 0
+			rotation: 180
+			sourceComponent: rightWay ? way : undefined
+
+			property bool closed: rightClosed
+		}
+
+		Loader {
+			x: leftWay ? width * 0.5 : 0
+			width: topWay ? wayWidth : 0
+			height: topWay ? wayHeight : 0
+			rotation: 90
+			sourceComponent: topWay ? way : undefined
+
+			property bool closed: topClosed
+		}
+
+		Loader {
+			x: leftWay ? width * 0.5 : 0
+			y: topWay ? height : (leftWay || rightWay) ? height * 0.5 : 0
+			width: bottomWay ? wayWidth : 0
+			height: bottomWay ? wayHeight : 0
+			rotation: -90
+			sourceComponent: bottomWay ? way : undefined
+
+			property bool closed: bottomClosed
+		}
 	}
-
-	Loader {
-		x: leftWay ? width : (topWay || bottomWay) ? width * 0.5 : 0
-		y: topWay ? 0.5 * height : 0
-		width: rightWay ? wayWidth : 0
-		height: rightWay ? wayHeight : 0
-		rotation: 180
-		sourceComponent: rightWay ? way : undefined
-
-		property bool closed: rightClosed
-	}
-
-	Loader {
-		x: leftWay ? width * 0.5 : 0
-		width: topWay ? wayWidth : 0
-		height: topWay ? wayHeight : 0
-		rotation: 90
-		sourceComponent: topWay ? way : undefined
-
-		property bool closed: topClosed
-	}
-
-	Loader {
-		x: leftWay ? width * 0.5 : 0
-		y: topWay ? height : (leftWay || rightWay) ? height * 0.5 : 0
-		width: bottomWay ? wayWidth : 0
-		height: bottomWay ? wayHeight : 0
-		rotation: -90
-		sourceComponent: bottomWay ? way : undefined
-
-		property bool closed: bottomClosed
-	}
-
 }
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.

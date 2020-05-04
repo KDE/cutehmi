@@ -92,6 +92,26 @@ class CUTEHMI_SERVICES_API Service:
 		 */
 		QVariant serviceable() const;
 
+		/**
+		 * Find state by its name. States can be given name using QObject::setObjectName() function. Standard states are given
+		 * appropriate names:
+		 * - @p "stopped"
+		 * - @p "interrupted"
+		 * - @p "starting"
+		 * - @p "started"
+		 * - @p "stopping"
+		 * - @p "broken"
+		 * - @p "repairing"
+		 * - @p "evacuating"
+		 * - @p "active"
+		 * - @p "idling"
+		 * - @p "yielding"
+		 * .
+		 * @param name state name.
+		 * @return state.
+		 */
+		Q_INVOKABLE QAbstractState * findState(const QString & name) const;
+
 	public slots:
 		void start();
 

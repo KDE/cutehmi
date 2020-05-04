@@ -27,6 +27,9 @@ Project {
 		Depends { name: "cutehmi.qmltypes" }
 
 		Depends { name: "cutehmi.daemon.2" }
+
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.useDoxyqml: true
 	}
 }
 

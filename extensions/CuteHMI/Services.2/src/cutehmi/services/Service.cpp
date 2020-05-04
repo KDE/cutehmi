@@ -128,6 +128,15 @@ QVariant Service::serviceable() const
 	return QVariant::fromValue(m->serviceable);
 }
 
+QAbstractState * Service::findState(const QString & name) const
+{
+	if (m->stateInterface)
+		return m->stateInterface->find(name);
+	else
+		CUTEHMI_WARNING("Service does not possess servicable object.");
+	return nullptr;
+}
+
 void Service::start()
 {
 	emit started();
