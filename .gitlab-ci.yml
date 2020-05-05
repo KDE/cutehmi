@@ -110,7 +110,7 @@ clang ubuntu-18.04-qt-5.13.1 release build:
   script:
     - qbs build -f TestCuteHMI.qbs -d build_tests -p autotest-runner profile:$QBS_PROFILE config:$QBS_CONFIG
 
-.test_linux:
+.test_ubuntu:
   extends: .test
   before_script:
     - uname -a
@@ -128,14 +128,14 @@ clang ubuntu-18.04-qt-5.13.1 release build:
 
 gcc ubuntu-18.04-qt-5.13.1 debug test:
   image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
-  extends: .test_linux
+  extends: .test_ubuntu
   variables:
     QBS_PROFILE: "qt-5-13-1"
     QBS_CONFIG: "debug"
 
 gcc ubuntu-18.04-qt-5.13.1 release test:
   image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
-  extends: .test_linux
+  extends: .test_ubuntu
   variables:
     QBS_PROFILE: "qt-5-13-1"
     QBS_CONFIG: "release"
