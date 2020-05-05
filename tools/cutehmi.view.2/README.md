@@ -5,7 +5,7 @@ Client, GUI application, which allows one to run CuteHMI project in a window.
 Any extension that provides graphical UI QML component can be loaded as *cutehmi.view.2* project. Use `--extension` command line
 argument to specify an extension.
 
-For example to run [Simple View](../../../../extensions/CuteHMI/Examples/SimpleView.0) example use following command.
+For example to run [Simple View](../../extensions/CuteHMI/Examples/SimpleView.0/) example use following command.
 ```
 cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"
 ```
