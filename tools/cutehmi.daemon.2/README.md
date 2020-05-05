@@ -6,7 +6,7 @@ Daemon mode is currently supported only on Linux. On Windows program can be run 
 
 Any extension that does not provide graphical UI QML component can be loaded as *cutehmi.daemon.2* project. Use `--extension`
 command line argument to specify an extension. For example to run
-[Count Daemon](../../../../extensions/CuteHMI/Examples/CountDaemon.2) example use following command.
+[Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.2/) example use following command.
 
 ```
 cutehmi.daemon.2 --extension="CuteHMI.Examples.CountDaemon.2"
@@ -14,7 +14,7 @@ cutehmi.daemon.2 --extension="CuteHMI.Examples.CountDaemon.2"
 Read system logs to investigate whether daemon is running (e.g. `journalctl -n20` on a system with *systemd*).
 
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).
-For example following command runs [Count Daemon](../../../../extensions/CuteHMI/Examples/CountDaemon.2) in application mode.
+For example following command runs [Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.2/) in application mode.
 ```
 cutehmi.daemon.2 --extension="CuteHMI.Examples.CountDaemon.2" --app
 ```
