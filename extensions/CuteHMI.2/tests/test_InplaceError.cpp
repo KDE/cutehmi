@@ -7,7 +7,7 @@ namespace cutehmi {
 class test_InplaceError:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
 
 	private slots:
 		void macro();
@@ -31,9 +31,15 @@ void test_InplaceError::str()
 	InplaceError err = InplaceError("Error string.", __FILE__, line, Q_FUNC_INFO);
 	QString str = err.str();
 	QVERIFY(str.contains("Error string."));
+#ifndef CUTEHMI_NDEBUG
 	QVERIFY(str.contains(__FILE__));
 	QVERIFY(str.contains(QString::number(line)));
 	QVERIFY(str.contains(Q_FUNC_INFO));
+#else
+	QVERIFY(!str.contains(__FILE__));
+	QVERIFY(!str.contains(QString::number(line)));
+	QVERIFY(!str.contains(Q_FUNC_INFO));
+#endif
 }
 
 
