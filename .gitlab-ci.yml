@@ -109,6 +109,8 @@ clang ubuntu-18.04-qt-5.13.1 release build:
         - build_tests/$QBS_CONFIG/install-root/usr/local/cutehmi/app/*.xunit.xml
   script:
     - qbs build -f TestCuteHMI.qbs -d build_tests -p autotest-runner profile:$QBS_PROFILE config:$QBS_CONFIG
+    - qbs resolve -f TestCuteHMI.qbs -d build_tests modules.autotest.arguments:'["-txt"]' modules.autotest.allowFailure:false profile:$QBS_PROFILE config:$QBS_CONFIG
+    - qbs build -f TestCuteHMI.qbs -d build_tests -k -p autotest-runner --jobs 1 modules.autotest.arguments:'["-txt"]' modules.autotest.allowFailure:false profile:$QBS_PROFILE config:$QBS_CONFIG
 
 .test_ubuntu:
   extends: .test
