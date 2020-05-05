@@ -21,7 +21,7 @@ stages:
     - "3"
     - merge_requests
   artifacts:
-    expire_in: 24h
+    expire_in: 48h
     paths:
       - build/$QBS_CONFIG/install-root
   script:
