@@ -8,7 +8,6 @@ variables:
 
 stages:
   - build
-  - build tests
   - test
 
 # Build stage.
@@ -21,6 +20,10 @@ stages:
     - "2"
     - "3"
     - merge_requests
+  artifacts:
+    expire_in: 24h
+    paths:
+      - build/$QBS_CONFIG/install-root
   script:
     - echo "Qbs base profile:" $QBS_BASE_PROFILE
     - echo "Qbs profile:" $QBS_PROFILE
@@ -42,32 +45,7 @@ stages:
     - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
     - zypper --non-interactive in libgpiod-devel
 
-# gcc ci-suse-qt512 debug build:
-#   extends: .build_ci-suse-qt512
-#   variables:
-#     QBS_BASE_PROFILE: "gcc"
-#     QBS_CONFIG: "debug"
-
-# clang ci-suse-qt512 debug build:
-#   extends: .build_ci-suse-qt512
-#   variables:
-#     QBS_BASE_PROFILE: "clang"
-#     QBS_CONFIG: "debug"
-
-# gcc ci-suse-qt512 release build:
-#   extends: .build_ci-suse-qt512
-#   variables:
-#     QBS_BASE_PROFILE: "gcc"
-#     QBS_CONFIG: "release"
-
-# clang ci-suse-qt512 release build:
-#   extends: .build_ci-suse-qt512
-#   variables:
-#     QBS_BASE_PROFILE: "clang"
-#     QBS_CONFIG: "release"
-
-.build_ubuntu-18.04-qt-5.13.1:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+.build_ubuntu:
   extends: .build
   variables:
     QBS_PROFILE: "qt-5-13-1"
@@ -84,71 +62,32 @@ stages:
     - sudo apt-get install libgpiod-dev --yes
 
 gcc ubuntu-18.04-qt-5.13.1 debug build:
-  extends: .build_ubuntu-18.04-qt-5.13.1
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+  extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
     QBS_CONFIG: "debug"
 
 clang ubuntu-18.04-qt-5.13.1 debug build:
-  extends: .build_ubuntu-18.04-qt-5.13.1
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+  extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "clang-6"
     QBS_CONFIG: "debug"
 
 gcc ubuntu-18.04-qt-5.13.1 release build:
-  extends: .build_ubuntu-18.04-qt-5.13.1
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+  extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
     QBS_CONFIG: "release"
 
 clang ubuntu-18.04-qt-5.13.1 release build:
-  extends: .build_ubuntu-18.04-qt-5.13.1
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+  extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "clang-6"
     QBS_CONFIG: "release"
-
-# Build tests stage.
-
-.build_tests:
-  stage: build tests
-  only:
-    - master
-    - "2"
-    - "3"
-    - merge_requests
-  artifacts:
-    paths:
-      - build_tests/$QBS_CONFIG/install-root
-    expire_in: 24h
-  script:
-    - echo "Qbs base profile:" $QBS_BASE_PROFILE
-    - echo "Qbs profile:" $QBS_PROFILE
-    - echo "Qbs config:" $QBS_CONFIG
-    - qbs build -f TestCuteHMI.qbs -d build_tests profile:$QBS_PROFILE config:$QBS_CONFIG
-
-
-.build_tests_ubuntu-18.04-qt-5.13.1:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
-  extends: .build_tests
-  variables:
-    QBS_PROFILE: "qt-5-13-1"
-  before_script:
-    - uname -a
-    - mkdir -pm 0700 $XDG_RUNTIME_DIR
-    - qbs --version
-    - qmake --version
-    - qbs setup-toolchains --detect
-    - qbs setup-qt --detect
-    - qbs config --list profiles
-    - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
-    - sudo apt-get update
-    - sudo apt-get install libgpiod-dev --yes
-
-gcc ubuntu-18.04-qt-5.13.1 debug build tests:
-  extends: .build_tests_ubuntu-18.04-qt-5.13.1
-  variables:
-    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
-    QBS_CONFIG: "debug"
 
 
 # Test stage.
@@ -164,20 +103,15 @@ gcc ubuntu-18.04-qt-5.13.1 debug build tests:
   artifacts:
     expire_in: 24h
     paths:
-      - build_tests/$QBS_CONFIG/install-root/user/local/cutehmi
+      - build_tests/$QBS_CONFIG/install-root
     reports:
       junit:
         - build_tests/$QBS_CONFIG/install-root/usr/local/cutehmi/app/*.xunit.xml
   script:
     - qbs build -f TestCuteHMI.qbs -d build_tests -p autotest-runner profile:$QBS_PROFILE config:$QBS_CONFIG
 
-gcc ubuntu-18.04-qt-5.13.1 debug test:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+.test_linux:
   extends: .test
-  variables:
-    QBS_PROFILE: "qt-5-13-1"
-  dependencies:
-    - gcc ubuntu-18.04-qt-5.13.1 debug build tests
   before_script:
     - uname -a
     - mkdir -pm 0700 $XDG_RUNTIME_DIR
@@ -191,3 +125,17 @@ gcc ubuntu-18.04-qt-5.13.1 debug test:
     - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
     - sudo apt-get update
     - sudo apt-get install libgpiod-dev --yes
+
+gcc ubuntu-18.04-qt-5.13.1 debug test:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+  extends: .test_linux
+  variables:
+    QBS_PROFILE: "qt-5-13-1"
+    QBS_CONFIG: "debug"
+
+gcc ubuntu-18.04-qt-5.13.1 release test:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+  extends: .test_linux
+  variables:
+    QBS_PROFILE: "qt-5-13-1"
+    QBS_CONFIG: "release"
