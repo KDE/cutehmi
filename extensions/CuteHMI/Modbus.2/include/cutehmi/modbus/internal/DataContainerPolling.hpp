@@ -68,7 +68,6 @@ bool DataContainerPolling<DERIVED, DATA>::runNext()
 	}
 
 	if (count) {
-
 		// Check if more registers can be read in the same request.
 		while (m_it.hasNext()) {
 			quint16 address = static_cast<quint16>(m_it.next());

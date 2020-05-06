@@ -32,19 +32,24 @@ void ServiceManager::setRepairInterval(int repairInterval)
 	}
 }
 
-int ServiceManager::runningServices() const
+int ServiceManager::runningCount() const
 {
-	return m->runningServices;
+	return m->runningCount;
+}
+
+ServiceListModel * ServiceManager::model() const
+{
+	return m->model.get();
 }
 
 void ServiceManager::add(Service * service)
 {
-	m->services->append(service);
+	m->model->append(service);
 }
 
 void ServiceManager::remove(Service * service)
 {
-	m->services->remove(service);
+	m->model->remove(service);
 }
 
 void ServiceManager::manage(Service * service)
@@ -103,13 +108,13 @@ void ServiceManager::manage(Service * service)
 
 	// Count running services.
 	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::exited, [this]() {
-		m->runningServices++;
-		emit runningServicesChanged();
+		m->runningCount++;
+		emit runningCountChanged();
 	});
 	m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::entered, [this]() {
-		m->runningServices--;
-		emit runningServicesChanged();
+		m->runningCount--;
+		emit runningCountChanged();
 	});
 	m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 }
@@ -127,17 +132,17 @@ void ServiceManager::leave(Service * service)
 
 void ServiceManager::start()
 {
-	for (int i = 0; i < m->services->rowCount(); i++) {
-		if (m->services->at(i)->serviceable().value<Serviceable *>())
-			m->services->at(i)->start();
+	for (int i = 0; i < m->model->rowCount(); i++) {
+		if (m->model->at(i)->serviceable().value<Serviceable *>())
+			m->model->at(i)->start();
 	}
 }
 
 void ServiceManager::stop()
 {
-	for (int i = 0; i < m->services->rowCount(); i++)
-		if (m->services->at(i)->serviceable().value<Serviceable *>())
-			m->services->at(i)->stop();
+	for (int i = 0; i < m->model->rowCount(); i++)
+		if (m->model->at(i)->serviceable().value<Serviceable *>())
+			m->model->at(i)->stop();
 }
 
 ServiceManager::ServiceManager(QObject * parent):

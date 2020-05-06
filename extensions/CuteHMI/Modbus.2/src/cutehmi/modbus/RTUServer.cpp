@@ -38,7 +38,7 @@ RTUServer::RTUServer(QObject * parent):
 
 	connect(& m->backend, & internal::QtRTUServerBackend::closed, this, & RTUServer::stopped);
 
-	connect(& m->backend, & internal::QtRTUServerBackend::errored, this, & RTUServer::broke);
+	connect(& m->backend, & internal::QtRTUServerBackend::errored, this, & AbstractDevice::errored);
 	connect(& m->backend, & internal::QtRTUServerBackend::closed, this, & RTUServer::broke);
 
 	connect(& m->backend, & internal::QtRTUServerBackend::opened, this, & RTUServer::started);

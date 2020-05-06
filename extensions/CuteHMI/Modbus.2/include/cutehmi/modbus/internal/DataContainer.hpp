@@ -142,7 +142,8 @@ class DataContainer
 	protected:
 		QReadWriteLock & lock() const;
 
-	private:
+		void insertKey(std::size_t i);
+
 		InternalContainer m_array;
 		KeysContainer m_keys;
 		mutable QReadWriteLock m_lock;
@@ -226,13 +227,13 @@ T * DataContainer<T, N>::value(std::size_t i)
 	if (result == nullptr) {
 		QWriteLocker writeLocker(& m_lock);
 
-		// In a meanwhile value may have been created from another thread, so perform a lookup again - this time it is serialized by read-write locker.
+		// In a meanwhile value may have been created from another thread, so perform a lookup again - this time it is serialized by write locker.
 		result = m_array.at(i);
 
 		if (result == nullptr) {
 			result = new T;
 			m_array[i] = result;
-			m_keys.append(i);
+			insertKey(i);
 		}
 	}
 
@@ -245,7 +246,7 @@ void DataContainer<T, N>::insert(std::size_t i, T * value)
 	QWriteLocker locker(& m_lock);
 
 	m_array[i] = value;
-	m_keys.append(i);
+	insertKey(i);
 }
 
 template <typename T, std::size_t N>
@@ -281,6 +282,20 @@ template <typename T, std::size_t N>
 QReadWriteLock & DataContainer<T, N>::lock() const
 {
 	return m_lock;
+}
+
+template <typename T, std::size_t N>
+void DataContainer<T, N>::insertKey(std::size_t i)
+{
+	KeysContainer::iterator it = m_keys.begin();
+	while (it != m_keys.end()) {
+		if (*it < i)
+			++it;
+		else
+			break;
+	}
+
+	m_keys.insert(it, i);
 }
 
 }

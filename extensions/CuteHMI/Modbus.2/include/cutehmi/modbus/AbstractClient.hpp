@@ -66,12 +66,6 @@ class CUTEHMI_MODBUS_API AbstractClient:
 	CUTEHMI_PROTECTED_SIGNALS:
 		void requestReceived(QJsonObject request);
 
-		void broke();
-
-		void stopped();
-
-		void started();
-
 		void pollingFinished();
 
 		void pollingTaskFinished();

@@ -30,7 +30,7 @@ RTUClient::RTUClient(QObject * parent):
 
 	connect(& m->backend, & internal::QtClientBackend::opened, this, & RTUClient::started);
 
-	connect(& m->backend, & internal::QtClientBackend::errored, this, & RTUClient::broke);
+	connect(& m->backend, & internal::QtClientBackend::errored, this, & AbstractDevice::errored);
 	connect(& m->backend, & internal::QtClientBackend::closed, this, & RTUClient::broke);
 
 	m->thread.start();

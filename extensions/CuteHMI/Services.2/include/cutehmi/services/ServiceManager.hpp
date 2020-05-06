@@ -45,7 +45,12 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		/**
 		  Amount of running services, that is services which are in any state other than "stopped" state.
 		  */
-		Q_PROPERTY(int runningServices READ runningServices NOTIFY runningServicesChanged)
+		Q_PROPERTY(int runningCount READ runningCount NOTIFY runningCountChanged)
+
+		/**
+		  Services model.
+		  */
+		Q_PROPERTY(ServiceListModel * model READ model CONSTANT)
 
 		int maxActiveServices() const;
 
@@ -55,7 +60,9 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 		void setRepairInterval(int repairInterval);
 
-		int runningServices() const;
+		int runningCount() const;
+
+		ServiceListModel * model() const;
 
 	public slots:
 		/**
@@ -73,7 +80,7 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 		void repairIntervalChanged();
 
-		void runningServicesChanged();
+		void runningCountChanged();
 
 	protected:
 		explicit ServiceManager(QObject * parent = nullptr);
@@ -92,19 +99,19 @@ class CUTEHMI_SERVICES_API ServiceManager:
 
 		struct Members {
 			int activeServices;
-			int runningServices;
+			int runningCount;
 			int maxActiveServices;
 			int repairInterval;
-			std::unique_ptr<ServiceListModel> services;
+			std::unique_ptr<ServiceListModel> model;
 			YieldingServicesContainer yieldingServices;
 			StateInterfaceConnectionsContainer stateInterfaceConnections;	// The only way to disconnect particular lambda from particular emitter is to store its connection.
 
 			Members():
 				activeServices(0),
-				runningServices(0),
+				runningCount(0),
 				maxActiveServices(INITIAL_MAX_ACTIVE_SERVICES),
 				repairInterval(INITIAL_REPAIR_INTERVAL),
-				services(new ServiceListModel)
+				model(new ServiceListModel)
 			{
 			}
 		};

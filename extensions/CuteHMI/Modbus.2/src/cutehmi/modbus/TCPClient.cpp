@@ -27,7 +27,7 @@ TCPClient::TCPClient(QObject * parent):
 
 	connect(& m->backend, & internal::QtClientBackend::opened, this, & TCPClient::started);
 
-	connect(& m->backend, & internal::QtClientBackend::errored, this, & TCPClient::broke);
+	connect(& m->backend, & internal::QtClientBackend::errored, this, & AbstractDevice::errored);
 	connect(& m->backend, & internal::QtClientBackend::closed, this, & TCPClient::broke);
 
 	m->thread.start();

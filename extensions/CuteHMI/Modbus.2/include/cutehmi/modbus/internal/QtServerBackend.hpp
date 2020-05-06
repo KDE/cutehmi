@@ -88,8 +88,6 @@ class CUTEHMI_MODBUS_PRIVATE QtServerBackend:
 
 		void onErrorOccurred(QModbusDevice::Error error);
 
-		void printError(cutehmi::InplaceError error) const;
-
 	private:
 		struct Members
 		{
