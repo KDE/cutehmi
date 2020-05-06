@@ -220,7 +220,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		});
 		connect(& m->stateInterface->broken(), & QState::entered, [this]() {
 			if (m->lastNotifiableState != & m->stateInterface->broken())
-				Notification::Warning(tr("Service '%1' broke.").arg(name()));
+				Notification::Critical(tr("Service '%1' broke.").arg(name()));
 			m->lastNotifiableState = & m->stateInterface->broken();
 		});
 
