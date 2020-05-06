@@ -9,6 +9,7 @@
 #include "DiscreteInput.hpp"
 #include "Coil.hpp"
 
+#include <cutehmi/InplaceError.hpp>
 #include <cutehmi/services/Serviceable.hpp>
 
 #include <QObject>
@@ -187,19 +188,31 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		static constexpr int INITIAL_MAX_WRITE_HOLDING_REGISTERS = 16;	// Max RTU: 123, Max TCP: 121
 		static constexpr int INITIAL_MAX_READ_INPUT_REGISTERS = 16;		// Max RTU: 125, Max TCP: 123
 		static constexpr int INITIAL_MAX_WRITE_INPUT_REGISTERS = 16;    // Max RTU: N/A, Max TCP: N/A
+		static constexpr int INITIAL_MAX_REQUESTS = 1000;
 		static constexpr State INITIAL_STATE = CLOSED;
 		static constexpr bool INITIAL_READY = false;
 
 		Q_PROPERTY(State state READ state NOTIFY stateChanged)
+
 		Q_PROPERTY(bool ready READ ready NOTIFY readyChanged)
+
 		Q_PROPERTY(int maxReadCoils READ maxReadCoils WRITE setMaxReadCoils NOTIFY maxReadCoilsChanged)
+
 		Q_PROPERTY(int maxWriteCoils READ maxWriteCoils WRITE setMaxWriteCoils NOTIFY maxWriteCoilsChanged)
+
 		Q_PROPERTY(int maxReadDiscreteInputs READ maxReadDiscreteInputs WRITE setMaxReadDiscreteInputs NOTIFY maxReadDiscreteInputsChanged)
+
 		Q_PROPERTY(int maxWriteDiscreteInputs READ maxWriteDiscreteInputs WRITE setMaxWriteDiscreteInputs NOTIFY maxWriteDiscreteInputsChanged)
+
 		Q_PROPERTY(int maxReadHoldingRegisters READ maxReadHoldingRegisters WRITE setMaxReadHoldingRegisters NOTIFY maxReadHoldingRegistersChanged)
+
 		Q_PROPERTY(int maxWriteHoldingRegisters READ maxWriteHoldingRegisters WRITE setMaxWriteHoldingRegisters NOTIFY maxWriteHoldingRegistersChanged)
+
 		Q_PROPERTY(int maxReadInputRegisters READ maxReadInputRegisters WRITE setMaxReadInputRegisters NOTIFY maxReadInputRegistersChanged)
+
 		Q_PROPERTY(int maxWriteInputRegisters READ maxWriteInputRegisters WRITE setMaxWriteInputRegisters NOTIFY maxWriteInputRegistersChanged)
+
+		Q_PROPERTY(int maxRequests READ maxRequests WRITE setMaxRequests NOTIFY maxRequestsChanged)
 
 		State state() const;
 
@@ -240,6 +253,10 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		int maxWriteInputRegisters() const;
 
 		void setMaxWriteInputRegisters(int maxWriteInputRegisters);
+
+		int maxRequests() const;
+
+		void setMaxRequests(int maxRequests);
 
 		Coil * coilAt(quint16 address);
 
@@ -517,6 +534,8 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		virtual void close() = 0;
 
 	signals:
+		void errored(cutehmi::InplaceError error);
+
 		void stateChanged();
 
 		void readyChanged();
@@ -536,6 +555,8 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		void maxReadInputRegistersChanged();
 
 		void maxWriteInputRegistersChanged();
+
+		void maxRequestsChanged();
 
 		void requestCompleted(QJsonObject request, QJsonObject reply);
 
@@ -599,6 +620,15 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 
 		void setReady(bool ready);
 
+		void handleError(cutehmi::InplaceError error);
+
+	CUTEHMI_PROTECTED_SIGNALS:
+		void broke();
+
+		void stopped();
+
+		void started();
+
 	private:
 		typedef QLinkedList<QJsonObject> PendingRequestsContainer;
 
@@ -646,6 +676,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 			int maxWriteHoldingRegisters;
 			int maxReadInputRegisters;
 			int maxWriteInputRegisters;
+			int maxRequests;
 			InputRegisterDataContainer inputRegisters;
 			HoldingRegisterDataContainer holdingRegisters;
 			DiscreteInputDataContainer discreteInputs;
@@ -653,16 +684,17 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 			PendingRequestsContainer pendingRequests;
 
 			Members():
-				state(AbstractDevice::INITIAL_STATE),
-				ready(AbstractDevice::INITIAL_READY),
-				maxReadCoils(AbstractDevice::INITIAL_MAX_READ_COILS),
-				maxWriteCoils(AbstractDevice::INITIAL_MAX_WRITE_COILS),
-				maxReadDiscreteInputs(AbstractDevice::INITIAL_MAX_READ_DISCRETE_INPUTS),
-				maxWriteDiscreteInputs(AbstractDevice::INITIAL_MAX_WRITE_DISCRETE_INPUTS),
-				maxReadHoldingRegisters(AbstractDevice::INITIAL_MAX_READ_HOLDING_REGISTERS),
-				maxWriteHoldingRegisters(AbstractDevice::INITIAL_MAX_WRITE_HOLDING_REGISTERS),
-				maxReadInputRegisters(AbstractDevice::INITIAL_MAX_READ_INPUT_REGISTERS),
-				maxWriteInputRegisters(AbstractDevice::INITIAL_MAX_WRITE_INPUT_REGISTERS)
+				state(INITIAL_STATE),
+				ready(INITIAL_READY),
+				maxReadCoils(INITIAL_MAX_READ_COILS),
+				maxWriteCoils(INITIAL_MAX_WRITE_COILS),
+				maxReadDiscreteInputs(INITIAL_MAX_READ_DISCRETE_INPUTS),
+				maxWriteDiscreteInputs(INITIAL_MAX_WRITE_DISCRETE_INPUTS),
+				maxReadHoldingRegisters(INITIAL_MAX_READ_HOLDING_REGISTERS),
+				maxWriteHoldingRegisters(INITIAL_MAX_WRITE_HOLDING_REGISTERS),
+				maxReadInputRegisters(INITIAL_MAX_READ_INPUT_REGISTERS),
+				maxWriteInputRegisters(INITIAL_MAX_WRITE_INPUT_REGISTERS),
+				maxRequests(INITIAL_MAX_REQUESTS)
 			{
 			}
 		};

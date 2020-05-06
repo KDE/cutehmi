@@ -35,7 +35,7 @@ TCPServer::TCPServer(QObject * parent):
 
 	connect(& m->backend, & internal::QtTCPServerBackend::closed, this, & TCPServer::stopped);
 
-	connect(& m->backend, & internal::QtTCPServerBackend::errored, this, & TCPServer::broke);
+	connect(& m->backend, & internal::QtTCPServerBackend::errored, this, & AbstractDevice::errored);
 	connect(& m->backend, & internal::QtTCPServerBackend::closed, this, & TCPServer::broke);
 
 	connect(& m->backend, & internal::QtTCPServerBackend::opened, this, & TCPServer::started);

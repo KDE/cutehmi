@@ -23,7 +23,6 @@ QtClientBackend::QtClientBackend(std::unique_ptr<QModbusClient> qClient, QObject
 //	connect(& config, & Config::configChanged, this, & QtClientBackend::configureConnection);
 	connect(m->qClient, & QModbusClient::stateChanged, this, & QtClientBackend::onStateChanged);
 	connect(m->qClient, & QModbusClient::errorOccurred, this, & QtClientBackend::onErrorOccurred);
-	connect(this, & QtClientBackend::errored, this, & QtClientBackend::printError);
 }
 
 QModbusClient * QtClientBackend::qClient() const
@@ -593,11 +592,6 @@ void QtClientBackend::onErrorOccurred(QModbusDevice::Error error)
 	Q_UNUSED(error)
 
 	emit errored(CUTEHMI_ERROR(m->qClient->errorString()));
-}
-
-void QtClientBackend::printError(InplaceError error) const
-{
-	CUTEHMI_WARNING(error.str());
 }
 
 void QtClientBackend::writeDataUnit(QUuid requestId, const QModbusDataUnit & unit)

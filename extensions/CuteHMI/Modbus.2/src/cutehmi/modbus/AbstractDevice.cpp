@@ -32,6 +32,7 @@ constexpr int AbstractDevice::INITIAL_MAX_READ_HOLDING_REGISTERS;
 constexpr int AbstractDevice::INITIAL_MAX_WRITE_HOLDING_REGISTERS;
 constexpr int AbstractDevice::INITIAL_MAX_READ_INPUT_REGISTERS;
 constexpr int AbstractDevice::INITIAL_MAX_WRITE_INPUT_REGISTERS;
+constexpr int AbstractDevice::INITIAL_MAX_REQUESTS;
 constexpr AbstractDevice::State AbstractDevice::INITIAL_STATE;
 constexpr bool AbstractDevice::INITIAL_READY;
 
@@ -146,6 +147,19 @@ void AbstractDevice::setMaxWriteInputRegisters(int maxWriteInputRegisters)
 	if (m->maxWriteInputRegisters != maxWriteInputRegisters) {
 		m->maxWriteInputRegisters = maxWriteInputRegisters;
 		emit maxWriteInputRegistersChanged();
+	}
+}
+
+int AbstractDevice::maxRequests() const
+{
+	return m->maxRequests;
+}
+
+void AbstractDevice::setMaxRequests(int maxRequests)
+{
+	if (m->maxRequests != maxRequests) {
+		m->maxRequests = maxRequests;
+		emit maxRequestsChanged();
 	}
 }
 
@@ -376,9 +390,19 @@ void AbstractDevice::request(Function function, QJsonObject payload, QUuid * req
 
 	CUTEHMI_DEBUG("Received request '" << request << "'.");
 
-	if (validateRequest(request)) {
-		m->pendingRequests.append(request);
+	m->pendingRequests.append(request);
+	if (m->pendingRequests.count() > maxRequests()) {
+		QJsonObject reply;
+		reply.insert("success", false);
+		reply.insert("error", tr("Request queue is full."));
+		handleReply(QUuid::fromString(request.value("id").toString()), reply);
+	} else if (validateRequest(request))
 		handleRequest(request);
+	else {
+		QJsonObject reply;
+		reply.insert("success", false);
+		reply.insert("error", tr("Request is illformed."));
+		handleReply(QUuid::fromString(request.value("id").toString()), reply);
 	}
 }
 
@@ -386,6 +410,7 @@ AbstractDevice::AbstractDevice(QObject * parent):
 	QObject(parent),
 	m(new Members)
 {
+	connect(this, & AbstractDevice::errored, this, & AbstractDevice::handleError);
 }
 
 AbstractDevice::~AbstractDevice()
@@ -471,7 +496,12 @@ void AbstractDevice::handleReply(QUuid requestId, QJsonObject reply)
 
 	if (validateReply(request, reply)) {
 		if (!reply.value("success").toBool()) {
-			CUTEHMI_WARNING("Request '" << requestId << "' failed.");
+			QString errorString = tr("Request '%1' has failed.").arg(requestId.toString());
+			if (reply.contains("error")) {
+				errorString += " ";
+				errorString += reply.value("error").toString();
+			}
+			emit errored(CUTEHMI_ERROR(errorString));
 		} else {
 			Function function = static_cast<Function>(request.value("function").toInt());
 			switch (function) {
@@ -591,6 +621,12 @@ void AbstractDevice::setReady(bool ready)
 		m->ready = ready;
 		emit readyChanged();
 	}
+}
+
+void AbstractDevice::handleError(InplaceError error)
+{
+	Notification::Critical(error.str());
+	emit broke();
 }
 
 void AbstractDevice::ValidatePayloadAddressKey(const QJsonObject & json, const QString & key)

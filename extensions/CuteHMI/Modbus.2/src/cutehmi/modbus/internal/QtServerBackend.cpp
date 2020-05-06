@@ -357,11 +357,6 @@ void QtServerBackend::onErrorOccurred(QModbusDevice::Error error)
 	emit errored(CUTEHMI_ERROR(m->qServer->errorString()));
 }
 
-void QtServerBackend::printError(InplaceError error) const
-{
-	CUTEHMI_WARNING(error.str());
-}
-
 }
 }
 }

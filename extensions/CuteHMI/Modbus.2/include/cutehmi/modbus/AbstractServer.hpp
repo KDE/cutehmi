@@ -70,12 +70,6 @@ class CUTEHMI_MODBUS_API AbstractServer:
 	CUTEHMI_PROTECTED_SIGNALS:
 		void requestReceived(QJsonObject request);
 
-		void broke();
-
-		void stopped();
-
-		void started();
-
 	private:
 		struct Members {
 			bool busy = INITIAL_BUSY;
