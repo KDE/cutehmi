@@ -194,7 +194,6 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		m->stateMachine = new QStateMachine(this);
 		m->stateInterface = new internal::StateInterface(m->stateMachine);
 
-
 		connect(m->stateInterface, & internal::StateInterface::statusChanged, this, [this]() {
 			setStatus(m->stateInterface->status());
 		} );
@@ -309,7 +308,6 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		addStatuses(serviceable.configureStopping(& m->stateInterface->stopping()));
 		addStatuses(serviceable.configureRepairing(& m->stateInterface->repairing()));
 		addStatuses(serviceable.configureEvacuating(& m->stateInterface->evacuating()));
-
 
 		m->stateMachine->start();
 		QCoreApplication::processEvents();	// This is required in order to truly start state machine and prevent it from ignoring incoming events.
