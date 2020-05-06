@@ -36,6 +36,10 @@ CommonProduct {
 	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
+	Depends { name: "autotest" }
+	autotest.arguments: ["-o", name + ".xunit.xml,xunitxml"]
+	autotest.allowFailure: true
+
 	Depends { name: "Qt.testlib" }
 
 	Depends { name: "Qt.qmltest" }
