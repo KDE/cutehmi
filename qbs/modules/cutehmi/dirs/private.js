@@ -11,6 +11,7 @@ function setupEnvironment()
 
 	Environment.putEnv("CUTEHMI_INSTALL_DIR", product.cutehmi.dirs.installDir)
 	Environment.putEnv("CUTEHMI_TOOLS_INSTALL_SUBDIR", product.cutehmi.dirs.toolsInstallSubdir)
+	Environment.putEnv("CUTEHMI_SOURCE_DIR", product.sourceDirectory)
 }
 
 //(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
