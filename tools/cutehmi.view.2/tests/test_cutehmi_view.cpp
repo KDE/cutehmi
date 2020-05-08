@@ -99,7 +99,7 @@ void test_cutehmi_view::screenshot()
 	QString artifactsInstallSubdir = CUTEHMI_DIRS_ARTIFACTS_INSTALL_SUBDIR;
 	if (!artifactsInstallSubdir.isEmpty())
 		screenshotPath += "/" + artifactsInstallSubdir;
-	screenshotPath += "/screenshots/" CUTEHMI_DIRS_PROJECT_RELATIVE_PATH "/screenshot.png";
+	screenshotPath += "/screenshots/" CUTEHMI_DIRS_PROJECT_RELATIVE_PATH "/doc/screenshot.png";
 	const char * screenshotFormat = "PNG";
 
 	QProcess process;
