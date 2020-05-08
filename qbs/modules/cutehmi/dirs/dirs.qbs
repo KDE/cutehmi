@@ -100,6 +100,12 @@ Module {
 	}
 	readonly property string translationsInstallSubdir: "cutehmi/translations"
 
+	PropertyOptions {
+		name: "artifactsInstallSubdir"
+		description: "Target intallation subdirectory for various artifacts."
+	}
+	readonly property string artifactsInstallSubdir: "cutehmi/artifacts"
+
 	Rule {
 		condition: product.cutehmi.dirs.dirsHppArtifact !== undefined
 		multiplex: true
@@ -129,6 +135,7 @@ Module {
 					f.writeLine("#define " + prefix + "_EXTENSIONS_INSTALL_SUBDIR \"" + product.cutehmi.dirs.extensionsInstallSubdir + "\"")
 					f.writeLine("#define " + prefix + "_PUPPETS_INSTALL_SUBDIR \"" + product.cutehmi.dirs.puppetsInstallSubdir + "\"")
 					f.writeLine("#define " + prefix + "_TRANSLATIONS_INSTALL_SUBDIR \"" + product.cutehmi.dirs.translationsInstallSubdir + "\"")
+					f.writeLine("#define " + prefix + "_ARTIFACTS_INSTALL_SUBDIR \"" + product.cutehmi.dirs.artifactsInstallSubdir + "\"")
 					if (toolRelativePath !== undefined)
 						f.writeLine("#define " + prefix + "_TOOL_RELATIVE_PATH" + " \"" + toolRelativePath + "\"	// Relative path between tools installation directory and dedicated installation directory.")
 					f.writeLine("")
