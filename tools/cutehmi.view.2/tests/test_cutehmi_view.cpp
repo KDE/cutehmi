@@ -96,7 +96,7 @@ void test_cutehmi_view::screenshot()
 	arguments << "-qwindowgeometry" << windowgeometryArg << "--lang" << "en_EN";
 
 	QString screenshotPath = m_installDir;
-	QString artifactsInstallSubdir = qEnvironmentVariable("CUTEHMI_ARTIFACTS_INSTALL_SUBDIR");
+	QString artifactsInstallSubdir = CUTEHMI_DIRS_ARTIFACTS_INSTALL_SUBDIR;
 	if (!artifactsInstallSubdir.isEmpty())
 		screenshotPath += "/" + artifactsInstallSubdir;
 	screenshotPath += "/screenshots/" CUTEHMI_DIRS_PROJECT_RELATIVE_PATH "/screenshot.png";
