@@ -1,5 +1,7 @@
 #include <QtTest/QtTest>
 #include <QProcess>
+#include <QScreen>
+#include <QPixmap>
 
 namespace cutehmi {
 namespace daemon {
@@ -16,14 +18,20 @@ class test_cutehmi_view:
 
 		void versionOption();
 
+		void screenshot();
+
 	private:
+		QString m_sourceDir;
 		QString m_installDir;
 		QString m_programPath;
+		int m_windowDecorationsWidth;
+		int m_windowDecorationsHeight;
 };
 
 void test_cutehmi_view::initTestCase()
 {
-	QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
+	m_sourceDir = qEnvironmentVariable("CUTEHMI_SOURCE_DIR");
+	m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
 	QVERIFY(!m_installDir.isEmpty());
 
 	QString toolsInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOLS_INSTALL_SUBDIR");
@@ -34,6 +42,12 @@ void test_cutehmi_view::initTestCase()
 #ifndef CUTEHMI_NDEBUG
 	m_programPath += ".debug";
 #endif
+
+	// Using helper window to calculate size of window decorations.
+	QWindow helperWindow;
+	helperWindow.show();
+	m_windowDecorationsWidth = helperWindow.frameGeometry().width() - helperWindow.geometry().width();
+	m_windowDecorationsHeight = helperWindow.frameGeometry().height() - helperWindow.geometry().height();
 }
 
 void test_cutehmi_view::helpOption()
@@ -70,6 +84,30 @@ void test_cutehmi_view::versionOption()
 		QCOMPARE(process.exitStatus(), QProcess::NormalExit);
 		QCOMPARE(process.exitCode(), EXIT_SUCCESS);
 	}
+}
+
+void test_cutehmi_view::screenshot()
+{
+	int width = 800;
+	int height = 600;
+	QString screenshotPath = m_sourceDir + "/../doc/screenshot.png";
+	const char * screenshotFormat = "PNG";
+	QStringList arguments;
+	QString windowgeometryArg = QString::number(width) + "x" + QString::number(height) + "+0+0";
+	arguments << "-qwindowgeometry" << windowgeometryArg << "--lang" << "en_EN";
+
+	QProcess process;
+	process.start(m_programPath, arguments);
+	process.waitForFinished(1500);	// This gives some time for the GUI to show up.
+
+	QScreen * screen = QGuiApplication::primaryScreen();
+	if (screen) {
+		QPixmap screenshot = screen->grabWindow(0, 0, 0, width + m_windowDecorationsWidth, height + m_windowDecorationsHeight);
+		screenshot.save(screenshotPath, screenshotFormat);
+	}
+
+	process.terminate();
+	process.waitForFinished();
 }
 
 }
