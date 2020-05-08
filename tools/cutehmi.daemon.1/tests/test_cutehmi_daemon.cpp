@@ -1,6 +1,8 @@
 #include <QtTest/QtTest>
 #include <QProcess>
 
+#include "../cutehmi.dirs.hpp"
+
 namespace cutehmi {
 namespace daemon {
 
@@ -28,9 +30,9 @@ void test_cutehmi_daemon::initTestCase()
 	QString m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
 	QVERIFY(!m_installDir.isEmpty());
 
-	QString toolInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOLS_INSTALL_SUBDIR");
-	if (!toolInstallSubdir.isEmpty())
-		m_installDir += "/" + toolInstallSubdir;
+	QString toolsInstallSubdir = CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR;
+	if (!toolsInstallSubdir.isEmpty())
+		m_installDir += "/" + toolsInstallSubdir;
 
 	m_programPath = m_installDir + "/cutehmi.daemon.1";
 #ifndef CUTEHMI_NDEBUG

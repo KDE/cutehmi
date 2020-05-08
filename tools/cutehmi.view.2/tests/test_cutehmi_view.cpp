@@ -3,6 +3,8 @@
 #include <QScreen>
 #include <QPixmap>
 
+#include "../cutehmi.dirs.hpp"
+
 namespace cutehmi {
 namespace daemon {
 
@@ -21,9 +23,6 @@ class test_cutehmi_view:
 		void screenshot();
 
 	private:
-		QString m_productDir;
-		QString m_projectDir;
-		QString m_productRelativeDir;
 		QString m_installDir;
 		QString m_programPath;
 		int m_windowDecorationsWidth;
@@ -32,13 +31,10 @@ class test_cutehmi_view:
 
 void test_cutehmi_view::initTestCase()
 {
-	m_productDir = qEnvironmentVariable("CUTEHMI_PRODUCT_DIR");
-	m_projectDir = qEnvironmentVariable("CUTEHMI_PROJECT_DIR");
 	m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
-	m_productRelativeDir = QDir(m_projectDir).relativeFilePath(m_productDir);
 	QVERIFY(!m_installDir.isEmpty());
 
-	QString toolsInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOLS_INSTALL_SUBDIR");
+	QString toolsInstallSubdir = CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR;
 	m_programPath = m_installDir;
 	if (!toolsInstallSubdir.isEmpty())
 		m_programPath += "/" + toolsInstallSubdir;
@@ -103,8 +99,7 @@ void test_cutehmi_view::screenshot()
 	QString artifactsInstallSubdir = qEnvironmentVariable("CUTEHMI_ARTIFACTS_INSTALL_SUBDIR");
 	if (!artifactsInstallSubdir.isEmpty())
 		screenshotPath += "/" + artifactsInstallSubdir;
-	screenshotPath += "/screenshots/";
-	screenshotPath += m_productRelativeDir + "/../screenshot.png";
+	screenshotPath += "/screenshots/" CUTEHMI_DIRS_PROJECT_RELATIVE_PATH "/screenshot.png";
 	const char * screenshotFormat = "PNG";
 
 	QProcess process;

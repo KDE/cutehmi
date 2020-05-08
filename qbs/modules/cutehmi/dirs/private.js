@@ -10,12 +10,7 @@ function setupEnvironment()
 	Environment.putEnv("QML2_IMPORT_PATH", product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionsInstallSubdir)
 
 	Environment.putEnv("CUTEHMI_INSTALL_DIR", product.cutehmi.dirs.installDir)
-	Environment.putEnv("CUTEHMI_TOOLS_INSTALL_SUBDIR", product.cutehmi.dirs.toolsInstallSubdir)
-	Environment.putEnv("CUTEHMI_ARTIFACTS_INSTALL_SUBDIR", product.cutehmi.dirs.artifactsInstallSubdir)
-	Environment.putEnv("CUTEHMI_PRODUCT_DIR", product.sourceDirectory)
-	Environment.putEnv("CUTEHMI_PROJECT_DIR", project.sourceDirectory)
 }
-
 //(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
