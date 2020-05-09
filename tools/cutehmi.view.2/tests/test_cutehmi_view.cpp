@@ -3,6 +3,8 @@
 #include <QScreen>
 #include <QPixmap>
 
+#include "../cutehmi.dirs.hpp"
+
 namespace cutehmi {
 namespace daemon {
 
@@ -21,7 +23,6 @@ class test_cutehmi_view:
 		void screenshot();
 
 	private:
-		QString m_sourceDir;
 		QString m_installDir;
 		QString m_programPath;
 		int m_windowDecorationsWidth;
@@ -30,15 +31,14 @@ class test_cutehmi_view:
 
 void test_cutehmi_view::initTestCase()
 {
-	m_sourceDir = qEnvironmentVariable("CUTEHMI_SOURCE_DIR");
 	m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
 	QVERIFY(!m_installDir.isEmpty());
 
-	QString toolsInstallSubdir = qEnvironmentVariable("CUTEHMI_TOOLS_INSTALL_SUBDIR");
+	QString toolsInstallSubdir = CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR;
+	m_programPath = m_installDir;
 	if (!toolsInstallSubdir.isEmpty())
-		m_installDir += "/" + toolsInstallSubdir;
-
-	m_programPath = m_installDir + "/cutehmi.view.2";
+		m_programPath += "/" + toolsInstallSubdir;
+	m_programPath +=  "/cutehmi.view.2";
 #ifndef CUTEHMI_NDEBUG
 	m_programPath += ".debug";
 #endif
@@ -90,11 +90,17 @@ void test_cutehmi_view::screenshot()
 {
 	int width = 800;
 	int height = 600;
-	QString screenshotPath = m_sourceDir + "/../doc/screenshot.png";
-	const char * screenshotFormat = "PNG";
+
 	QStringList arguments;
 	QString windowgeometryArg = QString::number(width) + "x" + QString::number(height) + "+0+0";
 	arguments << "-qwindowgeometry" << windowgeometryArg << "--lang" << "en_EN";
+
+	QString screenshotPath = m_installDir;
+	QString artifactsInstallSubdir = CUTEHMI_DIRS_ARTIFACTS_INSTALL_SUBDIR;
+	if (!artifactsInstallSubdir.isEmpty())
+		screenshotPath += "/" + artifactsInstallSubdir;
+	screenshotPath += "/screenshots/" CUTEHMI_DIRS_PROJECT_RELATIVE_PATH "/doc/screenshot.png";
+	const char * screenshotFormat = "PNG";
 
 	QProcess process;
 	process.start(m_programPath, arguments);
@@ -103,7 +109,8 @@ void test_cutehmi_view::screenshot()
 	QScreen * screen = QGuiApplication::primaryScreen();
 	if (screen) {
 		QPixmap screenshot = screen->grabWindow(0, 0, 0, width + m_windowDecorationsWidth, height + m_windowDecorationsHeight);
-		screenshot.save(screenshotPath, screenshotFormat);
+		QVERIFY(QDir().mkpath(QFileInfo(screenshotPath).dir().path()));
+		QVERIFY(screenshot.save(screenshotPath, screenshotFormat));
 	}
 
 	process.terminate();
