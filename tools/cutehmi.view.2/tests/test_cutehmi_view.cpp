@@ -104,7 +104,7 @@ void test_cutehmi_view::screenshot()
 
 	QProcess process;
 	process.start(m_programPath, arguments);
-	process.waitForFinished(1500);	// This gives some time for the GUI to show up.
+	process.waitForFinished(2500);	// This gives some time for the GUI to show up.
 
 	QScreen * screen = QGuiApplication::primaryScreen();
 	if (screen) {
