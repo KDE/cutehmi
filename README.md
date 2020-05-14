@@ -40,8 +40,8 @@ Hence "perpetual beta" is desired development status of each branch.
 
 | Branch                                         | Build status                                                                                                                   | Development status |
 |------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| [master](https://invent.kde.org/kde/cutehmi)   | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | alpha              |
-| [3](https://invent.kde.org/kde/cutehmi)        | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)      | perpetual beta     |
+| [master](https://invent.kde.org/kde/cutehmi)   | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | pre-alpha          |
+| [3](https://invent.kde.org/kde/cutehmi)        | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)      | alpha              |
 | [2](https://invent.kde.org/kde/cutehmi)        | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)      | perpetual beta     |
 | [1](https://invent.kde.org/kde/cutehmi/tree/1) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
 
