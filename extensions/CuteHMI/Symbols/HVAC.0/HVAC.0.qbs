@@ -37,7 +37,7 @@ Project {
          "designer/HVAC.metainfo",
      ]
 
-		Depends { name: "CuteHMI.2" }
+		Depends { name: "CuteHMI.GUI.0" }
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
@@ -50,7 +50,7 @@ Project {
 		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
-			Depends { name: "CuteHMI.2" }
+			Depends { name: "CuteHMI.GUI.0" }
 		}
 	}
 }
