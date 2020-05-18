@@ -2,16 +2,21 @@
 
 Client, GUI application, which allows one to run CuteHMI project in a window.
 
-Any extension that provides graphical UI QML component can be loaded as *cutehmi.view.2* project. Use `--extension` command line
-argument to specify an extension.
+By default this tool shows only a simple help screen.
 
-For example to run [Simple View](../../extensions/CuteHMI/Examples/SimpleView.0/) example use following command.
+![Default view screenshot](doc/screenshot.png)
+
+CuteHMI approach is to treat each project as a first-class QML extension, so the purpose of the tool is to load specified extension
+and display one of its QML components. Any extension that provides graphical UI QML component can be loaded as *cutehmi.view.2*
+project. Use `--extension` command line argument to specify an extension.
+
+For example to run [Simple View](../../extensions/CuteHMI/Examples/SimpleView.1/) example use following command.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"
+cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.1"
 ```
 
 To run project from QtCreator click `Projects` -> `Run`. Select `cutehmi.view.2` from `Run configuration`. In the
-`Command line arguments` box type: `cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"`.
+`Command line arguments` box type: `cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.1"`.
 The window should look similar to the screenshot below.
 ![SimpleView screenshot](doc/SimpleView.png)
 
