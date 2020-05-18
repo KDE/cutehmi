@@ -1,5 +1,5 @@
-#ifndef QML_HPP
-#define QML_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_TEST_0_INCLUDE_CUTEHMI_TEST_QML_HPP
+#define H_EXTENSIONS_CUTEHMI_TEST_0_INCLUDE_CUTEHMI_TEST_QML_HPP
 
 #include "internal/common.hpp"
 
@@ -13,4 +13,4 @@ void CUTEHMI_TEST_API setupScreenshotDirs(const char * projectRelativePath, QQml
 }
 }
 
-#endif // QML_HPP
+#endif
