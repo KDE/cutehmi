@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
-import QtQuick.Window 2.14
 import QtTest 1.2
 
 import CuteHMI.Examples.Symbols.HVAC.Gallery 1.0
