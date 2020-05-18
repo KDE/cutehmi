@@ -2,7 +2,6 @@
 
 #include <QtTest/QtTest>
 
-
 namespace cutehmi {
 namespace test {
 

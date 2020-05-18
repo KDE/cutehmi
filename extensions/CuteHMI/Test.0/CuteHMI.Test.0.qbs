@@ -27,16 +27,24 @@ Project {
 			"include/cutehmi/test/internal/platform.hpp",
 			"include/cutehmi/test/logging.hpp",
 			"include/cutehmi/test/metadata.hpp",
+			"include/cutehmi/test/qml.hpp",
 			"include/cutehmi/test/random.hpp",
 			"include/cutehmi/test/tests.hpp",
 			"src/cutehmi/test/logging.cpp",
+			"src/cutehmi/test/qml.cpp",
 		]
+
+		cutehmi.dirs.artifacts: true
 
 		Depends { name: "Qt.testlib" }
 
 		Depends { name: "cutehmi.metadata" }
 
 		Depends { name: "CuteHMI.2" }
+
+		Export {
+			Depends { name: "CuteHMI.2" }
+		}
 	}
 }
 
