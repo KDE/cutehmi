@@ -18,6 +18,7 @@ cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.1"
 To run project from QtCreator click `Projects` -> `Run`. Select `cutehmi.view.2` from `Run configuration`. In the
 `Command line arguments` box type: `cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.1"`.
 The window should look similar to the screenshot below.
+
 ![SimpleView screenshot](doc/SimpleView.png)
 
 Default loader picks `Main.qml` as default QML component to load. Component can be specified with `--component` option. One can also
