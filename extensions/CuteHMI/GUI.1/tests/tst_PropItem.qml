@@ -47,7 +47,7 @@ Item {
 		function test_preview() {
 			waitForRendering(preview)
 			var image = grabImage(preview);
-			image.save(docScreenshotsDir + "/PropItem.png")
+			image.save(docScreenshotsDir + "/PropItem_preview.png")
 		}
 	}
 }

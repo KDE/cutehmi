@@ -8,7 +8,7 @@ import CuteHMI.GUI 1.0
   Number display can be used to conveniently display numerical values with corresponding units of measurement. Number display tries
   to keep constant width. If that's not possible it expands to fit to its contents.
 
-  ![Number display preview](doc/NumberDisplay.png)
+  ![Number display preview](doc/NumberDisplay_preview.png)
 
   Above image has been obtained with the following sample code demonstrating basic use of number display.
 

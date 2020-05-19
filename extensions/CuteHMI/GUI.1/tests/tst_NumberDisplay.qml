@@ -54,7 +54,7 @@ Item {
 		function test_preview() {
 			waitForRendering(preview)
 			var image = grabImage(preview);
-			image.save(docScreenshotsDir + "/NumberDisplay.png")
+			image.save(docScreenshotsDir + "/NumberDisplay_preview.png")
 		}
 	}
 }
