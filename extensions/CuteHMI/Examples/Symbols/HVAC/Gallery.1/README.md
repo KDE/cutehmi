@@ -2,6 +2,8 @@
 
 Gallery of HVAC symbols provided by [CuteHMI.Symbols.HVAC.1](../../../../Symbols/HVAC.1/) extension.
 
+![Main component](doc/Main.png)
+
 To run the example use [cutehmi.view.2](../../../../../../tools/cutehmi.view.2/) tool.
 ```
 cutehmi.view.2 --extension="CuteHMI.Examples.Symbols.HVAC.Gallery.1"
