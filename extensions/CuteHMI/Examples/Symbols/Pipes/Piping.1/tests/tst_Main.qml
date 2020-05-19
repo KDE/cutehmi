@@ -22,6 +22,7 @@ Item {
 
 			function test_main() {
 				waitForRendering(root)
+				wait(1000);
 				var image = grabImage(main);
 				image.save(docScreenshotsDir + "/Main.png")
 			}
