@@ -16,36 +16,29 @@ Item {
 		spacing: 5
 		padding: 5
 
-		//! [NumberDisplay preview]
-		NumberDisplay {
+		//! [PropItem preview]
+		PropItem {
+			bottomPadding: 10
+
+			NumberDisplay {
+				value: 100
+			}
 		}
 
-		NumberDisplay {
-			value: 12.34
-			fractionalWidth: 2
-			unit: "Pa"
-		}
+		PropItem {
+			bottomPadding: 10
+			leftPadding: 10
+			rightPadding: 10
 
-		NumberDisplay {
-			warning: true
-			value: 2500
-			integralWidth: 3
-			fractionalWidth: 0
-			unit: "kg"
+			NumberDisplay {
+				value: 100
+			}
 		}
-
-		NumberDisplay {
-			alarm: true
-			value: 0
-			integralWidth: 2
-			fractionalWidth: 2
-			unit: "K"
-		}
-		//! [NumberDisplay preview]
+		//! [PropItem preview]
 	}
 
 	TestCase {
-		name: "NumberDisplay"
+		name: "PropItem"
 		when: windowShown
 
 		function initTestCase() {
@@ -54,7 +47,7 @@ Item {
 		function test_preview() {
 			waitForRendering(preview)
 			var image = grabImage(preview);
-			image.save(docScreenshotsDir + "/NumberDisplay.png")
+			image.save(docScreenshotsDir + "/PropItem.png")
 		}
 	}
 }

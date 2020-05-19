@@ -6,10 +6,15 @@ import CuteHMI.GUI 1.0
   Number display.
 
   Number display can be used to conveniently display numerical values with corresponding units of measurement. Number display tries
-  to keep constant width. If that's not possible it expands to fit the content.
+  to keep constant width. If that's not possible it expands to fit to its contents.
+
+  ![Number display preview](doc/NumberDisplay.png)
+
+  Above image has been obtained with the following sample code demonstrating basic use of number display.
+
+  @snippet tests/tst_NumberDisplay.qml NumberDisplay preview
   */
-Element
-{
+Element {
 	id: root
 
 	implicitWidth: background.width - valueDisplay.overfull
