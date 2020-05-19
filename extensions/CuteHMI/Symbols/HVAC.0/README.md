@@ -1,6 +1,6 @@
 # HVAC Symbols
 
-**Deprecated** - this extension is being replaced by [CuteHMI.Symbols.HVAC.1](../Symbols/HVAC.1/).
+**Deprecated** - this extension is being replaced by [CuteHMI.Symbols.HVAC.1](../HVAC.1/).
 
 Collection of \ref active-symbols.md "active symbols" used in HVAC(R) industry.
 
