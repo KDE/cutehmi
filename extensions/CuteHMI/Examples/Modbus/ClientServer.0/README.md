@@ -2,9 +2,9 @@
 
 Example allowing one to interact with Modbus client and server over Modbus TCP protocol.
 
-To run the example use [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
+To run the example use [cutehmi.view.3](../../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.ClientServer.0"
+cutehmi.view.3 --extension="CuteHMI.Examples.Modbus.ClientServer.0"
 ```
 
 \example CoilControl.qml

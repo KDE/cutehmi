@@ -3,9 +3,9 @@
 Baisc Modbus example. Example demonstrates basic usage of QML components provided by [CuteHMI.Modbus.2](../../../Modbus.2/)
 extension.
 
-To run the example use [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
+To run the example use [cutehmi.view.3](../../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.Basic.0"
+cutehmi.view.3 --extension="CuteHMI.Examples.Modbus.Basic.0"
 ```
 
 Let's make a quick tour over `Main.qml` file.

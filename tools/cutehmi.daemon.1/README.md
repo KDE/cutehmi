@@ -1,6 +1,6 @@
 # Daemon
 
-Note: This tool is being replaced by [cutehmi.daemon.2](../cutehmi.daemon.2/) and it is now obsolete.
+**Obsolete** - this tool is being replaced by [cutehmi.daemon.2](../cutehmi.daemon.2/).
 
 Non-GUI program, which allows one to run QML project in the background.
 

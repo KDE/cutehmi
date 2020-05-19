@@ -2,7 +2,7 @@
 
 Example demonstrating a variety of Modbus requests.
 
-To run the example use [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
+To run the example use [cutehmi.view.3](../../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.Requests.0"
+cutehmi.view.3 --extension="CuteHMI.Examples.Modbus.Requests.0"
 ```

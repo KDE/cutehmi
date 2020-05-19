@@ -10,22 +10,23 @@ Item {
 	width: childrenRect.width
 	height: childrenRect.height
 
-	Column {
+	Row {
+		id: preview
+
+		spacing: 5
+		padding: 5
+
+		//! [NumberDisplay preview]
 		NumberDisplay {
-			id: uninitialized
 		}
 
 		NumberDisplay {
-			id: active
-
 			value: 12.34
 			fractionalWidth: 2
 			unit: "Pa"
 		}
 
 		NumberDisplay {
-			id: warning
-
 			warning: true
 			value: 2500
 			integralWidth: 3
@@ -34,14 +35,13 @@ Item {
 		}
 
 		NumberDisplay {
-			id: alarm
-
 			alarm: true
 			value: 0
 			integralWidth: 2
 			fractionalWidth: 2
 			unit: "K"
 		}
+		//! [NumberDisplay preview]
 	}
 
 	TestCase {
@@ -51,28 +51,10 @@ Item {
 		function initTestCase() {
 		}
 
-		function test_uninitialized() {
-			waitForRendering(uninitialized)
-			var image = grabImage(uninitialized);
-			image.save(docScreenshotsDir + "/NumberDisplay_uninitialized.png")
-		}
-
-		function test_active() {
-			waitForRendering(active)
-			var image = grabImage(active);
-			image.save(docScreenshotsDir + "/NumberDisplay_active.png")
-		}
-
-		function test_warnig() {
-			waitForRendering(warning)
-			var image = grabImage(warning);
-			image.save(docScreenshotsDir + "/NumberDisplay_warning.png")
-		}
-
-		function test_alarm() {
-			waitForRendering(alarm)
-			var image = grabImage(alarm);
-			image.save(docScreenshotsDir + "/NumberDisplay_alarm.png")
+		function test_preview() {
+			waitForRendering(preview)
+			var image = grabImage(preview);
+			image.save(docScreenshotsDir + "/NumberDisplay_preview.png")
 		}
 	}
 }

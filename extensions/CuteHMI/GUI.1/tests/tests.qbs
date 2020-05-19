@@ -17,6 +17,7 @@ Project {
 		files: [
          "test_QML.cpp",
          "tst_NumberDisplay.qml",
+         "tst_PropItem.qml",
      ]
 
 		cutehmi.dirs.artifacts: true

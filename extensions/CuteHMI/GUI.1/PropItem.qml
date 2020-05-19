@@ -6,7 +6,13 @@ import CuteHMI.GUI 1.0
   Prop item.
 
   This simple item can be used to draw small props around an actual item, which can be placed inside PropItem. Prop size
-  can be controlled with padding properties (leftPadding, rightPadding, topPadding, bottomPadding).
+  can be controlled with padding properties (@a leftPadding, @a rightPadding, @a topPadding, @a bottomPadding).
+
+  ![Prop item preview](doc/PropItem_preview.png)
+
+  Above image has been obtained with the following sample code demonstrating basic use of prop item.
+
+  @snippet tests/tst_PropItem.qml PropItem preview
   */
 Canvas {
 	id: root

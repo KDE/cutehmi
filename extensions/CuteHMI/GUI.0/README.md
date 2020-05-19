@@ -1,5 +1,7 @@
 # Graphical User Interface
 
+**Deprecated** - this extension is being replaced by [CuteHMI.GUI.1](../GUI.1/).
+
 This module provides foundation for GUI applications.
 
 Class CuteHMI.GUI.CuteApplication provides idle measurment to frontend tools and projects.

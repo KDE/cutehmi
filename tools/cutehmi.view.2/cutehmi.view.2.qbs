@@ -81,7 +81,7 @@ Project {
 
 		cutehmi.dirs.artifacts: true
 
-		Depends { name: "CuteHMI.GUI.1" }
+		Depends { name: "CuteHMI.GUI.0" }
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.exclude: ['dev', 'tests']

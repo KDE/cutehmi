@@ -15,6 +15,11 @@ Module {
 	property string layoutTemplateFile: project.sourceDirectory + '/doc/layout/cutehmi.doxygen.Layout.template.xml'
 
 	/**
+	  Doxygen extra CSS.
+	  */
+	property string htmlExtraStylesheet: project.sourceDirectory + '/doc/CSS/extra.css'
+
+	/**
 	  Doxygen input filter.
 	  */
 	property string inputFilter: "sed -f " + project.sourceDirectory + "/doc/filters/input.sed"
@@ -118,6 +123,7 @@ Module {
 								   //</qbs-cutehmi.doxygen-3.workaround target="Doxygen" cause="bug">
 					],
 					'LAYOUT_FILE': product.cutehmi.doxygen.layoutTemplateFile !== undefined ? product.sourceDirectory + '/cutehmi.doxygen.Layout.xml' : undefined,
+					'HTML_EXTRA_STYLESHEET': product.cutehmi.doxygen.htmlExtraStylesheet,
 					'SHOW_FILES': false,
 					'SHOW_USED_FILES': false,
 					'WARN_IF_UNDOCUMENTED': product.cutehmi.doxygen.warnIfUndocumented,

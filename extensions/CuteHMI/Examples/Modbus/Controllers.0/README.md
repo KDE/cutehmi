@@ -3,9 +3,9 @@
 Example featuring register controllers. Example uses cutehmi::modbus::DummyDevice to simulate latencies and show various properties
 of controllers.
 
-To run the example use [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
+To run the example use [cutehmi.view.3](../../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.Controllers.0"
+cutehmi.view.3 --extension="CuteHMI.Examples.Modbus.Controllers.0"
 ```
 
 \example CoilControl.qml
