@@ -82,9 +82,8 @@ Note that `--nforks=0` is not the same as application mode (`--app` option) - da
 standard output, responds to signals, unlocks former working directory, creates PID file, closes file descriptors and resets its
 umask.
 
-____________________________________________________________________________________________________________________________________
+## References
 
-References:
 1. [Stephen A. Rago, W. Richard Stevens, "Advanced Programming in the UNIX® Environment: Second Edition", Chapter 13. Daemon Processes.][1]
 2. [Andries Brouwer, "The Linux kernel".][2]
 3. [Linux Programmer's Manual, DAEMON(3)][3]
