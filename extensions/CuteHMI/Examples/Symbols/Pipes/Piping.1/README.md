@@ -2,9 +2,9 @@
 
 This example shows how to use piping components provided by [CuteHMI.Symbols.Pipes.1](../../../../Symbols/Pipes.1/) extension.
 
-To run the example use [cutehmi.view.2](../../../../../../tools/cutehmi.view.2/) tool.
+To run the example use [cutehmi.view.3](../../../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.Symbols.Pipes.Piping.1"
+cutehmi.view.3 --extension="CuteHMI.Examples.Symbols.Pipes.Piping.1"
 ```
 
 A remark on Qt Creator.

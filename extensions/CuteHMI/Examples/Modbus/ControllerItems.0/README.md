@@ -14,9 +14,9 @@ screenshot below.
 As one can observe CuteHMI.Modbus.CoilItem and CuteHMI.Modbus.HoldingRegisterItem are created as child items of respective Qt
 Quick controls, which they use as their delegates. Binding is established between controller and specified delegate property.
 
-The example can be run with [cutehmi.view.2](../../../../../tools/cutehmi.view.2/) tool.
+The example can be run with [cutehmi.view.3](../../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.Modbus.ControllerItems.0"
+cutehmi.view.3 --extension="CuteHMI.Examples.Modbus.ControllerItems.0"
 ```
 
 \example Main.qml

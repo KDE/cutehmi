@@ -1,38 +1,8 @@
-import qbs
+#include "logging.hpp"
 
-import cutehmi
+#include "../../../cutehmi.metadata.hpp"
 
-Project {
-	name: "CuteHMI.Examples.SimpleView.1"
-
-	cutehmi.Extension {
-		name: parent.name
-
-		vendor: "CuteHMI"
-
-		domain: "cutehmi.kde.org"
-
-		friendlyName: "Simple View"
-
-		description: "Simple example demonstrating how to provide visual indication of device operational status with CuteHMI.GUI components."
-
-		files: [
-			"LICENSE",
-			"README.md",
-			"RectangularElement.qml",
-			"Main.qml",
-		]
-
-		Depends { name: "cutehmi.qmldir" }
-
-		Depends { name: "cutehmi.qmltypes" }
-
-		Depends { name: "cutehmi.view.3" }
-
-		Depends { name: "cutehmi.doxygen" }
-		cutehmi.doxygen.useDoxyqml: true
-	}
-}
+Q_LOGGING_CATEGORY(cutehmi_view_3_loggingCategory, CUTEHMI_VIEW_NAME)
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

@@ -4,9 +4,9 @@ Gallery of HVAC symbols provided by [CuteHMI.Symbols.HVAC.1](../../../../Symbols
 
 ![Main component](doc/Main.png)
 
-To run the example use [cutehmi.view.2](../../../../../../tools/cutehmi.view.2/) tool.
+To run the example use [cutehmi.view.3](../../../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.Symbols.HVAC.Gallery.1"
+cutehmi.view.3 --extension="CuteHMI.Examples.Symbols.HVAC.Gallery.1"
 ```
 
 \example AirFilterSettings.qml

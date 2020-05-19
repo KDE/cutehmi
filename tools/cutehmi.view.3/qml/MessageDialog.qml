@@ -1,37 +1,27 @@
-import qbs
+import QtQuick 2.0
+import QtQuick.Dialogs 1.2
 
-import cutehmi
+import CuteHMI 2.0 as CuteHMI
 
-Project {
-	name: "CuteHMI.Examples.SimpleView.1"
+MessageDialog
+{
+	property CuteHMI.Message message
 
-	cutehmi.Extension {
-		name: parent.name
-
-		vendor: "CuteHMI"
-
-		domain: "cutehmi.kde.org"
-
-		friendlyName: "Simple View"
-
-		description: "Simple example demonstrating how to provide visual indication of device operational status with CuteHMI.GUI components."
-
-		files: [
-			"LICENSE",
-			"README.md",
-			"RectangularElement.qml",
-			"Main.qml",
-		]
-
-		Depends { name: "cutehmi.qmldir" }
-
-		Depends { name: "cutehmi.qmltypes" }
-
-		Depends { name: "cutehmi.view.3" }
-
-		Depends { name: "cutehmi.doxygen" }
-		cutehmi.doxygen.useDoxyqml: true
+	onMessageChanged: {
+		if (message) {
+			text = message.text
+			informativeText = message.informativeText
+			detailedText = message.detailedText
+			standardButtons = message.buttons
+			icon = message.type
+		}
 	}
+
+	onClickedButtonChanged: if (message) { message.acceptResponse(clickedButton); message = null }
+
+	onRejected: if (message) { message.acceptResponse(clickedButton); message = null }
+
+	Component.onDestruction: if (message) message.deleteLater()
 }
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
