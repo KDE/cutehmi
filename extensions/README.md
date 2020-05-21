@@ -141,7 +141,7 @@ the command line this can be done as follows.
 qbs resolve -f CuteHMI.qbs modules.cutehmi.conventions.debugOutput:true
 ```
 
-To print naming conentions for specific extension replace `modules` with `products.Vendor.Extension.MajorVersion.cutehmi.conventions.debugOutput:true`.
+To print naming conventions for specific extension replace `modules` with `products.Vendor.Extension.MajorVersion.cutehmi.conventions.debugOutput:true`.
 
 As stated - sticking to naming conventions is not hard requirement, but it helps
 avoid setting property values of various Qbs modules explicitly.
