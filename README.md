@@ -7,7 +7,7 @@
 [//]: # (\htmlonly)
 
 [![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
-[![Build Status](https://invent.kde.org/kde/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)
+[![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/20988/badge.svg)](https://scan.coverity.com/projects/cutehmi)
 
 [//]: # (\endhtmlonly)
@@ -38,12 +38,12 @@ Hence "perpetual beta" is desired development status of each branch.
 
 [//]: # (\htmlonly)
 
-| Branch                                         | Build status                                                                                                                   | Development status |
-|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| [master](https://invent.kde.org/kde/cutehmi)   | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines) | pre-alpha          |
-| [3](https://invent.kde.org/kde/cutehmi)        | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)      | alpha              |
-| [2](https://invent.kde.org/kde/cutehmi)        | [![Build Status](https://invent.kde.org/kde/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/kde/cutehmi/pipelines)      | perpetual beta     |
-| [1](https://invent.kde.org/kde/cutehmi/tree/1) | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
+| Branch                                          | Build status                                                                                                                   | Development status |
+|-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| [master](https://invent.kde.org/sdk/cutehmi)    | [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines) | pre-alpha          |
+| [3](https://invent.kde.org/sdk/cutehmi/-/tree/3)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
+| [2](https://invent.kde.org/sdk/cutehmi/-/tree/2)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
+| [1](https://invent.kde.org/sdk/cutehmi/tree/1)  | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
 
 [//]: # (\endhtmlonly)
 </div>
@@ -140,7 +140,7 @@ be also linked with each other. Some extensions may depend on
 
 ## Quick links
 
-- [Repository](https://invent.kde.org/kde/cutehmi)
+- [Repository](https://invent.kde.org/sdk/cutehmi)
 - [Website](https://cutehmi.kde.org/)
 - [Documentation](https://cutehmi.kde.org/docs/)
 
