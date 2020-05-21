@@ -69,16 +69,32 @@ items' results, so if the library is installed after the project has been
 configured with Qbs, it will not show up. You can use `--force-probe-execution`
 option to force Qbs to not use cached results.
 
+### Building only specified products
+
+By default Qbs will compile all the products (tools and extension), even if they
+are not needed for a project. To build only specific product use
+[Qbs build option](https://doc.qt.io/qbs/cli-build.html#op-op-op-op-products-op-op-op-op-p-op-lt-op-name-op-gt-op-op-op-op-op-op-lt-op-name-op-gt-op-op-op-op-op-op-op-op-op).
+`--products | -p`. For example following command will build only
+`CuteHMI.Examples.SimpleView.1` extension and its dependencies, using default
+configuration.
+
+```
+qbs -f CuteHMI.qbs -p CuteHMI.Examples.SimpleView.1
+```
+
+Find out more about build options on
+[Qbs documentation website](https://doc.qt.io/qbs/index.html).
+
 ## Getting started
 
 For an introduction you may want to run one of the existing examples. In CuteHMI
 everything is either a tool or an extension, therefore examples are also provided
 as extensions. Their names start with "CuteHMI.Examples" prefix. The most basic
-example `CuteHMI.Examples.SimpleView.0` can be run with `cutehmi.view.2` tool by
+example `CuteHMI.Examples.SimpleView.1` can be run with `cutehmi.view.3` tool by
 issuing following command.
 
 ```
-cutehmi.view.2 --extension="CuteHMI.Examples.SimpleView.0"
+cutehmi.view.3 --extension="CuteHMI.Examples.SimpleView.1"
 ```
 
 To create your own project you can simply copy one of the examples to your own
@@ -89,10 +105,10 @@ file and change `name` property to match extension name
 
 After that you can use `--force-probe-execution` Qbs option or delete build
 directory and rebuild whole project. Your extension should be installed and it
-can be run with `cutehmi.view.2` tool.
+can be run with `cutehmi.view.3` tool.
 
 ```
-cutehmi.view.2 --extension="Me.MyExtension.0"
+cutehmi.view.3 --extension="Me.MyExtension.0"
 ```
 
 More methodical approach is to use one of the templates. The process of creating
