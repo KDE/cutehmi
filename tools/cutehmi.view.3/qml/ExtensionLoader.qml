@@ -10,13 +10,13 @@ Item {
 		id: message
 
 		type: CuteHMI.Message.CRITICAL
-		text: qsTr("Could not load extension '%1'.").arg(cutehmi_view_extensionBasename + (cutehmi_view_extensionMajor ? "." + cutehmi_view_extensionMajor : ""))
+		text: qsTr("Could not load extension '%1'.").arg(cutehmi_view_extensionBaseName + " " + cutehmi_view_extensionMajor + "." + cutehmi_view_extensionMinor)
 		buttons: CuteHMI.Message.BUTTON_OK
 	}
 
 	Component.onCompleted: {
-		if (cutehmi_view_extensionBasename || cutehmi_view_extensionMajor) {
-			var qmlData = "import " + cutehmi_view_extensionBasename + " " + cutehmi_view_extensionMajor
+		if (cutehmi_view_extensionBaseName || cutehmi_view_extensionMajor || cutehmi_view_extensionMinor) {
+			var qmlData = "import " + cutehmi_view_extensionBaseName + " " + cutehmi_view_extensionMajor + "." + cutehmi_view_extensionMinor
 			qmlData += "\n" + cutehmi_view_extensionComponent + " { anchors.fill: parent }\n"
 
 			try {
