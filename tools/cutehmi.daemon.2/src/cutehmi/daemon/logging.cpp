@@ -1,7 +1,7 @@
 #include "logging.hpp"
 #include "../../../cutehmi.metadata.hpp"
 
-Q_LOGGING_CATEGORY(cutehmi_daemon_1_loggingCategory, CUTEHMI_DAEMON_NAME)
+Q_LOGGING_CATEGORY(cutehmi_daemon_loggingCategory, CUTEHMI_DAEMON_NAME)
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

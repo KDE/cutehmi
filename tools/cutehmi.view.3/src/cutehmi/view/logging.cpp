@@ -2,7 +2,7 @@
 
 #include "../../../cutehmi.metadata.hpp"
 
-Q_LOGGING_CATEGORY(cutehmi_view_3_loggingCategory, CUTEHMI_VIEW_NAME)
+Q_LOGGING_CATEGORY(cutehmi_view_loggingCategory, CUTEHMI_VIEW_NAME)
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

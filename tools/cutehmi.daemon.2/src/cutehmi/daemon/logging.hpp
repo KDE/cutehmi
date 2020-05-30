@@ -3,7 +3,7 @@
 
 #include <cutehmi/loggingMacros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_daemon_1_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_daemon_loggingCategory)
 
 namespace cutehmi {
 namespace daemon {
@@ -11,7 +11,7 @@ namespace daemon {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_daemon_1_loggingCategory();
+	return cutehmi_daemon_loggingCategory();
 }
 
 }
