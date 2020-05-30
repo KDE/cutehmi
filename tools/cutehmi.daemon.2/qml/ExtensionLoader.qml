@@ -6,8 +6,8 @@ QtObject {
 	id: extensionContainer
 
 	Component.onCompleted: {
-		if (cutehmi_daemon_extensionBasename || cutehmi_daemon_extensionMajor) {
-			var qmlData = "import " + cutehmi_daemon_extensionBasename + " " + cutehmi_daemon_extensionMajor
+		if (cutehmi_daemon_extensionBaseName || cutehmi_daemon_extensionMajor || cutehmi_daemon_extensionMinor) {
+			var qmlData = "import " + cutehmi_daemon_extensionBaseName + " " + cutehmi_daemon_extensionMajor + "." + cutehmi_daemon_extensionMinor
 			qmlData += "\n" + cutehmi_daemon_extensionComponent + " {}\n"
 
 			try {
@@ -16,7 +16,7 @@ QtObject {
 				var informativeText = qsTr("Reasons:")
 				informativeText += "\n" + error.qmlErrors.map(function (obj) { return "- " + obj.message }).join("\n") + "."
 
-				var extensionName = cutehmi_daemon_extensionBasename + (cutehmi_daemon_extensionMajor ? "." + cutehmi_daemon_extensionMajor : "")
+				var extensionName = cutehmi_daemon_extensionBaseName + " " + cutehmi_daemon_extensionMajor + "." + cutehmi_daemon_extensionMinor
 				console.error(qsTr("Could not load extension '%1'.").arg(extensionName))
 				console.error(informativeText)
 				Qt.exit(1)

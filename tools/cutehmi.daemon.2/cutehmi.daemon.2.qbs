@@ -22,7 +22,7 @@ Project {
 
 		friendlyName: "Daemon"
 
-		description: "Non-GUI program, which allows one to run QML project in the background."
+		description: "Console program, which allows one to run QML project in the background."
 
 		files: [
          "README.md",
@@ -41,6 +41,8 @@ Project {
 
 		property string defaultExtension
 
+		property string defaultMinor
+
 		property string defaultInit
 
 		property string defaultComponent
@@ -54,6 +56,9 @@ Project {
 
 			if (defaultExtension)
 				result.push("CUTEHMI_DAEMON_DEFAULT_EXTENSION=\"" + defaultExtension + "\"")
+
+			if (defaultMinor)
+				result.push("CUTEHMI_DAEMON_DEFAULT_MINOR=\"" + defaultMinor + "\"")
 
 			if (defaultInit)
 				result.push("CUTEHMI_DAEMON_DEFAULT_INIT=\"" + defaultInit + "\"")

@@ -18,6 +18,7 @@ struct CoreData
 		QCommandLineOption basedir;
 		QCommandLineOption init;
 		QCommandLineOption extension;
+		QCommandLineOption minor;
 		QCommandLineOption component;
 		QCommandLineOption lang;
 		QCommandLineOption pidfile;
