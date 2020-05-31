@@ -1,35 +1,7 @@
-#ifndef H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
-#define H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
+#include "logging.hpp"
+#include "../../../cutehmi.metadata.hpp"
 
-#include <QCoreApplication>
-#include <QCommandLineParser>
-
-namespace cutehmi {
-namespace daemon {
-
-struct CoreData
-{
-	QCoreApplication * app;
-	QCommandLineParser * cmd;
-
-	struct Options
-	{
-		QCommandLineOption app;
-		QCommandLineOption basedir;
-		QCommandLineOption init;
-		QCommandLineOption extension;
-		QCommandLineOption minor;
-		QCommandLineOption component;
-		QCommandLineOption lang;
-		QCommandLineOption pidfile;
-		QCommandLineOption nforks;
-	} * opt;
-};
-
-}
-}
-
-#endif
+Q_LOGGING_CATEGORY(cutehmi_cmd_loggingCategory, CUTEHMI_CMD_NAME)
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

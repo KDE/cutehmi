@@ -1,30 +1,18 @@
-#ifndef H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
-#define H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
+#ifndef H_TOOLS_CUTEHMI_CMD_0_SRC_CUTEHMI_CMD_LOGGING_HPP
+#define H_TOOLS_CUTEHMI_CMD_0_SRC_CUTEHMI_CMD_LOGGING_HPP
 
-#include <QCoreApplication>
-#include <QCommandLineParser>
+#include <cutehmi/loggingMacros.hpp>
+
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_cmd_loggingCategory)
 
 namespace cutehmi {
-namespace daemon {
+namespace cmd {
 
-struct CoreData
+inline
+const QLoggingCategory & loggingCategory()
 {
-	QCoreApplication * app;
-	QCommandLineParser * cmd;
-
-	struct Options
-	{
-		QCommandLineOption app;
-		QCommandLineOption basedir;
-		QCommandLineOption init;
-		QCommandLineOption extension;
-		QCommandLineOption minor;
-		QCommandLineOption component;
-		QCommandLineOption lang;
-		QCommandLineOption pidfile;
-		QCommandLineOption nforks;
-	} * opt;
-};
+	return cutehmi_cmd_loggingCategory();
+}
 
 }
 }

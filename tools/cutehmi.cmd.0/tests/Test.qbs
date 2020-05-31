@@ -1,35 +1,15 @@
-#ifndef H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
-#define H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
+import qbs
 
-#include <QCoreApplication>
-#include <QCommandLineParser>
+import cutehmi
 
-namespace cutehmi {
-namespace daemon {
-
-struct CoreData
+cutehmi.Test
 {
-	QCoreApplication * app;
-	QCommandLineParser * cmd;
+	testNamePrefix: parent.parent.name
 
-	struct Options
-	{
-		QCommandLineOption app;
-		QCommandLineOption basedir;
-		QCommandLineOption init;
-		QCommandLineOption extension;
-		QCommandLineOption minor;
-		QCommandLineOption component;
-		QCommandLineOption lang;
-		QCommandLineOption pidfile;
-		QCommandLineOption nforks;
-	} * opt;
-};
-
+	Depends { name: "cutehmi.cmd.0" }
+	Depends { name: "CuteHMI.2" }
+	Depends { name: "CuteHMI.Test.0" }
 }
-}
-
-#endif
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

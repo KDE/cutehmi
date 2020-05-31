@@ -45,6 +45,8 @@ Project {
 
 		property string defaultExtension
 
+		property string defaultMinor
+
 		property string defaultInit
 
 		property string defaultComponent
@@ -63,6 +65,9 @@ Project {
 
 			if (defaultExtension)
 				result.push("CUTEHMI_VIEW_DEFAULT_EXTENSION=\"" + defaultExtension + "\"")
+
+			if (defaultMinor)
+				result.push("CUTEHMI_VIEW_DEFAULT_MINOR=\"" + defaultMinor + "\"")
 
 			if (defaultInit)
 				result.push("CUTEHMI_VIEW_DEFAULT_INIT=\"" + defaultInit + "\"")

@@ -1,29 +1,18 @@
-#ifndef H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
-#define H_TOOLS_CUTEHMI_DAEMON_2_SRC_CUTEHMI_DAEMON_COREDATA_HPP
+#ifndef H_TOOLS_CUTEHMI_CMD_0_SRC_CUTEHMI_CMD_EXCEPTION_HPP
+#define H_TOOLS_CUTEHMI_CMD_0_SRC_CUTEHMI_CMD_EXCEPTION_HPP
 
-#include <QCoreApplication>
-#include <QCommandLineParser>
+#include <cutehmi/ExceptionMixin.hpp>
 
 namespace cutehmi {
-namespace daemon {
+namespace cmd {
 
-struct CoreData
+class Exception:
+	public ExceptionMixin<Exception>
 {
-	QCoreApplication * app;
-	QCommandLineParser * cmd;
+		typedef ExceptionMixin<Exception> Parent;
 
-	struct Options
-	{
-		QCommandLineOption app;
-		QCommandLineOption basedir;
-		QCommandLineOption init;
-		QCommandLineOption extension;
-		QCommandLineOption minor;
-		QCommandLineOption component;
-		QCommandLineOption lang;
-		QCommandLineOption pidfile;
-		QCommandLineOption nforks;
-	} * opt;
+	public:
+		Exception(const QString & what);
 };
 
 }

@@ -57,7 +57,8 @@ int main(int argc, char * argv[])
 		QCommandLineOption("app", QCoreApplication::translate("main", "Run project in application mode.")),
 		QCommandLineOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir")),
 		QCommandLineOption("init", QCoreApplication::translate("main", "Override loader by specifying initial QML <file> to load."), QCoreApplication::translate("main", "file")),
-		QCommandLineOption("extension", QCoreApplication::translate("main", "Load extension specified by QML <import>."), QCoreApplication::translate("main", "import")),
+		QCommandLineOption({"e", "extension"}, QCoreApplication::translate("main", "Use extension <name> as QML extension to load."), QCoreApplication::translate("main", "name")),
+		QCommandLineOption({"m", "minor"}, QCoreApplication::translate("main", "Use <version> for extension minor version to import."), QCoreApplication::translate("main", "version")),
 		QCommandLineOption("component", QCoreApplication::translate("main", "Extension component <name>."), QCoreApplication::translate("main", "name")),
 		QCommandLineOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language")),
 		QCommandLineOption("pidfile", QCoreApplication::translate("main", "PID file <path> (Unix-specific)."), QCoreApplication::translate("main", "path")),
@@ -73,6 +74,11 @@ int main(int argc, char * argv[])
 #endif
 #ifdef CUTEHMI_DAEMON_DEFAULT_EXTENSION
 	opt.extension.setDefaultValue(CUTEHMI_DAEMON_DEFAULT_EXTENSION);
+#endif
+#ifdef CUTEHMI_DAEMON_DEFAULT_MINOR
+	opt.minor.setDefaultValue(CUTEHMI_DAEMON_DEFAULT_MINOR);
+#else
+	opt.minor.setDefaultValue("0");
 #endif
 #ifdef CUTEHMI_DAEMON_FORCE_DEFAULT_OPTIONS
 	opt.extension.setFlags(QCommandLineOption::HiddenFromHelp);
@@ -96,6 +102,7 @@ int main(int argc, char * argv[])
 	cmd.addOption(opt.init);
 	cmd.addOption(opt.extension);
 	cmd.addOption(opt.component);
+	cmd.addOption(opt.minor);
 	cmd.addOption(opt.lang);
 	cmd.addOption(opt.pidfile);
 	cmd.addOption(opt.nforks);
@@ -135,30 +142,33 @@ int main(int argc, char * argv[])
 			QString extension = data.cmd->value(data.opt->extension);
 			QString init = data.cmd->value(data.opt->init);
 			QString component = data.cmd->value(data.opt->component);
+			QString extensionMinor = data.cmd->value(data.opt->minor);
 #else
 			QString extension = data.opt->extension.defaultValues().first();
+			QString extensionMinor = data.opt->minor.defaultValues().first();
 			QString init = data.opt->init.defaultValues().first();
 			QString component = data.opt->component.defaultValues().first();
 
 			if (data.cmd->value(data.opt->extension) != extension)
 				throw Exception(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(data.opt->extension.names().join(", ")).toLocal8Bit().constData());
+			if (data.cmd->value(data.opt->minor) != extensionMinor)
+				throw Exception(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(data.opt->minor.names().join(", ")).toLocal8Bit().constData());
 			if (data.cmd->value(data.opt->init) != init)
 				throw Exception(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(data.opt->init.names().join(", ")).toLocal8Bit().constData());
 			if (data.cmd->value(data.opt->component) != component)
 				throw Exception(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(data.opt->component.names().join(", ")).toLocal8Bit().constData());
 #endif
-
-			QStringList extensionParts = extension.split('.');
-			QString extensionMajor;
-			if (!extensionParts.isEmpty()) {
-				bool hasExtensionMajor;
-				extensionParts.last().toInt(& hasExtensionMajor);
-				if (hasExtensionMajor)
-					extensionMajor = extensionParts.takeLast();
+			if (!extensionMinor.isEmpty()) {
+				bool ok;
+				extensionMinor.toUInt(& ok);
+				if (!ok)
+					throw Exception(QCoreApplication::translate("main", "Command line argument error: value of '%1' option must be a number.").arg(data.opt->minor.names().last()));
 			}
-			QString extensionBasename = extensionParts.join('.');
-			engine.rootContext()->setContextProperty("cutehmi_daemon_extensionBasename", extensionBasename);
+			QString extensionBaseName = extension.left(extension.lastIndexOf('.'));
+			QString extensionMajor = extension.right(extension.length() - extension.lastIndexOf('.') - 1);
+			engine.rootContext()->setContextProperty("cutehmi_daemon_extensionBaseName", extensionBaseName);
 			engine.rootContext()->setContextProperty("cutehmi_daemon_extensionMajor", extensionMajor);
+			engine.rootContext()->setContextProperty("cutehmi_daemon_extensionMinor", extensionMinor);
 			engine.rootContext()->setContextProperty("cutehmi_daemon_extensionComponent", component);
 
 			//<cutehmi.daemon.2-1.workaround target="Qt" cause="QTBUG-73649">
@@ -174,7 +184,7 @@ int main(int argc, char * argv[])
 			if (!init.isNull()) {
 				CUTEHMI_DEBUG("Init: '" << init << "'");
 				CUTEHMI_DEBUG("Component: '" << component << "'");
-				CUTEHMI_DEBUG("Extension: '" << extension << "'");
+				CUTEHMI_DEBUG("Extension: '" << extensionBaseName << " " << extensionMajor << "." << extensionMinor << "'");
 				QUrl initUrl(init);
 				if (initUrl.isValid()) {
 					// Assure that URL is not mixing relative path with explicitly specified scheme, which is forbidden. QUrl::isValid() doesn't check this out.

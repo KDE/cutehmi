@@ -3,7 +3,7 @@
 
 #include <cutehmi/loggingMacros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_view_3_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_view_loggingCategory)
 
 namespace cutehmi {
 namespace view {
@@ -11,7 +11,7 @@ namespace view {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_view_3_loggingCategory();
+	return cutehmi_view_loggingCategory();
 }
 
 }
