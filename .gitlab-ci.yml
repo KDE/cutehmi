@@ -17,9 +17,10 @@ stages:
   stage: build
   only:
     - master
-    - "2"
-    - "3"
+    - /^\d+$/
     - merge_requests
+  except:
+    - "1"
   artifacts:
     expire_in: 48h
     paths:
@@ -97,9 +98,10 @@ clang ubuntu-18.04-qt-5.13.1 release build:
   allow_failure: true
   only:
     - master
-    - "2"
-    - "3"
+    - /^\d+$/
     - merge_requests
+  except:
+    - "1"
   artifacts:
     expire_in: 24h
     paths:
