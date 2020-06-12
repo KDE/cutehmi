@@ -1,16 +1,24 @@
-import qbs
+#ifndef H_TOOLS_CUTEHMI_CMD_0_SRC_CUTEHMI_CMD_EXCEPTION_HPP
+#define H_TOOLS_CUTEHMI_CMD_0_SRC_CUTEHMI_CMD_EXCEPTION_HPP
 
-import "Test.qbs" as Test
+#include <cutehmi/ExceptionMixin.hpp>
 
-Project {
-	Test {
-		testName: "test_cutehmi_cmd"
+namespace cutehmi {
+namespace console {
 
-		files: [
-			"test_cutehmi_cmd.cpp",
-		]
-	}
+class Exception:
+	public ExceptionMixin<Exception>
+{
+		typedef ExceptionMixin<Exception> Parent;
+
+	public:
+		Exception(const QString & what);
+};
+
 }
+}
+
+#endif
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

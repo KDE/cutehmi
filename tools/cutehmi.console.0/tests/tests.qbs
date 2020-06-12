@@ -1,7 +1,16 @@
-#include "logging.hpp"
-#include "../../../cutehmi.metadata.hpp"
+import qbs
 
-Q_LOGGING_CATEGORY(cutehmi_cmd_loggingCategory, CUTEHMI_CMD_NAME)
+import "Test.qbs" as Test
+
+Project {
+	Test {
+		testName: "test_cutehmi_console"
+
+		files: [
+			"test_cutehmi_console.cpp",
+		]
+	}
+}
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

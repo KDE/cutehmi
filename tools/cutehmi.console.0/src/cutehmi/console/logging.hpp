@@ -3,15 +3,15 @@
 
 #include <cutehmi/loggingMacros.hpp>
 
-Q_DECLARE_LOGGING_CATEGORY(cutehmi_cmd_loggingCategory)
+Q_DECLARE_LOGGING_CATEGORY(cutehmi_console_loggingCategory)
 
 namespace cutehmi {
-namespace cmd {
+namespace console {
 
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_cmd_loggingCategory();
+	return cutehmi_console_loggingCategory();
 }
 
 }

@@ -1,7 +1,9 @@
 #include "../cutehmi.metadata.hpp"
 #include "../cutehmi.dirs.hpp"
-#include "cutehmi/cmd/logging.hpp"
-#include "cutehmi/cmd/Exception.hpp"
+#include "cutehmi/console/logging.hpp"
+#include "cutehmi/console/Exception.hpp"
+#include "cutehmi/console/Interpreter.hpp"
+#include "cutehmi/console/InputHandler.hpp"
 
 #include <cutehmi/Messenger.hpp>
 
@@ -13,9 +15,9 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QtGlobal>
-#include <QQmlComponent>
+#include <QThread>
 
-using namespace cutehmi::cmd;
+using namespace cutehmi::console;
 
 /**
  * Main function.
@@ -27,10 +29,10 @@ int main(int argc, char * argv[])
 {
 	// Set up application.
 
-	QCoreApplication::setOrganizationName(CUTEHMI_CMD_VENDOR);
-	QCoreApplication::setOrganizationDomain(CUTEHMI_CMD_DOMAIN);
-	QCoreApplication::setApplicationName(CUTEHMI_CMD_FRIENDLY_NAME);
-	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_CMD_MAJOR).arg(CUTEHMI_CMD_MINOR).arg(CUTEHMI_CMD_MICRO));
+	QCoreApplication::setOrganizationName(CUTEHMI_CONSOLE_VENDOR);
+	QCoreApplication::setOrganizationDomain(CUTEHMI_CONSOLE_DOMAIN);
+	QCoreApplication::setApplicationName(CUTEHMI_CONSOLE_FRIENDLY_NAME);
+	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_CONSOLE_MAJOR).arg(CUTEHMI_CONSOLE_MINOR).arg(CUTEHMI_CONSOLE_MICRO));
 
 	try {
 		//<Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
@@ -58,7 +60,7 @@ int main(int argc, char * argv[])
 
 		QTranslator translator;
 		QString translationsDir = QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_TRANSLATIONS_INSTALL_SUBDIR);
-		QString translationFilePrefix = QString(CUTEHMI_CMD_NAME).replace('.', '-') + "_";
+		QString translationFilePrefix = QString(CUTEHMI_CONSOLE_NAME).replace('.', '-') + "_";
 		QString translationFile = translationFilePrefix + language;
 		if (!translator.load(translationFile, translationsDir))
 			CUTEHMI_WARNING("Could not load translations file '" << translationFile << "'.");
@@ -68,7 +70,7 @@ int main(int argc, char * argv[])
 		// Configure command line parser and process arguments.
 
 		QCommandLineParser cmd;
-		cmd.setApplicationDescription(CUTEHMI_CMD_TRANSLATED_FRIENDLY_NAME + "\n" + CUTEHMI_CMD_TRANSLATED_DESCRIPTION);
+		cmd.setApplicationDescription(CUTEHMI_CONSOLE_TRANSLATED_FRIENDLY_NAME + "\n" + CUTEHMI_CONSOLE_TRANSLATED_DESCRIPTION);
 		cmd.addHelpOption();
 		cmd.addVersionOption();
 
@@ -79,14 +81,17 @@ int main(int argc, char * argv[])
 		QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
 		cmd.addOption(basedirOption);
 
-		QCommandLineOption extensionOption({"e", "extension"}, QCoreApplication::translate("main", "Use extension <name> as QML extension to import."), QCoreApplication::translate("main", "name"));
-		cmd.addOption(extensionOption);
+		QCommandLineOption componentOption("component", QCoreApplication::translate("main", "Extension component <name>."), QCoreApplication::translate("main", "name"));
+		componentOption.setDefaultValue("Console");
+		cmd.addOption(componentOption);
 
 		QCommandLineOption minorOption({"m", "minor"}, QCoreApplication::translate("main", "Use <version> for extension minor version to import."), QCoreApplication::translate("main", "version"));
+		minorOption.setDefaultValue("0");
 		cmd.addOption(minorOption);
 
-		QCommandLineOption scriptOption({"s", "script"}, QCoreApplication::translate("main", "Script <code> to evaluate."), QCoreApplication::translate("main", "code"));
-		cmd.addOption(scriptOption);
+		cmd.addPositionalArgument("extension", QCoreApplication::translate("main", "Extension to import."), "[extension]");
+
+		cmd.addPositionalArgument("component", QCoreApplication::translate("main", "Component to create."), "[component]");
 
 		cmd.process(app);
 
@@ -116,53 +121,45 @@ int main(int argc, char * argv[])
 
 		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
 		engine->addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSIONS_INSTALL_SUBDIR);
-		QObject::connect(engine.get(), & QQmlEngine::warnings, [](const QList<QQmlError> & warnings) {
-			for (auto error : warnings)
-				CUTEHMI_CRITICAL("Script error: " << error.description());
-			exit(EXIT_FAILURE);
-		});
 
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 
-		QString extension = cmd.value(extensionOption);
-		QString extensionBaseName = extension.left(extension.lastIndexOf('.'));
-		QString extensionMajor = extension.right(extension.length() - extension.lastIndexOf('.') - 1);
+		CUTEHMI_INFO(QCoreApplication::translate("main", "Welcome to %1 %2. Type \\help to see the list of commands.").arg(CUTEHMI_CONSOLE_VENDOR).arg(CUTEHMI_CONSOLE_FRIENDLY_NAME));
 
-		QString extensionMinor = cmd.value(minorOption);
-		if (!extensionMinor.isEmpty()) {
-			bool ok;
-			extensionMinor.toUInt(& ok);
-			if (!ok)
-				throw Exception(QCoreApplication::translate("main", "Command line argument error: value of '%1' option must be a number.").arg(minorOption.names().last()));
+		QStringList positionalArguments = cmd.positionalArguments();
+		if (positionalArguments.length() > 0) {
+			QString extension = positionalArguments.at(0);
+			QString extensionBaseName = extension.left(extension.lastIndexOf('.'));
+			QString extensionMajor = extension.right(extension.length() - extension.lastIndexOf('.') - 1);
+
+			QString extensionMinor = cmd.value(minorOption);
+			if (!extensionMinor.isEmpty()) {
+				bool ok;
+				extensionMinor.toUInt(& ok);
+				if (!ok)
+					throw Exception(QCoreApplication::translate("main", "Command line argument error: value of '%1' option must be a number.").arg(minorOption.names().last()));
+			}
+
+			QString extensionComponent = cmd.value(componentOption);
+
+			QString extensionImportStatement;
+			if (!extension.isEmpty()) {
+				if (!extensionMinor.isEmpty())
+					extensionImportStatement = QString("import %1 %2.%3").arg(extensionBaseName).arg(extensionMajor).arg(extensionMinor);
+				else
+					extensionImportStatement = QString("import %1 %2").arg(extensionBaseName).arg(extensionMajor);
+			}
+
+			engine->loadData((extensionImportStatement + "\n" + extensionComponent + "{}").toLocal8Bit());
 		}
 
-		QString importStatement;
-		if (!extension.isEmpty()) {
-			if (!extensionMinor.isEmpty())
-				importStatement = QString("import %1 %2.%3").arg(extensionBaseName).arg(extensionMajor).arg(extensionMinor);
-			else
-				importStatement = QString("import %1 %2").arg(extensionBaseName).arg(extensionMajor);
-		}
+		InputHandler inputHandler;
+		Interpreter interpreter(engine.get());
+		QObject::connect(& inputHandler, & InputHandler::lineRead, & interpreter, & Interpreter::interperetLine, Qt::QueuedConnection);
+		QObject::connect(& interpreter, & Interpreter::lineInterpreted, & inputHandler, & InputHandler::readLine, Qt::QueuedConnection);
+		inputHandler.readLine();
 
-		QString script = cmd.value(scriptOption);
-
-		QStringList code;
-		code << "import QtQml 2.0 as QtQml"
-				<< importStatement
-				<< "QtQml.QtObject {"
-				<< "property var script: function() { " << script << "}"
-				<< "QtQml.Component.onCompleted: { script(); Qt.quit(); }"
-				<< "}";
-
-		QQmlComponent component(engine.get());
-		component.setData(code.join('\n').toLocal8Bit().constData(), QUrl());
-		component.create();
-
-		if (component.isError())
-			for (auto error : component.errors())
-				CUTEHMI_CRITICAL("Script error: " << error.description());
-		else
-			return app.exec();
+		return app.exec();
 
 		//</Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
 
@@ -182,7 +179,7 @@ int main(int argc, char * argv[])
 		throw;
 	}
 
-	return  EXIT_FAILURE;
+	return EXIT_FAILURE;
 
 }
 

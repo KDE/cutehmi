@@ -1,15 +1,7 @@
-#include "Exception.hpp"
+#include "logging.hpp"
+#include "../../../cutehmi.metadata.hpp"
 
-namespace cutehmi {
-namespace cmd {
-
-Exception::Exception(const QString & what):
-	Parent(what)
-{
-}
-
-}
-}
+Q_LOGGING_CATEGORY(cutehmi_console_loggingCategory, CUTEHMI_CONSOLE_NAME)
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

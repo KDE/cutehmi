@@ -3,7 +3,7 @@ import qbs 1.0
 import cutehmi
 
 Project {
-	name: "cutehmi.cmd.0"
+	name: "cutehmi.console.0"
 
 	condition: !qbs.targetOS.contains("android")
 
@@ -20,17 +20,23 @@ Project {
 
 		domain: "cutehmi.kde.org"
 
-		friendlyName: "Command"
+		friendlyName: "Console"
 
-		description: "Console program, which allows one to run QML script."
+		description: "interactive command line interface, which allows one to browse QML object model and evaluate expressions."
 
 		files: [
          "README.md",
-         "i18n/cutehmi-cmd-0_en.ts",
-		 "src/cutehmi/cmd/Exception.cpp",
-         "src/cutehmi/cmd/Exception.hpp",
-         "src/cutehmi/cmd/logging.cpp",
-         "src/cutehmi/cmd/logging.hpp",
+         "i18n/cutehmi-console-0_en.ts",
+         "src/cutehmi/console/Command.cpp",
+         "src/cutehmi/console/Command.hpp",
+         "src/cutehmi/console/Exception.cpp",
+         "src/cutehmi/console/Exception.hpp",
+         "src/cutehmi/console/InputHandler.cpp",
+         "src/cutehmi/console/InputHandler.hpp",
+         "src/cutehmi/console/Interpreter.cpp",
+         "src/cutehmi/console/Interpreter.hpp",
+         "src/cutehmi/console/logging.cpp",
+         "src/cutehmi/console/logging.hpp",
          "src/main.cpp",
      ]
 

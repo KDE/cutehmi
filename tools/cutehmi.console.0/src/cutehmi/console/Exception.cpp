@@ -1,14 +1,14 @@
-import qbs
+#include "Exception.hpp"
 
-import cutehmi
+namespace cutehmi {
+namespace console {
 
-cutehmi.Test
+Exception::Exception(const QString & what):
+	Parent(what)
 {
-	testNamePrefix: parent.parent.name
+}
 
-	Depends { name: "cutehmi.cmd.0" }
-	Depends { name: "CuteHMI.2" }
-	Depends { name: "CuteHMI.Test.0" }
+}
 }
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.

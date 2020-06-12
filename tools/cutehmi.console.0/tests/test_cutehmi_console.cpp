@@ -4,9 +4,9 @@
 #include "../cutehmi.dirs.hpp"
 
 namespace cutehmi {
-namespace cmd {
+namespace console {
 
-class test_cutehmi_cmd:
+class test_cutehmi_console:
 	public QObject
 {
 		Q_OBJECT
@@ -18,14 +18,12 @@ class test_cutehmi_cmd:
 
 		void versionOption();
 
-		void extensionMinorScript();
-
 	private:
 		QString m_installDir;
 		QString m_programPath;
 };
 
-void test_cutehmi_cmd::initTestCase()
+void test_cutehmi_console::initTestCase()
 {
 	m_installDir = qEnvironmentVariable("CUTEHMI_INSTALL_DIR");
 	QVERIFY(!m_installDir.isEmpty());
@@ -34,13 +32,13 @@ void test_cutehmi_cmd::initTestCase()
 	m_programPath = m_installDir;
 	if (!toolsInstallSubdir.isEmpty())
 		m_programPath += "/" + toolsInstallSubdir;
-	m_programPath +=  "/cutehmi.cmd.0";
+	m_programPath +=  "/cutehmi.console.0";
 #ifndef CUTEHMI_NDEBUG
 	m_programPath += ".debug";
 #endif
 }
 
-void test_cutehmi_cmd::helpOption()
+void test_cutehmi_console::helpOption()
 {
 	QList<QStringList> argumentsList;
 	argumentsList << QStringList({"--help"})
@@ -58,7 +56,7 @@ void test_cutehmi_cmd::helpOption()
 	}
 }
 
-void test_cutehmi_cmd::versionOption()
+void test_cutehmi_console::versionOption()
 {
 	QList<QStringList> argumentsList;
 	argumentsList << QStringList({"--version"})
@@ -76,26 +74,11 @@ void test_cutehmi_cmd::versionOption()
 	}
 }
 
-void test_cutehmi_cmd::extensionMinorScript()
-{
-	QProcess process;
-
-	QStringList arguments;
-	arguments << "--extension=CuteHMI.2"
-			<< "--minor=0"
-			<< "--script=console.info('test')";
-	process.start(m_programPath, arguments);
-	QVERIFY(process.waitForFinished(1000));
-	QCOMPARE(process.error(), QProcess::UnknownError);
-	QCOMPARE(process.exitStatus(), QProcess::NormalExit);
-	QCOMPARE(process.exitCode(), EXIT_SUCCESS);
-}
-
 }
 }
 
-QTEST_MAIN(cutehmi::cmd::test_cutehmi_cmd)
-#include "test_cutehmi_cmd.moc"
+QTEST_MAIN(cutehmi::console::test_cutehmi_console)
+#include "test_cutehmi_console.moc"
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
