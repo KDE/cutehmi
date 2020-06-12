@@ -17,20 +17,31 @@
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++
 and QML, using Qt libraries as a framework.
 
+Project is essentially a collection of libraries, plugins and executables,
+referred to as "extensions" and "tools", glued together by Qbs components. To
+create custom application one creates his own first-class extension, which may
+depend on any number of other extensions and uses specific tool to load its
+components. This makes CuteHMI very flexible framework with many use cases.
+
 ![Qt Designer](doc/images/design_mode.png)
-![Demo](doc/images/demo.png)
+![Sample application built with CuteHMI](doc/images/demo.png)
 
 Note: While most of the project uses GNU Lesser General Public License version
 3, some files are distributed under different licenses.
 
 ## Branches
 
+Consecutive branch numbers denote successive iterations of the project.
+Iteration of the project is related to build framework (repository layout and
+Qbs items). Extensions and tools are versioned independently and they have their
+own development status.
+
 Branch "master" is a development branch. Development branch may contain source
-code that is undergoing deep changes, rendering it unusable. Consecutive branch
-numbers denote successive iterations of the project. Iteration of the project
-is related to build framework (repository layout and Qbs items). Extensions and
-tools are versioned independently and they have their own development status.
-Hence "perpetual beta" is desired development status of each branch.
+code that is undergoing deep changes, rendering it unusable. Branch "master" is
+merged frequently into a branch, which has "alpha" status. This branch may also
+undergo deep modifications, but at least it guarantees successful builds. Most
+stable branches are denoted by "perpetual beta" status. No backward incompatible
+changes shall be made to them.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
