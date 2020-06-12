@@ -39,9 +39,9 @@ own development status.
 Branch "master" is a development branch. Development branch may contain source
 code that is undergoing deep changes, rendering it unusable. Branch "master" is
 merged frequently into a branch, which has "alpha" status. This branch may also
-undergo deep modifications, but at least it guarantees successful builds. Most
-stable branches are denoted by "perpetual beta" status. No backward incompatible
-changes shall be made to them.
+undergo deep modifications, but at least it is guaranteed to build successfuly.
+Most stable branches are denoted by "perpetual beta" status. No backward
+incompatible changes shall be made to them.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
