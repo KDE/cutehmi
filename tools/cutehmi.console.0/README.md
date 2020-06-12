@@ -4,7 +4,8 @@ Interactive command line interface, which allows one to browse QML object model 
 
 This tool allows one to execute QML expressions. One specifies an extension and the tool will make an attempt to import that
 extension and instantiate `Console` component. If the extension does not provide `Console` component an alternative non-GUI
-component may be specified with `--component` option.
+component may be specified with `--component` option. You can use `--help` command line argument to see a list of all possible
+command line options.
 
 For example following command imports [Console Example](../../extensions/CuteHMI/Examples/Console.0/) extension, which provides
 `Console` component allowing for some basic interaction with the tool.
@@ -33,7 +34,6 @@ qml: huhu
 
 The motiviation behind this tool is to make it possible to conveniently set up or configure an extenision, in situations, when no
 GUI is available. Creating a schema of a database is an example use case.
-
 
 ## Limitations
 
