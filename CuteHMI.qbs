@@ -13,6 +13,8 @@ Project {
 
 	property bool buildApk: false
 
+	property bool buildBinaries: true
+
 	qbsSearchPaths: ["qbs"]
 
 	references: [

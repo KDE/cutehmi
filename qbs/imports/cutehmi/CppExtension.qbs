@@ -8,7 +8,7 @@ import "Extension.qbs" as Extension
   library or QML plugin, or both).
   */
 Extension {
-	type: project.staticExtensions ? ["staticlibrary"] : ["dynamiclibrary"]
+	type: project.buildBinaries ? (project.staticExtensions ? ["staticlibrary"] : ["dynamiclibrary"]) : []
 
 	targetName: name
 	Properties {

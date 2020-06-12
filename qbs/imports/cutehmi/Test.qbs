@@ -6,7 +6,7 @@ import "CommonProduct.qbs" as CommonProduct
   Test product.
   */
 CommonProduct {
-	type: ["application", "autotest"]
+	type: project.buildBinaries ? ["application", "autotest"] : []
 
 	name: testNamePrefix + "." + testName
 

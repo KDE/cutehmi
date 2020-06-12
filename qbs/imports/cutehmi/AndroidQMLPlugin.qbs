@@ -12,7 +12,7 @@ CommonProduct {
 
 	condition: qbs.targetOS.contains("android")
 
-	type: ["dynamiclibrary", "android.nativelibrary"]
+	type: project.buildBinaries ? ["dynamiclibrary", "android.nativelibrary"] : []
 
 	targetName: extensionName
 

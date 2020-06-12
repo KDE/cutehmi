@@ -6,7 +6,7 @@ import "CommonProduct.qbs" as CommonProduct
   Tool product.
   */
 CommonProduct {
-	type: project.buildApk ? "android.apk" : "application"
+	type: project.buildBinaries ? (project.buildApk ? "android.apk" : "application") : []
 
 	cutehmiType: "tool"
 
