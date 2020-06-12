@@ -1,5 +1,5 @@
-#ifndef INTERPRETER_HPP
-#define INTERPRETER_HPP
+#ifndef H_TOOLS_CUTEHMI_CONSOLE_0_SRC_CUTEHMI_CONSOLE_INTERPRETER_HPP
+#define H_TOOLS_CUTEHMI_CONSOLE_0_SRC_CUTEHMI_CONSOLE_INTERPRETER_HPP
 
 #include "Command.hpp"
 
@@ -58,4 +58,4 @@ class Interpreter:
 }
 }
 
-#endif // INTERPRETER_HPP
+#endif
