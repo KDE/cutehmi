@@ -1,5 +1,5 @@
-#ifndef COMMAND_HPP
-#define COMMAND_HPP
+#ifndef H_TOOLS_CUTEHMI_CONSOLE_0_SRC_CUTEHMI_CONSOLE_COMMAND_HPP
+#define H_TOOLS_CUTEHMI_CONSOLE_0_SRC_CUTEHMI_CONSOLE_COMMAND_HPP
 
 #include <cutehmi/Error.hpp>
 
@@ -114,4 +114,4 @@ class Command
 }
 }
 
-#endif // COMMAND_HPP
+#endif
