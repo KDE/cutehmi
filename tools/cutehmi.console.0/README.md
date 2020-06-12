@@ -2,11 +2,11 @@
 
 Interactive command line interface, which allows one to browse QML object model and evaluate expressions.
 
-This tool allows one to execute QML expressions. Typical usage involves specifying extension to import and a QML code to be injected
-into a component, which defaults to `Console`, but may be specified with `--component` option.
+This tool allows one to execute QML expressions. One specifies an extension and the tool will make an attempt to import that
+extension and instantiate `Console` component. The component may be specified with `--component` option.
 
-For example following command imports [Console Example](../../extensions/CuteHMI/Examples/Console.0/) extension, which shows
-some basic usage of the tool.
+For example following command imports [Console Example](../../extensions/CuteHMI/Examples/Console.0/) extension, which provides
+`Console` component allowing for some basic interaction with the tool.
 ```
 cutehmi.console.0 CuteHMI.Examples.Console.0
 ```
