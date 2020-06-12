@@ -20,6 +20,7 @@ For example `\quit` string consists of `quit` command prepended by `\` (which by
 the one that enables the console command mode), so it is interpreted as a console command, which quits the console.
 ```
 # \quit
+cutehmi.console.0: See you.
 ```
 
 But the following are QML expressions with the results of evaluation printed below.
