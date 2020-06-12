@@ -58,7 +58,12 @@ void Interpreter::interperetLine(const QString & line)
 	}
 
 	if (!m_mainContextCommand.isSet() && !m_helpContextCommand.isSet()) {
-		QQmlExpression qmlExpression(m_engine->rootContext(), m_engine->rootObjects().at(0), line);
+		QObject * object;
+		if (!m_engine->rootObjects().isEmpty())
+			object = m_engine->rootObjects().at(0);
+		else
+			object = this;
+		QQmlExpression qmlExpression(m_engine->rootContext(), object, line);
 		bool valueIsUndefined;
 		QVariant expressionResult = qmlExpression.evaluate(& valueIsUndefined);
 		if (!valueIsUndefined)
