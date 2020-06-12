@@ -17,9 +17,9 @@
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++
 and QML, using Qt libraries as a framework.
 
-Project is essentially a collection of libraries, plugins and executables,
+CuteHMI is essentially a collection of libraries, plugins and executables,
 referred to as "extensions" and "tools", glued together by Qbs components. To
-create custom application one creates his own first-class extension, which may
+create custom project one creates his own first-class extension, which may
 depend on any number of other extensions and uses specific tool to load its
 components. This makes CuteHMI very flexible framework with many use cases.
 
