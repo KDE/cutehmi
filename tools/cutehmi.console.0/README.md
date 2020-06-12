@@ -13,15 +13,16 @@ cutehmi.console.0 CuteHMI.Examples.Console.0
 ```
 
 After starting the program, a command prompt is shown. Command line interpreter basically works in two modes: console command mode
-and QML expression mode. Any command that starts with `\` character is interpreted as console command; everything else is
+and QML expression mode. Any string that starts with `\` character is interpreted as console command; everything else is
 interpreted as QML expression.
 
-For example `\quit` command is prepended by `\`, so it is interpreted as console command, which quits the console.
+For example `\quit` string consists of `quit` command prepended by `\` (which by the implementation is also treated as a command -
+the one that enables the console command mode), so it is interpreted as a console command, which quits the console.
 ```
 # \quit
 ```
 
-But the following are treated as QML expressions with the results of evaluation printed below.
+But the following are QML expressions with the results of evaluation printed below.
 ```
 # 2+2
 cutehmi.console.0: QVariant(int, 4)
