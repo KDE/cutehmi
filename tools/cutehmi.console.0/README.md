@@ -33,3 +33,10 @@ qml: huhu
 
 The motiviation behind this tool is to make it possible to conveniently set up or configure an extenision, in situations, when no
 GUI is available. Creating a schema of a database is an example use case.
+
+
+## Limitations
+
+Except the obvious limitation like inability to represent GUI features or deficiencies of current version, Console may have
+troubles with extensions that use threads. As it does not provide dedicated output window nor customized input, such extensions may
+produce glitches.
