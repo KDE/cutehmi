@@ -32,7 +32,6 @@ void Notifier::add(Notification * notification_l)
 {
 	QMutexLocker locker(& m->modelMutex);
 
-#ifndef CUTEHMI_NDEBUG
 	switch (notification_l->type()) {
 		case Notification::INFO:
 			CUTEHMI_INFO("[NOTIFICATION] " << notification_l->text());
@@ -47,7 +46,6 @@ void Notifier::add(Notification * notification_l)
 			CUTEHMI_CRITICAL("Unrecognized code ('" << notification_l->type() << "') of 'Notification::type()'. Assuming 'Notification::CRITICAL'.");
 			CUTEHMI_CRITICAL("[NOTIFICATION] " << notification_l->text());
 	}
-#endif
 
 	m->model->prepend(notification_l->clone());
 
