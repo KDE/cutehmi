@@ -39,4 +39,4 @@ GUI is available. Creating a schema of a database is an example use case.
 
 Except the obvious limitation like inability to represent GUI features or deficiencies of current version, Console may have
 troubles with extensions that use threads. As it does not provide dedicated output window nor customized input, such extensions may
-produce glitches.
+produce glitches in the command line.
