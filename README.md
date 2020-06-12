@@ -7,7 +7,7 @@
 [//]: # (\htmlonly)
 
 [![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
-[![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)
+[![Build Status](https://invent.kde.org/sdk/cutehmi/badges/4/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/20988/badge.svg)](https://scan.coverity.com/projects/cutehmi)
 
 [//]: # (\endhtmlonly)
@@ -17,20 +17,31 @@
 CuteHMI is an open-source HMI (Human Machine Interface) software written in C++
 and QML, using Qt libraries as a framework.
 
+Project is essentially a collection of libraries, plugins and executables,
+referred to as "extensions" and "tools", glued together by Qbs components. To
+create custom application one creates his own first-class extension, which may
+depend on any number of other extensions and uses specific tool to load its
+components. This makes CuteHMI very flexible framework with many use cases.
+
 ![Qt Designer](doc/images/design_mode.png)
-![Demo](doc/images/demo.png)
+![Sample application built with CuteHMI](doc/images/demo.png)
 
 Note: While most of the project uses GNU Lesser General Public License version
 3, some files are distributed under different licenses.
 
 ## Branches
 
+Consecutive branch numbers denote successive iterations of the project.
+Iteration of the project is related to build framework (repository layout and
+Qbs items). Extensions and tools are versioned independently and they have their
+own development status.
+
 Branch "master" is a development branch. Development branch may contain source
-code that is undergoing deep changes, rendering it unusable. Consecutive branch
-numbers denote successive iterations of the project. Iteration of the project
-is related to build framework (repository layout and Qbs items). Extensions and
-tools are versioned independently and they have their own development status.
-Hence "perpetual beta" is desired development status of each branch.
+code that is undergoing deep changes, rendering it unusable. Branch "master" is
+merged frequently into a branch, which has "alpha" status. This branch may also
+undergo deep modifications, but at least it is guaranteed to build successfuly.
+Most stable branches are denoted by "perpetual beta" status. No backward
+incompatible changes shall be made to them.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
@@ -41,7 +52,8 @@ Hence "perpetual beta" is desired development status of each branch.
 | Branch                                          | Build status                                                                                                                   | Development status |
 |-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
 | [master](https://invent.kde.org/sdk/cutehmi)    | [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines) | pre-alpha          |
-| [3](https://invent.kde.org/sdk/cutehmi/-/tree/3)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
+| [4](https://invent.kde.org/sdk/cutehmi/-/tree/4)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/4/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
+| [3](https://invent.kde.org/sdk/cutehmi/-/tree/3)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
 | [2](https://invent.kde.org/sdk/cutehmi/-/tree/2)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
 | [1](https://invent.kde.org/sdk/cutehmi/tree/1)  | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
 
