@@ -51,6 +51,7 @@ Module {
 					if ((product.qbs.buildVariant == "debug") && product.qbs.hostOS.contains("windows")) {
 						var dumpCmd = new JavaScriptCommand()
 						dumpCmd.description = "can not generate artifact '" + output.filePath + "' without '" + qmlplugindumpProgram + "' in debug mode"
+						dumpCmd.qmlplugindumpProgram = qmlplugindumpProgram
 						dumpCmd.sourceCode = function () {
 							console.warn("Can not create '" + output.filePath + "' artifact without '" + qmlplugindumpProgram + "' in debug mode")
 						}
