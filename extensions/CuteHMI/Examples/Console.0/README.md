@@ -4,7 +4,7 @@ This extension can be used to demonstrate basic usage of [cutehmi.console.0](../
 
 To run the example use following command.
 ```
-cutehmi.console.0 CuteHMI.Examples.Console.0"
+cutehmi.console.0 CuteHMI.Examples.Console.0
 ```
 
 The example defines very simple QtObject-based `Console` component, which looks as follows.
