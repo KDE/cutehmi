@@ -55,7 +55,7 @@ incompatible changes shall be made to them.
 | [4](https://invent.kde.org/sdk/cutehmi/-/tree/4)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/4/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
 | [3](https://invent.kde.org/sdk/cutehmi/-/tree/3)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
 | [2](https://invent.kde.org/sdk/cutehmi/-/tree/2)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
-| [1](https://invent.kde.org/sdk/cutehmi/tree/1)  | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | alpha              |
+| [1](https://invent.kde.org/sdk/cutehmi/tree/1)  | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | perpetual beta     |
 
 [//]: # (\endhtmlonly)
 </div>
