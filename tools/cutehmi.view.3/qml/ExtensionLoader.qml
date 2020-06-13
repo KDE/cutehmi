@@ -15,7 +15,7 @@ Item {
 	}
 
 	Component.onCompleted: {
-		if (cutehmi_view_extensionBaseName || cutehmi_view_extensionMajor || cutehmi_view_extensionMinor) {
+		if (cutehmi_view_extensionBaseName && cutehmi_view_extensionMajor && cutehmi_view_extensionMinor) {
 			var qmlData = "import " + cutehmi_view_extensionBaseName + " " + cutehmi_view_extensionMajor + "." + cutehmi_view_extensionMinor
 			qmlData += "\n" + cutehmi_view_extensionComponent + " { anchors.fill: parent }\n"
 

@@ -6,7 +6,7 @@ QtObject {
 	id: extensionContainer
 
 	Component.onCompleted: {
-		if (cutehmi_daemon_extensionBaseName || cutehmi_daemon_extensionMajor || cutehmi_daemon_extensionMinor) {
+		if (cutehmi_daemon_extensionBaseName && cutehmi_daemon_extensionMajor && cutehmi_daemon_extensionMinor) {
 			var qmlData = "import " + cutehmi_daemon_extensionBaseName + " " + cutehmi_daemon_extensionMajor + "." + cutehmi_daemon_extensionMinor
 			qmlData += "\n" + cutehmi_daemon_extensionComponent + " {}\n"
 
