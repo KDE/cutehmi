@@ -9,11 +9,11 @@ namespace internal {
 
 typedef void(*singletonDestroyCallback)();
 
-CUTEHMI_PRIVATE void destroySingletonInstances();
+CUTEHMI_API void destroySingletonInstances();
 
-CUTEHMI_PRIVATE void storeSingletonDestroyCallback(singletonDestroyCallback callback);
+CUTEHMI_API void storeSingletonDestroyCallback(singletonDestroyCallback callback);
 
-CUTEHMI_PRIVATE void removeSingletonDestroyCallback(singletonDestroyCallback callback);
+CUTEHMI_API void removeSingletonDestroyCallback(singletonDestroyCallback callback);
 
 }
 }
