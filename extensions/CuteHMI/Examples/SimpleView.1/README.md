@@ -4,7 +4,7 @@ Simple example demonstrating how to provide visual indication of device operatio
 
 To run the example use [cutehmi.view.3](../../../../tools/cutehmi.view.3/) tool.
 ```
-cutehmi.view.3 --extension="CuteHMI.Examples.SimpleView.0"
+cutehmi.view.3 --extension="CuteHMI.Examples.SimpleView.1"
 ```
 
 \example Main.qml
