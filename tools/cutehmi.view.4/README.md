@@ -37,4 +37,5 @@ For debug builds use `cutehmi.view.4.debug` instead of `cutehmi.view.4`.
 
 Compared to previous major version following changes were made.
 - View looks for `View` component instead of `Main`.
-- Extension is specified by positional argument rather than `--extension` argument.
+- Extension is specified with first positional argument instead of `--extension` argument.
+- Component is specified with second positional argument instead of `--component` argument.
