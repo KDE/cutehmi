@@ -99,25 +99,24 @@ Find out more about build options on
 For an introduction you may want to run one of the existing examples. In CuteHMI
 everything is either a tool or an extension, therefore examples are also provided
 as extensions. Their names start with "CuteHMI.Examples" prefix. The most basic
-example `CuteHMI.Examples.SimpleView.1` can be run with `cutehmi.view.3` tool by
+example `CuteHMI.Examples.SimpleView.2` can be run with `cutehmi.view.4` tool by
 issuing following command.
 
 ```
-cutehmi.view.3 --extension="CuteHMI.Examples.SimpleView.1"
+cutehmi.view.4 CuteHMI.Examples.SimpleView.2
 ```
 
 To create your own project you can simply copy one of the examples to your own
-subdirectory in `extensions` directory (e.g. `Me/MyExtension.0`), rename `qbs` file
-accordingly to match extension name (e.g. `MyExtension.0.qbs`), then edit `qbs`
-file and change `name` property to match extension name
-(e.g. `name:  "Me.MyExtension.0"`)
+subdirectory in `extensions` directory (e.g. `Me/MyExtension.0`) and edit
+`project.qbs` file. Change `name` property to match extension name (e.g. `name:
+"Me.MyExtension.0"`)
 
 After that you can use `--force-probe-execution` Qbs option or delete build
 directory and rebuild whole project. Your extension should be installed and it
-can be run with `cutehmi.view.3` tool.
+can be run with `cutehmi.view.4` tool.
 
 ```
-cutehmi.view.3 --extension="Me.MyExtension.0"
+cutehmi.view.4 Me.MyExtension.0
 ```
 
 More methodical approach is to use one of the templates. The process of creating
