@@ -79,7 +79,7 @@ void test_cutehmi_daemon::versionOption()
 void test_cutehmi_daemon::countDaemonExample()
 {
 	QProcess process;
-	QStringList arguments { {"--app"}, {"--extension=CuteHMI.Examples.CountDaemon.2"} };
+	QStringList arguments { {"--app"}, {"CuteHMI.Examples.CountDaemon.3"} };
 	process.start(m_programPath, arguments);
 	QVERIFY(process.waitForFinished());
 
