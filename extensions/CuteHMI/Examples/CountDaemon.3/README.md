@@ -4,7 +4,7 @@ Counting daemon example. Daemon counts to 10 and then quits.
 
 To run the example use [cutehmi.daemon.3](../../../../tools/cutehmi.daemon.3/) tool.
 ```
-cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.2
+cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.3
 ```
 
 Running this example should result in printing following lines.
