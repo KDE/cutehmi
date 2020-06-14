@@ -13,9 +13,9 @@ cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.3
 Read system logs to investigate whether daemon is running (e.g. `journalctl -n20` on a system with *systemd*).
 
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).
-For example following command runs [Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.2/) in application mode.
+For example following command runs [Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.3/) in application mode.
 ```
-cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.2 --app
+cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.3 --app
 ```
 
 Default loader picks `Daemon.qml` as default QML component to load. Component can be specified with second positional argument.
