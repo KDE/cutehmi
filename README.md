@@ -39,9 +39,9 @@ own development status.
 Branch "master" is a development branch. Development branch may contain source
 code that is undergoing deep changes, rendering it unusable. Branch "master" is
 merged frequently into a branch, which has "alpha" status. This branch may also
-undergo deep modifications, but at least it is guaranteed to build successfuly.
-Most stable branches are denoted by "perpetual beta" status. No backward
-incompatible changes shall be made to them.
+undergo deep modifications, but it should be usable. Branches with
+"perpetual beta" status are stable in a sense that no backward incompatible
+changes shall be made to them.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
@@ -54,8 +54,6 @@ incompatible changes shall be made to them.
 | [master](https://invent.kde.org/sdk/cutehmi)    | [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines) | pre-alpha          |
 | [4](https://invent.kde.org/sdk/cutehmi/-/tree/4)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/4/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
 | [3](https://invent.kde.org/sdk/cutehmi/-/tree/3)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
-| [2](https://invent.kde.org/sdk/cutehmi/-/tree/2)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
-| [1](https://invent.kde.org/sdk/cutehmi/tree/1)  | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | perpetual beta     |
 
 [//]: # (\endhtmlonly)
 </div>
