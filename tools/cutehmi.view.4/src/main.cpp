@@ -126,16 +126,10 @@ int main(int argc, char * argv[])
 
 		QCommandLineOption initOption("init", QCoreApplication::translate("main", "Override loader by specifying initial QML <file> to load."), QCoreApplication::translate("main", "file"));
 		initOption.setDefaultValue(DEFAULT_INIT);
-#ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
-		initOption.setFlags(QCommandLineOption::HiddenFromHelp);
-#endif
 		cmd.addOption(initOption);
 
 		QCommandLineOption minorOption({"m", "minor"}, QCoreApplication::translate("main", "Use <version> for extension minor version to import."), QCoreApplication::translate("main", "version"));
 		minorOption.setDefaultValue(DEFAULT_MINOR);
-#ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
-		minorOption.setFlags(QCommandLineOption::HiddenFromHelp);
-#endif
 		cmd.addOption(minorOption);
 
 		QCommandLineOption hideCursorOption({"t", "touch"}, QCoreApplication::translate("main", "Touch screen (hides mouse cursor)."));
@@ -151,10 +145,12 @@ int main(int argc, char * argv[])
 		QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
 		cmd.addOption(basedirOption);
 
-#ifndef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
+#ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
+		minorOption.setFlags(QCommandLineOption::HiddenFromHelp);
+		initOption.setFlags(QCommandLineOption::HiddenFromHelp);
+#else
 		cmd.addPositionalArgument("extension", QCoreApplication::translate("main", "Extension to import."), "[extension]");
-
-		cmd.addPositionalArgument("component", QCoreApplication::translate("main", "Component to create. Defaults to 'View'."), "[component]");
+		cmd.addPositionalArgument("component", QCoreApplication::translate("main", "Component to create. Defaults to '%1'.").arg(DEFAULT_COMPONENT), "[component]");
 #endif
 
 		cmd.process(app);
@@ -240,6 +236,12 @@ int main(int argc, char * argv[])
 		}
 		QString extensionBaseName = extension.left(extension.lastIndexOf('.'));
 		QString extensionMajor = extension.right(extension.length() - extension.lastIndexOf('.') - 1);
+		{
+			bool ok;
+			extensionMajor.toUInt(& ok);
+			if (!ok)
+				CUTEHMI_DIE(QCoreApplication::translate("main", "Command line argument error: please specify extension with major version number after the last dot.").toLocal8Bit().constData());
+		}
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionBaseName", extensionBaseName);
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionMajor", extensionMajor);
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionMinor", extensionMinor);
