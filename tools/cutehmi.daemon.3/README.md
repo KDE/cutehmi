@@ -1,34 +1,32 @@
 # Daemon
 
-**Obsolete** - this tool is being replaced by [cutehmi.daemon.3](../cutehmi.daemon.3/).
-
 Console program, which allows one to run QML project in the background.
 
 Daemon mode is currently supported only on Linux. On Windows program can be run in application mode only (`--app` option).
 
-Any extension that does not provide graphical UI QML component can be loaded as *cutehmi.daemon.2* project. Use `--extension`
-command line argument to specify an extension. For example to run
-[Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.2/) example use following command.
-
+Any extension that does not provide graphical UI QML component can be loaded as *cutehmi.daemon.3* project. Use positional argument
+to specify an extension. For example to run [Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.3/) example use following
+command.
 ```
-cutehmi.daemon.2 --extension="CuteHMI.Examples.CountDaemon.2"
+cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.3
 ```
 Read system logs to investigate whether daemon is running (e.g. `journalctl -n20` on a system with *systemd*).
 
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).
 For example following command runs [Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.2/) in application mode.
 ```
-cutehmi.daemon.2 --extension="CuteHMI.Examples.CountDaemon.2" --app
+cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.2 --app
 ```
 
-Default loader picks `Main.qml` as default QML component to load. Component can be specified with `--component` option. One can also
-use `--init` option to replace default loader with custom one.
+Default loader picks `Daemon.qml` as default QML component to load. Component can be specified with second positional argument.
+
+One can also use `--init` option to replace default loader with custom one.
 
 You can use `--help` command line argument to see the list of all possible command line options.
 
 Setting empty path for PID file option (`--pidfile=`) disables creation of PID file.
 
-Fore debug builds use `cutehmi.daemon.2.debug` instead of `cutehmi.daemon.2`.
+Fore debug builds use `cutehmi.daemon.3.debug` instead of `cutehmi.daemon.3`.
 
 ## Linux
 
@@ -78,11 +76,19 @@ as *screen* and *nohup* can be used to prevent process from being killed when us
 
 ---
 
-There are some valid points in each of these views, so *cutehmi.daemon.2* allows you to pick number of forks by setting
-`--nforks={number}` parameter. For *systemd* service pick `--nforks=1` and use `Type=forking` or `--nforks=0` with `Type=simple`.
-Note that `--nforks=0` is not the same as application mode (`--app` option) - daemon uses system logging facility instead of
+There are some valid points in each of these views, so *cutehmi.daemon.3* allows you to pick number of forks by setting
+`--forks={number}` parameter. For *systemd* service pick `--forks=1` and use `Type=forking` or `--forks=0` with `Type=simple`.
+Note that `--forks=0` is not the same as application mode (`--app` option) - daemon uses system logging facility instead of
 standard output, responds to signals, unlocks former working directory, creates PID file, closes file descriptors and resets its
 umask.
+
+## Changes
+
+Compared to previous major version following changes were made.
+- Daemon looks for `Daemon` QML component instead of Main`.
+- Extension is specified with first positional argument instead of `--extension` argument.
+- Component is specified with second positional argument instead of `--component` argument.
+- Option `--nforks` has been renamed to `--forks`.
 
 ## References
 
