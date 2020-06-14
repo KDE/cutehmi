@@ -5,7 +5,7 @@ QtObject {
 	property string book: "Mein Kampf by Adolf Hitler"
 
 	function tell() {
-		console.info(qsTr("I highly recommend the book " + book + "!"))
+		console.info(qsTr("I highly recommend the book %1!").arg(book))
 	}
 }
 //! [QtObject]
