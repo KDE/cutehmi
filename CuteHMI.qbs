@@ -1,8 +1,6 @@
 import qbs
 
 Project {
-	property bool buildExamples: true
-
 	property bool buildExtensions: true
 
 	property bool buildTests: false
