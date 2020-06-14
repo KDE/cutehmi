@@ -75,12 +75,12 @@ Classes exposed as QML components are listed within CuteHMI.Modbus namespace.
 
 The extension is supplemented by following examples.
 
-- [CuteHMI.Examples.Modbus.Basic.0](../Examples/Modbus/Basic.0/)
-- [CuteHMI.Examples.Modbus.ClientServer.0](../Examples/Modbus/ClientServer.0/)
-- [CuteHMI.Examples.Modbus.ControllerItems.0](../Examples/Modbus/ControllerItems.0/)
-- [CuteHMI.Examples.Modbus.Controllers.0](../Examples/Modbus/Controllers.0/)
-- [CuteHMI.Examples.Modbus.Requests.0](../Examples/Modbus/Requests.0/)
+- [CuteHMI.Examples.Modbus.Basic.1](../Examples/Modbus/Basic.1/)
+- [CuteHMI.Examples.Modbus.ClientServer.1](../Examples/Modbus/ClientServer.1/)
+- [CuteHMI.Examples.Modbus.ControllerItems.1](../Examples/Modbus/ControllerItems.1/)
+- [CuteHMI.Examples.Modbus.Controllers.1](../Examples/Modbus/Controllers.1/)
+- [CuteHMI.Examples.Modbus.Requests.1](../Examples/Modbus/Requests.1/)
 
-The one to get started with is [CuteHMI.Examples.Modbus.Basic.0](../Examples/Modbus/Basic.0/). This example shows basic usage of QML
-components. Another simple example [CuteHMI.Examples.Modbus.ControllerItems.0](../Examples/Modbus/ControllerItems.0/) is provided to
+The one to get started with is [CuteHMI.Examples.Modbus.Basic.1](../Examples/Modbus/Basic.1/). This example shows basic usage of QML
+components. Another simple example [CuteHMI.Examples.Modbus.ControllerItems.1](../Examples/Modbus/ControllerItems.1/) is provided to
 work with Qt Creator in "Design" mode. The other examples are provided to demonstrate more advanced features.
