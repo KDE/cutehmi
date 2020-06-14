@@ -10,7 +10,7 @@ Item {
 	width: 800
 	height: 600
 
-	Main {
+	View {
 		id: main
 
 		TestCase {
