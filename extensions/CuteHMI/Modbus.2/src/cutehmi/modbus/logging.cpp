@@ -1,6 +1,7 @@
 #include <cutehmi/modbus/logging.hpp>
+#include <cutehmi/modbus/metadata.hpp>
 
-Q_LOGGING_CATEGORY(cutehmi_modbus_2_loggingCategory, "CuteHMI.Modbus.2")
+Q_LOGGING_CATEGORY(cutehmi_modbus_loggingCategory, CUTEHMI_MODBUS_NAME)
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

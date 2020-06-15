@@ -1,7 +1,7 @@
 #include <cutehmi/gpio/logging.hpp>
 #include <cutehmi/gpio/metadata.hpp>
 
-Q_LOGGING_CATEGORY(cutehmi_gpio_0_loggingCategory, CUTEHMI_GPIO_NAME)
+Q_LOGGING_CATEGORY(cutehmi_gpio_loggingCategory, CUTEHMI_GPIO_NAME)
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

@@ -4,7 +4,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-CUTEHMI_FILESYSTEM_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_filesystem_0_loggingCategory)
+CUTEHMI_FILESYSTEM_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_filesystem_loggingCategory)
 
 namespace cutehmi {
 namespace filesystem {
@@ -12,7 +12,7 @@ namespace filesystem {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_filesystem_0_loggingCategory();
+	return cutehmi_filesystem_loggingCategory();
 }
 
 }

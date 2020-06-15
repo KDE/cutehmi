@@ -4,7 +4,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-CUTEHMI_GUI_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_gui_1_loggingCategory)
+CUTEHMI_GUI_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_gui_loggingCategory)
 
 namespace cutehmi {
 namespace gui {
@@ -12,7 +12,7 @@ namespace gui {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_gui_1_loggingCategory();
+	return cutehmi_gui_loggingCategory();
 }
 
 }

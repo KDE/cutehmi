@@ -4,7 +4,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-CUTEHMI_GPIO_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_gpio_0_loggingCategory)
+CUTEHMI_GPIO_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_gpio_loggingCategory)
 
 namespace cutehmi {
 namespace gpio {
@@ -12,7 +12,7 @@ namespace gpio {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_gpio_0_loggingCategory();
+	return cutehmi_gpio_loggingCategory();
 }
 
 }

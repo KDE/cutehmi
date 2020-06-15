@@ -6,7 +6,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-CUTEHMI_DATAACQUISITION_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_dataacquisition_0_loggingCategory)
+CUTEHMI_DATAACQUISITION_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_dataacquisition_loggingCategory)
 
 namespace cutehmi {
 namespace dataacquisition {
@@ -14,7 +14,7 @@ namespace dataacquisition {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_dataacquisition_0_loggingCategory();
+	return cutehmi_dataacquisition_loggingCategory();
 }
 
 }

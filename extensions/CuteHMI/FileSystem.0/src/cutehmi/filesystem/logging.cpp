@@ -1,7 +1,7 @@
 #include <cutehmi/filesystem/logging.hpp>
 #include <cutehmi/filesystem/metadata.hpp>
 
-Q_LOGGING_CATEGORY(cutehmi_filesystem_0_loggingCategory, CUTEHMI_FILESYSTEM_NAME)
+Q_LOGGING_CATEGORY(cutehmi_filesystem_loggingCategory, CUTEHMI_FILESYSTEM_NAME)
 
 //(c)C: Copyright © 2019, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

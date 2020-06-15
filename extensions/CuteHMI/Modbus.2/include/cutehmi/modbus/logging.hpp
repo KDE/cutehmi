@@ -4,7 +4,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-CUTEHMI_MODBUS_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_2_loggingCategory)
+CUTEHMI_MODBUS_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_loggingCategory)
 
 namespace cutehmi {
 namespace modbus {
@@ -12,7 +12,7 @@ namespace modbus {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_modbus_2_loggingCategory();
+	return cutehmi_modbus_loggingCategory();
 }
 
 }

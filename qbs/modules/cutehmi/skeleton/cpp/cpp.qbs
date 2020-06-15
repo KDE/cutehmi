@@ -419,7 +419,7 @@ Module {
 						f.writeLine("#include <cutehmi/loggingMacros.hpp>")
 
 						f.writeLine("")
-						f.writeLine(macroPrefix + "_API Q_DECLARE_LOGGING_CATEGORY(" + loggingCategory + "_loggingCategory)")
+						f.writeLine(macroPrefix + "_API Q_DECLARE_LOGGING_CATEGORY(" + loggingCategory + ")")
 
 						f.writeLine("")
 						for (var level in namespaceArray)
@@ -429,7 +429,7 @@ Module {
 						f.writeLine("inline")
 						f.writeLine("const QLoggingCategory & loggingCategory()")
 						f.writeLine("{")
-						f.writeLine("	return " + loggingCategory + "_loggingCategory();")
+						f.writeLine("	return " + loggingCategory + "();")
 						f.writeLine("}")
 
 						f.writeLine("")
@@ -468,9 +468,9 @@ Module {
 
 						f.writeLine("")
 						if (useMetadata)
-							f.writeLine("Q_LOGGING_CATEGORY(" + loggingCategory + "_loggingCategory, " + macroPrefix + "_NAME)")
+							f.writeLine("Q_LOGGING_CATEGORY(" + loggingCategory + ", " + macroPrefix + "_NAME)")
 						else
-							f.writeLine("Q_LOGGING_CATEGORY(" + loggingCategory + "_loggingCategory, \"" + loggingCategoryId + "\")")
+							f.writeLine("Q_LOGGING_CATEGORY(" + loggingCategory + ", \"" + loggingCategoryId + "\")")
 					} finally {
 						f.close()
 					}

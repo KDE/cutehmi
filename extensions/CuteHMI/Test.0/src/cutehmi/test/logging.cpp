@@ -1,7 +1,7 @@
 #include <cutehmi/test/logging.hpp>
 #include <cutehmi/test/metadata.hpp>
 
-Q_LOGGING_CATEGORY(cutehmi_test_0_loggingCategory, CUTEHMI_TEST_NAME)
+Q_LOGGING_CATEGORY(cutehmi_test_loggingCategory, CUTEHMI_TEST_NAME)
 
 //(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
