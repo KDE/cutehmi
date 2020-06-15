@@ -191,13 +191,13 @@ Command::ErrorsContainer Command::collectErrors() const
 	return result;
 }
 
-QString Command::execute(QQmlApplicationEngine * engine)
+QString Command::execute(ExecutionContext & context)
 {
 	QString result;
 
 	for (auto subcommand : m_subcommands)
 		if (subcommand->isSet())
-			result.append(subcommand->execute(engine));
+			result.append(subcommand->execute(context));
 
 	return result;
 }

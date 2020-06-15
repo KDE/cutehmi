@@ -30,29 +30,31 @@ class Interpreter:
 					public:
 						using Command::Command;
 
-						QString execute(QQmlApplicationEngine * engine) override;
+						QString execute(ExecutionContext & context) override;
 
 						QString createSynopsisString(const CommandsContainer & commands);
 
 						QString createDescriptionString(const CommandsContainer & commands);
 
 						QString createDefaultsString(const CommandsContainer & commands);
-				} help;
+				};
+				std::unique_ptr<Help> help;
 
 				class Quit : public Command {
 					public:
 						using Command::Command;
 
-						QString execute(QQmlApplicationEngine * engine) override;
-				} quit;
+						QString execute(ExecutionContext & context) override;
+				};
+				std::unique_ptr<Quit> quit;
 		} m_commands;
 
-		QQmlApplicationEngine * m_engine;
+		Command::ExecutionContext m_context;
 		QCommandLineParser m_cmd;
 		QCommandLineOption m_quitOption;
 		QObject * m_currentObject;
-		Command m_mainContextCommand;
-		Command m_helpContextCommand;
+		Command m_consoleCommand;
+		Command m_helpCommand;
 };
 
 }

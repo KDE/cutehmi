@@ -31,6 +31,12 @@ class Command
 				QString m_message;
 		};
 
+		struct ExecutionContext
+		{
+			QQmlApplicationEngine * engine;
+			QObject * scopeObject;
+		};
+
 		typedef QList<Error> ErrorsContainer;
 
 		typedef QList<Command *> CommandsContainer;
@@ -93,7 +99,7 @@ class Command
 
 		ErrorsContainer collectErrors() const;
 
-		virtual QString execute(QQmlApplicationEngine * engine);
+		virtual QString execute(ExecutionContext & context);
 
 	protected:
 		void setParentCommand(Command * parentCommand);

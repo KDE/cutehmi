@@ -9,43 +9,48 @@ namespace console {
 
 Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	QObject(parent),
-	m_engine(engine),
+	m_context{engine,
+			nullptr},
 	m_quitOption("quit", QCoreApplication::translate("main", "Gracefully quit the console.")),
 	m_currentObject(nullptr)
 {
-	m_mainContextCommand.setNames({"\\"});
-	m_mainContextCommand.setHelp(tr("Denotes console command."));
-	m_mainContextCommand.setMatchingStrings({"\\"});
-	m_mainContextCommand.setSubcommandRequired(true);
+	if (!m_context.engine->rootObjects().isEmpty())
+		m_context.scopeObject = m_context.engine->rootObjects().at(0);
+	else
+		m_context.scopeObject = m_context.engine;
 
-	m_commands.quit = Commands::Quit({"quit", "q"});
-	m_commands.quit.setHelp(tr("Quit the console."));
-	m_commands.help.addSubcommand(& m_commands.quit);
-	m_mainContextCommand.addSubcommand(& m_commands.quit);
+	m_consoleCommand.setNames({"\\"});
+	m_consoleCommand.setHelp(tr("Denotes console command."));
+	m_consoleCommand.setMatchingStrings({"\\"});
+	m_consoleCommand.setSubcommandRequired(true);
 
-	m_helpContextCommand.setNames({"\\"});
-	m_helpContextCommand.setHelp(tr("Denotes console command."));
-	m_helpContextCommand.setMatchingStrings({"\\"});
-	m_helpContextCommand.setSubcommandRequired(true);
+	m_commands.quit = std::make_unique<Commands::Quit>(QStringList({"quit", "q"}));
+	m_commands.quit->setHelp(tr("Quit the console."));
+	m_consoleCommand.addSubcommand(m_commands.quit.get());
 
-	m_commands.help = Commands::Help({"help", "h"});
-	m_commands.help.setHelp(tr("Shows help."));
-	m_commands.help.addSubcommand(& m_mainContextCommand);
-	m_commands.help.setDefaultSubcommandString("\\");
-	m_helpContextCommand.addSubcommand(& m_commands.help);
+	m_helpCommand.setNames({"\\"});
+	m_helpCommand.setHelp(tr("Denotes console command."));
+	m_helpCommand.setMatchingStrings({"\\"});
+	m_helpCommand.setSubcommandRequired(true);
+
+	m_commands.help = std::make_unique<Commands::Help>(QStringList({"help", "h"}));
+	m_commands.help->setHelp(tr("Shows help."));
+	m_commands.help->addSubcommand(& m_consoleCommand);
+	m_commands.help->setDefaultSubcommandString("\\");
+	m_helpCommand.addSubcommand(m_commands.help.get());
 }
 
 void Interpreter::interperetLine(const QString & line)
 {
 	QStringList commands = line.split(QRegExp("\\s+|\\b"), QString::SkipEmptyParts);
 
-	m_helpContextCommand.parse(commands);
-	if (m_commands.help.isSet())
-		CUTEHMI_INFO(m_helpContextCommand.execute(m_engine));
+	m_helpCommand.parse(commands);
+	if (m_commands.help->isSet())
+		CUTEHMI_INFO(m_helpCommand.execute(m_context));
 	else {
-		m_mainContextCommand.parse(commands);
-		if (m_mainContextCommand.isSet()) {
-			Command::ErrorsContainer errors = m_mainContextCommand.collectErrors();
+		m_consoleCommand.parse(commands);
+		if (m_consoleCommand.isSet()) {
+			Command::ErrorsContainer errors = m_consoleCommand.collectErrors();
 			if (!errors.isEmpty()) {
 				QString errorString(tr("Command has failed because of following errors:"));
 				for (auto error : errors) {
@@ -54,17 +59,12 @@ void Interpreter::interperetLine(const QString & line)
 				}
 				CUTEHMI_CRITICAL(errorString);
 			} else
-				CUTEHMI_INFO(m_mainContextCommand.execute(m_engine));
+				CUTEHMI_INFO(m_consoleCommand.execute(m_context));
 		}
 	}
 
-	if (!m_mainContextCommand.isSet() && !m_helpContextCommand.isSet()) {
-		QObject * object;
-		if (!m_engine->rootObjects().isEmpty())
-			object = m_engine->rootObjects().at(0);
-		else
-			object = m_engine;
-		QQmlExpression qmlExpression(m_engine->rootContext(), object, line);
+	if (!m_consoleCommand.isSet() && !m_helpCommand.isSet()) {
+		QQmlExpression qmlExpression(m_context.engine->rootContext(), m_context.scopeObject, line);
 		bool valueIsUndefined;
 		QVariant expressionResult = qmlExpression.evaluate(& valueIsUndefined);
 		if (!valueIsUndefined)
@@ -76,17 +76,17 @@ void Interpreter::interperetLine(const QString & line)
 	emit lineInterpreted();
 }
 
-QString Interpreter::Commands::Quit::execute(QQmlApplicationEngine * engine)
+QString Interpreter::Commands::Quit::execute(ExecutionContext & context)
 {
-	Q_UNUSED(engine)
+	Q_UNUSED(context)
 
 	QCoreApplication::quit();
 	return "See you.";
 }
 
-QString Interpreter::Commands::Help::execute(QQmlApplicationEngine * engine)
+QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 {
-	Q_UNUSED(engine)
+	Q_UNUSED(context)
 
 	QString result;
 
@@ -226,12 +226,10 @@ QString Interpreter::Commands::Help::createDefaultsString(const Command::Command
 		if (!defaultSubcommand.isEmpty()) {
 			if (result.back() != '\\')
 				result.append(' ');
-			CUTEHMI_DEBUG("!isEmpty " << defaultSubcommand);
 			result.append('\'').append(defaultSubcommand).append('\'');
 		} else {
 			if (result.back() != '\\')
 				result.append(' ');
-			CUTEHMI_DEBUG("isEmpty  " << command->names().value(0));
 			result.append(command->names().value(0));
 		}
 		if (!command->defaultSubcommandString().isEmpty())
