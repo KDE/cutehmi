@@ -84,11 +84,11 @@ option to force Qbs to not use cached results.
 By default Qbs will compile all the products (tools and extension), even if they
 are not needed for a project. To build only specific product use
 `--products | -p` [build option](https://doc.qt.io/qbs/cli-build.html#op-op-op-op-products-op-op-op-op-p-op-lt-op-name-op-gt-op-op-op-op-op-op-lt-op-name-op-gt-op-op-op-op-op-op-op-op-op).
-For example following command will build only `CuteHMI.Examples.SimpleView.1`
+For example following command will build only `CuteHMI.Examples.SimpleView.2`
 extension and its dependencies, using default configuration.
 
 ```
-qbs -f CuteHMI.qbs -p CuteHMI.Examples.SimpleView.1
+qbs -f CuteHMI.qbs -p CuteHMI.Examples.SimpleView.2
 ```
 
 Find out more about build options on
