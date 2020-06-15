@@ -26,19 +26,30 @@ class Interpreter:
 
 	private:
 		struct Commands {
-				class Help : public Command {
+				class List : public Command {
+					public:
+						using Command::Command;
+
+						class Children : public Command {
+							public:
+								using Command::Command;
+
+								QString execute(ExecutionContext & context) override;
+						};
+
+						std::unique_ptr<Children> children;
+				};
+				std::unique_ptr<List> list;
+
+				class Scope : public Command {
 					public:
 						using Command::Command;
 
 						QString execute(ExecutionContext & context) override;
 
-						QString createSynopsisString(const CommandsContainer & commands);
-
-						QString createDescriptionString(const CommandsContainer & commands);
-
-						QString createDefaultsString(const CommandsContainer & commands);
+						std::unique_ptr<Command> object;
 				};
-				std::unique_ptr<Help> help;
+				std::unique_ptr<Scope> scope;
 
 				class Quit : public Command {
 					public:
@@ -47,6 +58,22 @@ class Interpreter:
 						QString execute(ExecutionContext & context) override;
 				};
 				std::unique_ptr<Quit> quit;
+
+				// Help has different root, so it may need to be moved to separate struct at some point.
+				class Help : public Command {
+					public:
+						using Command::Command;
+
+						QString execute(ExecutionContext & context) override;
+
+					private:
+						QString createSynopsisString(const CommandsContainer & commands);
+
+						QString createDescriptionString(const CommandsContainer & commands);
+
+						QString createDefaultsString(const CommandsContainer & commands);
+				};
+				std::unique_ptr<Help> help;
 		} m_commands;
 
 		Command::ExecutionContext m_context;
