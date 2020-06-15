@@ -141,7 +141,7 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 
 void Interpreter::interperetLine(const QString & line)
 {
-	QStringList commands = line.split(QRegExp("\\s+|\\b"), QString::SkipEmptyParts);
+	QStringList commands = parseLine(line);
 
 	m_helpCommand.parse(commands);
 	if (m_commands.help->isSet())
@@ -171,6 +171,18 @@ void Interpreter::interperetLine(const QString & line)
 	QCoreApplication::processEvents();
 
 	emit lineInterpreted();
+}
+
+QStringList Interpreter::parseLine(const QString & line)
+{
+	QStringList whitespaceSeparatedCommands = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+	QStringList commands;
+	for (auto command : whitespaceSeparatedCommands)
+		if (command.contains('\\'))
+			commands.append(command.split(QRegExp("\\b"), QString::SkipEmptyParts));
+		else
+			commands.append(command);
+	return commands;
 }
 
 QString Interpreter::Commands::Quit::execute(ExecutionContext & context)
@@ -352,10 +364,16 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 	else {
 		if (subcommands.at(0) == object.get()) {
 			QString path = object->matchedString();
-			QStringList parts = path.split('/');
-			QObject * candidate = context.scopeObject;
+			QStringList parts = path.split('/', QString::SkipEmptyParts);
+			QObject * candidate;
+			if (path.startsWith('/'))
+				candidate = context.engine;
+			else
+				candidate = context.scopeObject;
 			for (auto part : parts) {
-				if (part == "..") {
+				if (part == ".") {
+					candidate = context.scopeObject;
+				} else if (part == "..") {
 					// Select parent.
 					if (candidate->parent() != nullptr)
 						candidate = candidate->parent();

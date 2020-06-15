@@ -25,6 +25,8 @@ class Interpreter:
 		void lineInterpreted();
 
 	private:
+		QStringList parseLine(const QString & line);
+
 		struct Commands {
 				class List : public Command {
 					public:
