@@ -6,7 +6,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-CUTEHMI_SHAREDDATABASE_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_shareddatabase_0_loggingCategory)
+CUTEHMI_SHAREDDATABASE_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_shareddatabase_loggingCategory)
 
 namespace cutehmi {
 namespace shareddatabase {
@@ -14,7 +14,7 @@ namespace shareddatabase {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return cutehmi_shareddatabase_0_loggingCategory();
+	return cutehmi_shareddatabase_loggingCategory();
 }
 
 }

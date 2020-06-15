@@ -158,9 +158,9 @@ trick, which makes life easier is to create `.gitignore` file in `extensions`
 directory and make Git ignore the file itself along with your extension(s).
 
 ```
-.gitignore
+/.gitignore
 
-YourExtension/**
+/YourExtension
 ```
 
 This way you can clone your extension to `extensions` subdirectory and your

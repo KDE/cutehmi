@@ -6,7 +6,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-TEMPLATES_CPPSKELETON_API Q_DECLARE_LOGGING_CATEGORY(templates_cppskeleton_0_loggingCategory)
+TEMPLATES_CPPSKELETON_API Q_DECLARE_LOGGING_CATEGORY(templates_cppskeleton_loggingCategory)
 
 namespace templates {
 namespace cppskeleton {
@@ -14,7 +14,7 @@ namespace cppskeleton {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return templates_cppskeleton_0_loggingCategory();
+	return templates_cppskeleton_loggingCategory();
 }
 
 }

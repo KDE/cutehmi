@@ -1,24 +1,28 @@
-#ifndef H_EXTENSIONS_CUTEHMI_GUI_1_INCLUDE_CUTEHMI_GUI_LOGGING_HPP
-#define H_EXTENSIONS_CUTEHMI_GUI_1_INCLUDE_CUTEHMI_GUI_LOGGING_HPP
+import qbs
 
-#include "internal/platform.hpp"
-#include <cutehmi/loggingMacros.hpp>
+import cutehmi
 
-CUTEHMI_GUI_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_gui_loggingCategory)
+cutehmi.Extension {
+	name: "QtProject"
 
-namespace cutehmi {
-namespace gui {
+	vendor: "CuteHMI"
 
-inline
-const QLoggingCategory & loggingCategory()
-{
-	return cutehmi_gui_loggingCategory();
+	domain: "cutehmi.kde.org"
+
+	friendlyName: "QtProject"
+
+	description: "Pseudo-extension exploiting 'QtProject' directory."
+
+	files: [
+		"README.md",
+		"LICENSE",
+		"qtlogging.ini",
+	]
+
+	Depends { name: "cutehmi.doxygen" }
+	cutehmi.doxygen.warnIfUndocumented: false
+	cutehmi.doxygen.exclude: ['dev', 'tests']
 }
-
-}
-}
-
-#endif
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

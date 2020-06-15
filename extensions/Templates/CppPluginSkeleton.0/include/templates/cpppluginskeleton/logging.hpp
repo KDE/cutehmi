@@ -6,7 +6,7 @@
 #include "internal/platform.hpp"
 #include <cutehmi/loggingMacros.hpp>
 
-TEMPLATES_CPPPLUGINSKELETON_API Q_DECLARE_LOGGING_CATEGORY(templates_cpppluginskeleton_0_loggingCategory)
+TEMPLATES_CPPPLUGINSKELETON_API Q_DECLARE_LOGGING_CATEGORY(templates_cpppluginskeleton_loggingCategory)
 
 namespace templates {
 namespace cpppluginskeleton {
@@ -14,7 +14,7 @@ namespace cpppluginskeleton {
 inline
 const QLoggingCategory & loggingCategory()
 {
-	return templates_cpppluginskeleton_0_loggingCategory();
+	return templates_cpppluginskeleton_loggingCategory();
 }
 
 }

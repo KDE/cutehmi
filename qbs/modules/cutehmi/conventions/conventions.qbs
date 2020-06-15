@@ -49,9 +49,9 @@ Module {
 
 	PropertyOptions {
 		name: "loggingCategory"
-		description: "Qt logging category."
+		description: "Logging category function name."
 	}
-	readonly property string loggingCategory: productName.toLowerCase().replace(/\./g, '_')
+	readonly property string loggingCategory: baseName.toLowerCase().replace(/\./g, '_') + "_loggingCategory"
 
 	PropertyOptions {
 		name: "dedicatedSubdir"
