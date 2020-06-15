@@ -7,6 +7,8 @@
 #include <QCommandLineParser>
 #include <QQmlApplicationEngine>
 
+#include <memory>
+
 namespace cutehmi {
 namespace console {
 

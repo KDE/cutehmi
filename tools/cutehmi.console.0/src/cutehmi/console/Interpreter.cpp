@@ -175,13 +175,17 @@ void Interpreter::interperetLine(const QString & line)
 
 QStringList Interpreter::parseLine(const QString & line)
 {
+	// Split by whitespace.
 	QStringList whitespaceSeparatedCommands = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+
+	// Split words by '\' character.
 	QStringList commands;
 	for (auto command : whitespaceSeparatedCommands)
 		if (command.contains('\\'))
 			commands.append(command.split(QRegExp("\\b"), QString::SkipEmptyParts));
 		else
 			commands.append(command);
+
 	return commands;
 }
 
