@@ -41,6 +41,10 @@ class Command
 
 		virtual ~Command() = default;
 
+		const Command * parentCommand() const;
+
+		Command * parentCommand();
+
 		QStringList names() const;
 
 		void setNames(const QStringList & names);
@@ -92,6 +96,8 @@ class Command
 		virtual QString execute(QQmlApplicationEngine * engine);
 
 	protected:
+		void setParentCommand(Command * parentCommand);
+
 		bool match(QStringList commandStrings);
 
 		void pushError(const Error & error);
@@ -99,6 +105,7 @@ class Command
 		void setMatchedByDefaultSubcommandString(bool matchedByDefaultSubcommandString);
 
 	private:
+		Command * m_parentCommand;
 		QStringList m_names;
 		bool m_subcommandRequired;
 		QRegularExpression m_matchingPattern;
