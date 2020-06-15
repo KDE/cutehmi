@@ -71,6 +71,8 @@ void Interpreter::interperetLine(const QString & line)
 			CUTEHMI_INFO(expressionResult);
 	}
 
+	QCoreApplication::processEvents();
+
 	emit lineInterpreted();
 }
 
