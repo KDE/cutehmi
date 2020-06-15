@@ -14,7 +14,7 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_currentObject(nullptr)
 {
 	m_mainContextCommand.setNames({"\\"});
-	m_mainContextCommand.setHelp(tr("Triggers console command interpretation mode."));
+	m_mainContextCommand.setHelp(tr("Denotes console command."));
 	m_mainContextCommand.setMatchingStrings({"\\"});
 	m_mainContextCommand.setSubcommandRequired(true);
 
@@ -24,8 +24,9 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_mainContextCommand.addSubcommand(& m_commands.quit);
 
 	m_helpContextCommand.setNames({"\\"});
-	m_helpContextCommand.setHelp(tr("Triggers command interpretation mode."));
+	m_helpContextCommand.setHelp(tr("Denotes console command."));
 	m_helpContextCommand.setMatchingStrings({"\\"});
+	m_helpContextCommand.setSubcommandRequired(true);
 
 	m_commands.help = Commands::Help({"help", "h"});
 	m_commands.help.setHelp(tr("Shows help."));
@@ -94,8 +95,12 @@ QString Interpreter::Commands::Help::execute(QQmlApplicationEngine * engine)
 		Command::CommandsContainer matchedNonDefaultCommands = matchedNonDefaultChain();
 		if (!matchedNonDefaultCommands.isEmpty())
 			commandName = matchedNonDefaultCommands.last()->names().value(0);
-		else
+		else if (!commands.isEmpty())
 			commandName = commands.last()->names().value(0);
+		else {
+			commands.append(parentCommand());
+			commandName = names().value(0);
+		}
 		result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Help '%1'...").arg(commandName));
 	}
 
@@ -214,26 +219,26 @@ QString Interpreter::Commands::Help::createDefaultsString(const Command::Command
 {
 	QString result(QCoreApplication::translate("Interpreter::Commands::Help", "Defaults:"));
 
-	bool defaultsPresent = false;
 	QString defaultSubcommand;
 	for (auto command : commands) {
 		if (!defaultSubcommand.isEmpty()) {
 			if (result.back() != '\\')
 				result.append(' ');
+			CUTEHMI_DEBUG("!isEmpty " << defaultSubcommand);
 			result.append('\'').append(defaultSubcommand).append('\'');
 		} else {
 			if (result.back() != '\\')
 				result.append(' ');
+			CUTEHMI_DEBUG("isEmpty  " << command->names().value(0));
 			result.append(command->names().value(0));
 		}
-		if (!command->defaultSubcommandString().isEmpty()) {
+		if (!command->defaultSubcommandString().isEmpty())
 			defaultSubcommand = command->defaultSubcommandString();
-			defaultsPresent = true;
-		} else
-			defaultSubcommand.clear();
+		else if (!defaultSubcommand.isEmpty())
+			break;
 	}
 
-	if (defaultsPresent)
+	if (!defaultSubcommand.isEmpty())
 		return result;
 
 	return QString();
