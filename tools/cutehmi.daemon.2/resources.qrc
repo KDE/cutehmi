@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>qml/ExtensionLoader.qml</file>
-    </qresource>
-</RCC>
