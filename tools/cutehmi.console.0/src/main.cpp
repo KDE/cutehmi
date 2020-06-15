@@ -27,6 +27,9 @@ using namespace cutehmi::console;
  */
 int main(int argc, char * argv[])
 {
+	static constexpr const char * DEFAULT_COMPONENT = "Console";
+	static constexpr const char * DEFAULT_MINOR = "0";
+
 	// Set up application.
 
 	QCoreApplication::setOrganizationName(CUTEHMI_CONSOLE_VENDOR);
@@ -81,17 +84,13 @@ int main(int argc, char * argv[])
 		QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
 		cmd.addOption(basedirOption);
 
-		QCommandLineOption componentOption("component", QCoreApplication::translate("main", "Extension component <name>."), QCoreApplication::translate("main", "name"));
-		componentOption.setDefaultValue("Console");
-		cmd.addOption(componentOption);
-
 		QCommandLineOption minorOption({"m", "minor"}, QCoreApplication::translate("main", "Use <version> for extension minor version to import."), QCoreApplication::translate("main", "version"));
-		minorOption.setDefaultValue("0");
+		minorOption.setDefaultValue(DEFAULT_MINOR);
 		cmd.addOption(minorOption);
 
 		cmd.addPositionalArgument("extension", QCoreApplication::translate("main", "Extension to import."), "[extension]");
 
-		cmd.addPositionalArgument("component", QCoreApplication::translate("main", "Component to create."), "[component]");
+		cmd.addPositionalArgument("component", QCoreApplication::translate("main", "Component to create. Defaults to '%1'.").arg(DEFAULT_COMPONENT), "[component]");
 
 		cmd.process(app);
 
@@ -131,6 +130,12 @@ int main(int argc, char * argv[])
 			QString extension = positionalArguments.at(0);
 			QString extensionBaseName = extension.left(extension.lastIndexOf('.'));
 			QString extensionMajor = extension.right(extension.length() - extension.lastIndexOf('.') - 1);
+			{
+				bool ok;
+				extensionMajor.toUInt(& ok);
+				if (!ok)
+					throw Exception(QCoreApplication::translate("main", "Command line argument error: please specify extension with major version number after the last dot."));
+			}
 
 			QString extensionMinor = cmd.value(minorOption);
 			if (!extensionMinor.isEmpty()) {
@@ -140,7 +145,11 @@ int main(int argc, char * argv[])
 					throw Exception(QCoreApplication::translate("main", "Command line argument error: value of '%1' option must be a number.").arg(minorOption.names().last()));
 			}
 
-			QString extensionComponent = cmd.value(componentOption);
+			QString extensionComponent;
+			if (positionalArguments.length() == 2)
+				extensionComponent = positionalArguments.at(1);
+			else
+				extensionComponent = DEFAULT_COMPONENT;
 
 			QString extensionImportStatement;
 			if (!extension.isEmpty()) {
@@ -149,6 +158,9 @@ int main(int argc, char * argv[])
 				else
 					extensionImportStatement = QString("import %1 %2").arg(extensionBaseName).arg(extensionMajor);
 			}
+
+			CUTEHMI_INFO(QCoreApplication::translate("main", "Extension: '%1 %2.%3'").arg(extensionBaseName).arg(extensionMajor).arg(extensionMinor));
+			CUTEHMI_INFO(QCoreApplication::translate("main", "Component: '%1'").arg(extensionComponent));
 
 			engine->loadData((extensionImportStatement + "\n" + extensionComponent + "{}").toLocal8Bit());
 		}

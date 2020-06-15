@@ -1,5 +1,7 @@
 # View
 
+**Obsolete** - this tool is being replaced by [cutehmi.view.4](../cutehmi.view.4/).
+
 Client, GUI application, which allows one to run CuteHMI project in a window.
 
 By default this tool shows only a simple help screen.

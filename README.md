@@ -39,9 +39,9 @@ own development status.
 Branch "master" is a development branch. Development branch may contain source
 code that is undergoing deep changes, rendering it unusable. Branch "master" is
 merged frequently into a branch, which has "alpha" status. This branch may also
-undergo deep modifications, but at least it is guaranteed to build successfuly.
-Most stable branches are denoted by "perpetual beta" status. No backward
-incompatible changes shall be made to them.
+undergo deep modifications, but it should be usable. Branches with
+"perpetual beta" status are stable in a sense that no backward incompatible
+changes shall be made to them.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
@@ -54,8 +54,6 @@ incompatible changes shall be made to them.
 | [master](https://invent.kde.org/sdk/cutehmi)    | [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines) | pre-alpha          |
 | [4](https://invent.kde.org/sdk/cutehmi/-/tree/4)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/4/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
 | [3](https://invent.kde.org/sdk/cutehmi/-/tree/3)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/3/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
-| [2](https://invent.kde.org/sdk/cutehmi/-/tree/2)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/2/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
-| [1](https://invent.kde.org/sdk/cutehmi/tree/1)  | [![Build Status](https://travis-ci.org/michpolicht/CuteHMI.svg?branch=1)](https://travis-ci.org/michpolicht/CuteHMI/branches)  | perpetual beta     |
 
 [//]: # (\endhtmlonly)
 </div>
@@ -101,25 +99,24 @@ Find out more about build options on
 For an introduction you may want to run one of the existing examples. In CuteHMI
 everything is either a tool or an extension, therefore examples are also provided
 as extensions. Their names start with "CuteHMI.Examples" prefix. The most basic
-example `CuteHMI.Examples.SimpleView.1` can be run with `cutehmi.view.3` tool by
+example `CuteHMI.Examples.SimpleView.2` can be run with `cutehmi.view.4` tool by
 issuing following command.
 
 ```
-cutehmi.view.3 --extension="CuteHMI.Examples.SimpleView.1"
+cutehmi.view.4 CuteHMI.Examples.SimpleView.2
 ```
 
 To create your own project you can simply copy one of the examples to your own
-subdirectory in `extensions` directory (e.g. `Me/MyExtension.0`), rename `qbs` file
-accordingly to match extension name (e.g. `MyExtension.0.qbs`), then edit `qbs`
-file and change `name` property to match extension name
-(e.g. `name:  "Me.MyExtension.0"`)
+subdirectory in `extensions` directory (e.g. `Me/MyExtension.0`) and edit
+`project.qbs` file. Change `name` property to match extension name (e.g. `name:
+"Me.MyExtension.0"`)
 
 After that you can use `--force-probe-execution` Qbs option or delete build
 directory and rebuild whole project. Your extension should be installed and it
-can be run with `cutehmi.view.3` tool.
+can be run with `cutehmi.view.4` tool.
 
 ```
-cutehmi.view.3 --extension="Me.MyExtension.0"
+cutehmi.view.4 Me.MyExtension.0
 ```
 
 More methodical approach is to use one of the templates. The process of creating
