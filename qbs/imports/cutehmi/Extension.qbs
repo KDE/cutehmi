@@ -121,6 +121,19 @@ CommonProduct {
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.translationsInstallSubdir
 	}
+
+	FileTagger {
+		patterns: "*.ini"
+		fileTags: ["ini"]
+	}
+
+	Group {
+		name: "Ini files"
+		fileTagsFilter: ["ini"]
+		qbs.install: true
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
+	}
 }
 
 //(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
