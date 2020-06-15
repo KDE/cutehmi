@@ -63,7 +63,7 @@ void Interpreter::interperetLine(const QString & line)
 		if (!m_engine->rootObjects().isEmpty())
 			object = m_engine->rootObjects().at(0);
 		else
-			object = this;
+			object = m_engine;
 		QQmlExpression qmlExpression(m_engine->rootContext(), object, line);
 		bool valueIsUndefined;
 		QVariant expressionResult = qmlExpression.evaluate(& valueIsUndefined);
