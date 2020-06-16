@@ -107,13 +107,20 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_commands.list->setDefaultSubcommandString("children");
 	m_consoleCommand.addSubcommand(m_commands.list.get());
 
-	m_commands.list->children = std::make_unique<Commands::List::Children>(QStringList({"children", "cn"}));
-	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form `index: type [- object_name].`"));
+	m_commands.list->children = std::make_unique<Commands::List::Children>(QStringList({"children", "c"}));
+	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form: `index: type [- object_name]`."));
 	m_commands.list->addSubcommand(m_commands.list->children.get());
 
-	m_commands.list->properties = std::make_unique<Commands::List::Properties>(QStringList({"properties", "ps"}));
-	m_commands.list->properties->setHelp(tr("List scope object properties."));
-	m_commands.list->addSubcommand(m_commands.list->properties.get());
+	m_commands.list->property = std::make_unique<Commands::List::Properties>(QStringList({"property", "p"}));
+	m_commands.list->property->setHelp(tr("List scope object properties or property details. Without argument command lists"
+					" properties of current scope object. Properties are grouped into meta-object class sections. Each section"
+					" lists properties in the form: `index: type - propery_name`. If argument is given command prints details on"
+					" property selected by the argument."));
+	m_commands.list->addSubcommand(m_commands.list->property.get());
+
+	m_commands.list->property->name = std::make_unique<Command>("name");
+	m_commands.list->property->name->setHelp(tr("Property name or index."));
+	m_commands.list->property->addSubcommand(m_commands.list->property->name.get());
 
 
 	m_commands.scope = std::make_unique<Commands::Scope>(QStringList({"scope", "s"}));
@@ -473,7 +480,7 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 		childList = context.scopeObject->children();
 
 	if (childList.isEmpty()) {
-		result.append("\n");
+		result.append("\n\n");
 		result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "None"));
 		result.append('\n');
 	} else {
@@ -492,13 +499,23 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 
 QString Interpreter::Commands::List::Properties::execute(Command::ExecutionContext & context)
 {
+	if (!matchedChain().isEmpty())
+		// List property details.
+		return property(context, name->matchedString());
+	else
+		// List properties.
+		return properties(context);
+}
+
+QString Interpreter::Commands::List::Properties::properties(Command::ExecutionContext & context)
+{
 	QString result;
 
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Properties", "List properties of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "List properties of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
 
 	if (context.scopeObject->metaObject()->propertyCount() == 0) {
-		result.append("\n");
-		result.append(QCoreApplication::translate("Interpreter::Commands::List::Properties", "None"));
+		result.append("\n\n");
+		result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "None"));
 		result.append("\n");
 	} else {
 		QList<const QMetaObject *> moStack;
@@ -519,15 +536,76 @@ QString Interpreter::Commands::List::Properties::execute(Command::ExecutionConte
 			result.append(":\n");
 
 			for (int i = mo->propertyOffset(); i < mo->propertyCount(); i++) {
-				QMetaProperty property = mo->property(i);
+				QMetaProperty mp = mo->property(i);
 				result.append(QString::number(i)).append(": ");
-				result.append(property.typeName());
+				result.append(mp.typeName());
 				result.append(" - ");
-				result.append(property.name());
+				result.append(mp.name());
 				result.append('\n');
 			}
 		}
 	}
+
+	return result;
+}
+
+QString Interpreter::Commands::List::Properties::property(Command::ExecutionContext & context, const QString & matchedString)
+{
+	QString result;
+
+	const QMetaObject * mo = context.scopeObject->metaObject();
+	bool ok;
+	int index = matchedString.toInt(& ok);
+	if (ok) {
+		// Select by index.
+		if (index < 0)
+			return strError(QCoreApplication::translate("Interpreter::Commands::List::Property", "Can not use negative indices."));
+		else if (index >= mo->propertyCount())
+			return strError(QCoreApplication::translate("Interpreter::Commands::List::Property", "Given index ('%1') is too large.").arg(index));
+	} else {
+		// Select by name.
+		index = mo->indexOfProperty(matchedString.toLocal8Bit().constData());
+		if (index == -1)
+			return strError(QCoreApplication::translate("Interpreter::Commands::List::Property", "Could not find property with given name ('%1').").arg(matchedString));
+	}
+
+	QMetaProperty mp = mo->property(index);
+
+	QString trYes = QCoreApplication::translate("Interpreter::Commands::List::Property", "yes");
+	QString trNo = QCoreApplication::translate("Interpreter::Commands::List::Property", "no");
+
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "List property '%1' details...").arg(mp.name()));
+	result.append("\n\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Name: '%1'").arg(mp.name()));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Type: '%1'").arg(mp.typeName()));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Constant: %1").arg(mp.isConstant() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Designable: %1").arg(mp.isDesignable(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Enum: %1").arg(mp.isEnumType() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Final: %1").arg(mp.isFinal() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Flag: %1").arg(mp.isFlagType() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Readable: %1").arg(mp.isReadable() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Resettable: %1").arg(mp.isResettable() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Scriptable: %1").arg(mp.isScriptable(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Stored: %1").arg(mp.isStored(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "User: %1").arg(mp.isUser(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Valid: %1").arg(mp.isValid() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Writable: %1").arg(mp.isWritable() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Notify signal: %1").arg(mp.notifySignal().name().constData()));
+	result.append("\n");
 
 	return result;
 }

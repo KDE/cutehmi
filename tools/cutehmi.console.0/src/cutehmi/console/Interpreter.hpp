@@ -47,8 +47,15 @@ class Interpreter:
 								using Command::Command;
 
 								QString execute(ExecutionContext & context) override;
+
+								std::unique_ptr<Command> name;
+
+							private:
+								QString  properties(ExecutionContext & context);
+
+								QString  property(ExecutionContext & context, const QString & matchedString);
 						};
-						std::unique_ptr<Properties> properties;
+						std::unique_ptr<Properties> property;
 				};
 				std::unique_ptr<List> list;
 
