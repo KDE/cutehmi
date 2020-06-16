@@ -116,7 +116,7 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 
 	m_commands.scope->object = std::make_unique<Command>("object");
 	m_commands.scope->object->setHelp(tr("Object path relative to current scope object. Object path can be composed of object names"
-					" or indices separated by slash character ('/'). Double dot ('..') can be used to choose parent object. if"
+					" or indices separated by slash character ('/'). Double dot ('..') can be used to choose parent object. If"
 					" object names are given search is performed recursively, thus this command does not work like standard file path"
 					" lookup. If more than one objects with given name were found, command picks the first one."));
 	m_commands.scope->addSubcommand(m_commands.scope->object.get());
