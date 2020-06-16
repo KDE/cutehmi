@@ -31,6 +31,12 @@ class Command
 				QString m_message;
 		};
 
+		struct ExecutionContext
+		{
+			QQmlApplicationEngine * engine;
+			QObject * scopeObject;
+		};
+
 		typedef QList<Error> ErrorsContainer;
 
 		typedef QList<Command *> CommandsContainer;
@@ -40,6 +46,10 @@ class Command
 		Command(const QStringList & matchingStrings);
 
 		virtual ~Command() = default;
+
+		const Command * parentCommand() const;
+
+		Command * parentCommand();
 
 		QStringList names() const;
 
@@ -89,9 +99,11 @@ class Command
 
 		ErrorsContainer collectErrors() const;
 
-		virtual QString execute(QQmlApplicationEngine * engine);
+		virtual QString execute(ExecutionContext & context);
 
 	protected:
+		void setParentCommand(Command * parentCommand);
+
 		bool match(QStringList commandStrings);
 
 		void pushError(const Error & error);
@@ -99,6 +111,7 @@ class Command
 		void setMatchedByDefaultSubcommandString(bool matchedByDefaultSubcommandString);
 
 	private:
+		Command * m_parentCommand;
 		QStringList m_names;
 		bool m_subcommandRequired;
 		QRegularExpression m_matchingPattern;

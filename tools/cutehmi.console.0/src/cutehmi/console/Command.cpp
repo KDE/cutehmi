@@ -5,6 +5,7 @@ namespace cutehmi {
 namespace console {
 
 Command::Command(const QString & name, const QRegularExpression & matchingPattern):
+	m_parentCommand(nullptr),
 	m_names(name),
 	m_subcommandRequired(false),
 	m_matchingPattern(matchingPattern),
@@ -17,11 +18,22 @@ Command::Command(const QString & name, const QRegularExpression & matchingPatter
 }
 
 Command::Command(const QStringList & matchingStrings):
+	m_parentCommand(nullptr),
 	m_names(matchingStrings),
 	m_subcommandRequired(false),
 	m_matchedByDefaultSubcommandString(false)
 {
 	setMatchingStrings(matchingStrings);
+}
+
+const Command * Command::parentCommand() const
+{
+	return m_parentCommand;
+}
+
+Command * Command::parentCommand()
+{
+	return m_parentCommand;
 }
 
 QStringList Command::names() const
@@ -93,6 +105,7 @@ void Command::setMatchingStrings(const QStringList & matchingStrings)
 
 Command & Command::addSubcommand(Command * subcommand)
 {
+	subcommand->setParentCommand(this);
 	m_subcommands.append(subcommand);
 	return *this;
 }
@@ -178,15 +191,20 @@ Command::ErrorsContainer Command::collectErrors() const
 	return result;
 }
 
-QString Command::execute(QQmlApplicationEngine * engine)
+QString Command::execute(ExecutionContext & context)
 {
 	QString result;
 
 	for (auto subcommand : m_subcommands)
 		if (subcommand->isSet())
-			result.append(subcommand->execute(engine));
+			result.append(subcommand->execute(context));
 
 	return result;
+}
+
+void Command::setParentCommand(Command * parentCommand)
+{
+	m_parentCommand = parentCommand;
 }
 
 bool Command::match(QStringList commandStrings)

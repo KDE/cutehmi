@@ -3,87 +3,203 @@
 
 #include <QRegExp>
 #include <QQmlExpression>
+#include <QMetaObject>
 
 namespace cutehmi {
 namespace console {
 
+static QString qobjectShortInfo(const QObject * object) {
+	QString info;
+	info.append(object->metaObject()->className());
+	if (!object->objectName().isEmpty()) {
+		info.append(" - ");
+		info.append(object->objectName());
+	}
+	return info;
+};
+
+static QString strError(const QString & message) {
+	return QCoreApplication::translate("cutehmi::console::strError", "Command error: %1").arg(message);
+}
+
+static QString strErrors(const QStringList & errorMessages) {
+	if (errorMessages.isEmpty())
+		return "";
+
+	if (errorMessages.count() == 1)
+		return strError(errorMessages.at(0));
+
+	QString result = QCoreApplication::translate("cutehmi::console::strErrors", "Command has failed because of following errors:");
+	for (auto message : errorMessages) {
+		result.append("\n- ");
+		result.append(message);
+	}
+	return result;
+}
+
+static QObjectList findInChildren(const QObjectList & children, const QString & name)
+{
+	QObjectList result;
+
+	for (auto child : children)
+		if (child->objectName() == name)
+			result.append(child);
+
+	// Search recursively.
+	for (auto child : children)
+		result.append(findInChildren(child->children(), name));
+
+	return result;
+}
+
+static QString strWarning(const QString & message) {
+	return QCoreApplication::translate("cutehmi::console::strWarning", "Warning: %1").arg(message);
+}
+
+static QString strWarnings(const QStringList & warningMessages) {
+	if (warningMessages.isEmpty())
+		return "";
+
+	if (warningMessages.count() == 1)
+		return strWarning(warningMessages.at(0));
+
+	QString result = QCoreApplication::translate("cutehmi::console::commandWarnings", "Warnings:");
+	for (auto message : warningMessages) {
+		result.append("\n- ");
+		result.append(message);
+	}
+	return result;
+}
+
+static void appendWarnings(QString & string, const QStringList & warningMessages) {
+	if (warningMessages.isEmpty())
+		return;
+
+	string.append('\n').append(strWarnings(warningMessages));
+}
+
+
 Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	QObject(parent),
-	m_engine(engine),
+	m_context{engine,
+			nullptr},
 	m_quitOption("quit", QCoreApplication::translate("main", "Gracefully quit the console.")),
 	m_currentObject(nullptr)
 {
-	m_mainContextCommand.setNames({"\\"});
-	m_mainContextCommand.setHelp(tr("Triggers console command interpretation mode."));
-	m_mainContextCommand.setMatchingStrings({"\\"});
-	m_mainContextCommand.setSubcommandRequired(true);
+	if (!m_context.engine->rootObjects().isEmpty())
+		m_context.scopeObject = m_context.engine->rootObjects().at(0);
+	else
+		m_context.scopeObject = m_context.engine;
 
-	m_commands.quit = Commands::Quit({"quit", "q"});
-	m_commands.quit.setHelp(tr("Quit the console."));
-	m_commands.help.addSubcommand(& m_commands.quit);
-	m_mainContextCommand.addSubcommand(& m_commands.quit);
 
-	m_helpContextCommand.setNames({"\\"});
-	m_helpContextCommand.setHelp(tr("Triggers command interpretation mode."));
-	m_helpContextCommand.setMatchingStrings({"\\"});
+	m_consoleCommand.setNames({"\\"});
+	m_consoleCommand.setHelp(tr("Denotes console command."));
+	m_consoleCommand.setMatchingStrings({"\\"});
+	m_consoleCommand.setSubcommandRequired(true);
 
-	m_commands.help = Commands::Help({"help", "h"});
-	m_commands.help.setHelp(tr("Shows help."));
-	m_commands.help.addSubcommand(& m_mainContextCommand);
-	m_commands.help.setDefaultSubcommandString("\\");
-	m_helpContextCommand.addSubcommand(& m_commands.help);
+
+	m_commands.list = std::make_unique<Commands::List>(QStringList({"list", "l"}));
+	m_commands.list->setHelp(tr("List selected things."));
+	m_commands.list->setDefaultSubcommandString("children");
+	m_consoleCommand.addSubcommand(m_commands.list.get());
+
+	m_commands.list->children = std::make_unique<Commands::List::Children>(QStringList({"children", "cn"}));
+	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form `index: type [- object name].`"));
+	m_commands.list->addSubcommand(m_commands.list->children.get());
+
+
+	m_commands.scope = std::make_unique<Commands::Scope>(QStringList({"scope", "s"}));
+	m_commands.scope->setHelp(tr("Remind current scope object or select a new one. Without argument command prints short memento of"
+					" a current scope object. If argument is given, command will try to change current scope object to the one"
+					" specified by the argument."));
+	m_consoleCommand.addSubcommand(m_commands.scope.get());
+
+	m_commands.scope->object = std::make_unique<Command>("object");
+	m_commands.scope->object->setHelp(tr("Object path relative to current scope object. Object path can be composed of object names"
+					" or indices separated by slash character ('/'). Double dot ('..') can be used to choose parent object. if"
+					" object names are given search is performed recursively, thus this command does not work like standard file path"
+					" lookup. If more than one objects with given name were found, command picks the first one."));
+	m_commands.scope->addSubcommand(m_commands.scope->object.get());
+
+
+	m_commands.quit = std::make_unique<Commands::Quit>(QStringList({"quit", "q"}));
+	m_commands.quit->setHelp(tr("Quit the console."));
+	m_consoleCommand.addSubcommand(m_commands.quit.get());
+
+
+	m_helpCommand.setNames({"\\"});
+	m_helpCommand.setHelp(tr("Denotes console command."));
+	m_helpCommand.setMatchingStrings({"\\"});
+	m_helpCommand.setSubcommandRequired(true);
+
+	m_commands.help = std::make_unique<Commands::Help>(QStringList({"help", "h"}));
+	m_commands.help->setHelp(tr("Shows help."));
+	m_commands.help->addSubcommand(& m_consoleCommand);
+	m_commands.help->setDefaultSubcommandString("\\");
+	m_helpCommand.addSubcommand(m_commands.help.get());
 }
 
 void Interpreter::interperetLine(const QString & line)
 {
-	QStringList commands = line.split(QRegExp("\\s+|\\b"), QString::SkipEmptyParts);
+	QStringList commands = parseLine(line);
 
-	m_helpContextCommand.parse(commands);
-	if (m_commands.help.isSet())
-		CUTEHMI_INFO(m_helpContextCommand.execute(m_engine));
+	m_helpCommand.parse(commands);
+	if (m_commands.help->isSet())
+		CUTEHMI_INFO(m_helpCommand.execute(m_context));
 	else {
-		m_mainContextCommand.parse(commands);
-		if (m_mainContextCommand.isSet()) {
-			Command::ErrorsContainer errors = m_mainContextCommand.collectErrors();
+		m_consoleCommand.parse(commands);
+		if (m_consoleCommand.isSet()) {
+			Command::ErrorsContainer errors = m_consoleCommand.collectErrors();
 			if (!errors.isEmpty()) {
-				QString errorString(tr("Command has failed because of following errors:"));
-				for (auto error : errors) {
-					errorString.append("\n- ");
-					errorString.append(error.message());
-				}
-				CUTEHMI_CRITICAL(errorString);
+				QStringList errorMessages;
+				for (auto error : errors)
+					errorMessages.append(error.message());
+				CUTEHMI_CRITICAL(strErrors(errorMessages));
 			} else
-				CUTEHMI_INFO(m_mainContextCommand.execute(m_engine));
+				CUTEHMI_INFO(m_consoleCommand.execute(m_context));
 		}
 	}
 
-	if (!m_mainContextCommand.isSet() && !m_helpContextCommand.isSet()) {
-		QObject * object;
-		if (!m_engine->rootObjects().isEmpty())
-			object = m_engine->rootObjects().at(0);
-		else
-			object = this;
-		QQmlExpression qmlExpression(m_engine->rootContext(), object, line);
+	if (!m_consoleCommand.isSet() && !m_helpCommand.isSet()) {
+		QQmlExpression qmlExpression(m_context.engine->rootContext(), m_context.scopeObject, line);
 		bool valueIsUndefined;
 		QVariant expressionResult = qmlExpression.evaluate(& valueIsUndefined);
 		if (!valueIsUndefined)
 			CUTEHMI_INFO(expressionResult);
 	}
 
+	QCoreApplication::processEvents();
+
 	emit lineInterpreted();
 }
 
-QString Interpreter::Commands::Quit::execute(QQmlApplicationEngine * engine)
+QStringList Interpreter::parseLine(const QString & line)
 {
-	Q_UNUSED(engine)
+	// Split by whitespace.
+	QStringList whitespaceSeparatedCommands = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+
+	// Split words by '\' character.
+	QStringList commands;
+	for (auto command : whitespaceSeparatedCommands)
+		if (command.contains('\\'))
+			commands.append(command.split(QRegExp("\\b"), QString::SkipEmptyParts));
+		else
+			commands.append(command);
+
+	return commands;
+}
+
+QString Interpreter::Commands::Quit::execute(ExecutionContext & context)
+{
+	Q_UNUSED(context)
 
 	QCoreApplication::quit();
 	return "See you.";
 }
 
-QString Interpreter::Commands::Help::execute(QQmlApplicationEngine * engine)
+QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 {
-	Q_UNUSED(engine)
+	Q_UNUSED(context)
 
 	QString result;
 
@@ -94,8 +210,12 @@ QString Interpreter::Commands::Help::execute(QQmlApplicationEngine * engine)
 		Command::CommandsContainer matchedNonDefaultCommands = matchedNonDefaultChain();
 		if (!matchedNonDefaultCommands.isEmpty())
 			commandName = matchedNonDefaultCommands.last()->names().value(0);
-		else
+		else if (!commands.isEmpty())
 			commandName = commands.last()->names().value(0);
+		else {
+			commands.append(parentCommand());
+			commandName = names().value(0);
+		}
 		result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Help '%1'...").arg(commandName));
 	}
 
@@ -184,18 +304,19 @@ QString Interpreter::Commands::Help::createDescriptionString(const Command::Comm
 		QStringList helpWords = helpIt->split(' ');
 		int remainingLineWidth = helpMaxLength;
 		for (auto helpWord : helpWords) {
-			helpLineWords.append(helpWord);
-			remainingLineWidth -= helpWord.length() + 1;	// Reserve +1 for space between the words.
 			if (remainingLineWidth < helpWord.length()) {
 				helpLineWordsList.append(helpLineWords);
 				helpLineWords.clear();
-				remainingLineWidth = helpMaxLength;
+				helpLineWords.append(helpWord);
+				remainingLineWidth = helpMaxLength - helpWord.length() - 1; // Reserve -1 for space between the words.
+			} else {
+				helpLineWords.append(helpWord);
+				remainingLineWidth -= helpWord.length() + 1;	// Reserve +1 for space between the words.
 			}
 		}
 		helpLineWordsList.append(helpLineWords);
 
 		QString line;
-		line.clear();
 		line.append(nameIt);
 		line.append(QString(SPACING, ' '));
 		line.append(helpLineWordsList.takeFirst().join(' '));
@@ -214,29 +335,127 @@ QString Interpreter::Commands::Help::createDefaultsString(const Command::Command
 {
 	QString result(QCoreApplication::translate("Interpreter::Commands::Help", "Defaults:"));
 
-	bool defaultsPresent = false;
 	QString defaultSubcommand;
 	for (auto command : commands) {
 		if (!defaultSubcommand.isEmpty()) {
 			if (result.back() != '\\')
 				result.append(' ');
-			result.append('\'').append(defaultSubcommand).append('\'');
+			result.append(defaultSubcommand);
 		} else {
 			if (result.back() != '\\')
 				result.append(' ');
 			result.append(command->names().value(0));
 		}
-		if (!command->defaultSubcommandString().isEmpty()) {
+		if (!command->defaultSubcommandString().isEmpty())
 			defaultSubcommand = command->defaultSubcommandString();
-			defaultsPresent = true;
-		} else
-			defaultSubcommand.clear();
+		else if (!defaultSubcommand.isEmpty())
+			break;
 	}
 
-	if (defaultsPresent)
+	if (!defaultSubcommand.isEmpty())
 		return result;
 
 	return QString();
+}
+
+QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
+{
+	QStringList warnings;
+
+	CommandsContainer subcommands = matchedChain();
+	if (subcommands.isEmpty())
+		return qobjectShortInfo(context.scopeObject);
+	else {
+		if (subcommands.at(0) == object.get()) {
+			QString path = object->matchedString();
+			QStringList parts = path.split('/', QString::SkipEmptyParts);
+			QObject * candidate;
+			if (path.startsWith('/'))
+				candidate = context.engine;
+			else
+				candidate = context.scopeObject;
+			for (auto part : parts) {
+				if (part == ".") {
+					candidate = context.scopeObject;
+				} else if (part == "..") {
+					// Select parent.
+					if (candidate->parent() != nullptr)
+						candidate = candidate->parent();
+					else {
+						if (candidate != context.engine)
+							candidate = context.engine;
+						else
+							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Can not select parent - root object already reached."));
+					}
+				} else {
+					QObjectList childList;
+					if (candidate == context.engine)
+						// If QML engine is a scope object then list its root object instead of its children.
+						childList = context.engine->rootObjects();
+					else
+						childList = candidate->children();
+
+					bool ok;
+					int index = part.toInt(& ok);
+					if (ok) {
+						// Select by index.
+						if (index < 0)
+							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Can not use negative indices."));
+						else if (index >= childList.count())
+							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Given index ('%1') is too large.").arg(index));
+						else
+							candidate = childList.at(index);
+					} else {
+						// Select by objectName.
+						QObjectList children = findInChildren(childList, part);
+						if (children.count() == 0)
+							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Child object with given name ('%1') not found.").arg(part));
+						else {
+							if (children.count() > 1)
+								warnings.append(QCoreApplication::translate("Interpreter::Commands::Scope", "Found more than one object with given name ('%1').").arg(part));
+							candidate = children.at(0);
+						}
+					}
+				}
+			}
+			context.scopeObject = candidate;
+
+			QString result = QCoreApplication::translate("Interpreter::Commands::Scope", "New scope object: '%1'.").arg(qobjectShortInfo(context.scopeObject));
+			appendWarnings(result, warnings);
+			return result;
+		}
+	}
+
+	return strError("Unrecognized argument.");
+}
+
+QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext & context)
+{
+	QString result;
+
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "List children of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
+
+	QObjectList childList;
+	if (context.scopeObject == context.engine)
+		// If QML engine is a scope object then list its root object instead of its children.
+		childList = context.engine->rootObjects();
+	else
+		childList = context.scopeObject->children();
+
+	result.append("\n\n");
+	if (childList.isEmpty())
+		result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "None\n"));
+	else {
+		int index = 0;
+		for (auto child : childList) {
+			result.append(QString::number(index)).append(": ");
+			result.append(qobjectShortInfo(child));
+			result.append('\n');
+			index++;
+		}
+	}
+
+	return result;
 }
 
 }

@@ -7,6 +7,8 @@
 #include <QCommandLineParser>
 #include <QQmlApplicationEngine>
 
+#include <memory>
+
 namespace cutehmi {
 namespace console {
 
@@ -25,34 +27,65 @@ class Interpreter:
 		void lineInterpreted();
 
 	private:
+		QStringList parseLine(const QString & line);
+
 		struct Commands {
-				class Help : public Command {
+				class List : public Command {
 					public:
 						using Command::Command;
 
-						QString execute(QQmlApplicationEngine * engine) override;
+						class Children : public Command {
+							public:
+								using Command::Command;
 
-						QString createSynopsisString(const CommandsContainer & commands);
+								QString execute(ExecutionContext & context) override;
+						};
 
-						QString createDescriptionString(const CommandsContainer & commands);
+						std::unique_ptr<Children> children;
+				};
+				std::unique_ptr<List> list;
 
-						QString createDefaultsString(const CommandsContainer & commands);
-				} help;
+				class Scope : public Command {
+					public:
+						using Command::Command;
+
+						QString execute(ExecutionContext & context) override;
+
+						std::unique_ptr<Command> object;
+				};
+				std::unique_ptr<Scope> scope;
 
 				class Quit : public Command {
 					public:
 						using Command::Command;
 
-						QString execute(QQmlApplicationEngine * engine) override;
-				} quit;
+						QString execute(ExecutionContext & context) override;
+				};
+				std::unique_ptr<Quit> quit;
+
+				// Help has different root, so it may need to be moved to separate struct at some point.
+				class Help : public Command {
+					public:
+						using Command::Command;
+
+						QString execute(ExecutionContext & context) override;
+
+					private:
+						QString createSynopsisString(const CommandsContainer & commands);
+
+						QString createDescriptionString(const CommandsContainer & commands);
+
+						QString createDefaultsString(const CommandsContainer & commands);
+				};
+				std::unique_ptr<Help> help;
 		} m_commands;
 
-		QQmlApplicationEngine * m_engine;
+		Command::ExecutionContext m_context;
 		QCommandLineParser m_cmd;
 		QCommandLineOption m_quitOption;
 		QObject * m_currentObject;
-		Command m_mainContextCommand;
-		Command m_helpContextCommand;
+		Command m_consoleCommand;
+		Command m_helpCommand;
 };
 
 }
