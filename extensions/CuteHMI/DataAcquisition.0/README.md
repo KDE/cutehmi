@@ -21,7 +21,7 @@ cutehmi.console.0 CuteHMI.DataAcquisition.0
 
 #### TL;DR
 
-To determine whether it works at all, type the following in the console.
+To determine whether it will work at all, type the following in the console.
 ```
 # service.start()
 CuteHMI.2: [NOTIFICATION] Service 'Database Service' has started.
