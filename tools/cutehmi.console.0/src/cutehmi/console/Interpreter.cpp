@@ -148,7 +148,7 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_helpCommand.setSubcommandRequired(true);
 
 	m_commands.help = std::make_unique<Commands::Help>(QStringList({"help", "h"}));
-	m_commands.help->setHelp(tr("Shows help."));
+	m_commands.help->setHelp(tr("Shows help on specified command (arguments may follow)."));
 	m_commands.help->addSubcommand(& m_consoleCommand);
 	m_helpCommand.addSubcommand(m_commands.help.get());
 }
