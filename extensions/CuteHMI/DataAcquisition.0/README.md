@@ -14,7 +14,7 @@ created. This can be done from C++ or QML, but creation and drop scripts are als
 
 ### Console tool
 
-Schema can be created with [cutehmi.console.0](../../../tool/cutehmi.console.0/) tool. To do so launch the tool.
+Schema can be created with [cutehmi.console.0](../../../tools/cutehmi.console.0/) tool. To do so launch the tool.
 ```
 cutehmi.console.0 CuteHMI.DataAcquisition.0
 ```
