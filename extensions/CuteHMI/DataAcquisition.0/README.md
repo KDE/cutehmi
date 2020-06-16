@@ -26,14 +26,14 @@ To determine whether it works at all, type the following in the console.
 # service.start()
 CuteHMI.2: [NOTIFICATION] Service 'Database Service' has started.
 # schema.create()
-CuteHMI.2: [NOTIFICATION] Successfully created 'default' schema.
+CuteHMI.2: [NOTIFICATION] Successfully created 'console' schema.
 ```
 This should create default SQLite database, appropriate for testing.
 
 To drop the schema type:
 ```
 # schema.drop()
-CuteHMI.2: [NOTIFICATION] Dropped 'default' schema.
+CuteHMI.2: [NOTIFICATION] Dropped 'console' schema.
 ```
 
 #### Custom setup
