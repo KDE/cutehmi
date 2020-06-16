@@ -513,36 +513,30 @@ QString Interpreter::Commands::List::Properties::properties(Command::ExecutionCo
 
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "List properties of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
 
-	if (context.scopeObject->metaObject()->propertyCount() == 0) {
-		result.append("\n\n");
-		result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "None"));
-		result.append("\n");
-	} else {
-		QList<const QMetaObject *> moStack;
-		{
-			const QMetaObject * mo = context.scopeObject->metaObject();
-			do {
-				moStack.append(mo);
-				mo = mo->superClass();
-			} while (mo != nullptr);
-		}
+	QList<const QMetaObject *> moStack;
+	{
+		const QMetaObject * mo = context.scopeObject->metaObject();
+		do {
+			moStack.append(mo);
+			mo = mo->superClass();
+		} while (mo != nullptr);
+	}
+
+	result.append("\n");
+	while (!moStack.isEmpty()) {
+		const QMetaObject * mo = moStack.takeLast();
 
 		result.append("\n");
-		while (!moStack.isEmpty()) {
-			const QMetaObject * mo = moStack.takeLast();
+		result.append(qmetaObjectShortInfo(mo));
+		result.append(":\n");
 
-			result.append("\n");
-			result.append(qmetaObjectShortInfo(mo));
-			result.append(":\n");
-
-			for (int i = mo->propertyOffset(); i < mo->propertyCount(); i++) {
-				QMetaProperty mp = mo->property(i);
-				result.append(QString::number(i)).append(": ");
-				result.append(mp.typeName());
-				result.append(" - ");
-				result.append(mp.name());
-				result.append('\n');
-			}
+		for (int i = mo->propertyOffset(); i < mo->propertyCount(); i++) {
+			QMetaProperty mp = mo->property(i);
+			result.append(QString::number(i)).append(": ");
+			result.append(mp.typeName());
+			result.append(" - ");
+			result.append(mp.name());
+			result.append('\n');
 		}
 	}
 
