@@ -40,8 +40,15 @@ class Interpreter:
 
 								QString execute(ExecutionContext & context) override;
 						};
-
 						std::unique_ptr<Children> children;
+
+						class Properties : public Command {
+							public:
+								using Command::Command;
+
+								QString execute(ExecutionContext & context) override;
+						};
+						std::unique_ptr<Properties> properties;
 				};
 				std::unique_ptr<List> list;
 
@@ -71,7 +78,7 @@ class Interpreter:
 						QString execute(ExecutionContext & context) override;
 
 					private:
-						QString createSynopsisString(const CommandsContainer & commands);
+						QString createSynopsisString(const CommandsContainer & commands, int optionalFrom);
 
 						QString createDescriptionString(const CommandsContainer & commands);
 

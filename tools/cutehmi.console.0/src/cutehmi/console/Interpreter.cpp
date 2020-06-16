@@ -18,6 +18,10 @@ static QString qobjectShortInfo(const QObject * object) {
 	return info;
 };
 
+static QString qmetaObjectShortInfo(const QMetaObject * metaObject) {
+	return metaObject->className();
+};
+
 static QString strError(const QString & message) {
 	return QCoreApplication::translate("cutehmi::console::strError", "Command error: %1").arg(message);
 }
@@ -104,8 +108,12 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_consoleCommand.addSubcommand(m_commands.list.get());
 
 	m_commands.list->children = std::make_unique<Commands::List::Children>(QStringList({"children", "cn"}));
-	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form `index: type [- object name].`"));
+	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form `index: type [- object_name].`"));
 	m_commands.list->addSubcommand(m_commands.list->children.get());
+
+	m_commands.list->properties = std::make_unique<Commands::List::Properties>(QStringList({"properties", "ps"}));
+	m_commands.list->properties->setHelp(tr("List scope object properties."));
+	m_commands.list->addSubcommand(m_commands.list->properties.get());
 
 
 	m_commands.scope = std::make_unique<Commands::Scope>(QStringList({"scope", "s"}));
@@ -135,7 +143,6 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_commands.help = std::make_unique<Commands::Help>(QStringList({"help", "h"}));
 	m_commands.help->setHelp(tr("Shows help."));
 	m_commands.help->addSubcommand(& m_consoleCommand);
-	m_commands.help->setDefaultSubcommandString("\\");
 	m_helpCommand.addSubcommand(m_commands.help.get());
 }
 
@@ -175,6 +182,9 @@ void Interpreter::interperetLine(const QString & line)
 
 QStringList Interpreter::parseLine(const QString & line)
 {
+	// Double quite separated commands
+//	QStringList doubleQuoteSeparatedCommands = line.split('"', QString::SkipEmptyParts);
+
 	// Split by whitespace.
 	QStringList whitespaceSeparatedCommands = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
 
@@ -203,45 +213,43 @@ QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 
 	QString result;
 
-	Command::CommandsContainer commands = matchedChain();
+	Command::CommandsContainer commands = matchedNonDefaultChain();
 
-	{
-		QString commandName;
-		Command::CommandsContainer matchedNonDefaultCommands = matchedNonDefaultChain();
-		if (!matchedNonDefaultCommands.isEmpty())
-			commandName = matchedNonDefaultCommands.last()->names().value(0);
-		else if (!commands.isEmpty())
-			commandName = commands.last()->names().value(0);
-		else {
-			commands.append(parentCommand());
-			commandName = names().value(0);
-		}
-		result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Help '%1'...").arg(commandName));
+	QString commandName;
+	if (!commands.isEmpty())
+		commandName = commands.last()->names().value(0);
+	else if (!commands.isEmpty())
+		commandName = commands.last()->names().value(0);
+	else {
+		commands.append(parentCommand());
+		commandName = names().value(0);
 	}
+	result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Help '%1'...").arg(commandName));
 
 	// Append single choice subcommands to the chain.
 	while (commands.last()->subcommands().length() == 1)
 		commands.append(commands.last()->subcommands().at(0));
 
 	result.append("\n\n");
-	result.append(createSynopsisString(commands));
+	// Setting `optionalFrom` parameter to matched non-default chain length, so that commands explicity typed by the user won't
+	// be presented in square brackets.
+	result.append(createSynopsisString(commands, matchedNonDefaultChain().length()));
 
-	result.append("\n");
+	result.append("\n\n");
 	result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Where:"));
 	result.append("\n");
 	result.append(createDescriptionString(commands));
 
 	if (!commands.last()->subcommands().isEmpty()) {
-		result.append("\n");
+		result.append("\n\n");
 		result.append(QCoreApplication::translate("Interpreter::Commands::Help", "And <command> is one of the following:"));
 		result.append("\n");
 		result.append(createDescriptionString(commands.last()->subcommands()));
 	}
 
-	QString defaultsString(createDefaultsString(commands));
-	if (!defaultsString.isEmpty()) {
-		result.append("\n");
-		result.append(defaultsString);
+	if (matchedChain().length() > matchedNonDefaultChain().length()) {
+		result.append("\n\n");
+		result.append(createDefaultsString(matchedChain()));
 	}
 
 	result.append("\n");
@@ -249,28 +257,50 @@ QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 	return result;
 }
 
-QString Interpreter::Commands::Help::createSynopsisString(const Command::CommandsContainer & commands)
+QString Interpreter::Commands::Help::createSynopsisString(const Command::CommandsContainer & commands, int optionalFrom)
 {
 	QString synopsis(QCoreApplication::translate("Interpreter::Commands::Help", "Synopsis:"));
-	bool required = true;
+	bool subcommandRequired = true;
+	bool makeSpaceBefore = true;
+	bool insideOptional = false;
+	int currentCommandIndex = 0;
 	for (auto command : commands) {
 		QString commandString = command->names().at(0);
-		if (synopsis.back() != '\\')
+
+		if (makeSpaceBefore)
 			synopsis.append(' ');
-		if (!required)
+
+		if (!subcommandRequired && !insideOptional && (currentCommandIndex >= optionalFrom)) {
 			synopsis.append('[');
+			insideOptional = true;
+		}
+
 		synopsis.append(command->names().at(0));
-		if (!required)
-			synopsis.append(']');
-		required = command->subcommandRequired();
+
+		if (command->names().at(0) == "\\")
+			makeSpaceBefore = false;
+		else
+			makeSpaceBefore = true;
+
+		subcommandRequired = command->subcommandRequired();
+
+		currentCommandIndex++;
 	}
 	if (!commands.last()->subcommands().isEmpty()) {
-		if (!required)
+		if (makeSpaceBefore)
+			synopsis.append(' ');
+
+		if (!subcommandRequired && !insideOptional && (currentCommandIndex >= optionalFrom)) {
 			synopsis.append('[');
+			insideOptional = true;
+		}
+
 		synopsis.append(QCoreApplication::translate("Interpreter::Commands::Help", "<command>"));
-		if (!required)
-			synopsis.append(']');
 	}
+
+	if (insideOptional)
+		synopsis.append(']');
+
 	return synopsis;
 }
 
@@ -442,16 +472,60 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 	else
 		childList = context.scopeObject->children();
 
-	result.append("\n\n");
-	if (childList.isEmpty())
-		result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "None\n"));
-	else {
+	if (childList.isEmpty()) {
+		result.append("\n");
+		result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "None"));
+		result.append('\n');
+	} else {
+		result.append("\n\n");
 		int index = 0;
 		for (auto child : childList) {
 			result.append(QString::number(index)).append(": ");
 			result.append(qobjectShortInfo(child));
 			result.append('\n');
 			index++;
+		}
+	}
+
+	return result;
+}
+
+QString Interpreter::Commands::List::Properties::execute(Command::ExecutionContext & context)
+{
+	QString result;
+
+	result.append(QCoreApplication::translate("Interpreter::Commands::List::Properties", "List properties of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
+
+	if (context.scopeObject->metaObject()->propertyCount() == 0) {
+		result.append("\n");
+		result.append(QCoreApplication::translate("Interpreter::Commands::List::Properties", "None"));
+		result.append("\n");
+	} else {
+		QList<const QMetaObject *> moStack;
+		{
+			const QMetaObject * mo = context.scopeObject->metaObject();
+			do {
+				moStack.append(mo);
+				mo = mo->superClass();
+			} while (mo != nullptr);
+		}
+
+		result.append("\n");
+		while (!moStack.isEmpty()) {
+			const QMetaObject * mo = moStack.takeLast();
+
+			result.append("\n");
+			result.append(qmetaObjectShortInfo(mo));
+			result.append(":\n");
+
+			for (int i = mo->propertyOffset(); i < mo->propertyCount(); i++) {
+				QMetaProperty property = mo->property(i);
+				result.append(QString::number(i)).append(": ");
+				result.append(property.typeName());
+				result.append(" - ");
+				result.append(property.name());
+				result.append('\n');
+			}
 		}
 	}
 
