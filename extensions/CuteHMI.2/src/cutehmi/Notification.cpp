@@ -9,21 +9,27 @@ Notification::Notification(Type type, const QString & text, QObject * parent):
 {
 }
 
+Notification::Notification(const QString & text, Notification::Type type, QObject * parent):
+	QObject(parent),
+	m(new Members{type, text, QDateTime::currentDateTime()})
+{
+}
+
 void Notification::Info(const QString & text)
 {
-	Notification notification(Notification::INFO, text);
+	Notification notification(text, Notification::INFO);
 	Notifier::Instance().add(& notification);
 }
 
 void Notification::Warning(const QString & text)
 {
-	Notification notification(Notification::WARNING, text);
+	Notification notification(text, Notification::WARNING);
 	Notifier::Instance().add(& notification);
 }
 
 void Notification::Critical(const QString & text)
 {
-	Notification notification(Notification::CRITICAL, text);
+	Notification notification(text, Notification::CRITICAL);
 	Notifier::Instance().add(& notification);
 }
 
