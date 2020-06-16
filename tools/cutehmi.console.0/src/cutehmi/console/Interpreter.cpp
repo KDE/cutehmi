@@ -111,7 +111,7 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form: `index: type [- object_name]`."));
 	m_commands.list->addSubcommand(m_commands.list->children.get());
 
-	m_commands.list->property = std::make_unique<Commands::List::Properties>(QStringList({"property", "p"}));
+	m_commands.list->property = std::make_unique<Commands::List::Property>(QStringList({"property", "p"}));
 	m_commands.list->property->setHelp(tr("List scope object properties or property details. Without argument command lists"
 					" properties of current scope object. Properties are grouped into meta-object class sections. Each section"
 					" lists properties in the form: `index: type - propery_name`. If argument is given command prints details on"
@@ -497,7 +497,7 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 	return result;
 }
 
-QString Interpreter::Commands::List::Properties::execute(Command::ExecutionContext & context)
+QString Interpreter::Commands::List::Property::execute(Command::ExecutionContext & context)
 {
 	if (!matchedChain().isEmpty())
 		// List property details.
@@ -507,7 +507,7 @@ QString Interpreter::Commands::List::Properties::execute(Command::ExecutionConte
 		return properties(context);
 }
 
-QString Interpreter::Commands::List::Properties::properties(Command::ExecutionContext & context)
+QString Interpreter::Commands::List::Property::properties(Command::ExecutionContext & context)
 {
 	QString result;
 
@@ -543,7 +543,7 @@ QString Interpreter::Commands::List::Properties::properties(Command::ExecutionCo
 	return result;
 }
 
-QString Interpreter::Commands::List::Properties::property(Command::ExecutionContext & context, const QString & matchedString)
+QString Interpreter::Commands::List::Property::property(Command::ExecutionContext & context, const QString & matchedString)
 {
 	QString result;
 

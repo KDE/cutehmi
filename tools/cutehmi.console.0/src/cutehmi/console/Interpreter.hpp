@@ -42,7 +42,7 @@ class Interpreter:
 						};
 						std::unique_ptr<Children> children;
 
-						class Properties : public Command {
+						class Property : public Command {
 							public:
 								using Command::Command;
 
@@ -55,7 +55,7 @@ class Interpreter:
 
 								QString  property(ExecutionContext & context, const QString & matchedString);
 						};
-						std::unique_ptr<Properties> property;
+						std::unique_ptr<Property> property;
 				};
 				std::unique_ptr<List> list;
 
