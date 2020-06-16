@@ -231,7 +231,7 @@ QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 		commands.append(parentCommand());
 		commandName = names().value(0);
 	}
-	result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Help '%1'...").arg(commandName));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Help '%1'...").arg(commandName));
 
 	// Append single choice subcommands to the chain.
 	while (commands.last()->subcommands().length() == 1)
@@ -243,13 +243,13 @@ QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 	result.append(createSynopsisString(commands, matchedNonDefaultChain().length()));
 
 	result.append("\n\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Where:"));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Where:"));
 	result.append("\n");
 	result.append(createDescriptionString(commands));
 
 	if (!commands.last()->subcommands().isEmpty()) {
 		result.append("\n\n");
-		result.append(QCoreApplication::translate("Interpreter::Commands::Help", "And <command> is one of the following:"));
+		result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "And <command> is one of the following:"));
 		result.append("\n");
 		result.append(createDescriptionString(commands.last()->subcommands()));
 	}
@@ -266,7 +266,7 @@ QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 
 QString Interpreter::Commands::Help::createSynopsisString(const Command::CommandsContainer & commands, int optionalFrom)
 {
-	QString synopsis(QCoreApplication::translate("Interpreter::Commands::Help", "Synopsis:"));
+	QString synopsis(QCoreApplication::translate("cutehmi::console::Interpreter", "Synopsis:"));
 	bool subcommandRequired = true;
 	bool makeSpaceBefore = true;
 	bool insideOptional = false;
@@ -302,7 +302,7 @@ QString Interpreter::Commands::Help::createSynopsisString(const Command::Command
 			insideOptional = true;
 		}
 
-		synopsis.append(QCoreApplication::translate("Interpreter::Commands::Help", "<command>"));
+		synopsis.append(QCoreApplication::translate("cutehmi::console::Interpreter", "<command>"));
 	}
 
 	if (insideOptional)
@@ -370,7 +370,7 @@ QString Interpreter::Commands::Help::createDescriptionString(const Command::Comm
 
 QString Interpreter::Commands::Help::createDefaultsString(const Command::CommandsContainer & commands)
 {
-	QString result(QCoreApplication::translate("Interpreter::Commands::Help", "Defaults:"));
+	QString result(QCoreApplication::translate("cutehmi::console::Interpreter", "Defaults:"));
 
 	QString defaultSubcommand;
 	for (auto command : commands) {
@@ -422,7 +422,7 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 						if (candidate != context.engine)
 							candidate = context.engine;
 						else
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Can not select parent - root object already reached."));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Can not select parent - root object already reached."));
 					}
 				} else {
 					QObjectList childList;
@@ -437,19 +437,19 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 					if (ok) {
 						// Select by index.
 						if (index < 0)
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Can not use negative indices."));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Can not use negative indices."));
 						else if (index >= childList.count())
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Given index ('%1') is too large.").arg(index));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Given index ('%1') is too large.").arg(index));
 						else
 							candidate = childList.at(index);
 					} else {
 						// Select by objectName.
 						QObjectList children = findInChildren(childList, part);
 						if (children.count() == 0)
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Child object with given name ('%1') not found.").arg(part));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Child object with given name ('%1') not found.").arg(part));
 						else {
 							if (children.count() > 1)
-								warnings.append(QCoreApplication::translate("Interpreter::Commands::Scope", "Found more than one object with given name ('%1').").arg(part));
+								warnings.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Found more than one object with given name ('%1').").arg(part));
 							candidate = children.at(0);
 						}
 					}
@@ -457,7 +457,7 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 			}
 			context.scopeObject = candidate;
 
-			QString result = QCoreApplication::translate("Interpreter::Commands::Scope", "New scope object: '%1'.").arg(qobjectShortInfo(context.scopeObject));
+			QString result = QCoreApplication::translate("cutehmi::console::Interpreter", "New scope object: '%1'.").arg(qobjectShortInfo(context.scopeObject));
 			appendWarnings(result, warnings);
 			return result;
 		}
@@ -470,7 +470,7 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 {
 	QString result;
 
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "List children of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "List children of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
 
 	QObjectList childList;
 	if (context.scopeObject == context.engine)
@@ -481,7 +481,7 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 
 	if (childList.isEmpty()) {
 		result.append("\n\n");
-		result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "None"));
+		result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "None"));
 		result.append('\n');
 	} else {
 		result.append("\n\n");
@@ -511,11 +511,11 @@ QString Interpreter::Commands::List::Properties::properties(Command::ExecutionCo
 {
 	QString result;
 
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "List properties of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "List properties of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
 
 	if (context.scopeObject->metaObject()->propertyCount() == 0) {
 		result.append("\n\n");
-		result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "None"));
+		result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "None"));
 		result.append("\n");
 	} else {
 		QList<const QMetaObject *> moStack;
@@ -559,52 +559,52 @@ QString Interpreter::Commands::List::Properties::property(Command::ExecutionCont
 	if (ok) {
 		// Select by index.
 		if (index < 0)
-			return strError(QCoreApplication::translate("Interpreter::Commands::List::Property", "Can not use negative indices."));
+			return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Can not use negative indices."));
 		else if (index >= mo->propertyCount())
-			return strError(QCoreApplication::translate("Interpreter::Commands::List::Property", "Given index ('%1') is too large.").arg(index));
+			return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Given index ('%1') is too large.").arg(index));
 	} else {
 		// Select by name.
 		index = mo->indexOfProperty(matchedString.toLocal8Bit().constData());
 		if (index == -1)
-			return strError(QCoreApplication::translate("Interpreter::Commands::List::Property", "Could not find property with given name ('%1').").arg(matchedString));
+			return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Could not find property with given name ('%1').").arg(matchedString));
 	}
 
 	QMetaProperty mp = mo->property(index);
 
-	QString trYes = QCoreApplication::translate("Interpreter::Commands::List::Property", "yes");
-	QString trNo = QCoreApplication::translate("Interpreter::Commands::List::Property", "no");
+	QString trYes = QCoreApplication::translate("cutehmi::console::Interpreter", "yes");
+	QString trNo = QCoreApplication::translate("cutehmi::console::Interpreter", "no");
 
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "List property '%1' details...").arg(mp.name()));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "List property '%1' details...").arg(mp.name()));
 	result.append("\n\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Name: '%1'").arg(mp.name()));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Name: '%1'").arg(mp.name()));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Type: '%1'").arg(mp.typeName()));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Type: '%1'").arg(mp.typeName()));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Constant: %1").arg(mp.isConstant() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Constant: %1").arg(mp.isConstant() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Designable: %1").arg(mp.isDesignable(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Designable: %1").arg(mp.isDesignable(context.scopeObject) ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Enum: %1").arg(mp.isEnumType() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Enum: %1").arg(mp.isEnumType() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Final: %1").arg(mp.isFinal() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Final: %1").arg(mp.isFinal() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Flag: %1").arg(mp.isFlagType() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Flag: %1").arg(mp.isFlagType() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Readable: %1").arg(mp.isReadable() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Readable: %1").arg(mp.isReadable() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Resettable: %1").arg(mp.isResettable() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Resettable: %1").arg(mp.isResettable() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Scriptable: %1").arg(mp.isScriptable(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Scriptable: %1").arg(mp.isScriptable(context.scopeObject) ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Stored: %1").arg(mp.isStored(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Stored: %1").arg(mp.isStored(context.scopeObject) ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "User: %1").arg(mp.isUser(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "User: %1").arg(mp.isUser(context.scopeObject) ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Valid: %1").arg(mp.isValid() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Valid: %1").arg(mp.isValid() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Writable: %1").arg(mp.isWritable() ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Writable: %1").arg(mp.isWritable() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Property", "Notify signal: %1").arg(mp.notifySignal().name().constData()));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Notify signal: %1").arg(mp.notifySignal().name().constData()));
 	result.append("\n");
 
 	return result;
