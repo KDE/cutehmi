@@ -102,7 +102,7 @@ void Schema::create()
 		if (error)
 			Notification::Critical(tr("Failed to create '%1' schema.").arg(name()));
 		else if (warning)
-			Notification::Warning(tr("Created '%1' schema altough the operation wasn't clean.").arg(name()));
+			Notification::Warning(tr("Created '%1' schema although the operation wasn't clean.").arg(name()));
 		else
 			Notification::Info(tr("Successfully created '%1' schema.").arg(name()));
 
@@ -156,7 +156,7 @@ void Schema::drop()
 		if (error)
 			Notification::Critical(tr("Failed to drop '%1' schema.").arg(name()));
 		else if (warning)
-			Notification::Warning(tr("Dropped '%1' schema altough the operation wasn't clean.").arg(name()));
+			Notification::Warning(tr("Dropped '%1' schema although the operation wasn't clean.").arg(name()));
 		else
 			Notification::Info(tr("Dropped '%1' schema.").arg(name()));
 
