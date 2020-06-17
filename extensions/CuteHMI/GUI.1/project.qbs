@@ -80,7 +80,9 @@ Project {
 		Export {
 			Depends { name: "CuteHMI.2" }
 
+			//<CuteHMI.GUI-1.workaround target="Qt" cause="bug">
 			Depends { name: "Qt.widgets" }
+			//</CuteHMI.GUI-1.workaround>
 		}
 	}
 

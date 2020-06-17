@@ -44,6 +44,10 @@ void Schema::setUser(const QString & user)
 void Schema::create()
 {
 	worker([this](QSqlDatabase & db) {
+
+		bool warning = false;
+		bool error = false;
+
 		if (db.driverName() == "QPSQL") {
 			QSqlQuery query(db);
 			try {
@@ -52,7 +56,8 @@ void Schema::create()
 				QString queryString = readScript(POSTGRESQL_SCRIPTS_SUBDIR, "create.sql").arg(name());
 				CUTEHMI_DEBUG("SQL query:\n```\n" << queryString + "\n```");
 
-				query.exec(queryString);
+				if (!query.exec(queryString))
+					error = true;
 				pushError(query.lastError());
 				query.finish();
 			} catch (const Exception & e) {
@@ -66,7 +71,9 @@ void Schema::create()
 					ALTER SCHEMA %1 OWNER TO %2;
 				)SQL";
 
-				query.exec(QString(alterSchemaQuery).arg(name()).arg(user()));
+				if (!query.exec(QString(alterSchemaQuery).arg(name()).arg(user())))
+					warning = true;
+
 				pushError(query.lastError());
 				query.finish();
 			}
@@ -81,7 +88,8 @@ void Schema::create()
 				for (auto queryIt = queryList.begin(); queryIt != queryList.end(); ++queryIt) {
 					CUTEHMI_DEBUG("SQL query:\n```\n" << *queryIt + "\n```");
 
-					query.exec(*queryIt);
+					if (!query.exec(*queryIt))
+						error = true;
 					pushError(query.lastError());
 					query.finish();
 				}
@@ -90,12 +98,24 @@ void Schema::create()
 			}
 		} else
 			emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
+
+		if (error)
+			Notification::Critical(tr("Failed to create '%1' schema.").arg(name()));
+		else if (warning)
+			Notification::Warning(tr("Created '%1' schema altough the operation wasn't clean.").arg(name()));
+		else
+			Notification::Info(tr("Successfully created '%1' schema.").arg(name()));
+
 	})->work();
 }
 
 void Schema::drop()
 {
 	worker([this](QSqlDatabase & db) {
+
+		bool warning = false;
+		bool error = false;
+
 		if (db.driverName() == "QPSQL") {
 			QSqlQuery query(db);
 			try {
@@ -104,7 +124,8 @@ void Schema::drop()
 				QString queryString = readScript(POSTGRESQL_SCRIPTS_SUBDIR, "drop.sql").arg(name());
 				CUTEHMI_DEBUG("SQL query:\n```\n" << queryString + "\n```");
 
-				query.exec(queryString);
+				if (!query.exec(queryString))
+					error = true;
 				pushError(query.lastError());
 				query.finish();
 			} catch (const Exception & e) {
@@ -121,7 +142,8 @@ void Schema::drop()
 				for (auto queryIt = queryList.begin(); queryIt != queryList.end(); ++queryIt) {
 					CUTEHMI_DEBUG("SQL query:\n```\n" << *queryIt + "\n```");
 
-					query.exec(*queryIt);
+					if (!query.exec(*queryIt))
+						warning = true;
 					pushError(query.lastError());
 					query.finish();
 				}
@@ -130,6 +152,14 @@ void Schema::drop()
 			}
 		} else
 			emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
+
+		if (error)
+			Notification::Critical(tr("Failed to drop '%1' schema.").arg(name()));
+		else if (warning)
+			Notification::Warning(tr("Dropped '%1' schema altough the operation wasn't clean.").arg(name()));
+		else
+			Notification::Info(tr("Dropped '%1' schema.").arg(name()));
+
 	})->work();
 }
 

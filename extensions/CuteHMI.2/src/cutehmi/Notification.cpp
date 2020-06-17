@@ -9,21 +9,27 @@ Notification::Notification(Type type, const QString & text, QObject * parent):
 {
 }
 
+Notification::Notification(const QString & text, Notification::Type type, QObject * parent):
+	QObject(parent),
+	m(new Members{type, text, QDateTime::currentDateTime()})
+{
+}
+
 void Notification::Info(const QString & text)
 {
-	Notification notification(Notification::INFO, text);
+	Notification notification(text, Notification::INFO);
 	Notifier::Instance().add(& notification);
 }
 
 void Notification::Warning(const QString & text)
 {
-	Notification notification(Notification::WARNING, text);
+	Notification notification(text, Notification::WARNING);
 	Notifier::Instance().add(& notification);
 }
 
 void Notification::Critical(const QString & text)
 {
-	Notification notification(Notification::CRITICAL, text);
+	Notification notification(text, Notification::CRITICAL);
 	Notifier::Instance().add(& notification);
 }
 
@@ -72,7 +78,7 @@ std::unique_ptr<Notification> Notification::clone() const
 
 }
 
-//(c)C: Copyright © 2018-2019, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.

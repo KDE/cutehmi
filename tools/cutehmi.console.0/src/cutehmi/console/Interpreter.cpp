@@ -18,6 +18,10 @@ static QString qobjectShortInfo(const QObject * object) {
 	return info;
 };
 
+static QString qmetaObjectShortInfo(const QMetaObject * metaObject) {
+	return metaObject->className();
+};
+
 static QString strError(const QString & message) {
 	return QCoreApplication::translate("cutehmi::console::strError", "Command error: %1").arg(message);
 }
@@ -103,9 +107,20 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_commands.list->setDefaultSubcommandString("children");
 	m_consoleCommand.addSubcommand(m_commands.list.get());
 
-	m_commands.list->children = std::make_unique<Commands::List::Children>(QStringList({"children", "cn"}));
-	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form `index: type [- object name].`"));
+	m_commands.list->children = std::make_unique<Commands::List::Children>(QStringList({"children", "c"}));
+	m_commands.list->children->setHelp(tr("List scope object children. List is presented in the form: `index: type [- object_name]`."));
 	m_commands.list->addSubcommand(m_commands.list->children.get());
+
+	m_commands.list->property = std::make_unique<Commands::List::Property>(QStringList({"property", "p"}));
+	m_commands.list->property->setHelp(tr("List scope object properties or property details. Without argument command lists"
+					" properties of current scope object. Properties are grouped into meta-object class sections. Each section"
+					" lists properties in the form: `index: type - propery_name`. If argument is given command prints details on"
+					" property selected by the argument."));
+	m_commands.list->addSubcommand(m_commands.list->property.get());
+
+	m_commands.list->property->name = std::make_unique<Command>("name");
+	m_commands.list->property->name->setHelp(tr("Property name or index."));
+	m_commands.list->property->addSubcommand(m_commands.list->property->name.get());
 
 
 	m_commands.scope = std::make_unique<Commands::Scope>(QStringList({"scope", "s"}));
@@ -116,7 +131,7 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 
 	m_commands.scope->object = std::make_unique<Command>("object");
 	m_commands.scope->object->setHelp(tr("Object path relative to current scope object. Object path can be composed of object names"
-					" or indices separated by slash character ('/'). Double dot ('..') can be used to choose parent object. if"
+					" or indices separated by slash character ('/'). Double dot ('..') can be used to choose parent object. If"
 					" object names are given search is performed recursively, thus this command does not work like standard file path"
 					" lookup. If more than one objects with given name were found, command picks the first one."));
 	m_commands.scope->addSubcommand(m_commands.scope->object.get());
@@ -133,9 +148,8 @@ Interpreter::Interpreter(QQmlApplicationEngine * engine, QObject * parent):
 	m_helpCommand.setSubcommandRequired(true);
 
 	m_commands.help = std::make_unique<Commands::Help>(QStringList({"help", "h"}));
-	m_commands.help->setHelp(tr("Shows help."));
+	m_commands.help->setHelp(tr("Shows help on specified command (arguments may follow)."));
 	m_commands.help->addSubcommand(& m_consoleCommand);
-	m_commands.help->setDefaultSubcommandString("\\");
 	m_helpCommand.addSubcommand(m_commands.help.get());
 }
 
@@ -175,6 +189,9 @@ void Interpreter::interperetLine(const QString & line)
 
 QStringList Interpreter::parseLine(const QString & line)
 {
+	// Double quite separated commands
+//	QStringList doubleQuoteSeparatedCommands = line.split('"', QString::SkipEmptyParts);
+
 	// Split by whitespace.
 	QStringList whitespaceSeparatedCommands = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
 
@@ -203,45 +220,43 @@ QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 
 	QString result;
 
-	Command::CommandsContainer commands = matchedChain();
+	Command::CommandsContainer commands = matchedNonDefaultChain();
 
-	{
-		QString commandName;
-		Command::CommandsContainer matchedNonDefaultCommands = matchedNonDefaultChain();
-		if (!matchedNonDefaultCommands.isEmpty())
-			commandName = matchedNonDefaultCommands.last()->names().value(0);
-		else if (!commands.isEmpty())
-			commandName = commands.last()->names().value(0);
-		else {
-			commands.append(parentCommand());
-			commandName = names().value(0);
-		}
-		result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Help '%1'...").arg(commandName));
+	QString commandName;
+	if (!commands.isEmpty())
+		commandName = commands.last()->names().value(0);
+	else if (!commands.isEmpty())
+		commandName = commands.last()->names().value(0);
+	else {
+		commands.append(parentCommand());
+		commandName = names().value(0);
 	}
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Help '%1'...").arg(commandName));
 
 	// Append single choice subcommands to the chain.
 	while (commands.last()->subcommands().length() == 1)
 		commands.append(commands.last()->subcommands().at(0));
 
 	result.append("\n\n");
-	result.append(createSynopsisString(commands));
+	// Setting `optionalFrom` parameter to matched non-default chain length, so that commands explicity typed by the user won't
+	// be presented in square brackets.
+	result.append(createSynopsisString(commands, matchedNonDefaultChain().length()));
 
-	result.append("\n");
-	result.append(QCoreApplication::translate("Interpreter::Commands::Help", "Where:"));
+	result.append("\n\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Where:"));
 	result.append("\n");
 	result.append(createDescriptionString(commands));
 
 	if (!commands.last()->subcommands().isEmpty()) {
-		result.append("\n");
-		result.append(QCoreApplication::translate("Interpreter::Commands::Help", "And <command> is one of the following:"));
+		result.append("\n\n");
+		result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "And <command> is one of the following:"));
 		result.append("\n");
 		result.append(createDescriptionString(commands.last()->subcommands()));
 	}
 
-	QString defaultsString(createDefaultsString(commands));
-	if (!defaultsString.isEmpty()) {
-		result.append("\n");
-		result.append(defaultsString);
+	if (matchedChain().length() > matchedNonDefaultChain().length()) {
+		result.append("\n\n");
+		result.append(createDefaultsString(matchedChain()));
 	}
 
 	result.append("\n");
@@ -249,28 +264,50 @@ QString Interpreter::Commands::Help::execute(ExecutionContext & context)
 	return result;
 }
 
-QString Interpreter::Commands::Help::createSynopsisString(const Command::CommandsContainer & commands)
+QString Interpreter::Commands::Help::createSynopsisString(const Command::CommandsContainer & commands, int optionalFrom)
 {
-	QString synopsis(QCoreApplication::translate("Interpreter::Commands::Help", "Synopsis:"));
-	bool required = true;
+	QString synopsis(QCoreApplication::translate("cutehmi::console::Interpreter", "Synopsis:"));
+	bool subcommandRequired = true;
+	bool makeSpaceBefore = true;
+	bool insideOptional = false;
+	int currentCommandIndex = 0;
 	for (auto command : commands) {
 		QString commandString = command->names().at(0);
-		if (synopsis.back() != '\\')
+
+		if (makeSpaceBefore)
 			synopsis.append(' ');
-		if (!required)
+
+		if (!subcommandRequired && !insideOptional && (currentCommandIndex >= optionalFrom)) {
 			synopsis.append('[');
+			insideOptional = true;
+		}
+
 		synopsis.append(command->names().at(0));
-		if (!required)
-			synopsis.append(']');
-		required = command->subcommandRequired();
+
+		if (command->names().at(0) == "\\")
+			makeSpaceBefore = false;
+		else
+			makeSpaceBefore = true;
+
+		subcommandRequired = command->subcommandRequired();
+
+		currentCommandIndex++;
 	}
 	if (!commands.last()->subcommands().isEmpty()) {
-		if (!required)
+		if (makeSpaceBefore)
+			synopsis.append(' ');
+
+		if (!subcommandRequired && !insideOptional && (currentCommandIndex >= optionalFrom)) {
 			synopsis.append('[');
-		synopsis.append(QCoreApplication::translate("Interpreter::Commands::Help", "<command>"));
-		if (!required)
-			synopsis.append(']');
+			insideOptional = true;
+		}
+
+		synopsis.append(QCoreApplication::translate("cutehmi::console::Interpreter", "<command>"));
 	}
+
+	if (insideOptional)
+		synopsis.append(']');
+
 	return synopsis;
 }
 
@@ -333,7 +370,7 @@ QString Interpreter::Commands::Help::createDescriptionString(const Command::Comm
 
 QString Interpreter::Commands::Help::createDefaultsString(const Command::CommandsContainer & commands)
 {
-	QString result(QCoreApplication::translate("Interpreter::Commands::Help", "Defaults:"));
+	QString result(QCoreApplication::translate("cutehmi::console::Interpreter", "Defaults:"));
 
 	QString defaultSubcommand;
 	for (auto command : commands) {
@@ -385,7 +422,7 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 						if (candidate != context.engine)
 							candidate = context.engine;
 						else
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Can not select parent - root object already reached."));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Can not select parent - root object already reached."));
 					}
 				} else {
 					QObjectList childList;
@@ -400,19 +437,19 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 					if (ok) {
 						// Select by index.
 						if (index < 0)
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Can not use negative indices."));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Can not use negative indices."));
 						else if (index >= childList.count())
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Given index ('%1') is too large.").arg(index));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Given index ('%1') is too large.").arg(index));
 						else
 							candidate = childList.at(index);
 					} else {
 						// Select by objectName.
 						QObjectList children = findInChildren(childList, part);
 						if (children.count() == 0)
-							return strError(QCoreApplication::translate("Interpreter::Commands::Scope", "Child object with given name ('%1') not found.").arg(part));
+							return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Child object with given name ('%1') not found.").arg(part));
 						else {
 							if (children.count() > 1)
-								warnings.append(QCoreApplication::translate("Interpreter::Commands::Scope", "Found more than one object with given name ('%1').").arg(part));
+								warnings.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Found more than one object with given name ('%1').").arg(part));
 							candidate = children.at(0);
 						}
 					}
@@ -420,7 +457,7 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 			}
 			context.scopeObject = candidate;
 
-			QString result = QCoreApplication::translate("Interpreter::Commands::Scope", "New scope object: '%1'.").arg(qobjectShortInfo(context.scopeObject));
+			QString result = QCoreApplication::translate("cutehmi::console::Interpreter", "New scope object: '%1'.").arg(qobjectShortInfo(context.scopeObject));
 			appendWarnings(result, warnings);
 			return result;
 		}
@@ -433,7 +470,7 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 {
 	QString result;
 
-	result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "List children of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "List children of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
 
 	QObjectList childList;
 	if (context.scopeObject == context.engine)
@@ -442,10 +479,12 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 	else
 		childList = context.scopeObject->children();
 
-	result.append("\n\n");
-	if (childList.isEmpty())
-		result.append(QCoreApplication::translate("Interpreter::Commands::List::Children", "None\n"));
-	else {
+	if (childList.isEmpty()) {
+		result.append("\n\n");
+		result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "None"));
+		result.append('\n');
+	} else {
+		result.append("\n\n");
 		int index = 0;
 		for (auto child : childList) {
 			result.append(QString::number(index)).append(": ");
@@ -458,10 +497,117 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 	return result;
 }
 
+QString Interpreter::Commands::List::Property::execute(Command::ExecutionContext & context)
+{
+	if (!matchedChain().isEmpty())
+		// List property details.
+		return property(context, name->matchedString());
+	else
+		// List properties.
+		return properties(context);
+}
+
+QString Interpreter::Commands::List::Property::properties(Command::ExecutionContext & context)
+{
+	QString result;
+
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "List properties of '%1'...").arg(qobjectShortInfo(context.scopeObject)));
+
+	QList<const QMetaObject *> moStack;
+	{
+		const QMetaObject * mo = context.scopeObject->metaObject();
+		do {
+			moStack.append(mo);
+			mo = mo->superClass();
+		} while (mo != nullptr);
+	}
+
+	result.append("\n");
+	while (!moStack.isEmpty()) {
+		const QMetaObject * mo = moStack.takeLast();
+
+		result.append("\n");
+		result.append(qmetaObjectShortInfo(mo));
+		result.append(":\n");
+
+		for (int i = mo->propertyOffset(); i < mo->propertyCount(); i++) {
+			QMetaProperty mp = mo->property(i);
+			result.append(QString::number(i)).append(": ");
+			result.append(mp.typeName());
+			result.append(" - ");
+			result.append(mp.name());
+			result.append('\n');
+		}
+	}
+
+	return result;
+}
+
+QString Interpreter::Commands::List::Property::property(Command::ExecutionContext & context, const QString & matchedString)
+{
+	QString result;
+
+	const QMetaObject * mo = context.scopeObject->metaObject();
+	bool ok;
+	int index = matchedString.toInt(& ok);
+	if (ok) {
+		// Select by index.
+		if (index < 0)
+			return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Can not use negative indices."));
+		else if (index >= mo->propertyCount())
+			return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Given index ('%1') is too large.").arg(index));
+	} else {
+		// Select by name.
+		index = mo->indexOfProperty(matchedString.toLocal8Bit().constData());
+		if (index == -1)
+			return strError(QCoreApplication::translate("cutehmi::console::Interpreter", "Could not find property with given name ('%1').").arg(matchedString));
+	}
+
+	QMetaProperty mp = mo->property(index);
+
+	QString trYes = QCoreApplication::translate("cutehmi::console::Interpreter", "yes");
+	QString trNo = QCoreApplication::translate("cutehmi::console::Interpreter", "no");
+
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "List property '%1' details...").arg(mp.name()));
+	result.append("\n\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Name: '%1'").arg(mp.name()));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Type: '%1'").arg(mp.typeName()));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Constant: %1").arg(mp.isConstant() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Designable: %1").arg(mp.isDesignable(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Enum: %1").arg(mp.isEnumType() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Final: %1").arg(mp.isFinal() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Flag: %1").arg(mp.isFlagType() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Readable: %1").arg(mp.isReadable() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Resettable: %1").arg(mp.isResettable() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Scriptable: %1").arg(mp.isScriptable(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Stored: %1").arg(mp.isStored(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "User: %1").arg(mp.isUser(context.scopeObject) ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Valid: %1").arg(mp.isValid() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Writable: %1").arg(mp.isWritable() ? trYes : trNo));
+	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Notify signal: %1").arg(mp.notifySignal().name().constData()));
+	result.append("\n");
+
+	return result;
+}
+
 }
 }
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
