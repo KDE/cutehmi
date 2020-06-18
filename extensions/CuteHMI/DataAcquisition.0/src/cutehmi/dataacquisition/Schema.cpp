@@ -102,7 +102,7 @@ void Schema::create()
 		if (error)
 			Notification::Critical(tr("Failed to create '%1' schema.").arg(name()));
 		else if (warning)
-			Notification::Warning(tr("Created '%1' schema altough the operation wasn't clean.").arg(name()));
+			Notification::Warning(tr("Created '%1' schema although the operation wasn't clean.").arg(name()));
 		else
 			Notification::Info(tr("Successfully created '%1' schema.").arg(name()));
 
@@ -156,7 +156,7 @@ void Schema::drop()
 		if (error)
 			Notification::Critical(tr("Failed to drop '%1' schema.").arg(name()));
 		else if (warning)
-			Notification::Warning(tr("Dropped '%1' schema altough the operation wasn't clean.").arg(name()));
+			Notification::Warning(tr("Dropped '%1' schema although the operation wasn't clean.").arg(name()));
 		else
 			Notification::Info(tr("Dropped '%1' schema.").arg(name()));
 
@@ -265,7 +265,7 @@ QString Schema::readScript(const QString & dbms, const QString & scriptName) con
 }
 }
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //(c)C: CuteHMI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
