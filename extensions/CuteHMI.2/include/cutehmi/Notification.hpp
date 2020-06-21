@@ -51,7 +51,7 @@ class CUTEHMI_API Notification:
 		 * @param text notification text.
 		 * @param parent parent object.
 		 *
-		 * @deprecated
+		 * @deprecated Notification(const QString &, Type, QObject *) constructor should be used instead.
 		 */
 		explicit Notification(Type type, const QString & text = QString(), QObject * parent = nullptr);
 

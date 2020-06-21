@@ -19,9 +19,9 @@ class CUTEHMI_API Notifier:
 	public QObject,
 	public Singleton<Notifier>
 {
-	Q_OBJECT
+		Q_OBJECT
 
-	friend class Singleton<Notifier>;
+		friend class Singleton<Notifier>;
 
 	public:
 		Q_PROPERTY(NotificationListModel * model READ model CONSTANT)
