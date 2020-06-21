@@ -23,109 +23,109 @@ namespace cutehmi {
 class CUTEHMI_API Notification:
 	public QObject
 {
-                Q_OBJECT
+		Q_OBJECT
 
 	public:
 		Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)
 		Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
 		enum Type {
-			INFO = 1,
-			WARNING = 2,
-			CRITICAL = 3
+			INFO = 1,		///< Informative level notification type.
+			WARNING = 2,	///< Warning level notification type.
+			CRITICAL = 3	///< Critical level notification type.
 		};
 		Q_ENUM(Type)
 
-                /**
-                 * Default constructor.
-                 * @param text notification text.
-                 * @param type notification type.
-                 * @param parent parent object.
-                 */
-                explicit Notification(const QString & text = QString(), Type type = INFO, QObject * parnt = nullptr);
+		/**
+		 * Default constructor.
+		 * @param text notification text.
+		 * @param type notification type.
+		 * @param parent parent object.
+		 */
+		explicit Notification(const QString & text = QString(), Type type = INFO, QObject * parnt = nullptr);
 
 
-                /**
-                 * Constructor.
-                 * @param type notification type.
-                 * @param text notification text.
-                 * @param parent parent object.
-                 *
-                 * @deprecated
-                 */
-                explicit Notification(Type type, const QString & text = QString(), QObject * parent = nullptr);
+		/**
+		 * Constructor.
+		 * @param type notification type.
+		 * @param text notification text.
+		 * @param parent parent object.
+		 *
+		 * @deprecated
+		 */
+		explicit Notification(Type type, const QString & text = QString(), QObject * parent = nullptr);
 
-                /**
-                 * Add informative notification. Convenient function that creates informative notification and adds it to the
-                 * Notifier.
-                 * @param text notification text.
-                 */
+		/**
+		 * Add informative notification. Convenient function that creates informative notification and adds it to the
+		 * Notifier.
+		 * @param text notification text.
+		 */
 		static void Info(const QString & text);
 
-                /**
-                 * Add warning notification. Convenient function that creates warning notification and adds it to the Notifier.
-                 * @param text notification text.
-                 */
-                static void Warning(const QString & text);
+		/**
+		 * Add warning notification. Convenient function that creates warning notification and adds it to the Notifier.
+		 * @param text notification text.
+		 */
+		static void Warning(const QString & text);
 
-                /**
-                 * Add critical notification. Convenient function that creates critical notification and adds it to the Notifier.
-                 * @param text notification text.
-                 */
-                static void Critical(const QString & text);
+		/**
+		 * Add critical notification. Convenient function that creates critical notification and adds it to the Notifier.
+		 * @param text notification text.
+		 */
+		static void Critical(const QString & text);
 
-                /**
-                 * Add critical notification. Convenient function that creates critical notification from ErrorInfo object and adds
-                 * it to the Notifier.
-                 * @param errorInfo ErrorInfo object.
-                 */
+		/**
+		 * Add critical notification. Convenient function that creates critical notification from ErrorInfo object and adds
+		 * it to the Notifier.
+		 * @param errorInfo ErrorInfo object.
+		 */
 		static void Critical(const ErrorInfo & errorInfo);
 
-                /**
-                 * Get type.
-                 * @return notification type.
-                 */
+		/**
+		 * Get type.
+		 * @return notification type.
+		 */
 		Type type() const;
 
-                /**
-                 * Set type.
-                 * @param type notification type.
-                 */
+		/**
+		 * Set type.
+		 * @param type notification type.
+		 */
 		void setType(Type type);
 
-                /**
-                 * Get text.
-                 * @return notification text.
-                 */
+		/**
+		 * Get text.
+		 * @return notification text.
+		 */
 		QString text() const;
 
-                /**
-                 * Set text.
-                 * @param text notification text.
-                 */
+		/**
+		 * Set text.
+		 * @param text notification text.
+		 */
 		void setText(const QString & text);
 
-                /**
-                 * Get date. Date is set automatically upon notification creation.
-                 * @return date of notification.
-                 */
+		/**
+		 * Get date. Date is set automatically upon notification creation.
+		 * @return date of notification.
+		 */
 		const QDateTime & dateTime() const;
 
-                /**
-                 * Cone notification.
-                 * @return notification clone.
-                 */
+		/**
+		 * Cone notification.
+		 * @return notification clone.
+		 */
 		std::unique_ptr<Notification> clone() const;
 
 	signals:
-                /**
-                 * Type changed signal.
-                 */
+		/**
+		 * Type changed signal.
+		 */
 		void typeChanged();
 
-                /**
-                 * Text changed signal.
-                 */
+		/**
+		 * Text changed signal.
+		 */
 		void textChanged();
 
 	private:
