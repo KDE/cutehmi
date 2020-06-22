@@ -1,0 +1,12 @@
+Problem:
+
+When evaluating QQmlExpression Qt prints all encountered errors to the console, so that when using custom error handling they may
+appear twice. What's worse not all QML errors are being printed, so a program, which wishes to print all QML errors can't rely on
+this behaviour either.
+
+Investigation:
+
+There are many locations, where QML engine prints warnings without hesitate, but the most relevant series of functions seems to be
+dumpwarning() defined in `qqmlengine.cpp`
+[file](https://code.woboq.org/qt5/qtdeclarative/src/qml/qml/qqmlengine.cpp.html#_ZL11dumpwarningRK9QQmlError).
+

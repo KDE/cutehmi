@@ -178,6 +178,11 @@ void Interpreter::interperetLine(const QString & line)
 		QQmlExpression qmlExpression(m_context.engine->rootContext(), m_context.scopeObject, line);
 		bool valueIsUndefined;
 		QVariant expressionResult = qmlExpression.evaluate(& valueIsUndefined);
+		//<cutehmi.console-1.unsolved target="Qt" cause="design">
+		// Unfortunately error may be printed twice, because QML engine doesn't care too much about console applications... sniff.
+		if (qmlExpression.hasError())
+			CUTEHMI_CRITICAL(qmlExpression.error());
+		//<cutehmi.console-1.unsolved target="Qt" cause="design">
 		if (!valueIsUndefined)
 			CUTEHMI_INFO(expressionResult);
 	}
