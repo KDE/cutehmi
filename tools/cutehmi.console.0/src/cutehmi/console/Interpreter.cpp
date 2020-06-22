@@ -178,6 +178,11 @@ void Interpreter::interperetLine(const QString & line)
 		QQmlExpression qmlExpression(m_context.engine->rootContext(), m_context.scopeObject, line);
 		bool valueIsUndefined;
 		QVariant expressionResult = qmlExpression.evaluate(& valueIsUndefined);
+		//<cutehmi.console-1.unsolved target="Qt" cause="design">
+		// Unfortunately error may be printed twice, because QML engine doesn't care too much about console applications... sniff.
+		if (qmlExpression.hasError())
+			CUTEHMI_CRITICAL(qmlExpression.error());
+		//<cutehmi.console-1.unsolved target="Qt" cause="design">
 		if (!valueIsUndefined)
 			CUTEHMI_INFO(expressionResult);
 	}
@@ -189,19 +194,80 @@ void Interpreter::interperetLine(const QString & line)
 
 QStringList Interpreter::parseLine(const QString & line)
 {
-	// Double quite separated commands
-//	QStringList doubleQuoteSeparatedCommands = line.split('"', QString::SkipEmptyParts);
+	auto extractCommands = [](QStringList & commands, const QString & linePart) {
+		// Split by whitespace.
+		QStringList whitespaceSeparatedCommands = linePart.split(QRegExp("\\s+"), QString::SkipEmptyParts);
 
-	// Split by whitespace.
-	QStringList whitespaceSeparatedCommands = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+		// Split words by non-word characters (especially '\' character).
+		for (auto command : whitespaceSeparatedCommands)
+			if (command.contains('\\'))
+				commands.append(command.split(QRegExp("\\b"), QString::SkipEmptyParts));
+			else
+				commands.append(command);
+	};
 
-	// Split words by '\' character.
 	QStringList commands;
-	for (auto command : whitespaceSeparatedCommands)
-		if (command.contains('\\'))
-			commands.append(command.split(QRegExp("\\b"), QString::SkipEmptyParts));
-		else
-			commands.append(command);
+
+	// Simple automata to preserve double quoted strings.
+
+	// States.
+	constexpr int S_DEFAULT = 0;
+	constexpr int S_ESCAPE = 1;
+	constexpr int S_DQUOTE = 2;
+	constexpr int S_DESCAPE = 3;
+
+	// State transitions:
+	// S_DEFAULT	'\' -> S_ESCAPE		'"' -> S_DQUOTE
+	// S_ESCAPE		any -> S_DEFAULT
+	// S_DQUOTE		'\' -> S_DESCAPE	'"' -> S_DEFAULT
+	// S_DESCAPE	any -> S_DQUOTE
+
+	QString linePart;
+	linePart.reserve(line.length());
+
+	int state = S_DEFAULT;
+	for (auto ch : line) {
+		switch (state) {
+			case S_DEFAULT:
+				if (ch == '\\')
+					state = S_ESCAPE;
+				else if (ch == '"') {
+					extractCommands(commands, linePart);
+					linePart.clear();
+					state = S_DQUOTE;
+				} else
+					linePart.append(ch);
+				break;
+			case S_ESCAPE:
+				if (ch != '"')
+					linePart.append('\\');
+				linePart.append(ch);
+				state = S_DEFAULT;
+				break;
+			case S_DQUOTE:
+				if (ch == '\\')
+					state = S_DESCAPE;
+				else if (ch == '"') {
+					commands.append(linePart);	// Append whole double-quoted string.
+					linePart.clear();
+					state = S_DEFAULT;
+				} else
+					linePart.append(ch);
+				break;
+			case S_DESCAPE:
+				if (ch != '"')
+					linePart.append('\\');
+				linePart.append(ch);
+				state = S_DQUOTE;
+				break;
+		}
+	}
+	if (state == S_ESCAPE)
+		linePart.append('\\');
+	if (state == S_DQUOTE || state == S_DESCAPE)
+		CUTEHMI_WARNING(strWarning(QCoreApplication::translate("cutehmi::console::Interpreter", "Unclosed double quote.")));
+
+	extractCommands(commands, linePart);
 
 	return commands;
 }

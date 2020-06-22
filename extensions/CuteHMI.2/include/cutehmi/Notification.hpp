@@ -26,7 +26,14 @@ class CUTEHMI_API Notification:
 		Q_OBJECT
 
 	public:
+		/**
+		  Notification type.
+		  */
 		Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)
+
+		/**
+		  Notification text.
+		  */
 		Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
 		enum Type {

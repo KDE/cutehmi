@@ -2,7 +2,6 @@ import QtQml 2.0
 
 import CuteHMI.Services 2.0
 import CuteHMI.SharedDatabase 0.0
-import CuteHMI.DataAcquisition 0.0
 
 QtObject {
 	objectName: "console"
@@ -10,11 +9,11 @@ QtObject {
 	property Database db: Database {
 		objectName: "db"
 
-		connectionName: "cutehmi::dataacquisition"
+		connectionName: "cutehmi::shareddatabase"
 		type: "QSQLITE"
 		host: "localhost"
 		port: 5432
-		name: "cutehmi_dataacquisition"
+		name: "cutehmi_shareddatabase"
 		user: "postgres"
 		password: "postgres"
 		threaded: false
@@ -36,15 +35,8 @@ QtObject {
 		  */
 		function setSQLiteDefaults() {
 			type = "QSQLITE"
-			name = "cutehmi_dataacquisition"
+			name = "cutehmi_shareddatabase"
 		}
-	}
-
-	property Schema schema: Schema {
-		objectName: "schema"
-		name: "cutehmi_dataacquisition"
-
-		connectionName: "cutehmi::dataacquisition"
 	}
 
 	property Service service: Service {
@@ -52,6 +44,12 @@ QtObject {
 
 		name: "Database Service"
 		serviceable: db
+	}
+
+	property PostgresMaintenance postgres: PostgresMaintenance {
+		objectName: "postgres"
+
+		connectionName: "cutehmi::shareddatabase"
 	}
 }
 

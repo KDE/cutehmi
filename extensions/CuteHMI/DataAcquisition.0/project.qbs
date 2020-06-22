@@ -21,6 +21,7 @@ Project {
 		description: "Data acquisition fundamental components."
 
 		files: [
+         "Console.qml",
          "LICENSE",
          "README.md",
          "include/cutehmi/dataacquisition/AbstractWriter.hpp",

@@ -2,6 +2,7 @@
 
 #include <cutehmi/shareddatabase/internal/common.hpp>
 #include <cutehmi/shareddatabase/Database.hpp>
+#include <cutehmi/shareddatabase/PostgresMaintenance.hpp>
 
 #include <QtQml>
 
@@ -18,6 +19,16 @@ namespace SharedDatabase {
  */
 class Database: public cutehmi::shareddatabase::Database {};
 
+/**
+ * Exposes cutehmi::shareddatabase::DataObject to QML.
+ */
+class DataObject: public cutehmi::shareddatabase::DataObject {};
+
+/**
+ * Exposes cutehmi::shareddatabase::PostgresMaintenance to QML.
+ */
+class PostgresMaintenance: public cutehmi::shareddatabase::PostgresMaintenance {};
+
 }
 }
 
@@ -33,6 +44,8 @@ void QMLPlugin::registerTypes(const char * uri)
 	Q_ASSERT(uri == QLatin1String("CuteHMI.SharedDatabase"));
 
 	qmlRegisterType<Database>(uri, CUTEHMI_SHAREDDATABASE_MAJOR, 0, "Database");
+	qmlRegisterUncreatableType<DataObject>(uri, CUTEHMI_SHAREDDATABASE_MAJOR, 0, "DataObject", "cutehmi::shareddatabase::DataObject instance can not be created from QML.");
+	qmlRegisterType<PostgresMaintenance>(uri, CUTEHMI_SHAREDDATABASE_MAJOR, 0, "PostgresMaintenance");
 }
 
 }

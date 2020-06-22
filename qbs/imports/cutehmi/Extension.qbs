@@ -134,6 +134,19 @@ CommonProduct {
 		qbs.installSourceBase: installSourceBase
 		qbs.installDir: dedicatedInstallSubdir
 	}
+
+	FileTagger {
+		patterns: ["*.sql"]
+		fileTags: ["sql"]
+	}
+
+	Group {
+		name: "SQL"
+		fileTagsFilter: ["sql"]
+		qbs.install: true
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
+	}
 }
 
 //(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
