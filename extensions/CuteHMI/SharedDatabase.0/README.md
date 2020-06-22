@@ -16,7 +16,7 @@ subdirectory of [external](../../../external/) folder. This is handy especially 
 
 ## Console
 
-Extensions provides cutehmi::shareddatabase::Console component, which can be used with
+Extension provides cutehmi::shareddatabase::Console component, which can be used with
 [cutehmi.console.0](../../../tools/cutehmi.console.0/) tool.
 ```
 cutehmi.console.0 CuteHMI.SharedDatabase.0
