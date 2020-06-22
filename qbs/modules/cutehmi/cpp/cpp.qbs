@@ -14,6 +14,11 @@ Module {
 	Depends { name: "cpp" }
 
 	Properties {
+		condition: qbs.buildVariant.contains("debug")
+		cpp.defines: outer.concat(["QT_QML_DEBUG"])
+	}
+
+	Properties {
 		condition: !qbs.buildVariant.contains("debug")
 		cpp.defines: outer.concat(["CUTEHMI_NDEBUG", "QT_NO_DEBUG_OUTPUT"])
 	}
