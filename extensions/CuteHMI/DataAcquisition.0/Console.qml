@@ -10,21 +10,41 @@ QtObject {
 	property Database db: Database {
 		objectName: "db"
 
-		connectionName: "cutehmiDataAcquisition"
+		connectionName: "cutehmi::dataacquisition"
 		type: "QSQLITE"
 		host: "localhost"
 		port: 5432
-		name: "cutehmi_data_acquisition"
+		name: "cutehmi_dataacquisition"
 		user: "postgres"
 		password: "postgres"
 		threaded: false
+
+		/**
+		  Set PostgreSQL default settings.
+		  */
+		function setPostgresDefaults() {
+			type = "QPSQL"
+			host = "localhost"
+			port = 5432
+			name = "postgres"
+			user = "postgres"
+			passowrd = "postgres"
+		}
+
+		/**
+		  Set SQLite default settings.
+		  */
+		function setSQLiteDefaults() {
+			type = "QSQLITE"
+			name = "cutehmi_dataacquisition"
+		}
 	}
 
 	property Schema schema: Schema {
 		objectName: "schema"
-		name: "console"
+		name: "cutehmi_dataacquisition"
 
-		connectionName: "cutehmiDataAcquisition"
+		connectionName: "cutehmi::dataacquisition"
 	}
 
 	property Service service: Service {
