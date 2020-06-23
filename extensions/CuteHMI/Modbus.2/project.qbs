@@ -169,9 +169,9 @@ Project {
 				"InputRegisterItem.qml",
 				"RegisterItem.js",
 			]
-
-			Depends { name: "Qt.quick" }
 		}
+
+		Depends { name: "Qt.quick"; required: false }
 
 		Depends { name: "Qt.concurrent" }
 
