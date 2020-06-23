@@ -5,11 +5,17 @@ and Qbs items.
 
 Extensions and tools may have one of the following statuses.
 
+### Pre-alpha
+
+![Pre-alpha status badge](images/status-pre.svg)
+
+Product is in very early stage of development.
+
 ### Alpha
 
 ![Alpha status badge](images/status-alpha.svg)
 
-Product is in early development phase and it may be not functional. Its API is a subject of heavy changes.
+Product is in early development phase and it may be only partially functional. Its API is a subject of heavy changes.
 
 ### Beta
 
