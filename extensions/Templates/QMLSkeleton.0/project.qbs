@@ -17,9 +17,9 @@ Project {
 		description: "QML extension skeleton."
 
 		files: [
-			"Main.qml",
 			"README.md",
 			"LICENSE",
+			"View.qml",
 		]
 
 		Depends { name: "cutehmi.doxygen" }
