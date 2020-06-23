@@ -1,5 +1,7 @@
 # Console
 
+![Development status](doc/status-alpha.svg)
+
 Interactive command line interface, which allows one to browse QML object model and evaluate expressions.
 
 This tool allows one to execute QML expressions. One specifies an extension and the tool will make an attempt to import that

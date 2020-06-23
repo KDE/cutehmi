@@ -1,5 +1,7 @@
 # Shared Database
 
+![Development status](doc/status-alpha.svg)
+
 This extension acts as shared database provider. The intent of this extension is to provide database connections, which live in
 dedicated database threads, but can be shared across different extensions. Below is a brief description of classes, which help to
 accomplish this.

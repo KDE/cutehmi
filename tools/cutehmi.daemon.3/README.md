@@ -1,5 +1,7 @@
 # Daemon
 
+![Development status](doc/status-gamma.svg)
+
 Console program, which allows one to run QML project in the background.
 
 Daemon mode is currently supported only on Linux. On Windows program can be run in application mode only (`--app` option).

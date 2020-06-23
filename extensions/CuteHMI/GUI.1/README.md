@@ -1,5 +1,7 @@
 # Graphical User Interface
 
+![Development status](doc/status-beta.svg)
+
 This module provides foundation for GUI applications.
 
 Class CuteHMI.GUI.CuteApplication provides idle measurment to frontend tools and projects.
