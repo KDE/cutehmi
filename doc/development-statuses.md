@@ -21,8 +21,8 @@ Product is in early development phase and it may be only partially functional. I
 
 ![Beta status badge](images/status-beta.svg)
 
-Product has reached a phase, where it is functional, but some planned features are still to be added ("perpetual beta") and its API
-may be a subject of slight changes.
+Product has reached a phase, where it is functional, but some features are still to be added ("perpetual beta") and its API may be a
+subject of slight changes.
 
 ### Gamma
 
