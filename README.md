@@ -10,6 +10,7 @@
 [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/4/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/20988/badge.svg)](https://scan.coverity.com/projects/cutehmi)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/michpolicht/CuteHMI)](https://www.codefactor.io/repository/github/michpolicht/cutehmi/overview/master)
+[![Matrix](https://img.shields.io/matrix/cutehmi:kde.org?server_fqdn=kde.modular.im)](https://webchat.kde.org/#/room/#cutehmi:kde.org)
 
 [//]: # (\endhtmlonly)
 </div>
