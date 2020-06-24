@@ -3,7 +3,7 @@ You can also open an issue on GitHub [mirror](https://github.com/michpolicht/Cut
 
 Check out [KDE contribution guidelines](https://community.kde.org/Get_Involved).
 
-It may be also helpful to read [extensions REAMDE](extensions/README.md).
+It may be also helpful to read [extensions README](extensions/README.md).
 
 CuteHMI uses [Artistic Style 3.1](http://astyle.sourceforge.net/) to format C++ code.
 
