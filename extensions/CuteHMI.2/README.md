@@ -1,5 +1,7 @@
 # CuteHMI
 
+![Development status](doc/status-gamma.svg)
+
 This module provides core functionality to other modules.
 
 It provides various utility classes and bridges that help other extensions and tools to communicate with each other.

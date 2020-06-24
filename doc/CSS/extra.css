@@ -2,7 +2,30 @@ div.doxygen_github_hack {
     display: none;
 }
 
+div.image {
+    margin-bottom: 2em;
+    text-align: left
+}
+
 div.image img {
     border: 1px solid #ddd;
     border-radius: 4px;
+    max-width: 64em;
+}
+
+div.image img:active {
+    max-width: initial;
+}
+
+div.contents {
+    max-width: 65em;
+}
+
+div.header {
+    max-width: 65em;
+}
+
+div.summary {
+    width: initial;
+    float: none;
 }

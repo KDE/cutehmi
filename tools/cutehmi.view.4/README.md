@@ -1,5 +1,7 @@
 # View
 
+![Development status](doc/status-gamma.svg)
+
 Client, GUI application, which allows one to run CuteHMI project in a window.
 
 By default this tool shows only a simple help screen.

@@ -1,5 +1,7 @@
 # Shared Database
 
+![Development status](doc/status-alpha.svg)
+
 This extension acts as shared database provider. The intent of this extension is to provide database connections, which live in
 dedicated database threads, but can be shared across different extensions. Below is a brief description of classes, which help to
 accomplish this.
@@ -16,7 +18,7 @@ subdirectory of [external](../../../external/) folder. This is handy especially 
 
 ## Console
 
-Extensions provides cutehmi::shareddatabase::Console component, which can be used with
+Extension provides cutehmi::shareddatabase::Console component, which can be used with
 [cutehmi.console.0](../../../tools/cutehmi.console.0/) tool.
 ```
 cutehmi.console.0 CuteHMI.SharedDatabase.0

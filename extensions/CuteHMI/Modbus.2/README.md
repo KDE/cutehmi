@@ -1,5 +1,7 @@
 # Modbus
 
+![Development status](doc/status-gamma.svg)
+
 This extension provides support for Modbus protocol. Its main purpose is to allow for configuring and interacting with Modbus
 devices from QML.
 

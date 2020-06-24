@@ -2,6 +2,8 @@ import QtQml 2.2
 
 //! [QtObject]
 QtObject {
+	objectName: "console"
+
 	property string book: "Mein Kampf by Adolf Hitler"
 
 	function tell() {

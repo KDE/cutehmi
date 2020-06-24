@@ -34,7 +34,7 @@ Note: While most of the project uses GNU Lesser General Public License version
 Consecutive branch numbers denote successive iterations of the project.
 Iteration of the project is related to build framework (repository layout and
 Qbs items). Extensions and tools are versioned independently and they have their
-own development status.
+own [development status](doc/development-statuses.md).
 
 Branch "master" is a development branch. Development branch may contain source
 code that is undergoing deep changes, rendering it unusable. Branch "master" is

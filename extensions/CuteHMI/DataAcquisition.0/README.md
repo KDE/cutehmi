@@ -1,5 +1,7 @@
 # Data Acquisition
 
+![Development status](doc/status-alpha.svg)
+
 This extension provides fundamental components for data acquisition - a pillar of SCADA system.
 
 This extension internally relies on [CuteHMI.SharedDatabase.0](../SharedDatabase.0/) extension and it is heavily recommended to use

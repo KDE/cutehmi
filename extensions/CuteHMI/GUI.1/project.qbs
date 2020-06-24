@@ -60,6 +60,8 @@ Project {
 			"src/cutehmi/gui/logging.cpp",
 		]
 
+		Depends { name: "Qt.quick" }
+
 		Depends { name: "CuteHMI.2" }
 
 		//<CuteHMI.GUI-1.workaround target="Qt" cause="bug">
@@ -83,6 +85,8 @@ Project {
 			//<CuteHMI.GUI-1.workaround target="Qt" cause="bug">
 			Depends { name: "Qt.widgets" }
 			//</CuteHMI.GUI-1.workaround>
+
+			Depends { name: "Qt.quick" }
 		}
 	}
 

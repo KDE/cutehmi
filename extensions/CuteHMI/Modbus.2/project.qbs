@@ -33,13 +33,8 @@ Project {
 		description: "Modbus protocol support."
 
 		files: [
-			"CoilItem.qml",
-			"DiscreteInputItem.qml",
-			"HoldingRegisterItem.qml",
-			"InputRegisterItem.qml",
 			"LICENSE",
 			"README.md",
-			"RegisterItem.js",
 			"dev/CuteHMI.Modbus-1.solved.Qt.design.txt",
 			"dev/CuteHMI.Modbus-2.workaround.Qt.design.txt",
 			"dev/CuteHMI.Modbus-3.workaround.Qt.design.txt",
@@ -163,6 +158,20 @@ Project {
 			"src/cutehmi/modbus/internal/functions.cpp",
 			"src/cutehmi/modbus/logging.cpp",
 		]
+
+		Group {
+			name: "GUI"
+
+			files: [
+				"CoilItem.qml",
+				"DiscreteInputItem.qml",
+				"HoldingRegisterItem.qml",
+				"InputRegisterItem.qml",
+				"RegisterItem.js",
+			]
+		}
+
+		Depends { name: "Qt.quick"; required: false }
 
 		Depends { name: "Qt.concurrent" }
 

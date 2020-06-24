@@ -7,7 +7,8 @@ OUTPUT_DIRECTORY       = doc/Doxygen/docs
 LAYOUT_FILE            = doc/layout/ProjectLayout.xml
 
 INPUT                  = . \
-                                doc/pages
+                         doc \
+                         doc/pages
 
 EXAMPLE_PATH           = doc/_temp
 
