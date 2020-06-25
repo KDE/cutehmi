@@ -155,27 +155,27 @@ class CUTEHMI_SHAREDDATABASE_API Database:
 		 */
 		void setThreaded(bool threaded);
 
-		virtual std::unique_ptr<ServiceStatuses> configureStarted(QState * active, const QState * idling, const QState * yielding) override;
+		std::unique_ptr<ServiceStatuses> configureStarted(QState * active, const QState * idling, const QState * yielding) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
+		std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureStopping(QState * stopping) override;
+		std::unique_ptr<ServiceStatuses> configureStopping(QState * stopping) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureBroken(QState * broken) override;
+		std::unique_ptr<ServiceStatuses> configureBroken(QState * broken) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureRepairing(QState * repairing) override;
+		std::unique_ptr<ServiceStatuses> configureRepairing(QState * repairing) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureEvacuating(QState * evacuating) override;
+		std::unique_ptr<ServiceStatuses> configureEvacuating(QState * evacuating) override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToStarted() const override;
+		std::unique_ptr<QAbstractTransition> transitionToStarted() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToStopped() const override;
+		std::unique_ptr<QAbstractTransition> transitionToStopped() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToBroken() const override;
+		std::unique_ptr<QAbstractTransition> transitionToBroken() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToYielding() const override;
+		std::unique_ptr<QAbstractTransition> transitionToYielding() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToIdling() const override;
+		std::unique_ptr<QAbstractTransition> transitionToIdling() const override;
 
 	signals:
 		void typeChanged();

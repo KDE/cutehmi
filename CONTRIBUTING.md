@@ -1,2 +1,17 @@
 If you want to contribute, simply open [new issue](https://invent.kde.org/kde/cutehmi/issues).
-You can also open an issue on a GitHub [mirror](https://github.com/michpolicht/CuteHMI/issues).
+You can also open an issue on GitHub [mirror](https://github.com/michpolicht/CuteHMI/issues).
+
+You may check out [KDE contribution guidelines](https://community.kde.org/Get_Involved).
+
+It may be also helpful to read [extensions README](extensions/README.md).
+
+CuteHMI uses [Artistic Style](http://astyle.sourceforge.net/) to format C++ code.
+
+When it comes to coding conventions, [Qt Coding Conventions](https://wiki.qt.io/Coding_Conventions) are used with few exceptions.
+- Exceptions are allowed.
+- It is allowed to inherit from template classes (CuteHMI uses namespaces everywhere, so symbol clashes should not be a problem).
+- Whether exact or fuzzy float comparisons should be performed depends on a case (sometimes exact comparisons are desired).
+- It comes out acronyms in class names are not lowercased (CuteHMI, not CuteHmi).
+
+You don't need to read it all in one go. Use provided links as an assist. If you have any doubts you can ask on chat or mailing
+list.
