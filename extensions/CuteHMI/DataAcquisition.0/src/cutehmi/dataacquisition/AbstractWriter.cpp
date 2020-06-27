@@ -39,6 +39,21 @@ void AbstractWriter::setSchema(Schema * schema)
 	}
 }
 
+TagValue * AbstractWriter::getValue(int index)
+{
+	return ValueListAt(& m->valueList, index);
+}
+
+void AbstractWriter::appendValue(TagValue * value)
+{
+	ValuesListAppend(& m->valueList, value);
+}
+
+void AbstractWriter::clearValues()
+{
+	ValueListClear(& m->valueList);
+}
+
 const AbstractWriter::TagValueContainer & AbstractWriter::values() const
 {
 	return m->values;

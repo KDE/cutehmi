@@ -36,6 +36,12 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 
 		void setSchema(Schema * schema);
 
+		Q_INVOKABLE TagValue * getValue(int index);
+
+		Q_INVOKABLE void appendValue(cutehmi::dataacquisition::TagValue * value);
+
+		Q_INVOKABLE void clearValues();
+
 	signals:
 		void schemaChanged();
 
