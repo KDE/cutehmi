@@ -8,7 +8,8 @@ TableObject::TableObject(Schema * schema, QObject * parent):
 	DataObject(parent),
 	m(new Members{schema})
 {
-	setConnectionName(m->schema->connectionName());
+	if (schema)
+		setConnectionName(m->schema->connectionName());
 }
 
 Schema * TableObject::schema() const
@@ -20,9 +21,19 @@ void TableObject::setSchema(Schema * schema)
 {
 	if (m->schema != schema) {
 		m->schema = schema;
-		setConnectionName(m->schema->connectionName());
+		if (schema)
+			setConnectionName(m->schema->connectionName());
 		emit schemaChanged();
 	}
+}
+
+QString TableObject::getSchemaName() const
+{
+	if (m->schema)
+		return m->schema->name();
+
+	CUTEHMI_CRITICAL("Schema for object '" << this << "' has not been set.");
+	return QString();
 }
 
 }

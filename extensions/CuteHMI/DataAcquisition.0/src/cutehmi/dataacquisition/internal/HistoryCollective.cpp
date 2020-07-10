@@ -1,62 +1,389 @@
 #include <cutehmi/dataacquisition/internal/HistoryCollective.hpp>
+#include <cutehmi/dataacquisition/internal/TableNameTraits.hpp>
+
+#include "helpers.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {
 namespace internal {
 
-HistoryCollective::HistoryCollective():
-	m(new Members)
+const char * HistoryCollective::TABLE_STEM = "history";
+
+HistoryCollective::HistoryCollective()
 {
 }
 
-void HistoryCollective::insert(const HistoryTable<int>::TuplesContainer & tuples)
+void HistoryCollective::insert(const TuplesContainer & tuples)
 {
-	insertIntoTable(tuples, m->historyInt);
+	ColumnValues intValues;
+	ColumnValues boolValues;
+	ColumnValues realValues;
+	ToColumnValues(intValues, boolValues, realValues, tuples);
+	QString schemaName = getSchemaName();
+
+	worker([this, intValues, boolValues, realValues, schemaName](QSqlDatabase & db) {
+		tableInsert<int>(db, schemaName, intValues);
+		tableInsert<bool>(db, schemaName, boolValues);
+		tableInsert<double>(db, schemaName, realValues);
+	})->work();
 }
 
-void HistoryCollective::insert(const HistoryTable<bool>::TuplesContainer & tuples)
+void HistoryCollective::select(const QStringList & tags, const QDateTime & from, const QDateTime & to)
 {
-	insertIntoTable(tuples, m->historyBool);
+	QString schemaName = getSchemaName();
+
+	worker([this, schemaName, tags, from, to](QSqlDatabase & db) {
+		// Find min open time.
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+		QDateTime minOpenTime = QDateTime::fromMSecsSinceEpoch(0, Qt::UTC).addYears(static_cast<qint32>(QDateTime::YearRange::Last) - 1970);
+#else
+		QDateTime minOpenTime = QDateTime::fromMSecsSinceEpoch(0, Qt::UTC).addYears(292278994 - 1970);
+#endif
+		if (!tableMinOpenTime<bool>(db, minOpenTime, schemaName)
+				|| !tableMinOpenTime<int>(db, minOpenTime, schemaName)
+				|| !tableMinOpenTime<double>(db, minOpenTime, schemaName))
+			return;
+
+		// Find max close time.
+		QDateTime maxCloseTime = QDateTime::fromMSecsSinceEpoch(0, Qt::UTC);
+		if (!tableMaxCloseTime<bool>(db, maxCloseTime, schemaName)
+				|| !tableMaxCloseTime<int>(db, maxCloseTime, schemaName)
+				|| !tableMaxCloseTime<double>(db, maxCloseTime, schemaName))
+			return;
+
+		// Actual results.
+		constexpr int BOOL = 0;
+		constexpr int INT = 1;
+		constexpr int DOUBLE = 2;
+		constexpr int SIZE = 3;
+		ColumnValues columnValues[SIZE];
+		if (tableSelect<bool>(db, columnValues[BOOL], schemaName, tags, from, to)
+				&& tableSelect<int>(db, columnValues[INT], schemaName, tags, from, to)
+				&& tableSelect<double>(db, columnValues[DOUBLE], schemaName, tags, from, to)) {
+
+			// Individual tables are sorted by close time in descending order by database engine, but we need to merge them into single result.
+
+			ColumnValues mergedValues;
+			mergeColumnValues<ColumnValues, SIZE>(mergedValues, columnValues, [](const ColumnValues & a, int aIndex, const ColumnValues & b, int bIndex) -> bool {
+				return a.closeTime.at(aIndex).toDateTime() < b.closeTime.at(bIndex).toDateTime();
+			});
+
+			emit selected(std::move(mergedValues), minOpenTime, maxCloseTime);
+		} else
+			return;
+	})->work();
 }
 
-void HistoryCollective::insert(const HistoryTable<double>::TuplesContainer & tuples)
+QVariant::Type HistoryCollective::TupleVariantType(const HistoryCollective::Tuple & tuple)
 {
-	insertIntoTable(tuples, m->historyReal);
+	QVariant::Type result = tuple.open.type();
+
+	CUTEHMI_ASSERT(tuple.close.type() == result && tuple.max.type() == result && tuple.min.type() == result, "Inconsistent data types in tuple.");
+
+	return result;
 }
 
-void HistoryCollective::updateSchema(Schema * schema)
+void HistoryCollective::ToColumnValues(ColumnValues & intValues, ColumnValues & boolValues, ColumnValues & realValues, const TuplesContainer & tuples)
 {
-	m->tagCache.reset(new TagCache(schema));
-	m->historyInt.reset(new HistoryTable<int>(m->tagCache.get(), schema));
-	m->historyBool.reset(new HistoryTable<bool>(m->tagCache.get(), schema));
-	m->historyReal.reset(new HistoryTable<double>(m->tagCache.get(), schema));
+	for (TuplesContainer::const_iterator it = tuples.begin(); it != tuples.end(); ++it) {
+		ColumnValues * values;
+		switch (TupleVariantType(*it)) {
+			case QVariant::Int:
+				values = & intValues;
+				break;
+			case QVariant::Bool:
+				values = & boolValues;
+				break;
+			case QVariant::Double:
+				values = & realValues;
+				break;
+			default:
+				CUTEHMI_CRITICAL("Unsupported data type ('" << it->open.typeName() << "') provided for 'value' field.");
+				continue;	// Continue to next iteration.
+		}
+		values->tagName.append(it.key());
+		values->open.append(it->open);
+		values->close.append(it->close);
+		values->min.append(it->min);
+		values->max.append(it->max);
+		values->openTime.append(it->openTime);
+		values->closeTime.append(it->closeTime);
+		values->count.append(it->count);
+	}
+}
 
-	connect(m->tagCache.get(), & DataObject::errored, this, & TableCollective::errored);
-	connect(m->historyInt.get(), & DataObject::errored, this, & TableCollective::errored);
-	connect(m->historyBool.get(), & DataObject::errored, this, & TableCollective::errored);
-	connect(m->historyReal.get(), & DataObject::errored, this, & TableCollective::errored);
+QString HistoryCollective::insertQuery(const QString & driverName, const QString & schemaName, const QString & tableName)
+{
+	if (driverName == "QPSQL")
+		return QString("INSERT INTO %1.%2(tag_id, open, close, min, max, open_time, close_time, count) VALUES (:tagId, :open, :close, :min, :max, :open_time, :close_time, :count)").arg(schemaName).arg(tableName);
+	else if (driverName == "QSQLITE")
+		return QString("INSERT INTO [%1.%2](tag_id, open, close, min, max, open_time, close_time, count) VALUES (:tagId, :open, :close, :min, :max, :open_time, :close_time, :count)").arg(schemaName).arg(tableName);
+	else
+		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
+	return QString();
+}
 
-	connect(m->tagCache.get(), & DataObject::busyChanged, this, [this, tag = m->tagCache.get()]() {
-		accountInsertBusy(tag->busy());
-	});
-	connect(m->historyInt.get(), & DataObject::busyChanged, this, [this, historyInt = m->historyInt.get()] {
-		accountInsertBusy(historyInt->busy());
-	});
-	connect(m->historyBool.get(), & DataObject::busyChanged, this, [this, historyBool = m->historyBool.get()] {
-		accountInsertBusy(historyBool->busy());
-	});
-	connect(m->historyReal.get(), & DataObject::busyChanged, this, [this, historyReal = m->historyReal.get()] {
-		accountInsertBusy(historyReal->busy());
-	});
+QString HistoryCollective::selectQuery(const QString & driverName, const QString & schemaName, const QString & tableName, const QStringList & tagIdtrings, const QDateTime & from, const QDateTime & to)
+{
+	if (driverName == "QPSQL") {
+		QStringList whereClauses;
+		if (from.isValid())
+			whereClauses.append("open_time >= :from");
+		if (to.isValid())
+			whereClauses.append("close_time <= :to");
+		if (!tagIdtrings.isEmpty())
+			whereClauses.append(QString("%1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(',')));
+		QString where;
+		if (!whereClauses.isEmpty())
+			where = QString(" WHERE ") + whereClauses.join(" AND ");
+		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName).arg(tableName).append(where).append(" ORDER BY close_time DESC");
+	} else if (driverName == "QSQLITE") {
+		QStringList whereClauses;
+		if (from.isValid())
+			whereClauses.append("open_time >= :from");
+		if (to.isValid())
+			whereClauses.append("close_time <= :to");
+		if (!tagIdtrings.isEmpty())
+			whereClauses.append(QString("[%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(',')));
+		QString where;
+		if (!whereClauses.isEmpty())
+			where = QString(" WHERE ") + whereClauses.join(" AND ");
+		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName).arg(tableName).append(where).append(" ORDER BY close_time DESC");
+	} else
+		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
+	return QString();
 }
 
 template<typename T>
-void HistoryCollective::insertIntoTable(const typename HistoryTable<T>::TuplesContainer & tuples, std::unique_ptr<HistoryTable<T>> & table)
+void HistoryCollective::tableInsert(QSqlDatabase & db, const QString & schemaName, const ColumnValues & columnValues)
 {
-	if (table)
-		table->insert(tuples);
-	else
-		CUTEHMI_CRITICAL("Can not insert into '" << TableNameTraits<T>::Affixed("history") << "' table, because table object is not available.");
+	QString tableName = TableNameTraits<T>::Affixed(TABLE_STEM);
+
+	QSqlQuery query(db);
+	query.setForwardOnly(true);
+	CUTEHMI_DEBUG("Storing '" << tableName << "' values...");
+	QVariantList tagIds;
+	for (QStringList::const_iterator tagName = columnValues.tagName.begin(); tagName != columnValues.tagName.end(); ++tagName)
+		tagIds.append(tagCache()->getId(*tagName, db));
+
+	query.prepare(insertQuery(db.driverName(), schemaName, tableName));
+	query.bindValue(":tagId", tagIds);
+	query.bindValue(":open", columnValues.open);
+	query.bindValue(":close", columnValues.close);
+	query.bindValue(":min", columnValues.min);
+	query.bindValue(":max", columnValues.max);
+	query.bindValue(":open_time", columnValues.openTime);
+	query.bindValue(":close_time", columnValues.closeTime);
+	query.bindValue(":count", columnValues.count);
+	query.execBatch();
+
+	pushError(query.lastError(), query.lastQuery());
+	query.finish();
+}
+
+template<typename T>
+bool HistoryCollective::tableSelect(QSqlDatabase & db, ColumnValues & columnValues, const QString & schemaName, const QStringList & tags, const QDateTime & from, const QDateTime & to)
+{
+	QString tableName = TableNameTraits<T>::Affixed(TABLE_STEM);
+
+	QStringList tagIdStrings;
+	if (!tags.isEmpty()) {
+		for (auto tag : tags)
+			tagIdStrings.append(QString::number(tagCache()->getId(tag, db)));
+	}
+
+	QSqlQuery query(db);
+	query.setForwardOnly(true);
+	CUTEHMI_DEBUG("Reading '" << tableName << "' values...");
+
+	QString queryString = selectQuery(db.driverName(), schemaName, tableName, tagIdStrings, from, to);
+	if (!queryString.isNull()) {
+		query.prepare(queryString);
+		query.bindValue(":from", from);
+		query.bindValue(":to", to);
+		query.exec();
+
+		int nameIndex = query.record().indexOf("name");
+		int openIndex = query.record().indexOf("open");
+		int closeIndex = query.record().indexOf("close");
+		int minIndex = query.record().indexOf("min");
+		int maxIndex = query.record().indexOf("max");
+		int openTimeIndex = query.record().indexOf("open_time");
+		int closeTimeIndex = query.record().indexOf("close_time");
+		int countIndex = query.record().indexOf("count");
+		while (query.next()) {
+			columnValues.tagName.append(query.value(nameIndex).toString());
+			columnValues.open.append(query.value(openIndex).value<T>());
+			columnValues.close.append(query.value(closeIndex).value<T>());
+			columnValues.min.append(query.value(minIndex).value<T>());
+			columnValues.max.append(query.value(maxIndex).value<T>());
+			columnValues.openTime.append(query.value(openTimeIndex).toDateTime());
+			columnValues.closeTime.append(query.value(closeTimeIndex).toDateTime());
+			columnValues.count.append(query.value(countIndex).toInt());
+		}
+
+		pushError(query.lastError(), query.lastQuery());
+
+		if (!query.lastError().isValid())
+			return true;
+	}
+
+	return false;
+}
+
+template<typename T>
+bool HistoryCollective::tableMinOpenTime(QSqlDatabase & db, QDateTime & minOpenTime, const QString & schemaName)
+{
+	QString tableName = TableNameTraits<T>::Affixed(TABLE_STEM);
+
+	if (db.driverName() == "QPSQL") {
+		QSqlQuery query(db);
+		query.setForwardOnly(true);
+		CUTEHMI_DEBUG("Looking for open time minimum...");
+
+		query.prepare(QString("SELECT MIN(open_time) FROM %1.%2").arg(schemaName).arg(tableName));
+		query.exec();
+
+		if (query.next())
+			minOpenTime = std::min(minOpenTime, query.value(0).toDateTime());
+
+		pushError(query.lastError(), query.lastQuery());
+
+		if (!query.lastError().isValid())
+			return true;
+	} else if (db.driverName() == "QSQLITE") {
+		QSqlQuery query(db);
+		query.setForwardOnly(true);
+		CUTEHMI_DEBUG("Looking for open time minimum...");
+
+		query.prepare(QString("SELECT MIN(open_time) FROM [%1.%2]").arg(schemaName).arg(tableName));
+		query.exec();
+
+		if (query.next())
+			minOpenTime = std::min(minOpenTime, query.value(0).toDateTime());
+
+		pushError(query.lastError(), query.lastQuery());
+
+		if (!query.lastError().isValid())
+			return true;
+	} else
+		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
+
+	return false;
+}
+
+template<typename T>
+bool HistoryCollective::tableMaxCloseTime(QSqlDatabase & db, QDateTime & maxCloseTime, const QString & schemaName)
+{
+	QString tableName = TableNameTraits<T>::Affixed(TABLE_STEM);
+
+	if (db.driverName() == "QPSQL") {
+		QSqlQuery query(db);
+		query.setForwardOnly(true);
+		CUTEHMI_DEBUG("Looking for close time maximum...");
+
+		query.prepare(QString("SELECT MAX(close_time) FROM %1.%2").arg(schemaName).arg(tableName));
+		query.exec();
+
+		if (query.next())
+			maxCloseTime = std::max(maxCloseTime, query.value(0).toDateTime());
+
+		pushError(query.lastError(), query.lastQuery());
+
+		if (!query.lastError().isValid())
+			return true;
+	} else if (db.driverName() == "QSQLITE") {
+		QSqlQuery query(db);
+		query.setForwardOnly(true);
+		CUTEHMI_DEBUG("Looking for close time maximum...");
+
+		query.prepare(QString("SELECT MAX(close_time) FROM [%1.%2]").arg(schemaName).arg(tableName));
+		query.exec();
+
+		if (query.next())
+			maxCloseTime = std::max(maxCloseTime, query.value(0).toDateTime());
+
+		pushError(query.lastError(), query.lastQuery());
+
+		if (!query.lastError().isValid())
+			return true;
+	} else
+		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
+
+	return false;
+}
+
+int HistoryCollective::ColumnValues::length() const
+{
+	CUTEHMI_ASSERT(tagName.count() == open.count(), "inconsistency in element count, which should be the same for each column");
+	CUTEHMI_ASSERT(tagName.count() == close.count(), "inconsistency in element count, which should be the same for each column");
+	CUTEHMI_ASSERT(tagName.count() == min.count(), "inconsistency in element count, which should be the same for each column");
+	CUTEHMI_ASSERT(tagName.count() == max.count(), "inconsistency in element count, which should be the same for each column");
+	CUTEHMI_ASSERT(tagName.count() == openTime.count(), "inconsistency in element count, which should be the same for each column");
+	CUTEHMI_ASSERT(tagName.count() == closeTime.count(), "inconsistency in element count, which should be the same for each column");
+	CUTEHMI_ASSERT(tagName.count() == count.count(), "inconsistency in element count, which should be the same for each column");
+
+	return tagName.count();
+}
+
+bool HistoryCollective::ColumnValues::isEqual(int i, const HistoryCollective::ColumnValues & other)
+{
+	return open.at(i) == other.open.at(i)
+			&& close.at(i) == other.close.at(i)
+			&& min.at(i) == other.min.at(i)
+			&& max.at(i) == other.max.at(i)
+			&& openTime.at(i) == other.openTime.at(i)
+			&& closeTime.at(i) == other.closeTime.at(i)
+			&& count.at(i) == other.count.at(i)
+			&& tagName.at(i) == other.tagName.at(i);
+}
+
+void HistoryCollective::ColumnValues::replace(int i, const HistoryCollective::ColumnValues & other)
+{
+	tagName.replace(i, other.tagName.at(i));
+	open.replace(i, other.open.at(i));
+	close.replace(i, other.close.at(i));
+	min.replace(i, other.min.at(i));
+	max.replace(i, other.max.at(i));
+	openTime.replace(i, other.openTime.at(i));
+	closeTime.replace(i, other.closeTime.at(i));
+	count.replace(i, other.count.at(i));
+}
+
+void HistoryCollective::ColumnValues::insert(int i, const HistoryCollective::ColumnValues & other)
+{
+	tagName.insert(i, other.tagName.at(i));
+	open.insert(i, other.open.at(i));
+	close.insert(i, other.close.at(i));
+	min.insert(i, other.min.at(i));
+	max.insert(i, other.max.at(i));
+	openTime.insert(i, other.openTime.at(i));
+	closeTime.insert(i, other.closeTime.at(i));
+	count.insert(i, other.count.at(i));
+}
+
+void HistoryCollective::ColumnValues::eraseFrom(int i)
+{
+	tagName.erase(tagName.begin() + i, tagName.end());
+	open.erase(open.begin() + i, open.end());
+	close.erase(close.begin() + i, close.end());
+	min.erase(min.begin() + i, min.end());
+	max.erase(max.begin() + i, max.end());
+	openTime.erase(openTime.begin() + i, openTime.end());
+	closeTime.erase(closeTime.begin() + i, closeTime.end());
+	count.erase(count.begin() + i, count.end());
+}
+
+void HistoryCollective::ColumnValues::append(const HistoryCollective::ColumnValues & other, int i)
+{
+	tagName.append(other.tagName.at(i));
+	open.append(other.open.at(i));
+	close.append(other.close.at(i));
+	min.append(other.min.at(i));
+	max.append(other.max.at(i));
+	openTime.append(other.openTime.at(i));
+	closeTime.append(other.closeTime.at(i));
+	count.append(other.count.at(i));
 }
 
 }

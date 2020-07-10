@@ -2,11 +2,13 @@
 
 #include <cutehmi/dataacquisition/internal/common.hpp>
 #include <cutehmi/dataacquisition/Schema.hpp>
-//#include <cutehmi/dataacquisition/Tag.hpp>
 #include <cutehmi/dataacquisition/TagValue.hpp>
 #include <cutehmi/dataacquisition/HistoryWriter.hpp>
 #include <cutehmi/dataacquisition/EventWriter.hpp>
 #include <cutehmi/dataacquisition/RecencyWriter.hpp>
+#include <cutehmi/dataacquisition/RecencyModel.hpp>
+#include <cutehmi/dataacquisition/HistoryModel.hpp>
+#include <cutehmi/dataacquisition/EventModel.hpp>
 
 #include <QtQml>
 
@@ -26,6 +28,10 @@ void QMLPlugin::registerTypes(const char * uri)
 	qmlRegisterType<HistoryWriter>(uri, CUTEHMI_DATAACQUISITION_MAJOR, 0, "HistoryWriter");
 	qmlRegisterType<RecencyWriter>(uri, CUTEHMI_DATAACQUISITION_MAJOR, 0, "RecencyWriter");
 	qmlRegisterType<EventWriter>(uri, CUTEHMI_DATAACQUISITION_MAJOR, 0, "EventWriter");
+	qmlRegisterUncreatableType<AbstractListModel>(uri, CUTEHMI_DATAACQUISITION_MAJOR, 0, "AbstractListModel", "cutehmi::dataacquisition::AbstractListModel instance can not be created from QML.");
+	qmlRegisterType<RecencyModel>(uri, CUTEHMI_DATAACQUISITION_MAJOR, 0, "RecencyModel");
+	qmlRegisterType<HistoryModel>(uri, CUTEHMI_DATAACQUISITION_MAJOR, 0, "HistoryModel");
+	qmlRegisterType<EventModel>(uri, CUTEHMI_DATAACQUISITION_MAJOR, 0, "EventModel");
 }
 
 }

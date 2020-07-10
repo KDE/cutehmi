@@ -11,6 +11,7 @@ RecencyWriter::RecencyWriter(QObject * parent):
 {
 	m->updateTimer.setSingleShot(true);
 	connect(this, & AbstractWriter::schemaChanged, this, & RecencyWriter::onSchemaChanged);
+	connect(& m->dbCollective, & internal::RecencyCollective::busyChanged, this, & RecencyWriter::confirmCollectiveFinished);
 }
 
 int RecencyWriter::interval() const
@@ -55,7 +56,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> RecencyWriter::configure
 
 	QState * waitingForWorkers = new QState(stopping);
 	statuses->insert(waitingForWorkers, tr("Waiting for database workers to finish"));
-	connect(waitingForWorkers, & QState::entered, & m->dbCollective, & internal::RecencyCollective::confirmWorkersFinished);
+	connect(waitingForWorkers, & QState::entered, this, & RecencyWriter::confirmCollectiveFinished);
 
 	QState * stoppingTimer = new QState(stopping);
 	stopping->setInitialState(stoppingTimer);
@@ -94,7 +95,7 @@ std::unique_ptr<QAbstractTransition> RecencyWriter::transitionToStarted() const
 
 std::unique_ptr<QAbstractTransition> RecencyWriter::transitionToStopped() const
 {
-	connect(& m->dbCollective, & internal::RecencyCollective::workersFinished, this, & RecencyWriter::stopped);
+	connect(this, & RecencyWriter::collectiveFinished, this, & RecencyWriter::stopped);
 
 	return std::make_unique<QSignalTransition>(this, & RecencyWriter::stopped);
 }
@@ -113,38 +114,20 @@ std::unique_ptr<QAbstractTransition> RecencyWriter::transitionToYielding() const
 
 std::unique_ptr<QAbstractTransition> RecencyWriter::transitionToIdling() const
 {
-	return std::make_unique<QSignalTransition>(& m->dbCollective, & internal::RecencyCollective::workersFinished);
+	return std::make_unique<QSignalTransition>(this, & RecencyWriter::collectiveFinished);
 }
 
 void RecencyWriter::updateValues()
 {
-	internal::RecencyTable<int>::TuplesContainer intTuples;
-	internal::RecencyTable<bool>::TuplesContainer boolTuples;
-	internal::RecencyTable<double>::TuplesContainer realTuples;
-
-	for (TagValueContainer::const_iterator it = values().begin(); it != values().end(); ++it) {
-		switch ((*it)->value().type()) {
-			case QVariant::Int:
-				intTuples[(*it)->name()] = internal::RecencyTable<int>::Tuple{(*it)->value().toInt(), QDateTime::currentDateTimeUtc()};
-				break;
-			case QVariant::Bool:
-				boolTuples[(*it)->name()] = internal::RecencyTable<bool>::Tuple{(*it)->value().toBool(), QDateTime::currentDateTimeUtc()};
-				break;
-			case QVariant::Double:
-				realTuples[(*it)->name()] = internal::RecencyTable<double>::Tuple{(*it)->value().toDouble(), QDateTime::currentDateTimeUtc()};
-				break;
-			default:
-				CUTEHMI_CRITICAL("Unsupported type ('" << (*it)->value().typeName() << "') provided as a 'value' of 'TagValue' object.");
-		}
-	}
+	internal::RecencyCollective::TuplesContainer tuples;
+	for (TagValueContainer::const_iterator it = values().begin(); it != values().end(); ++it)
+		tuples[(*it)->name()] = internal::RecencyCollective::Tuple{(*it)->value(), QDateTime::currentDateTimeUtc()};
 
 	CUTEHMI_DEBUG("Requesting database handler to update values in the database.");
 
-	if (!schema()->name().isNull()) {
-		m->dbCollective.update(intTuples);
-		m->dbCollective.update(boolTuples);
-		m->dbCollective.update(realTuples);
-	} else
+	if (schema())
+		m->dbCollective.update(tuples);
+	else
 		CUTEHMI_CRITICAL("Schema is not set for '" << this << "' object.");
 }
 
@@ -179,6 +162,12 @@ void RecencyWriter::stopUpdateTimer()
 {
 	m->updateTimer.stop();
 	emit updateTimerStopped();
+}
+
+void RecencyWriter::confirmCollectiveFinished()
+{
+	if (!m->dbCollective.busy())
+		emit collectiveFinished();
 }
 
 }

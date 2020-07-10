@@ -13,10 +13,13 @@ namespace cutehmi {
 namespace dataacquisition {
 
 class CUTEHMI_DATAACQUISITION_API HistoryWriter:
-	public AbstractWriter
+	public AbstractWriter,
+	private internal::DbServiceableMixin<HistoryWriter>
 
 {
 		Q_OBJECT
+
+		friend class internal::DbServiceableMixin<HistoryWriter>;
 
 	public:
 		static constexpr int INITIAL_INTERVAL = 100;
@@ -48,27 +51,27 @@ class CUTEHMI_DATAACQUISITION_API HistoryWriter:
 
 		void setSamples(int samples);
 
-		virtual std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
+		std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureStarted(QState * active, const QState * idling, const QState * yielding) override;
+		std::unique_ptr<ServiceStatuses> configureStarted(QState * active, const QState * idling, const QState * yielding) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureStopping(QState * stopping) override;
+		std::unique_ptr<ServiceStatuses> configureStopping(QState * stopping) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureBroken(QState * broken) override;
+		std::unique_ptr<ServiceStatuses> configureBroken(QState * broken) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureRepairing(QState * repairing) override;
+		std::unique_ptr<ServiceStatuses> configureRepairing(QState * repairing) override;
 
-		virtual std::unique_ptr<ServiceStatuses> configureEvacuating(QState * evacuating) override;
+		std::unique_ptr<ServiceStatuses> configureEvacuating(QState * evacuating) override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToStarted() const override;
+		std::unique_ptr<QAbstractTransition> transitionToStarted() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToStopped() const override;
+		std::unique_ptr<QAbstractTransition> transitionToStopped() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToBroken() const override;
+		std::unique_ptr<QAbstractTransition> transitionToBroken() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToYielding() const override;
+		std::unique_ptr<QAbstractTransition> transitionToYielding() const override;
 
-		virtual std::unique_ptr<QAbstractTransition> transitionToIdling() const override;
+		std::unique_ptr<QAbstractTransition> transitionToIdling() const override;
 
 	signals:
 		void intervalChanged();
@@ -93,6 +96,8 @@ class CUTEHMI_DATAACQUISITION_API HistoryWriter:
 
 		void insertValuesBegan();
 
+		void collectiveFinished();
+
 	private slots:
 		void onSchemaChanged();
 
@@ -104,25 +109,19 @@ class CUTEHMI_DATAACQUISITION_API HistoryWriter:
 
 		void stopSamplingTimer();
 
+		void confirmCollectiveFinished();
+
 	private:
 		std::unique_ptr<ServiceStatuses> configureStartingOrRepairing(QState * parent);
-
-		void addIntSample(const QString & tagName, int value);
-
-		void addBoolSample(const QString & tagName, bool value);
-
-		void addRealSample(const QString & tagName, double value);
 
 		void clearData();
 
 		template <typename T>
-		void addSample(T value, typename internal::HistoryTable<T>::Tuple & tuple);
+		void addSample(T value, internal::HistoryCollective::Tuple & tuple);
 
 		struct Members
 		{
-			internal::HistoryTable<int>::TuplesContainer intTuples;
-			internal::HistoryTable<bool>::TuplesContainer boolTuples;
-			internal::HistoryTable<double>::TuplesContainer realTuples;
+			internal::HistoryCollective::TuplesContainer tuples;
 			internal::HistoryCollective dbCollective;
 			QTimer samplingTimer;
 			int interval;

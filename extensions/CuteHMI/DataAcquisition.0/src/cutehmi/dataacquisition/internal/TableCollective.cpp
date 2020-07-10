@@ -7,43 +7,20 @@ namespace internal {
 TableCollective::TableCollective():
 	m(new Members)
 {
+	connect(this, & TableObject::schemaChanged, this, & TableCollective::onSchemaChanged);
 }
 
-Schema * TableCollective::schema() const
+TagCache * TableCollective::tagCache() const
 {
-	return m->schema;
+	CUTEHMI_ASSERT(m->tagCache.get(), "object must not be nullptr");
+
+	return m->tagCache.get();
 }
 
-void TableCollective::setSchema(Schema * schema)
+void TableCollective::onSchemaChanged()
 {
-	if (m->schema)
-		m->schema->disconnect(this);
-
-	updateSchema(schema);
-
-	m->schema = schema;
-
-	connect(m->schema, & DataObject::errored, this, & TableCollective::errored);
-	connect(m->schema, & DataObject::busyChanged, this, [this, schema]() {
-		accountInsertBusy(schema->busy());
-	});
-}
-
-void TableCollective::confirmWorkersFinished()
-{
-	if (m->insertsBusy == 0)
-		emit workersFinished();
-}
-
-void TableCollective::accountInsertBusy(bool busy)
-{
-	if (busy)
-		m->insertsBusy++;
-	else
-		m->insertsBusy--;
-
-	if (m->insertsBusy == 0)
-		emit workersFinished();
+	m->tagCache.reset(new TagCache(schema()));
+	connect(m->tagCache.get(), & shareddatabase::DataObject::errored, this, & TableCollective::errored);
 }
 
 }

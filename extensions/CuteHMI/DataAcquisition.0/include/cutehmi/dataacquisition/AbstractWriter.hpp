@@ -2,6 +2,7 @@
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_ABSTRACTWRITER_HPP
 
 #include "internal/common.hpp"
+#include "internal/DbServiceableMixin.hpp"
 #include "TagValue.hpp"
 #include "Schema.hpp"
 
@@ -60,10 +61,6 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 		typedef QList<TagValue *> TagValueContainer;
 
 		const TagValueContainer & values() const;
-
-		QState * createWaitingForDatabaseConnectedSate(QState * parent, ServiceStatuses * statuses = nullptr, QState * target = nullptr);
-
-		QState * createValidatingSchemaSate(QState * parent, ServiceStatuses * statuses = nullptr, QState * target = nullptr);
 
 	private slots:
 		void onSchemaValidated(bool result);

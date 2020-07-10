@@ -67,6 +67,7 @@ void TagCache::insert(const QString & name, QSqlDatabase & db)
 {
 	if (db.driverName() == "QPSQL") {
 		QSqlQuery query(db);
+		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Inserting '" << name << "' tag...");
 
 		query.prepare(QString("INSERT INTO %1.tag (name) VALUES (:name) RETURNING id").arg(schema()->name()));
@@ -78,9 +79,10 @@ void TagCache::insert(const QString & name, QSqlDatabase & db)
 			QWriteLocker locker(& m->tagIdsLock);
 			m->tagIds[name] = query.value(idIndex).toInt();
 		}
-		pushError(query.lastError());
+		pushError(query.lastError(), query.lastQuery());
 	} else if (db.driverName() == "QSQLITE") {
 		QSqlQuery query(db);
+		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Inserting '" << name << "' tag...");
 
 		query.prepare(QString("INSERT INTO [%1.tag] (name) VALUES (:name);").arg(schema()->name()));
@@ -97,7 +99,7 @@ void TagCache::insert(const QString & name, QSqlDatabase & db)
 			QWriteLocker locker(& m->tagIdsLock);
 			m->tagIds[name] = query.value(idIndex).toInt();
 		}
-		pushError(query.lastError());
+		pushError(query.lastError(), query.lastQuery());
 	} else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
 }
@@ -107,6 +109,7 @@ void TagCache::update(QSqlDatabase & db)
 
 	if (db.driverName() == "QPSQL") {
 		QSqlQuery query(db);
+		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Updating tag cache...");
 
 		query.exec(QString("SELECT * FROM %1.tag").arg(schema()->name()));
@@ -119,9 +122,10 @@ void TagCache::update(QSqlDatabase & db)
 			while (query.next())
 				m->tagIds[query.value(nameIndex).toString()] = query.value(idIndex).toInt();
 		}
-		pushError(query.lastError());
+		pushError(query.lastError(), query.lastQuery());
 	} else if (db.driverName() == "QSQLITE") {
 		QSqlQuery query(db);
+		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Updating tag cache...");
 
 		query.exec(QString("SELECT * FROM [%1.tag]").arg(schema()->name()));
@@ -134,7 +138,7 @@ void TagCache::update(QSqlDatabase & db)
 			while (query.next())
 				m->tagIds[query.value(nameIndex).toString()] = query.value(idIndex).toInt();
 		}
-		pushError(query.lastError());
+		pushError(query.lastError(), query.lastQuery());
 	} else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
 }
