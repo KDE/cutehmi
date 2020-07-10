@@ -6,8 +6,7 @@
 namespace cutehmi {
 
 Init::Init():
-	Initializer<Init>(
-			[]() {
+	Initializer<Init>([]() {
 	qRegisterMetaType<cutehmi::ErrorInfo>();
 	qRegisterMetaType<cutehmi::InplaceError>();
 	qRegisterMetaType<cutehmi::Message::Button>();
