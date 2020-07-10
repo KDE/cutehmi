@@ -36,7 +36,7 @@ CREATE DATABASE %1;
 				if (!query.exec(queryString))
 					error = true;
 
-				pushError(query.lastError());
+				pushError(query.lastError(), query.lastQuery());
 
 				query.finish();
 			} catch (const Exception & e) {
@@ -79,7 +79,7 @@ DROP DATABASE %1;
 				if (!query.exec(queryString))
 					error = true;
 
-				pushError(query.lastError());
+				pushError(query.lastError(), query.lastQuery());
 
 				query.finish();
 			} catch (const Exception & e) {

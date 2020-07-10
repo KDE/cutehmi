@@ -33,7 +33,7 @@ Project {
          "include/cutehmi/shareddatabase/internal/DatabaseThread.hpp",
          "include/cutehmi/shareddatabase/internal/common.hpp",
          "include/cutehmi/shareddatabase/internal/platform.hpp",
-		 "include/cutehmi/shareddatabase/logging.hpp",
+         "include/cutehmi/shareddatabase/logging.hpp",
          "include/cutehmi/shareddatabase/metadata.hpp",
          "src/cutehmi/shareddatabase/DataObject.cpp",
          "src/cutehmi/shareddatabase/Database.cpp",

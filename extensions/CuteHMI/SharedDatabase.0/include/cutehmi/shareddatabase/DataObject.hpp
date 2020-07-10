@@ -59,8 +59,11 @@ class CUTEHMI_SHAREDDATABASE_API DataObject:
 		void resetConnectionName();
 
 		/**
-		 * Get busy status.
+		 * Get busy status. Busy status is affected by employed workers, but can be also controlled with incrementBusy() and
+		 * decrementBusy() slots.
 		 * @return busy status.
+		 *
+		 * @see incrementBusy(), decrementBusy(), worker().
 		 */
 		bool busy() const;
 
@@ -85,10 +88,11 @@ class CUTEHMI_SHAREDDATABASE_API DataObject:
 		/**
 		 * Push SQL error.
 		 * @param sqlError SQL error.
+		 * @param query query associated with error.
 		 *
 		 * @threadsafe
 		 */
-		void pushError(const QSqlError & sqlError);
+		void pushError(const QSqlError & sqlError, const QString & query = QString());
 
 		/**
 		 * Create database worker and assign it a task. Worker ready() signal is connected to processErrors() slot. Each worker is
@@ -130,7 +134,7 @@ class CUTEHMI_SHAREDDATABASE_API DataObject:
 		void onDatabaseWorkerStriked(const QString & reason);
 
 	private:
-		typedef QVector<QSqlError> SQLErrorsContainer;
+		typedef QVector<std::pair<QSqlError, QString>> SQLErrorsContainer;
 
 		struct Members
 		{
