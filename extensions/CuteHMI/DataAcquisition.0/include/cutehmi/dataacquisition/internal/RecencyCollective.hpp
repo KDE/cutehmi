@@ -25,6 +25,10 @@ class CUTEHMI_DATAACQUISITION_PRIVATE RecencyCollective:
 			QVariantList value;
 			QVariantList time;
 
+			//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+			~ColumnValues();
+			//</CuteHMI.DataAcquisition-1.workaround>
+
 			int length() const;
 
 			bool isEqual(int i, const ColumnValues & other);

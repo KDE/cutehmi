@@ -157,6 +157,12 @@ bool RecencyCollective::tableSelect(QSqlDatabase & db, ColumnValues & columnValu
 	return false;
 }
 
+//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+RecencyCollective::ColumnValues::~ColumnValues()
+{
+}
+//</CuteHMI.DataAcquisition-1.workaround>
+
 int RecencyCollective::ColumnValues::length() const
 {
 	CUTEHMI_ASSERT(tagName.count() == value.count(), "inconsistency in element count, which should be the same for each column");

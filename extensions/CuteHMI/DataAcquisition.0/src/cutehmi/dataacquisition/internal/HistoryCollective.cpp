@@ -313,6 +313,12 @@ bool HistoryCollective::tableMaxCloseTime(QSqlDatabase & db, QDateTime & maxClos
 	return false;
 }
 
+//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+HistoryCollective::ColumnValues::~ColumnValues()
+{
+}
+//</CuteHMI.DataAcquisition-1.workaround>
+
 int HistoryCollective::ColumnValues::length() const
 {
 	CUTEHMI_ASSERT(tagName.count() == open.count(), "inconsistency in element count, which should be the same for each column");

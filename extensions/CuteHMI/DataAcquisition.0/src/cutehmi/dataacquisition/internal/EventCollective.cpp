@@ -264,6 +264,12 @@ void EventCollective::insertIntoTable(const TagValue & tag)
 	})->work();
 }
 
+//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+EventCollective::ColumnValues::~ColumnValues()
+{
+}
+//</CuteHMI.DataAcquisition-1.workaround>
+
 int EventCollective::ColumnValues::length() const
 {
 	CUTEHMI_ASSERT(tagName.count() == value.count(), "inconsistency in element count, which should be the same for each column");
