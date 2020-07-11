@@ -1,62 +1,209 @@
 #include <cutehmi/dataacquisition/internal/RecencyCollective.hpp>
+#include <cutehmi/dataacquisition/internal/TableNameTraits.hpp>
+
+#include <QSqlField>
 
 namespace cutehmi {
 namespace dataacquisition {
 namespace internal {
 
-RecencyCollective::RecencyCollective():
-	m(new Members)
+const char * RecencyCollective::TABLE_STEM = "recency";
+
+RecencyCollective::RecencyCollective()
 {
 }
 
-void RecencyCollective::update(const RecencyTable<int>::TuplesContainer & tuples)
+void RecencyCollective::update(const TuplesContainer & tuples)
 {
-	updateTable(tuples, m->recencyInt);
+	ColumnValues intValues;
+	ColumnValues boolValues;
+	ColumnValues realValues;
+	ToColumnValues(intValues, boolValues, realValues, tuples);
+	QString schemaName = getSchemaName();
+
+	worker([this, intValues, boolValues, realValues, schemaName](QSqlDatabase & db) {
+		tableUpdate<int>(db, schemaName, intValues);
+		tableUpdate<bool>(db, schemaName, boolValues);
+		tableUpdate<double>(db, schemaName, realValues);
+	})->work();
 }
 
-void RecencyCollective::update(const RecencyTable<bool>::TuplesContainer & tuples)
+void RecencyCollective::select(const QStringList & tags)
 {
-	updateTable(tuples, m->recencyBool);
+	QString schemaName = getSchemaName();
+
+	worker([this, schemaName, tags](QSqlDatabase & db) {
+		ColumnValues result;
+
+		if (tableSelect<bool>(db, result, schemaName, tags)
+				&& tableSelect<int>(db, result, schemaName, tags)
+				&& tableSelect<double>(db, result, schemaName, tags))
+			emit selected(std::move(result));
+		else
+			return;
+	})->work();
 }
 
-void RecencyCollective::update(const RecencyTable<double>::TuplesContainer & tuples)
+void RecencyCollective::ToColumnValues(ColumnValues & intValues, ColumnValues & boolValues, ColumnValues & realValues, const TuplesContainer & tuples)
 {
-	updateTable(tuples, m->recencyReal);
+	for (TuplesContainer::const_iterator it = tuples.begin(); it != tuples.end(); ++it) {
+		ColumnValues * values;
+		switch (it->value.type()) {
+			case QVariant::Int:
+				values = & intValues;
+				break;
+			case QVariant::Bool:
+				values = & boolValues;
+				break;
+			case QVariant::Double:
+				values = & realValues;
+				break;
+			default:
+				CUTEHMI_CRITICAL("Unsupported data type ('" << it->value.typeName() << "') provided for 'value' field.");
+				continue;	// Continue to next iteration.
+		}
+		values->tagName.append(it.key());
+		values->value.append(it->value);
+		values->time.append(it->time);
+	}
 }
 
-void RecencyCollective::updateSchema(Schema * schema)
+QString RecencyCollective::updateQuery(const QString & driverName, const QString & schemaName, const QString & tableName)
 {
-	m->tagCache.reset(new TagCache(schema));
-	m->recencyInt.reset(new RecencyTable<int>(m->tagCache.get(), schema));
-	m->recencyBool.reset(new RecencyTable<bool>(m->tagCache.get(), schema));
-	m->recencyReal.reset(new RecencyTable<double>(m->tagCache.get(), schema));
+	if (driverName == "QPSQL")
+		return QString("INSERT INTO %1.%2 (tag_id, value, time) VALUES (:tagId, :value, :time)"
+						" ON CONFLICT (tag_id) DO UPDATE SET(value, time) = (:value, :time) WHERE %1.%2.tag_id = :tagId").arg(schemaName).arg(tableName);
+	else if (driverName == "QSQLITE")
+		return QString("INSERT INTO [%1.%2] (tag_id, value, time) VALUES (:tagId, :value, :time)"
+						" ON CONFLICT (tag_id) DO UPDATE SET(value, time) = (:value, :time)").arg(schemaName).arg(tableName);
+	else
+		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
+	return QString();
+}
 
-	connect(m->tagCache.get(), & DataObject::errored, this, & TableCollective::errored);
-	connect(m->recencyInt.get(), & DataObject::errored, this, & TableCollective::errored);
-	connect(m->recencyBool.get(), & DataObject::errored, this, & TableCollective::errored);
-	connect(m->recencyReal.get(), & DataObject::errored, this, & TableCollective::errored);
-
-	connect(m->tagCache.get(), & DataObject::busyChanged, this, [this, tag = m->tagCache.get()]() {
-		accountInsertBusy(tag->busy());
-	});
-	connect(m->recencyInt.get(), & DataObject::busyChanged, this, [this, recencyInt = m->recencyInt.get()] {
-		accountInsertBusy(recencyInt->busy());
-	});
-	connect(m->recencyBool.get(), & DataObject::busyChanged, this, [this, recencyBool = m->recencyBool.get()] {
-		accountInsertBusy(recencyBool->busy());
-	});
-	connect(m->recencyReal.get(), & DataObject::busyChanged, this, [this, recencyReal = m->recencyReal.get()] {
-		accountInsertBusy(recencyReal->busy());
-	});
+QString RecencyCollective::selectQuery(const QString & driverName, const QString & schemaName, const QString & tableName, const QStringList & tagIdtrings)
+{
+	if (driverName == "QPSQL") {
+		QString where;
+		if (!tagIdtrings.isEmpty())
+			where = QString(" WHERE %1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(','));
+		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName).arg(tableName).append(where);
+	} else if (driverName == "QSQLITE") {
+		QString where;
+		if (!tagIdtrings.isEmpty())
+			where = QString(" WHERE [%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(','));
+		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName).arg(tableName).append(where);
+	} else
+		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
+	return QString();
 }
 
 template<typename T>
-void RecencyCollective::updateTable(const typename RecencyTable<T>::TuplesContainer & tuples, std::unique_ptr<RecencyTable<T>> & table)
+void RecencyCollective::tableUpdate(QSqlDatabase & db, const QString & schemaName, const ColumnValues & columnValues)
 {
-	if (table)
-		table->update(tuples);
-	else
-		CUTEHMI_CRITICAL("Can not update '" << TableNameTraits<T>::Affixed("recency") << "' table, because table object is not available.");
+	QString tableName = TableNameTraits<T>::Affixed(TABLE_STEM);
+
+	QSqlQuery query(db);
+	query.setForwardOnly(true);
+	CUTEHMI_DEBUG("Storing '" << tableName << "' values...");
+	QVariantList tagIds;
+	for (QStringList::const_iterator tagName = columnValues.tagName.begin(); tagName != columnValues.tagName.end(); ++tagName)
+		tagIds.append(tagCache()->getId(*tagName, db));
+
+	query.prepare(updateQuery(db.driverName(), schemaName, tableName));
+	query.bindValue(":tagId", tagIds);
+	query.bindValue(":value", columnValues.value);
+	query.bindValue(":time", columnValues.time);
+	query.execBatch();
+
+	pushError(query.lastError(), query.lastQuery());
+}
+
+template<typename T>
+bool RecencyCollective::tableSelect(QSqlDatabase & db, ColumnValues & columnValues, const QString & schemaName, const QStringList & tags)
+{
+	QString tableName = TableNameTraits<T>::Affixed(TABLE_STEM);
+
+	QStringList tagIdStrings;
+	if (!tags.isEmpty()) {
+		for (auto tag : tags)
+			tagIdStrings.append(QString::number(tagCache()->getId(tag, db)));
+	}
+
+	QSqlQuery query(db);
+	query.setForwardOnly(true);
+	CUTEHMI_DEBUG("Reading '" << tableName << "' values...");
+
+	QString queryString = selectQuery(db.driverName(), schemaName, tableName, tagIdStrings);
+	if (!queryString.isNull()) {
+		query.prepare(queryString);
+		query.exec();
+
+		int nameIndex = query.record().indexOf("name");
+		int valueIndex = query.record().indexOf("value");
+		int timeIndex = query.record().indexOf("time");
+		while (query.next()) {
+			columnValues.tagName.append(query.value(nameIndex).toString());
+			columnValues.value.append(query.value(valueIndex).value<T>());
+			columnValues.time.append(query.value(timeIndex).toDateTime());
+		}
+
+		pushError(query.lastError(), query.lastQuery());
+
+		if (!query.lastError().isValid())
+			return true;
+	}
+
+	return false;
+}
+
+//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+RecencyCollective::ColumnValues::~ColumnValues()
+{
+}
+//</CuteHMI.DataAcquisition-1.workaround>
+
+int RecencyCollective::ColumnValues::length() const
+{
+	CUTEHMI_ASSERT(tagName.count() == value.count(), "inconsistency in element count, which should be the same for each column");
+	CUTEHMI_ASSERT(tagName.count() == time.count(), "inconsistency in element count, which should be the same for each column");
+
+	return tagName.count();
+}
+
+bool RecencyCollective::ColumnValues::isEqual(int i, const RecencyCollective::ColumnValues & other)
+{
+	return time.at(i) == other.time.at(i)
+			&& value.at(i) == other.value.at(i)
+			&& tagName.at(i) == other.tagName.at(i);
+}
+
+void RecencyCollective::ColumnValues::replace(int i, const RecencyCollective::ColumnValues & other)
+{
+	tagName.replace(i, other.tagName.at(i));
+	value.replace(i, other.value.at(i));
+	time.replace(i, other.time.at(i));
+}
+
+void RecencyCollective::ColumnValues::insert(int i, const RecencyCollective::ColumnValues & other)
+{
+	tagName.insert(i, other.tagName.at(i));
+	value.insert(i, other.value.at(i));
+	time.insert(i, other.time.at(i));
+}
+
+void RecencyCollective::ColumnValues::eraseFrom(int i)
+{
+	tagName.erase(tagName.begin() + i, tagName.end());
+	value.erase(value.begin() + i, value.end());
+	time.erase(time.begin() + i, time.end());
+}
+
+void RecencyCollective::ColumnValues::append(const RecencyCollective::ColumnValues & other, int i)
+{
+	tagName.append(other.tagName.at(i));
+	value.append(other.value.at(i));
+	time.append(other.time.at(i));
 }
 
 }

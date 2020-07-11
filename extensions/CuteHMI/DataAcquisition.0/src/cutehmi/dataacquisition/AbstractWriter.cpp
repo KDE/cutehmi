@@ -59,54 +59,6 @@ const AbstractWriter::TagValueContainer & AbstractWriter::values() const
 	return m->values;
 }
 
-QState * AbstractWriter::createWaitingForDatabaseConnectedSate(QState * parent, services::Serviceable::ServiceStatuses * statuses, QState * target)
-{
-	QState * state = new QState(parent);
-	connect(state, & QState::entered, [this, state]() {
-		if (schema()) {
-			QTimer * timer = new QTimer(schema());
-			connect(timer, & QTimer::timeout, [this]() {
-				if (shareddatabase::Database::IsConnected(schema()->connectionName()))
-					emit databaseConnected();
-			});
-			connect(state, & QState::exited, timer, & QTimer::stop);
-			connect(state, & QState::exited, timer, & QObject::deleteLater);
-			timer->start(250);
-		} else {
-			CUTEHMI_CRITICAL("Schema is not set for '" << this << "' object.");
-			emit broke();
-		}
-	});
-
-	if (statuses)
-		statuses->insert(state, tr("Waiting for database"));
-
-	if (target)
-		state->addTransition(this, & AbstractWriter::databaseConnected, target);
-
-	return state;
-}
-
-QState * AbstractWriter::createValidatingSchemaSate(QState * parent, services::Serviceable::ServiceStatuses * statuses, QState * target)
-{
-	QState * state = new QState(parent);
-	connect(state, & QState::entered, this, [this]() {
-		if (!schema()) {
-			CUTEHMI_CRITICAL("Schema is not set for '" << this << "' object.");
-			emit broke();
-		} else
-			schema()->validate();
-	});
-
-	if (statuses)
-		statuses->insert(state, tr("Validating schema"));
-
-	if (target)
-		state->addTransition(this, & AbstractWriter::schemaValidated, target);
-
-	return state;
-}
-
 void AbstractWriter::onSchemaValidated(bool result)
 {
 	if (result)

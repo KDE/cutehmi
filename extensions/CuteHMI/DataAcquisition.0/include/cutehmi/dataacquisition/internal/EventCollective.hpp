@@ -3,7 +3,6 @@
 
 #include "common.hpp"
 #include "TagCache.hpp"
-#include "EventTable.hpp"
 #include "TableCollective.hpp"
 
 namespace cutehmi {
@@ -19,31 +18,67 @@ class CUTEHMI_DATAACQUISITION_PRIVATE EventCollective:
 		Q_OBJECT
 
 	public:
+		static const char * TABLE_STEM;
+
+		struct ColumnValues
+		{
+			QStringList tagName;
+			QVariantList value;
+			QVariantList time;
+
+			//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+			~ColumnValues();
+			//</CuteHMI.DataAcquisition-1.workaround>
+
+			int length() const;
+
+			bool isEqual(int i, const ColumnValues & other);
+
+			void replace(int i, const ColumnValues & other);
+
+			void insert(int i, const ColumnValues & other);
+
+			void eraseFrom(int i);
+
+			void append(const ColumnValues & other, int i);
+		};
+
+		struct Tuple
+		{
+			QVariant value;
+			QDateTime time;
+		};
+
 		EventCollective();
 
 		void insert(const TagValue & tag);
 
-	protected:
-		void updateSchema(Schema * schema) override;
+		void select(const QStringList & tags, const QDateTime & from, const QDateTime & to);
+
+	signals:
+		void selected(cutehmi::dataacquisition::internal::EventCollective::ColumnValues result, QDateTime minTime, QDateTime maxTime);
 
 	private:
+		QString selectQuery(const QString & driverName, const QString & schemaName, const QString & tableName, const QStringList & tagIdtrings, const QDateTime & from, const QDateTime & to);
+
+		template<typename T>
+		bool tableSelect(QSqlDatabase & db, ColumnValues & columnValues, const QString & schemaName, const QStringList & tags, const QDateTime & from, const QDateTime & to);
+
+		template<typename T>
+		bool tableMinTime(QSqlDatabase & db, QDateTime & minTime, const QString & schemaName);
+
+		template<typename T>
+		bool tableMaxTime(QSqlDatabase & db, QDateTime & maxTime, const QString & schemaName);
+
 		template <typename T>
-		void insertIntoTable(const TagValue & tag, std::unique_ptr<EventTable<T>> & table);
-
-		struct Members
-		{
-			std::unique_ptr<TagCache> tagCache;
-			std::unique_ptr<EventTable<int>> eventInt;
-			std::unique_ptr<EventTable<bool>> eventBool;
-			std::unique_ptr<EventTable<double>> eventReal;
-		};
-
-		MPtr<Members> m;
+		void insertIntoTable(const TagValue & tag);
 };
 
 }
 }
 }
+
+Q_DECLARE_METATYPE(cutehmi::dataacquisition::internal::EventCollective::ColumnValues)
 
 #endif
 

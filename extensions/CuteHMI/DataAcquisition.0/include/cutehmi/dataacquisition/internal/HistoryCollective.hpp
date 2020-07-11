@@ -3,8 +3,9 @@
 
 #include "common.hpp"
 #include "TagCache.hpp"
-#include "HistoryTable.hpp"
 #include "TableCollective.hpp"
+
+#include <QDateTime>
 
 namespace cutehmi {
 namespace dataacquisition {
@@ -16,35 +17,85 @@ class CUTEHMI_DATAACQUISITION_PRIVATE HistoryCollective:
 		Q_OBJECT
 
 	public:
-		HistoryCollective();
+		static const char * TABLE_STEM;
 
-		void insert(const HistoryTable<int>::TuplesContainer & tuples);
-
-		void insert(const HistoryTable<bool>::TuplesContainer & tuples);
-
-		void insert(const HistoryTable<double>::TuplesContainer & tuples);
-
-	protected:
-		void updateSchema(Schema * schema) override;
-
-	private:
-		template<typename T>
-		void insertIntoTable(const typename HistoryTable<T>::TuplesContainer & tuples, std::unique_ptr<HistoryTable<T>> & table);
-
-		struct Members
+		struct ColumnValues
 		{
-			std::unique_ptr<TagCache> tagCache;
-			std::unique_ptr<HistoryTable<int>> historyInt;
-			std::unique_ptr<HistoryTable<bool>> historyBool;
-			std::unique_ptr<HistoryTable<double>> historyReal;
+			QStringList tagName;
+			QVariantList open;
+			QVariantList close;
+			QVariantList min;
+			QVariantList max;
+			QVariantList openTime;
+			QVariantList closeTime;
+			QVariantList count;
+
+			//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+			~ColumnValues();
+			//</CuteHMI.DataAcquisition-1.workaround>
+
+			int length() const;
+
+			bool isEqual(int i, const ColumnValues & other);
+
+			void replace(int i, const ColumnValues & other);
+
+			void insert(int i, const ColumnValues & other);
+
+			void eraseFrom(int i);
+
+			void append(const ColumnValues & other, int i);
 		};
 
-		MPtr<Members> m;
+		struct Tuple
+		{
+			QVariant open;
+			QVariant close;
+			QVariant min;
+			QVariant max;
+			QDateTime openTime;
+			QDateTime closeTime;
+			int count = 0;
+		};
+
+		typedef QHash<QString, Tuple> TuplesContainer;
+
+		HistoryCollective();
+
+		void insert(const TuplesContainer & tuples);
+
+		void select(const QStringList & tags, const QDateTime & from, const QDateTime & to);
+
+	signals:
+		void selected(cutehmi::dataacquisition::internal::HistoryCollective::ColumnValues result, QDateTime minOpenTime, QDateTime maxCloseTime);
+
+	private:
+		static QVariant::Type TupleVariantType(const Tuple & tuple);
+
+		static void ToColumnValues(ColumnValues & intValues, ColumnValues & boolValues, ColumnValues & realValues, const TuplesContainer & tuples);
+
+		QString insertQuery(const QString & driverName, const QString & schemaName, const QString & tableName);
+
+		QString selectQuery(const QString & driverName, const QString & schemaName, const QString & tableName, const QStringList & tagIdtrings, const QDateTime & from, const QDateTime & to);
+
+		template<typename T>
+		void tableInsert(QSqlDatabase & db, const QString & schemaName, const ColumnValues & columnValues);
+
+		template<typename T>
+		bool tableSelect(QSqlDatabase & db, ColumnValues & columnValues, const QString & schemaName, const QStringList & tags, const QDateTime & from, const QDateTime & to);
+
+		template<typename T>
+		bool tableMinOpenTime(QSqlDatabase & db, QDateTime & minOpenTime, const QString & schemaName);
+
+		template<typename T>
+		bool tableMaxCloseTime(QSqlDatabase & db, QDateTime & maxCloseTime, const QString & schemaName);
 };
 
 }
 }
 }
+
+Q_DECLARE_METATYPE(cutehmi::dataacquisition::internal::HistoryCollective::ColumnValues)
 
 #endif
 

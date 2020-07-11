@@ -35,10 +35,10 @@ bool DataObject::busy() const
 	return m->busy != 0;
 }
 
-void DataObject::pushError(const QSqlError & sqlError)
+void DataObject::pushError(const QSqlError & sqlError, const QString & query)
 {
 	QMutexLocker locker(& m->sqlErrorsMutex);
-	m->sqlErrors.append(sqlError);
+	m->sqlErrors.append({sqlError, query});
 }
 
 DatabaseWorker * DataObject::worker(std::function<void (QSqlDatabase & db)> task) const
@@ -70,10 +70,11 @@ void DataObject::processErrors()
 {
 	QMutexLocker locker(& m->sqlErrorsMutex);
 	for (SQLErrorsContainer::iterator it = m->sqlErrors.begin(); it != m->sqlErrors.end(); ++it)
-		if (it->isValid()) {
-			emit errored(CUTEHMI_ERROR(it->text()));
+		if (it->first.isValid()) {
+			CUTEHMI_DEBUG("Query '" << it->second << "' has failed.");
+			emit errored(CUTEHMI_ERROR(it->first.text()));
 		} else
-			CUTEHMI_DEBUG("Query was successful.");
+			CUTEHMI_DEBUG("Query '" << it->second << "' was successful.");
 	m->sqlErrors.clear();
 }
 

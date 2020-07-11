@@ -8,6 +8,7 @@ EventWriter::EventWriter(QObject * parent):
 	m(new Members)
 {
 	connect(this, & AbstractWriter::schemaChanged, this, & EventWriter::onSchemaChanged);
+	connect(& m->dbCollective, & internal::EventCollective::busyChanged, this, & EventWriter::confirmCollectiveFinished);
 }
 
 std::unique_ptr<services::Serviceable::ServiceStatuses> EventWriter::configureStarting(QState * starting)
@@ -39,7 +40,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> EventWriter::configureSt
 	QState * waitingForWorkers = new QState(stopping);
 	stopping->setInitialState(waitingForWorkers);
 	statuses->insert(waitingForWorkers, tr("Waiting for database workers to finish"));
-	connect(waitingForWorkers, & QState::entered, & m->dbCollective, & internal::EventCollective::confirmWorkersFinished);
+	connect(waitingForWorkers, & QState::entered, this, & EventWriter::confirmCollectiveFinished);
 
 	return statuses;
 }
@@ -72,7 +73,7 @@ std::unique_ptr<QAbstractTransition> EventWriter::transitionToStarted() const
 
 std::unique_ptr<QAbstractTransition> EventWriter::transitionToStopped() const
 {
-	connect(& m->dbCollective, & internal::EventCollective::workersFinished, this, & EventWriter::stopped);
+	connect(this, & EventWriter::collectiveFinished, this, & EventWriter::stopped);
 
 	return std::make_unique<QSignalTransition>(this, & EventWriter::stopped);
 }
@@ -101,7 +102,12 @@ void EventWriter::onSchemaChanged()
 
 void EventWriter::insertEvent(TagValue * tag)
 {
-	m->dbCollective.insert(*tag);
+	CUTEHMI_DEBUG("Requesting database handler to insert values into database.");
+
+	if (schema())
+		m->dbCollective.insert(*tag);
+	else
+		CUTEHMI_CRITICAL("Schema is not set for '" << this << "' object.");
 }
 
 void EventWriter::connectTagSignals()
@@ -117,6 +123,12 @@ void EventWriter::disconnectTagSignals()
 {
 	for (TagValueContainer::const_iterator it = values().begin(); it != values().end(); ++it)
 		(*it)->disconnect(this);
+}
+
+void EventWriter::confirmCollectiveFinished()
+{
+	if (!m->dbCollective.busy())
+		emit collectiveFinished();
 }
 
 std::unique_ptr<services::Serviceable::ServiceStatuses> EventWriter::configureStartingOrRepairing(QState * parent)

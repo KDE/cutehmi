@@ -2,7 +2,8 @@
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_INTERNAL_TABLECOLLECTIVE_HPP
 
 #include "common.hpp"
-#include "../Schema.hpp"
+#include "TableObject.hpp"
+#include "TagCache.hpp"
 
 #include <QObject>
 
@@ -11,35 +12,23 @@ namespace dataacquisition {
 namespace internal {
 
 class CUTEHMI_DATAACQUISITION_PRIVATE TableCollective:
-	public QObject
+	public TableObject
 {
 		Q_OBJECT
 
 	public:
 		TableCollective();
 
-		Schema * schema() const;
-
-		void setSchema(Schema * schema);
-
-	public slots:
-		void confirmWorkersFinished();
-
-	signals:
-		void workersFinished();
-
-		void errored(cutehmi::InplaceError error);
-
 	protected:
-		virtual void updateSchema(Schema * schema) = 0;
+		TagCache * tagCache() const;
 
-		void accountInsertBusy(bool busy);
+	private slots:
+		void onSchemaChanged();
 
 	private:
 		struct Members
 		{
-			Schema * schema = nullptr;
-			int insertsBusy = 0;
+			std::unique_ptr<TagCache> tagCache;
 		};
 
 		MPtr<Members> m;

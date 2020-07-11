@@ -2,9 +2,10 @@
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_INTERNAL_RECENCYCOLLECTIVE_HPP
 
 #include "common.hpp"
-#include "TagCache.hpp"
-#include "RecencyTable.hpp"
 #include "TableCollective.hpp"
+
+#include <QHash>
+#include <QList>
 
 namespace cutehmi {
 namespace dataacquisition {
@@ -16,35 +17,68 @@ class CUTEHMI_DATAACQUISITION_PRIVATE RecencyCollective:
 		Q_OBJECT
 
 	public:
-		RecencyCollective();
+		static const char * TABLE_STEM;
 
-		void update(const RecencyTable<int>::TuplesContainer & tuples);
-
-		void update(const RecencyTable<bool>::TuplesContainer & tuples);
-
-		void update(const RecencyTable<double>::TuplesContainer & tuples);
-
-	protected:
-		void updateSchema(Schema * schema) override;
-
-	private:
-		template<typename T>
-		void updateTable(const typename RecencyTable<T>::TuplesContainer & tuples, std::unique_ptr<RecencyTable<T>> & table);
-
-		struct Members
+		struct ColumnValues
 		{
-			std::unique_ptr<TagCache> tagCache;
-			std::unique_ptr<RecencyTable<int>> recencyInt;
-			std::unique_ptr<RecencyTable<bool>> recencyBool;
-			std::unique_ptr<RecencyTable<double>> recencyReal;
+			QStringList tagName;
+			QVariantList value;
+			QVariantList time;
+
+			//<CuteHMI.DataAcquisition-1.workaround target="clang" cause="Bug-28280">
+			~ColumnValues();
+			//</CuteHMI.DataAcquisition-1.workaround>
+
+			int length() const;
+
+			bool isEqual(int i, const ColumnValues & other);
+
+			void replace(int i, const ColumnValues & other);
+
+			void insert(int i, const ColumnValues & other);
+
+			void eraseFrom(int i);
+
+			void append(const ColumnValues & other, int i);
 		};
 
-		MPtr<Members> m;
+		struct Tuple
+		{
+			QVariant value;
+			QDateTime time;
+		};
+
+		typedef QHash<QString, Tuple> TuplesContainer;
+
+		RecencyCollective();
+
+		void update(const TuplesContainer & tuples);
+
+		void select(const QStringList & tags);
+
+	signals:
+		void selected(cutehmi::dataacquisition::internal::RecencyCollective::ColumnValues result);
+
+	protected:
+		static void ToColumnValues(ColumnValues & intValues, ColumnValues & boolValues, ColumnValues & realValues, const TuplesContainer & tuples);
+
+	private:
+		QString updateQuery(const QString & driverName, const QString & schemaName, const QString & tableName);
+
+		QString selectQuery(const QString & driverName, const QString & schemaName, const QString & tableName, const QStringList & tagIdtrings);
+
+		template<typename T>
+		void tableUpdate(QSqlDatabase & db, const QString & schemaName, const ColumnValues & columnValues);
+
+		template<typename T>
+		bool tableSelect(QSqlDatabase & db, ColumnValues & columnValues, const QString & schemaName, const QStringList & tags);
 };
 
 }
 }
 }
+
+Q_DECLARE_METATYPE(cutehmi::dataacquisition::internal::RecencyCollective::ColumnValues)
 
 #endif
 

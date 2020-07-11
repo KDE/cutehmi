@@ -1,44 +1,30 @@
-#include <cutehmi/dataacquisition/internal/TableObject.hpp>
+#ifndef H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_INIT_HPP
+#define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_INIT_HPP
+
+#include "internal/common.hpp"
+
+#include <cutehmi/Initializer.hpp>
 
 namespace cutehmi {
 namespace dataacquisition {
-namespace internal {
 
-TableObject::TableObject(Schema * schema, QObject * parent):
-	DataObject(parent),
-	m(new Members{schema})
+/**
+ * %Init. This class performs initialization of data acquisition extension.
+ *
+ * Normally it is not advisable to create custom instances of this class as extension provides an instance on its own. This can be
+ * invalidated particulary by static builds in which case a global variable may not get into resulting binary.
+ */
+class CUTEHMI_DATAACQUISITION_API Init final:
+	public Initializer<Init>
 {
-	if (schema)
-		setConnectionName(m->schema->connectionName());
-}
-
-Schema * TableObject::schema() const
-{
-	return m->schema;
-}
-
-void TableObject::setSchema(Schema * schema)
-{
-	if (m->schema != schema) {
-		m->schema = schema;
-		if (schema)
-			setConnectionName(m->schema->connectionName());
-		emit schemaChanged();
-	}
-}
-
-QString TableObject::getSchemaName() const
-{
-	if (m->schema)
-		return m->schema->name();
-
-	CUTEHMI_CRITICAL("Schema for object '" << this << "' has not been set.");
-	return QString();
-}
+	public:
+		Init();
+};
 
 }
 }
-}
+
+#endif
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: This file is a part of CuteHMI.

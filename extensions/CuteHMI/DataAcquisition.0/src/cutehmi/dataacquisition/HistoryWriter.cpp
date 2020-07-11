@@ -16,6 +16,7 @@ HistoryWriter::HistoryWriter(QObject * parent):
 	connect(this, & AbstractWriter::schemaChanged, this, & HistoryWriter::onSchemaChanged);
 	connect(this, & HistoryWriter::intervalChanged, this, & HistoryWriter::adjustSamplingTimer);
 	connect(this, & HistoryWriter::samplesChanged, this, & HistoryWriter::adjustSamplingTimer);
+	connect(& m->dbCollective, & internal::HistoryCollective::busyChanged, this, & HistoryWriter::confirmCollectiveFinished);
 }
 
 int HistoryWriter::interval() const
@@ -53,15 +54,16 @@ void HistoryWriter::sampleValues()
 	CUTEHMI_DEBUG("Sampling values (count: " << m->sampleCounter + 1 << ").");
 
 	for (TagValueContainer::const_iterator it = values().begin(); it != values().end(); ++it) {
+		QString tagName = (*it)->name();
 		switch ((*it)->value().type()) {
 			case QVariant::Int:
-				addIntSample((*it)->name(), (*it)->value().toInt());
+				addSample<int>((*it)->value().toInt(), m->tuples[tagName]);
 				break;
 			case QVariant::Bool:
-				addBoolSample((*it)->name(), (*it)->value().toInt());
+				addSample<bool>((*it)->value().toBool(), m->tuples[tagName]);
 				break;
 			case QVariant::Double:
-				addRealSample((*it)->name(), (*it)->value().toInt());
+				addSample<double>((*it)->value().toDouble(), m->tuples[tagName]);
 				break;
 			default:
 				CUTEHMI_CRITICAL("Unsupported type ('" << (*it)->value().typeName() << "') provided as a 'value' of 'TagValue' object.");
@@ -79,11 +81,9 @@ void HistoryWriter::insertValues()
 {
 	CUTEHMI_DEBUG("Requesting database handler to insert values into database.");
 
-	if (!schema()->name().isNull()) {
+	if (schema()) {
 		emit insertValuesBegan();
-		m->dbCollective.insert(m->intTuples);
-		m->dbCollective.insert(m->boolTuples);
-		m->dbCollective.insert(m->realTuples);
+		m->dbCollective.insert(m->tuples);
 	} else
 		CUTEHMI_CRITICAL("Schema is not set for '" << this << "' object.");
 }
@@ -119,7 +119,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> HistoryWriter::configure
 	active->setInitialState(sampling);
 
 	sampling->addTransition(this, & HistoryWriter::insertValuesBegan, inserting);
-	inserting->addTransition(& m->dbCollective, & internal::HistoryCollective::workersFinished, sampling);
+	inserting->addTransition(this, & HistoryWriter::collectiveFinished, sampling);
 
 	connect(& m->samplingTimer, & QTimer::timeout, this, & HistoryWriter::sampleValues);
 
@@ -132,7 +132,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> HistoryWriter::configure
 
 	QState * waitingForWorkers = new QState(stopping);
 	statuses->insert(waitingForWorkers, tr("Waiting for database workers to finish"));
-	connect(waitingForWorkers, & QState::entered, & m->dbCollective, & internal::HistoryCollective::confirmWorkersFinished);
+	connect(waitingForWorkers, & QState::entered, this, & HistoryWriter::confirmCollectiveFinished);
 
 	QState * stoppingTimer = new QState(stopping);
 	stopping->setInitialState(stoppingTimer);
@@ -171,7 +171,7 @@ std::unique_ptr<QAbstractTransition> HistoryWriter::transitionToStarted() const
 
 std::unique_ptr<QAbstractTransition> HistoryWriter::transitionToStopped() const
 {
-	connect(& m->dbCollective, & internal::HistoryCollective::workersFinished, this, & HistoryWriter::stopped);
+	connect(this, & HistoryWriter::collectiveFinished, this, & HistoryWriter::stopped);
 
 	return std::make_unique<QSignalTransition>(this, & HistoryWriter::stopped);
 }
@@ -210,6 +210,12 @@ void HistoryWriter::stopSamplingTimer()
 	emit samplingTimerStopped();
 }
 
+void HistoryWriter::confirmCollectiveFinished()
+{
+	if (!m->dbCollective.busy())
+		emit collectiveFinished();
+}
+
 std::unique_ptr<services::Serviceable::ServiceStatuses> HistoryWriter::configureStartingOrRepairing(QState * parent)
 {
 	std::unique_ptr<services::Serviceable::ServiceStatuses> statuses = std::make_unique<services::Serviceable::ServiceStatuses>();
@@ -231,42 +237,29 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> HistoryWriter::configure
 	return statuses;
 }
 
-void HistoryWriter::addIntSample(const QString & tagName, int value)
-{
-	addSample(value, m->intTuples[tagName]);
-}
-
-void HistoryWriter::addBoolSample(const QString & tagName, bool value)
-{
-	addSample(value, m->boolTuples[tagName]);
-}
-
-void HistoryWriter::addRealSample(const QString & tagName, double value)
-{
-	addSample(value, m->realTuples[tagName]);
-}
-
 void HistoryWriter::clearData()
 {
-	m->intTuples.clear();
-	m->boolTuples.clear();
-	m->realTuples.clear();
+	m->tuples.clear();
 	m->sampleCounter = 0;
 }
 
 template <typename T>
-void HistoryWriter::addSample(T value, typename internal::HistoryTable<T>::Tuple & tuple)
+void HistoryWriter::addSample(T value, internal::HistoryCollective::Tuple & tuple)
 {
 	if (tuple.count == 0) {
 		// Initialize candle.
 		tuple.open = value;
 		tuple.openTime = QDateTime::currentDateTimeUtc();
+		tuple.min = value;
+		tuple.max = value;
+	} else {
+		// Adjust min, max.
+		tuple.min = qMin(tuple.min.value<T>(), value);
+		tuple.max = qMax(tuple.max.value<T>(), value);
 	}
 
 	tuple.closeTime = QDateTime::currentDateTimeUtc();
 	tuple.close = value;
-	tuple.min = qMin(tuple.min, value);
-	tuple.max = qMax(tuple.max, value);
 	tuple.count++;
 }
 

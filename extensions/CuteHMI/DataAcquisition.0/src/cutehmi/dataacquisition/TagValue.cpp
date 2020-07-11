@@ -30,6 +30,10 @@ QVariant TagValue::value() const
 void TagValue::setValue(const QVariant & value)
 {
 	if (m->value != value) {
+#ifdef CUTEHMI_DEBUG
+		if (value.type() != QVariant::Int && value.type() != QVariant::Bool && value.type() != QVariant::Double)
+			CUTEHMI_CRITICAL("Unsupported data type ('" << value.typeName() << "') provided for 'value' property of '" << this << "' object.");
+#endif
 		m->value = value;
 		emit valueChanged();
 	}

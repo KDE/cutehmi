@@ -24,20 +24,23 @@ Project {
          "Console.qml",
          "LICENSE",
          "README.md",
+         "include/cutehmi/dataacquisition/AbstractListModel.hpp",
          "include/cutehmi/dataacquisition/AbstractWriter.hpp",
-         "include/cutehmi/dataacquisition/DataObject.hpp",
+         "include/cutehmi/dataacquisition/EventModel.hpp",
          "include/cutehmi/dataacquisition/EventWriter.hpp",
          "include/cutehmi/dataacquisition/Exception.hpp",
+         "include/cutehmi/dataacquisition/HistoryModel.hpp",
          "include/cutehmi/dataacquisition/HistoryWriter.hpp",
+         "include/cutehmi/dataacquisition/Init.hpp",
+         "include/cutehmi/dataacquisition/RecencyModel.hpp",
          "include/cutehmi/dataacquisition/RecencyWriter.hpp",
          "include/cutehmi/dataacquisition/Schema.hpp",
          "include/cutehmi/dataacquisition/TagValue.hpp",
+         "include/cutehmi/dataacquisition/internal/DbServiceableMixin.hpp",
          "include/cutehmi/dataacquisition/internal/EventCollective.hpp",
-         "include/cutehmi/dataacquisition/internal/EventTable.hpp",
          "include/cutehmi/dataacquisition/internal/HistoryCollective.hpp",
-         "include/cutehmi/dataacquisition/internal/HistoryTable.hpp",
+         "include/cutehmi/dataacquisition/internal/ModelMixin.hpp",
          "include/cutehmi/dataacquisition/internal/RecencyCollective.hpp",
-         "include/cutehmi/dataacquisition/internal/RecencyTable.hpp",
          "include/cutehmi/dataacquisition/internal/TableCollective.hpp",
          "include/cutehmi/dataacquisition/internal/TableNameTraits.hpp",
          "include/cutehmi/dataacquisition/internal/TableObject.hpp",
@@ -50,10 +53,14 @@ Project {
          "sql/postgres/drop.sql",
          "sql/sqlite/create.sql",
          "sql/sqlite/drop.sql",
+         "src/cutehmi/dataacquisition/AbstractListModel.cpp",
          "src/cutehmi/dataacquisition/AbstractWriter.cpp",
-         "src/cutehmi/dataacquisition/DataObject.cpp",
+         "src/cutehmi/dataacquisition/EventModel.cpp",
          "src/cutehmi/dataacquisition/EventWriter.cpp",
+         "src/cutehmi/dataacquisition/HistoryModel.cpp",
          "src/cutehmi/dataacquisition/HistoryWriter.cpp",
+         "src/cutehmi/dataacquisition/Init.cpp",
+         "src/cutehmi/dataacquisition/RecencyModel.cpp",
          "src/cutehmi/dataacquisition/RecencyWriter.cpp",
          "src/cutehmi/dataacquisition/Schema.cpp",
          "src/cutehmi/dataacquisition/TagValue.cpp",
@@ -65,21 +72,9 @@ Project {
          "src/cutehmi/dataacquisition/internal/TableCollective.cpp",
          "src/cutehmi/dataacquisition/internal/TableObject.cpp",
          "src/cutehmi/dataacquisition/internal/TagCache.cpp",
+         "src/cutehmi/dataacquisition/internal/helpers.hpp",
          "src/cutehmi/dataacquisition/logging.cpp",
      ]
-
-		FileTagger {
-			patterns: ["*.sql"]
-			fileTags: ["sql"]
-		}
-
-		Group {
-			name: "SQL"
-			fileTagsFilter: ["sql"]
-			qbs.install: true
-			qbs.installSourceBase: installSourceBase
-			qbs.installDir: dedicatedInstallSubdir
-		}
 
 		cutehmi.dirs.artifacts: true
 
@@ -87,6 +82,8 @@ Project {
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
 		cutehmi.doxygen.exclude: ['dev', 'puppet', 'tests']
+
+		Depends { name: "cutehmi.init" }
 
 		Depends { name: "cutehmi.metadata" }
 

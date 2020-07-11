@@ -10,7 +10,7 @@ namespace cutehmi {
 namespace dataacquisition {
 
 Schema::Schema(QObject * parent):
-	DataObject(parent),
+	shareddatabase::DataObject(parent),
 	m(new Members)
 {
 }
@@ -58,10 +58,11 @@ void Schema::create()
 
 				if (!query.exec(queryString))
 					error = true;
-				pushError(query.lastError());
+				pushError(query.lastError(), query.lastQuery());
 				query.finish();
 			} catch (const Exception & e) {
 				CUTEHMI_CRITICAL(e.what());
+				error = true;
 			}
 
 			if (!user().isEmpty()) {
@@ -74,7 +75,7 @@ void Schema::create()
 				if (!query.exec(QString(alterSchemaQuery).arg(name()).arg(user())))
 					warning = true;
 
-				pushError(query.lastError());
+				pushError(query.lastError(), query.lastQuery());
 				query.finish();
 			}
 		} else if (db.driverName() == "QSQLITE") {
@@ -90,14 +91,17 @@ void Schema::create()
 
 					if (!query.exec(*queryIt))
 						error = true;
-					pushError(query.lastError());
+					pushError(query.lastError(), query.lastQuery());
 					query.finish();
 				}
 			} catch (const Exception & e) {
 				CUTEHMI_CRITICAL(e.what());
+				error = true;
 			}
-		} else
+		} else {
 			emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
+			error = true;
+		}
 
 		if (error)
 			Notification::Critical(tr("Failed to create '%1' schema.").arg(name()));
@@ -126,10 +130,11 @@ void Schema::drop()
 
 				if (!query.exec(queryString))
 					error = true;
-				pushError(query.lastError());
+				pushError(query.lastError(), query.lastQuery());
 				query.finish();
 			} catch (const Exception & e) {
 				CUTEHMI_CRITICAL(e.what());
+				error = true;
 			}
 		} else if (db.driverName() == "QSQLITE") {
 			QSqlQuery query(db);
@@ -144,14 +149,17 @@ void Schema::drop()
 
 					if (!query.exec(*queryIt))
 						warning = true;
-					pushError(query.lastError());
+					pushError(query.lastError(), query.lastQuery());
 					query.finish();
 				}
 			} catch (const Exception & e) {
 				CUTEHMI_CRITICAL(e.what());
+				error = true;
 			}
-		} else
+		} else {
 			emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(db.driverName())));
+			error = true;
+		}
 
 		if (error)
 			Notification::Critical(tr("Failed to drop '%1' schema.").arg(name()));
@@ -221,7 +229,7 @@ bool Schema::validatePostgresTable(const QString & tableName, QSqlQuery & query)
 		);
 	)SQL";
 	query.exec(QString(tableExistsQuery).arg(name()).arg(tableName));
-	pushError(query.lastError());
+	pushError(query.lastError(), query.lastQuery());
 	int existsIndex = query.record().indexOf("exists");
 	if (query.first())
 		if (!query.value(existsIndex).toBool()) {
@@ -242,7 +250,7 @@ bool Schema::validateSqliteTable(const QString & tableName, QSqlQuery & query)
 		SELECT name FROM sqlite_master WHERE type='table' AND name='[%1.%2]';
 	)SQL";
 	query.exec(QString(tableExistsQuery).arg(name()).arg(tableName));
-	pushError(query.lastError());
+	pushError(query.lastError(), query.lastQuery());
 	int existsIndex = query.record().indexOf("exists");
 	if (query.first())
 		if (!query.value(existsIndex).toBool()) {

@@ -2,7 +2,8 @@
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_SCHEMA_HPP
 
 #include "internal/common.hpp"
-#include "DataObject.hpp"
+
+#include <cutehmi/shareddatabase/DataObject.hpp>
 
 namespace cutehmi {
 namespace dataacquisition {
@@ -11,7 +12,7 @@ namespace dataacquisition {
  * Database schema.
  */
 class CUTEHMI_DATAACQUISITION_API Schema:
-	public DataObject
+	public shareddatabase::DataObject
 {
 		Q_OBJECT
 

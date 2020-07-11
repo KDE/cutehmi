@@ -1,41 +1,55 @@
-#ifndef H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_RECENCYWRITER_HPP
-#define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_RECENCYWRITER_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_ABSTRACTLISTMODEL_HPP
+#define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_ABSTRACTLISTMODEL_HPP
 
 #include "internal/common.hpp"
-#include "internal/RecencyCollective.hpp"
-#include "AbstractWriter.hpp"
+#include "internal/DbServiceableMixin.hpp"
+#include "Schema.hpp"
 
 #include <cutehmi/services/Serviceable.hpp>
 
-#include <QTimer>
+#include <QAbstractListModel>
 
 namespace cutehmi {
 namespace dataacquisition {
 
-class CUTEHMI_DATAACQUISITION_API RecencyWriter:
-	public AbstractWriter,
-	private internal::DbServiceableMixin<RecencyWriter>
+class CUTEHMI_DATAACQUISITION_API AbstractListModel:
+	public QAbstractListModel,
+	public services::Serviceable,
+	private internal::DbServiceableMixin<AbstractListModel>
 {
 		Q_OBJECT
 
-		friend class internal::DbServiceableMixin<RecencyWriter>;
+		friend class internal::DbServiceableMixin<AbstractListModel>;
 
 	public:
 		static constexpr int INITIAL_INTERVAL = 1000;
 
 		/**
-		  Interval [ms] between samples.
+		  busy status. Indicates that object is busy processing SQL request.
+		  */
+		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
-		  @assumption{cutehmi::dataacquisition::History-interval_non_negative}
+		/**
+		  Interval [ms] between updates.
+
+		  @assumption{cutehmi::dataacquisition::AbstractDataModel-interval_non_negative}
 		  Value of @a interval property should be non-negative.
 		  */
 		Q_PROPERTY(int interval READ interval WRITE setInterval NOTIFY intervalChanged)
 
-		RecencyWriter(QObject * parent = nullptr);
+		Q_PROPERTY(Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
+
+		AbstractListModel(QObject * parent = nullptr);
+
+		virtual bool busy() const = 0;
 
 		int interval() const;
 
 		void setInterval(int interval);
+
+		Schema * schema() const;
+
+		void setSchema(Schema * schema);
 
 		std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
 
@@ -59,37 +73,54 @@ class CUTEHMI_DATAACQUISITION_API RecencyWriter:
 
 		std::unique_ptr<QAbstractTransition> transitionToIdling() const override;
 
+	public slots:
+		virtual void requestUpdate() = 0;
+
 	signals:
 		void intervalChanged();
 
+		void schemaChanged();
+
+		void busyChanged();
+
+	protected slots:
+		virtual void confirmUpdateFinished() = 0;
+
 	CUTEHMI_PROTECTED_SIGNALS:
+		void broke();
+
+		void started();
+
+		void stopped();
+
+		void databaseConnected();
+
+		void schemaValidated();
+
 		void updateTimerStarted();
 
 		void updateTimerStopped();
 
-		void collectiveFinished();
+		void updateFinished();
+
 
 	private slots:
-		void updateValues();
-
-		void onSchemaChanged();
+		void onSchemaValidated(bool result);
 
 		void startUpdateTimer();
 
 		void stopUpdateTimer();
 
-		void confirmCollectiveFinished();
-
 	private:
 		std::unique_ptr<services::Serviceable::ServiceStatuses> configureStartingOrRepairing(QState * parent);
 
-		struct Members
-		{
-			internal::RecencyCollective dbCollective;
-			QTimer updateTimer;
+		struct Members {
+			Schema * schema;
 			int interval;
+			QTimer updateTimer;
 
 			Members():
+				schema(nullptr),
 				interval(INITIAL_INTERVAL)
 			{
 			}
