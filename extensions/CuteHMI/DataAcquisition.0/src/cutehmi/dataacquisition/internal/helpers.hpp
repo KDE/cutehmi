@@ -16,7 +16,7 @@ namespace internal {
  * order (thus typically some sort of "less than" compare function shall be used to maintain descending order).
  * @param compare function which compares
  */
-template <typename COLUMN_VALUES, std::size_t SIZE>
+template <typename COLUMN_VALUES, int SIZE>
 void mergeColumnValues(COLUMN_VALUES & result, const COLUMN_VALUES * columnValues, std::function<bool(const COLUMN_VALUES & a, int aIndex, const COLUMN_VALUES & b, int bIndex)> compare)
 {
 
