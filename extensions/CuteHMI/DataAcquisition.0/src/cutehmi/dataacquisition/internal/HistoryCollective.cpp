@@ -60,9 +60,7 @@ void HistoryCollective::select(const QStringList & tags, const QDateTime & from,
 		if (tableSelect<bool>(db, columnValues[BOOL], schemaName, tags, from, to)
 				&& tableSelect<int>(db, columnValues[INT], schemaName, tags, from, to)
 				&& tableSelect<double>(db, columnValues[DOUBLE], schemaName, tags, from, to)) {
-
 			// Individual tables are sorted by close time in descending order by database engine, but we need to merge them into single result.
-
 			ColumnValues mergedValues;
 			mergeColumnValues<ColumnValues, SIZE>(mergedValues, columnValues, [](const ColumnValues & a, int aIndex, const ColumnValues & b, int bIndex) -> bool {
 				return a.closeTime.at(aIndex).toDateTime() < b.closeTime.at(bIndex).toDateTime();

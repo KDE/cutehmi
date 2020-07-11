@@ -63,9 +63,7 @@ void EventCollective::select(const QStringList & tags, const QDateTime & from, c
 		if (tableSelect<bool>(db, columnValues[BOOL], schemaName, tags, from, to)
 				&& tableSelect<int>(db, columnValues[INT], schemaName, tags, from, to)
 				&& tableSelect<double>(db, columnValues[DOUBLE], schemaName, tags, from, to)) {
-
 			// Individual tables are sorted by time in descending order by database engine, but we need to merge them into single result.
-
 			ColumnValues mergedValues;
 			mergeColumnValues<ColumnValues, SIZE>(mergedValues, columnValues, [](const ColumnValues & a, int aIndex, const ColumnValues & b, int bIndex) -> bool {
 				return a.time.at(aIndex).toDateTime() < b.time.at(bIndex).toDateTime();

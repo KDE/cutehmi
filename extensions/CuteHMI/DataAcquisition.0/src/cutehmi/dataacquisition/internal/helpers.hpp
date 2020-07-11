@@ -19,7 +19,6 @@ namespace internal {
 template <typename COLUMN_VALUES, int SIZE>
 void mergeColumnValues(COLUMN_VALUES & result, const COLUMN_VALUES * columnValues, std::function<bool(const COLUMN_VALUES & a, int aIndex, const COLUMN_VALUES & b, int bIndex)> compare)
 {
-
 	// Let's introduce a queue, which keeps indices of tables from which elements should be added to the resulting table.
 	QList<int> queue;
 	for (int i = 0; i < SIZE; i++)
