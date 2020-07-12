@@ -37,6 +37,8 @@ CREATE TABLE %1.event_bool
         time timestamptz NOT NULL
 );
 
+CREATE INDEX index_event_bool_time ON %1.event_bool (time);
+
 CREATE TABLE %1.event_int
 (
         id serial PRIMARY KEY,
@@ -45,6 +47,8 @@ CREATE TABLE %1.event_int
         time timestamptz NOT NULL
 );
 
+CREATE INDEX index_event_int_time ON %1.event_int (time);
+
 CREATE TABLE %1.event_real
 (
         id serial PRIMARY KEY,
@@ -52,6 +56,8 @@ CREATE TABLE %1.event_real
         value double precision NOT NULL,
         time timestamptz NOT NULL
 );
+
+CREATE INDEX index_event_real_time ON %1.event_real (time);
 
 CREATE TABLE %1.history_bool
 (
@@ -66,6 +72,8 @@ CREATE TABLE %1.history_bool
         count integer NOT NULL
 );
 
+CREATE INDEX index_history_bool_close_time ON %1.history_bool (close_time);
+
 CREATE TABLE %1.history_int
 (
         id serial PRIMARY KEY,
@@ -78,6 +86,8 @@ CREATE TABLE %1.history_int
         close_time timestamptz NOT NULL,
         count integer NOT NULL
 );
+
+CREATE INDEX index_history_int_close_time ON %1.history_int (close_time);
 
 CREATE TABLE %1.history_real
 (
@@ -92,3 +102,4 @@ CREATE TABLE %1.history_real
         count integer NOT NULL
 );
 
+CREATE INDEX index_history_real_close_time ON %1.history_real (close_time);
