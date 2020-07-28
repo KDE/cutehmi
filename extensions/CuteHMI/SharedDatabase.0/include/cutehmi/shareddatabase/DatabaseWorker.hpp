@@ -83,9 +83,9 @@ class CUTEHMI_SHAREDDATABASE_API DatabaseWorker:
 		void ready();
 
 		/**
-		 * Worker performed strike action. This signal is emitted when worker denied to do the job.
+		 * Worker went on a strike action. This signal is emitted when worker refused to do the job.
 		 */
-		void striked(const QString & reason);
+		void refused(const QString & reason);
 
 	protected:
 		/**

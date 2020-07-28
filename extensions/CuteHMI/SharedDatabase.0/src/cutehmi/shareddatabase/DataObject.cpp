@@ -47,7 +47,7 @@ DatabaseWorker * DataObject::worker(std::function<void (QSqlDatabase & db)> task
 	connect(databaseWorker.get(), & DatabaseWorker::ready, this, & DataObject::processErrors);
 	connect(databaseWorker.get(), & DatabaseWorker::started, this, & DataObject::incrementBusy);
 	connect(databaseWorker.get(), & DatabaseWorker::ready, this, & DataObject::decrementBusy);
-	connect(databaseWorker.get(), & DatabaseWorker::striked, this, & DataObject::onDatabaseWorkerStriked);
+	connect(databaseWorker.get(), & DatabaseWorker::refused, this, & DataObject::onDatabaseWorkerRefused);
 	connect(databaseWorker.get(), & DatabaseWorker::ready, databaseWorker.get(), & QObject::deleteLater);
 	return databaseWorker.release();
 }
@@ -83,9 +83,9 @@ void DataObject::printError(InplaceError error) const
 	CUTEHMI_CRITICAL(error.str());
 }
 
-void DataObject::onDatabaseWorkerStriked(const QString & reason)
+void DataObject::onDatabaseWorkerRefused(const QString & reason)
 {
-	emit errored(QObject::tr("Database worker striked, because of following reason: %1.").arg(reason));
+	emit errored(QObject::tr("Database worker has refused to do the job, because of following reason: %1.").arg(reason));
 }
 
 }
