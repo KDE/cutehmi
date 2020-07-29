@@ -131,7 +131,7 @@ class CUTEHMI_SHAREDDATABASE_API DataObject:
 		void printError(cutehmi::InplaceError error) const;
 
 	private slots:
-		void onDatabaseWorkerStriked(const QString & reason);
+		void onDatabaseWorkerRefused(const QString & reason);
 
 	private:
 		typedef QVector<std::pair<QSqlError, QString>> SQLErrorsContainer;

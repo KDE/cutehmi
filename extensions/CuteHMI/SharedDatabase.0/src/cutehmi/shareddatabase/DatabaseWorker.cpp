@@ -78,7 +78,7 @@ void DatabaseWorker::instantiateWorker()
 		m->db.reset(new QSqlDatabase(QSqlDatabase::database(m->connectionName)));
 		if (!m->db->isOpen()) {
 			CUTEHMI_CRITICAL("Database worker '" << this << "' refuses to do the job, because database connection '" << m->connectionName << "' is not open.");
-			emit striked(QObject::tr("database connection '%1' is not open").arg(m->connectionName));
+			emit refused(QObject::tr("database connection '%1' is not open").arg(m->connectionName));
 		} else
 			job(*m->db);
 		m->db.reset();
