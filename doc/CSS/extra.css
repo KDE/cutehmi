@@ -10,7 +10,7 @@ div.image {
 div.image img {
     border: 1px solid #ddd;
     border-radius: 4px;
-    max-width: 64em;
+    max-width: 68em;
 }
 
 div.image img:active {
@@ -18,11 +18,11 @@ div.image img:active {
 }
 
 div.contents {
-    max-width: 65em;
+    max-width: 70em;
 }
 
 div.header {
-    max-width: 65em;
+    max-width: 70em;
 }
 
 div.summary {
