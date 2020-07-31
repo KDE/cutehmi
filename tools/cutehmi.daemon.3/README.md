@@ -9,13 +9,16 @@ Daemon mode is currently supported only on Linux. On Windows program can be run 
 Any extension that does not provide graphical UI QML component can be loaded as *cutehmi.daemon.3* project. Use positional argument
 to specify an extension. For example to run [Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.3/) example use following
 command.
+
 ```
 cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.3
 ```
+
 Read system logs to investigate whether daemon is running (e.g. `journalctl -n20` on a system with *systemd*).
 
 One may use `--app` option to tell the program to work as a foreground process (this can be useful when testing projects).
 For example following command runs [Count Daemon](../../extensions/CuteHMI/Examples/CountDaemon.3/) in application mode.
+
 ```
 cutehmi.daemon.3 CuteHMI.Examples.CountDaemon.3 --app
 ```
@@ -62,13 +65,15 @@ prevents this [[2]]. Unfortunately this approach heavily obscures process hierar
 Notably *systemd* has troubles handling double-forking daemons as service units.
 [Documentation](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Type=) of *systemd* is explicit about expected
 behaviour of daemon for forking service type.
+
 ```
 If set to forking, it is expected that the process configured with ExecStart= will call fork() as part of its start-up. The parent
 process is expected to exit when start-up is complete and all communication channels are set up. The child continues to run as the
 main service process, and the service manager will consider the unit started when the parent process exits.
 ```
+
 In double-forking approach the child won't continue as main service process, but rather its own child will do. This can deceive
-*systemd* to think that daemon finished.
+*systemd* to think that the daemon has finished.
 
 #### No forking
 
@@ -87,7 +92,8 @@ umask.
 ## Changes
 
 Compared to previous major version following changes were made.
-- Daemon looks for `Daemon` QML component instead of Main`.
+
+- Daemon looks for `Daemon` QML component instead of `Main`.
 - Extension is specified with first positional argument instead of `--extension` argument.
 - Component is specified with second positional argument instead of `--component` argument.
 - Option `--nforks` has been renamed to `--forks`.
