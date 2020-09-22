@@ -17,7 +17,8 @@ Project {
 		description: "Example showing how to establish database connection with CuteHMI.SharedDatabase extension."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"README.md",
 			"View.qml",
 		]

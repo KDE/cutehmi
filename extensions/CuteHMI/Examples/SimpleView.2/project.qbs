@@ -17,7 +17,8 @@ Project {
 		description: "Simple example demonstrating how to provide visual indication of device operational status with CuteHMI.GUI components."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"README.md",
 			"RectangularElement.qml",
 			"View.qml",

@@ -15,7 +15,8 @@ cutehmi.Extension {
 
 	files: [
 		"README.md",
-		"LICENSE",
+		"LICENSE.MIT",
+		"LICENSE.LGPL3",
 		"qtlogging.ini",
 	]
 

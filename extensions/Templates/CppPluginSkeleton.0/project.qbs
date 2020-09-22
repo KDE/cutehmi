@@ -22,7 +22,8 @@ Project {
 
 		files: [
 			"README.md",
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"include/templates/cpppluginskeleton/Exception.hpp",
 			"include/templates/cpppluginskeleton/Init.hpp",
 			"include/templates/cpppluginskeleton/internal/platform.hpp",

@@ -17,7 +17,8 @@ Project {
 		description: "Example for demonstration of basic usage of 'cutehmi.console.0' tool."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"README.md",
 			"Console.qml",
 		]

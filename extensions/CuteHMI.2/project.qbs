@@ -22,8 +22,9 @@ Project {
 
 		files: [
          "README.md",
-         "LICENSE",
-         "include/cutehmi/Init.hpp",
+		 "LICENSE.MIT",
+		 "LICENSE.LGPL3",
+		 "include/cutehmi/Init.hpp",
          "include/cutehmi/Initializer.hpp",
          "include/cutehmi/InplaceError.hpp",
          "include/cutehmi/Message.hpp",

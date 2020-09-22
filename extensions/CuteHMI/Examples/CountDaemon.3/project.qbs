@@ -17,7 +17,8 @@ Project {
 		description: "Counting daemon example."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"README.md",
 			"Daemon.qml"
 		]

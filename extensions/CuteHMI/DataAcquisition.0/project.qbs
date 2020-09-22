@@ -22,8 +22,9 @@ Project {
 
 		files: [
          "Console.qml",
-         "LICENSE",
-         "README.md",
+		 "LICENSE.MIT",
+		 "LICENSE.LGPL3",
+		 "README.md",
          "include/cutehmi/dataacquisition/AbstractListModel.hpp",
          "include/cutehmi/dataacquisition/AbstractWriter.hpp",
          "include/cutehmi/dataacquisition/EventModel.hpp",

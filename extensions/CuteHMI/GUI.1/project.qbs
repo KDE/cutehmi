@@ -33,7 +33,8 @@ Project {
 
 		files: [
 			"Element.qml",
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"NumberDisplay.qml",
 			"PropItem.qml",
 			"README.md",

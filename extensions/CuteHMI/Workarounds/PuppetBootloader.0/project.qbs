@@ -19,6 +19,8 @@ Project {
 		description: "Hackish initialization plugin intended to be used by Qt Creator in Design mode."
 
 		files: [
+			"LICENSE.LGPL3",
+			"LICENSE.MIT",
 			"src/cutehmi/workarounds/puppetbootloader/internal/Init.cpp",
 			"src/cutehmi/workarounds/puppetbootloader/internal/Init.hpp",
 			"src/cutehmi/workarounds/puppetbootloader/internal/QMLPlugin.cpp",

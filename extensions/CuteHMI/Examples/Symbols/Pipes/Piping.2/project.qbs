@@ -21,7 +21,8 @@ Project {
 		description: "Piping example using CuteHMI.Symbols.Pipes.1 extension."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"View.qml",
 			"README.md",
 		]

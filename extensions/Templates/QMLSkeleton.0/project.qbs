@@ -18,7 +18,8 @@ Project {
 
 		files: [
 			"README.md",
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"View.qml",
 		]
 

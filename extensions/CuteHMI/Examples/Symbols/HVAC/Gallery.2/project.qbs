@@ -21,20 +21,21 @@ Project {
 		description: "Gallery of HVAC symbols provided by CuteHMI.Symbols.HVAC.1 extension."
 
 		files: [
-		 "AirFilterSettings.qml",
-         "BasicDiscreteInstrumentSettings.qml",
-         "BladeDamperSettings.qml",
-         "CentrifugalFanSettings.qml",
-		 "ElementSettings.qml",
-         "HeatRecoveryWheelSettings.qml",
-         "LICENSE",
-         "View.qml",
-         "MotorActuatorSettings.qml",
-         "PumpSettings.qml",
-         "README.md",
-         "TankSettings.qml",
-         "ValveSettings.qml",
-     ]
+			"AirFilterSettings.qml",
+			"BasicDiscreteInstrumentSettings.qml",
+			"BladeDamperSettings.qml",
+			"CentrifugalFanSettings.qml",
+			"ElementSettings.qml",
+			"HeatRecoveryWheelSettings.qml",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
+			"View.qml",
+			"MotorActuatorSettings.qml",
+			"PumpSettings.qml",
+			"README.md",
+			"TankSettings.qml",
+			"ValveSettings.qml",
+		]
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.useDoxyqml: true

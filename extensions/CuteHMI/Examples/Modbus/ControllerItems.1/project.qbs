@@ -17,7 +17,8 @@ Project {
 		description: "Example demonstrates the use of controller items, useful when dealing with Qt Creator Design mode."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"View.qml",
 			"README.md",
 			"Screen.ui.qml",

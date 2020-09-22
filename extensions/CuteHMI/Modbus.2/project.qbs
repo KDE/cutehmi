@@ -33,7 +33,8 @@ Project {
 		description: "Modbus protocol support."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"README.md",
 			"dev/CuteHMI.Modbus-1.solved.Qt.design.txt",
 			"dev/CuteHMI.Modbus-2.workaround.Qt.design.txt",

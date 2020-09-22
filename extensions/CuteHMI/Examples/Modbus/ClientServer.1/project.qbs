@@ -17,19 +17,20 @@ Project {
 		description: "Example allowing one to interact with Modbus client and server over Modbus TCP protocol."
 
 		files: [
-         "CoilControl.qml",
-         "DeviceControl.qml",
-         "DiscreteInputControl.qml",
-         "GridLayoutModel.qml",
-         "HoldingRegisterControl.qml",
-         "InputRegisterControl.qml",
-         "LICENSE",
-         "View.qml",
-         "README.md",
-         "ServiceControl.qml",
-         "TCPClientConfiguration.qml",
-         "TCPServerConfiguration.qml",
-     ]
+			"CoilControl.qml",
+			"DeviceControl.qml",
+			"DiscreteInputControl.qml",
+			"GridLayoutModel.qml",
+			"HoldingRegisterControl.qml",
+			"InputRegisterControl.qml",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
+			"View.qml",
+			"README.md",
+			"ServiceControl.qml",
+			"TCPClientConfiguration.qml",
+			"TCPServerConfiguration.qml",
+		]
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.useDoxyqml: true

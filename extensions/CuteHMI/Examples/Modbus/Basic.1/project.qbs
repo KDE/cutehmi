@@ -17,7 +17,8 @@ Project {
 		description: "Example demonstrates basic usage of QML components provided by CuteHMI.Modbus.2 extension."
 
 		files: [
-			"LICENSE",
+			"LICENSE.MIT",
+			"LICENSE.LGPL3",
 			"View.qml",
 			"README.md",
 		]
