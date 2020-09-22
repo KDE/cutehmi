@@ -1,5 +1,4 @@
-If you want to contribute, simply open [new issue](https://invent.kde.org/kde/cutehmi/issues).
-You can also open an issue on GitHub [mirror](https://github.com/michpolicht/CuteHMI/issues).
+If you want to contribute, simply open [new issue](https://invent.kde.org/kde/cutehmi/issues).  You can also open an issue on GitHub [mirror](https://github.com/michpolicht/CuteHMI/issues).
 
 You may check out [KDE contribution guidelines](https://community.kde.org/Get_Involved).
 
@@ -15,3 +14,6 @@ When it comes to coding conventions, [Qt Coding Conventions](https://wiki.qt.io/
 
 You don't need to read it all in one go. Use provided links as an assist. If you have any doubts you can ask on chat or mailing
 list.
+
+BY CONTRIBUTING YOU MUST AGREE TO RELEASE YOUR WORK UNDER THE TERMS OF LGPL 3.0 LICENSE OR LATER, AND(!) MIT LICENSE.
+
