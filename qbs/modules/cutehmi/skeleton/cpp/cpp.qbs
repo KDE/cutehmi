@@ -70,8 +70,6 @@ Module {
 	validate: {
 		if (!File.exists(product.sourceDirectory + "/README.md"))
 			console.warn("File 'README.md' does not exist in '" + product.sourceDirectory + "' directory, please create it (file should contain a description of an extension)")
-		if (!File.exists(product.sourceDirectory + "/LICENSE"))
-			console.warn("File 'LICENSE' does not exist in '" + product.sourceDirectory + "' directory, please create it (file should contain a text of a license under which extension is distributed)")
 	}
 
 	Depends { name: "cutehmi.conventions" }
