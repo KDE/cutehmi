@@ -82,6 +82,11 @@ LICENSE_XML_FILE_TYPES = $(XML_FILE_TYPES)
 # [license] Make license script.
 MAKELIC = awkgward/makelic.sh
 
+# [messages] Messages l10n-kf5 file.
+MESSAGES_FILE = Messages.sh
+
+# [messages] Messages generation script.
+GENERATE_MESSAGES = awkgward/generate_messages.sh
 
 include Makefile.project
 
@@ -94,6 +99,7 @@ help: description env
 		@echo help - display this help box.
 		@echo license[_dslash][_hash][_xml] - append license footer to files [comment style].
 		@echo guards - update include guards.
+		@echo messages - generate l10n-kf5 translation script.
 		@echo doc[_clean] - generate [or clean] documentation.
 		@echo ports[_clean][_jobs] - make [clean][build jobs of] external libraries.
 		@echo --------------------------------------------------------------------------------
@@ -127,6 +133,12 @@ license_xml: $(MAKELIC) $(LICENSE_XML_DIRS) | $(FIND) $(SH) $(AWK) $(DIRNAME) $(
 guards: $(AWKGWARD) $(INCLUDE_GUARDS_DIRS) | $(FIND) $(SH) $(AWK) $(CUT) $(GREP) $(TOUCH) $(STAT) $(AWK) $(ECHO) $(MV)
 		@echo Updating include guards...
 		@$(FIND) $(INCLUDE_GUARDS_DIRS) -type f \( $(INCLUDE_FILE_TYPES) \) $(INCLUDE_GUARDS_EXCLUDE) -exec $(SH) $(AWKGWARD) $(AWK) {} $(INCLUDE_GUARD_PREFIX) $(NATIVE_IORS) \;
+
+messages:
+	@echo "#!/usr/bin/env bash" > $(MESSAGES_FILE)
+	@echo "" >> $(MESSAGES_FILE)
+	@$(GENERATE_MESSAGES) . extensions >> $(MESSAGES_FILE)
+	@$(GENERATE_MESSAGES) . tools >> $(MESSAGES_FILE)
 
 doc: | $(MAKE)
 		@$(MAKE) -C . doc_project_targets
