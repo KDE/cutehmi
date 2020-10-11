@@ -51,6 +51,6 @@ do
 	# Appending trailing slash to cutehmi_path removes also leading slash.
 	stripped_path=${extension_path#$cutehmi_path\/}
 	translation_file=$prefix`echo $stripped_path | sed 's|[./]|'$separator'|g'`$suffix.pot
-	echo \$EXTRACT_TR_STRINGS \`find ./$stripped_path -name \*.qml -o -name \*.cpp -o -name \*.hpp\` -I ./$stripped_path/include -o \$podir/$translation_file
+	echo \$EXTRACT_TR_STRINGS \`find ./$stripped_path -name \\*.qml -o -name \\*.cpp -o -name \\*.hpp\` -I ./$stripped_path/include -o \$podir/$translation_file
 done
 
