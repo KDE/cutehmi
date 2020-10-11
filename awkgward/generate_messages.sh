@@ -6,6 +6,7 @@ separator="-"
 prefix="cutehmi"$separator
 suffix="_qt"
 subdir=""
+tag_file="l10n-kf5.tag"
 
 usage()
 {
@@ -40,7 +41,7 @@ if [ $# -gt 4 ]; then
 	separator=$5
 fi
 
-extensions=`find $cutehmi_dir/$subdir -name 'project.qbs' -exec dirname {} \;`
+extensions=`find $cutehmi_dir/$subdir -name $tag_file -exec dirname {} \;`
 cutehmi_path=`readlink -f $cutehmi_dir`
 messages_path=$cutehmi_path/$messages_file
 
