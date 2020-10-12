@@ -6,6 +6,7 @@ separator="-"
 prefix="cutehmi"$separator
 suffix="_qt"
 subdir=""
+tag_file="l10n-kf5.tag"
 
 usage()
 {
@@ -40,7 +41,7 @@ if [ $# -gt 4 ]; then
 	separator=$5
 fi
 
-extensions=`find $cutehmi_dir/$subdir -name 'project.qbs' -exec dirname {} \;`
+extensions=`find $cutehmi_dir/$subdir -name $tag_file -exec dirname {} \;`
 cutehmi_path=`readlink -f $cutehmi_dir`
 messages_path=$cutehmi_path/$messages_file
 
@@ -50,6 +51,6 @@ do
 	# Appending trailing slash to cutehmi_path removes also leading slash.
 	stripped_path=${extension_path#$cutehmi_path\/}
 	translation_file=$prefix`echo $stripped_path | sed 's|[./]|'$separator'|g'`$suffix.pot
-	echo \$EXTRACT_TR_STRINGS \`find ./$stripped_path -name \*.qml -o -name \*.cpp -o -name \*.hpp\` -I ./$stripped_path/include -o \$podir/$translation_file
+	echo \$EXTRACT_TR_STRINGS \`find ./$stripped_path -name \\*.qml -o -name \\*.cpp -o -name \\*.hpp\` -I ./$stripped_path/include -o \$podir/$translation_file
 done
 
