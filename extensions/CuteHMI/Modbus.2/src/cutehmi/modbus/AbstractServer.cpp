@@ -38,7 +38,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractServer::configur
 	return nullptr;
 }
 
-std::unique_ptr<services::Serviceable::ServiceStatuses> cutehmi::modbus::AbstractServer::configureStopping(QState * stopping)
+std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractServer::configureStopping(QState * stopping)
 {
 	std::unique_ptr<services::Serviceable::ServiceStatuses> statuses = std::make_unique<services::Serviceable::ServiceStatuses>();
 
@@ -50,7 +50,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> cutehmi::modbus::Abstrac
 	return statuses;
 }
 
-std::unique_ptr<services::Serviceable::ServiceStatuses> cutehmi::modbus::AbstractServer::configureBroken(QState * broken)
+std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractServer::configureBroken(QState * broken)
 {
 	connect(broken, & QState::entered, this, & AbstractServer::close);
 
@@ -91,7 +91,7 @@ std::unique_ptr<QAbstractTransition> AbstractServer::transitionToYielding() cons
 	return nullptr;
 }
 
-std::unique_ptr<QAbstractTransition> cutehmi::modbus::AbstractServer::transitionToIdling() const
+std::unique_ptr<QAbstractTransition> AbstractServer::transitionToIdling() const
 {
 	return nullptr;
 }
