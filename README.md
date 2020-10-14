@@ -7,6 +7,7 @@
 [//]: # (\htmlonly)
 
 [![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/4/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/20988/badge.svg)](https://scan.coverity.com/projects/cutehmi)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/michpolicht/CuteHMI)](https://www.codefactor.io/repository/github/michpolicht/cutehmi/overview/master)
