@@ -67,6 +67,9 @@ DOCPRODENTRY = awkgward/docprodentry.sh
 
 INCLUDE_GUARDS_EXCLUDE = ! -path 'extensions/templates_*'
 
+# URL of l10n-kf5 repository.
+L10N-KF5_URL = svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/scripts
+
 
 
 include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.toolchain
