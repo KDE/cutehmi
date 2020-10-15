@@ -69,3 +69,8 @@ doc/_temp
 
 # Doxygen artifacts.
 doc/Doxygen
+
+# KDE l10n-kf5 files.
+scripts
+po
+enpo

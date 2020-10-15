@@ -166,6 +166,23 @@ GIT_BIN_DIR = $(GIT_DIR)/bin
 GIT = $(GIT_BIN_DIR)/git$(NATIVE_EXECUTABLE_SUFFIX)
 
 
+# Subversion.
+
+ifeq "$(OS)" "Windows_NT"
+  SVN_DIR = $(C_DIR)/Program\ Files/TortoiseSVN
+else
+  SVN_DIR = /usr
+endif
+SVN_BIN_DIR = $(SVN_DIR)/bin
+SVN = $(SVN_BIN_DIR)/svn$(NATIVE_EXECUTABLE_SUFFIX)
+
+
+# Bash.
+BASH = bash
+
+$(BASH):
+
+
 # Include platform specific toolchain file.
 -include $(dir $(abspath $(lastword $(MAKEFILE_LIST))))Makefile.$(BUILD_MACHINE).toolchain
 
@@ -205,3 +222,10 @@ $(CMAKE):
 	$(info CMAKE_DIR = "$(CMAKE_DIR)")
 	$(error CMAKE = $(CMAKE) not found)
 
+$(SVN):
+	$(info --------------------------------------------------------------------------------)
+	$(info Program 'subversion' not found!)
+	$(info Windows download: https://tortoisesvn.net/downloads.html.)
+	$(info If 'subversion' is installed in custom location, override SVN_DIR variable.)
+	$(info SVN_DIR = "$(SVN_DIR)")
+	$(error SVN = $(SVN) not found)

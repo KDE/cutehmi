@@ -91,7 +91,7 @@ GENERATE_MESSAGES = awkgward/generate_messages.sh
 include Makefile.project
 
 
-.PHONY: help description env license guards doc doc_clean doc_doxygen ports
+.PHONY: help description env license guards doc doc_clean doc_doxygen ports messages extract_messages
 
 help: description env
 		@echo --------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ help: description env
 		@echo help - display this help box.
 		@echo license[_dslash][_hash][_xml] - append license footer to files [comment style].
 		@echo guards - update include guards.
-		@echo messages - generate l10n-kf5 translation script.
+		@echo messages[_extract] - generate l10n-kf5 Messages.sh file [and extract messages].
 		@echo doc[_clean] - generate [or clean] documentation.
 		@echo ports[_clean][_jobs] - make [clean][build jobs of] external libraries.
 		@echo --------------------------------------------------------------------------------
@@ -140,6 +140,12 @@ messages:
 	@$(GENERATE_MESSAGES) . extensions >> $(MESSAGES_FILE)
 	@$(GENERATE_MESSAGES) . tools >> $(MESSAGES_FILE)
 
+messages_extract: messages | $(MKDIR) $(SVN)
+	@$(MKDIR) -p po
+	@$(MKDIR) -p enpo
+	@$(SVN) checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/scripts
+	PATH=./scripts:$$PATH $(BASH) ./scripts/extract-messages.sh
+
 doc: | $(MAKE)
 		@$(MAKE) -C . doc_project_targets
 		@$(MAKE) -C . doc_doxygen
@@ -167,4 +173,3 @@ ports_jobs:
 		@echo To alter the number of parallel build jobs either pass it as Make argument,
 		@echo or override it in 'Makefile.user' file.
 		@echo MAKE_BUILD_JOBS = $(MAKE_BUILD_JOBS)
-
