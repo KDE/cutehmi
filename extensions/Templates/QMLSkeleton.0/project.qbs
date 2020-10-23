@@ -28,8 +28,6 @@ Project {
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.exclude: ['tests']
 
-		Depends { name: "cutehmi.metadata" }
-
 		Depends { name: "cutehmi.qmldir" }
 
 		Depends { name: "cutehmi.qmltypes" }

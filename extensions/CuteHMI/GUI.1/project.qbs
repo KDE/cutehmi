@@ -74,8 +74,6 @@ Project {
 		cutehmi.doxygen.useDoxyqml: true
 		cutehmi.doxygen.exclude: ['dev', 'tests']
 
-		Depends { name: "cutehmi.metadata" }
-
 		Depends { name: "cutehmi.qmldir" }
 
 		Depends { name: "cutehmi.qmltypes" }

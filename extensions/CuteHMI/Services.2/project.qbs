@@ -57,8 +57,6 @@ Project {
 
 		Depends { name: "cutehmi.init" }
 
-		Depends { name: "cutehmi.metadata" }
-
 		Depends { name: "cutehmi.qmldir" }
 
 		Depends { name: "cutehmi.qmltypes" }

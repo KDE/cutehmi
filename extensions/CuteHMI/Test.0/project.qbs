@@ -38,8 +38,6 @@ Project {
 
 		Depends { name: "Qt.testlib" }
 
-		Depends { name: "cutehmi.metadata" }
-
 		Depends { name: "CuteHMI.2" }
 
 		Export {

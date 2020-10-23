@@ -55,8 +55,6 @@ Project {
 		cutehmi.doxygen.useDoxyqml: true
 		cutehmi.doxygen.exclude: ['dev', 'puppet', 'tests']
 
-		Depends { name: "cutehmi.metadata" }
-
 		Depends { name: "cutehmi.qmldir" }
 		cutehmi.qmldir.exclude: ["^designer/.*", "\.js$"]
 

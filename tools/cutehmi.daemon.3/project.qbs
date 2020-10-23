@@ -97,8 +97,6 @@ Project {
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.exclude: ['dev', 'tests', 'src']
-
-		Depends { name: "cutehmi.metadata" }
 	}
 }
 

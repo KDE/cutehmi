@@ -15,7 +15,6 @@ Extension {
 
 	property string originalExtension
 
-	Depends { name: "cutehmi.metadata" }
 	cutehmi.metadata.artifacts: false
 
 	Depends { name: "cutehmi.qmldir" }

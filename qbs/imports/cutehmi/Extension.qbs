@@ -35,6 +35,8 @@ CommonProduct {
 
 	Depends { name: "cutehmi.conventions" }
 
+	Depends { name: "cutehmi.metadata" }
+
 	FileTagger {
 		patterns: ["*.bdf", "*.otf", "*.pcf", "*.ttf"]
 		fileTags: ["Fonts"]
@@ -146,6 +148,13 @@ CommonProduct {
 		qbs.install: true
 		qbs.installSourceBase: installSourceBase
 		qbs.installDir: dedicatedInstallSubdir
+	}
+
+	Group {
+		name: "Metadata"
+		fileTagsFilter: ["cutehmi.metadata.json"]
+		qbs.install: true
+		qbs.installDir: cutehmi.dirs.metadataInstallSubdir
 	}
 }
 

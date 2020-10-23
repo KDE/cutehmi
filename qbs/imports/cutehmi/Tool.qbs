@@ -33,6 +33,8 @@ CommonProduct {
 
 	Depends { name: "cutehmi.dirs" }
 
+	Depends { name: "cutehmi.metadata" }
+
 	Group {
 		name: "Application"
 		fileTagsFilter: "application"
@@ -45,6 +47,13 @@ CommonProduct {
 		fileTagsFilter: ["qm"]
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.translationsInstallSubdir
+	}
+
+	Group {
+		name: "Metadata"
+		fileTagsFilter: ["cutehmi.metadata.json"]
+		qbs.install: true
+		qbs.installDir: cutehmi.dirs.metadataInstallSubdir
 	}
 }
 
