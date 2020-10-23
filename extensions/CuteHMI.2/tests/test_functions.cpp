@@ -19,6 +19,8 @@ class test_functions:
 		void testClt();
 
 		void testCgt();
+
+		void testMetadata();
 };
 
 void test_functions::testApe()
@@ -87,6 +89,21 @@ void test_functions::testCgt()
 
 	QCOMPARE(cgt(2000, 1000, 0.25), true);
 	QCOMPARE(cgt(1001, 1000, 0.25), false);
+}
+
+void test_functions::testMetadata()
+{
+	QJsonObject json = cutehmi::metadata("CuteHMI.2");
+	QCOMPARE(json.value("name").toString(), "CuteHMI.2");
+	QCOMPARE(json.value("cutehmiType").toString(), "extension");
+	QVERIFY(json.contains("dependencies"));
+	QVERIFY(json.contains("description"));
+	QVERIFY(json.contains("domain"));
+	QVERIFY(json.contains("friendlyName"));
+	QVERIFY(json.contains("major"));
+	QVERIFY(json.contains("minor"));
+	QVERIFY(json.contains("micro"));
+	QVERIFY(json.contains("vendor"));
 }
 
 }

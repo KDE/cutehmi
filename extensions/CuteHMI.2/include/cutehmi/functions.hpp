@@ -1,11 +1,21 @@
 #ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_FUNCTIONS_HPP
 #define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_FUNCTIONS_HPP
 
+#include "internal/common.hpp"
 #include "constants.hpp"
+
+#include <QJsonObject>
 
 #include <cmath>
 
 namespace cutehmi {
+
+/**
+ * Load product metadata.
+ * @param product extension or tool name.
+ * @return JSON object containing metadata or empty one if metadata has not been found.
+ */
+QJsonObject CUTEHMI_API metadata(const QString & product);
 
 /**
  * Approximately equal. Compares real numbers @a r1, @a r2.

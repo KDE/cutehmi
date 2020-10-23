@@ -76,6 +76,8 @@ Project {
 
 		Depends { name: "Qt.qml" }
 
+		cutehmi.dirs.artifacts: true
+
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true
