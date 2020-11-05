@@ -220,27 +220,27 @@ int main(int argc, char * argv[])
 		QString component = DEFAULT_COMPONENT;
 
 		if (positionalArguments.length() > 1)
-			CUTEHMI_DIE(QCoreApplication::translate("main", "You can not use 'component' option, because 'forceDefaultOptions' option has been set during compilation time.").toLocal8Bit().constData());
+			CUTEHMI_DIE("%s", QCoreApplication::translate("main", "You can not use 'component' option, because 'forceDefaultOptions' option has been set during compilation time.").toLocal8Bit().constData());
 		if (positionalArguments.length() > 0)
-			CUTEHMI_DIE(QCoreApplication::translate("main", "You can not use 'extension' option, because 'forceDefaultOptions' option has been set during compilation time.").toLocal8Bit().constData());
+			CUTEHMI_DIE("%s", QCoreApplication::translate("main", "You can not use 'extension' option, because 'forceDefaultOptions' option has been set during compilation time.").toLocal8Bit().constData());
 		if (cmd.value(minorOption) != extensionMinor)
-			CUTEHMI_DIE(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(minorOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE("%s", QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(minorOption.names().join(", ")).toLocal8Bit().constData());
 		if (cmd.value(initOption) != init)
-			CUTEHMI_DIE(QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(initOption.names().join(", ")).toLocal8Bit().constData());
+			CUTEHMI_DIE("%s", QCoreApplication::translate("main", "You can not use '%1' option, because 'forceDefaultOptions' option has been set during compilation time.").arg(initOption.names().join(", ")).toLocal8Bit().constData());
 #endif
 		if (!extensionMinor.isEmpty()) {
 			bool ok;
 			extensionMinor.toUInt(& ok);
 			if (!ok)
-				CUTEHMI_DIE(QCoreApplication::translate("main", "Command line argument error: value of '%1' option must be a number.").arg(minorOption.names().last()).toLocal8Bit().constData());
+				CUTEHMI_DIE("%s", QCoreApplication::translate("main", "Command line argument error: value of '%1' option must be a number.").arg(minorOption.names().last()).toLocal8Bit().constData());
 		}
 		QString extensionBaseName = extension.left(extension.lastIndexOf('.'));
 		QString extensionMajor = extension.right(extension.length() - extension.lastIndexOf('.') - 1);
-		{
+		if (!extension.isEmpty()) {
 			bool ok;
 			extensionMajor.toUInt(& ok);
 			if (!ok)
-				CUTEHMI_DIE(QCoreApplication::translate("main", "Command line argument error: please specify extension with major version number after the last dot.").toLocal8Bit().constData());
+				CUTEHMI_DIE("%s", QCoreApplication::translate("main", "Command line argument error: please specify extension with major version number after the last dot.").toLocal8Bit().constData());
 		}
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionBaseName", extensionBaseName);
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionMajor", extensionMajor);

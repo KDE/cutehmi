@@ -227,7 +227,7 @@ int main(int argc, char * argv[])
 			}
 			QString extensionBaseName = extension.left(extension.lastIndexOf('.'));
 			QString extensionMajor = extension.right(extension.length() - extension.lastIndexOf('.') - 1);
-			{
+			if (!extension.isEmpty()) {
 				bool ok;
 				extensionMajor.toUInt(& ok);
 				if (!ok)
