@@ -40,6 +40,7 @@ Module {
 						'vendor',
 						'domain',
 						'description',
+						'i18n',
 			]
 			for (var prop in productRequiredProperties)
 				if (product[productRequiredProperties[prop]] === undefined)
@@ -60,6 +61,7 @@ Module {
 					"vendor": product.vendor,
 					"domain": product.domain,
 					"description": product.description,
+					"i18n": product.i18n,
 					"dependencies": []
 				}
 
@@ -123,6 +125,7 @@ Module {
 					f.writeLine("#define " + shortPrefix + "_MICRO " + product.micro + "")
 					f.writeLine("#define " + shortPrefix + "_TRANSLATED_FRIENDLY_NAME QCoreApplication::translate(\"metadata\", \"" + product.friendlyName + "\")")
 					f.writeLine("#define " + shortPrefix + "_TRANSLATED_DESCRIPTION QCoreApplication::translate(\"metadata\", \"" + product.description + "\")")
+					f.writeLine("#define " + shortPrefix + "_I18N " + (product.i18n ? "true" : "false") + "")
 
 					f.writeLine("")
 					f.writeLine("#ifdef " + shortPrefix + "_BUILD")

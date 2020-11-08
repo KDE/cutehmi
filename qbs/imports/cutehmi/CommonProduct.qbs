@@ -30,6 +30,8 @@ Product {
 
 	property int micro: 0					///< Micro version number.
 
+	property bool i18n: false				///< Indicates whether translations should be loaded for this product.
+
 	//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
 
 	Export {
