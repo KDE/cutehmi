@@ -69,7 +69,7 @@ products.CuteHMI.Examples.I18N.0.cutehmi.i18n.update:true -f CuteHMI.qbs
 Argument `project.buildBinaries:false` turns off generation of binaries and `modules.cutehmi.qmltypes.additionalProductTypes:[]`
 prevents qmlplugindump being called on unbuilt products.
 
-After `.ts` files are are added to the project files, `cutehmi.i18n` Qbs module becomes unnecessary. It may significantly slow down
+After `.ts` files are added to the project files, `cutehmi.i18n` Qbs module becomes unnecessary. It may significantly slow down
 the compilation by repeatedly making costly `lupdate` calls. It is reasonable to comment out its entries and only occasionally run
 Qbs with `cutehmi.i18n.update` set to `true` to update the translations.
 
