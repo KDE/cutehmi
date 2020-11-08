@@ -79,14 +79,14 @@ Names of translation files consist of stem and suffix. Stem is constructed by lo
 hyphens. In case of `CuteHMI.Examples.I18N.0` extension, stem is `cutehmi-examples-i18n-0`. The suffix part denotes a language in
 a format described in Qt documentation on QLocale::QLocale(const QString &). Here we have `_en_US.ts` for US English and `_eo.ts`
 for Esperanto. One can see that suffix has been separated from the stem by underscore, but in fact language can be specified in
-other ways. Supported translation suffixes and translation directory locations are listed in the documentation of
+many different ways. Supported translation suffixes and translation directory locations are listed in the documentation of
 CuteHMI.Internationalizer.loadTranslation() function.
 
 ## The actual example
 
 After all the prerequisites has been satisfied, using CuteHMI.Internationalizer from QML is pretty straightforward.
 
-At first, we provide some a translatable string.
+At first, we provide some translatable string.
 
 \snippet View.qml Translation string
 
