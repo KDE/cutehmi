@@ -39,7 +39,7 @@ This is important, because CuteHMI.Internationalizer relies on product metadata,
 
 The example comes with two `.ts` files, which reside in `i18n` subdirectory. They provide translations for US English and Esperanto.
 In order to generate such files one has to call `lupdate` program. Once `.ts` files are added to the project, `Qt.core` Qbs module
-calls `lrealease` program to generate `.qm` files. These are installed to `translations` directory, which is formally defined by
+calls `lrelease` program to generate `.qm` files. These are installed to `translations` directory, which is formally defined by
 `translationsInstallSubdir` property of `cutehmi.dirs` Qbs module.
 
 To generate `.ts` files from Qbs, `cutehmi.i18n` Qbs module can be used. Unfortunately, because `Qt.core` Qbs module calls
