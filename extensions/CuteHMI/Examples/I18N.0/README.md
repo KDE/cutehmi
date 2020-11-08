@@ -77,10 +77,10 @@ Qbs with `cutehmi.i18n.update` set to `true` to update the translations.
 
 Names of translation files consist of stem and suffix. Stem is constructed by lowercasing product name and replacing dots with
 hyphens. In case of `CuteHMI.Examples.I18N.0` extension, stem is `cutehmi-examples-i18n-0`. The suffix part denotes a language in
-a format described in Qt documentation on QLocale::QLocale(const QString &). Here we have `_en_US.ts` for US English and `_eo.ts`
-for Esperanto. One can see that suffix has been separated from the stem by underscore, but in fact language can be specified in
-many different ways. Supported translation suffixes and translation directory locations are listed in the documentation of
-CuteHMI.Internationalizer.loadTranslation() function.
+a format described in Qt documentation on QLocale::QLocale(const QString &). Here we have `en_US.ts` for US English and `eo.ts`
+for Esperanto. One can see that suffix has been separated from the stem by underscore character (`_`), but in fact language can
+be specified in many different ways. Supported translation suffixes and translation directory locations are listed in the
+ documentation of CuteHMI.Internationalizer.loadTranslation() function.
 
 ## The actual example
 
