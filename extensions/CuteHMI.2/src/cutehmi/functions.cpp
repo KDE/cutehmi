@@ -5,19 +5,30 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QFile>
+#include <QFileInfo>
 
 namespace cutehmi {
 
-QJsonObject metadata(const QString & product)
+static QString metadataPath(const QString & product)
 {
 	QString relativePath = QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_METADATA_INSTALL_SUBDIR);
-	QFile file(relativePath + "/" + product + ".metadata.json");
+	return relativePath + "/" + product + ".metadata.json";
+}
+
+QJsonObject metadata(const QString & product)
+{
+	QFile file(metadataPath(product));
 	if (!file.open(QIODevice::ReadOnly)) {
 		CUTEHMI_CRITICAL("Could not open '" << file.fileName() << "' file.");
 		return QJsonObject();
 	}
 
 	return QJsonDocument::fromJson(file.readAll()).object();
+}
+
+bool metadataExists(const QString & product)
+{
+	return QFileInfo::exists(metadataPath(product));
 }
 
 }

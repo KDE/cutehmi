@@ -18,6 +18,13 @@ namespace cutehmi {
 QJsonObject CUTEHMI_API metadata(const QString & product);
 
 /**
+ * Check if product metadata exists.
+ * @param product extension or tool name.
+ * @return @p true if metadata file exists, @p false otherwise.
+ */
+bool CUTEHMI_API metadataExists(const QString & product);
+
+/**
  * Approximately equal. Compares real numbers @a r1, @a r2.
  * @param r1 first number to compare.
  * @param r2 second number to compare.
