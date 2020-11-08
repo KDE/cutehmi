@@ -33,7 +33,7 @@ To signal that extension supports internationalization one should set `i18n` pro
 i18n: true
 ```
 
-This is important, because CuteHMI.Internationalizer relies on product metadata, when loading translation.
+This is important, because CuteHMI.Internationalizer relies on product metadata, when loading translations of dependent products.
 
 ## Translation files
 
