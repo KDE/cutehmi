@@ -20,6 +20,8 @@ Project {
 
 		description: "GUI application, which allows one to run QML project in a window."
 
+		i18n: true
+
 		// Add also QML files from qrc, because for eg. androiddeployqt needs them installed to scan them.
 		files: [
          "README.md",
