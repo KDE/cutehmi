@@ -12,7 +12,7 @@ It provides various utility classes and bridges that help other extensions and t
 
 Messages that should show up in user interface can be delivered through cutehmi::Message and cutehmi::Notification classes.
 
-Class cutehmi::Internationalizer aids internationalization efforts. Example [CuteHMI.Examples.I18N.0](../Examples/CuteHMI/I18N.0/)
+Class cutehmi::Internationalizer aids internationalization efforts. Example [CuteHMI.Examples.I18N.0](../CuteHMI/Examples/I18N.0/)
 shows how to deal with it.
 
 ## Utility classes
@@ -36,4 +36,4 @@ QQmlEngine::retranslate() slot.
 
 ## Examples
 
-- [CuteHMI.Examples.I18N.0](../Examples/CuteHMI/I18N.0/)
+- [CuteHMI.Examples.I18N.0](../CuteHMI/Examples/I18N.0/)
