@@ -38,7 +38,7 @@ QString Error::str() const
 		case Error::OK:
 			return tr("No error.");
 		case Error::FAIL:
-			return tr("Undescribed error.");
+			return tr("Error.");
 		case Error::UNINITIALIZED:
 			return tr("Uninitialized error.");
 		default:

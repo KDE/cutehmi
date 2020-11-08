@@ -99,6 +99,49 @@ Project {
 	}
 
 	Test {
+		testName: "test_Internationalizer"
+
+		vendor: "CuteHMI"
+
+		domain: "cutehmi.kde.org"
+
+		friendlyName: "CuteHMI internationalizer test"
+
+		description: "Tests internationalization support of CuteHMI extensions."
+
+		major: 0
+
+		i18n: true
+
+		files: [
+			"test_Internationalizer.cpp",
+		 "data/cutehmi-2-test_internationalizer.qm",
+         "data/cutehmi-2-test.pl_PL.qm",
+	 ]
+
+		FileTagger {
+			patterns: "*.qm"
+			fileTags: ["qm"]
+		}
+
+		Group {
+			name: "Translations"
+			fileTagsFilter: ["qm"]
+			qbs.install: true
+			qbs.installDir: cutehmi.dirs.translationsInstallSubdir
+		}
+
+		Group {
+			name: "Metadata"
+			fileTagsFilter: ["cutehmi.metadata.json"]
+			qbs.install: true
+			qbs.installDir: cutehmi.dirs.metadataInstallSubdir
+		}
+
+		Depends { name: "cutehmi.metadata" }
+	}
+
+	Test {
 		testName: "snippet_Singleton"
 
 		files: [

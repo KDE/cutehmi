@@ -1,36 +1,51 @@
-#ifndef H_EXTENSIONS_CUTEHMI_2_SRC_CUTEHMI_INTERNAL_QMLPLUGIN_HPP
-#define H_EXTENSIONS_CUTEHMI_2_SRC_CUTEHMI_INTERNAL_QMLPLUGIN_HPP
+import qbs
 
-#include <QQmlExtensionPlugin>
+import cutehmi
 
-class QJSEngine;
+Project {
+	name: "CuteHMI.Examples.I18N.0"
 
-namespace cutehmi {
-namespace internal {
+	cutehmi.Extension {
+		name: parent.name
 
-class QMLPlugin:
-	public QQmlExtensionPlugin
-{
-		Q_OBJECT
-		Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
+		vendor: "CuteHMI"
 
-	public:
-		void registerTypes(const char * uri) override;
+		domain: "cutehmi.kde.org"
 
-	private:
-		static QObject * MessengerProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+		friendlyName: "Internationalization Example"
 
-		static QObject * NotifierProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+		description: "Internationalization example."
 
-		static QObject * InternationalizationProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
-};
+		i18n: true
 
+		files: [
+         "LICENSE.MIT",
+         "LICENSE.LGPL3",
+         "README.md",
+         "View.qml",
+         "i18n/cutehmi-examples-i18n-0_en_US.ts",
+         "i18n/cutehmi-examples-i18n-0_eo.ts",
+     ]
+
+		Depends { name: "cutehmi.i18n" }
+//		cutehmi.i18n.update: true
+//		cutehmi.i18n.additionalTranslations: [
+//			"i18n/cutehmi-examples-i18n-0_eo.ts",
+//			"i18n/cutehmi-examples-i18n-0_en_US.ts",
+//		]
+
+		Depends { name: "cutehmi.qmldir" }
+
+		Depends { name: "cutehmi.qmltypes" }
+
+		Depends { name: "cutehmi.view.4" }
+
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.useDoxyqml: true
+	}
 }
-}
 
-#endif
-
-//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

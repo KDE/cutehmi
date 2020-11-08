@@ -6,6 +6,7 @@
 #include <cutehmi/Message.hpp>
 #include <cutehmi/Messenger.hpp>
 #include <cutehmi/Singleton.hpp>
+#include <cutehmi/Internationalizer.hpp>
 
 #include <cutehmi/gui/CuteApplication.hpp>
 
@@ -102,18 +103,9 @@ int main(int argc, char * argv[])
 			language = qgetenv("CUTEHMI_LANGUAGE");
 			CUTEHMI_DEBUG("Language set by 'CUTEHMI_LANGUAGE' environmental variable: " << qgetenv("CUTEHMI_LANGUAGE"));
 		}
-		QTranslator qtTranslator;
-		if (!qtTranslator.load("qt_" + language, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-			CUTEHMI_WARNING("Could not load translations file '" << "qt_" + language << "'.");
-		app.installTranslator(& qtTranslator);
-
-		QTranslator viewTranslator;
-		QString translationsDir = QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_TRANSLATIONS_INSTALL_SUBDIR);
-		QString viewTranslationFilePrefix = QString(CUTEHMI_VIEW_NAME).replace('.', '-') + "_";
-		QString viewTranslationFile = viewTranslationFilePrefix + language;
-		if (!viewTranslator.load(viewTranslationFile, translationsDir))
-			CUTEHMI_WARNING("Could not load translations file '" << viewTranslationFile << "'.");
-		app.installTranslator(& viewTranslator);
+		cutehmi::Internationalizer::Instance().setUILanguage(language);
+		cutehmi::Internationalizer::Instance().loadQtTranslation();
+		cutehmi::Internationalizer::Instance().loadTranslation(CUTEHMI_VIEW_NAME);
 
 
 		QCommandLineParser cmd;
@@ -159,12 +151,7 @@ int main(int argc, char * argv[])
 		CUTEHMI_DEBUG("Default locale: " << QLocale());
 		CUTEHMI_DEBUG("Language: " << cmd.value(langOption));
 
-		if (!qtTranslator.load("qt_" + cmd.value(langOption), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-			CUTEHMI_WARNING("Could not load translations file '" << "qt_" + cmd.value(langOption) << "'.");
-
-		viewTranslationFile = viewTranslationFilePrefix + cmd.value(langOption);
-		if (!viewTranslator.load(viewTranslationFile, translationsDir))
-			CUTEHMI_WARNING("Could not load translations file '" << viewTranslationFile << "'.");
+		cutehmi::Internationalizer::Instance().setUILanguage(cmd.value(langOption));
 
 
 		if (cmd.isSet(styleOption)) {
@@ -205,6 +192,9 @@ int main(int argc, char * argv[])
 			extension = positionalArguments.at(0);
 		else
 			extension = DEFAULT_EXTENSION;
+
+		cutehmi::Internationalizer::Instance().loadTranslation(extension);
+		QObject::connect(& cutehmi::Internationalizer::Instance(), & cutehmi::Internationalizer::uiLanguageChanged, engine.get(), & QQmlApplicationEngine::retranslate);
 
 		QString extensionMinor = cmd.value(minorOption);
 		QString init = cmd.value(initOption);

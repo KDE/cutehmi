@@ -1,36 +1,65 @@
-#ifndef H_EXTENSIONS_CUTEHMI_2_SRC_CUTEHMI_INTERNAL_QMLPLUGIN_HPP
-#define H_EXTENSIONS_CUTEHMI_2_SRC_CUTEHMI_INTERNAL_QMLPLUGIN_HPP
+#include "../cutehmi.dirs.hpp"
 
-#include <QQmlExtensionPlugin>
+#include <cutehmi/Internationalizer.hpp>
 
-class QJSEngine;
+#include <cutehmi/test/random.hpp>
+
+#include <QtTest/QtTest>
 
 namespace cutehmi {
-namespace internal {
 
-class QMLPlugin:
-	public QQmlExtensionPlugin
+class test_Internationalizer:
+	public QObject
 {
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
 
-	public:
-		void registerTypes(const char * uri) override;
+	private slots:
+		void initTestCase();
 
-	private:
-		static QObject * MessengerProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+		void loadTranslation();
 
-		static QObject * NotifierProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
-
-		static QObject * InternationalizationProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+		void loadQtTranslation();
 };
 
-}
+void test_Internationalizer::initTestCase()
+{
+	QDir toolsDir = QDir::current();
+	toolsDir.cd(QDir("/" CUTEHMI_DIRS_TESTS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR));
+	QDir::setCurrent(toolsDir.absolutePath());
 }
 
-#endif
+void test_Internationalizer::loadTranslation()
+{
+	Internationalizer & i18ner = Internationalizer::Instance();
+	i18ner.setUILanguage("pl_PL");
 
-//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+	i18ner.loadTranslation("CuteHMI.2.test", false);
+	QVERIFY(i18ner.m->translators.contains("CuteHMI.2.test"));
+	if (i18ner.m->translators.contains("CuteHMI.2.test"))
+		QCOMPARE(i18ner.m->translators.value("CuteHMI.2.test")->translate("cutehmi::Error|", "No error."), "Brak błędu.");
+
+	i18ner.loadTranslation("CuteHMI.2.test_Internationalizer");
+	QVERIFY(i18ner.m->translators.contains("CuteHMI.2.test_Internationalizer"));
+	if (i18ner.m->translators.contains("CuteHMI.2.test_Internationalizer"))
+		QCOMPARE(i18ner.m->translators.value("CuteHMI.2.test_Internationalizer")->translate("cutehmi::Error|", "No error."), "Brak błędu.");
+}
+
+void test_Internationalizer::loadQtTranslation()
+{
+	Internationalizer & i18ner = Internationalizer::Instance();
+	i18ner.setUILanguage("pl_PL");
+
+	QVERIFY(i18ner.m->qtTranslator == nullptr);
+	i18ner.loadQtTranslation();
+	QVERIFY(i18ner.m->qtTranslator != nullptr);
+}
+
+}
+
+QTEST_MAIN(cutehmi::test_Internationalizer)
+#include "test_Internationalizer.moc"
+
+//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

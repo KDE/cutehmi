@@ -12,6 +12,9 @@ It provides various utility classes and bridges that help other extensions and t
 
 Messages that should show up in user interface can be delivered through cutehmi::Message and cutehmi::Notification classes.
 
+Class cutehmi::Internationalizer aids internationalization efforts. Example [CuteHMI.Examples.I18N.0](../Examples/CuteHMI/I18N.0/)
+shows how to deal with it.
+
 ## Utility classes
 
 cutehmi::Singleton class template can be used to create singleton classes.
@@ -28,4 +31,9 @@ cutehmi::Initializer can be used to initialize extension.
 ## Frontend tools
 
 Frontend tools should take care about cutehmi::Notifier and cutehmi::Messenger classes to deliver messages to the users. They should
-also call cutehmi::destroySingletonInstances() function.
+also call cutehmi::destroySingletonInstances() function. cutehmi::Internationalizer::uiLanguageChanged() slot should be connected to
+QQmlEngine::retranslate() slot.
+
+## Examples
+
+- [CuteHMI.Examples.I18N.0](../Examples/CuteHMI/I18N.0/)

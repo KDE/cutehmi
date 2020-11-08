@@ -5,6 +5,7 @@
 #include <cutehmi/Messenger.hpp>
 #include <cutehmi/Notification.hpp>
 #include <cutehmi/Notifier.hpp>
+#include <cutehmi/Internationalizer.hpp>
 
 #include <QtQml>
 
@@ -33,6 +34,11 @@ class Messenger: public cutehmi::Messenger {};
  */
 class Notifier: public cutehmi::Notifier {};
 
+/**
+ * Exposes cutehmi::Internationalizer to QML.
+ */
+class Internationalizer: public cutehmi::Internationalizer {};
+
 }
 
 #endif
@@ -53,6 +59,7 @@ void QMLPlugin::registerTypes(const char * uri)
 	qmlRegisterType<cutehmi::Notification>(uri, CUTEHMI_MAJOR, 0, "Notification");
 	qmlRegisterSingletonType<cutehmi::Messenger>(uri, CUTEHMI_MAJOR, 0, "Messenger", MessengerProvider);
 	qmlRegisterSingletonType<cutehmi::Notifier>(uri, CUTEHMI_MAJOR, 0, "Notifier", NotifierProvider);
+	qmlRegisterSingletonType<cutehmi::Internationalizer>(uri, CUTEHMI_MAJOR, 0, "Internationalizer", InternationalizationProvider);
 }
 
 QObject * QMLPlugin::MessengerProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
@@ -71,6 +78,15 @@ QObject * QMLPlugin::NotifierProvider(QQmlEngine * engine, QJSEngine * scriptEng
 	cutehmi::Notifier * notifier = & cutehmi::Notifier::Instance();
 	engine->setObjectOwnership(notifier, QQmlEngine::CppOwnership);
 	return notifier;
+}
+
+QObject * QMLPlugin::InternationalizationProvider(QQmlEngine * engine, QJSEngine * scriptEngine)
+{
+	Q_UNUSED(scriptEngine)
+
+	cutehmi::Internationalizer * i18ner = & cutehmi::Internationalizer::Instance();
+	engine->setObjectOwnership(i18ner, QQmlEngine::CppOwnership);
+	return i18ner;
 }
 
 }
