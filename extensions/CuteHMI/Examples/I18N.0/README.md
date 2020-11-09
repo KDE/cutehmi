@@ -42,6 +42,8 @@ In order to generate such files one has to call `lupdate` program. Once `.ts` fi
 calls `lrelease` program to generate `.qm` files. These are installed to `translations` directory, which is formally defined by
 `translationsInstallSubdir` property of `cutehmi.dirs` Qbs module.
 
+### Generating translation files from Qbs
+
 To generate `.ts` files from Qbs, `cutehmi.i18n` Qbs module can be used. Unfortunately, because `Qt.core` Qbs module calls
 `lrelease` on every `*.ts` file in the product and `lrelease` triggers error if these files are empty, you can't simply add empty
 `.ts` files to the project. Instead, one has to use `additionalTranslations` property to generate new translation files. After they
