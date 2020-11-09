@@ -33,20 +33,22 @@ To signal that extension supports internationalization one should set `i18n` pro
 i18n: true
 ```
 
-This is important, because CuteHMI.Internationalizer relies on product metadata, when loading translation.
+This is important, because CuteHMI.Internationalizer relies on product metadata, when loading translations of dependent products.
 
 ## Translation files
 
 The example comes with two `.ts` files, which reside in `i18n` subdirectory. They provide translations for US English and Esperanto.
 In order to generate such files one has to call `lupdate` program. Once `.ts` files are added to the project, `Qt.core` Qbs module
-calls `lrealease` program to generate `.qm` files. These are installed to `translations` directory, which is formally defined by
+calls `lrelease` program to generate `.qm` files. These are installed to `translations` directory, which is formally defined by
 `translationsInstallSubdir` property of `cutehmi.dirs` Qbs module.
 
+### Generating translation files from Qbs
+
 To generate `.ts` files from Qbs, `cutehmi.i18n` Qbs module can be used. Unfortunately, because `Qt.core` Qbs module calls
-'lrelease' on every 'ts' file in the product and 'lrelease' triggers error if these files are empty, you can't simply add empty
+`lrelease` on every `*.ts` file in the product and `lrelease` triggers error if these files are empty, you can't simply add empty
 `.ts` files to the project. Instead, one has to use `additionalTranslations` property to generate new translation files. After they
-are generated, they should be added to the project files. Again, this property should be used only when generating new translations
-- do not use it for `.ts` files, which are already in the project files.
+are generated, they should be added to the project files. Again, this property should be used only when generating new
+translations - do not use it for `.ts` files, which are already in the project files.
 
 ```
 Depends { name: "cutehmi.i18n" }
@@ -69,7 +71,7 @@ products.CuteHMI.Examples.I18N.0.cutehmi.i18n.update:true -f CuteHMI.qbs
 Argument `project.buildBinaries:false` turns off generation of binaries and `modules.cutehmi.qmltypes.additionalProductTypes:[]`
 prevents qmlplugindump being called on unbuilt products.
 
-After `.ts` files are are added to the project files, `cutehmi.i18n` Qbs module becomes unnecessary. It may significantly slow down
+After `.ts` files are added to the project files, `cutehmi.i18n` Qbs module becomes unnecessary. It may significantly slow down
 the compilation by repeatedly making costly `lupdate` calls. It is reasonable to comment out its entries and only occasionally run
 Qbs with `cutehmi.i18n.update` set to `true` to update the translations.
 
@@ -77,10 +79,10 @@ Qbs with `cutehmi.i18n.update` set to `true` to update the translations.
 
 Names of translation files consist of stem and suffix. Stem is constructed by lowercasing product name and replacing dots with
 hyphens. In case of `CuteHMI.Examples.I18N.0` extension, stem is `cutehmi-examples-i18n-0`. The suffix part denotes a language in
-a format described in Qt documentation on QLocale::QLocale(const QString &). Here we have `_en_US.ts` for US English and `_eo.ts`
-for Esperanto. One can see that suffix has been separated from the stem by underscore, but in fact language can be specified in
-many different ways. Supported translation suffixes and translation directory locations are listed in the documentation of
-CuteHMI.Internationalizer.loadTranslation() function.
+a format described in Qt documentation on QLocale::QLocale(const QString &). Here we have `en_US.ts` for US English and `eo.ts`
+for Esperanto. One can see that suffix has been separated from the stem by underscore character (`_`), but in fact language can
+be specified in many different ways. Supported translation suffixes and translation directory locations are listed in the
+ documentation of CuteHMI.Internationalizer.loadTranslation() function.
 
 ## The actual example
 
