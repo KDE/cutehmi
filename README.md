@@ -44,7 +44,8 @@ code that is undergoing deep changes, rendering it unusable. Branch "master" is
 merged frequently into a branch, which has "alpha" status. This branch may also
 undergo deep modifications, but it should be usable. Branches with
 "perpetual beta" status are stable in a sense that no backward incompatible
-changes shall be made to them.
+changes shall be made to them. For new projects it is recommended to use "alpha"
+branch. By the time the project is finished branch should also stabilize.
 
 <!-- CUT HERE -->
 <!-- TravisCI badge hack that kills Doxygen (1.8.14) warning "Unexpected html tag <img> found within <a href=...> context". -->
