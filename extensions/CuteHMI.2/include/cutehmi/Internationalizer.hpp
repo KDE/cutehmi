@@ -77,7 +77,7 @@ class CUTEHMI_API Internationalizer:
 		 * <tt>HOME/.local/share</tt> is being used. The @p {langdir} subdirectory is obtained in the same way as above.
 		 * - In an attempt to satisfy gettext convention, directories specified by XDG_DATA_DIRS environmental variable followed by
 		 * <tt>/locale/{langdir}/LC_MESSAGES</tt> are used. If XDG_DATA_DIRS has not been set, <tt>usr/local/share/</tt> and
-		 * <tt>/usr/share/</tt> are used. The {langdir} subdirectory is obtained in the same way as above.
+		 * <tt>/usr/share/</tt> are used. The @p {langdir} subdirectory is obtained in the same way as above.
 		 * @return list of standard translation directories.
 		 *
 		 * @see additionalTranslationDirectories().
