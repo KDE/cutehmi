@@ -75,6 +75,8 @@ After `.ts` files are added to the project files, `cutehmi.i18n` Qbs module beco
 the compilation by repeatedly making costly `lupdate` calls. It is reasonable to comment out its entries and only occasionally run
 Qbs with `cutehmi.i18n.update` set to `true` to update the translations.
 
+Of course, although this may change in the future, actual translations still have to be provided by a human. One can use Qt Linguist program to edit `.ts` files.
+
 ### File names
 
 Names of translation files consist of stem and suffix. Stem is constructed by lowercasing product name and replacing dots with
