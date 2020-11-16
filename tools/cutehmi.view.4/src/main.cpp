@@ -101,7 +101,7 @@ int main(int argc, char * argv[])
 #endif
 		if (!qgetenv("CUTEHMI_LANGUAGE").isEmpty()) {
 			language = qgetenv("CUTEHMI_LANGUAGE");
-			CUTEHMI_DEBUG("Language set by 'CUTEHMI_LANGUAGE' environmental variable: " << qgetenv("CUTEHMI_LANGUAGE"));
+			CUTEHMI_DEBUG("Default language set by 'CUTEHMI_LANGUAGE' environmental variable: " << qgetenv("CUTEHMI_LANGUAGE"));
 		}
 		cutehmi::Internationalizer::Instance().setUILanguage(language);
 		cutehmi::Internationalizer::Instance().loadQtTranslation();
@@ -149,10 +149,9 @@ int main(int argc, char * argv[])
 
 
 		CUTEHMI_DEBUG("Default locale: " << QLocale());
+
 		CUTEHMI_DEBUG("Language: " << cmd.value(langOption));
-
-		cutehmi::Internationalizer::Instance().setUILanguage(cmd.value(langOption));
-
+		cutehmi::Internationalizer::Instance().setUILanguage(cmd.value(langOption));	// Reset language according to 'lang' option.
 
 		if (cmd.isSet(styleOption)) {
 			qputenv("QT_QUICK_CONTROLS_STYLE", cmd.value(styleOption).toLocal8Bit());
@@ -192,9 +191,6 @@ int main(int argc, char * argv[])
 			extension = positionalArguments.at(0);
 		else
 			extension = DEFAULT_EXTENSION;
-
-		cutehmi::Internationalizer::Instance().loadTranslation(extension);
-		QObject::connect(& cutehmi::Internationalizer::Instance(), & cutehmi::Internationalizer::uiLanguageChanged, engine.get(), & QQmlApplicationEngine::retranslate);
 
 		QString extensionMinor = cmd.value(minorOption);
 		QString init = cmd.value(initOption);
@@ -237,6 +233,11 @@ int main(int argc, char * argv[])
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionMinor", extensionMinor);
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionComponent", component);
 		engine->rootContext()->setContextProperty("cutehmi_view_initURL", "qrc:/qml/DefaultScreen.qml");
+
+		// Load extension translation and connect uiLanguageChanged() signal to retranslate() slot.
+		if (!extension.isEmpty())
+			cutehmi::Internationalizer::Instance().loadTranslation(extension);
+		QObject::connect(& cutehmi::Internationalizer::Instance(), & cutehmi::Internationalizer::uiLanguageChanged, engine.get(), & QQmlApplicationEngine::retranslate);
 
 		engine->load(QUrl(QStringLiteral("qrc:/qml/MainWindow.qml")));
 

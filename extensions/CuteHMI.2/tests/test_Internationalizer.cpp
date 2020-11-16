@@ -18,7 +18,13 @@ class test_Internationalizer:
 
 		void loadTranslation();
 
+		void unloadTranslation();
+
 		void loadQtTranslation();
+
+		void unloadQtTranslation();
+
+		void mixedTranslations();
 };
 
 void test_Internationalizer::initTestCase()
@@ -44,6 +50,18 @@ void test_Internationalizer::loadTranslation()
 		QCOMPARE(i18ner.m->translators.value("CuteHMI.2.test_Internationalizer")->translate("cutehmi::Error|", "No error."), "Brak błędu.");
 }
 
+void test_Internationalizer::unloadTranslation()
+{
+	Internationalizer & i18ner = Internationalizer::Instance();
+	i18ner.setUILanguage("pl_PL");
+
+	i18ner.unloadTranslation("CuteHMI.2.test");
+	QVERIFY(!i18ner.m->translators.contains("CuteHMI.2.test"));
+
+	i18ner.unloadTranslation("CuteHMI.2.test_Internationalizer");
+	QVERIFY(!i18ner.m->translators.contains("CuteHMI.2.test_Internationalizer"));
+}
+
 void test_Internationalizer::loadQtTranslation()
 {
 	Internationalizer & i18ner = Internationalizer::Instance();
@@ -52,6 +70,51 @@ void test_Internationalizer::loadQtTranslation()
 	QVERIFY(i18ner.m->qtTranslator == nullptr);
 	i18ner.loadQtTranslation();
 	QVERIFY(i18ner.m->qtTranslator != nullptr);
+}
+
+void test_Internationalizer::unloadQtTranslation()
+{
+	Internationalizer & i18ner = Internationalizer::Instance();
+	i18ner.setUILanguage("pl_PL");
+
+	i18ner.unloadQtTranslation();
+	QVERIFY(i18ner.m->qtTranslator == nullptr);
+}
+
+void test_Internationalizer::mixedTranslations()
+{
+	Internationalizer & i18ner = Internationalizer::Instance();
+
+	loadTranslation();
+	unloadTranslation();
+
+	loadQtTranslation();
+	unloadQtTranslation();
+
+	loadQtTranslation();
+	QVERIFY(i18ner.m->qtTranslator != nullptr);
+	i18ner.unloadTranslations(false);
+	QVERIFY(i18ner.m->qtTranslator != nullptr);
+	i18ner.unloadTranslations();
+	QVERIFY(i18ner.m->qtTranslator == nullptr);
+
+	loadTranslation();
+	loadQtTranslation();
+	i18ner.unloadTranslations();	// Should nullify i18ner.m->qtTranslator as well.
+	QVERIFY(i18ner.m->qtTranslator == nullptr);
+	QVERIFY(i18ner.m->translators.isEmpty());
+
+	i18ner.setUILanguage("no_NO");
+	i18ner.loadTranslation("CuteHMI.2.test", false);
+	QVERIFY(i18ner.m->translators.contains("CuteHMI.2.test"));
+	if (i18ner.m->translators.contains("CuteHMI.2.test"))
+		QCOMPARE(i18ner.m->translators.value("CuteHMI.2.test")->translate("cutehmi::Error|", "No error."), "");
+	i18ner.setUILanguage("pl_PL");
+	if (i18ner.m->translators.contains("CuteHMI.2.test_Internationalizer"))
+		QCOMPARE(i18ner.m->translators.value("CuteHMI.2.test_Internationalizer")->translate("cutehmi::Error|", "No error."), "Brak błędu.");
+	i18ner.unloadTranslation("CuteHMI.2.test");
+	if (i18ner.m->translators.contains("CuteHMI.2.test"))
+		QCOMPARE(i18ner.m->translators.value("CuteHMI.2.test")->translate("cutehmi::Error|", "No error."), "");
 }
 
 }

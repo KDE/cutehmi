@@ -42,7 +42,21 @@ void Internationalizer::loadQtTranslation()
 		updateQtTranslation(*m->qtTranslator);
 		QCoreApplication::installTranslator(m->qtTranslator);
 	} else
-		CUTEHMI_WARNING("Qt translation already loaded.");
+		CUTEHMI_WARNING("Qt translator already installed.");
+}
+
+void Internationalizer::unloadQtTranslation()
+{
+	if (m->qtTranslator) {
+		if (!QCoreApplication::removeTranslator(m->qtTranslator))
+			CUTEHMI_CRITICAL("Removal of Qt translator has failed!");
+		else {
+			m->qtTranslator->deleteLater();
+			m->qtTranslator = nullptr;
+			CUTEHMI_DEBUG("Unloaded Qt translation.");
+		}
+	} else
+		CUTEHMI_DEBUG("Qt translation has not been loaded");
 }
 
 void Internationalizer::loadTranslation(const QString & product, bool dependencies)
@@ -53,7 +67,7 @@ void Internationalizer::loadTranslation(const QString & product, bool dependenci
 		updateTranslation(*translator, product, translationDirectories());
 		QCoreApplication::installTranslator(translator);
 	} else
-		CUTEHMI_DEBUG("Translation of product '" << product << "' already loaded.");
+		CUTEHMI_DEBUG("Translator of product '" << product << "' already installed.");
 
 	if (dependencies) {
 		QJsonArray dependenciesArray = metadata(product).value("dependencies").toArray();
@@ -64,6 +78,37 @@ void Internationalizer::loadTranslation(const QString & product, bool dependenci
 					loadTranslation(dependencyName, dependencies);
 		}
 	}
+}
+
+void Internationalizer::unloadTranslation(const QString & product)
+{
+	QTranslator * translator = m->translators.value(product, nullptr);
+	if (translator) {
+		if (!QCoreApplication::removeTranslator(translator))
+			CUTEHMI_CRITICAL("Removal of '" << product << "' translator has failed!");
+		else {
+			m->translators.remove(product);
+			translator->deleteLater();
+			CUTEHMI_DEBUG("Translator of product '" << product << "' has been removed.");
+		}
+	} else
+		CUTEHMI_DEBUG("Translation of product '" << product << "' has not been loaded.");
+}
+
+void Internationalizer::unloadTranslations(bool qt)
+{
+	for (auto productTranslator = m->translators.begin(); productTranslator != m->translators.end(); ++productTranslator) {
+		if (!QCoreApplication::removeTranslator(productTranslator.value()))
+			CUTEHMI_CRITICAL("Removal of '" << productTranslator.key() << "' translator has failed!");
+		else {
+			productTranslator.value()->deleteLater();
+			CUTEHMI_DEBUG("Translator of product '" << productTranslator.key() << "' has been removed.");
+		}
+	}
+	m->translators.clear();
+
+	if (qt)
+		unloadQtTranslation();
 }
 
 QStringList Internationalizer::standardTranslationDirectories() const
@@ -110,7 +155,7 @@ Internationalizer::Internationalizer(QObject * parent):
 {
 }
 
-bool Internationalizer::updateTranslation(QTranslator & translator, const QString & product, const QStringList & directories)
+void Internationalizer::updateTranslation(QTranslator & translator, const QString & product, const QStringList & directories)
 {
 	for (auto directory : directories) {
 		if (translator.load(m->uiLanguage, translationFileStem(product), ".", directory)
@@ -119,22 +164,23 @@ bool Internationalizer::updateTranslation(QTranslator & translator, const QStrin
 				// Handle files with "_qt.qm" suffix (KDE internationalization framework convention).
 				|| translator.load(m->uiLanguage, translationFileStem(product), "_", directory, "_qt.qm")) {
 			CUTEHMI_DEBUG("Translation of product '" << product << "' loaded from '" << directory << "' directory.");
-			return true;
+			translator.setProperty("loaded", true);
+			return;
 		}
 	}
 	CUTEHMI_WARNING("Translation of product '" << product << "' not found.");
-	return false;
+	translator.setProperty("loaded", false);
 }
 
-bool Internationalizer::updateQtTranslation(QTranslator & translator)
+void Internationalizer::updateQtTranslation(QTranslator & translator)
 {
 	if (translator.load(m->uiLanguage, "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 		CUTEHMI_DEBUG("Loaded Qt translation.");
-		return true;
+		translator.setProperty("loaded", true);
+	} else {
+		CUTEHMI_WARNING("Could not load Qt translation.");
+		translator.setProperty("loaded", false);
 	}
-
-	CUTEHMI_WARNING("Could not load Qt translation.");
-	return false;
 }
 
 QString Internationalizer::translationFileStem(const QString & product)
