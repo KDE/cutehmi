@@ -7,13 +7,13 @@
 
 #include <cutehmi/Messenger.hpp>
 #include <cutehmi/Singleton.hpp>
+#include <cutehmi/Internationalizer.hpp>
 
 #include <QCoreApplication>
 #include <QQmlApplicationEngine>
 #include <QDir>
 #include <QCommandLineParser>
 #include <QUrl>
-#include <QTranslator>
 #include <QLibraryInfo>
 #include <QFile>
 #include <QtGlobal>
@@ -76,25 +76,11 @@ int main(int argc, char * argv[])
 	// Initial language setup.
 
 	QString language = QLocale::system().name();
-	QStringList failedTranslationsFiles;
-#ifdef CUTEHMI_VIEW_DEFAULT_LANGUAGE
-	language = CUTEHMI_VIEW_DEFAULT_LANGUAGE;
+#ifdef CUTEHMI_DAEMON_DEFAULT_LANGUAGE
+	language = CUTEHMI_DAEMON_DEFAULT_LANGUAGE;
 #endif
 	if (!qgetenv("CUTEHMI_LANGUAGE").isEmpty())
 		language = qgetenv("CUTEHMI_LANGUAGE");
-
-	QTranslator qtTranslator;
-	if (!qtTranslator.load("qt_" + language, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-		failedTranslationsFiles.append("qt_" + language);
-	app.installTranslator(& qtTranslator);
-
-	QTranslator daemonTranslator;
-	QString translationsDir = QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_TRANSLATIONS_INSTALL_SUBDIR);
-	QString daemonTranslationFilePrefix = QString(CUTEHMI_DAEMON_NAME).replace('.', '-') + "_";
-	QString daemonTranslationFile = daemonTranslationFilePrefix + language;
-	if (!daemonTranslator.load(daemonTranslationFile, translationsDir))
-		failedTranslationsFiles.append(daemonTranslationFile);
-	app.installTranslator(& daemonTranslator);
 
 
 	// Configure command line parser and process arguments.
@@ -116,6 +102,7 @@ int main(int argc, char * argv[])
 	};
 	opt.init.setDefaultValue(DEFAULT_INIT);
 	opt.minor.setDefaultValue(DEFAULT_MINOR);
+	opt.lang.setDefaultValue(language);
 	opt.pidfile.setDefaultValue(QString("/var/run/") + CUTEHMI_DAEMON_NAME ".pid");
 	opt.pidfile.setDescription(opt.pidfile.description() + "\nDefault value: '" + opt.pidfile.defaultValues().at(0) + "'.");
 	opt.basedir.setDefaultValue(QDir(QCoreApplication::applicationDirPath() + "/..").canonicalPath());
@@ -145,39 +132,22 @@ int main(int argc, char * argv[])
 	coreData.app = & app;
 	coreData.cmd = & cmd;
 	coreData.opt = & opt;
-	coreData.qtTranslator = & qtTranslator;
-	coreData.daemonTranslator = & daemonTranslator;
 	coreData.language = language;
-	coreData.translationsDir = translationsDir;
-	coreData.daemonTranslationFilePrefix = daemonTranslationFilePrefix;
-	coreData.daemonTranslationFile = daemonTranslationFile;
-	coreData.failedTranslationsFiles = failedTranslationsFiles;
 
 	std::function<int(CoreData &)> core = [](CoreData & data) {
 		try {
-			// Finish language setup.
+			CUTEHMI_DEBUG("Default locale: " << QLocale());
 
 			if (!qgetenv("CUTEHMI_LANGUAGE").isEmpty())
-				CUTEHMI_DEBUG("Language set by 'CUTEHMI_LANGUAGE' environmental variable: " << qgetenv("CUTEHMI_LANGUAGE"));
-
-			if (!data.failedTranslationsFiles.isEmpty())
-				for (auto translationsFile : data.failedTranslationsFiles)
-					CUTEHMI_WARNING("Could not load translations file '" << translationsFile << "'.");
+				CUTEHMI_DEBUG("Default language set by 'CUTEHMI_LANGUAGE' environmental variable: " << qgetenv("CUTEHMI_LANGUAGE"));
 
 			if (data.cmd->isSet(data.opt->lang))
 				data.language = data.cmd->value(data.opt->lang);
 
-			CUTEHMI_DEBUG("Default locale: " << QLocale());
 			CUTEHMI_DEBUG("Language: " << data.language);
-
-			if (!data.qtTranslator->load("qt_" + data.language, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-				CUTEHMI_WARNING("Could not load translations file '" << "qt_" + data.language << "'.");
-
-			data.daemonTranslationFilePrefix = QString(CUTEHMI_DAEMON_NAME).replace('.', '-') + "_";
-			data.daemonTranslationFile = data.daemonTranslationFilePrefix + data.language;
-			if (!data.daemonTranslator->load(data.daemonTranslationFile, data.translationsDir))
-				CUTEHMI_WARNING("Could not load translations file '" << data.daemonTranslationFile << "'.");
-
+			cutehmi::Internationalizer::Instance().setUILanguage(data.language);
+			cutehmi::Internationalizer::Instance().loadQtTranslation();
+			cutehmi::Internationalizer::Instance().loadTranslation(CUTEHMI_DAEMON_NAME);
 
 			QDir baseDir = data.cmd->value(data.opt->basedir);
 			QString baseDirPath = baseDir.absolutePath() + "/";
@@ -266,9 +236,16 @@ int main(int argc, char * argv[])
 						if (initUrl.isLocalFile() && !QFile::exists(initUrl.toLocalFile()))
 							throw Exception(QCoreApplication::translate("main", "QML file '%1' does not exist.").arg(initUrl.url()));
 						else {
+							// Load extension translation and connect uiLanguageChanged() signal to retranslate() slot.
+							if (!extension.isEmpty())
+								cutehmi::Internationalizer::Instance().loadTranslation(extension);
+							QObject::connect(& cutehmi::Internationalizer::Instance(), & cutehmi::Internationalizer::uiLanguageChanged, & engine, & QQmlApplicationEngine::retranslate);
+
 							engine.load(initUrl.url());
 							int result = data.app->exec();
+
 							engine.collectGarbage();
+							cutehmi::Internationalizer::Instance().unloadTranslations();
 							return result;
 						}
 					}

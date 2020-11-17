@@ -11,13 +11,7 @@ struct CoreData
 {
 	QCoreApplication * app;
 	QCommandLineParser * cmd;
-	QTranslator * qtTranslator;
-	QTranslator * daemonTranslator;
 	QString language;
-	QStringList failedTranslationsFiles;
-	QString translationsDir;
-	QString daemonTranslationFilePrefix;
-	QString daemonTranslationFile;
 
 	struct Options
 	{

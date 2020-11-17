@@ -46,6 +46,11 @@ class CUTEHMI_API Internationalizer:
 		Q_INVOKABLE void loadQtTranslation();
 
 		/**
+		 * Unload Qt translation.
+		 */
+		Q_INVOKABLE void unloadQtTranslation();
+
+		/**
 		 * Load translation of %CuteHMI product. Typically product is an extension, but the function can be also used to load
 		 * translation of a tool or even a test.
 		 *
@@ -65,6 +70,19 @@ class CUTEHMI_API Internationalizer:
 		 * retrieved from metadata, so it is important to specify appropriate dependencies in Qbs file.
 		 */
 		Q_INVOKABLE void loadTranslation(const QString & product, bool dependencies = true);
+
+		/**
+		 * Unload translations of a specific product.
+		 * @param product product name.
+		 */
+		Q_INVOKABLE void unloadTranslation(const QString & product);
+
+		/**
+		 * Unload loaded translations. Functions unloads any previously loaded translation of a product and optionally Qt
+		 * translation.
+		 * @param qt whether to unload Qt translation. If set to @p true, Qt translation will be unloaded.
+		 */
+		Q_INVOKABLE void unloadTranslations(bool qt = true);
 
 		/**
 		 * Get standard translation directories. The list is composed of following entries:
@@ -115,9 +133,9 @@ class CUTEHMI_API Internationalizer:
 		 */
 		explicit Internationalizer(QObject * parent = nullptr);
 
-		bool updateTranslation(QTranslator & translator, const QString & product, const QStringList & directories);
+		void updateTranslation(QTranslator & translator, const QString & product, const QStringList & directories);
 
-		bool updateQtTranslation(QTranslator & translator);
+		void updateQtTranslation(QTranslator & translator);
 
 		QString translationFileStem(const QString & product);
 
