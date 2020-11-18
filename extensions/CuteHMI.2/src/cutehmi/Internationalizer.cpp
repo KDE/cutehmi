@@ -53,7 +53,7 @@ void Internationalizer::unloadQtTranslation()
 		else {
 			m->qtTranslator->deleteLater();
 			m->qtTranslator = nullptr;
-			CUTEHMI_DEBUG("Unloaded Qt translation.");
+			CUTEHMI_DEBUG("Qt translator has been removed.");
 		}
 	} else
 		CUTEHMI_DEBUG("Qt translation has not been loaded");
