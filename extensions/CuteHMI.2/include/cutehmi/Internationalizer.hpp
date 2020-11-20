@@ -78,7 +78,7 @@ class CUTEHMI_API Internationalizer:
 		Q_INVOKABLE void unloadTranslation(const QString & product);
 
 		/**
-		 * Unload loaded translations. Functions unloads any previously loaded translation of a product and optionally Qt
+		 * Unload loaded translations. Function unloads any previously loaded translation of a product and optionally Qt
 		 * translation.
 		 * @param qt whether to unload Qt translation. If set to @p true, Qt translation will be unloaded.
 		 */
@@ -97,6 +97,7 @@ class CUTEHMI_API Internationalizer:
 		 * <tt>/locale/{langdir}/LC_MESSAGES</tt> are used. If XDG_DATA_DIRS has not been set, <tt>usr/local/share/</tt> and
 		 * <tt>/usr/share/</tt> are used. The @p {langdir} subdirectory is obtained in the same way as above.
 		 * @return list of standard translation directories.
+		 * - Directories returned by QLibraryInfo::location(QLibraryInfo::TranslationsPath) are used.
 		 *
 		 * @see additionalTranslationDirectories().
 		 */
