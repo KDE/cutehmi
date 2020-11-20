@@ -97,7 +97,7 @@ class CUTEHMI_API Internationalizer:
 		 * <tt>/locale/{langdir}/LC_MESSAGES</tt> are used. If XDG_DATA_DIRS has not been set, <tt>usr/local/share/</tt> and
 		 * <tt>/usr/share/</tt> are used. The @p {langdir} subdirectory is obtained in the same way as above.
 		 * @return list of standard translation directories.
-		 * - Directories returned by QLibraryInfo::location(QLibraryInfo::TranslationsPath) are ued.
+		 * - Directories returned by QLibraryInfo::location(QLibraryInfo::TranslationsPath) are used.
 		 *
 		 * @see additionalTranslationDirectories().
 		 */
