@@ -67,6 +67,12 @@ class CUTEHMI_GUI_API ColorSet:
 		Q_PROPERTY(QColor stroke READ stroke WRITE setStroke NOTIFY strokeChanged)
 
 		/**
+		  Blank color. Sometimes component has to draw empty areas within itself. Blank color shall be used to fill such areas. It
+		  is typically the same color as palette background, but it may also be transparent.
+		  */
+		Q_PROPERTY(QColor blank READ blank WRITE setBlank NOTIFY blankChanged)
+
+		/**
 		 * Constructor.
 		 * @param parent parent object.
 		 */
@@ -156,41 +162,58 @@ class CUTEHMI_GUI_API ColorSet:
 		 */
 		void setStroke(QColor stroke);
 
+		/**
+		 * Get blank color.
+		 * @return blank color.
+		 */
+		QColor blank() const;
+
+		/**
+		 * Set blank color.
+		 * @param blank blank color.
+		 */
+		void setBlank(QColor blank);
+
 	signals:
 		/**
-		 * this signal is emitted whenever base color changed.
+		 * This signal is emitted whenever base color has changed.
 		 */
 		void baseChanged();
 
 		/**
-		 * this signal is emitted whenever fill color changed.
+		 * This signal is emitted whenever fill color has changed.
 		 */
 		void fillChanged();
 
 		/**
-		 * this signal is emitted whenever tint color changed.
+		 * This signal is emitted whenever tint color has changed.
 		 */
 		void tintChanged();
 
 		/**
-		 * this signal is emitted whenever shade color changed.
+		 * This signal is emitted whenever shade color has changed.
 		 */
 		void shadeChanged();
 
 		/**
-		 * this signal is emitted whenever background color changed.
+		 * This signal is emitted whenever background color has changed.
 		 */
 		void backgroundChanged();
 
 		/**
-		 * this signal is emitted whenever foreground color changed.
+		 * This signal is emitted whenever foreground color has changed.
 		 */
 		void foregroundChanged();
 
 		/**
-		 * this signal is emitted whenever stroke color changed.
+		 * This signal is emitted whenever stroke color has changed.
 		 */
 		void strokeChanged();
+
+		/**
+		 * This signal is emitted whenever blank color has changed.
+		 */
+		void blankChanged();
 
 	private:
 		struct Members
@@ -202,6 +225,7 @@ class CUTEHMI_GUI_API ColorSet:
 			QColor background;
 			QColor foreground;
 			QColor stroke;
+			QColor blank;
 		};
 
 		MPtr<Members> m;

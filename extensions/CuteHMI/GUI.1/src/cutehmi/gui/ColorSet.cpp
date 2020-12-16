@@ -100,6 +100,19 @@ void ColorSet::setStroke(QColor stroke)
 	}
 }
 
+QColor ColorSet::blank() const
+{
+	return m->blank;
+}
+
+void ColorSet::setBlank(QColor blank)
+{
+	if (m->blank != blank) {
+		m->blank = blank;
+		emit blankChanged();
+	}
+}
+
 }
 }
 
