@@ -12,6 +12,7 @@ namespace gui {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_gui_loggingCategory());
 	return cutehmi_gui_loggingCategory();
 }
 

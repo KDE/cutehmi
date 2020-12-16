@@ -14,6 +14,7 @@ namespace shareddatabase {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_shareddatabase_loggingCategory());
 	return cutehmi_shareddatabase_loggingCategory();
 }
 

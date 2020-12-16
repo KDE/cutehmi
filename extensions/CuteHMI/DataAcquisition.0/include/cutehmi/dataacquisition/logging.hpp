@@ -14,6 +14,7 @@ namespace dataacquisition {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_dataacquisition_loggingCategory());
 	return cutehmi_dataacquisition_loggingCategory();
 }
 

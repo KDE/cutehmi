@@ -12,6 +12,7 @@ namespace test {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_test_loggingCategory());
 	return cutehmi_test_loggingCategory();
 }
 

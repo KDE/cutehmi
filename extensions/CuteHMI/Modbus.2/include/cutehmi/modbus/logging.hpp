@@ -12,6 +12,7 @@ namespace modbus {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_modbus_loggingCategory());
 	return cutehmi_modbus_loggingCategory();
 }
 

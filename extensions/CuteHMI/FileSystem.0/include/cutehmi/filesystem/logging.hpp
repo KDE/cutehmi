@@ -12,6 +12,7 @@ namespace filesystem {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_filesystem_loggingCategory());
 	return cutehmi_filesystem_loggingCategory();
 }
 

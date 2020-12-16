@@ -427,6 +427,7 @@ Module {
 						f.writeLine("inline")
 						f.writeLine("const QLoggingCategory & loggingCategory()")
 						f.writeLine("{")
+						f.writeLine("	CUTEHMI_LOGGING_CATEGORY_CHECK(" + loggingCategory + "());")
 						f.writeLine("	return " + loggingCategory + "();")
 						f.writeLine("}")
 
