@@ -86,8 +86,6 @@ Project {
 
 		Depends { name: "cutehmi.init" }
 
-		Depends { name: "cutehmi.metadata" }
-
 		Depends { name: "cutehmi.qmldir" }
 		cutehmi.qmldir.exclude: ["^designer/.*", "\.js$"]
 
