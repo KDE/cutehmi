@@ -61,22 +61,12 @@ void Internationalizer::unloadQtTranslation()
 
 void Internationalizer::loadTranslation(const QString & product, bool dependencies)
 {
-	if (!m->translators.contains(product)) {
-		QTranslator * translator = new QTranslator(this);
-		m->translators.insert(product, translator);
-		updateTranslation(*translator, product, translationDirectories());
-		QCoreApplication::installTranslator(translator);
-	}
-
-	if (dependencies) {
-		QJsonArray dependenciesArray = metadata(product).value("dependencies").toArray();
-		for (auto dependency : dependenciesArray) {
-			QString dependencyName = dependency.toObject().value("name").toString();
-			if (metadataExists(dependencyName))
-				if (metadata(dependencyName).value("i18n").toBool())
-					loadTranslation(dependencyName, dependencies);
-		}
-	}
+	QStringList skippedProducts;
+	loadTranslation(skippedProducts, product, dependencies);
+	skippedProducts.sort();
+	skippedProducts.removeDuplicates();
+	if (!skippedProducts.isEmpty())
+		CUTEHMI_DEBUG("Efforts to load translations of some dependency products " << skippedProducts << " have been abandoned, because their 'i18n' metadata property is set to false.");
 }
 
 void Internationalizer::unloadTranslation(const QString & product)
@@ -152,6 +142,29 @@ Internationalizer::Internationalizer(QObject * parent):
 	QObject(parent),
 	m(new Members)
 {
+}
+
+void Internationalizer::loadTranslation(QStringList & skippedProducts, const QString & product, bool dependencies)
+{
+	if (!m->translators.contains(product)) {
+		QTranslator * translator = new QTranslator(this);
+		m->translators.insert(product, translator);
+		updateTranslation(*translator, product, translationDirectories());
+		QCoreApplication::installTranslator(translator);
+	}
+
+	if (dependencies) {
+		QJsonArray dependenciesArray = metadata(product).value("dependencies").toArray();
+		for (auto dependency : dependenciesArray) {
+			QString dependencyName = dependency.toObject().value("name").toString();
+			if (metadataExists(dependencyName)) {
+				if (metadata(dependencyName).value("i18n").toBool())
+					loadTranslation(skippedProducts, dependencyName, dependencies);
+				else
+					skippedProducts.append(dependencyName);
+			}
+		}
+	}
 }
 
 void Internationalizer::updateTranslation(QTranslator & translator, const QString & product, const QStringList & directories)

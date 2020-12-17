@@ -134,6 +134,8 @@ class CUTEHMI_API Internationalizer:
 		 */
 		explicit Internationalizer(QObject * parent = nullptr);
 
+		void loadTranslation(QStringList & skippedProducts, const QString & product, bool dependencies);
+
 		void updateTranslation(QTranslator & translator, const QString & product, const QStringList & directories);
 
 		void updateQtTranslation(QTranslator & translator);
