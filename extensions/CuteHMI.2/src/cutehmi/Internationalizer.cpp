@@ -66,8 +66,7 @@ void Internationalizer::loadTranslation(const QString & product, bool dependenci
 		m->translators.insert(product, translator);
 		updateTranslation(*translator, product, translationDirectories());
 		QCoreApplication::installTranslator(translator);
-	} else
-		CUTEHMI_DEBUG("Translator of product '" << product << "' already installed.");
+	}
 
 	if (dependencies) {
 		QJsonArray dependenciesArray = metadata(product).value("dependencies").toArray();
