@@ -1,6 +1,8 @@
 #ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_LOGGINGMACROS_HPP
 #define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_LOGGINGMACROS_HPP
 
+#include "internal/LoggingCategoryCheck.hpp"
+
 #include <QLoggingCategory>
 
 /**
@@ -85,6 +87,17 @@
 	#define CUTEHMI_ASSERT(EXPR, MSG) Q_ASSERT_X(EXPR, __FILE__, MSG)
 #else
 	#define CUTEHMI_ASSERT(EXPR, MSG) (void)0
+#endif
+
+/**
+  @def CUTEHMI_LOGGING_CATEGORY_CHECK(CATEGORY)
+  Perform logging category check.
+  @param CATEGORY logging category
+  */
+#ifndef CUTEHMI_NLOGGING_CATEGORY_CHECK
+	#define CUTEHMI_LOGGING_CATEGORY_CHECK(CATEGORY) static ::cutehmi::internal::LoggingCategoryCheck loggingCategoryCheck(CATEGORY)
+#else
+	#define CUTEHMI_LOGGING_CATEGORY_CHECK(CATEGORY) (void)0
 #endif
 
 ///@}

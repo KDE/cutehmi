@@ -3,6 +3,8 @@
 namespace cutehmi {
 namespace gui {
 
+constexpr Qt::GlobalColor Palette::INITIAL_BACKGROUND;
+
 Palette::Palette(QObject * parent):
 	QObject(parent),
 	m(new Members)
@@ -123,6 +125,7 @@ ColorSet & Palette::DefaultAlarm()
 	alarm.setForeground("black");
 	alarm.setBackground(alarm.tint());
 	alarm.setStroke("black");
+	alarm.setBlank(INITIAL_BACKGROUND);
 
 	return alarm;
 }
@@ -138,6 +141,7 @@ ColorSet & Palette::DefaultWarning()
 	warning.setForeground("black");
 	warning.setBackground(warning.tint());
 	warning.setStroke("black");
+	warning.setBlank(INITIAL_BACKGROUND);
 
 	return warning;
 }
@@ -153,6 +157,7 @@ ColorSet & Palette::DefaultActive()
 	active.setForeground("black");
 	active.setBackground(active.tint());
 	active.setStroke("black");
+	active.setBlank(INITIAL_BACKGROUND);
 
 	return active;
 }
@@ -168,6 +173,7 @@ ColorSet & Palette::DefaultInactive()
 	inactive.setForeground("black");
 	inactive.setBackground(inactive.tint());
 	inactive.setStroke("black");
+	inactive.setBlank(INITIAL_BACKGROUND);
 
 	return inactive;
 }
@@ -183,6 +189,7 @@ ColorSet & Palette::DefaultNeutral()
 	neutral.setForeground("black");
 	neutral.setBackground("white");
 	neutral.setStroke("black");
+	neutral.setBlank(INITIAL_BACKGROUND);
 
 	return neutral;
 }

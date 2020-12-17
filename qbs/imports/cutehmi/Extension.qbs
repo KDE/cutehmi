@@ -105,7 +105,7 @@ CommonProduct {
 	}
 
 	FileTagger {
-		patterns: ["LICENSE", "README.md"]
+		patterns: ["LICENSE", "README.md", "*.txt"]
 		fileTags: ["ReadmeFiles"]
 	}
 

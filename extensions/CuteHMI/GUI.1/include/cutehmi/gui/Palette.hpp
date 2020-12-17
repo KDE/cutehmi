@@ -113,6 +113,8 @@ class CUTEHMI_GUI_API Palette:
 		static ColorSet & DefaultNeutral();
 
 	private:
+		static constexpr Qt::GlobalColor INITIAL_BACKGROUND = Qt::white;
+
 		struct Members
 		{
 			QColor background;
@@ -123,7 +125,7 @@ class CUTEHMI_GUI_API Palette:
 			ColorSet * neutral;
 
 			Members():
-				background(Qt::white),
+				background(INITIAL_BACKGROUND),
 				alarm(& DefaultAlarm()),
 				warning(& DefaultWarning()),
 				active(& DefaultActive()),

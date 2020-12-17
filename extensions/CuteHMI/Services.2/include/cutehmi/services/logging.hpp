@@ -14,6 +14,7 @@ namespace services {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_services_loggingCategory());
 	return cutehmi_services_loggingCategory();
 }
 

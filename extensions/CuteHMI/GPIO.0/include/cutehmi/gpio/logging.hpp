@@ -12,6 +12,7 @@ namespace gpio {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_gpio_loggingCategory());
 	return cutehmi_gpio_loggingCategory();
 }
 

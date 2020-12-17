@@ -11,6 +11,7 @@ namespace daemon {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_daemon_loggingCategory());
 	return cutehmi_daemon_loggingCategory();
 }
 

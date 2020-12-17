@@ -14,6 +14,7 @@ namespace cpppluginskeleton {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(templates_cpppluginskeleton_loggingCategory());
 	return templates_cpppluginskeleton_loggingCategory();
 }
 

@@ -14,6 +14,7 @@ namespace cppskeleton {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(templates_cppskeleton_loggingCategory());
 	return templates_cppskeleton_loggingCategory();
 }
 

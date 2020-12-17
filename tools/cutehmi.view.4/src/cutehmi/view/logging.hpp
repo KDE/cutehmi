@@ -11,6 +11,7 @@ namespace view {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_view_loggingCategory());
 	return cutehmi_view_loggingCategory();
 }
 

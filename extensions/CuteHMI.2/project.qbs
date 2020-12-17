@@ -35,6 +35,7 @@ Project {
          "include/cutehmi/Notifier.hpp",
          "include/cutehmi/constants.hpp",
          "include/cutehmi/functions.hpp",
+         "include/cutehmi/internal/LoggingCategoryCheck.hpp",
          "include/cutehmi/macros.hpp",
          "include/cutehmi/wrappers.hpp",
          "include/cutehmi/Error.hpp",

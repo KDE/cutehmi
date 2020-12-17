@@ -11,6 +11,7 @@ namespace console {
 inline
 const QLoggingCategory & loggingCategory()
 {
+	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_console_loggingCategory());
 	return cutehmi_console_loggingCategory();
 }
 

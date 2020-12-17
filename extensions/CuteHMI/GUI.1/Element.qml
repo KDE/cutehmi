@@ -41,7 +41,7 @@ Item {
 
 		stroke: colorSet.stroke
 
-		property color blank: palette.neutral.fill
+		blank: colorSet.blank
 
 		Behavior on base { ColorAnimation {} }
 		Behavior on fill { ColorAnimation {} }

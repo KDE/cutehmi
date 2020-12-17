@@ -1,19 +1,34 @@
-#ifndef H_EXTENSIONS_CUTEHMI_MODBUS_2_INCLUDE_CUTEHMI_MODBUS_LOGGING_HPP
-#define H_EXTENSIONS_CUTEHMI_MODBUS_2_INCLUDE_CUTEHMI_MODBUS_LOGGING_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_LOGGINGCATEGORYCHECK_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_LOGGINGCATEGORYCHECK_HPP
 
-#include "internal/platform.hpp"
-#include <cutehmi/loggingMacros.hpp>
+#include "platform.hpp"
+#include "../metadata.hpp"
 
-CUTEHMI_MODBUS_API Q_DECLARE_LOGGING_CATEGORY(cutehmi_modbus_loggingCategory)
+#include <QtDebug>
+#include <QLoggingCategory>
 
 namespace cutehmi {
-namespace modbus {
+namespace internal {
+
+/**
+ * Logging category check.
+ */
+class CUTEHMI_API LoggingCategoryCheck
+{
+	public:
+		explicit LoggingCategoryCheck(const QLoggingCategory & loggingCategory);
+};
 
 inline
-const QLoggingCategory & loggingCategory()
+LoggingCategoryCheck::LoggingCategoryCheck(const QLoggingCategory & loggingCategory)
 {
-	CUTEHMI_LOGGING_CATEGORY_CHECK(cutehmi_modbus_loggingCategory());
-	return cutehmi_modbus_loggingCategory();
+	if (!loggingCategory.isInfoEnabled()
+#ifndef CUTEHMI_NDEBUG
+			|| !loggingCategory.isDebugEnabled()
+#endif
+			|| !loggingCategory.isWarningEnabled()
+			|| !loggingCategory.isCriticalEnabled())
+		qCWarning(QLoggingCategory(CUTEHMI_NAME ".LoggingCategoryCheck")).nospace().noquote() << "Logging for category '" << loggingCategory.categoryName() << "' has been disabled!";
 }
 
 }
@@ -21,7 +36,7 @@ const QLoggingCategory & loggingCategory()
 
 #endif
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
