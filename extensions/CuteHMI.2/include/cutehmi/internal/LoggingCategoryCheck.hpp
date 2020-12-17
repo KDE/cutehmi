@@ -1,5 +1,5 @@
-#ifndef LOGGINGCATEGORYCHECK_HPP
-#define LOGGINGCATEGORYCHECK_HPP
+#ifndef H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_LOGGINGCATEGORYCHECK_HPP
+#define H_EXTENSIONS_CUTEHMI_2_INCLUDE_CUTEHMI_INTERNAL_LOGGINGCATEGORYCHECK_HPP
 
 #include "platform.hpp"
 #include "../metadata.hpp"
@@ -34,4 +34,4 @@ LoggingCategoryCheck::LoggingCategoryCheck(const QLoggingCategory & loggingCateg
 }
 }
 
-#endif // LOGGINGCATEGORYCHECK_HPP
+#endif
