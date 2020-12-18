@@ -1,4 +1,5 @@
 import qbs
+import qbs.File
 import qbs.FileInfo
 import qbs.TextFile
 
@@ -53,7 +54,7 @@ Module {
 			proCmd.description = 'generating ' + output.filePath
 			proCmd.highlight = 'codegen';
 			proCmd.sourceCode = function() {
-				var f = new TextFile(output.filePath, TextFile.WriteOnly);
+				var f = new TextFile(output.filePath, TextFile.WriteOnly)
 				try {
 					f.writeLine("lupdate_only {")
 					if (inputs["hpp"] !== undefined)
@@ -74,8 +75,12 @@ Module {
 					if (inputs["ts"] !== undefined)
 						for (var i = 0; i < inputs["ts"].length; i++)
 							f.writeLine("TRANSLATIONS += " + FileInfo.relativePath(product.sourceDirectory, inputs["ts"][i].filePath))
-					for (var i = 0; i < product.cutehmi.i18n.additionalTranslations.length; i++)
+					for (var i = 0; i < product.cutehmi.i18n.additionalTranslations.length; i++) {
+						var targetDirectory = product.sourceDirectory + "/" + FileInfo.path(product.cutehmi.i18n.additionalTranslations[i])
+						if (!File.exists(targetDirectory))
+							console.error("Directory '" + targetDirectory + "' does not exists. Please create it.")
 						f.writeLine("TRANSLATIONS += " + product.cutehmi.i18n.additionalTranslations[i])
+					}
 				} finally {
 					f.close()
 				}
