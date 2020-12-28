@@ -33,7 +33,11 @@ class CUTEHMI_API NotificationListModel:
 
 		QHash<int, QByteArray> roleNames() const override;
 
+		void append(std::unique_ptr<Notification> notification);
+
 		void prepend(std::unique_ptr<Notification> notification);
+
+		void removeFirst(int num = 1);
 
 		void removeLast(int num = 1);
 

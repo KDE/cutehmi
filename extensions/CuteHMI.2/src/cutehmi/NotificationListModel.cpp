@@ -24,7 +24,7 @@ int NotificationListModel::rowCount(const QModelIndex & parent) const
 QVariant NotificationListModel::data(const QModelIndex & index, int role) const
 {
 	if (!index.isValid())
-		 return QVariant();
+		return QVariant();
 
 	if (role == Qt::DisplayRole)
 		return m->notifications.at(index.row())->text();
@@ -46,11 +46,33 @@ QHash<int, QByteArray> NotificationListModel::roleNames() const
 	return result;
 }
 
+void NotificationListModel::append(std::unique_ptr<Notification> notification)
+{
+	beginInsertRows(QModelIndex(), m->notifications.count(), m->notifications.count());
+	m->notifications.append(notification.release());
+	endInsertRows();
+}
+
 void NotificationListModel::prepend(std::unique_ptr<Notification> notification)
 {
 	beginInsertRows(QModelIndex(), 0, 0);
 	m->notifications.prepend(notification.release());
 	endInsertRows();
+}
+
+void NotificationListModel::removeFirst(int num)
+{
+	CUTEHMI_ASSERT(num >= 0, QString("parameter value must be non-negative (given '%1')").arg(num).toLocal8Bit().constData());
+
+	if (num <= 0)
+		return;
+
+	beginRemoveRows(QModelIndex(), 0, num - 1);
+	while (num > 0) {
+		delete m->notifications.takeFirst();
+		num--;
+	}
+	endRemoveRows();
 }
 
 void NotificationListModel::removeLast(int num)

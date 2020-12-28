@@ -25,6 +25,7 @@ class CUTEHMI_API Notifier:
 
 	public:
 		Q_PROPERTY(NotificationListModel * model READ model CONSTANT)
+
 		Q_PROPERTY(int maxNotifications READ maxNotifications WRITE setMaxNotifications NOTIFY maxNotificationsChanged)
 
 		NotificationListModel * model() const;
@@ -47,6 +48,8 @@ class CUTEHMI_API Notifier:
 
 	signals:
 		void maxNotificationsChanged();
+
+		void notificationAdded();
 
 	protected:
 		explicit Notifier(QObject * parent = nullptr);
