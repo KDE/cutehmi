@@ -15,7 +15,15 @@ class CUTEHMI_GUI_API Fonts:
 		Q_OBJECT
 
 	public:
+		/**
+		  Monospace font.
+		  */
 		Q_PROPERTY(QFont monospace READ monospace WRITE setMonospace NOTIFY monospaceChanged RESET resetMonospace)
+
+		/**
+		  Standard font.
+		  */
+		Q_PROPERTY(QFont standard READ standard WRITE setStandard NOTIFY standardChanged RESET resetStandard)
 
 		Fonts(QObject * parent = nullptr);
 
@@ -25,15 +33,26 @@ class CUTEHMI_GUI_API Fonts:
 
 		void resetMonospace();
 
+		QFont standard() const;
+
+		void setStandard(QFont standard);
+
+		void resetStandard();
+
 	signals:
 		void monospaceChanged();
+
+		void standardChanged();
 
 	protected:
 		QFont & DefaultMonospace();
 
+		QFont & DefaultStandard();
+
 	private:
 		struct Members {
 			QFont monospace;
+			QFont proportional;
 		};
 
 		MPtr<Members> m;

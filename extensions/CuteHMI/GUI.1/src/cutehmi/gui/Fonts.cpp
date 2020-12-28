@@ -29,6 +29,24 @@ void Fonts::resetMonospace()
 	m->monospace = DefaultMonospace();
 }
 
+QFont Fonts::standard() const
+{
+	return m->proportional;
+}
+
+void Fonts::setStandard(QFont proportional)
+{
+	if (m->proportional != proportional) {
+		m->proportional = proportional;
+		emit standardChanged();
+	}
+}
+
+void Fonts::resetStandard()
+{
+	m->proportional = DefaultStandard();
+}
+
 QFont & Fonts::DefaultMonospace()
 {
 	static QFont monospace;
@@ -54,6 +72,33 @@ QFont & Fonts::DefaultMonospace()
 		monospace.setFamily(monospaceFamily);
 
 	return monospace;
+}
+
+QFont & Fonts::DefaultStandard()
+{
+	static QFont standard;
+
+	//<CuteHMI.GUI-2.workaround target="Qt" cause="bug">
+	// Look for available proportional family manually.
+	QFontDatabase fontDatabase;
+	QStringList availableFamilies = fontDatabase.families();
+	QStringList proportionalSansFamilies({"Droid Sans",
+					"Verdana",
+					"Open Sans",
+					"Liberation Sans",
+					"Arial"});
+	QString proportionalFamily;
+	for (auto it = proportionalSansFamilies.begin(); it != proportionalSansFamilies.end(); ++it)
+		if (availableFamilies.contains(*it)) {
+			proportionalFamily = *it;
+			break;
+		}
+	//</CuteHMI.GUI-2.workaround>
+
+	if (!proportionalFamily.isNull())
+		standard.setFamily(proportionalFamily);
+
+	return standard;
 }
 
 }
