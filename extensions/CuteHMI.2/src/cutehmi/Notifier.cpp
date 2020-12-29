@@ -23,7 +23,7 @@ void Notifier::setMaxNotifications(int maxNotifications)
 	if (m->maxNotifications != maxNotifications) {
 		m->maxNotifications = maxNotifications;
 		if (m->model->rowCount() > maxNotifications)
-			m->model->removeLast(m->model->rowCount() - maxNotifications);
+			m->model->removeFirst(m->model->rowCount() - maxNotifications);
 		emit maxNotificationsChanged();
 	}
 }
@@ -47,10 +47,12 @@ void Notifier::add(Notification * notification_l)
 			CUTEHMI_CRITICAL("[NOTIFICATION] " << notification_l->text());
 	}
 
-	m->model->prepend(notification_l->clone());
+	m->model->append(notification_l->clone());
 
 	if (m->model->rowCount() > maxNotifications())
-		m->model->removeLast();
+		m->model->removeFirst();
+
+	emit notificationAdded();
 }
 
 void Notifier::clear()
