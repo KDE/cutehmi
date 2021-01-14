@@ -1,5 +1,5 @@
 #include "QMLPlugin.hpp"
-//#include "qqmlsettings_p.h"
+#include "qqmlsettings_p.h"
 
 #include <cutehmi/workarounds/qt/labs/settings/metadata.hpp>
 
@@ -43,7 +43,7 @@ void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.Workarounds.Qt.labs.settings"));
 
-	qmlRegisterType<QObject>(uri, CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_MAJOR, 0, "Settings");
+	qmlRegisterType<QQmlSettings>(uri, CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_MAJOR, 0, "Settings");
 }
 
 }

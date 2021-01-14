@@ -56,46 +56,58 @@
 #include <QtCore/qscopedpointer.h>
 #include <QtQml/qqmlparserstatus.h>
 
-QT_BEGIN_NAMESPACE
+namespace cutehmi {
+namespace workarounds {
+namespace qt {
+namespace labs {
+namespace settings {
+namespace internal {
 
 class QQmlSettingsPrivate;
 
 class QQmlSettings : public QObject, public QQmlParserStatus
 {
-    Q_OBJECT
-    Q_INTERFACES(QQmlParserStatus)
-    Q_PROPERTY(QString category READ category WRITE setCategory FINAL)
-    Q_PROPERTY(QString fileName READ fileName WRITE setFileName FINAL)
+		Q_OBJECT
+		Q_INTERFACES(QQmlParserStatus)
+		Q_PROPERTY(QString category READ category WRITE setCategory FINAL)
+		Q_PROPERTY(QString fileName READ fileName WRITE setFileName FINAL)
 
-public:
-    explicit QQmlSettings(QObject *parent = 0);
-    ~QQmlSettings();
+	public:
+		explicit QQmlSettings(QObject * parent = nullptr);
+		~QQmlSettings() override;
 
-    QString category() const;
-    void setCategory(const QString &category);
+		QString category() const;
+		void setCategory(const QString & category);
 
-    QString fileName() const;
-    void setFileName(const QString &fileName);
+		QString fileName() const;
+		void setFileName(const QString & fileName);
 
-    Q_INVOKABLE QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;
-    Q_INVOKABLE void setValue(const QString &key, const QVariant &value);
-    Q_INVOKABLE void sync();
+		Q_INVOKABLE QVariant value(const QString & key, const QVariant & defaultValue = QVariant()) const;
+		Q_INVOKABLE void setValue(const QString & key, const QVariant & value);
+		Q_INVOKABLE void sync();
+		Q_INVOKABLE void remove(const QString & key);
+		Q_INVOKABLE void clear();
 
-protected:
-    void timerEvent(QTimerEvent *event) override;
+	protected:
+		void timerEvent(QTimerEvent * event) override;
 
-    void classBegin() override;
-    void componentComplete() override;
+		void classBegin() override;
+		void componentComplete() override;
 
-private:
-    Q_DISABLE_COPY(QQmlSettings)
-    Q_DECLARE_PRIVATE(QQmlSettings)
-    QScopedPointer<QQmlSettingsPrivate> d_ptr;
-    Q_PRIVATE_SLOT(d_func(), void _q_propertyChanged())
+	private:
+		Q_DISABLE_COPY(QQmlSettings)
+		Q_DECLARE_PRIVATE(QQmlSettings)
+		QScopedPointer<QQmlSettingsPrivate> d_ptr;
+		Q_PRIVATE_SLOT(d_func(), void _q_propertyChanged())
 };
 
-QT_END_NAMESPACE
+}
+}
+}
+}
+}
+}
 
-QML_DECLARE_TYPE(QQmlSettings)
+QML_DECLARE_TYPE(cutehmi::workarounds::qt::labs::settings::internal::QQmlSettings)
 
 #endif // QQMLSETTINGS_P_H

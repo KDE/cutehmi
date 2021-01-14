@@ -48,410 +48,415 @@
 #include <qdebug.h>
 #include <qhash.h>
 
-QT_BEGIN_NAMESPACE
+#include <cutehmi/workarounds/qt/labs/settings/logging.hpp>
+
+namespace cutehmi {
+namespace workarounds {
+namespace qt {
+namespace labs {
+namespace settings {
+namespace internal {
 
 /*!
-    \qmlmodule Qt.labs.settings 1.0
-    \title Qt Labs Settings QML Types
-    \ingroup qmlmodules
-    \brief Provides persistent platform-independent application settings.
+	\qmlmodule Qt.labs.settings 1.0
+	\title Qt Labs Settings QML Types
+	\ingroup qmlmodules
+	\brief Provides persistent platform-independent application settings.
 
-    To use this module, import the module with the following line:
+	To use this module, import the module with the following line:
 
-    \code
-    import Qt.labs.settings 1.0
-    \endcode
+	\code
+	import Qt.labs.settings 1.0
+	\endcode
 */
 
 /*!
-    \qmltype Settings
-    \instantiates QQmlSettings
-    \inqmlmodule Qt.labs.settings
-    \ingroup settings
-    \brief Provides persistent platform-independent application settings.
+	\qmltype Settings
+	\instantiates QQmlSettings
+	\inqmlmodule Qt.labs.settings
+	\ingroup settings
+	\brief Provides persistent platform-independent application settings.
 
-    The Settings type provides persistent platform-independent application settings.
+	The Settings type provides persistent platform-independent application settings.
 
-    \note This type is made available by importing the \b Qt.labs.settings module.
-    \e {Types in the Qt.labs module are not guaranteed to remain compatible
-    in future versions.}
+	\note This type is made available by importing the \b Qt.labs.settings module.
+	\e {Types in the Qt.labs module are not guaranteed to remain compatible
+	in future versions.}
 
-    Users normally expect an application to remember its settings (window sizes
-    and positions, options, etc.) across sessions. The Settings type enables you
-    to save and restore such application settings with the minimum of effort.
+	Users normally expect an application to remember its settings (window sizes
+	and positions, options, etc.) across sessions. The Settings type enables you
+	to save and restore such application settings with the minimum of effort.
 
-    Individual setting values are specified by declaring properties within a
-    Settings element. All \l {QML Basic Types}{basic type} properties are
-    supported. The recommended approach is to use property aliases in order
-    to get automatic property updates both ways. The following example shows
-    how to use Settings to store and restore the geometry of a window.
+	Individual setting values are specified by declaring properties within a
+	Settings element. All \l {QML Basic Types}{basic type} properties are
+	supported. The recommended approach is to use property aliases in order
+	to get automatic property updates both ways. The following example shows
+	how to use Settings to store and restore the geometry of a window.
 
-    \qml
-    import QtQuick.Window 2.1
-    import Qt.labs.settings 1.0
+	\qml
+	import QtQuick.Window 2.1
+	import Qt.labs.settings 1.0
 
-    Window {
-        id: window
+	Window {
+		id: window
 
-        width: 800
-        height: 600
+		width: 800
+		height: 600
 
-        Settings {
-            property alias x: window.x
-            property alias y: window.y
-            property alias width: window.width
-            property alias height: window.height
-        }
-    }
-    \endqml
+		Settings {
+			property alias x: window.x
+			property alias y: window.y
+			property alias width: window.width
+			property alias height: window.height
+		}
+	}
+	\endqml
 
-    At first application startup, the window gets default dimensions specified
-    as 800x600. Notice that no default position is specified - we let the window
-    manager handle that. Later when the window geometry changes, new values will
-    be automatically stored to the persistent settings. The second application
-    run will get initial values from the persistent settings, bringing the window
-    back to the previous position and size.
+	At first application startup, the window gets default dimensions specified
+	as 800x600. Notice that no default position is specified - we let the window
+	manager handle that. Later when the window geometry changes, new values will
+	be automatically stored to the persistent settings. The second application
+	run will get initial values from the persistent settings, bringing the window
+	back to the previous position and size.
 
-    A fully declarative syntax, achieved by using property aliases, comes at the
-    cost of storing persistent settings whenever the values of aliased properties
-    change. Normal properties can be used to gain more fine-grained control over
-    storing the persistent settings. The following example illustrates how to save
-    a setting on component destruction.
+	A fully declarative syntax, achieved by using property aliases, comes at the
+	cost of storing persistent settings whenever the values of aliased properties
+	change. Normal properties can be used to gain more fine-grained control over
+	storing the persistent settings. The following example illustrates how to save
+	a setting on component destruction.
 
-    \qml
-    import QtQuick 2.1
-    import Qt.labs.settings 1.0
+	\qml
+	import QtQuick 2.1
+	import Qt.labs.settings 1.0
 
-    Item {
-        id: page
+	Item {
+		id: page
 
-        state: settings.state
+		state: settings.state
 
-        states: [
-            State {
-                name: "active"
-                // ...
-            },
-            State {
-                name: "inactive"
-                // ...
-            }
-        ]
+		states: [
+			State {
+				name: "active"
+				// ...
+			},
+			State {
+				name: "inactive"
+				// ...
+			}
+		]
 
-        Settings {
-            id: settings
-            property string state: "active"
-        }
+		Settings {
+			id: settings
+			property string state: "active"
+		}
 
-        Component.onDestruction: {
-            settings.state = page.state
-        }
-    }
-    \endqml
+		Component.onDestruction: {
+			settings.state = page.state
+		}
+	}
+	\endqml
 
-    Notice how the default value is now specified in the persistent setting property,
-    and the actual property is bound to the setting in order to get the initial value
-    from the persistent settings.
+	Notice how the default value is now specified in the persistent setting property,
+	and the actual property is bound to the setting in order to get the initial value
+	from the persistent settings.
 
-    \section1 Application Identifiers
+	\section1 Application Identifiers
 
-    Application specific settings are identified by providing application
-    \l {QCoreApplication::applicationName}{name},
-    \l {QCoreApplication::organizationName}{organization} and
-    \l {QCoreApplication::organizationDomain}{domain}, or by specifying
-    \l fileName.
+	Application specific settings are identified by providing application
+	\l {QCoreApplication::applicationName}{name},
+	\l {QCoreApplication::organizationName}{organization} and
+	\l {QCoreApplication::organizationDomain}{domain}, or by specifying
+	\l fileName.
 
-    \code
-    #include <QGuiApplication>
-    #include <QQmlApplicationEngine>
+	\code
+	#include <QGuiApplication>
+	#include <QQmlApplicationEngine>
 
-    int main(int argc, char *argv[])
-    {
-        QGuiApplication app(argc, argv);
-        app.setOrganizationName("Some Company");
-        app.setOrganizationDomain("somecompany.com");
-        app.setApplicationName("Amazing Application");
+	int main(int argc, char *argv[])
+	{
+		QGuiApplication app(argc, argv);
+		app.setOrganizationName("Some Company");
+		app.setOrganizationDomain("somecompany.com");
+		app.setApplicationName("Amazing Application");
 
-        QQmlApplicationEngine engine("main.qml");
-        return app.exec();
-    }
-    \endcode
+		QQmlApplicationEngine engine("main.qml");
+		return app.exec();
+	}
+	\endcode
 
-    These are typically specified in C++ in the beginning of \c main(),
-    but can also be controlled in QML via the following properties:
-    \list
-        \li \l {Qt::application}{Qt.application.name},
-        \li \l {Qt::application}{Qt.application.organization} and
-        \li \l {Qt::application}{Qt.application.domain}.
-    \endlist
+	These are typically specified in C++ in the beginning of \c main(),
+	but can also be controlled in QML via the following properties:
+	\list
+		\li \l {Qt::application}{Qt.application.name},
+		\li \l {Qt::application}{Qt.application.organization} and
+		\li \l {Qt::application}{Qt.application.domain}.
+	\endlist
 
-    \section1 Categories
+	\section1 Categories
 
-    Application settings may be divided into logical categories by specifying
-    a category name via the \l category property. Using logical categories not
-    only provides a cleaner settings structure, but also prevents possible
-    conflicts between setting keys.
+	Application settings may be divided into logical categories by specifying
+	a category name via the \l category property. Using logical categories not
+	only provides a cleaner settings structure, but also prevents possible
+	conflicts between setting keys.
 
-    If several categories are required, use several Settings objects, each with
-    their own category:
+	If several categories are required, use several Settings objects, each with
+	their own category:
 
-    \qml
-    Item {
-        id: panel
+	\qml
+	Item {
+		id: panel
 
-        visible: true
+		visible: true
 
-        Settings {
-            category: "OutputPanel"
-            property alias visible: panel.visible
-            // ...
-        }
+		Settings {
+			category: "OutputPanel"
+			property alias visible: panel.visible
+			// ...
+		}
 
-        Settings {
-            category: "General"
-            property alias fontSize: fontSizeSpinBox.value
-            // ...
-        }
-    }
-    \endqml
+		Settings {
+			category: "General"
+			property alias fontSize: fontSizeSpinBox.value
+			// ...
+		}
+	}
+	\endqml
 
-    Instead of ensuring that all settings in the application have unique names,
-    the settings can be divided into unique categories that may then contain
-    settings using the same names that are used in other categories - without
-    a conflict.
+	Instead of ensuring that all settings in the application have unique names,
+	the settings can be divided into unique categories that may then contain
+	settings using the same names that are used in other categories - without
+	a conflict.
 
-    \section1 Notes
+	\section1 Notes
 
-    The current implementation is based on \l QSettings. This imposes certain
-    limitations, such as missing change notifications. Writing a setting value
-    using one instance of Settings does not update the value in another Settings
-    instance, even if they are referring to the same setting in the same category.
+	The current implementation is based on \l QSettings. This imposes certain
+	limitations, such as missing change notifications. Writing a setting value
+	using one instance of Settings does not update the value in another Settings
+	instance, even if they are referring to the same setting in the same category.
 
-    The information is stored in the system registry on Windows, and in XML
-    preferences files on \macos. On other Unix systems, in the absence of a
-    standard, INI text files are used. See \l QSettings documentation for
-    more details.
+	The information is stored in the system registry on Windows, and in XML
+	preferences files on \macos. On other Unix systems, in the absence of a
+	standard, INI text files are used. See \l QSettings documentation for
+	more details.
 
-    \sa QSettings
+	\sa QSettings
 */
-
-Q_LOGGING_CATEGORY(lcSettings, "qt.labs.settings")
 
 static const int settingsWriteDelay = 500;
 
 class QQmlSettingsPrivate
 {
-    Q_DECLARE_PUBLIC(QQmlSettings)
+		Q_DECLARE_PUBLIC(QQmlSettings)
 
-public:
-    QQmlSettingsPrivate();
+	public:
+		QQmlSettingsPrivate();
 
-    QSettings *instance() const;
+		QSettings * instance() const;
 
-    void init();
-    void reset();
+		void init();
+		void reset();
 
-    void load();
-    void store();
+		void load();
+		void store();
 
-    void _q_propertyChanged();
-    QVariant readProperty(const QMetaProperty &property) const;
+		void _q_propertyChanged();
+		QVariant readProperty(const QMetaProperty & property) const;
 
-    QQmlSettings *q_ptr = nullptr;
-    int timerId = 0;
-    bool initialized = false;
-    QString category;
-    QString fileName;
-    mutable QPointer<QSettings> settings;
-    QHash<const char *, QVariant> changedProperties;
+		QQmlSettings * q_ptr = nullptr;
+		int timerId = 0;
+		bool initialized = false;
+		QString category;
+		QString fileName;
+		mutable QPointer<QSettings> settings;
+		QHash<const char *, QVariant> changedProperties;
 };
 
 QQmlSettingsPrivate::QQmlSettingsPrivate() {}
 
-QSettings *QQmlSettingsPrivate::instance() const
+QSettings * QQmlSettingsPrivate::instance() const
 {
-    if (!settings) {
-        QQmlSettings *q = const_cast<QQmlSettings*>(q_func());
-        settings = fileName.isEmpty() ? new QSettings(q) : new QSettings(fileName, QSettings::IniFormat, q);
-        if (settings->status() != QSettings::NoError) {
-            // TODO: can't print out the enum due to the following error:
-            // error: C2666: 'QQmlInfo::operator <<': 15 overloads have similar conversions
-            qmlWarning(q) << "Failed to initialize QSettings instance. Status code is: " << int(settings->status());
+	if (!settings) {
+		QQmlSettings * q = const_cast<QQmlSettings *>(q_func());
+		settings = fileName.isEmpty() ? new QSettings(q) : new QSettings(fileName, QSettings::IniFormat, q);
+		if (settings->status() != QSettings::NoError) {
+			// TODO: can't print out the enum due to the following error:
+			// error: C2666: 'QQmlInfo::operator <<': 15 overloads have similar conversions
+			qmlWarning(q) << "Failed to initialize QSettings instance. Status code is: " << int(settings->status());
 
-            if (settings->status() == QSettings::AccessError) {
-                QVector<QString> missingIdentifiers;
-                if (QCoreApplication::organizationName().isEmpty())
-                    missingIdentifiers.append(QLatin1String("organizationName"));
-                if (QCoreApplication::organizationDomain().isEmpty())
-                    missingIdentifiers.append(QLatin1String("organizationDomain"));
-                if (QCoreApplication::applicationName().isEmpty())
-                    missingIdentifiers.append(QLatin1String("applicationName"));
+			if (settings->status() == QSettings::AccessError) {
+				QVector<QString> missingIdentifiers;
+				if (QCoreApplication::organizationName().isEmpty())
+					missingIdentifiers.append(QLatin1String("organizationName"));
+				if (QCoreApplication::organizationDomain().isEmpty())
+					missingIdentifiers.append(QLatin1String("organizationDomain"));
+				if (QCoreApplication::applicationName().isEmpty())
+					missingIdentifiers.append(QLatin1String("applicationName"));
 
-                if (!missingIdentifiers.isEmpty())
-                    qmlWarning(q) << "The following application identifiers have not been set: " << missingIdentifiers;
-            }
-            return settings;
-        }
+				if (!missingIdentifiers.isEmpty())
+					qmlWarning(q) << "The following application identifiers have not been set: " << missingIdentifiers;
+			}
+			return settings;
+		}
 
-        if (!category.isEmpty())
-            settings->beginGroup(category);
-        if (initialized)
-            q->d_func()->load();
-    }
-    return settings;
+		if (!category.isEmpty())
+			settings->beginGroup(category);
+		if (initialized)
+			q->d_func()->load();
+	}
+	return settings;
 }
 
 void QQmlSettingsPrivate::init()
 {
-    if (!initialized) {
-        qCDebug(lcSettings) << "QQmlSettings: stored at" << instance()->fileName();
-        load();
-        initialized = true;
-    }
+	if (!initialized) {
+		CUTEHMI_DEBUG("QQmlSettings: stored at" << instance()->fileName());
+		load();
+		initialized = true;
+	}
 }
 
 void QQmlSettingsPrivate::reset()
 {
-    if (initialized && settings && !changedProperties.isEmpty())
-        store();
-    delete settings;
+	if (initialized && settings && !changedProperties.isEmpty())
+		store();
+	delete settings;
 }
 
 void QQmlSettingsPrivate::load()
 {
-    Q_Q(QQmlSettings);
-    const QMetaObject *mo = q->metaObject();
-    const int offset = mo->propertyOffset();
-    const int count = mo->propertyCount();
+	Q_Q(QQmlSettings);
+	const QMetaObject * mo = q->metaObject();
+	const int offset = mo->propertyOffset();
+	const int count = mo->propertyCount();
 
-    // don't save built-in properties if there aren't any qml properties
-    if (offset == 1)
-        return;
+	// don't save built-in properties if there aren't any qml properties
+	if (offset == 1)
+		return;
 
-    for (int i = offset; i < count; ++i) {
-        QMetaProperty property = mo->property(i);
+	for (int i = offset; i < count; ++i) {
+		QMetaProperty property = mo->property(i);
 
-        const QVariant previousValue = readProperty(property);
-        const QVariant currentValue = instance()->value(property.name(), previousValue);
+		const QVariant previousValue = readProperty(property);
+		const QVariant currentValue = instance()->value(property.name(), previousValue);
 
-        if (!currentValue.isNull() && (!previousValue.isValid()
-                || (currentValue.canConvert(previousValue.type()) && previousValue != currentValue))) {
-            property.write(q, currentValue);
-            qCDebug(lcSettings) << "QQmlSettings: load" << property.name() << "setting:" << currentValue << "default:" << previousValue;
-        }
+		if (!currentValue.isNull() && (!previousValue.isValid()
+						|| (currentValue.canConvert(previousValue.type()) && previousValue != currentValue))) {
+			property.write(q, currentValue);
+			CUTEHMI_DEBUG("QQmlSettings: load" << property.name() << "setting:" << currentValue << "default:" << previousValue);
+		}
 
-        // ensure that a non-existent setting gets written
-        // even if the property wouldn't change later
-        if (!instance()->contains(property.name()))
-            _q_propertyChanged();
+		// ensure that a non-existent setting gets written
+		// even if the property wouldn't change later
+		if (!instance()->contains(property.name()))
+			_q_propertyChanged();
 
-        // setup change notifications on first load
-        if (!initialized && property.hasNotifySignal()) {
-            static const int propertyChangedIndex = mo->indexOfSlot("_q_propertyChanged()");
-            QMetaObject::connect(q, property.notifySignalIndex(), q, propertyChangedIndex);
-        }
-    }
+		// setup change notifications on first load
+		if (!initialized && property.hasNotifySignal()) {
+			static const int propertyChangedIndex = mo->indexOfSlot("_q_propertyChanged()");
+			QMetaObject::connect(q, property.notifySignalIndex(), q, propertyChangedIndex);
+		}
+	}
 }
 
 void QQmlSettingsPrivate::store()
 {
-    QHash<const char *, QVariant>::const_iterator it = changedProperties.constBegin();
-    while (it != changedProperties.constEnd()) {
-        instance()->setValue(it.key(), it.value());
-        qCDebug(lcSettings) << "QQmlSettings: store" << it.key() << ":" << it.value();
-        ++it;
-    }
-    changedProperties.clear();
+	QHash<const char *, QVariant>::const_iterator it = changedProperties.constBegin();
+	while (it != changedProperties.constEnd()) {
+		instance()->setValue(it.key(), it.value());
+		CUTEHMI_DEBUG("QQmlSettings: store" << it.key() << ":" << it.value());
+		++it;
+	}
+	changedProperties.clear();
 }
 
 void QQmlSettingsPrivate::_q_propertyChanged()
 {
-    Q_Q(QQmlSettings);
-    const QMetaObject *mo = q->metaObject();
-    const int offset = mo->propertyOffset();
-    const int count = mo->propertyCount();
-    for (int i = offset; i < count; ++i) {
-        const QMetaProperty &property = mo->property(i);
-        const QVariant value = readProperty(property);
-        changedProperties.insert(property.name(), value);
-        qCDebug(lcSettings) << "QQmlSettings: cache" << property.name() << ":" << value;
-    }
-    if (timerId != 0)
-        q->killTimer(timerId);
-    timerId = q->startTimer(settingsWriteDelay);
+	Q_Q(QQmlSettings);
+	const QMetaObject * mo = q->metaObject();
+	const int offset = mo->propertyOffset();
+	const int count = mo->propertyCount();
+	for (int i = offset; i < count; ++i) {
+		const QMetaProperty & property = mo->property(i);
+		const QVariant value = readProperty(property);
+		changedProperties.insert(property.name(), value);
+		CUTEHMI_DEBUG("QQmlSettings: cache" << property.name() << ":" << value);
+	}
+	if (timerId != 0)
+		q->killTimer(timerId);
+	timerId = q->startTimer(settingsWriteDelay);
 }
 
-QVariant QQmlSettingsPrivate::readProperty(const QMetaProperty &property) const
+QVariant QQmlSettingsPrivate::readProperty(const QMetaProperty & property) const
 {
-    Q_Q(const QQmlSettings);
-    QVariant var = property.read(q);
-    if (var.userType() == qMetaTypeId<QJSValue>())
-        var = var.value<QJSValue>().toVariant();
-    return var;
+	Q_Q(const QQmlSettings);
+	QVariant var = property.read(q);
+	if (var.userType() == qMetaTypeId<QJSValue>())
+		var = var.value<QJSValue>().toVariant();
+	return var;
 }
 
-QQmlSettings::QQmlSettings(QObject *parent)
-    : QObject(parent), d_ptr(new QQmlSettingsPrivate)
+QQmlSettings::QQmlSettings(QObject * parent)
+	: QObject(parent), d_ptr(new QQmlSettingsPrivate)
 {
-    Q_D(QQmlSettings);
-    d->q_ptr = this;
+	Q_D(QQmlSettings);
+	d->q_ptr = this;
 }
 
 QQmlSettings::~QQmlSettings()
 {
-    Q_D(QQmlSettings);
-    d->reset(); // flush pending changes
+	Q_D(QQmlSettings);
+	d->reset(); // flush pending changes
 }
 
 /*!
-    \qmlproperty string Settings::category
+	\qmlproperty string Settings::category
 
-    This property holds the name of the settings category.
+	This property holds the name of the settings category.
 
-    Categories can be used to group related settings together.
+	Categories can be used to group related settings together.
 */
 QString QQmlSettings::category() const
 {
-    Q_D(const QQmlSettings);
-    return d->category;
+	Q_D(const QQmlSettings);
+	return d->category;
 }
 
-void QQmlSettings::setCategory(const QString &category)
+void QQmlSettings::setCategory(const QString & category)
 {
-    Q_D(QQmlSettings);
-    if (d->category != category) {
-        d->reset();
-        d->category = category;
-        if (d->initialized)
-            d->load();
-    }
+	Q_D(QQmlSettings);
+	if (d->category != category) {
+		d->reset();
+		d->category = category;
+		if (d->initialized)
+			d->load();
+	}
 }
 
 /*!
-    \qmlproperty string Settings::fileName
+	\qmlproperty string Settings::fileName
 
-    This property holds the path to the settings file. If the file doesn't
-    already exist, it is created.
+	This property holds the path to the settings file. If the file doesn't
+	already exist, it is created.
 
-    \since Qt 5.12
+	\since Qt 5.12
 
-    \sa QSettings::fileName, QSettings::IniFormat
+	\sa QSettings::fileName, QSettings::IniFormat
 */
 QString QQmlSettings::fileName() const
 {
-    Q_D(const QQmlSettings);
-    return d->fileName;
+	Q_D(const QQmlSettings);
+	return d->fileName;
 }
 
-void QQmlSettings::setFileName(const QString &fileName)
+void QQmlSettings::setFileName(const QString & fileName)
 {
-    Q_D(QQmlSettings);
-    if (d->fileName != fileName) {
-        d->reset();
-        d->fileName = fileName;
-        if (d->initialized)
-            d->load();
-    }
+	Q_D(QQmlSettings);
+	if (d->fileName != fileName) {
+		d->reset();
+		d->fileName = fileName;
+		if (d->initialized)
+			d->load();
+	}
 }
 
 /*!
@@ -464,10 +469,10 @@ void QQmlSettings::setFileName(const QString &fileName)
 
    \sa QSettings::value
 */
-QVariant QQmlSettings::value(const QString &key, const QVariant &defaultValue) const
+QVariant QQmlSettings::value(const QString & key, const QVariant & defaultValue) const
 {
-    Q_D(const QQmlSettings);
-    return d->instance()->value(key, defaultValue);
+	Q_D(const QQmlSettings);
+	return d->instance()->value(key, defaultValue);
 }
 
 /*!
@@ -480,30 +485,42 @@ QVariant QQmlSettings::value(const QString &key, const QVariant &defaultValue) c
 
    \sa QSettings::setValue
 */
-void QQmlSettings::setValue(const QString &key, const QVariant &value)
+void QQmlSettings::setValue(const QString & key, const QVariant & value)
 {
-    Q_D(const QQmlSettings);
-    d->instance()->setValue(key, value);
-    qCDebug(lcSettings) << "QQmlSettings: setValue" << key << ":" << value;
+	Q_D(const QQmlSettings);
+	d->instance()->setValue(key, value);
+	CUTEHMI_DEBUG("QQmlSettings: setValue" << key << ":" << value);
 }
 
 /*!
    \qmlmethod Settings::sync()
 
-    Writes any unsaved changes to permanent storage, and reloads any
-    settings that have been changed in the meantime by another
-    application.
+	Writes any unsaved changes to permanent storage, and reloads any
+	settings that have been changed in the meantime by another
+	application.
 
-    This function is called automatically from QSettings's destructor and
-    by the event loop at regular intervals, so you normally don't need to
-    call it yourself.
+	This function is called automatically from QSettings's destructor and
+	by the event loop at regular intervals, so you normally don't need to
+	call it yourself.
 
    \sa QSettings::sync
 */
 void QQmlSettings::sync()
 {
-    Q_D(QQmlSettings);
-    d->instance()->sync();
+	Q_D(QQmlSettings);
+	d->instance()->sync();
+}
+
+void QQmlSettings::remove(const QString & key)
+{
+	Q_D(QQmlSettings);
+	d->instance()->remove(key);
+}
+
+void QQmlSettings::clear()
+{
+	Q_D(QQmlSettings);
+	d->instance()->clear();
 }
 
 void QQmlSettings::classBegin()
@@ -512,22 +529,27 @@ void QQmlSettings::classBegin()
 
 void QQmlSettings::componentComplete()
 {
-    Q_D(QQmlSettings);
-    d->init();
+	Q_D(QQmlSettings);
+	d->init();
 }
 
-void QQmlSettings::timerEvent(QTimerEvent *event)
+void QQmlSettings::timerEvent(QTimerEvent * event)
 {
-    Q_D(QQmlSettings);
-    if (event->timerId() == d->timerId) {
-        killTimer(d->timerId);
-        d->timerId = 0;
+	Q_D(QQmlSettings);
+	if (event->timerId() == d->timerId) {
+		killTimer(d->timerId);
+		d->timerId = 0;
 
-        d->store();
-    }
-    QObject::timerEvent(event);
+		d->store();
+	}
+	QObject::timerEvent(event);
 }
 
-QT_END_NAMESPACE
+}
+}
+}
+}
+}
+}
 
 #include "moc_qqmlsettings_p.cpp"
