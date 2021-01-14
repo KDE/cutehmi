@@ -309,7 +309,7 @@ QSettings * QQmlSettingsPrivate::instance() const
 void QQmlSettingsPrivate::init()
 {
 	if (!initialized) {
-		CUTEHMI_DEBUG("QQmlSettings: stored at" << instance()->fileName());
+		CUTEHMI_DEBUG("QQmlSettings: stored at " << instance()->fileName());
 		load();
 		initialized = true;
 	}
@@ -342,7 +342,7 @@ void QQmlSettingsPrivate::load()
 		if (!currentValue.isNull() && (!previousValue.isValid()
 						|| (currentValue.canConvert(previousValue.type()) && previousValue != currentValue))) {
 			property.write(q, currentValue);
-			CUTEHMI_DEBUG("QQmlSettings: load" << property.name() << "setting:" << currentValue << "default:" << previousValue);
+			CUTEHMI_DEBUG("QQmlSettings: load " << property.name() << " setting: " << currentValue << " default: " << previousValue);
 		}
 
 		// ensure that a non-existent setting gets written
@@ -363,7 +363,7 @@ void QQmlSettingsPrivate::store()
 	QHash<const char *, QVariant>::const_iterator it = changedProperties.constBegin();
 	while (it != changedProperties.constEnd()) {
 		instance()->setValue(it.key(), it.value());
-		CUTEHMI_DEBUG("QQmlSettings: store" << it.key() << ":" << it.value());
+		CUTEHMI_DEBUG("QQmlSettings: store " << it.key() << ": " << it.value());
 		++it;
 	}
 	changedProperties.clear();
@@ -379,7 +379,7 @@ void QQmlSettingsPrivate::_q_propertyChanged()
 		const QMetaProperty & property = mo->property(i);
 		const QVariant value = readProperty(property);
 		changedProperties.insert(property.name(), value);
-		CUTEHMI_DEBUG("QQmlSettings: cache" << property.name() << ":" << value);
+		CUTEHMI_DEBUG("QQmlSettings: cache " << property.name() << ": " << value);
 	}
 	if (timerId != 0)
 		q->killTimer(timerId);
@@ -489,7 +489,7 @@ void QQmlSettings::setValue(const QString & key, const QVariant & value)
 {
 	Q_D(const QQmlSettings);
 	d->instance()->setValue(key, value);
-	CUTEHMI_DEBUG("QQmlSettings: setValue" << key << ":" << value);
+	CUTEHMI_DEBUG("QQmlSettings: setValue " << key << ": " << value);
 }
 
 /*!
