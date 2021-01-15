@@ -37,8 +37,8 @@
 **
 ****************************************************************************/
 
-#ifndef QQMLSETTINGS_P_H
-#define QQMLSETTINGS_P_H
+#ifndef H_EXTENSIONS_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_1_SRC_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_INTERNAL_QQMLSETTINGS_u_P_H
+#define H_EXTENSIONS_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_1_SRC_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_INTERNAL_QQMLSETTINGS_u_P_H
 
 //
 //  W A R N I N G
@@ -110,4 +110,4 @@ class QQmlSettings : public QObject, public QQmlParserStatus
 
 QML_DECLARE_TYPE(cutehmi::workarounds::qt::labs::settings::internal::QQmlSettings)
 
-#endif // QQMLSETTINGS_P_H
+#endif
