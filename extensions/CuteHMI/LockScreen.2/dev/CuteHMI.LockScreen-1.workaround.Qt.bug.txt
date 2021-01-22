@@ -1,0 +1,10 @@
+Problem:
+
+For some reason specifying Container's (QtQuick.Controls 2) `contentModel` as a model for Instantiator does not work.
+
+Investigation:
+
+Workaround:
+
+Workaround is to use `contentModel.count` as the model and refer to model item through its interface.
+
