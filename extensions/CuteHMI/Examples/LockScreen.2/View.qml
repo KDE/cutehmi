@@ -128,7 +128,7 @@ ColumnLayout {
 			lockItem: CustomLockImage {
 				anchors.fill: parent
 
-				secret: lockPopup.lockItem.secret
+				secret: lockPopup.lockItem.secret	// If not set, typing old password is not required.
 
 				passwordInput.autoAccept: false
 				passwordInput.discretion: false
