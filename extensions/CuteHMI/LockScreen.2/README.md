@@ -1,6 +1,6 @@
 # Lock Screen
 
-![Development status](doc/status-alpha.svg)
+![Development status](doc/status-beta.svg)
 
 This extension provides components for screensaver-like screen locks.
 
