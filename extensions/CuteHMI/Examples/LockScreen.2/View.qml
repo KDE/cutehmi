@@ -76,7 +76,7 @@ ColumnLayout {
 		Button {
 			text: qsTr("Change password")
 
-			onClicked: changePasswordWizzard.open()
+			onClicked: changePasswordWizard.open()
 		}
 	}
 
@@ -97,7 +97,7 @@ ColumnLayout {
 	Settings {
 		id: settings
 
-		category: "CuteHMI.Examples.LockScreen.2/lockScreen"
+		category: "CuteHMI.Examples.LockScreen.2/lockPopup"
 
 		property alias enabled: lockPopup.enabled
 		property alias timeout: lockPopup.timeout
@@ -117,7 +117,7 @@ ColumnLayout {
 	}
 
 	Popup {
-		id: changePasswordWizzard
+		id: changePasswordWizard
 
 		width: parent.width
 		height: parent.height
@@ -136,10 +136,10 @@ ColumnLayout {
 
 			onAccepted: {
 				lockPopup.lockItem.secret = lockItem.secret
-				changePasswordWizzard.close()
+				changePasswordWizard.close()
 			}
 
-			onRejected: changePasswordWizzard.close()
+			onRejected: changePasswordWizard.close()
 		}
 	}
 }
