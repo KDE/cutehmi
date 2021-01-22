@@ -7,7 +7,9 @@ import CuteHMI.LockScreen 2.0
 Item {
 	id: root
 
-	readonly property string initialState: lockItem.gatekeeper.secret.byteLength !== 0 ? "OLD_PASSWORD" : "NEW_PASSWORD"
+	readonly property string initialState: secret.byteLength !== 0 ? "OLD_PASSWORD" : "NEW_PASSWORD"
+
+	property var secret: new ArrayBuffer
 
 	property LockItem lockItem
 
@@ -38,6 +40,12 @@ Item {
 				target: label
 				text: qsTr('Please enter new password.')
 			}
+
+			PropertyChanges {
+				restoreEntryValues: false
+				target: lockItem
+				secret: new ArrayBuffer
+			}
 		},
 
 		State {
@@ -54,6 +62,8 @@ Item {
 			}
 		}
 	]
+
+	onSecretChanged: lockItem.secret = secret
 
 	ColumnLayout {
 		anchors.fill: parent
@@ -125,10 +135,8 @@ Item {
 
 		onAccepted: {
 			if (root.state === "OLD_PASSWORD") {
-				if (root.lockItem.gatekeeper.authenticate()) {
+				if (root.lockItem.gatekeeper.authenticate())
 					root.state = "NEW_PASSWORD"
-					root.lockItem.secret = ""
-				}
 			} else if (root.state === "NEW_PASSWORD") {
 				newPassword = root.lockItem.passwordInput.text
 				if (newPassword !== "")
@@ -138,10 +146,8 @@ Item {
 			} else if (root.state === "RETYPE_PASSWORD") {
 				if (newPassword === root.lockItem.passwordInput.text)
 					passwordChangedDialog.open()
-				else {
-					root.lockItem.secret = ""
+				else
 					passwordMismatchDialog.open()
-				}
 				root.lockItem.passwordInput.reset()
 			}
 		}
