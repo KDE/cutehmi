@@ -27,11 +27,11 @@ class CUTEHMI_GUI_API Theme:
 		friend class Singleton<Theme>;
 
 	public:
-		Q_PROPERTY(Palette * palette READ palette WRITE setPalette NOTIFY paletteChanged RESET resetPalette)
+		Q_PROPERTY(cutehmi::gui::Palette * palette READ palette WRITE setPalette NOTIFY paletteChanged RESET resetPalette)
 
-		Q_PROPERTY(Units * units READ units WRITE setUnits NOTIFY unitsChanged RESET resetUnits)
+		Q_PROPERTY(cutehmi::gui::Units * units READ units WRITE setUnits NOTIFY unitsChanged RESET resetUnits)
 
-		Q_PROPERTY(Fonts * fonts READ fonts WRITE setFonts NOTIFY fontsChanged RESET resetFonts)
+		Q_PROPERTY(cutehmi::gui::Fonts * fonts READ fonts WRITE setFonts NOTIFY fontsChanged RESET resetFonts)
 
 		Palette * palette() const;
 

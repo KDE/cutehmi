@@ -24,7 +24,7 @@ class CUTEHMI_API Notifier:
 		friend class Singleton<Notifier>;
 
 	public:
-		Q_PROPERTY(NotificationListModel * model READ model CONSTANT)
+		Q_PROPERTY(cutehmi::NotificationListModel * model READ model CONSTANT)
 
 		Q_PROPERTY(int maxNotifications READ maxNotifications WRITE setMaxNotifications NOTIFY maxNotificationsChanged)
 

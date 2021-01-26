@@ -37,7 +37,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractListModel:
 		  */
 		Q_PROPERTY(int interval READ interval WRITE setInterval NOTIFY intervalChanged)
 
-		Q_PROPERTY(Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
+		Q_PROPERTY(cutehmi::dataacquisition::Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
 
 		AbstractListModel(QObject * parent = nullptr);
 

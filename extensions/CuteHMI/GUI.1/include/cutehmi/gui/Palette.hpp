@@ -30,27 +30,27 @@ class CUTEHMI_GUI_API Palette:
 		/**
 		  Alarm items color set.
 		  */
-		Q_PROPERTY(ColorSet * alarm READ alarm WRITE setAlarm NOTIFY alarmChanged RESET resetAlarm)
+		Q_PROPERTY(cutehmi::gui::ColorSet * alarm READ alarm WRITE setAlarm NOTIFY alarmChanged RESET resetAlarm)
 
 		/**
 		  Warning items color set.
 		  */
-		Q_PROPERTY(ColorSet * warning READ warning WRITE setWarning NOTIFY warningChanged RESET resetWarning)
+		Q_PROPERTY(cutehmi::gui::ColorSet * warning READ warning WRITE setWarning NOTIFY warningChanged RESET resetWarning)
 
 		/**
 		  Active items color set.
 		  */
-		Q_PROPERTY(ColorSet * active READ active WRITE setActive NOTIFY activeChanged RESET resetActive)
+		Q_PROPERTY(cutehmi::gui::ColorSet * active READ active WRITE setActive NOTIFY activeChanged RESET resetActive)
 
 		/**
 		  Inactive items color set.
 		  */
-		Q_PROPERTY(ColorSet * inactive READ inactive WRITE setInactive NOTIFY inactiveChanged RESET resetInactive)
+		Q_PROPERTY(cutehmi::gui::ColorSet * inactive READ inactive WRITE setInactive NOTIFY inactiveChanged RESET resetInactive)
 
 		/**
 		  Neutral color set. Neutral color set is for items that do not distinguish between active and inactive states.
 		  */
-		Q_PROPERTY(ColorSet  * neutral READ neutral WRITE setNeutral NOTIFY neutralChanged RESET resetNeutral)
+		Q_PROPERTY(cutehmi::gui::ColorSet  * neutral READ neutral WRITE setNeutral NOTIFY neutralChanged RESET resetNeutral)
 
 		Palette(QObject * parent = nullptr);
 

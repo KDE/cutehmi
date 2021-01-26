@@ -27,7 +27,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 		Q_PROPERTY(QQmlListProperty<cutehmi::dataacquisition::TagValue> values READ valueList)
 		Q_CLASSINFO("DefaultProperty", "values")
 
-		Q_PROPERTY(Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
+		Q_PROPERTY(cutehmi::dataacquisition::Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
 
 		AbstractWriter(QObject * parent = nullptr);
 

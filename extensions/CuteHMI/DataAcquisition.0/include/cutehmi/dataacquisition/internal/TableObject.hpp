@@ -19,7 +19,7 @@ class CUTEHMI_DATAACQUISITION_PRIVATE TableObject:
 	public:
 		Q_PROPERTY(QString connectionName READ connectionName NOTIFY connectionNameChanged)	// Overriden.
 
-		Q_PROPERTY(Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
+		Q_PROPERTY(cutehmi::dataacquisition::Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
 
 		explicit TableObject(Schema * schema = nullptr, QObject * parent = nullptr);
 

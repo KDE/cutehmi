@@ -42,7 +42,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		/**
 		  Device associated with controller.
 		  */
-		Q_PROPERTY(AbstractDevice * device READ device WRITE setDevice NOTIFY deviceChanged)
+		Q_PROPERTY(cutehmi::modbus::AbstractDevice * device READ device WRITE setDevice NOTIFY deviceChanged)
 
 		/**
 		  Register address.

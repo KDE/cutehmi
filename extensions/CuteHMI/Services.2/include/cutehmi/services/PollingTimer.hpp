@@ -22,7 +22,7 @@ class CUTEHMI_SERVICES_API PollingTimer:
 		static constexpr int INITIAL_SUBTIMER_INTERVAL = 10;
 
 		Q_PROPERTY(int interval READ interval WRITE setlInterval NOTIFY intervalChanged)
-		Q_PROPERTY(PollingTimer * subtimer READ subtimer CONSTANT)
+		Q_PROPERTY(cutehmi::services::PollingTimer * subtimer READ subtimer CONSTANT)
 
 		explicit PollingTimer(int interval = INITIAL_INTERVAL, QObject * parent = nullptr);
 

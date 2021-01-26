@@ -50,7 +50,7 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		/**
 		  Services model.
 		  */
-		Q_PROPERTY(ServiceListModel * model READ model CONSTANT)
+		Q_PROPERTY(cutehmi::services::ServiceListModel * model READ model CONSTANT)
 
 		int maxActiveServices() const;
 
