@@ -24,7 +24,9 @@ class CUTEHMI_GUI_API Units:
 		static constexpr bool INITIAL_ROUND_STROKE_WIDTH = true;
 
 		/**
-		  Quadrat. Role of this unit is similar to role of @p em unit used in typography.
+		  Quadrat. Role of this unit is similar to role of @p em unit used in typography. It defines reference size of graphical
+		  elements. Quadrat size is measured in pixels although elements being drawn should not refer to underlying unit, but
+		  describe their own size as multiples of quadrat.
 		  */
 		Q_PROPERTY(qreal quadrat READ quadrat WRITE setQuadrat NOTIFY quadratChanged)
 
