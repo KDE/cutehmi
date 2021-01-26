@@ -24,10 +24,10 @@ PasswordInput {
 
 	// Similar functionality could be also implemented with ButtonGroup, but Connections give a bit more flexibility.
 	Instantiator {
-		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="bug">
+		//<CuteHMI.LockScreen-2.workaround target="Qt" cause="bug">
 		// For some reason specifying contentModel alone does not create instances, even though `count` property shows correct value.
 		model: contentModel.count
-		//</CuteHMI.LockScreen-1.workaround>
+		//</CuteHMI.LockScreen-2.workaround>
 
 		Connections {
 			target: contentModel.get(index)
@@ -43,10 +43,10 @@ PasswordInput {
 	}
 
 	Instantiator {
-		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="bug">
+		//<CuteHMI.LockScreen-2.workaround target="Qt" cause="bug">
 		// For some reason specifying contentModel alone does not create instances, even though `count` property shows correct value.
 		model: contentModel.count
-		//</CuteHMI.LockScreen-1.workaround>
+		//</CuteHMI.LockScreen-2.workaround>
 
 		Binding {
 			target: contentModel.get(index)
