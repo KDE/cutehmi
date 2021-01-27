@@ -22,7 +22,7 @@ class CUTEHMI_SERVICES_API PollingTimer:
 		static constexpr int INITIAL_SUBTIMER_INTERVAL = 10;
 
 		Q_PROPERTY(int interval READ interval WRITE setlInterval NOTIFY intervalChanged)
-		Q_PROPERTY(PollingTimer * subtimer READ subtimer CONSTANT)
+		Q_PROPERTY(cutehmi::services::PollingTimer * subtimer READ subtimer CONSTANT)
 
 		explicit PollingTimer(int interval = INITIAL_INTERVAL, QObject * parent = nullptr);
 
@@ -64,7 +64,7 @@ class CUTEHMI_SERVICES_API PollingTimer:
 
 #endif
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2021, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

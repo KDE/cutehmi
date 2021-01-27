@@ -24,7 +24,9 @@ class CUTEHMI_GUI_API Units:
 		static constexpr bool INITIAL_ROUND_STROKE_WIDTH = true;
 
 		/**
-		  Quadrat. Role of this unit is similar to role of @p em unit used in typography.
+		  Quadrat. Role of this unit is similar to role of @p em unit used in typography. It defines reference size of graphical
+		  elements. Quadrat size is measured in pixels although elements being drawn should not refer to underlying unit, but
+		  describe their own size as multiples of quadrat.
 		  */
 		Q_PROPERTY(qreal quadrat READ quadrat WRITE setQuadrat NOTIFY quadratChanged)
 
@@ -93,7 +95,7 @@ class CUTEHMI_GUI_API Units:
 
 #endif
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2021, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

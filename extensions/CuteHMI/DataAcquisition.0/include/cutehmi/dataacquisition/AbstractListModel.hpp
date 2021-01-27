@@ -37,7 +37,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractListModel:
 		  */
 		Q_PROPERTY(int interval READ interval WRITE setInterval NOTIFY intervalChanged)
 
-		Q_PROPERTY(Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
+		Q_PROPERTY(cutehmi::dataacquisition::Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
 
 		AbstractListModel(QObject * parent = nullptr);
 
@@ -134,7 +134,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractListModel:
 
 #endif
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2021, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

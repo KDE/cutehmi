@@ -24,7 +24,7 @@ class CUTEHMI_API Notifier:
 		friend class Singleton<Notifier>;
 
 	public:
-		Q_PROPERTY(NotificationListModel * model READ model CONSTANT)
+		Q_PROPERTY(cutehmi::NotificationListModel * model READ model CONSTANT)
 
 		Q_PROPERTY(int maxNotifications READ maxNotifications WRITE setMaxNotifications NOTIFY maxNotificationsChanged)
 
@@ -69,7 +69,7 @@ class CUTEHMI_API Notifier:
 
 #endif
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2021, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
