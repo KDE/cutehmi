@@ -1,6 +1,6 @@
 # Lock Screen Example
 
-Example demonstrating how to use CuteHMI.LockScreen extension.
+Example demonstrating how to use [CuteHMI.LockScreen.2](../../LockScreen.2/) extension.
 
 ![View unlocked](doc/View1.png)
 
