@@ -101,7 +101,7 @@ Module {
 					'INPUT': '.',
 					'EXAMPLE_PATH': '.',
 					'RECURSIVE': true,
-					'USE_MDFILE_AS_MAINPAGE': 'README.md',
+					'USE_MDFILE_AS_MAINPAGE': './README.md',
 					'GENERATE_LATEX': false,
 					'GENERATE_TREEVIEW': true,
 					'QUIET': true,
