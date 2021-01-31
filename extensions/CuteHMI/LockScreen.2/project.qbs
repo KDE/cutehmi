@@ -51,8 +51,12 @@ Project {
 
 		Depends { name: "cutehmi.qmltypes" }
 
+		Depends { name: "cutehmi.doxygen" }
+		cutehmi.doxygen.useDoxyqml: true
+		cutehmi.doxygen.exclude: ['dev', 'tests']
+
 		Export {
-			Depends { name: "CuteHMI.2" }
+			Depends { name: "CuteHMI.GUI.1" }
 		}
 	}
 }
