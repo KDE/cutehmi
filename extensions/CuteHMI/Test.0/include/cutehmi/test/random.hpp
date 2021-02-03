@@ -222,7 +222,7 @@ typename std::enable_if<std::is_same<T, QChar>::value, QChar>::type rand(QChar::
 		categorySets.insert(QChar::category(std::numeric_limits<char16_t>::max()), std::numeric_limits<char16_t>::max());
 	}
 
-	return categorySets.values(category).at(rand(0, categorySets.values(category).size() - 1));
+	return categorySets.values(category).at(rand(qsizetype{}, categorySets.values(category).size() - 1));
 }
 
 /**
@@ -240,7 +240,7 @@ typename std::enable_if<std::is_same<T, QString>::value, T>::type rand(int lengt
 
 	QString result("");
 	for (int i = 0; i < length; i++)
-		result.append(rand<QChar>(categories.at(rand(0, categories.size() - 1))));
+		result.append(rand<QChar>(categories.at(rand(qsizetype{}, categories.size() - 1))));
 
 	return result;
 }
