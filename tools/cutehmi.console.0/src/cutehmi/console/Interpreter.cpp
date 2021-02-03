@@ -1,7 +1,7 @@
 #include "Interpreter.hpp"
 #include "logging.hpp"
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QQmlExpression>
 #include <QMetaObject>
 
@@ -196,12 +196,12 @@ QStringList Interpreter::parseLine(const QString & line)
 {
 	auto extractCommands = [](QStringList & commands, const QString & linePart) {
 		// Split by whitespace.
-		QStringList whitespaceSeparatedCommands = linePart.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+		QStringList whitespaceSeparatedCommands = linePart.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
 
 		// Split words by non-word characters (especially '\' character).
 		for (auto command : whitespaceSeparatedCommands)
 			if (command.contains('\\'))
-				commands.append(command.split(QRegExp("\\b"), QString::SkipEmptyParts));
+				commands.append(command.split(QRegularExpression("\\b"), Qt::SkipEmptyParts));
 			else
 				commands.append(command);
 	};
@@ -471,7 +471,7 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 	else {
 		if (subcommands.at(0) == object.get()) {
 			QString path = object->matchedString();
-			QStringList parts = path.split('/', QString::SkipEmptyParts);
+			QStringList parts = path.split('/', Qt::SkipEmptyParts);
 			QObject * candidate;
 			if (path.startsWith('/'))
 				candidate = context.engine;
@@ -640,9 +640,11 @@ QString Interpreter::Commands::List::Property::property(Command::ExecutionContex
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Type: '%1'").arg(mp.typeName()));
 	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Bindable: %1").arg(mp.isBindable() ? trYes : trNo));
+	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Constant: %1").arg(mp.isConstant() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Designable: %1").arg(mp.isDesignable(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Designable: %1").arg(mp.isDesignable() ? trYes : trNo));
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Enum: %1").arg(mp.isEnumType() ? trYes : trNo));
 	result.append("\n");
@@ -652,13 +654,15 @@ QString Interpreter::Commands::List::Property::property(Command::ExecutionContex
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Readable: %1").arg(mp.isReadable() ? trYes : trNo));
 	result.append("\n");
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Required: %1").arg(mp.isRequired() ? trYes : trNo));
+	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Resettable: %1").arg(mp.isResettable() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Scriptable: %1").arg(mp.isScriptable(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Scriptable: %1").arg(mp.isScriptable() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Stored: %1").arg(mp.isStored(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Stored: %1").arg(mp.isStored() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "User: %1").arg(mp.isUser(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "User: %1").arg(mp.isUser() ? trYes : trNo));
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Valid: %1").arg(mp.isValid() ? trYes : trNo));
 	result.append("\n");
