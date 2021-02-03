@@ -18,8 +18,13 @@ Module {
 	Depends { name: "cutehmi.dirs" }
 
 	Rule {
+		// <qbs-cutehmi.qmltypes-3.workaround target="CuteHMI" cause="Qt6">
+		// Disable generation of qmltypes unless qmlplugindump is ported for Qt6.
+		condition: false
+		// Instead of:
 		// Android builds are not supported by this module.
-		condition: !qbs.targetOS.contains("android")
+		// condition: !qbs.targetOS.contains("android")
+		// </qbs-cutehmi.qmltypes-3.workaround">
 
 		multiplex: true
 		inputs: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
@@ -84,6 +89,10 @@ Module {
 			filePath: product.sourceDirectory + "/plugins.qmltypes"
 			fileTags: ["cutehmi.qmltypes", "qmltypes"]
 		}
+	}
+
+	validate: {
+		console.warn("Generation of qmltypes artifacts is currently disabled due to qbs-cutehmi.qmltypes-3.workaround.")
 	}
 }
 

@@ -1,0 +1,11 @@
+Problem:
+
+Program qmlplugindump has to be ported for Qt6.
+
+Workaround:
+
+Currently generation of qmltypes is disabled.
+
+Snippet:
+
+
