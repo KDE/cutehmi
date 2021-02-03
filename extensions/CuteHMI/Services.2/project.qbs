@@ -12,6 +12,11 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
+		//<CuteHMI.Services-2.workaround target="Qt" cause="missing">
+		// State Machine Framework is not available in Qt 6 yet. Product has to be temporarily disabled.
+		builtByDefault: false
+		//</CuteHMI.Services-2.workaround>
+
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"

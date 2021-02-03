@@ -1,0 +1,9 @@
+Problem:
+
+State Machine Framework is not available in Qt 6 yet.
+
+Workaround:
+
+Products which depend on State Machine Framework have to be temporarily disabled.
+
+Snippet:
