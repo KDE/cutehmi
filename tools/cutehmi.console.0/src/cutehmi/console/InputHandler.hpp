@@ -2,6 +2,7 @@
 #define H_TOOLS_CUTEHMI_CONSOLE_0_SRC_CUTEHMI_CONSOLE_INPUTHANDLER_HPP
 
 #include <QTextStream>
+#include <QObject>
 
 namespace cutehmi {
 namespace console {
