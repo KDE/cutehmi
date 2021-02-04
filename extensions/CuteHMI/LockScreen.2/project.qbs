@@ -45,7 +45,7 @@ Project {
          "src/cutehmi/lockscreen/logging.cpp",
      ]
 
-		Depends { name: "CuteHMI.2" }
+		Depends { name: "CuteHMI.GUI.1" }
 
 		Depends { name: "cutehmi.qmldir" }
 
