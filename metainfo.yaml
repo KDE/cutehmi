@@ -1,0 +1,10 @@
+maintainer: mpolicht
+description: CuteHMI is essentially a collection of libraries, plugins and executables, referred to as "extensions" and "tools", glued together by Qbs components.
+tier: 1
+type: functional
+platforms:
+    - name: Linux
+portingAid: false
+deprecated: false
+release: true
+public_lib: true
