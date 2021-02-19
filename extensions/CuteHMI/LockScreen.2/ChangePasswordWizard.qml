@@ -133,7 +133,7 @@ Item {
 
 		property string newPassword
 
-		onAccepted: {
+		function onAccepted() {
 			if (root.state === "OLD_PASSWORD") {
 				if (root.lockItem.gatekeeper.authenticate())
 					root.state = "NEW_PASSWORD"

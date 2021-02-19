@@ -60,7 +60,10 @@ Element {
 
 			Connections {
 				target: root
-				onFillChanged: requestPaint()
+
+				function onFillChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}
@@ -105,7 +108,10 @@ Element {
 
 			Connections {
 				target: root
-				onPocketsChanged: requestPaint()
+
+				function onPocketsChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}

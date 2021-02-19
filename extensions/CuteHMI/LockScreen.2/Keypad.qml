@@ -33,7 +33,7 @@ PasswordInput {
 			target: contentModel.get(index)
 			ignoreUnknownSignals: true
 
-			onClicked: {
+			function onClicked() {
 				root.setCurrentIndex(index)
 				root.enteredText += contentModel.get(index).text
 				if (autoAccept)

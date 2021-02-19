@@ -11,20 +11,45 @@ Canvas {
 	Connections {
 		target: element.color
 
-		onBaseChanged: requestPaint()
-		onFillChanged: requestPaint()
-		onTintChanged: requestPaint()
-		onShadeChanged: requestPaint()
-		onForegroundChanged: requestPaint()
-		onBackgroundChanged: requestPaint()
-		onStrokeChanged: requestPaint()
-		onBlankChanged: requestPaint()
+		function onBaseChanged() {
+			requestPaint()
+		}
+
+		function onFillChanged() {
+			requestPaint()
+		}
+
+		function onTintChanged() {
+			requestPaint()
+		}
+
+		function onShadeChanged() {
+			requestPaint()
+		}
+
+		function onForegroundChanged() {
+			requestPaint()
+		}
+
+		function onBackgroundChanged() {
+			requestPaint()
+		}
+
+		function onStrokeChanged() {
+			requestPaint()
+		}
+
+		function onBlankChanged() {
+			requestPaint()
+		}
 	}
 
 	Connections {
 		target: element.units
 
-		onStrokeWidthChanged: requestPaint()
+		function onStrokeWidthChanged() {
+			requestPaint()
+		}
 	}
 }
 

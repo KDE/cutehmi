@@ -30,7 +30,10 @@ ColumnLayout {
 
 	Connections {
 		target: delegate
-		onCheckedChanged: controller.value = delegate.checked
+
+		function onCheckedChanged() {
+			controller.value = delegate.checked
+		}
 	}
 
 	Label {
@@ -66,10 +69,22 @@ ColumnLayout {
 
 				textRole: "key"
 				model: ListModel {
-					ListElement { key: "Delayed"; value: CoilController.WRITE_DELAYED }
-					ListElement { key: "Postponed"; value: CoilController.WRITE_POSTPONED }
-					ListElement { key: "Immediate"; value: CoilController.WRITE_IMMEDIATE }
-					ListElement { key: "Explicit"; value: CoilController.WRITE_EXPLICIT }
+					ListElement {
+						key: "Delayed"
+						value: CoilController.WRITE_DELAYED
+					}
+					ListElement {
+						key: "Postponed"
+						value: CoilController.WRITE_POSTPONED
+					}
+					ListElement {
+						key: "Immediate"
+						value: CoilController.WRITE_IMMEDIATE
+					}
+					ListElement {
+						key: "Explicit"
+						value: CoilController.WRITE_EXPLICIT
+					}
 				}
 
 				property int value: model.get(currentIndex).value

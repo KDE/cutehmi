@@ -55,7 +55,10 @@ Element {
 
 			Connections {
 				target: root
-				onHeadRatioChanged: requestPaint()
+
+				function onHeadRatioChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}
@@ -138,12 +141,12 @@ Element {
 			Connections {
 				target: root
 
-				onHeadRatioChanged: {
+				function onHeadRatioChanged() {
 					shellLiquidCanvas.requestPaint()
 					headsLiquidCanvas.requestPaint()
 				}
 
-				onLevelChanged: {
+				function onLevelChanged() {
 					shellLiquidCanvas.requestPaint()
 					headsLiquidCanvas.requestPaint()
 				}

@@ -44,8 +44,14 @@ Element {
 
 			Connections {
 				target: root.internal
-				onDiameterChanged: requestPaint()
-				onInnerDiameterChanged: requestPaint()
+
+				function onDiameterChanged() {
+					requestPaint()
+				}
+
+				function onInnerDiameterChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}
@@ -79,7 +85,10 @@ Element {
 
 			Connections	{
 				target: root
-				onRpmChanged: handleRotation()
+
+				function onRpmChanged() {
+					handleRotation()
+				}
 
 				function handleRotation() {
 					rotationAnimation.from = rotation % 360
@@ -95,8 +104,14 @@ Element {
 
 			Connections {
 				target: root.internal
-				onDiameterChanged: requestPaint()
-				onInnerDiameterChanged: requestPaint()
+
+				function onDiameterChanged() {
+					requestPaint()
+				}
+
+				function onInnerDiameterChanged() {
+					requestPaint()
+				}
 			}
 
 			RotationAnimation on rotation {
@@ -151,8 +166,14 @@ Element {
 
 			Connections {
 				target: root.internal
-				onDiameterChanged: requestPaint()
-				onInnerDiameterChanged: requestPaint()
+
+				function onDiameterChanged() {
+					requestPaint()
+				}
+
+				function onInnerDiameterChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}

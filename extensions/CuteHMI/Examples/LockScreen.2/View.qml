@@ -113,7 +113,10 @@ ColumnLayout {
 	Connections {
 		target: CuteApplication
 
-		onIdleChanged: if (lockPopup.enabled && CuteApplication.idle >= lockPopup.timeout) lockPopup.open()
+		function onIdleChanged() {
+			if (lockPopup.enabled && CuteApplication.idle >= lockPopup.timeout)
+				lockPopup.open()
+		}
 	}
 
 	Popup {

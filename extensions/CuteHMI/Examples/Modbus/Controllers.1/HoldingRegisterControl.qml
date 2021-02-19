@@ -32,7 +32,10 @@ ColumnLayout {
 
 	Connections {
 		target: delegate
-		onValueChanged: controller.value = delegate.value
+
+		function onValueChanged() {
+			controller.value = delegate.value
+		}
 	}
 
 	Label {
@@ -87,8 +90,15 @@ ColumnLayout {
 
 				textRole: "key"
 				model: ListModel {
-					ListElement { key: "16 bit integer"; value: HoldingRegisterController.INT16 }
-					ListElement { key: "16 bit unsigned integer"; value: HoldingRegisterController.UINT16 }
+					ListElement {
+						key: "16 bit integer"
+						value: HoldingRegisterController.INT16
+					}
+
+					ListElement {
+						key: "16 bit unsigned integer"
+						value: HoldingRegisterController.UINT16
+					}
 				}
 
 				property int value: model.get(currentIndex).value
@@ -107,10 +117,25 @@ ColumnLayout {
 
 				textRole: "key"
 				model: ListModel {
-					ListElement { key: "Delayed"; value: HoldingRegisterController.WRITE_DELAYED }
-					ListElement { key: "Postponed"; value: HoldingRegisterController.WRITE_POSTPONED }
-					ListElement { key: "Immediate"; value: HoldingRegisterController.WRITE_IMMEDIATE }
-					ListElement { key: "Explicit"; value: HoldingRegisterController.WRITE_EXPLICIT }
+					ListElement {
+						key: "Delayed"
+						value: HoldingRegisterController.WRITE_DELAYED
+					}
+
+					ListElement {
+						key: "Postponed"
+						value: HoldingRegisterController.WRITE_POSTPONED
+					}
+
+					ListElement {
+						key: "Immediate"
+						value: HoldingRegisterController.WRITE_IMMEDIATE
+					}
+
+					ListElement {
+						key: "Explicit"
+						value: HoldingRegisterController.WRITE_EXPLICIT
+					}
 				}
 
 				property int value: model.get(currentIndex).value

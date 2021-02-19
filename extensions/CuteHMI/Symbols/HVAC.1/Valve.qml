@@ -68,7 +68,10 @@ Element {
 
 			Connections {
 				target: parent
-				onClosedChanged: requestPaint()
+
+				function onClosedChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}
