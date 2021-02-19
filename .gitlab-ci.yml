@@ -49,7 +49,7 @@ stages:
 .build_ubuntu:
   extends: .build
   variables:
-    QBS_PROFILE: "qt-5-13-1"
+    QBS_PROFILE: "qt-5-14-2"
   before_script:
     - uname -a
     - mkdir -pm 0700 $XDG_RUNTIME_DIR
@@ -62,29 +62,29 @@ stages:
     - sudo apt-get update
     - sudo apt-get install libgpiod-dev --yes
 
-gcc ubuntu-18.04-qt-5.13.1 debug build:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+gcc ubuntu-18.04-qt-5.14.2 debug build:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.14.2"
   extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
     QBS_CONFIG: "debug"
 
-clang ubuntu-18.04-qt-5.13.1 debug build:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+clang ubuntu-18.04-qt-5.14.2 debug build:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.14.2"
   extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "clang-6"
     QBS_CONFIG: "debug"
 
-gcc ubuntu-18.04-qt-5.13.1 release build:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+gcc ubuntu-18.04-qt-5.14.2 release build:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.14.2"
   extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-7"
     QBS_CONFIG: "release"
 
-clang ubuntu-18.04-qt-5.13.1 release build:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+clang ubuntu-18.04-qt-5.14.2 release build:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.14.2"
   extends: .build_ubuntu
   variables:
     QBS_BASE_PROFILE: "clang-6"
@@ -130,16 +130,16 @@ clang ubuntu-18.04-qt-5.13.1 release build:
     - sudo apt-get update
     - sudo apt-get install libgpiod-dev --yes
 
-gcc ubuntu-18.04-qt-5.13.1 debug test:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+gcc ubuntu-18.04-qt-5.14.2 debug test:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.14.2"
   extends: .test_ubuntu
   variables:
-    QBS_PROFILE: "qt-5-13-1"
+    QBS_PROFILE: "qt-5-14-2"
     QBS_CONFIG: "debug"
 
-gcc ubuntu-18.04-qt-5.13.1 release test:
-  image: "cutehmi/qt:ubuntu-18.04-qt-5.13.1"
+gcc ubuntu-18.04-qt-5.14.2 release test:
+  image: "cutehmi/qt:ubuntu-18.04-qt-5.14.2"
   extends: .test_ubuntu
   variables:
-    QBS_PROFILE: "qt-5-13-1"
+    QBS_PROFILE: "qt-5-14-2"
     QBS_CONFIG: "release"
