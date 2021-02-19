@@ -26,12 +26,12 @@
 **
 ****************************************************************************/
 
-#ifndef QMLTYPEREADER_H
-#define QMLTYPEREADER_H
+#ifndef H_TOOLS_CUTEHMI_QMLPLUGINDUMP_0_SRC_5_15_2_QMLPLUGINDUMP_QMLTYPEREADER_H
+#define H_TOOLS_CUTEHMI_QMLPLUGINDUMP_0_SRC_5_15_2_QMLPLUGINDUMP_QMLTYPEREADER_H
 
 #include <QString>
 #include <QStringList>
 
 QStringList readQmlTypes(const QString &filename);
 
-#endif // QMLTYPEREADER_H
+#endif
