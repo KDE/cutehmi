@@ -30,7 +30,7 @@ void Register1::awake()
 
 bool Register1::wakeful() const
 {
-	return m->awaken.load();
+	return m->awaken.loadRelaxed();
 }
 
 }
