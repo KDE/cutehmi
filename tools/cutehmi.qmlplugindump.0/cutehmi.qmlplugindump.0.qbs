@@ -66,6 +66,20 @@ Project {
 			 ]
 		}
 
+		Group {
+			name: "5.15 branch"
+
+			condition: Qt.core.versionMajor === 5 && Qt.core.versionMinor === 15
+
+			files: [
+				"src/5/15/2/qmlplugindump/main.cpp",
+				"src/5/15/2/shared/qmlstreamwriter.cpp",
+				"src/5/15/2/shared/qmlstreamwriter.h",
+				"src/5/15/2/qmlplugindump/qmltypereader.cpp",
+				"src/5/15/2/qmlplugindump/qmltypereader.h",
+			 ]
+		}
+
 		files: [
 			"README.md",
 		]

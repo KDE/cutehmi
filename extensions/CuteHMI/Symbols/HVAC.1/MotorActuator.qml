@@ -59,8 +59,13 @@ Element {
 		Connections {
 			target: root
 
-			onStartChanged: canvas.requestPaint()
-			onValueChanged: canvas.requestPaint()
+			function onStartChanged() {
+				canvas.requestPaint()
+			}
+
+			function onValueChanged() {
+				canvas.requestPaint()
+			}
 		}
 	}
 

@@ -54,7 +54,10 @@ Element {
 
 			Connections {
 				target: root.internal
-				onDiameterChanged: requestPaint()
+
+				function onDiameterChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}
@@ -121,9 +124,10 @@ Element {
 
 			Connections {
 				target: root
-				onRpmChanged: handleRotation()
 
-				Component.onCompleted: handleRotation()
+				function onRpmChanged() {
+					handleRotation()
+				}
 
 				function handleRotation() {
 					rotationAnimation.from = rotation % 360
@@ -133,11 +137,16 @@ Element {
 					else
 						rotationAnimation.stop()
 				}
+
+				Component.onCompleted: handleRotation()
 			}
 
 			Connections {
 				target: root.internal
-				onWheelDiameterChanged: requestPaint()
+
+				function onWheelDiameterChanged() {
+					requestPaint()
+				}
 			}
 
 			RotationAnimation on rotation {

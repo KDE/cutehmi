@@ -19,7 +19,10 @@ Popup {
 	Connections {
 		target: root.lockItem.passwordInput
 
-		onAccepted: if (root.lockItem.gatekeeper.authenticate()) root.close()
+		function onAccepted() {
+			if (root.lockItem.gatekeeper.authenticate())
+				root.close()
+		}
 	}
 
 	Binding {

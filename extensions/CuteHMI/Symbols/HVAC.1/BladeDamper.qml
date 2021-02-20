@@ -102,10 +102,22 @@ Element {
 
 			Connections {
 				target: root
-				onBladesChanged: requestPaint()
-				onValueChanged: requestPaint()
-				onOpposedBladeChanged: requestPaint()
-				onMirrorChanged: requestPaint()
+
+				function onBladesChanged() {
+					requestPaint()
+				}
+
+				function onValueChanged() {
+					requestPaint()
+				}
+
+				function onOpposedBladeChanged() {
+					requestPaint()
+				}
+
+				function onMirrorChanged() {
+					requestPaint()
+				}
 			}
 		}
 	}

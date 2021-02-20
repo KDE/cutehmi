@@ -10,3 +10,8 @@ Unless packages are upgraded deprecated features such as "pathPrefixes" have to
 be used.
 
 Snippet:
+
+Solution:
+
+Most distributions include newer versions of Qbs.
+

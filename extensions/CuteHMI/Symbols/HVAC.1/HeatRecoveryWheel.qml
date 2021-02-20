@@ -41,10 +41,6 @@ Element {
 
 				ctx.restore()
 			}
-
-			Connections {
-				target: root
-			}
 		}
 	}
 
@@ -92,8 +88,14 @@ Element {
 
 			Connections	{
 				target: root
-				onRpmChanged: handleRotation()
-				onClockwiseChanged: handleRotation()
+
+				function onRpmChanged() {
+					handleRotation()
+				}
+
+				function onClockwiseChanged() {
+					handleRotation()
+				}
 
 				function handleRotation() {
 					if (clockwise) {
@@ -115,7 +117,10 @@ Element {
 
 			Connections {
 				target: root
-				onSegmentsChanged: requestPaint()
+
+				function onSegmentsChanged() {
+					requestPaint()
+				}
 			}
 
 			RotationAnimation on rotation {
