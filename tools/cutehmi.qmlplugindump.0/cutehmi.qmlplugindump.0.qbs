@@ -10,7 +10,7 @@ Project {
 	condition: !qbs.targetOS.contains("android")
 
 	cutehmi.Tool {
-		condition: Qt.core.versionMajor === 5 && [12, 13, 14].contains(Qt.core.versionMinor)
+		condition: Qt.core.versionMajor === 5 && [12, 13, 14, 15].contains(Qt.core.versionMinor)
 
 		name: parent.name
 
@@ -78,6 +78,8 @@ Project {
 				"src/5/15/2/qmlplugindump/qmltypereader.cpp",
 				"src/5/15/2/qmlplugindump/qmltypereader.h",
 			 ]
+
+			cpp.includePaths: outer.concat(product.sourceDirectory + "/src/5/15/2/shared/")
 		}
 
 		files: [
