@@ -74,7 +74,10 @@ LockItem {
 	Connections {
 		target: root.passwordInput
 
-		onAccepted: if (!root.gatekeeper.authenticate()) root.wrongPasswordAnimation.restart()
+		function onAccepted() {
+			if (!root.gatekeeper.authenticate())
+				root.wrongPasswordAnimation.restart()
+		}
 	}
 }
 
