@@ -110,7 +110,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 	if (function == derived().writeRegisterFunction()) {
 		if (requestId == derived().m->requestId) {
 			if (success) {
-				if (derived().readOnWrite())
+				if (derived().readOnWrite() && derived().enabled())
 					// Non-null requestId implies that device is not null (see setDevice() and setupRegister()).
 					derived().requestReadRegisters(static_cast<quint16>(derived().address()), derived().bytes(), & derived().m->requestId);
 				else {
