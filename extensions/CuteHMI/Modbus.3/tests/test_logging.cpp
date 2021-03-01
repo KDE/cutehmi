@@ -16,7 +16,7 @@ class test_logging:
 
 void test_logging::loggingCategory()
 {
-	QCOMPARE(cutehmi::modbus::loggingCategory().categoryName(), "CuteHMI.Modbus.2");
+	QCOMPARE(cutehmi::modbus::loggingCategory().categoryName(), "CuteHMI.Modbus.3");
 }
 
 }
