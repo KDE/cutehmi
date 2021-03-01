@@ -45,7 +45,7 @@ Project {
 			"dev/CuteHMI.Modbus-7.workaround.Qt.design.txt",
 			"dev/CuteHMI.Modbus-8.workaround.Qt.design.txt",
 			"dev/CuteHMI.Modbus-9.workaround.Qt.design.txt",
-			"dev/rationale.txt",
+			"dev/design-choices.md",
 			"include/cutehmi/modbus/AbstractClient.hpp",
 			"include/cutehmi/modbus/AbstractDevice.hpp",
 			"include/cutehmi/modbus/AbstractRegisterController.hpp",
