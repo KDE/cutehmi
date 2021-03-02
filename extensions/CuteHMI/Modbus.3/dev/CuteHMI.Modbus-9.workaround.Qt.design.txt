@@ -1,0 +1,15 @@
+Problem:
+
+QModbusDataUnit::dataWritten() signal accepts `int` type as its `size` parameter,
+while QModbusDataUnit::valueCount() uses `uint` as return type. As such it is
+incompatible with `size` parameter, which might not be able to represent all
+returned values.
+
+Workaround:
+
+Because valueCount() can not exceed maximal theoretical amount of registers that
+can be queried at once (2008 coils through RTU) it should be safe to cast
+returned `uint` value to `int`, which is guaranteed to be at least 16 bit wide.
+
+Snippet:
+

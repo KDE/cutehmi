@@ -1,0 +1,17 @@
+Problem:
+
+QtCreator uses '*Specifics.qml' files, which import HelperWidgets to display various properties of QML items "Design" mode. The
+probelm is that provided LineEdit does not display 'placeholderText' any more, which was a way to display binding expression for a
+given property.
+
+Investigation:
+
+QtCreator uses custom styling of LineEdit/TextField which is based on QtQuick.Templates 2.0 component. Placeholder text was probably
+meant to be displayed as part of a 'background', but TextFiled provided by StudioComponents uses plain Rectangle for a background.
+
+Workaround:
+
+Workaround is to hide LineEdit and use associated Label to display binding expression.
+
+Snippet:
+

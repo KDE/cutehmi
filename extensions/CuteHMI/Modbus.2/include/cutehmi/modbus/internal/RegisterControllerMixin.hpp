@@ -110,7 +110,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 	if (function == derived().writeRegisterFunction()) {
 		if (requestId == derived().m->requestId) {
 			if (success) {
-				if (derived().readOnWrite())
+				if (derived().readOnWrite() && derived().enabled())
 					// Non-null requestId implies that device is not null (see setDevice() and setupRegister()).
 					derived().requestReadRegisters(static_cast<quint16>(derived().address()), derived().bytes(), & derived().m->requestId);
 				else {
@@ -188,7 +188,7 @@ DERIVED & RegisterControllerMixin<DERIVED>::derived()
 
 #endif
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2021, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
