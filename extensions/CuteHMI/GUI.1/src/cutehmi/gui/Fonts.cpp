@@ -7,7 +7,7 @@ namespace gui {
 
 Fonts::Fonts(QObject * parent):
 	QObject(parent),
-	m(new Members{DefaultMonospace()})
+	m(new Members{DefaultMonospace(), DefaultStandard()})
 {
 }
 
@@ -31,20 +31,20 @@ void Fonts::resetMonospace()
 
 QFont Fonts::standard() const
 {
-	return m->proportional;
+	return m->standard;
 }
 
 void Fonts::setStandard(QFont proportional)
 {
-	if (m->proportional != proportional) {
-		m->proportional = proportional;
+	if (m->standard != proportional) {
+		m->standard = proportional;
 		emit standardChanged();
 	}
 }
 
 void Fonts::resetStandard()
 {
-	m->proportional = DefaultStandard();
+	m->standard = DefaultStandard();
 }
 
 QFont & Fonts::DefaultMonospace()

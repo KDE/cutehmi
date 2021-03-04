@@ -52,7 +52,7 @@ class CUTEHMI_GUI_API Fonts:
 	private:
 		struct Members {
 			QFont monospace;
-			QFont proportional;
+			QFont standard;
 		};
 
 		MPtr<Members> m;
