@@ -156,6 +156,18 @@ CommonProduct {
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.metadataInstallSubdir
 	}
+
+	FileTagger {
+		patterns: ["*.rcc"]
+		fileTags: ["rcc"]
+	}
+
+	Group {
+		name: "Binary resource files"
+		fileTagsFilter: ["rcc"]
+		qbs.install: true
+		qbs.installDir: dedicatedInstallSubdir
+	}
 }
 
 //(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
