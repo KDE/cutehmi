@@ -35,9 +35,24 @@ You can use `--help` command line argument to see a list of all possible command
 
 For debug builds use `cutehmi.view.4.debug` instead of `cutehmi.view.4`.
 
+## Providing Qt Quick Controls configuration file
+
+Qt allows for configuring the style of application with a special `qtquickcontrols2.conf` file. This file has to be built into
+application resources. Extension may provide it within `cutehmi.view.rcc` resource file, which shall be intalled into extension
+dedicated directory. For this `cutehmi.rcc` Qbs module can be used, which generates `rcc` artifacts from `qrc` files. Extension just
+needs to put `qtquickcontrols2.conf` (root prefix) inside `cutehmi.view.qrc` and declare dependency on `cutehmi.rcc` module.
+
+```
+Depends { name: "cutehmi.rcc" }
+```
+
+Resource file can be also specified with `--resource` option.
+
 ## Changes
 
 Compared to previous major version following changes were made.
 - View looks for `View` component instead of `Main`.
 - Extension is specified with first positional argument instead of `--extension` argument.
 - Component is specified with second positional argument instead of `--component` argument.
+- It is possible to register resource on startup (by the extension with `cutehmi.view.rcc` lookup or by the user with `--resource`
+  argument).
