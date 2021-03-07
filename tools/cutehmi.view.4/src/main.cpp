@@ -27,6 +27,7 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QFile>
+#include <QResource>
 
 using namespace cutehmi::view;
 
@@ -137,6 +138,9 @@ int main(int argc, char * argv[])
 		QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
 		cmd.addOption(basedirOption);
 
+		QCommandLineOption resourceOption("resource", QCoreApplication::translate("main", "Explicitly specify <resource> file to be loeaded on startup."), QCoreApplication::translate("main", "resource"));
+		cmd.addOption(resourceOption);
+
 #ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
 		minorOption.setFlags(QCommandLineOption::HiddenFromHelp);
 		initOption.setFlags(QCommandLineOption::HiddenFromHelp);
@@ -171,18 +175,18 @@ int main(int argc, char * argv[])
 		//</cutehmi.view.2-6.workaround>
 		//</cutehmi.view.2-5.workaround>
 
-		QDir baseDir(QCoreApplication::applicationDirPath() + "/..");
+		QDir baseDir(QCoreApplication::applicationDirPath() + "/../..");
 		if (cmd.isSet(basedirOption))
 			baseDir.setPath(cmd.value(basedirOption));
-		QString baseDirPath = baseDir.absolutePath() + "/";
+		QString baseDirPath = baseDir.absolutePath();
 		CUTEHMI_DEBUG("Base directory: " << baseDirPath);
 
 		CUTEHMI_DEBUG("Library paths: " << QCoreApplication::libraryPaths());
 
 		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-		engine->addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSIONS_INSTALL_SUBDIR);
 
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
+
 
 		QStringList positionalArguments = cmd.positionalArguments();
 #ifndef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
@@ -234,6 +238,30 @@ int main(int argc, char * argv[])
 		engine->rootContext()->setContextProperty("cutehmi_view_extensionComponent", component);
 		engine->rootContext()->setContextProperty("cutehmi_view_initURL", "qrc:/qml/DefaultScreen.qml");
 
+
+		// Load resource on startup. Resource may be specified explicitly with command line option. If it's not specified
+		// explicitly, then 'cutehmi.view.rcc' from extension dedicated directory is tried out.
+		{
+			QString resourcePath;
+			if (cmd.isSet(resourceOption))
+				resourcePath =  QDir::currentPath() + "/" + cmd.value(resourceOption);
+			else {
+				QStringList baseNameParts = extensionBaseName.split('.');
+				resourcePath = QCoreApplication::applicationDirPath()
+						+ "/" + baseNameParts.join('/')
+						+ "." + extensionMajor
+						+ "/cutehmi.view.rcc";
+			}
+			if (QFile::exists(resourcePath)) {
+				if (QResource::registerResource(resourcePath))
+					CUTEHMI_DEBUG("Registered '" << resourcePath << "' resource.");
+				else
+					CUTEHMI_CRITICAL("Could not register resource '" << resourcePath << "'.");
+			} else if (cmd.isSet(resourceOption))
+				CUTEHMI_CRITICAL("Could not find resource file '" << resourcePath << "'.");
+		}
+
+
 		// Load extension translation and connect uiLanguageChanged() signal to retranslate() slot.
 		if (!extension.isEmpty())
 			cutehmi::Internationalizer::Instance().loadTranslation(extension);
@@ -254,7 +282,7 @@ int main(int argc, char * argv[])
 				else {
 					// If source URL is relative (does not contain scheme), then make absolute URL: file:///baseDirPath/sourceUrl.
 					if (initUrl.isRelative())
-						initUrl = QUrl::fromLocalFile(baseDirPath).resolved(initUrl);
+						initUrl = QUrl::fromLocalFile(baseDirPath + "/").resolved(initUrl);
 					// Check if file exists and eventually set context property.
 					if (initUrl.isLocalFile() && !QFile::exists(initUrl.toLocalFile()))
 						cutehmi::Message::Critical(QCoreApplication::translate("main", "QML file '%1' does not exist.").arg(initUrl.url()));
@@ -315,7 +343,7 @@ int main(int argc, char * argv[])
 	//</Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
 }
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2021, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

@@ -156,9 +156,21 @@ CommonProduct {
 		qbs.install: true
 		qbs.installDir: cutehmi.dirs.metadataInstallSubdir
 	}
+
+	FileTagger {
+		patterns: ["*.rcc"]
+		fileTags: ["rcc"]
+	}
+
+	Group {
+		name: "Binary resource files"
+		fileTagsFilter: ["rcc"]
+		qbs.install: true
+		qbs.installDir: dedicatedInstallSubdir
+	}
 }
 
-//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
+//(c)C: Copyright © 2018-2021, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

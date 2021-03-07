@@ -1,70 +1,39 @@
-#ifndef H_EXTENSIONS_CUTEHMI_GUI_1_INCLUDE_CUTEHMI_GUI_FONTS_HPP
-#define H_EXTENSIONS_CUTEHMI_GUI_1_INCLUDE_CUTEHMI_GUI_FONTS_HPP
+import qbs
 
-#include "internal/common.hpp"
+/**
+  This module generates 'rcc' artifact.
+  */
+Module {
+	additionalProductTypes: ["cutehmi.rcc"]
 
-#include <QObject>
-#include <QFont>
+	property string rccProgram: "rcc"
 
-namespace cutehmi {
-namespace gui {
+	Depends { name: "Qt.core" }
 
-class CUTEHMI_GUI_API Fonts:
-	public QObject
-{
-		Q_OBJECT
+	Rule {
+		inputs: ["qrc"]
+		outputFileTags: ["rcc", "cutehmi.rcc"]
+		outputArtifacts: {
+			return [{
+						filePath: input.completeBaseName + ".rcc",
+						fileTags: ["rcc", "cutehmi.rcc"]
+			}]
+		}
 
-	public:
-		/**
-		  Monospace font.
-		  */
-		Q_PROPERTY(QFont monospace READ monospace WRITE setMonospace NOTIFY monospaceChanged RESET resetMonospace)
-
-		/**
-		  Standard font.
-		  */
-		Q_PROPERTY(QFont standard READ standard WRITE setStandard NOTIFY standardChanged RESET resetStandard)
-
-		Fonts(QObject * parent = nullptr);
-
-		QFont monospace() const;
-
-		void setMonospace(QFont monospace);
-
-		void resetMonospace();
-
-		QFont standard() const;
-
-		void setStandard(QFont standard);
-
-		void resetStandard();
-
-	signals:
-		void monospaceChanged();
-
-		void standardChanged();
-
-	protected:
-		QFont & DefaultMonospace();
-
-		QFont & DefaultStandard();
-
-	private:
-		struct Members {
-			QFont monospace;
-			QFont standard;
-		};
-
-		MPtr<Members> m;
-
-};
-
-}
+		prepare: {
+			var rccProgram = product.cutehmi.rcc.rccProgram
+			var args = [input.filePath, "-binary", "-o", output.filePath]
+			 if (input.Qt.core.enableBigResources)
+				 args.push("-pass", "1")
+			 var cmd = new Command(product.Qt.core.binPath + '/rcc', args);
+			 cmd.highlight = 'codegen'
+			 cmd.description = "invoking '" + rccProgram + "' program to generate '" + output.filePath + "'"
+			 return cmd
+		}
+	}
 }
 
-#endif
-
-//(c)C: Copyright © 2020-2021, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2021, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
