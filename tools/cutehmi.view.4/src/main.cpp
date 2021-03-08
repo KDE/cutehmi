@@ -138,7 +138,7 @@ int main(int argc, char * argv[])
 		QCommandLineOption basedirOption("basedir", QCoreApplication::translate("main", "Set base directory to <dir>."), QCoreApplication::translate("main", "dir"));
 		cmd.addOption(basedirOption);
 
-		QCommandLineOption resourceOption("resource", QCoreApplication::translate("main", "Explicitly specify <resource> file to be loeaded on startup."), QCoreApplication::translate("main", "resource"));
+		QCommandLineOption resourceOption("resource", QCoreApplication::translate("main", "Explicitly specify <resource> file to be loaded on startup."), QCoreApplication::translate("main", "resource"));
 		cmd.addOption(resourceOption);
 
 #ifdef CUTEHMI_VIEW_FORCE_DEFAULT_OPTIONS
