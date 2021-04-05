@@ -5,8 +5,6 @@
 
 #include "internal/PollingIterator.hpp"
 
-#include <cutehmi/services/PollingTimer.hpp>
-
 namespace cutehmi {
 namespace modbus {
 
@@ -21,11 +19,21 @@ class CUTEHMI_MODBUS_API AbstractClient:
 		Q_OBJECT
 
 	public:
-		Q_PROPERTY(cutehmi::services::PollingTimer * pollingTimer READ pollingTimer CONSTANT)
+		static constexpr int INITIAL_POLLING_INTERVAL = 250;
 
-		const services::PollingTimer * pollingTimer() const;
+		static constexpr int INITIAL_POLLING_TASK_INTERVAL = 10;
 
-		services::PollingTimer * pollingTimer();
+		Q_PROPERTY(int pollingInterval READ pollingInterval WRITE setPollingInterval NOTIFY pollingIntervalChanged)
+
+		Q_PROPERTY(int pollingTaskInterval READ pollingTaskInterval WRITE setPollingTaskInterval NOTIFY pollingTaskIntervalChanged)
+
+		int pollingInterval() const;
+
+		void setPollingInterval(int interval);
+
+		int pollingTaskInterval() const;
+
+		void setPollingTaskInterval(int interval);
 
 		std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
 
@@ -49,6 +57,11 @@ class CUTEHMI_MODBUS_API AbstractClient:
 
 		std::unique_ptr<QAbstractTransition> transitionToIdling() const override;
 
+	signals:
+		void pollingIntervalChanged();
+
+		void pollingTaskIntervalChanged();
+
 	protected:
 		AbstractClient(QObject * parent = nullptr);
 
@@ -66,17 +79,24 @@ class CUTEHMI_MODBUS_API AbstractClient:
 	CUTEHMI_PROTECTED_SIGNALS:
 		void requestReceived(QJsonObject request);
 
+		void pollingRequested();
+
 		void pollingFinished();
+
+		void pollingTaskRequested();
 
 		void pollingTaskFinished();
 
 	private:
 		struct Members {
 			internal::PollingIterator pollingIterator;
-			services::PollingTimer pollingTimer;
+			int pollingInterval;
+			int pollingTaskInterval;
 
 			Members(AbstractDevice * device):
-				pollingIterator(device)
+				pollingIterator(device),
+				pollingInterval(INITIAL_POLLING_INTERVAL),
+				pollingTaskInterval(INITIAL_POLLING_TASK_INTERVAL)
 			{
 			}
 		};
