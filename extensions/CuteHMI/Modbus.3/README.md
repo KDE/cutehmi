@@ -93,3 +93,5 @@ Compared to previous major version, following changes have been made.
 
 Register items do not have aliases to internal controller, instead they expose `controller` property.
 
+Property `pollingTimer` has been replaced in cutehmi::modbus::AbstractClient by `pollingInterval` and `pollingTaskInterval` 
+properties.

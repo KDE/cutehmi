@@ -1,16 +1,37 @@
 #include <cutehmi/modbus/AbstractClient.hpp>
 
+#include <QTimer>
+
 namespace cutehmi {
 namespace modbus {
 
-const services::PollingTimer * AbstractClient::pollingTimer() const
+constexpr int AbstractClient::INITIAL_POLLING_INTERVAL;
+constexpr int AbstractClient::INITIAL_POLLING_TASK_INTERVAL;
+
+int AbstractClient::pollingInterval() const
 {
-	return & m->pollingTimer;
+	return m->pollingInterval;
 }
 
-services::PollingTimer * AbstractClient::pollingTimer()
+void AbstractClient::setPollingInterval(int interval)
 {
-	return & m->pollingTimer;
+	if (m->pollingInterval != interval) {
+		m->pollingInterval = interval;
+		emit pollingIntervalChanged();
+	}
+}
+
+int AbstractClient::pollingTaskInterval() const
+{
+	return m->pollingTaskInterval;
+}
+
+void AbstractClient::setPollingTaskInterval(int interval)
+{
+	if (m->pollingTaskInterval != interval) {
+		m->pollingTaskInterval = interval;
+		emit pollingTaskIntervalChanged();
+	}
 }
 
 std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractClient::configureStarting(QState * starting)
@@ -31,7 +52,11 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractClient::configur
 
 	std::unique_ptr<services::Serviceable::ServiceStatuses> statuses = std::make_unique<services::Serviceable::ServiceStatuses>();
 
-	connect(idling, & QState::entered, pollingTimer(), & services::PollingTimer::start);
+	connect(idling, & QState::entered, [this] {
+		QTimer::singleShot(pollingInterval(), this, [this]{
+			emit pollingRequested();
+		});
+	});
 
 	QState * polling = new QState(active);
 	active->setInitialState(polling);
@@ -43,11 +68,15 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractClient::configur
 	connect(pollingTask, & QState::entered, this, & AbstractClient::pollingTask);
 
 	QState * pollingWait = new QState(polling);
-	connect(pollingWait, & QState::entered, pollingTimer()->subtimer(), & services::PollingTimer::start);
+	connect(pollingWait, & QState::entered, [this] {
+		QTimer::singleShot(pollingTaskInterval(), this, [this]{
+			emit pollingTaskRequested();
+		});
+	});
 
 	pollingTask->addTransition(this, & AbstractClient::pollingTaskFinished, pollingWait);
 
-	pollingWait->addTransition(pollingTimer()->subtimer(), & services::PollingTimer::triggered, pollingTask);
+	pollingWait->addTransition(this, & AbstractClient::pollingTaskRequested, pollingTask);
 
 	return statuses;
 }
@@ -102,7 +131,7 @@ std::unique_ptr<QAbstractTransition> AbstractClient::transitionToBroken() const
 
 std::unique_ptr<QAbstractTransition> AbstractClient::transitionToYielding() const
 {
-	return std::make_unique<QSignalTransition>(& m->pollingTimer, & services::PollingTimer::triggered);
+	return std::make_unique<QSignalTransition>(this, & AbstractClient::pollingRequested);
 }
 
 std::unique_ptr<QAbstractTransition> AbstractClient::transitionToIdling() const

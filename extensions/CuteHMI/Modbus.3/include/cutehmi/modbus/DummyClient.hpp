@@ -7,8 +7,6 @@
 #include "internal/PollingIterator.hpp"
 #include "AbstractClient.hpp"
 
-#include <cutehmi/services/PollingTimer.hpp>
-
 #include <QThread>
 
 #include <vector>

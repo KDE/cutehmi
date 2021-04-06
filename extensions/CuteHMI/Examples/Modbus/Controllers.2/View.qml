@@ -19,8 +19,8 @@ ColumnLayout {
 		DummyClient {
 			id: client
 
-			pollingTimer.interval: 2000
-			pollingTimer.subtimer.interval: 1000
+			pollingInterval: 2000
+			pollingTaskInterval: 1000
 		}
 	}
 
