@@ -20,7 +20,7 @@ Element {
 
 	property bool mirror: false
 
-	property bool horizontal
+	property bool horizontal: false
 
 	property Component frame: Component {
 		SymbolCanvas {
