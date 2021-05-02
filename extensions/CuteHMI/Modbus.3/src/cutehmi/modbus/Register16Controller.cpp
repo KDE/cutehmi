@@ -16,6 +16,7 @@ Register16Controller::Register16Controller(QObject * parent):
 	connect(this, & AbstractRegisterController::deviceChanged, this, & Register16Controller::resetRegister);
 	connect(this, & AbstractRegisterController::addressChanged, this, & Register16Controller::resetRegister);
 	connect(this, & AbstractRegisterController::enabledChanged, this, & Register16Controller::resetRegister);
+	connect(this, & Register16Controller::valueFailed, this, & Register16Controller::valueChanged);		// Trigger value dependent slots also in case of failed writes.
 }
 
 Register16Controller::~Register16Controller()
@@ -99,12 +100,17 @@ void Register16Controller::updateValue(quint16 value)
 	if (m->adjustingValue)
 		return;
 
+//	qWarning() << "val " << m->value << " req val " << m->requestedValue << " " << (m->value == m->requestedValue);
 	qreal newValue = m->valueScale * Decode(value, encoding());
 	if (m->value != newValue) {
 		m->value = newValue;
 		emit valueChanged();
-	} else if (m->value != m->requestedValue)
-		emit valueChanged();	// Trigger slots also in case of failed writes.
+	} else if (m->value != m->requestedValue) {
+		// Trigger value dependent slots also in case of mismatched writes.
+
+		m->requestedValue = m->value;
+		emit valueChanged();
+	}
 
 	emit valueUpdated();
 }
@@ -200,7 +206,7 @@ bool Register16Controller::verifyRegisterValue() const
 {
 	CUTEHMI_ASSERT(m->register16 != nullptr, "m->register16 can not be nullptr when calling this function");
 
-	return Decode(m->register16->value(), encoding()) == m->value;
+	return Decode(m->register16->value(), encoding()) == m->requestedValue;
 }
 
 }

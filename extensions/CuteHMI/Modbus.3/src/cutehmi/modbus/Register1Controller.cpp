@@ -16,6 +16,7 @@ Register1Controller::Register1Controller(QObject * parent):
 	connect(this, & AbstractRegisterController::deviceChanged, this, & Register1Controller::resetRegister);
 	connect(this, & AbstractRegisterController::addressChanged, this, & Register1Controller::resetRegister);
 	connect(this, & AbstractRegisterController::enabledChanged, this, & Register1Controller::resetRegister);
+	connect(this, & Register1Controller::valueFailed, this, & Register1Controller::valueChanged);		// Trigger value dependent slots also in case of failed writes.
 }
 
 Register1Controller::~Register1Controller()
@@ -74,8 +75,12 @@ void Register1Controller::updateValue(bool value)
 	if (m->value != value) {
 		m->value = value;
 		emit valueChanged();
-	} else if (m->value != m->requestedValue)
-		emit valueChanged();	// Trigger slots also in case of failed writes.
+	} else if (m->value != m->requestedValue) {
+		// Trigger value dependent slots also in case of mismatched writes.
+
+		m->requestedValue = m->value;
+		emit valueChanged();
+	}
 
 	emit valueUpdated();
 }
@@ -122,7 +127,7 @@ bool Register1Controller::verifyRegisterValue() const
 {
 	CUTEHMI_ASSERT(m->register1 != nullptr, "m->register1 can not be nullptr when calling this function");
 
-	return m->register1->value() == m->value;
+	return m->register1->value() == m->requestedValue;
 }
 
 }
