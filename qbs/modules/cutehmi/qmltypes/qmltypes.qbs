@@ -22,9 +22,10 @@ Module {
 		condition: !qbs.targetOS.contains("android")
 
 		multiplex: true
-		inputs: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
+		explicitlyDependsOn: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
 		//<cutehmi.qmlplugindump.0-1.workaround target="Qt" cause="missing">
-		explicitlyDependsOnFromDependencies: ["qmlplugindump"]
+		// Due to workaround output artifact explicitly depends on "qmlplugindump", which is a tag provided by "cutehmi.qmlplugindump.0" tool.
+		explicitlyDependsOnFromDependencies: ["qmlplugindump", "qml", "js", "qmldir", "dynamiclibrary"]
 		///</cutehmi.qmlplugindump.0-1.workaround>
 
 		prepare: {
