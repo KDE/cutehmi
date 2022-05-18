@@ -22,9 +22,10 @@ Module {
 		condition: !qbs.targetOS.contains("android")
 
 		multiplex: true
-		inputs: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
+		explicitlyDependsOn: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
 		//<cutehmi.qmlplugindump.0-1.workaround target="Qt" cause="missing">
-		explicitlyDependsOnFromDependencies: ["qmlplugindump"]
+		// Due to workaround output artifact explicitly depends on "qmlplugindump", which is a tag provided by "cutehmi.qmlplugindump.0" tool.
+		explicitlyDependsOnFromDependencies: ["qmlplugindump", "qml", "js", "qmldir", "dynamiclibrary"]
 		///</cutehmi.qmlplugindump.0-1.workaround>
 
 		prepare: {
@@ -87,7 +88,7 @@ Module {
 	}
 }
 
-//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
+//(c)C: Copyright © 2018-2022, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
