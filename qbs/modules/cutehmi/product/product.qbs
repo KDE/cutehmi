@@ -2,7 +2,7 @@
   This module is provided mainly as a workaround to propagate information about disabled products to their dependencies.
  */
 Module {
-//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
+	//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
 	/**
 	  Whether product is enabled. Use this property to signal that product should not be built.
 	  */
@@ -22,7 +22,7 @@ Module {
 			console.info(message + ".")
 		}
 	}
-//</qbs-cutehmi.product-1.workaround>
+	//</qbs-cutehmi.product-1.workaround>
 }
 
 //(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.

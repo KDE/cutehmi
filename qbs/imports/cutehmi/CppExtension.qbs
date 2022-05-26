@@ -24,17 +24,17 @@ Extension {
 
 	Export {
 		cpp.defines: {
-			var defines = [product.macroName + "_" + product.major + "_" + product.minor]
+			var defines = [exportingProduct.macroName + "_" + exportingProduct.major + "_" + exportingProduct.minor]
 			if (!project.staticExtensions)
-				defines.push(product.macroName + "_DYNAMIC")
+				defines.push(exportingProduct.macroName + "_DYNAMIC")
 			if (project.buildTests)
-				defines.push(product.macroName + "_TEST")
+				defines.push(exportingProduct.macroName + "_TEST")
 			return defines
 		}
 
 		//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
 		// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
-		cpp.includePaths: product.cutehmi.cpp.exportedIncludePaths
+		cpp.includePaths: exportingProduct.cutehmi.cpp.exportedIncludePaths
 		// Instead of:
 		// cpp.includePaths: [sourceDirectory + "/include"]
 		//</qbs-cutehmi.cpp-1.workaround>
@@ -42,7 +42,7 @@ Extension {
 		Depends { name: "cpp" }
 
 		Depends {
-			name: "android_" + product.name
+			name: "android_" + exportingProduct.name
 			condition: importingProduct.cutehmiType == "tool" && qbs.targetOS.contains("android")
 			cpp.link: false
 		}

@@ -38,9 +38,9 @@ Product {
 		Depends { name: "cutehmi.product" }
 		Properties {
 			//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
-			condition: !product.builtByDefault
+			condition: !exportingProduct.builtByDefault
 			//</qbs-imports-cutehmi-1.workaround>
-			cutehmi.product.disabledProducts: product.name
+			cutehmi.product.disabledProducts: exportingProduct.name
 		}
 	}
 
