@@ -168,6 +168,19 @@ CommonProduct {
 		qbs.install: true
 		qbs.installDir: dedicatedInstallSubdir
 	}
+
+	FileTagger {
+		patterns: ["*.desktop"]
+		fileTags: ["desktop"]
+	}
+
+	Group {
+		name: "Desktop entries"
+		fileTagsFilter: ["desktop"]
+		qbs.install: true
+		qbs.installSourceBase: installSourceBase
+		qbs.installDir: dedicatedInstallSubdir
+	}
 }
 
 //(c)C: Copyright © 2018-2021, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
