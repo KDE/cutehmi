@@ -35,8 +35,6 @@ Module {
 	}
 	readonly property string installDir: product.qbs.installPrefix ? product.qbs.installRoot + product.qbs.installPrefix : product.qbs.installRoot // Note: qbs.installPrefix starts with "/".
 
-	readonly property string examplesInstallSubdir: "cutehmi/examples" 	///< @deprecated Examples are going to be entirely replaced by appropriate example extensions.
-
 	PropertyOptions {
 		name: "extensionsInstallSubdir"
 		description: "Target intallation subdirectory for extensions."
