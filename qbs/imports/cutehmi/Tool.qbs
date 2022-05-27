@@ -1,4 +1,5 @@
 import qbs
+import qbs.FileInfo
 
 import "CommonProduct.qbs" as CommonProduct
 
@@ -20,8 +21,10 @@ CommonProduct {
 
 	Depends { name: "cpp" }
 	Properties {
+		readonly property string extensionsRelativePath: FileInfo.relativePath(cutehmi.dirs.installDir + "/" + cutehmi.dirs.toolsInstallSubdir, cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionsInstallSubdir)
+
 		condition: qbs.targetOS.contains("linux")
-		cpp.linkerFlags: "-rpath=$ORIGIN"
+		cpp.linkerFlags: "-rpath=$ORIGIN" + (extensionsRelativePath === "." ? "" : "/" + extensionsRelativePath)
 	}
 	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
