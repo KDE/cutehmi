@@ -38,9 +38,9 @@ Product {
 		Depends { name: "cutehmi.product" }
 		Properties {
 			//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
-			condition: !product.builtByDefault
+			condition: !exportingProduct.builtByDefault
 			//</qbs-imports-cutehmi-1.workaround>
-			cutehmi.product.disabledProducts: product.name
+			cutehmi.product.disabledProducts: exportingProduct.name
 		}
 	}
 
@@ -49,7 +49,7 @@ Product {
 	//</qbs-cutehmi.product-1.workaround>
 }
 
-//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2018-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

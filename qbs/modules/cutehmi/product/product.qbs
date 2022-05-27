@@ -2,7 +2,7 @@
   This module is provided mainly as a workaround to propagate information about disabled products to their dependencies.
  */
 Module {
-//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
+	//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
 	/**
 	  Whether product is enabled. Use this property to signal that product should not be built.
 	  */
@@ -22,10 +22,10 @@ Module {
 			console.info(message + ".")
 		}
 	}
-//</qbs-cutehmi.product-1.workaround>
+	//</qbs-cutehmi.product-1.workaround>
 }
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
