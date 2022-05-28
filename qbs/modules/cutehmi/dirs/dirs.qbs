@@ -35,15 +35,13 @@ Module {
 	}
 	readonly property string installDir: product.qbs.installPrefix ? product.qbs.installRoot + product.qbs.installPrefix : product.qbs.installRoot // Note: qbs.installPrefix starts with "/".
 
-	readonly property string examplesInstallSubdir: "cutehmi/examples" 	///< @deprecated Examples are going to be entirely replaced by appropriate example extensions.
-
 	PropertyOptions {
 		name: "extensionsInstallSubdir"
 		description: "Target intallation subdirectory for extensions."
 	}
 	// <qbs-cutehmi.dirs-1.workaround target="Qt" cause="design">
 	// Android expects QML files to be installed in 'qml' directory, so we're changing installation path of extension files.
-	readonly property string extensionsInstallSubdir: qbs.targetOS.contains("android") ? "cutehmi/qml" : "cutehmi/app"
+	property string extensionsInstallSubdir: qbs.targetOS.contains("android") ? "cutehmi/qml" : "cutehmi/app"
 	// </qbs-cutehmi.dirs-1.workaround>
 
 	PropertyOptions {
@@ -56,7 +54,7 @@ Module {
 		name: "externalDeployDir"
 		description: "Deployment directory of external libraries."
 	}
-	readonly property string externalDeployDir: project.sourceDirectory + "/external/deploy"
+	property string externalDeployDir: project.sourceDirectory + "/external/deploy"
 
 	PropertyOptions {
 		name: "externalLibDir"
@@ -80,37 +78,37 @@ Module {
 		name: "puppetsInstallSubdir"
 		description: "Installation subdirectory of puppet extensions that are used by Qt Designer."
 	}
-	readonly property string puppetsInstallSubdir: "cutehmi/puppets"
+	property string puppetsInstallSubdir: "cutehmi/puppets"
 
 	PropertyOptions {
 		name: "testsInstallSubdir"
 		description: "Target intallation subdirectory for tests."
 	}
-	readonly property string testsInstallSubdir: "cutehmi/app"
+	property string testsInstallSubdir: "cutehmi/app"
 
 	PropertyOptions {
 		name: "toolsInstallSubdir"
 		description: "Target intallation subdirectory for a tool."
 	}
-	readonly property string toolsInstallSubdir: "cutehmi/app"
+	property string toolsInstallSubdir: "cutehmi/app"
 
 	PropertyOptions {
 		name: "translationsInstallSubdir"
 		description: "Target intallation subdirectory for translations."
 	}
-	readonly property string translationsInstallSubdir: "cutehmi/translations"
+	property string translationsInstallSubdir: "cutehmi/translations"
 
 	PropertyOptions {
 		name: "artifactsInstallSubdir"
 		description: "Target intallation subdirectory for various artifacts."
 	}
-	readonly property string artifactsInstallSubdir: "cutehmi/artifacts"
+	property string artifactsInstallSubdir: "cutehmi/artifacts"
 
 	PropertyOptions {
 		name: "metadataInstallSubdir"
 		description: "Target intallation subdirectory for metadata."
 	}
-	readonly property string metadataInstallSubdir: "cutehmi/metadata"
+	property string metadataInstallSubdir: "cutehmi/metadata"
 
 	Rule {
 		condition: product.cutehmi.dirs.dirsHppArtifact !== undefined
