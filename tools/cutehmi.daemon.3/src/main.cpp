@@ -153,11 +153,14 @@ int main(int argc, char * argv[])
 			QString baseDirPath = baseDir.absolutePath() + "/";
 			CUTEHMI_DEBUG("Base directory: " << baseDirPath);
 
-			QCoreApplication::addLibraryPath(QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_EXTENSIONS_INSTALL_SUBDIR));
+			QString extensionsDirPath = QDir::cleanPath(QCoreApplication::applicationDirPath() + "/" + QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_EXTENSIONS_INSTALL_SUBDIR));
+			CUTEHMI_DEBUG("Extensions directory: " << extensionsDirPath);
+
+			QCoreApplication::addLibraryPath(extensionsDirPath);
 			CUTEHMI_DEBUG("Library paths: " << QCoreApplication::libraryPaths());
 
 			QQmlApplicationEngine engine;
-			engine.addImportPath(QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_EXTENSIONS_INSTALL_SUBDIR));
+			engine.addImportPath(extensionsDirPath);
 			CUTEHMI_DEBUG("QML import paths: " << engine.importPathList());
 
 			QStringList positionalArguments = data.cmd->positionalArguments();
