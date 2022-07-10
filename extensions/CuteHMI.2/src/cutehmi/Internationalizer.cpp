@@ -113,10 +113,10 @@ QStringList Internationalizer::standardTranslationDirectories() const
 		for (auto lang : uiLanguages)
 			directories << qEnvironmentVariable("LOCPATH") + lang + "/LC_MESSAGES";
 
-	QStringList xdgDirectories = qEnvironmentVariable("XDG_DATA_HOME").split(':', QString::SkipEmptyParts);
+	QStringList xdgDirectories = qEnvironmentVariable("XDG_DATA_HOME").split(':', Qt::SkipEmptyParts);
 	if (qEnvironmentVariable("XDG_DATA_HOME").isEmpty())
 		xdgDirectories << qEnvironmentVariable("HOME") + "/.local/share";
-	xdgDirectories << qEnvironmentVariable("XDG_DATA_DIRS").split(':', QString::SkipEmptyParts);
+	xdgDirectories << qEnvironmentVariable("XDG_DATA_DIRS").split(':', Qt::SkipEmptyParts);
 	if (qEnvironmentVariable("XDG_DATA_DIRS").isEmpty())
 		xdgDirectories << "/usr/local/share/" << "/usr/share/";
 	for (auto directory : xdgDirectories)
