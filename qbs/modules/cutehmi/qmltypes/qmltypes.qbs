@@ -23,8 +23,10 @@ Module {
 
 		multiplex: true
 		explicitlyDependsOn: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
+//		inputs: product.type.contains("dynamiclibrary") ? ["qml", "js", "qmldir", "dynamiclibrary"] : ["qml", "js", "qmldir"]
+//		inputsFromDependencies: ["qml", "js", "qmldir", "dynamiclibrary"]
 		//<cutehmi.qmlplugindump.0-1.workaround target="Qt" cause="missing">
-		// Due to workaround output artifact explicitly depends on "qmlplugindump", which is a tag provided by "cutehmi.qmlplugindump.0" tool.
+		// Due to workaround output explicitly depends on "qmlplugindump", which is a tag provided by "cutehmi.qmlplugindump.0" tool.
 		explicitlyDependsOnFromDependencies: ["qmlplugindump", "qml", "js", "qmldir", "dynamiclibrary"]
 		///</cutehmi.qmlplugindump.0-1.workaround>
 
