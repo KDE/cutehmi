@@ -87,9 +87,9 @@ The one to get started with is [CuteHMI.Examples.Modbus.Basic.2](../Examples/Mod
 components. Another simple example [CuteHMI.Examples.Modbus.ControllerItems.2](../Examples/Modbus/ControllerItems.2/) is provided to
 work with Qt Creator in "Design" mode. The other examples are provided to demonstrate more advanced features.
 
-### Changes
+## Changes
 
-Compared to previous major version, following changes have been made.
+### Version 3
 
 Register items do not have aliases to internal controller, instead they expose `controller` property.
 
