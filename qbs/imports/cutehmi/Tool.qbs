@@ -1,4 +1,5 @@
 import qbs
+import qbs.FileInfo
 
 import "CommonProduct.qbs" as CommonProduct
 
@@ -20,8 +21,10 @@ CommonProduct {
 
 	Depends { name: "cpp" }
 	Properties {
+		readonly property string extensionsRelativePath: FileInfo.relativePath(cutehmi.dirs.installDir + "/" + cutehmi.dirs.toolsInstallSubdir, cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionsInstallSubdir)
+
 		condition: qbs.targetOS.contains("linux")
-		cpp.linkerFlags: "-rpath=$ORIGIN"
+		cpp.linkerFlags: "-rpath=$ORIGIN" + (extensionsRelativePath === "." ? "" : "/" + extensionsRelativePath)
 	}
 	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
@@ -57,7 +60,7 @@ CommonProduct {
 	}
 }
 
-//(c)C: Copyright © 2018-2020, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
+//(c)C: Copyright © 2018-2022, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

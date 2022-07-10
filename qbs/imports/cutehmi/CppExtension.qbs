@@ -24,17 +24,17 @@ Extension {
 
 	Export {
 		cpp.defines: {
-			var defines = [product.macroName + "_" + product.major + "_" + product.minor]
+			var defines = [exportingProduct.macroName + "_" + exportingProduct.major + "_" + exportingProduct.minor]
 			if (!project.staticExtensions)
-				defines.push(product.macroName + "_DYNAMIC")
+				defines.push(exportingProduct.macroName + "_DYNAMIC")
 			if (project.buildTests)
-				defines.push(product.macroName + "_TEST")
+				defines.push(exportingProduct.macroName + "_TEST")
 			return defines
 		}
 
 		//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
 		// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
-		cpp.includePaths: product.cutehmi.cpp.exportedIncludePaths
+		cpp.includePaths: exportingProduct.cutehmi.cpp.exportedIncludePaths
 		// Instead of:
 		// cpp.includePaths: [sourceDirectory + "/include"]
 		//</qbs-cutehmi.cpp-1.workaround>
@@ -42,7 +42,7 @@ Extension {
 		Depends { name: "cpp" }
 
 		Depends {
-			name: "android_" + product.name
+			name: "android_" + exportingProduct.name
 			condition: importingProduct.cutehmiType == "tool" && qbs.targetOS.contains("android")
 			cpp.link: false
 		}
@@ -78,7 +78,7 @@ Extension {
 	}
 }
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

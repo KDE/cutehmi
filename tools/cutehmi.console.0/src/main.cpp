@@ -102,11 +102,15 @@ int main(int argc, char * argv[])
 		QString baseDirPath = baseDir.absolutePath() + "/";
 		CUTEHMI_DEBUG("Base directory: " << baseDirPath);
 
+		QString extensionsDirPath = QDir::cleanPath(QCoreApplication::applicationDirPath() + "/" + QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_EXTENSIONS_INSTALL_SUBDIR));
+		CUTEHMI_DEBUG("Extensions directory: " << extensionsDirPath);
+
+		QCoreApplication::addLibraryPath(extensionsDirPath);
 		CUTEHMI_DEBUG("Library paths: " << QCoreApplication::libraryPaths());
 
 		std::unique_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine);
-		engine->addImportPath(baseDirPath + CUTEHMI_DIRS_EXTENSIONS_INSTALL_SUBDIR);
 
+		engine->addImportPath(extensionsDirPath);
 		CUTEHMI_DEBUG("QML import paths: " << engine->importPathList());
 
 		CUTEHMI_INFO(QCoreApplication::translate("main", "Welcome to %1 %2. Type \\help to see the list of commands.").arg(CUTEHMI_CONSOLE_VENDOR).arg(CUTEHMI_CONSOLE_FRIENDLY_NAME));
@@ -186,7 +190,7 @@ int main(int argc, char * argv[])
 
 }
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
