@@ -24,7 +24,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 		Q_OBJECT
 
 	public:
-		Q_PROPERTY(QQmlListProperty<cutehmi::dataacquisition::TagValue> values READ valueList)
+		Q_PROPERTY(QQmlListProperty<cutehmi::dataacquisition::TagValue> values READ valueList CONSTANT)
 		Q_CLASSINFO("DefaultProperty", "values")
 
 		Q_PROPERTY(cutehmi::dataacquisition::Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
@@ -37,7 +37,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 
 		void setSchema(Schema * schema);
 
-		Q_INVOKABLE TagValue * getValue(int index);
+		Q_INVOKABLE cutehmi::dataacquisition::TagValue * getValue(int index);
 
 		Q_INVOKABLE void appendValue(cutehmi::dataacquisition::TagValue * value);
 
