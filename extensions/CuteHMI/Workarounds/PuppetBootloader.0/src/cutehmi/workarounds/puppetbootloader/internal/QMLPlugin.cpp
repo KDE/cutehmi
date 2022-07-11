@@ -1,6 +1,8 @@
 #include "QMLPlugin.hpp"
 #include "Init.hpp"
 
+#include <QQmlEngine>
+
 namespace cutehmi {
 namespace workarounds {
 namespace puppetbootloader {
@@ -17,6 +19,7 @@ void QMLPlugin::initializeEngine(QQmlEngine * engine, const char * uri)
 void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_UNUSED(uri)
+	qmlRegisterModule(uri, 1, 0);
 }
 
 }
@@ -24,7 +27,7 @@ void QMLPlugin::registerTypes(const char * uri)
 }
 }
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2019-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

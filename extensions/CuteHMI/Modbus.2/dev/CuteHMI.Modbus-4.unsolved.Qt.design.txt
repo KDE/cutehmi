@@ -1,7 +1,0 @@
-Problem:
-
-QModbusDataUnit uses `int` for address type. On systems, where `int` is 16 bit
-wide it will fail to cover whole Modbus address range (0-65535).
-
-Investigation:
-

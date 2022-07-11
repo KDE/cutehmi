@@ -113,10 +113,10 @@ QStringList Internationalizer::standardTranslationDirectories() const
 		for (auto lang : uiLanguages)
 			directories << qEnvironmentVariable("LOCPATH") + lang + "/LC_MESSAGES";
 
-	QStringList xdgDirectories = qEnvironmentVariable("XDG_DATA_HOME").split(':', QString::SkipEmptyParts);
+	QStringList xdgDirectories = qEnvironmentVariable("XDG_DATA_HOME").split(':', Qt::SkipEmptyParts);
 	if (qEnvironmentVariable("XDG_DATA_HOME").isEmpty())
 		xdgDirectories << qEnvironmentVariable("HOME") + "/.local/share";
-	xdgDirectories << qEnvironmentVariable("XDG_DATA_DIRS").split(':', QString::SkipEmptyParts);
+	xdgDirectories << qEnvironmentVariable("XDG_DATA_DIRS").split(':', Qt::SkipEmptyParts);
 	if (qEnvironmentVariable("XDG_DATA_DIRS").isEmpty())
 		xdgDirectories << "/usr/local/share/" << "/usr/share/";
 	for (auto directory : xdgDirectories)
@@ -207,7 +207,7 @@ QStringList Internationalizer::translationDirectories() const
 
 }
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
