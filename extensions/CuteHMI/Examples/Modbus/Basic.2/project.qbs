@@ -14,7 +14,7 @@ Project {
 
 		friendlyName: "Basic Modbus Example"
 
-		description: "Example demonstrates basic usage of QML components provided by CuteHMI.Modbus.2 extension."
+		description: "Example demonstrates basic usage of QML components provided by CuteHMI.Modbus.3 extension."
 
 		files: [
 			"LICENSE.MIT",
