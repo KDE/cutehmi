@@ -49,7 +49,7 @@ class CUTEHMI_API Notification:
 		 * @param type notification type.
 		 * @param parent parent object.
 		 */
-		explicit Notification(const QString & text = QString(), Type type = INFO, QObject * parnt = nullptr);
+		explicit Notification(const QString & text = QString(), Type type = INFO, QObject * parent = nullptr);
 
 		/**
 		 * Constructor.
