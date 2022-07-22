@@ -1,7 +1,7 @@
 #include "Interpreter.hpp"
 #include "logging.hpp"
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QQmlExpression>
 #include <QMetaObject>
 
@@ -196,12 +196,12 @@ QStringList Interpreter::parseLine(const QString & line)
 {
 	auto extractCommands = [](QStringList & commands, const QString & linePart) {
 		// Split by whitespace.
-		QStringList whitespaceSeparatedCommands = linePart.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+		QStringList whitespaceSeparatedCommands = linePart.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
 
 		// Split words by non-word characters (especially '\' character).
 		for (auto command : whitespaceSeparatedCommands)
 			if (command.contains('\\'))
-				commands.append(command.split(QRegExp("\\b"), QString::SkipEmptyParts));
+				commands.append(command.split(QRegularExpression("\\b"), Qt::SkipEmptyParts));
 			else
 				commands.append(command);
 	};
@@ -471,7 +471,7 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 	else {
 		if (subcommands.at(0) == object.get()) {
 			QString path = object->matchedString();
-			QStringList parts = path.split('/', QString::SkipEmptyParts);
+			QStringList parts = path.split('/', Qt::SkipEmptyParts);
 			QObject * candidate;
 			if (path.startsWith('/'))
 				candidate = context.engine;
