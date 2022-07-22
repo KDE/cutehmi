@@ -1,6 +1,8 @@
 #include "InputHandler.hpp"
 #include "logging.hpp"
 
+#include <QIODevice>
+
 namespace cutehmi {
 namespace console {
 
