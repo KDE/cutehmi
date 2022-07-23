@@ -132,6 +132,12 @@ Module {
 	readonly property string initHeader: dedicatedSubdir + "/Init.hpp"
 
 	PropertyOptions {
+		name: "hyphenatedName"
+		description: "Lowercased product name written with hyphens instead of dots."
+	}
+	readonly property string hyphenatedName: productName.toLowerCase().replace(/\./g, '-')
+
+	PropertyOptions {
 		name: "functions"
 		description: "This property exposes various helper functions."
 	}
@@ -159,6 +165,7 @@ Module {
 			console.info("qmlTypeInfo: '" + qmlTypeInfo + "'")
 			console.info("initClassName: '" + initClassName + "'")
 			console.info("initHeader: '" + initHeader + "'")
+			console.info("hyphenatedName: '" + hyphenatedName + "'")
 			console.info("---")
 		}
 	}
