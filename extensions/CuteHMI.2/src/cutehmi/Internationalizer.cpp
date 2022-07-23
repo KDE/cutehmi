@@ -110,7 +110,7 @@ QStringList Internationalizer::standardTranslationDirectories() const
 	uiLanguages.replaceInStrings("-", "_");
 
 	if (!qEnvironmentVariable("LOCPATH").isEmpty())
-		for (auto lang : uiLanguages)
+		for (auto && lang : uiLanguages)
 			directories << qEnvironmentVariable("LOCPATH") + lang + "/LC_MESSAGES";
 
 	QStringList xdgDirectories = qEnvironmentVariable("XDG_DATA_HOME").split(':', Qt::SkipEmptyParts);
@@ -119,8 +119,8 @@ QStringList Internationalizer::standardTranslationDirectories() const
 	xdgDirectories << qEnvironmentVariable("XDG_DATA_DIRS").split(':', Qt::SkipEmptyParts);
 	if (qEnvironmentVariable("XDG_DATA_DIRS").isEmpty())
 		xdgDirectories << "/usr/local/share/" << "/usr/share/";
-	for (auto directory : xdgDirectories)
-		for (auto lang : uiLanguages)
+	for (auto && directory : xdgDirectories)
+		for (auto && lang : uiLanguages)
 			directories << directory + "/locale/" + lang + "/LC_MESSAGES";
 
 	directories << QLibraryInfo::location(QLibraryInfo::TranslationsPath);
