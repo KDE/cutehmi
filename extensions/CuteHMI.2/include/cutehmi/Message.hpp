@@ -232,7 +232,7 @@ class CUTEHMI_API Message:
 		 * value of @a response property and should be avoided.
 		 * @param response response to be set.
 		 */
-		void acceptResponse(Button response);
+		void acceptResponse(cutehmi::Message::Button response);
 
 	signals:
 		void typeChanged();

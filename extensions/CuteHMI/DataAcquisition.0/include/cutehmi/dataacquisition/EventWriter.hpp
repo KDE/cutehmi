@@ -49,7 +49,7 @@ class CUTEHMI_DATAACQUISITION_API EventWriter:
 	private slots:
 		void onSchemaChanged();
 
-		void insertEvent(TagValue * tag);
+		void insertEvent(cutehmi::dataacquisition::TagValue * tag);
 
 		void connectTagSignals();
 

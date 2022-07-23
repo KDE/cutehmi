@@ -42,7 +42,7 @@ class CUTEHMI_API Notifier:
 		 *
 		 * @threadsafe
 		 */
-		void add(Notification * notification_l);
+		void add(cutehmi::Notification * notification_l);
 
 		void clear();
 

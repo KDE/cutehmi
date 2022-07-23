@@ -62,7 +62,7 @@ class CUTEHMI_API Messenger:
 		 *
 		 * @throw NoAdvertiserException thrown in case advertiser has not been set.
 		 */
-		Q_INVOKABLE void advertise(Message * message_l);
+		Q_INVOKABLE void advertise(cutehmi::Message * message_l);
 
 		/**
 		  * Reset advertiser. Advertiser will be connected to dialogRequested() signal. There can be only one advertiser at a time.
