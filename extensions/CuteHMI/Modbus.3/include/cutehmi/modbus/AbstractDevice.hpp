@@ -18,7 +18,8 @@
 #include <QJsonArray>
 #include <QQmlListProperty>
 #include <QModbusPdu>
-#include <QLinkedList>
+
+#include <list>
 
 namespace cutehmi {
 namespace modbus {
@@ -630,7 +631,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		void started();
 
 	private:
-		typedef QLinkedList<QJsonObject> PendingRequestsContainer;
+		typedef std::list<QJsonObject> PendingRequestsContainer;
 
 		static void ValidatePayloadAddressKey(const QJsonObject & json, const QString & key = "address");
 

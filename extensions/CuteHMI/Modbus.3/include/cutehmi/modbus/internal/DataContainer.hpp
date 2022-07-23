@@ -1,14 +1,12 @@
 #ifndef H_EXTENSIONS_CUTEHMI_MODBUS_3_INCLUDE_CUTEHMI_MODBUS_INTERNAL_DATACONTAINER_HPP
 #define H_EXTENSIONS_CUTEHMI_MODBUS_3_INCLUDE_CUTEHMI_MODBUS_INTERNAL_DATACONTAINER_HPP
 
-#include "common.hpp"
-
-#include <QLinkedList>
 #include <QReadWriteLock>
 
 #include <array>
 #include <algorithm>
 #include <memory>
+#include <list>
 
 namespace cutehmi {
 namespace modbus {
@@ -32,7 +30,7 @@ class DataContainer
 		// <Qt-Qt_5_11_2_Reference_Documentation-Qt_Core-Container_Classes-The_Container_Classes-QLinkedList_iterator_semantics.principle>
 		// "Iterators pointing to an item in a QLinkedList remain valid as long as the item exists, whereas iterators to a QList can
 		//	become invalid after any insertion or removal."
-		typedef QLinkedList<std::size_t> KeysContainer;
+		typedef std::list<std::size_t> KeysContainer;
 		// </Qt-Qt_5_11_2_Reference_Documentation-Qt_Core-Container_Classes-The_Container_Classes-QLinkedList_iterator_semantics.principle>
 
 		static constexpr std::size_t ADDRESS_SPACE = N;
@@ -54,7 +52,8 @@ class DataContainer
 
 			private:
 				mutable QReadWriteLock * m_lock;
-				QLinkedListIterator<KeysContainer::value_type> m_it;
+				const KeysContainer * m_keysContainer;
+				KeysContainer::const_iterator m_it;
 		};
 
 		DataContainer();
@@ -152,7 +151,8 @@ class DataContainer
 template <typename T, std::size_t N>
 DataContainer<T, N>::KeysIterator::KeysIterator(const DataContainer<T, N> * container):
 	m_lock(& container->lock()),
-	m_it(container->keys())
+	m_keysContainer(& container->keys()),
+	m_it(container->keys().begin())
 {
 }
 
@@ -161,7 +161,7 @@ bool DataContainer<T, N>::KeysIterator::hasNext() const
 {
 	QReadLocker locker(m_lock);
 
-	return m_it.hasNext();
+	return m_it != m_keysContainer->end();
 }
 
 template <typename T, std::size_t N>
@@ -169,7 +169,7 @@ typename DataContainer<T, N>::KeysContainer::value_type DataContainer<T, N>::Key
 {
 	QReadLocker locker(m_lock);
 
-	return m_it.next();
+	return *(m_it)++;
 }
 
 template <typename T, std::size_t N>
@@ -177,7 +177,7 @@ typename DataContainer<T, N>::KeysContainer::value_type DataContainer<T, N>::Key
 {
 	QReadLocker locker(m_lock);
 
-	return m_it.previous();
+	return *(--m_it);
 }
 
 template <typename T, std::size_t N>

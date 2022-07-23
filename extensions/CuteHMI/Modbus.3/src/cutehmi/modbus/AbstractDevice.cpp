@@ -158,6 +158,11 @@ int AbstractDevice::maxRequests() const
 void AbstractDevice::setMaxRequests(int maxRequests)
 {
 	if (m->maxRequests != maxRequests) {
+		if (maxRequests <= 0) {
+			CUTEHMI_WARNING("Value of " << maxRequests << " must be greater than 0 (value " << maxRequests << " given).");
+			maxRequests = 1;
+		}
+
 		m->maxRequests = maxRequests;
 		emit maxRequestsChanged();
 	}
@@ -390,8 +395,8 @@ void AbstractDevice::request(Function function, QJsonObject payload, QUuid * req
 
 	CUTEHMI_DEBUG("Received request '" << request << "'.");
 
-	m->pendingRequests.append(request);
-	if (m->pendingRequests.count() > maxRequests()) {
+	m->pendingRequests.push_back(request);
+	if (m->pendingRequests.size() > static_cast<std::size_t>(maxRequests())) {
 		QJsonObject reply;
 		reply.insert("success", false);
 		reply.insert("error", tr("Request queue is full."));
