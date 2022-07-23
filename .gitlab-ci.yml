@@ -1,10 +1,11 @@
 variables:
   QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-11"
+  QBS_PROFILE: "qt-5-15-2"
   QBS_CONFIG: "debug"
-  QBS_PROFILE: "qt"
   QT_DEBUG_PLUGINS: 0
   XDG_RUNTIME_DIR: "/tmp/runtime-kdeci/"
   DISPLAY: ":90"
+  UBUNTU_IMAGE: "cutehmi/qt:ubuntu-22.04-qt-5.15.2"
 
 stages:
   - build
@@ -31,25 +32,9 @@ stages:
     - echo "Qbs config:" $QBS_CONFIG
     - qbs build -f CuteHMI.qbs -d build profile:$QBS_PROFILE config:$QBS_CONFIG
 
-.build_ci-suse-qt512:
-  image: "kdeorg/ci-suse-qt512"
+.build ubuntu:
   extends: .build
-  before_script:
-    - uname -a
-    - export PATH=$PATH:/usr/lib64/qt5/bin/:/usr/bin/
-    - mkdir -pm 0700 $XDG_RUNTIME_DIR
-    - qbs --version
-    - qmake --version
-    - qbs setup-toolchains --detect
-    - qbs setup-qt /usr/lib64/qt5/bin/qmake $QBS_PROFILE
-    - qbs config --list profiles
-    - qbs config profiles.$QBS_PROFILE.baseProfile $QBS_BASE_PROFILE
-    - zypper --non-interactive in libgpiod-devel
-
-.build_ubuntu:
-  extends: .build
-  variables:
-    QBS_PROFILE: "qt-5-15-2"
+  image: $UBUNTU_IMAGE
   before_script:
     - uname -a
     - mkdir -pm 0700 $XDG_RUNTIME_DIR
@@ -62,30 +47,26 @@ stages:
     - sudo apt-get update
     - sudo apt-get install libgpiod-dev --yes
 
-gcc ubuntu-21.10-qt-5.15.2 debug build:
-  image: "cutehmi/qt:ubuntu-21.10-qt-5.15.2"
-  extends: .build_ubuntu
+build gcc ubuntu debug:
+  extends: .build ubuntu
   variables:
     QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-11"
     QBS_CONFIG: "debug"
 
-clang ubuntu-21.10-qt-5.15.2 debug build:
-  image: "cutehmi/qt:ubuntu-21.10-qt-5.15.2"
-  extends: .build_ubuntu
+build clang ubuntu debug:
+  extends: .build ubuntu
   variables:
     QBS_BASE_PROFILE: "clang-13"
     QBS_CONFIG: "debug"
 
-gcc ubuntu-21.10-qt-5.15.2 release build:
-  image: "cutehmi/qt:ubuntu-21.10-qt-5.15.2"
-  extends: .build_ubuntu
+build gcc ubuntu release:
+  extends: .build ubuntu
   variables:
     QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-11"
     QBS_CONFIG: "release"
 
-clang ubuntu-21.10-qt-5.15.2 release build:
-  image: "cutehmi/qt:ubuntu-21.10-qt-5.15.2"
-  extends: .build_ubuntu
+build clang ubuntu release:
+  extends: .build ubuntu
   variables:
     QBS_BASE_PROFILE: "clang-13"
     QBS_CONFIG: "release"
@@ -114,8 +95,9 @@ clang ubuntu-21.10-qt-5.15.2 release build:
     - qbs resolve -f TestCuteHMI.qbs -d build_tests modules.autotest.arguments:'["-txt"]' modules.autotest.allowFailure:false profile:$QBS_PROFILE config:$QBS_CONFIG
     - qbs build -f TestCuteHMI.qbs -d build_tests -k -p autotest-runner --jobs 1 modules.autotest.arguments:'["-txt"]' modules.autotest.allowFailure:false profile:$QBS_PROFILE config:$QBS_CONFIG
 
-.test_ubuntu:
+.test ubuntu:
   extends: .test
+  image: $UBUNTU_IMAGE
   before_script:
     - uname -a
     - mkdir -pm 0700 $XDG_RUNTIME_DIR
@@ -130,16 +112,12 @@ clang ubuntu-21.10-qt-5.15.2 release build:
     - sudo apt-get update
     - sudo apt-get install libgpiod-dev --yes
 
-gcc ubuntu-21.10-qt-5.15.2 debug test:
-  image: "cutehmi/qt:ubuntu-21.10-qt-5.15.2"
-  extends: .test_ubuntu
+test gcc ubuntu debug:
+  extends: .test ubuntu
   variables:
-    QBS_PROFILE: "qt-5-15-2"
     QBS_CONFIG: "debug"
 
-gcc ubuntu-21.10-qt-5.15.2 release test:
-  image: "cutehmi/qt:ubuntu-21.10-qt-5.15.2"
-  extends: .test_ubuntu
+test gcc ubuntu release:
+  extends: .test ubuntu
   variables:
-    QBS_PROFILE: "qt-5-15-2"
     QBS_CONFIG: "release"
