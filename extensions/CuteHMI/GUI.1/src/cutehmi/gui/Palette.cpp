@@ -118,9 +118,9 @@ ColorSet & Palette::DefaultAlarm()
 {
 	static ColorSet alarm;
 
-	alarm.setBase("#FF3300");
+	alarm.setBase("#FF3300");	// clazy:exclude=qcolor-from-literal
 	alarm.setFill(alarm.base());
-	alarm.setTint("#FF4B1D");
+	alarm.setTint("#FF4B1D");	// clazy:exclude=qcolor-from-literal
 	alarm.setShade(alarm.base().darker());
 	alarm.setForeground("black");
 	alarm.setBackground(alarm.tint());
@@ -134,9 +134,9 @@ ColorSet & Palette::DefaultWarning()
 {
 	static ColorSet warning;
 
-	warning.setBase("#FF9933");
+	warning.setBase("#FF9933");	// clazy:exclude=qcolor-from-literal
 	warning.setFill(warning.base());
-	warning.setTint("#FFA64D");
+	warning.setTint("#FFA64D");	// clazy:exclude=qcolor-from-literal
 	warning.setShade(warning.base().darker());
 	warning.setForeground("black");
 	warning.setBackground(warning.tint());
@@ -150,9 +150,9 @@ ColorSet & Palette::DefaultActive()
 {
 	static ColorSet active;
 
-	active.setBase("#66CC33");
+	active.setBase("#66CC33");	// clazy:exclude=qcolor-from-literal
 	active.setFill(active.base());
-	active.setTint("#CCF4CC");
+	active.setTint("#CCF4CC");	// clazy:exclude=qcolor-from-literal
 	active.setShade(active.base().darker());
 	active.setForeground("black");
 	active.setBackground(active.tint());
@@ -166,9 +166,9 @@ ColorSet & Palette::DefaultInactive()
 {
 	static ColorSet inactive;
 
-	inactive.setBase("#CECECE");
+	inactive.setBase("#CECECE");	// clazy:exclude=qcolor-from-literal
 	inactive.setFill(inactive.base());
-	inactive.setTint("#E3E3E3");
+	inactive.setTint("#E3E3E3");	// clazy:exclude=qcolor-from-literal
 	inactive.setShade(inactive.base().darker());
 	inactive.setForeground("black");
 	inactive.setBackground(inactive.tint());
