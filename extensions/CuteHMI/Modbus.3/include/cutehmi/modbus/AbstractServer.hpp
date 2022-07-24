@@ -67,8 +67,8 @@ class CUTEHMI_MODBUS_API AbstractServer:
 
 		void updateBusy(bool busy);
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void requestReceived(QJsonObject request);
+	protected:
+		Q_SIGNAL void requestReceived(QJsonObject request);
 
 	private:
 		struct Members {

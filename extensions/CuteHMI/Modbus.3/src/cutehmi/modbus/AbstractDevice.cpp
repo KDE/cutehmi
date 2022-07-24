@@ -745,10 +745,10 @@ void AbstractDevice::ValidateBoolKey(const QJsonObject & json, const QString & k
 		where = QString(" in '") + path + "'";
 
 	if (!json.contains(key))
-		throw Exception(QString("Missing '%1'%2 key.").arg(key).arg(where));
+		throw Exception(QString("Missing '%1'%2 key.").arg(key, where));
 
 	if (!json.value(key).isBool())
-		throw Exception(QString("Value of '%1'%2 in is not a Boolean.").arg(key).arg(where));
+		throw Exception(QString("Value of '%1'%2 in is not a Boolean.").arg(key, where));
 }
 
 void AbstractDevice::ValidateNumberKey(const QJsonObject & json, const QString & key, const QString & path)
@@ -758,10 +758,10 @@ void AbstractDevice::ValidateNumberKey(const QJsonObject & json, const QString &
 		where = QString(" in '") + path + "'";
 
 	if (!json.contains(key))
-		throw Exception(QString("Missing '%1' key%2.").arg(key).arg(where));
+		throw Exception(QString("Missing '%1' key%2.").arg(key, where));
 
 	if (!json.value(key).isDouble())
-		throw Exception(QString("Value of '%1'%2 is not a number.").arg(key).arg(where));
+		throw Exception(QString("Value of '%1'%2 is not a number.").arg(key, where));
 }
 
 void AbstractDevice::ValidateArrayKey(const QJsonObject & json, const QString & key, const QString & path)
@@ -771,10 +771,10 @@ void AbstractDevice::ValidateArrayKey(const QJsonObject & json, const QString & 
 		where = QString(" in '") + path + "'";
 
 	if (!json.contains(key))
-		throw Exception(QString("Missing '%1' key%2.").arg(key).arg(where));
+		throw Exception(QString("Missing '%1' key%2.").arg(key, where));
 
 	if (!json.value(key).isArray())
-		throw Exception(QString("Value of '%1'%2 is not an array.").arg(key).arg(where));
+		throw Exception(QString("Value of '%1'%2 is not an array.").arg(key, where));
 }
 
 void AbstractDevice::ValidateNumberArrayKey(const QJsonObject & json, const QString & key, const QString & path)

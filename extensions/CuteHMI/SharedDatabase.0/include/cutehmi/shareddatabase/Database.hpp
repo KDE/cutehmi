@@ -198,7 +198,7 @@ class CUTEHMI_SHAREDDATABASE_API Database:
 
 		void disconnected();
 
-		void errored(InplaceError error);
+		void errored(cutehmi::InplaceError error);
 
 	private slots:
 		void initializeConnection();
