@@ -1,8 +1,8 @@
 #ifndef H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_HISTORYWRITER_HPP
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_HISTORYWRITER_HPP
 
-#include "internal/common.hpp"
 #include "internal/HistoryCollective.hpp"
+#include "internal/DbServiceableMixin.hpp"
 #include "AbstractWriter.hpp"
 
 #include <cutehmi/services/Serviceable.hpp>
@@ -15,7 +15,6 @@ namespace dataacquisition {
 class CUTEHMI_DATAACQUISITION_API HistoryWriter:
 	public AbstractWriter,
 	private internal::DbServiceableMixin<HistoryWriter>
-
 {
 		Q_OBJECT
 
@@ -83,20 +82,20 @@ class CUTEHMI_DATAACQUISITION_API HistoryWriter:
 
 		void insertValues();
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void initialized();
+	protected:
+		Q_SIGNAL void initialized();
 
-		void samplingTimerStarted();
+		Q_SIGNAL void samplingTimerStarted();
 
-		void samplingTimerStopped();
+		Q_SIGNAL void samplingTimerStopped();
 
-		void schemaValidatedTrue();
+		Q_SIGNAL void schemaValidatedTrue();
 
-		void schemaValidatedFalse();
+		Q_SIGNAL void schemaValidatedFalse();
 
-		void insertValuesBegan();
+		Q_SIGNAL void insertValuesBegan();
 
-		void collectiveFinished();
+		Q_SIGNAL void collectiveFinished();
 
 	private slots:
 		void onSchemaChanged();

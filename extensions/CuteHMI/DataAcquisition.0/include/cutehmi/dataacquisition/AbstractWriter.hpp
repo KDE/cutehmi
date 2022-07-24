@@ -1,8 +1,6 @@
 #ifndef H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_ABSTRACTWRITER_HPP
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_ABSTRACTWRITER_HPP
 
-#include "internal/common.hpp"
-#include "internal/DbServiceableMixin.hpp"
 #include "TagValue.hpp"
 #include "Schema.hpp"
 
@@ -46,18 +44,17 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 	signals:
 		void schemaChanged();
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void broke();
-
-		void started();
-
-		void stopped();
-
-		void databaseConnected();
-
-		void schemaValidated();
-
 	protected:
+		Q_SIGNAL void broke();
+
+		Q_SIGNAL void started();
+
+		Q_SIGNAL void stopped();
+
+		Q_SIGNAL void databaseConnected();
+
+		Q_SIGNAL void schemaValidated();
+
 		typedef QList<TagValue *> TagValueContainer;
 
 		const TagValueContainer & values() const;

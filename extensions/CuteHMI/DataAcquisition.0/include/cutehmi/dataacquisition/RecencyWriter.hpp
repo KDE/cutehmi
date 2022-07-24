@@ -1,8 +1,8 @@
 #ifndef H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_RECENCYWRITER_HPP
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_RECENCYWRITER_HPP
 
-#include "internal/common.hpp"
 #include "internal/RecencyCollective.hpp"
+#include "internal/DbServiceableMixin.hpp"
 #include "AbstractWriter.hpp"
 
 #include <cutehmi/services/Serviceable.hpp>
@@ -62,12 +62,12 @@ class CUTEHMI_DATAACQUISITION_API RecencyWriter:
 	signals:
 		void intervalChanged();
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void updateTimerStarted();
+	protected:
+		Q_SIGNAL void updateTimerStarted();
 
-		void updateTimerStopped();
+		Q_SIGNAL void updateTimerStopped();
 
-		void collectiveFinished();
+		Q_SIGNAL void collectiveFinished();
 
 	private slots:
 		void updateValues();

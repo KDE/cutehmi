@@ -1,8 +1,8 @@
 #ifndef H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_EVENTWRITER_HPP
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_0_INCLUDE_CUTEHMI_DATAACQUISITION_EVENTWRITER_HPP
 
-#include "internal/common.hpp"
 #include "internal/EventCollective.hpp"
+#include "internal/DbServiceableMixin.hpp"
 #include "AbstractWriter.hpp"
 
 #include <cutehmi/services/Serviceable.hpp>
@@ -43,8 +43,8 @@ class CUTEHMI_DATAACQUISITION_API EventWriter:
 
 		std::unique_ptr<QAbstractTransition> transitionToIdling() const override;
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void collectiveFinished();
+	protected:
+		Q_SIGNAL void collectiveFinished();
 
 	private slots:
 		void onSchemaChanged();

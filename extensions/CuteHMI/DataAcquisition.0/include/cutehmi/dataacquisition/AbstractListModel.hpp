@@ -86,22 +86,22 @@ class CUTEHMI_DATAACQUISITION_API AbstractListModel:
 	protected slots:
 		virtual void confirmUpdateFinished() = 0;
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void broke();
+	protected:
+		Q_SIGNAL void broke();
 
-		void started();
+		Q_SIGNAL void started();
 
-		void stopped();
+		Q_SIGNAL void stopped();
 
-		void databaseConnected();
+		Q_SIGNAL void databaseConnected();
 
-		void schemaValidated();
+		Q_SIGNAL void schemaValidated();
 
-		void updateTimerStarted();
+		Q_SIGNAL void updateTimerStarted();
 
-		void updateTimerStopped();
+		Q_SIGNAL void updateTimerStopped();
 
-		void updateFinished();
+		Q_SIGNAL void updateFinished();
 
 
 	private slots:
