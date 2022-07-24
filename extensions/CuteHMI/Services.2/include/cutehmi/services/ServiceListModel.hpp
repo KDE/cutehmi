@@ -34,7 +34,7 @@ class CUTEHMI_SERVICES_API ServiceListModel:
 
 		QHash<int, QByteArray> roleNames() const override;
 
-		Q_INVOKABLE Service * at(int row);
+		Q_INVOKABLE cutehmi::services::Service * at(int row);
 
 		const Service * at(int row) const;
 

@@ -52,7 +52,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractClient::configur
 
 	std::unique_ptr<services::Serviceable::ServiceStatuses> statuses = std::make_unique<services::Serviceable::ServiceStatuses>();
 
-	connect(idling, & QState::entered, [this] {
+	connect(idling, & QState::entered, this, [this] {
 		QTimer::singleShot(pollingInterval(), this, [this]{
 			emit pollingRequested();
 		});
@@ -68,7 +68,7 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> AbstractClient::configur
 	connect(pollingTask, & QState::entered, this, & AbstractClient::pollingTask);
 
 	QState * pollingWait = new QState(polling);
-	connect(pollingWait, & QState::entered, [this] {
+	connect(pollingWait, & QState::entered, this, [this] {
 		QTimer::singleShot(pollingTaskInterval(), this, [this]{
 			emit pollingTaskRequested();
 		});

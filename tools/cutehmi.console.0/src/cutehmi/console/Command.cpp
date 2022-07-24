@@ -97,7 +97,7 @@ void Command::setMatchingPattern(const QRegularExpression & matchingPattern)
 void Command::setMatchingStrings(const QStringList & matchingStrings)
 {
 	QStringList escapedStrings;
-	for (auto matchingString : matchingStrings)
+	for (auto && matchingString : matchingStrings)
 		escapedStrings.append(QRegularExpression::escape(matchingString));
 
 	m_matchingPattern = QRegularExpression(QString("^(") + escapedStrings.join('|') + ")$");
@@ -163,7 +163,7 @@ void Command::reset()
 	m_errors.clear();
 	m_matchedChain.clear();
 	m_matchedString = QString();
-	for (auto subcommand : m_subcommands)
+	for (auto && subcommand : m_subcommands)
 		subcommand->reset();
 }
 
@@ -172,7 +172,7 @@ void Command::sortByMatchingPatterns()
 	std::sort(m_subcommands.begin(), m_subcommands.end(), [](Command * a, Command * b) {
 		return a->matchingPattern().pattern() > b->matchingPattern().pattern();
 	});
-	for (auto subcommand : m_subcommands)
+	for (auto && subcommand : m_subcommands)
 		subcommand->sortByMatchingPatterns();
 }
 
@@ -195,7 +195,7 @@ QString Command::execute(ExecutionContext & context)
 {
 	QString result;
 
-	for (auto subcommand : m_subcommands)
+	for (auto && subcommand : m_subcommands)
 		if (subcommand->isSet())
 			result.append(subcommand->execute(context));
 

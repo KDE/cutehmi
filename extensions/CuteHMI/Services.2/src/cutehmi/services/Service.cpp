@@ -202,22 +202,22 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		// Variable m->lastNotifiableState is used to prevent notification spam, i.e. when service fails to leave notifiable state
 		// through intermediate, non-notifiable state (e.g. 'broken' is a notifiable state, 'repairing' is an intermediate state;
 		// without the condition "Service 'XYZ' broke" message would be posted after each failed repair attempt).
-		connect(& m->stateInterface->interrupted(), & QState::entered, [this]() {
+		connect(& m->stateInterface->interrupted(), & QState::entered, this, [this]() {
 			if (m->lastNotifiableState != & m->stateInterface->interrupted())
 				Notification::Critical(tr("Stop sequence of '%1' service has been interrupted, because it took more than %2 [ms] to stop the service.").arg(name()).arg(stopTimeout()));
 			m->lastNotifiableState = & m->stateInterface->interrupted();
 		});
-		connect(& m->stateInterface->started(), & QState::entered, [this]() {
+		connect(& m->stateInterface->started(), & QState::entered, this, [this]() {
 			if (m->lastNotifiableState != & m->stateInterface->started())
 				Notification::Info(tr("Service '%1' has started.").arg(name()));
 			m->lastNotifiableState = & m->stateInterface->started();
 		});
-		connect(& m->stateInterface->stopped(), & QState::entered, [this]() {
+		connect(& m->stateInterface->stopped(), & QState::entered, this, [this]() {
 			if (m->lastNotifiableState != & m->stateInterface->stopped())
 				Notification::Info(tr("Service '%1' is stopped.").arg(name()));
 			m->lastNotifiableState = & m->stateInterface->stopped();
 		});
-		connect(& m->stateInterface->broken(), & QState::entered, [this]() {
+		connect(& m->stateInterface->broken(), & QState::entered, this, [this]() {
 			if (m->lastNotifiableState != & m->stateInterface->broken())
 				Notification::Critical(tr("Service '%1' broke.").arg(name()));
 			m->lastNotifiableState = & m->stateInterface->broken();
@@ -226,28 +226,28 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 
 		// Configure timeouts.
 
-		connect(& m->stateInterface->stopping(), & QState::entered, [this]() {
+		connect(& m->stateInterface->stopping(), & QState::entered, this, [this]() {
 			if (stopTimeout() >= 0)
 				m->timeoutTimer.start(stopTimeout());
 		});
 		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->stopping(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
-		connect(& m->stateInterface->evacuating(), & QState::entered, [this]() {
+		connect(& m->stateInterface->evacuating(), & QState::entered, this, [this]() {
 			if (stopTimeout() >= 0)
 				m->timeoutTimer.start(stopTimeout());
 		});
 		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->evacuating(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
-		connect(& m->stateInterface->starting(), & QState::entered, [this]() {
+		connect(& m->stateInterface->starting(), & QState::entered, this, [this]() {
 			if (startTimeout() >= 0)
 				m->timeoutTimer.start(startTimeout());
 		});
 		// It's safer to stop timeout, so that it won't make false shot.
 		connect(& m->stateInterface->starting(), & QState::exited, & m->timeoutTimer, & QTimer::stop);
 
-		connect(& m->stateInterface->repairing(), & QState::entered, [this]() {
+		connect(& m->stateInterface->repairing(), & QState::entered, this, [this]() {
 			if (repairTimeout() >= 0)
 				m->timeoutTimer.start(repairTimeout());
 		});

@@ -60,13 +60,11 @@ void ServiceManager::manage(Service * service)
 	// Check whether service is impolite or polite.
 	if (!service->serviceable().value<Serviceable *>()->transitionToYielding()) {
 		// If service is impolite, then simply activate it.
-		connection = QObject::connect(& service->stateInterface()->yielding(), & QState::entered, [service]() {
-			service->activate();
-		});
+		connection = QObject::connect(& service->stateInterface()->yielding(), & QState::entered, service, & Service::activate);
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 	} else {
 		// If service is polite, then manage yielding.
-		connection = QObject::connect(& service->stateInterface()->active(), & QState::exited, [this]() {
+		connection = QObject::connect(& service->stateInterface()->active(), & QState::exited, this, [this]() {
 			if (m->yieldingServices.empty())
 				m->activeServices--;
 			else
@@ -74,7 +72,7 @@ void ServiceManager::manage(Service * service)
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 
-		connection = QObject::connect(& service->stateInterface()->yielding(), & QState::entered, [this, service]() {
+		connection = QObject::connect(& service->stateInterface()->yielding(), & QState::entered, this, [this, service]() {
 			if (m->activeServices < m->maxActiveServices) {
 				service->activate();
 				m->activeServices++;
@@ -83,7 +81,7 @@ void ServiceManager::manage(Service * service)
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 
-		connection = QObject::connect(& service->stateInterface()->started(), & QState::exited, [this, service]() {
+		connection = QObject::connect(& service->stateInterface()->started(), & QState::exited, this, [this, service]() {
 			m->yieldingServices.removeAll(service);
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
@@ -95,24 +93,24 @@ void ServiceManager::manage(Service * service)
 		repairTimer->setSingleShot(true);
 		QObject::connect(repairTimer, & QTimer::timeout, service, & Service::started);
 
-		connection = QObject::connect(& service->stateInterface()->broken(), & QState::entered, [this, repairTimer]() {
+		connection = QObject::connect(& service->stateInterface()->broken(), & QState::entered, repairTimer, [this, repairTimer]() {
 			repairTimer->start(repairInterval());
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 
-		connection = QObject::connect(& service->stateInterface()->broken(), & QState::exited, [repairTimer]() {
+		connection = QObject::connect(& service->stateInterface()->broken(), & QState::exited, repairTimer, [repairTimer]() {
 			repairTimer->stop();
 		});
 		m->stateInterfaceConnections.insert(service->stateInterface(), connection);
 	}
 
 	// Count running services.
-	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::exited, [this]() {
+	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::exited, this, [this]() {
 		m->runningCount++;
 		emit runningCountChanged();
 	});
 	m->stateInterfaceConnections.insert(service->stateInterface(), connection);
-	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::entered, [this]() {
+	connection = QObject::connect(& service->stateInterface()->stopped(), & QState::entered, this, [this]() {
 		m->runningCount--;
 		emit runningCountChanged();
 	});

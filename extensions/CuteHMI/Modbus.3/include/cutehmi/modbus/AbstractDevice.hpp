@@ -623,12 +623,12 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 
 		void handleError(cutehmi::InplaceError error);
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void broke();
+	protected:
+		Q_SIGNAL void broke();
 
-		void stopped();
+		Q_SIGNAL void stopped();
 
-		void started();
+		Q_SIGNAL void started();
 
 	private:
 		typedef std::list<QJsonObject> PendingRequestsContainer;
