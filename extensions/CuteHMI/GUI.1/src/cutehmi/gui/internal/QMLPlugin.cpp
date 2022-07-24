@@ -63,6 +63,7 @@ void QMLPlugin::registerTypes(const char * uri)
 {
 	Q_ASSERT(uri == QLatin1String("CuteHMI.GUI"));
 
+	// @uri CuteHMI.GUI
 	qmlRegisterType<cutehmi::gui::ColorSet>(uri, CUTEHMI_GUI_MAJOR, 0, "ColorSet");
 	qmlRegisterType<cutehmi::gui::Palette>(uri, CUTEHMI_GUI_MAJOR, 0, "Palette");
 	qmlRegisterType<cutehmi::gui::Fonts>(uri, CUTEHMI_GUI_MAJOR, 0, "Fonts");
@@ -70,8 +71,9 @@ void QMLPlugin::registerTypes(const char * uri)
 
 	qmlRegisterSingletonType<cutehmi::gui::Theme>(uri, CUTEHMI_GUI_MAJOR, 0, "Theme", ThemeProvider);
 
-	if (qgetenv("QML_PUPPET_MODE").isNull()) {
+	if (qEnvironmentVariableIsSet("QML_PUPPET_MODE")) {
 		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">
+		// @uri CuteHMI.GUI
 		qmlRegisterSingletonType<cutehmi::gui::CuteApplication>(uri, CUTEHMI_GUI_MAJOR, 0, "CuteApplication", CuteApplicationProvider);
 		//</CuteHMI.LockScreen-1.workaround>
 	}
