@@ -76,16 +76,16 @@ class CUTEHMI_MODBUS_API AbstractClient:
 
 		void pollingTask();
 
-	CUTEHMI_PROTECTED_SIGNALS:
-		void requestReceived(QJsonObject request);
+	protected:
+		Q_SIGNAL void requestReceived(QJsonObject request);
 
-		void pollingRequested();
+		Q_SIGNAL void pollingRequested();
 
-		void pollingFinished();
+		Q_SIGNAL void pollingFinished();
 
-		void pollingTaskRequested();
+		Q_SIGNAL void pollingTaskRequested();
 
-		void pollingTaskFinished();
+		Q_SIGNAL void pollingTaskFinished();
 
 	private:
 		struct Members {

@@ -84,7 +84,7 @@ QString EventCollective::selectQuery(const QString & driverName, const QString &
 		if (to.isValid())
 			whereClauses.append("time <= :to");
 		if (!tagIdtrings.isEmpty())
-			whereClauses.append(QString("%1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(',')));
+			whereClauses.append(QString("%1.%2.tag_id IN (%3)").arg(schemaName, tableName, tagIdtrings.join(',')));
 		QString where;
 		if (!whereClauses.isEmpty())
 			where = QString(" WHERE ") + whereClauses.join(" AND ");
@@ -96,7 +96,7 @@ QString EventCollective::selectQuery(const QString & driverName, const QString &
 		if (to.isValid())
 			whereClauses.append("time <= :to");
 		if (!tagIdtrings.isEmpty())
-			whereClauses.append(QString("[%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(',')));
+			whereClauses.append(QString("[%1.%2].tag_id IN (%3)").arg(schemaName, tableName, tagIdtrings.join(',')));
 		QString where;
 		if (!whereClauses.isEmpty())
 			where = QString(" WHERE ") + whereClauses.join(" AND ");

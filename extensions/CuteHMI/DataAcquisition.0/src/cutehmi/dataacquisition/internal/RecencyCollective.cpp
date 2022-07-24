@@ -86,12 +86,12 @@ QString RecencyCollective::selectQuery(const QString & driverName, const QString
 	if (driverName == "QPSQL") {
 		QString where;
 		if (!tagIdtrings.isEmpty())
-			where = QString(" WHERE %1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(','));
+			where = QString(" WHERE %1.%2.tag_id IN (%3)").arg(schemaName, tableName, tagIdtrings.join(','));
 		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName, tableName).append(where);
 	} else if (driverName == "QSQLITE") {
 		QString where;
 		if (!tagIdtrings.isEmpty())
-			where = QString(" WHERE [%1.%2].tag_id IN (%3)").arg(schemaName, tableName).arg(tagIdtrings.join(','));
+			where = QString(" WHERE [%1.%2].tag_id IN (%3)").arg(schemaName, tableName, tagIdtrings.join(','));
 		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName, tableName).append(where);
 	} else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
