@@ -71,7 +71,7 @@ void QMLPlugin::registerTypes(const char * uri)
 
 	qmlRegisterSingletonType<cutehmi::gui::Theme>(uri, CUTEHMI_GUI_MAJOR, 0, "Theme", ThemeProvider);
 
-	if (qEnvironmentVariableIsSet("QML_PUPPET_MODE")) {
+	if (!qEnvironmentVariableIsSet("QML_PUPPET_MODE")) {
 		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">
 		// @uri CuteHMI.GUI
 		qmlRegisterSingletonType<cutehmi::gui::CuteApplication>(uri, CUTEHMI_GUI_MAJOR, 0, "CuteApplication", CuteApplicationProvider);
