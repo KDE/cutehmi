@@ -155,7 +155,7 @@ void Internationalizer::loadTranslation(QStringList & skippedProducts, const QSt
 
 	if (dependencies) {
 		QJsonArray dependenciesArray = metadata(product).value("dependencies").toArray();
-		for (auto dependency : dependenciesArray) {
+		for (auto && dependency : dependenciesArray) {
 			QString dependencyName = dependency.toObject().value("name").toString();
 			if (metadataExists(dependencyName)) {
 				if (metadata(dependencyName).value("i18n").toBool())
@@ -169,7 +169,7 @@ void Internationalizer::loadTranslation(QStringList & skippedProducts, const QSt
 
 void Internationalizer::updateTranslation(QTranslator & translator, const QString & product, const QStringList & directories)
 {
-	for (auto directory : directories) {
+	for (auto && directory : directories) {
 		if (translator.load(m->uiLanguage, translationFileStem(product), ".", directory)
 				// Handle files with lanugage part after underscore as well (Qbs Qt.core module does not handle files with dot-separated subextensions before '.ts' part).
 				|| translator.load(m->uiLanguage, translationFileStem(product), "_", directory, ".qm")

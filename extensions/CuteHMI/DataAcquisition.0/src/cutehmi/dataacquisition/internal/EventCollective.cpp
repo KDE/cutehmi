@@ -84,11 +84,11 @@ QString EventCollective::selectQuery(const QString & driverName, const QString &
 		if (to.isValid())
 			whereClauses.append("time <= :to");
 		if (!tagIdtrings.isEmpty())
-			whereClauses.append(QString("%1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(',')));
+			whereClauses.append(QString("%1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(',')));
 		QString where;
 		if (!whereClauses.isEmpty())
 			where = QString(" WHERE ") + whereClauses.join(" AND ");
-		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName).arg(tableName).append(where).append(" ORDER BY time DESC");
+		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName, tableName).append(where).append(" ORDER BY time DESC");
 	} else if (driverName == "QSQLITE") {
 		QStringList whereClauses;
 		if (from.isValid())
@@ -96,11 +96,11 @@ QString EventCollective::selectQuery(const QString & driverName, const QString &
 		if (to.isValid())
 			whereClauses.append("time <= :to");
 		if (!tagIdtrings.isEmpty())
-			whereClauses.append(QString("[%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(',')));
+			whereClauses.append(QString("[%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(',')));
 		QString where;
 		if (!whereClauses.isEmpty())
 			where = QString(" WHERE ") + whereClauses.join(" AND ");
-		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName).arg(tableName).append(where).append(" ORDER BY time DESC");
+		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName, tableName).append(where).append(" ORDER BY time DESC");
 	} else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
 	return QString();
@@ -113,7 +113,7 @@ bool EventCollective::tableSelect(QSqlDatabase & db, ColumnValues & columnValues
 
 	QStringList tagIdStrings;
 	if (!tags.isEmpty()) {
-		for (auto tag : tags)
+		for (auto && tag : tags)
 			tagIdStrings.append(QString::number(tagCache()->getId(tag, db)));
 	}
 
@@ -156,7 +156,7 @@ bool EventCollective::tableMinTime(QSqlDatabase & db, QDateTime & minTime, const
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for time minimum...");
 
-		query.prepare(QString("SELECT MIN(time) FROM %1.%2").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MIN(time) FROM %1.%2").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())
@@ -171,7 +171,7 @@ bool EventCollective::tableMinTime(QSqlDatabase & db, QDateTime & minTime, const
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for time minimum...");
 
-		query.prepare(QString("SELECT MIN(time) FROM [%1.%2]").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MIN(time) FROM [%1.%2]").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())
@@ -197,7 +197,7 @@ bool EventCollective::tableMaxTime(QSqlDatabase & db, QDateTime & maxTime, const
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for time maximum...");
 
-		query.prepare(QString("SELECT MAX(time) FROM %1.%2").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MAX(time) FROM %1.%2").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())
@@ -212,7 +212,7 @@ bool EventCollective::tableMaxTime(QSqlDatabase & db, QDateTime & maxTime, const
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for time maximum...");
 
-		query.prepare(QString("SELECT MAX(time) FROM [%1.%2]").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MAX(time) FROM [%1.%2]").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())
@@ -252,7 +252,7 @@ void EventCollective::insertIntoTable(const TagValue & tag)
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Storing '" << tableName << "' values...");
 
-		query.prepare(queryString.arg(schemaName).arg(tableName));
+		query.prepare(queryString.arg(schemaName, tableName));
 		query.bindValue(":tagId", tagCache()->getId(tagName, db));
 		query.bindValue(":value", tuple.value);
 		query.bindValue(":time", tuple.time);

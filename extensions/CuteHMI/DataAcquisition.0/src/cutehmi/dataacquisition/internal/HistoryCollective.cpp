@@ -113,9 +113,9 @@ void HistoryCollective::ToColumnValues(ColumnValues & intValues, ColumnValues & 
 QString HistoryCollective::insertQuery(const QString & driverName, const QString & schemaName, const QString & tableName)
 {
 	if (driverName == "QPSQL")
-		return QString("INSERT INTO %1.%2(tag_id, open, close, min, max, open_time, close_time, count) VALUES (:tagId, :open, :close, :min, :max, :open_time, :close_time, :count)").arg(schemaName).arg(tableName);
+		return QString("INSERT INTO %1.%2(tag_id, open, close, min, max, open_time, close_time, count) VALUES (:tagId, :open, :close, :min, :max, :open_time, :close_time, :count)").arg(schemaName, tableName);
 	else if (driverName == "QSQLITE")
-		return QString("INSERT INTO [%1.%2](tag_id, open, close, min, max, open_time, close_time, count) VALUES (:tagId, :open, :close, :min, :max, :open_time, :close_time, :count)").arg(schemaName).arg(tableName);
+		return QString("INSERT INTO [%1.%2](tag_id, open, close, min, max, open_time, close_time, count) VALUES (:tagId, :open, :close, :min, :max, :open_time, :close_time, :count)").arg(schemaName, tableName);
 	else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
 	return QString();
@@ -130,11 +130,11 @@ QString HistoryCollective::selectQuery(const QString & driverName, const QString
 		if (to.isValid())
 			whereClauses.append("close_time <= :to");
 		if (!tagIdtrings.isEmpty())
-			whereClauses.append(QString("%1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(',')));
+			whereClauses.append(QString("%1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(',')));
 		QString where;
 		if (!whereClauses.isEmpty())
 			where = QString(" WHERE ") + whereClauses.join(" AND ");
-		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName).arg(tableName).append(where).append(" ORDER BY close_time DESC");
+		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName, tableName).append(where).append(" ORDER BY close_time DESC");
 	} else if (driverName == "QSQLITE") {
 		QStringList whereClauses;
 		if (from.isValid())
@@ -142,11 +142,11 @@ QString HistoryCollective::selectQuery(const QString & driverName, const QString
 		if (to.isValid())
 			whereClauses.append("close_time <= :to");
 		if (!tagIdtrings.isEmpty())
-			whereClauses.append(QString("[%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(',')));
+			whereClauses.append(QString("[%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(',')));
 		QString where;
 		if (!whereClauses.isEmpty())
 			where = QString(" WHERE ") + whereClauses.join(" AND ");
-		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName).arg(tableName).append(where).append(" ORDER BY close_time DESC");
+		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName, tableName).append(where).append(" ORDER BY close_time DESC");
 	} else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
 	return QString();
@@ -186,7 +186,7 @@ bool HistoryCollective::tableSelect(QSqlDatabase & db, ColumnValues & columnValu
 
 	QStringList tagIdStrings;
 	if (!tags.isEmpty()) {
-		for (auto tag : tags)
+		for (auto && tag : tags)
 			tagIdStrings.append(QString::number(tagCache()->getId(tag, db)));
 	}
 
@@ -239,7 +239,7 @@ bool HistoryCollective::tableMinOpenTime(QSqlDatabase & db, QDateTime & minOpenT
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for open time minimum...");
 
-		query.prepare(QString("SELECT MIN(open_time) FROM %1.%2").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MIN(open_time) FROM %1.%2").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())
@@ -254,7 +254,7 @@ bool HistoryCollective::tableMinOpenTime(QSqlDatabase & db, QDateTime & minOpenT
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for open time minimum...");
 
-		query.prepare(QString("SELECT MIN(open_time) FROM [%1.%2]").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MIN(open_time) FROM [%1.%2]").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())
@@ -280,7 +280,7 @@ bool HistoryCollective::tableMaxCloseTime(QSqlDatabase & db, QDateTime & maxClos
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for close time maximum...");
 
-		query.prepare(QString("SELECT MAX(close_time) FROM %1.%2").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MAX(close_time) FROM %1.%2").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())
@@ -295,7 +295,7 @@ bool HistoryCollective::tableMaxCloseTime(QSqlDatabase & db, QDateTime & maxClos
 		query.setForwardOnly(true);
 		CUTEHMI_DEBUG("Looking for close time maximum...");
 
-		query.prepare(QString("SELECT MAX(close_time) FROM [%1.%2]").arg(schemaName).arg(tableName));
+		query.prepare(QString("SELECT MAX(close_time) FROM [%1.%2]").arg(schemaName, tableName));
 		query.exec();
 
 		if (query.next())

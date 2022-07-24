@@ -72,7 +72,7 @@ void Schema::create()
 					ALTER SCHEMA %1 OWNER TO %2;
 				)SQL";
 
-				if (!query.exec(QString(alterSchemaQuery).arg(name()).arg(user())))
+				if (!query.exec(QString(alterSchemaQuery).arg(name(), user())))
 					warning = true;
 
 				pushError(query.lastError(), query.lastQuery());
@@ -228,12 +228,12 @@ bool Schema::validatePostgresTable(const QString & tableName, QSqlQuery & query)
 			WHERE table_schema = '%1' AND table_name = '%2'
 		);
 	)SQL";
-	query.exec(QString(tableExistsQuery).arg(name()).arg(tableName));
+	query.exec(QString(tableExistsQuery).arg(name(), tableName));
 	pushError(query.lastError(), query.lastQuery());
 	int existsIndex = query.record().indexOf("exists");
 	if (query.first())
 		if (!query.value(existsIndex).toBool()) {
-			emit errored(CUTEHMI_ERROR(QObject::tr("Table '%1' does not exist in schema '%2'.").arg(tableName).arg(name())));
+			emit errored(CUTEHMI_ERROR(QObject::tr("Table '%1' does not exist in schema '%2'.").arg(tableName, name())));
 			result = false;
 		}
 	query.finish();
@@ -249,12 +249,12 @@ bool Schema::validateSqliteTable(const QString & tableName, QSqlQuery & query)
 	const char * tableExistsQuery = R"SQL(
 		SELECT name FROM sqlite_master WHERE type='table' AND name='[%1.%2]';
 	)SQL";
-	query.exec(QString(tableExistsQuery).arg(name()).arg(tableName));
+	query.exec(QString(tableExistsQuery).arg(name(), tableName));
 	pushError(query.lastError(), query.lastQuery());
 	int existsIndex = query.record().indexOf("exists");
 	if (query.first())
 		if (!query.value(existsIndex).toBool()) {
-			emit errored(CUTEHMI_ERROR(QObject::tr("Table '%1' does not exist in schema '%2'.").arg(tableName).arg(name())));
+			emit errored(CUTEHMI_ERROR(QObject::tr("Table '%1' does not exist in schema '%2'.").arg(tableName, name())));
 			result = false;
 		}
 	query.finish();

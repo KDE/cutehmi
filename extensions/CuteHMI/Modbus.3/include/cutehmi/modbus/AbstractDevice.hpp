@@ -404,7 +404,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		 * @param requestId request id. If not @p nullptr, function will set pointee to generated request id before handling the
 		 * request.
 		 */
-		Q_INVOKABLE void requestDiagnostics(DiagnosticsSubfunction subfunction, quint16 data, QUuid * requestId = nullptr);
+		Q_INVOKABLE void requestDiagnostics(cutehmi::modbus::AbstractDevice::DiagnosticsSubfunction subfunction, quint16 data, QUuid * requestId = nullptr);
 
 		/**
 		 * Report slave id request. Convenient function that calls request() with FUNCTION_READ_EXCEPTION_STATUS function code.
@@ -527,7 +527,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		 *		- It allows for lightweight implementation without the need of creating additionial classes.
 		 *		- Derived classes may implement functionality gradually.
 		 */
-		Q_INVOKABLE void request(Function function, QJsonObject payload, QUuid * requestId = nullptr);
+		Q_INVOKABLE void request(cutehmi::modbus::AbstractDevice::Function function, QJsonObject payload, QUuid * requestId = nullptr);
 
 	public slots:
 		virtual void open() = 0;
@@ -617,7 +617,7 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 		 */
 		virtual void handleReply(QUuid requestId, QJsonObject reply);
 
-		void setState(State state);
+		void setState(cutehmi::modbus::AbstractDevice::State state);
 
 		void setReady(bool ready);
 

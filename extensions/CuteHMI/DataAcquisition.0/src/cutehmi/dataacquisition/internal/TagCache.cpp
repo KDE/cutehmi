@@ -22,8 +22,8 @@ int TagCache::getId(const QString & name, QSqlDatabase & db)
 	// Access to m->tagIds is a critical section.
 	{
 		QReadLocker locker(& m->tagIdsLock);
-		tag = m->tagIds.find(name);
-		tagIdsEnd = m->tagIds.end();
+		tag = m->tagIds.constFind(name);
+		tagIdsEnd = m->tagIds.constEnd();
 		tagIdsEmpty = m->tagIds.empty();
 	}
 
@@ -33,8 +33,8 @@ int TagCache::getId(const QString & name, QSqlDatabase & db)
 			update(db);
 			{
 				QReadLocker locker(& m->tagIdsLock);
-				tag = m->tagIds.find(name);
-				tagIdsEnd = m->tagIds.end();
+				tag = m->tagIds.constFind(name);
+				tagIdsEnd = m->tagIds.constEnd();
 			}
 		}
 
@@ -43,8 +43,8 @@ int TagCache::getId(const QString & name, QSqlDatabase & db)
 			insert(name, db);
 			{
 				QReadLocker locker(& m->tagIdsLock);
-				tag = m->tagIds.find(name);
-				tagIdsEnd = m->tagIds.end();
+				tag = m->tagIds.constFind(name);
+				tagIdsEnd = m->tagIds.constEnd();
 			}
 
 			// If insert query fails, then some other thread might have inserted it.
@@ -52,7 +52,7 @@ int TagCache::getId(const QString & name, QSqlDatabase & db)
 				update(db);
 				{
 					QReadLocker locker(& m->tagIdsLock);
-					tag = m->tagIds.find(name);
+					tag = m->tagIds.constFind(name);
 				}
 			}
 		}

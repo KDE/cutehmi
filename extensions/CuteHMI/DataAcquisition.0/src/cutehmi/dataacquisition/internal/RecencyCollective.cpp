@@ -72,10 +72,10 @@ QString RecencyCollective::updateQuery(const QString & driverName, const QString
 {
 	if (driverName == "QPSQL")
 		return QString("INSERT INTO %1.%2 (tag_id, value, time) VALUES (:tagId, :value, :time)"
-						" ON CONFLICT (tag_id) DO UPDATE SET(value, time) = (:value, :time) WHERE %1.%2.tag_id = :tagId").arg(schemaName).arg(tableName);
+						" ON CONFLICT (tag_id) DO UPDATE SET(value, time) = (:value, :time) WHERE %1.%2.tag_id = :tagId").arg(schemaName, tableName);
 	else if (driverName == "QSQLITE")
 		return QString("INSERT INTO [%1.%2] (tag_id, value, time) VALUES (:tagId, :value, :time)"
-						" ON CONFLICT (tag_id) DO UPDATE SET(value, time) = (:value, :time)").arg(schemaName).arg(tableName);
+						" ON CONFLICT (tag_id) DO UPDATE SET(value, time) = (:value, :time)").arg(schemaName, tableName);
 	else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
 	return QString();
@@ -86,13 +86,13 @@ QString RecencyCollective::selectQuery(const QString & driverName, const QString
 	if (driverName == "QPSQL") {
 		QString where;
 		if (!tagIdtrings.isEmpty())
-			where = QString(" WHERE %1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(','));
-		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName).arg(tableName).append(where);
+			where = QString(" WHERE %1.%2.tag_id IN (%3)").arg(schemaName).arg(tableName, tagIdtrings.join(','));
+		return QString("SELECT * FROM %1.%2 LEFT JOIN %1.tag ON %1.%2.tag_id = %1.tag.id").arg(schemaName, tableName).append(where);
 	} else if (driverName == "QSQLITE") {
 		QString where;
 		if (!tagIdtrings.isEmpty())
-			where = QString(" WHERE [%1.%2].tag_id IN (%3)").arg(schemaName).arg(tableName).arg(tagIdtrings.join(','));
-		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName).arg(tableName).append(where);
+			where = QString(" WHERE [%1.%2].tag_id IN (%3)").arg(schemaName, tableName).arg(tagIdtrings.join(','));
+		return QString("SELECT * FROM [%1.%2] LEFT JOIN [%1.tag] ON [%1.%2].tag_id = [%1.tag].id").arg(schemaName, tableName).append(where);
 	} else
 		emit errored(CUTEHMI_ERROR(tr("Driver '%1' is not supported.").arg(driverName)));
 	return QString();
@@ -126,7 +126,7 @@ bool RecencyCollective::tableSelect(QSqlDatabase & db, ColumnValues & columnValu
 
 	QStringList tagIdStrings;
 	if (!tags.isEmpty()) {
-		for (auto tag : tags)
+		for (auto && tag : tags)
 			tagIdStrings.append(QString::number(tagCache()->getId(tag, db)));
 	}
 
