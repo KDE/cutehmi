@@ -429,6 +429,7 @@ void QQmlSettings::setCategory(const QString & category)
 		d->category = category;
 		if (d->initialized)
 			d->load();
+		emit categoryChanged();
 	}
 }
 
@@ -456,6 +457,7 @@ void QQmlSettings::setFileName(const QString & fileName)
 		d->fileName = fileName;
 		if (d->initialized)
 			d->load();
+		emit fileNameChanged();
 	}
 }
 

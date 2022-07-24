@@ -69,8 +69,8 @@ class QQmlSettings : public QObject, public QQmlParserStatus
 {
 		Q_OBJECT
 		Q_INTERFACES(QQmlParserStatus)
-		Q_PROPERTY(QString category READ category WRITE setCategory CONSTANT FINAL)
-		Q_PROPERTY(QString fileName READ fileName WRITE setFileName CONSTANT FINAL)
+		Q_PROPERTY(QString category READ category WRITE setCategory NOTIFY categoryChanged FINAL)
+		Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
 
 	public:
 		explicit QQmlSettings(QObject * parent = nullptr);
@@ -87,6 +87,11 @@ class QQmlSettings : public QObject, public QQmlParserStatus
 		Q_INVOKABLE void sync();
 		Q_INVOKABLE void remove(const QString & key);
 		Q_INVOKABLE void clear();
+
+	signals:
+		void categoryChanged();
+
+		void fileNameChanged();
 
 	protected:
 		void timerEvent(QTimerEvent * event) override;
