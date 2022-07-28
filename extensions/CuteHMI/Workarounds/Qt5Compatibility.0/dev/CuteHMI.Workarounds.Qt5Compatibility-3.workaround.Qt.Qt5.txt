@@ -1,0 +1,10 @@
+Problem:
+
+In Qt 6 QModbusRtuSerialSlave became QModbusRtuSerialServer.
+
+Workaround:
+
+Workaround is to create a typedef and conditionally include appropriate header, depending on which version of Qt is being used.
+
+Snippet:
+

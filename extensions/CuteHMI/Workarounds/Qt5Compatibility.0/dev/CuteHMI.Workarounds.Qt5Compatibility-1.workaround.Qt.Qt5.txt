@@ -1,0 +1,10 @@
+Problem:
+
+In Qt6 QQmlListProperty callbacks expect `qsizetype` as type of arguments and return type. Qt 5.x.x has been using `int`.
+
+Workaround:
+
+Workaround is to define type `sizeType`, which is a typedf for `qsizetype` or `int`, depending on which version of Qt is being used.
+
+Snippet:
+
