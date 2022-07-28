@@ -5,7 +5,9 @@
 #include "RegisterTraits.hpp"
 #include "QtServerMixin.hpp"
 
-#include <QModbusRtuSerialSlave>
+//<CuteHMI.Workarounds.Qt5Compatibility-3.workaround target="Qt" cause="Qt5">
+#include <cutehmi/workarounds/qt5compatibility/QModbusRtuSerialServer.hpp>
+//</CuteHMI.Workarounds.Qt5Compatibility-3.workaround>
 
 namespace cutehmi {
 namespace modbus {
@@ -15,7 +17,9 @@ namespace internal {
  * Qt SerialBus based TCP server.
  */
 class CUTEHMI_MODBUS_PRIVATE QtRTUServer:
-	public QModbusRtuSerialSlave,
+//<CuteHMI.Workarounds.Qt5Compatibility-3.workaround target="Qt" cause="Qt5">
+	public workarounds::qt5compatibility::QModbusRtuSerialServer,
+//</CuteHMI.Workarounds.Qt5Compatibility-3.workaround>
 	protected QtServerMixin<QtRTUServer>
 {
 		Q_OBJECT

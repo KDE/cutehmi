@@ -10,8 +10,7 @@ namespace cutehmi {
 namespace modbus {
 namespace internal {
 
-PollingIterator::PollingIterator(AbstractDevice * device):
-	m_requestId(nullptr)
+PollingIterator::PollingIterator(AbstractDevice * device)
 {
 	m_tasks.emplace_back(std::unique_ptr<internal::IterableTasks>(new internal::CoilPolling(device, & m_requestId)));
 	m_tasks.emplace_back(std::unique_ptr<internal::IterableTasks>(new internal::DiscreteInputPolling(device, & m_requestId)));
@@ -32,7 +31,7 @@ bool PollingIterator::runNext()
 
 void PollingIterator::reset()
 {
-	m_requestId = nullptr;
+	m_requestId = QUuid();
 	m_currentTask = m_tasks.begin();
 	for (auto it = m_tasks.begin(); it != m_tasks.end(); ++it)
 		(*it)->reset();

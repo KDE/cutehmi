@@ -184,6 +184,12 @@ Project {
 
 		Depends { name: "CuteHMI.Services.2" }
 
+		//<CuteHMI.Workarounds.Qt5Compatibility-2.workaround target="Qt" cause="Qt5">
+		//<CuteHMI.Workarounds.Qt5Compatibility-3.workaround target="Qt" cause="Qt5">
+		Depends { name: "CuteHMI.Workarounds.Qt5Compatibility.0"; cpp.link: false }
+		//</CuteHMI.Workarounds.Qt5Compatibility-3.workaround>
+		//</CuteHMI.Workarounds.Qt5Compatibility-2.workaround>
+
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.warnIfUndocumented: false
 		cutehmi.doxygen.useDoxyqml: true

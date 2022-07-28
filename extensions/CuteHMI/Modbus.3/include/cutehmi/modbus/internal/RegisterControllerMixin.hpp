@@ -57,7 +57,7 @@ void RegisterControllerMixin<DERIVED>::setValue(ValueType value)
 				derived().m->writeTimer.start(derived().writeDelay(), & derived());
 			else if (derived().writeMode() == DERIVED::WRITE_POSTPONED) {
 				// If m->requestId is not null, then controller has not finished with previous request yet.
-				if (derived().m->requestId != nullptr)
+				if (!derived().m->requestId.isNull())
 					derived().m->postponedWritePending = true;
 				else
 					derived().writeValue();
@@ -66,7 +66,7 @@ void RegisterControllerMixin<DERIVED>::setValue(ValueType value)
 			// If write mode is WRITE_EXPLICIT, then do nothing.
 		} else {
 			if (derived().writeMode() == DERIVED::WRITE_DELAYED) {
-				if (derived().m->requestId == nullptr) {
+				if (derived().m->requestId.isNull()) {
 					derived().m->adjustingValue = false;
 					derived().m->writeTimer.stop();
 				} else {
@@ -74,11 +74,11 @@ void RegisterControllerMixin<DERIVED>::setValue(ValueType value)
 					derived().m->writeTimer.start(derived().writeDelay(), & derived());
 				}
 			} else if (derived().writeMode() == DERIVED::WRITE_POSTPONED) {
-				if (derived().m->requestId != nullptr) {
+				if (!derived().m->requestId.isNull()) {
 					derived().m->adjustingValue = true;
 					derived().m->postponedWritePending = true;
 				}
-			} else if ((derived().writeMode() == DERIVED::WRITE_IMMEDIATE) && (derived().m->requestId != nullptr))
+			} else if ((derived().writeMode() == DERIVED::WRITE_IMMEDIATE) && (!derived().m->requestId.isNull()))
 				derived().writeValue();
 		}
 	}
@@ -122,7 +122,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 					/// @todo Consider removing this and updateValue(QJsonValue).
 					derived().updateValue(request.value("payload").toObject().value("value"));
 
-					derived().m->requestId = nullptr;
+					derived().m->requestId = QUuid();
 				}
 			} else {
 				if (!derived().readOnWrite())
@@ -130,7 +130,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 
 				emit derived().valueFailed();
 
-				derived().m->requestId = nullptr;
+				derived().m->requestId = QUuid();
 			}
 		}
 	} else if (function == derived().readRegistersFunction()) {
@@ -149,7 +149,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 
 				derived().updateValue();
 
-				derived().m->requestId = nullptr;
+				derived().m->requestId = QUuid();
 			} else if (derived().m->requestId.isNull()) {
 				// Standard update, if controller is not waiting for its own request made due to readOnWrite.
 

@@ -1,13 +1,19 @@
 #include <cutehmi/modbus/internal/QtRTUClientBackend.hpp>
 
-#include <QModbusRtuSerialMaster>
+//<CuteHMI.Workarounds.Qt5Compatibility-2.workaround target="Qt" cause="Qt5">
+#include <cutehmi/workarounds/qt5compatibility/QModbusRtuSerialClient.hpp>
+//</CuteHMI.Workarounds.Qt5Compatibility-2.workaround>
+
+#include <QtGlobal>
 
 namespace cutehmi {
 namespace modbus {
 namespace internal {
 
 QtRTUClientBackend::QtRTUClientBackend(RTUClientConfig * config, QObject * parent):
-	QtClientBackend(std::make_unique<QModbusRtuSerialMaster>(), parent),
+	//<CuteHMI.Workarounds.Qt5Compatibility-2.workaround target="Qt" cause="Qt5">
+	QtClientBackend(std::make_unique<workarounds::qt5compatibility::QModbusRtuSerialClient>(), parent),
+	//</CuteHMI.Workarounds.Qt5Compatibility-2.workaround>
 	m(new Members(config))
 {
 }

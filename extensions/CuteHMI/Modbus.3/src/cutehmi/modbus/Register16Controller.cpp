@@ -128,7 +128,7 @@ void Register16Controller::onRequestCompleted(QJsonObject request, QJsonObject r
 
 void Register16Controller::resetRegister()
 {
-	m->requestId = nullptr;	// Setting up new register invalidates previous requests.
+	m->requestId = QUuid();	// Setting up new register invalidates previous requests.
 	m->postponedWritePending = false;
 	m->adjustingValue = false;
 
