@@ -1,8 +1,6 @@
 import qbs.File
 
 Project {
-	minimumQbsVersion: "1.10"
-
 	references: extensionsProbe.extensionDirs
 
 	/*

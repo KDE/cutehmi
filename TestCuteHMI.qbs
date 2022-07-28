@@ -1,7 +1,6 @@
 import qbs
 
-Project
-{
+Project {
 	SubProject {
 		filePath: "CuteHMI.qbs"
 
