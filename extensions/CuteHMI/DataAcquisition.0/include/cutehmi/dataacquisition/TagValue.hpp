@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 
 #include <QObject>
+#include <QVariant>
 
 namespace cutehmi {
 namespace dataacquisition {
