@@ -73,9 +73,13 @@ ApplicationWindow {
 
 	function createDialog(message) {
 		var messageDialogComponent = Qt.createComponent("MessageDialog.qml")
-		var messageDialog = messageDialogComponent.createObject(mainWindow, {"message" : message})
-		messageDialog.messageChanged.connect(messageDialog.destroy)
-		messageDialog.open()
+		if (messageDialogComponent.status === Component.Error)
+			console.error(messageDialogComponent.errorString())
+		else {
+			var messageDialog = messageDialogComponent.createObject(mainWindow, {"message" : message})
+			messageDialog.messageChanged.connect(messageDialog.destroy)
+			messageDialog.open()
+		}
 	}
 
 	Component.onCompleted: {
