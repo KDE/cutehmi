@@ -1,0 +1,9 @@
+Problem:
+
+In Qt 6 The State Machine Framework is available through separate `Qt.statemachine`.
+
+Workaround:
+
+Use conditional `Depends` item with condition enabling `Qt.statemachine` dependency for Qt 6.
+
+Snippet:

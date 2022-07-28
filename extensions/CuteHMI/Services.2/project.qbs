@@ -1,4 +1,5 @@
 import qbs
+import qbs.Utilities
 
 import cutehmi
 
@@ -48,6 +49,12 @@ Project {
 			"src/cutehmi/services/logging.cpp",
 		]
 
+		Depends { name: "Qt.core" }
+
+		//<CuteHMI.Services-2.workaround target="Qt" cause="Qt5">
+		Depends { name: "Qt.statemachine"; condition: Utilities.versionCompare(Qt.core.version, "6.0.0") >= 0 }
+		//</CuteHMI.Services-2.workaround>
+
 		Depends { name: "CuteHMI.2" }
 
 		Depends { name: "cutehmi.doxygen" }
@@ -62,6 +69,10 @@ Project {
 		Depends { name: "cutehmi.qmltypes" }
 
 		Export {
+			Depends { name: "Qt.core" }
+
+			Depends { name: "Qt.statemachine"; condition: Utilities.versionCompare(Qt.core.version, "6.0.0") >= 0 }
+
 			Depends { name: "CuteHMI.2" }
 		}
 	}
