@@ -96,6 +96,10 @@ Project {
 
 		Depends { name: "CuteHMI.SharedDatabase.0" }
 
+		//<CuteHMI.Workarounds.Qt5Compatibility-1.workaround target="Qt" cause="Qt5">
+		Depends { name: "CuteHMI.Workarounds.Qt5Compatibility.0"; cpp.link: false }
+		//</CuteHMI.Workarounds.Qt5Compatibility-1.workaround>
+
 		Export {
 			Depends { name: "CuteHMI.SharedDatabase.0" }
 		}

@@ -6,6 +6,10 @@
 
 #include <cutehmi/services/Serviceable.hpp>
 
+//<CuteHMI.Workarounds.Qt5Compatibility-1.workaround target="Qt" cause="Qt5">
+#include <cutehmi/workarounds/qt5compatibility/qsizetype.hpp>
+//</CuteHMI.Workarounds.Qt5Compatibility-1.workaround>
+
 #include <QObject>
 #include <QQmlListProperty>
 
@@ -63,9 +67,11 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 		void onSchemaValidated(bool result);
 
 	private:
-		static int ValueListCount(QQmlListProperty<TagValue> * property);
+		//<CuteHMI.Workarounds.Qt5Compatibility-1.workaround target="Qt" cause="Qt5">
+		static workarounds::qt5compatibility::sizeType ValueListCount(QQmlListProperty<TagValue> * property);
 
-		static TagValue * ValueListAt(QQmlListProperty<TagValue> * property, int index);
+		static TagValue * ValueListAt(QQmlListProperty<TagValue> * property, workarounds::qt5compatibility::sizeType index);
+		//</CuteHMI.DataAcquisition-2.workaround target="Qt" cause="Qt5">
 
 		static void ValueListClear(QQmlListProperty<TagValue> * property);
 

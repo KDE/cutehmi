@@ -67,12 +67,12 @@ void AbstractWriter::onSchemaValidated(bool result)
 		emit broke();
 }
 
-int AbstractWriter::ValueListCount(QQmlListProperty<TagValue> * property)
+workarounds::qt5compatibility::sizeType AbstractWriter::ValueListCount(QQmlListProperty<TagValue> * property)
 {
 	return static_cast<TagValueContainer *>(property->data)->count();
 }
 
-TagValue * AbstractWriter::ValueListAt(QQmlListProperty<TagValue> * property, int index)
+TagValue * AbstractWriter::ValueListAt(QQmlListProperty<TagValue> * property, workarounds::qt5compatibility::sizeType index)
 {
 	return static_cast<TagValueContainer *>(property->data)->value(index);
 }
