@@ -1,0 +1,8 @@
+Problem:
+
+In Qt 6.0 the return type of containers size() function has been changed from `int` to `qsizetype`. This leads to template argument
+deduction failure due to ambiguity as one of the parameters is `qsizetype` and the other one is `int`.
+
+Workaround:
+
+Workaround is to use static_cast to disambiguate.

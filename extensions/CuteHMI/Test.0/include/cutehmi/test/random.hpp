@@ -222,7 +222,11 @@ typename std::enable_if<std::is_same<T, QChar>::value, QChar>::type rand(QChar::
 		categorySets.insert(QChar::category(std::numeric_limits<char16_t>::max()), std::numeric_limits<char16_t>::max());
 	}
 
-	return categorySets.values(category).at(rand(0, categorySets.values(category).size() - 1));
+	//<CuteHMI.Test-2.workaround target="Qt" cause="Qt5">
+	// In Qt 6.0 the return type of QList::size() has been changed from `int` to `qsizetype`, use static_cast to prevent ambiguity.
+	using sizeType = decltype(categorySets.values(category).size());
+	return categorySets.values(category).at(rand(static_cast<sizeType>(0), categorySets.values(category).size() - 1));
+	//</CuteHMI.Test-2.workaround.Qt.Qt5>
 }
 
 /**
@@ -239,8 +243,12 @@ typename std::enable_if<std::is_same<T, QString>::value, T>::type rand(int lengt
 	static E engine;    // Use static variable to prevent frequent allocation/deallocation ("mt19937 use 5000 bytes of memory for each creation (which is bad for performance if we create it too frequently)" -- https://github.com/effolkronium/random).
 
 	QString result("");
+	//<CuteHMI.Test-2.workaround target="Qt" cause="Qt5">
+	// In Qt 6.0 the return type of QList::size() has been changed from `int` to `qsizetype`, use static_cast to prevent ambiguity.
+	using sizeType = decltype(categories.size());
 	for (int i = 0; i < length; i++)
-		result.append(rand<QChar>(categories.at(rand(0, categories.size() - 1))));
+		result.append(rand<QChar>(categories.at(rand(static_cast<sizeType>(0), categories.size() - 1))));
+	//</CuteHMI.Test-2.workaround.Qt.Qt5>
 
 	return result;
 }
