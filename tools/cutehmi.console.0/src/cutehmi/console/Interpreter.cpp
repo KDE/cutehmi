@@ -642,7 +642,7 @@ QString Interpreter::Commands::List::Property::property(Command::ExecutionContex
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Constant: %1").arg(mp.isConstant() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Designable: %1").arg(mp.isDesignable(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Designable: %1").arg(mp.isDesignable() ? trYes : trNo));
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Enum: %1").arg(mp.isEnumType() ? trYes : trNo));
 	result.append("\n");
@@ -654,11 +654,11 @@ QString Interpreter::Commands::List::Property::property(Command::ExecutionContex
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Resettable: %1").arg(mp.isResettable() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Scriptable: %1").arg(mp.isScriptable(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Scriptable: %1").arg(mp.isScriptable() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Stored: %1").arg(mp.isStored(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Stored: %1").arg(mp.isStored() ? trYes : trNo));
 	result.append("\n");
-	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "User: %1").arg(mp.isUser(context.scopeObject) ? trYes : trNo));
+	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "User: %1").arg(mp.isUser() ? trYes : trNo));
 	result.append("\n");
 	result.append(QCoreApplication::translate("cutehmi::console::Interpreter", "Valid: %1").arg(mp.isValid() ? trYes : trNo));
 	result.append("\n");
