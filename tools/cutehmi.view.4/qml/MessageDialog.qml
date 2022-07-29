@@ -1,10 +1,9 @@
 import QtQuick 2.0
-import QtQuick.Dialogs 1.2
+import Qt.labs.platform 1.0 as Platform
 
 import CuteHMI 2.0 as CuteHMI
 
-MessageDialog
-{
+Platform.MessageDialog {
 	property CuteHMI.Message message
 
 	onMessageChanged: {
@@ -12,14 +11,30 @@ MessageDialog
 			text = message.text
 			informativeText = message.informativeText
 			detailedText = message.detailedText
-			standardButtons = message.buttons
-			icon = message.type
+			buttons = message.buttons
+			switch (message.type) {
+				case CuteHMI.Message.INFO:
+					title = qsTr("Information")
+					break;
+				case CuteHMI.Message.WARNING:
+					title = qsTr("Warning")
+					break;
+				case CuteHMI.Message.CRITICAL:
+					title = qsTr("Error")
+					break;
+				case CuteHMI.Message.QUESTION:
+					title = qsTr("Question")
+					break;
+				default:
+					title = qsTr("Message")
+					break;
+			}
 		}
 	}
 
-	onClickedButtonChanged: if (message) { message.acceptResponse(clickedButton); message = null }
+	onClicked: if (message) { message.acceptResponse(button); message = null }
 
-	onRejected: if (message) { message.acceptResponse(clickedButton); message = null }
+	onRejected: if (message) { message.acceptResponse(CuteHMI.Message.BUTTON_CANCEL); message = null }
 
 	Component.onDestruction: if (message) message.deleteLater()
 }
