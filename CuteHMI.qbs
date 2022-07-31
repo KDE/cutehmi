@@ -1,7 +1,7 @@
 import qbs
 
 Project {
-	minimumQbsVersion: "1.20"
+	minimumQbsVersion: "1.19"
 
 	property bool buildExtensions: true
 
