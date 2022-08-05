@@ -70,7 +70,7 @@ class QQmlSettings : public QObject, public QQmlParserStatus
 {
 		Q_OBJECT
 		Q_INTERFACES(QQmlParserStatus)
-		QML_NAMED_ELEMENT(QQmlSettings)
+		QML_NAMED_ELEMENT(Settings)
 
 		Q_PROPERTY(QString category READ category WRITE setCategory NOTIFY categoryChanged FINAL)
 
