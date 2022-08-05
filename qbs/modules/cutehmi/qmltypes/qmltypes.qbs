@@ -5,6 +5,8 @@ import qbs.TextFile
 
 /**
   This module generates 'qmltypes' artifact.
+
+  @deprecated this module is going to be replaced by "cutehmi.qmltyperegistrar".
   */
 Module {
 	additionalProductTypes: ["cutehmi.qmltypes"]
