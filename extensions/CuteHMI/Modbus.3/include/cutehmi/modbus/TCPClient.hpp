@@ -5,6 +5,7 @@
 #include "internal/QtTCPClientBackend.hpp"
 
 #include <QThread>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace modbus {
@@ -16,6 +17,7 @@ class CUTEHMI_MODBUS_API TCPClient:
 	public AbstractClient
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(TCPClient)
 
 	public:
 		static constexpr int MIN_SLAVE_ADDRESS = internal::TCPClientConfig::MIN_SLAVE_ADDRESS;

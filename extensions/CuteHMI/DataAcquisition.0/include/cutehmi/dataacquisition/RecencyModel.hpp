@@ -15,6 +15,7 @@ class CUTEHMI_DATAACQUISITION_API RecencyModel:
 	private internal::ModelMixin<RecencyModel>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(RecencyModel)
 
 		typedef AbstractListModel Parent;
 

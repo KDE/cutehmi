@@ -23,6 +23,13 @@ class CUTEHMI_GUI_API Theme:
 	public Singleton<Theme>
 {
 		Q_OBJECT
+		//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+		QML_NAMED_ELEMENT(Theme)
+		QML_UNCREATABLE("Theme is a singleton")
+		QML_SINGLETON
+#endif
+		//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 		friend class Singleton<Theme>;
 
@@ -32,6 +39,16 @@ class CUTEHMI_GUI_API Theme:
 		Q_PROPERTY(cutehmi::gui::Units * units READ units WRITE setUnits NOTIFY unitsChanged RESET resetUnits)
 
 		Q_PROPERTY(cutehmi::gui::Fonts * fonts READ fonts WRITE setFonts NOTIFY fontsChanged RESET resetFonts)
+
+		/**
+		 * Create intance.
+		 * @param qmlEngine QML engine instance.
+		 * @param jsEngine JavaScript engine instance.
+		 * @return instance.
+		 *
+		 * @note this method is used by QQmlEngine when class is annotated with QML_SINGLETON macro.
+		 */
+		static Theme * create(QQmlEngine * qmlEngine, QJSEngine * jsEngine);
 
 		Palette * palette() const;
 

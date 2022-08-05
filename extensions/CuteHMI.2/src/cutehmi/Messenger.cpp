@@ -29,6 +29,16 @@ const Message * Messenger::NoAdvertiserException::message() const
 	return m->message.get();
 }
 
+Messenger * Messenger::create(QQmlEngine * qmlEngine, QJSEngine * jsEngine)
+{
+	Q_UNUSED(jsEngine)
+
+	Messenger * instance = & Instance();
+	qmlEngine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
+
+	return instance;
+}
+
 void Messenger::advertise(Message * message_l)
 {
 	QMutexLocker locker(& m->requestMutex);

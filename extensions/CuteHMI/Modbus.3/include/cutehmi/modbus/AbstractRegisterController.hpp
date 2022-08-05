@@ -6,6 +6,7 @@
 
 #include <QObject>
 #include <QQmlParserStatus>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace modbus {
@@ -19,6 +20,8 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 {
 		Q_OBJECT
 		Q_INTERFACES(QQmlParserStatus)
+		QML_NAMED_ELEMENT(AbstractRegisterController)
+		QML_UNCREATABLE("AbstractRegisterController is an abstract class")
 
 	public:
 		/**

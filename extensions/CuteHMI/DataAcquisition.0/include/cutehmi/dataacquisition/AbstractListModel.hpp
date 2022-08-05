@@ -18,6 +18,8 @@ class CUTEHMI_DATAACQUISITION_API AbstractListModel:
 	private internal::DbServiceableMixin<AbstractListModel>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(AbstractListModel)
+		QML_UNCREATABLE("AbstractListModel is an abstract class")
 
 		friend class internal::DbServiceableMixin<AbstractListModel>;
 

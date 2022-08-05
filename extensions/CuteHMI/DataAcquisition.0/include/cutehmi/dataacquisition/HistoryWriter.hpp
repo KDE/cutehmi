@@ -17,6 +17,7 @@ class CUTEHMI_DATAACQUISITION_API HistoryWriter:
 	private internal::DbServiceableMixin<HistoryWriter>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(HistoryWriter)
 
 		friend class internal::DbServiceableMixin<HistoryWriter>;
 

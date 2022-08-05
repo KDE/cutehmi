@@ -33,17 +33,17 @@ class ServiceManager: public cutehmi::services::ServiceManager {};
 #endif
 //</Doxygen-3.workaround>
 
-
 namespace cutehmi {
 namespace services {
 namespace internal {
 
+//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#else
+
 void QMLPlugin::registerTypes(const char * uri)
 {
-	Q_ASSERT(uri == QLatin1String("CuteHMI.Services"));
-
-	qmlRegisterType<cutehmi::services::Service>(uri, CUTEHMI_SERVICES_MAJOR, 0, "Service");
-	qmlRegisterType<cutehmi::services::PollingTimer>(uri, CUTEHMI_SERVICES_MAJOR, 0, "PollingTimer");
+	//@uri CuteHMI.Services
 	qmlRegisterSingletonType<cutehmi::services::ServiceManager>(uri, CUTEHMI_SERVICES_MAJOR, 0, "ServiceManager", ServiceManagerProvider);
 }
 
@@ -55,6 +55,9 @@ QObject * QMLPlugin::ServiceManagerProvider(QQmlEngine * engine, QJSEngine * scr
 	engine->setObjectOwnership(serviceManager, QQmlEngine::CppOwnership);
 	return serviceManager;
 }
+
+#endif
+//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 }
 }

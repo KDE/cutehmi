@@ -15,6 +15,7 @@ class CUTEHMI_DATAACQUISITION_API EventWriter:
 	private internal::DbServiceableMixin<EventWriter>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(EventWriter)
 
 		friend class internal::DbServiceableMixin<EventWriter>;
 

@@ -8,6 +8,7 @@
 #include "AbstractClient.hpp"
 
 #include <QThread>
+#include <QQmlEngine>
 
 #include <vector>
 
@@ -24,6 +25,7 @@ class CUTEHMI_MODBUS_API DummyClient:
 	public AbstractClient
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(DummyClient)
 
 	public:
 		static constexpr int INITIAL_OPEN_LATENCY = internal::DummyClientConfig::INITIAL_OPEN_LATENCY;

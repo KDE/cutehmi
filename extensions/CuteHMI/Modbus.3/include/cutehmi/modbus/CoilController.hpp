@@ -5,6 +5,7 @@
 #include "Register1Controller.hpp"
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace modbus {
@@ -13,6 +14,7 @@ class CUTEHMI_MODBUS_API CoilController:
 	public Register1Controller
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(CoilController)
 
 	public:
 		CoilController(QObject * parent = nullptr);

@@ -55,6 +55,7 @@
 #include <QtCore/qobject.h>
 #include <QtCore/qscopedpointer.h>
 #include <QtQml/qqmlparserstatus.h>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace workarounds {
@@ -69,7 +70,10 @@ class QQmlSettings : public QObject, public QQmlParserStatus
 {
 		Q_OBJECT
 		Q_INTERFACES(QQmlParserStatus)
+		QML_NAMED_ELEMENT(QQmlSettings)
+
 		Q_PROPERTY(QString category READ category WRITE setCategory NOTIFY categoryChanged FINAL)
+
 		Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged FINAL)
 
 	public:

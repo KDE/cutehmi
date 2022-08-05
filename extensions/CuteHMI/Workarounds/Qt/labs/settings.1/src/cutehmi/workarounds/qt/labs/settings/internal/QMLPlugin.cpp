@@ -1,9 +1,4 @@
-#include "QMLPlugin.hpp"
-#include "qqmlsettings_p.h"
-
-#include <cutehmi/workarounds/qt/labs/settings/metadata.hpp>
-
-#include <QtQml>
+#include "QMLPlugin.hpp"	// IWYU pragma: keep
 
 //<Doxygen-3.workaround target="Doxygen" cause="missing">
 #ifdef DOXYGEN_WORKAROUND
@@ -35,15 +30,10 @@ namespace labs {
 namespace settings {
 namespace internal {
 
-/**
- * Register QML types.
- * @param uri URI.
- */
-void QMLPlugin::registerTypes(const char * uri)
+void QMLPlugin::initializeEngine(QQmlEngine * engine, const char * uri)
 {
-	Q_ASSERT(uri == QLatin1String("CuteHMI.Workarounds.Qt.labs.settings"));
-
-	qmlRegisterType<QQmlSettings>(uri, CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_MAJOR, 0, "Settings");
+	Q_UNUSED(uri)
+	Q_UNUSED(engine)
 }
 
 }

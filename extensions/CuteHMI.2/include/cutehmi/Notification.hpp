@@ -7,6 +7,7 @@
 
 #include <QObject>
 #include <QDateTime>
+#include <QQmlEngine>
 
 namespace cutehmi {
 
@@ -24,6 +25,7 @@ class CUTEHMI_API Notification:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Notification)
 
 	public:
 		/**

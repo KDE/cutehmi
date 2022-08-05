@@ -7,6 +7,7 @@
 #include <gpiod.h>
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace gpio {
@@ -14,16 +15,17 @@ namespace gpio {
 class CUTEHMI_GPIO_API LineConfig:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
+		QML_NAMED_ELEMENT(LineConfig)
 
 	public:
-		enum Direction: int {
+		enum Direction : int {
 			DIRECTION_INPUT = GPIOD_LINE_DIRECTION_INPUT,
 			DIRECTION_OUTPUT = GPIOD_LINE_DIRECTION_OUTPUT
 		};
 		Q_ENUM(Direction)
 
-		enum ActiveState: int {
+		enum ActiveState : int {
 			ACTIVE_STATE_HIGH = GPIOD_LINE_ACTIVE_STATE_HIGH,
 			ACTIVE_STATE_LOW = GPIOD_LINE_ACTIVE_STATE_LOW
 		};

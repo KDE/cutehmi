@@ -4,6 +4,8 @@
 #include "internal/common.hpp"
 #include "DataObject.hpp"
 
+#include <QQmlEngine>
+
 namespace cutehmi {
 namespace shareddatabase {
 
@@ -14,6 +16,7 @@ class CUTEHMI_SHAREDDATABASE_API PostgresMaintenance:
 	public DataObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(PostgresMaintenance)
 
 	public:
 		PostgresMaintenance(QObject * parent = nullptr);

@@ -54,7 +54,7 @@ Project {
 
 		Depends { name: "cutehmi.qmldir" }
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Export {
 			Depends { name: "cutehmi.libs.libgpiod" }

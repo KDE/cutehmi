@@ -15,6 +15,7 @@ class CUTEHMI_DATAACQUISITION_API EventModel:
 	private internal::ModelMixin<EventModel>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(EventModel)
 
 		typedef AbstractListModel Parent;
 

@@ -44,7 +44,7 @@ Project {
 
 		Depends { name: "cutehmi.qmldir" }
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Depends { name: "cutehmi.skeleton.cpp" }
 		cutehmi.skeleton.cpp.generateQMLPlugin: true

@@ -3,6 +3,8 @@
 
 #include "AbstractDevice.hpp"
 
+#include <QQmlEngine>
+
 namespace cutehmi {
 namespace modbus {
 
@@ -16,6 +18,8 @@ class CUTEHMI_MODBUS_API AbstractServer:
 	public AbstractDevice
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(AbstractServer)
+		QML_UNCREATABLE("AbstractServer is an abstract class")
 
 	public:
 		static constexpr bool INITIAL_BUSY = false;

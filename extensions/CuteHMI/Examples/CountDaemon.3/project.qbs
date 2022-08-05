@@ -25,7 +25,7 @@ Project {
 
 		Depends { name: "cutehmi.qmldir" }
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Depends { name: "cutehmi.daemon.3" }
 

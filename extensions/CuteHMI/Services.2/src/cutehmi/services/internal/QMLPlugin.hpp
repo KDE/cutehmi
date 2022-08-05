@@ -1,13 +1,27 @@
 #ifndef H_EXTENSIONS_CUTEHMI_SERVICES_2_SRC_CUTEHMI_SERVICES_INTERNAL_QMLPLUGIN_HPP
 #define H_EXTENSIONS_CUTEHMI_SERVICES_2_SRC_CUTEHMI_SERVICES_INTERNAL_QMLPLUGIN_HPP
 
-#include <QQmlExtensionPlugin>
+#include <QQmlEngineExtensionPlugin>
 
+//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
 class QJSEngine;
+//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 namespace cutehmi {
 namespace services {
 namespace internal {
+
+//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+
+class QMLPlugin:
+	public QQmlEngineExtensionPlugin
+{
+		Q_OBJECT
+		Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
+};
+
+#else
 
 class QMLPlugin:
 	public QQmlExtensionPlugin
@@ -21,6 +35,9 @@ class QMLPlugin:
 	private:
 		static QObject * ServiceManagerProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
 };
+
+#endif
+//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 }
 }

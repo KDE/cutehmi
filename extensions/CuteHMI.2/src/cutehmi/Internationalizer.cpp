@@ -9,6 +9,16 @@
 
 namespace cutehmi {
 
+Internationalizer * Internationalizer::create(QQmlEngine * qmlEngine, QJSEngine * jsEngine)
+{
+	Q_UNUSED(jsEngine)
+
+	Internationalizer * instance = & Instance();
+	qmlEngine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
+
+	return instance;
+}
+
 QString Internationalizer::uiLanguage() const
 {
 	return m->uiLanguage.name();

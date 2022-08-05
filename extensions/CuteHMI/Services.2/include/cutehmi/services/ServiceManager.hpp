@@ -8,6 +8,7 @@
 
 #include <QQueue>
 #include <QMultiHash>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace services {
@@ -24,6 +25,13 @@ class CUTEHMI_SERVICES_API ServiceManager:
 	public Singleton<ServiceManager>
 {
 		Q_OBJECT
+		//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+		QML_NAMED_ELEMENT(ServiceManager)
+		QML_UNCREATABLE("ServiceManager is a singleton")
+		QML_SINGLETON
+#endif
+		//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 		friend class Singleton<ServiceManager>;
 		friend class Service;
@@ -51,6 +59,16 @@ class CUTEHMI_SERVICES_API ServiceManager:
 		  Services model.
 		  */
 		Q_PROPERTY(cutehmi::services::ServiceListModel * model READ model CONSTANT)
+
+		/**
+		 * Create intance.
+		 * @param qmlEngine QML engine instance.
+		 * @param jsEngine JavaScript engine instance.
+		 * @return instance.
+		 *
+		 * @note this method is used by QQmlEngine when class is annotated with QML_SINGLETON macro.
+		 */
+		static ServiceManager * create(QQmlEngine * qmlEngine, QJSEngine * jsEngine);
 
 		int maxActiveServices() const;
 

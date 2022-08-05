@@ -55,20 +55,17 @@ namespace cutehmi {
 namespace gui {
 namespace internal {
 
+//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#else
+
 /**
  * Register QML types.
  * @param uri URI.
  */
 void QMLPlugin::registerTypes(const char * uri)
 {
-	Q_ASSERT(uri == QLatin1String("CuteHMI.GUI"));
-
 	// @uri CuteHMI.GUI
-	qmlRegisterType<cutehmi::gui::ColorSet>(uri, CUTEHMI_GUI_MAJOR, 0, "ColorSet");
-	qmlRegisterType<cutehmi::gui::Palette>(uri, CUTEHMI_GUI_MAJOR, 0, "Palette");
-	qmlRegisterType<cutehmi::gui::Fonts>(uri, CUTEHMI_GUI_MAJOR, 0, "Fonts");
-	qmlRegisterType<cutehmi::gui::Units>(uri, CUTEHMI_GUI_MAJOR, 0, "Units");
-
 	qmlRegisterSingletonType<cutehmi::gui::Theme>(uri, CUTEHMI_GUI_MAJOR, 0, "Theme", ThemeProvider);
 
 	if (!qEnvironmentVariableIsSet("QML_PUPPET_MODE")) {
@@ -96,6 +93,9 @@ QObject * QMLPlugin::ThemeProvider(QQmlEngine * engine, QJSEngine * scriptEngine
 	engine->setObjectOwnership(theme, QQmlEngine::CppOwnership);
 	return theme;
 }
+
+#endif
+//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 }
 }

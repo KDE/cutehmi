@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QAtomicInteger>
 #include <QMutex>
+#include <QQmlEngine>
 
 namespace cutehmi {
 
@@ -20,6 +21,7 @@ class CUTEHMI_API Message:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Message)
 
 	public:
 		Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged)

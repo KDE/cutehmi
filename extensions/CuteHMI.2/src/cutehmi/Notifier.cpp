@@ -13,6 +13,16 @@ NotificationListModel * Notifier::model() const
 	return m->model.get();
 }
 
+Notifier * Notifier::create(QQmlEngine * qmlEngine, QJSEngine * jsEngine)
+{
+	Q_UNUSED(jsEngine)
+
+	Notifier * instance = & Instance();
+	qmlEngine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
+
+	return instance;
+}
+
 int Notifier::maxNotifications() const
 {
 	return m->maxNotifications;

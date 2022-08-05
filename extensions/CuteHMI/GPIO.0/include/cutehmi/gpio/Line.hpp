@@ -8,6 +8,7 @@
 #include <gpiod.h>
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace gpio {
@@ -15,7 +16,9 @@ namespace gpio {
 class CUTEHMI_GPIO_API Line:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
+		QML_NAMED_ELEMENT(Line)
+		QML_UNCREATABLE("Line instance can not be created from QML")
 
 	public:
 		Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)

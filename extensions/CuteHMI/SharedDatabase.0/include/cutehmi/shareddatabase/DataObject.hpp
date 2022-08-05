@@ -12,6 +12,7 @@
 #include <QSqlRecord>
 #include <QSqlError>
 #include <QMutex>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace shareddatabase {
@@ -23,6 +24,8 @@ class CUTEHMI_SHAREDDATABASE_API DataObject:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(DataObject)
+		QML_UNCREATABLE("DataObject can not be created from QML")
 
 	public:
 		/**

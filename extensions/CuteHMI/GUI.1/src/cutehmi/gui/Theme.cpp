@@ -7,6 +7,16 @@
 namespace cutehmi {
 namespace gui {
 
+Theme * Theme::create(QQmlEngine * qmlEngine, QJSEngine * jsEngine)
+{
+	Q_UNUSED(jsEngine)
+
+	Theme * instance = & Instance();
+	qmlEngine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
+
+	return instance;
+}
+
 Palette * Theme::palette() const
 {
 	return m->palette;

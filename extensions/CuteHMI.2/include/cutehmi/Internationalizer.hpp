@@ -18,6 +18,13 @@ class CUTEHMI_API Internationalizer:
 	public Singleton<Internationalizer>
 {
 		Q_OBJECT
+		//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+		QML_NAMED_ELEMENT(Internationalizer)
+		QML_UNCREATABLE("Internationalizer is a singleton")
+		QML_SINGLETON
+#endif
+		//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 		friend class Singleton<Internationalizer>;
 		friend class test_Internationalizer;
@@ -27,6 +34,16 @@ class CUTEHMI_API Internationalizer:
 		  User interface language.
 		  */
 		Q_PROPERTY(QString uiLanguage READ uiLanguage WRITE setUILanguage NOTIFY uiLanguageChanged)
+
+		/**
+		 * Create intance.
+		 * @param qmlEngine QML engine instance.
+		 * @param jsEngine JavaScript engine instance.
+		 * @return instance.
+		 *
+		 * @note this method is used by QQmlEngine when class is annotated with QML_SINGLETON macro.
+		 */
+		static Internationalizer * create(QQmlEngine * qmlEngine, QJSEngine * jsEngine);
 
 		/**
 		 * Get user interface language.

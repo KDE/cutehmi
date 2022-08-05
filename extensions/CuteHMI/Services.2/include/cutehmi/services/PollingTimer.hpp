@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace services {
@@ -16,6 +17,7 @@ class CUTEHMI_SERVICES_API PollingTimer:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(PollingTimer)
 
 	public:
 		static constexpr int INITIAL_INTERVAL = 250;

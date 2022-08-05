@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QQmlListProperty>
 #include <QVector>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace gpio {
@@ -16,7 +17,8 @@ namespace gpio {
 class CUTEHMI_GPIO_API Chip:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
+		QML_NAMED_ELEMENT(Chip)
 
 	public:
 		Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)

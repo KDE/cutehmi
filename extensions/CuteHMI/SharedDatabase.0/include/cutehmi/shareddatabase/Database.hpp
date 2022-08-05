@@ -10,6 +10,7 @@
 #include <cutehmi/macros.hpp>
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace shareddatabase {
@@ -23,6 +24,7 @@ class CUTEHMI_SHAREDDATABASE_API Database:
 
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Database)
 
 	public:
 		static const char * INITIAL_TYPE;

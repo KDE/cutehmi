@@ -8,6 +8,7 @@
 
 #include <QObject>
 #include <QMutexLocker>
+#include <QQmlEngine>
 
 namespace cutehmi {
 
@@ -19,6 +20,13 @@ class CUTEHMI_API Messenger:
 	public Singleton<Messenger>
 {
 		Q_OBJECT
+		//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+		QML_NAMED_ELEMENT(Messenger)
+		QML_UNCREATABLE("Messenger is a singleton")
+		QML_SINGLETON
+#endif
+		//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 		friend class Singleton<Messenger>;
 
@@ -52,6 +60,16 @@ class CUTEHMI_API Messenger:
 
 				MPtr<Members> m;
 		};
+
+		/**
+		 * Create intance.
+		 * @param qmlEngine QML engine instance.
+		 * @param jsEngine JavaScript engine instance.
+		 * @return instance.
+		 *
+		 * @note this method is used by QQmlEngine when class is annotated with QML_SINGLETON macro.
+		 */
+		static Messenger * create(QQmlEngine * qmlEngine, QJSEngine * jsEngine);
 
 		/**
 		 * Advertise message.

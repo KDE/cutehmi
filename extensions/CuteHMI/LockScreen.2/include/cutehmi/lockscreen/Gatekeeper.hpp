@@ -5,6 +5,8 @@
 
 #include <cutehmi/Singleton.hpp>
 
+#include <QQmlEngine>
+
 namespace cutehmi {
 namespace lockscreen {
 
@@ -12,6 +14,7 @@ class CUTEHMI_LOCKSCREEN_API Gatekeeper:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Gatekeeper)
 
 		friend class test_Gatekeeper;
 

@@ -26,12 +26,14 @@ Project {
 
 		Depends { name: "cutehmi.qmldir" }
 
-		Depends { name: "cutehmi.qmltypes" }
-
-		Depends { name: "cutehmi.view.4" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.useDoxyqml: true
+
+		Depends { name: "cutehmi.view.4" }
+
+		Depends { name: "CuteHMI.GUI.1" }
 	}
 }
 

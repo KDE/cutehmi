@@ -93,7 +93,7 @@ Project {
 		Depends { name: "cutehmi.qmldir" }
 		cutehmi.qmldir.singletons: ["Palette"]
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Export {
 			Depends { name: "Qt.core" }

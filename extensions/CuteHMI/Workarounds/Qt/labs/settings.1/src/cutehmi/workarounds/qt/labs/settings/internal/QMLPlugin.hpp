@@ -1,9 +1,7 @@
 #ifndef H_EXTENSIONS_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_1_SRC_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_INTERNAL_QMLPLUGIN_HPP
 #define H_EXTENSIONS_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_1_SRC_CUTEHMI_WORKAROUNDS_QT_LABS_SETTINGS_INTERNAL_QMLPLUGIN_HPP
 
-#include <QQmlExtensionPlugin>
-
-class QJSEngine;
+#include <QQmlEngineExtensionPlugin>
 
 namespace cutehmi {
 namespace workarounds {
@@ -13,13 +11,13 @@ namespace settings {
 namespace internal {
 
 class QMLPlugin:
-	public QQmlExtensionPlugin
+	public QQmlEngineExtensionPlugin
 {
 		Q_OBJECT
 		Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
 
 	public:
-		void registerTypes(const char * uri) override;
+		void initializeEngine(QQmlEngine * engine, const char * uri) override;
 };
 
 }

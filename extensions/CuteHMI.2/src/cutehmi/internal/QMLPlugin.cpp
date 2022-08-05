@@ -47,16 +47,17 @@ class Internationalizer: public cutehmi::Internationalizer {};
 namespace cutehmi {
 namespace internal {
 
+//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#else
+
 /**
  * Register QML types.
  * @param uri URI.
  */
 void QMLPlugin::registerTypes(const char * uri)
 {
-	Q_ASSERT(uri == QLatin1String("CuteHMI"));
-
-	qmlRegisterType<cutehmi::Message>(uri, CUTEHMI_MAJOR, 0, "Message");
-	qmlRegisterType<cutehmi::Notification>(uri, CUTEHMI_MAJOR, 0, "Notification");
+	// @uri CuteHMI
 	qmlRegisterSingletonType<cutehmi::Messenger>(uri, CUTEHMI_MAJOR, 0, "Messenger", MessengerProvider);
 	qmlRegisterSingletonType<cutehmi::Notifier>(uri, CUTEHMI_MAJOR, 0, "Notifier", NotifierProvider);
 	qmlRegisterSingletonType<cutehmi::Internationalizer>(uri, CUTEHMI_MAJOR, 0, "Internationalizer", InternationalizationProvider);
@@ -88,6 +89,9 @@ QObject * QMLPlugin::InternationalizationProvider(QQmlEngine * engine, QJSEngine
 	engine->setObjectOwnership(i18ner, QQmlEngine::CppOwnership);
 	return i18ner;
 }
+
+#endif
+//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 }
 }

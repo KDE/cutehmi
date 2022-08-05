@@ -5,6 +5,7 @@
 
 #include <QObject>
 #include <QFont>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace gui {
@@ -13,6 +14,7 @@ class CUTEHMI_GUI_API Fonts:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Fonts)
 
 	public:
 		/**

@@ -6,8 +6,8 @@
 #include <QNetworkAccessManager>
 #include <QStringList>
 #include <QObject>
-
-class QNetworkReply;
+#include <QNetworkReply>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace bitcoincash {
@@ -18,9 +18,10 @@ namespace bitcoincash {
 class CUTEHMI_BITCOINCASH_API Address:
 	public QObject
 {
-	Q_OBJECT
+		Q_OBJECT
+		QML_NAMED_ELEMENT(Address)
 
-	friend class test_Address;
+		friend class test_Address;
 
 	public:
 		Q_PROPERTY(QString address READ address WRITE setAddress NOTIFY addressChanged)

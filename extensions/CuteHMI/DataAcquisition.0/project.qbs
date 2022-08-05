@@ -89,7 +89,7 @@ Project {
 		Depends { name: "cutehmi.qmldir" }
 		cutehmi.qmldir.exclude: ["^designer/.*", "\.js$"]
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Depends { name: "cutehmi.skeleton.cpp" }
 		cutehmi.skeleton.cpp.generateQMLPlugin: true

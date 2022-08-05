@@ -18,6 +18,7 @@
 #include <QJsonArray>
 #include <QQmlListProperty>
 #include <QModbusPdu>
+#include <QQmlEngine>
 
 #include <list>
 
@@ -36,6 +37,8 @@ class CUTEHMI_MODBUS_API AbstractDevice:
 	public services::Serviceable
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(AbstractDevice)
+		QML_UNCREATABLE("AbstractDevice is an abstract class")
 
 		friend class test_AbstractDevice;
 		friend class test_AbstractServer;

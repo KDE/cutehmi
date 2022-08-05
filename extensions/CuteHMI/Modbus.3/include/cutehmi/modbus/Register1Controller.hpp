@@ -9,6 +9,7 @@
 
 #include <QObject>
 #include <QBasicTimer>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace modbus {
@@ -21,6 +22,8 @@ class CUTEHMI_MODBUS_API Register1Controller:
 	protected internal::RegisterControllerMixin<Register1Controller>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Register1Controller)
+		QML_UNCREATABLE("Register1Controller is an abstract class")
 
 		friend class internal::RegisterControllerMixin<Register1Controller>;
 		typedef internal::RegisterControllerMixin<Register1Controller> Mixin;

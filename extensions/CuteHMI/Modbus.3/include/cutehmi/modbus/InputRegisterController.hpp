@@ -5,6 +5,7 @@
 #include "Register16Controller.hpp"
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace modbus {
@@ -13,6 +14,8 @@ class CUTEHMI_MODBUS_API InputRegisterController:
 	public Register16Controller
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(InputRegisterController)
+
 	public:
 		InputRegisterController(QObject * parent = nullptr);
 

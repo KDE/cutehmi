@@ -4,6 +4,7 @@
 #include "internal/common.hpp"
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace gui {
@@ -15,6 +16,7 @@ class CUTEHMI_GUI_API Units:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Units)
 
 	public:
 		static constexpr qreal INITIAL_QUADRAT = 80.0;

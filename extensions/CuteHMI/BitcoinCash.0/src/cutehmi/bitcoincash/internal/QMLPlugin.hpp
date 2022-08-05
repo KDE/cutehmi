@@ -1,22 +1,17 @@
 #ifndef H_EXTENSIONS_CUTEHMI_BITCOINCASH_0_SRC_CUTEHMI_BITCOINCASH_INTERNAL_QMLPLUGIN_HPP
 #define H_EXTENSIONS_CUTEHMI_BITCOINCASH_0_SRC_CUTEHMI_BITCOINCASH_INTERNAL_QMLPLUGIN_HPP
 
-#include <QQmlExtensionPlugin>
-
-class QJSEngine;
+#include <QQmlEngineExtensionPlugin>
 
 namespace cutehmi {
 namespace bitcoincash {
 namespace internal {
 
 class QMLPlugin:
-	public QQmlExtensionPlugin
+	public QQmlEngineExtensionPlugin
 {
-	Q_OBJECT
-	Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
-
-	public:
-		void registerTypes(const char * uri) override;
+		Q_OBJECT
+		Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
 };
 
 }

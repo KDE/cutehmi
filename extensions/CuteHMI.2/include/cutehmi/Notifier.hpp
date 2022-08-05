@@ -7,6 +7,7 @@
 
 #include <QObject>
 #include <QMutexLocker>
+#include <QQmlEngine>
 
 #include <limits>
 
@@ -20,6 +21,13 @@ class CUTEHMI_API Notifier:
 	public Singleton<Notifier>
 {
 		Q_OBJECT
+		//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+		QML_NAMED_ELEMENT(Notifier)
+		QML_UNCREATABLE("Notifier is a singleton")
+		QML_SINGLETON
+#endif
+		//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 		friend class Singleton<Notifier>;
 
@@ -29,6 +37,16 @@ class CUTEHMI_API Notifier:
 		Q_PROPERTY(int maxNotifications READ maxNotifications WRITE setMaxNotifications NOTIFY maxNotificationsChanged)
 
 		NotificationListModel * model() const;
+
+		/**
+		 * Create intance.
+		 * @param qmlEngine QML engine instance.
+		 * @param jsEngine JavaScript engine instance.
+		 * @return instance.
+		 *
+		 * @note this method is used by QQmlEngine when class is annotated with QML_SINGLETON macro.
+		 */
+		static Notifier * create(QQmlEngine * qmlEngine, QJSEngine * jsEngine);
 
 		int maxNotifications() const;
 

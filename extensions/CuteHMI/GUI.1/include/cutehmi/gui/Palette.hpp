@@ -5,6 +5,7 @@
 #include "ColorSet.hpp"
 
 #include <QObject>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace gui {
@@ -20,6 +21,7 @@ class CUTEHMI_GUI_API Palette:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Palette)
 
 	public:
 		/**

@@ -5,6 +5,7 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace dataacquisition {
@@ -17,6 +18,7 @@ class CUTEHMI_DATAACQUISITION_API TagValue:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(TagValue)
 
 	public:
 		/**

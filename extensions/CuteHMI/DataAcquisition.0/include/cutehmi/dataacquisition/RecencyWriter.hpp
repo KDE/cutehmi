@@ -17,6 +17,7 @@ class CUTEHMI_DATAACQUISITION_API RecencyWriter:
 	private internal::DbServiceableMixin<RecencyWriter>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(RecencyWriter)
 
 		friend class internal::DbServiceableMixin<RecencyWriter>;
 

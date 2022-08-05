@@ -1,24 +1,17 @@
 #ifndef H_EXTENSIONS_CUTEHMI_GPIO_0_SRC_CUTEHMI_GPIO_INTERNAL_QMLPLUGIN_HPP
 #define H_EXTENSIONS_CUTEHMI_GPIO_0_SRC_CUTEHMI_GPIO_INTERNAL_QMLPLUGIN_HPP
 
-#include <QQmlExtensionPlugin>
-
-class QJSEngine;
+#include <QQmlEngineExtensionPlugin>
 
 namespace cutehmi {
 namespace gpio {
 namespace internal {
 
 class QMLPlugin:
-	public QQmlExtensionPlugin
+	public QQmlEngineExtensionPlugin
 {
-	Q_OBJECT
-	Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
-
-	public:
-		void registerTypes(const char * uri) override;
-
-		static QObject * ChipEnumeratorProvider(QQmlEngine * engine, QJSEngine * scriptEngine);
+		Q_OBJECT
+		Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
 };
 
 }

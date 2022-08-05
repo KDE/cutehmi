@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QStateMachine>
 #include <QTimer>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace services {
@@ -23,6 +24,7 @@ class CUTEHMI_SERVICES_API Service:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Service)
 
 		friend class ServiceManager;
 

@@ -52,7 +52,7 @@ Project {
 		Depends { name: "cutehmi.qmldir" }
 		cutehmi.qmldir.exclude: ["^SymbolCanvas.qml$"]
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Export {
 			Depends { name: "CuteHMI.GUI.1" }

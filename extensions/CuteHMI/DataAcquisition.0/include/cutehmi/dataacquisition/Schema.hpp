@@ -5,6 +5,8 @@
 
 #include <cutehmi/shareddatabase/DataObject.hpp>
 
+#include <QQmlEngine>
+
 namespace cutehmi {
 namespace dataacquisition {
 
@@ -15,6 +17,7 @@ class CUTEHMI_DATAACQUISITION_API Schema:
 	public shareddatabase::DataObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(Schema)
 
 	public:
 		/**

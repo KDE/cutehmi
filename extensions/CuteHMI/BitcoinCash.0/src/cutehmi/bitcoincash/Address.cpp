@@ -1,9 +1,9 @@
 #include "../../../include/cutehmi/bitcoincash/Address.hpp"
 
-#include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <stdexcept>
 
 namespace cutehmi {
 namespace bitcoincash {

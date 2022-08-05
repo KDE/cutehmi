@@ -6,6 +6,7 @@
 #include <QApplication>
 #include <QElapsedTimer>
 #include <QTimer>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace gui {
@@ -25,6 +26,13 @@ class CUTEHMI_GUI_API CuteApplication:
 		typedef QApplication Parent;
 
 		Q_OBJECT
+		//<CuteHMI.Workarounds.Qt5Compatibility-4.workaround target="Qt" cause="Qt5.15-QML_SINGLETON">
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+		QML_NAMED_ELEMENT(CuteApplication)
+		QML_UNCREATABLE("CuteApplication is a singleton")
+		QML_SINGLETON
+#endif
+		//</CuteHMI.Workarounds.Qt5Compatibility-4.workaround>
 
 	public:
 		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">
@@ -38,6 +46,16 @@ class CUTEHMI_GUI_API CuteApplication:
 		//</CuteHMI.LockScreen-1.workaround>
 
 		CuteApplication(int & argc, char ** argv);
+
+		/**
+		 * Create intance.
+		 * @param qmlEngine QML engine instance.
+		 * @param jsEngine JavaScript engine instance.
+		 * @return instance.
+		 *
+		 * @note this method is used by QQmlEngine when class is annotated with QML_SINGLETON macro.
+		 */
+		static CuteApplication * create(QQmlEngine * qmlEngine, QJSEngine * jsEngine);
 
 		//<CuteHMI.LockScreen-1.workaround target="Qt" cause="design">
 		double idle() const;

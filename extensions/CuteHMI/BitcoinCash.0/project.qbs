@@ -26,12 +26,6 @@ Project {
 
 		description: "Wraps Bitcoin.com REST API to provide Bitcoin Cash operations."
 
-		author: "Michal Policht"
-
-		copyright: "Michal Policht"
-
-		license: "GNU Lesser General Public License, v. 3.0"
-
 		files: [
 			"README.md",
 			"include/cutehmi/bitcoincash/Address.hpp",
@@ -56,7 +50,7 @@ Project {
 
 		Depends { name: "cutehmi.qmldir" }
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Export {
 			Depends { name: "CuteHMI.2" }

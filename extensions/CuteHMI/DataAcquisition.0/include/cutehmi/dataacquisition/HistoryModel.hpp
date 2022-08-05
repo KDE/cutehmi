@@ -17,6 +17,7 @@ class CUTEHMI_DATAACQUISITION_API HistoryModel:
 	private internal::ModelMixin<HistoryModel>
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(HistoryModel)
 
 		typedef AbstractListModel Parent;
 

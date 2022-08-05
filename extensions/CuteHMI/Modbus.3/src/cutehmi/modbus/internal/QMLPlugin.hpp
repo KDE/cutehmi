@@ -1,20 +1,17 @@
 #ifndef H_EXTENSIONS_CUTEHMI_MODBUS_3_SRC_CUTEHMI_MODBUS_INTERNAL_QMLPLUGIN_HPP
 #define H_EXTENSIONS_CUTEHMI_MODBUS_3_SRC_CUTEHMI_MODBUS_INTERNAL_QMLPLUGIN_HPP
 
-#include <QQmlExtensionPlugin>
+#include <QQmlEngineExtensionPlugin>
 
 namespace cutehmi {
 namespace modbus {
 namespace internal {
 
 class QMLPlugin:
-	public QQmlExtensionPlugin
+	public QQmlEngineExtensionPlugin
 {
-	Q_OBJECT
-	Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
-
-	public:
-		void registerTypes(const char * uri) override;
+		Q_OBJECT
+		Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
 };
 
 }

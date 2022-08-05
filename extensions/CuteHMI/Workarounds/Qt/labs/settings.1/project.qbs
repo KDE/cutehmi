@@ -39,7 +39,8 @@ Project {
 
 		Depends { name: "cutehmi.qmldir" }
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
+		cutehmi.qmltyperegistrar.includePaths: cutehmi.conventions.sourceDir + "/internal"
 
 		Depends { name: "CuteHMI.2" }
 

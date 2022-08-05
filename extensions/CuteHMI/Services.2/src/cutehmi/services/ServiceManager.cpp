@@ -6,6 +6,16 @@ namespace services {
 constexpr int ServiceManager::INITIAL_MAX_ACTIVE_SERVICES;
 constexpr int ServiceManager::INITIAL_REPAIR_INTERVAL;
 
+ServiceManager * ServiceManager::create(QQmlEngine * qmlEngine, QJSEngine * jsEngine)
+{
+	Q_UNUSED(jsEngine)
+
+	ServiceManager * instance = & Instance();
+	qmlEngine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
+
+	return instance;
+}
+
 int ServiceManager::maxActiveServices() const
 {
 	return m->maxActiveServices;

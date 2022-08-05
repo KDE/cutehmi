@@ -11,6 +11,16 @@ CuteApplication::CuteApplication(int & argc, char ** argv):
 	connect(& m->updateTimer, & QTimer::timeout, this, & CuteApplication::updateIdleTime);
 }
 
+CuteApplication * CuteApplication::create(QQmlEngine * qmlEngine, QJSEngine * jsEngine)
+{
+	Q_UNUSED(jsEngine)
+
+	QObject * instance = cutehmi::gui::CuteApplication::instance();
+	qmlEngine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
+
+	return qobject_cast<CuteApplication *>(instance);
+}
+
 double CuteApplication::idle() const
 {
 	return m->idle;

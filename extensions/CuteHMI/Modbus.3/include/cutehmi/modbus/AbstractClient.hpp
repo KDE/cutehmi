@@ -5,6 +5,8 @@
 
 #include "internal/PollingIterator.hpp"
 
+#include <QQmlEngine>
+
 namespace cutehmi {
 namespace modbus {
 
@@ -17,6 +19,8 @@ class CUTEHMI_MODBUS_API AbstractClient:
 	public AbstractDevice
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(AbstractClient)
+		QML_UNCREATABLE("AbstractClient is an abstract class")
 
 	public:
 		static constexpr int INITIAL_POLLING_INTERVAL = 250;

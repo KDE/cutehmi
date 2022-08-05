@@ -1,24 +1,25 @@
-#include "QMLPlugin.hpp"
-
-#include <cutehmi/bitcoincash/Address.hpp>
-
-#include <QtQml>
+#include "QMLPlugin.hpp"	// IWYU pragma: keep
 
 namespace cutehmi {
 namespace bitcoincash {
 namespace internal {
 
+//<Doxygen-3.workaround target="Doxygen" cause="missing">
+#ifdef DOXYGEN_WORKAROUND
+
+namespace CuteHMI {
+namespace BitcoinCash {
+
 /**
- * @class CuteHMI::BitcoinCash::Address
  * Exposes cutehmi::bitcoincash::Address to QML.
  */
+class Address: public cutehmi::bitcoincash::Address {};
 
-void QMLPlugin::registerTypes(const char * uri)
-{
-	Q_ASSERT(uri == QLatin1String("CuteHMI.BitcoinCash"));
-
-	qmlRegisterType<cutehmi::bitcoincash::Address>(uri, CUTEHMI_BITCOINCASH_MAJOR, 0, "Address");
 }
+}
+
+#endif
+//</Doxygen-3.workaround>
 
 }
 }

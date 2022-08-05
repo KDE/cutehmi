@@ -1,0 +1,13 @@
+Problem:
+
+In Qt 5.15 when registering type with QML_SINGLETON the class must have default constructor (thus not be a real singleton). Qt6 and
+later versions can obtain singleton instance with static create() method. Because of that Qt5.15 must still partially rely on
+qmlRegisterSingletonType() function and QQmlExtensionPlugin can not be dropped in favor of QQmlEngineExtensionPlugin, when
+singletons are registered by the extension.
+
+Workaround:
+
+Workaround is to use separate code branches for Qt 6 and Qt 5.15 until Qt 5.15 is supported.
+
+Snippet:
+

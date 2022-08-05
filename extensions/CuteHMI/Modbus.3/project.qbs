@@ -200,7 +200,7 @@ Project {
 		Depends { name: "cutehmi.qmldir" }
 		cutehmi.qmldir.exclude: ["^designer/.*", "\.js$"]
 
-		Depends { name: "cutehmi.qmltypes" }
+		Depends { name: "cutehmi.qmltyperegistrar" }
 
 		Export {
 			Depends { name: "Qt.serialbus" }

@@ -12,6 +12,7 @@
 
 #include <QObject>
 #include <QQmlListProperty>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace dataacquisition {
@@ -24,6 +25,8 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 	public services::Serviceable
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(AbstractWriter)
+		QML_UNCREATABLE("AbstractWriter is an abstract class")
 
 	public:
 		Q_PROPERTY(QQmlListProperty<cutehmi::dataacquisition::TagValue> values READ valueList CONSTANT)
