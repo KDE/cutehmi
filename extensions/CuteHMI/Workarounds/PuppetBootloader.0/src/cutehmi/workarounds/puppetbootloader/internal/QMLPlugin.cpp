@@ -18,7 +18,6 @@ void QMLPlugin::initializeEngine(QQmlEngine * engine, const char * uri)
 
 void QMLPlugin::registerTypes(const char * uri)
 {
-	Q_UNUSED(uri)
 	qmlRegisterModule(uri, 1, 0);
 }
 
