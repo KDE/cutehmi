@@ -1,0 +1,14 @@
+Problem:
+
+Program qmltyperegistrar genereates `*_qmltyperegistrations.cpp` files, which do not take into account that header file with
+annotated class resides in a subdirectory. Compilation fails.
+
+Investigation:
+
+The issue is mentioned in Qt bug reports: https://bugreports.qt.io/browse/QBS-1579.
+
+Workaround:
+
+Workaround is to add the directory with the header file to include paths. To restrict additional include path to
+`*_qmltyperegistrations.cpp` files a Group can be used.
+
