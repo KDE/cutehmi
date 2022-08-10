@@ -98,7 +98,7 @@ std::unique_ptr<QAbstractTransition> AbstractServer::transitionToIdling() const
 
 void AbstractServer::handleRequest(const QJsonObject & request)
 {
-	emit requestReceived(request);
+	emit requestAccepted(request);
 }
 
 void AbstractServer::handleCoilsWritten(quint16 address, quint16 amount)

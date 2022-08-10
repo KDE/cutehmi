@@ -28,7 +28,7 @@ RTUServer::RTUServer(QObject * parent):
 
 	connect(& m->thread, & QThread::finished, & m->backend, & internal::QtRTUServerBackend::ensureClosed);
 
-	connect(this, & RTUServer::requestReceived, & m->backend, & internal::QtRTUServerBackend::processRequest);
+	connect(this, & RTUServer::requestAccepted, & m->backend, & internal::QtRTUServerBackend::processRequest);
 
 	connect(& m->backend, & internal::AbstractServerBackend::busyUpdated, this, & RTUServer::updateBusy);
 

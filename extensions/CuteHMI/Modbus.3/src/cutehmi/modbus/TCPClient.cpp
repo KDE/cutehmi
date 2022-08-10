@@ -17,7 +17,7 @@ TCPClient::TCPClient(QObject * parent):
 
 	connect(& m->thread, & QThread::finished, & m->backend, & internal::QtClientBackend::ensureClosed);
 
-	connect(this, & TCPClient::requestReceived, & m->backend, & internal::QtClientBackend::processRequest);
+	connect(this, & TCPClient::requestAccepted, & m->backend, & internal::QtClientBackend::processRequest);
 
 	connect(& m->backend, & internal::QtClientBackend::replied, this, & TCPClient::handleReply);
 

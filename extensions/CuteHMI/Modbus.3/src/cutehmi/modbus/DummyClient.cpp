@@ -19,7 +19,7 @@ DummyClient::DummyClient(QObject * parent):
 
 	connect(& m->thread, & QThread::finished, & m->backend, & internal::DummyClientBackend::ensureClosed);
 
-	connect(this, & DummyClient::requestReceived, & m->backend, & internal::DummyClientBackend::processRequest);
+	connect(this, & DummyClient::requestAccepted, & m->backend, & internal::DummyClientBackend::processRequest);
 
 	connect(& m->backend, & internal::DummyClientBackend::replied, this, & DummyClient::handleReply);
 

@@ -29,8 +29,29 @@ int AbstractClient::pollingTaskInterval() const
 void AbstractClient::setPollingTaskInterval(int interval)
 {
 	if (m->pollingTaskInterval != interval) {
+		// Polling tasks can not be processed faster than requests.
+		if (m->requestInterval >= interval)
+			CUTEHMI_WARNING("Value of pollingTaskInterval (" << interval << ") is lower than or equal to requestInterval (" << m->requestInterval << ").");
+
 		m->pollingTaskInterval = interval;
 		emit pollingTaskIntervalChanged();
+	}
+}
+
+int AbstractClient::requestInterval() const
+{
+	return m->requestInterval;
+}
+
+void AbstractClient::setRequestInterval(int interval)
+{
+	if (m->requestInterval != interval) {
+		// Polling tasks can not be processed faster than requests.
+		if (interval >= m->pollingTaskInterval)
+			CUTEHMI_WARNING("Value of requestInterval (" << interval << ") is higher than or equal to pollingTaskInterval (" << m->pollingTaskInterval << ").");
+
+		m->requestInterval = interval;
+		emit requestIntervalChanged();
 	}
 }
 
@@ -143,12 +164,25 @@ AbstractClient::AbstractClient(QObject * parent):
 	AbstractDevice(parent),
 	m(new Members(this))
 {
+	m->requestDequeueTimer.setSingleShot(true);
+	connect(& m->requestDequeueTimer, & QTimer::timeout, this, & AbstractClient::dequeueRequest);
+
 	connect(this, & AbstractDevice::stateChanged, this, & AbstractClient::onStateChanged);
 }
 
 void AbstractClient::handleRequest(const QJsonObject & request)
 {
-	emit requestReceived(request);
+	qint64 requestTimestamp = qRound64(request.value("timestamp").toDouble());
+	if (m->requestQueue.isEmpty()) {
+		if (requestTimestamp >= m->lastProcessRequestTimestamp + m->requestInterval) {
+			m->lastProcessRequestTimestamp = requestTimestamp;
+			emit requestAccepted(request);
+		} else {
+			m->requestQueue.enqueue(request);
+			m->requestDequeueTimer.start(m->lastProcessRequestTimestamp + m->requestInterval - requestTimestamp);
+		}
+	} else
+		m->requestQueue.enqueue(request);
 }
 
 void AbstractClient::handleReply(QUuid requestId, QJsonObject reply)
@@ -176,6 +210,16 @@ void AbstractClient::pollingTask()
 {
 	if (!m->pollingIterator.runNext())
 		emit pollingFinished();
+}
+
+void AbstractClient::dequeueRequest()
+{
+	QJsonObject request = m->requestQueue.dequeue();
+	m->lastProcessRequestTimestamp = qRound64(request.value("timestamp").toDouble());
+	emit requestAccepted(request);
+
+	if (!m->requestQueue.isEmpty())
+		m->requestDequeueTimer.start(m->requestInterval);
 }
 
 }

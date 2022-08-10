@@ -25,7 +25,7 @@ TCPServer::TCPServer(QObject * parent):
 
 	connect(& m->thread, & QThread::finished, & m->backend, & internal::QtTCPServerBackend::ensureClosed);
 
-	connect(this, & TCPServer::requestReceived, & m->backend, & internal::QtTCPServerBackend::processRequest);
+	connect(this, & TCPServer::requestAccepted, & m->backend, & internal::QtTCPServerBackend::processRequest);
 
 	connect(& m->backend, & internal::AbstractServerBackend::busyUpdated, this, & TCPServer::updateBusy);
 

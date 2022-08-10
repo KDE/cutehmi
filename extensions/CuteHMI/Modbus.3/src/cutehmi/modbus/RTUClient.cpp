@@ -20,7 +20,7 @@ RTUClient::RTUClient(QObject * parent):
 
 	connect(& m->thread, & QThread::finished, & m->backend, & internal::QtClientBackend::ensureClosed);
 
-	connect(this, & RTUClient::requestReceived, & m->backend, & internal::QtClientBackend::processRequest);
+	connect(this, & RTUClient::requestAccepted, & m->backend, & internal::QtClientBackend::processRequest);
 
 	connect(& m->backend, & internal::QtClientBackend::replied, this, & RTUClient::handleReply);
 

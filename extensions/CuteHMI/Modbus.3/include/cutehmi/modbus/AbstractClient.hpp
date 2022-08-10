@@ -6,12 +6,24 @@
 #include "internal/PollingIterator.hpp"
 
 #include <QQmlEngine>
+#include <QQueue>
+#include <QTimer>
 
 namespace cutehmi {
 namespace modbus {
 
 /**
  * Abstract client.
+ *
+ * Abstract client can perform polling to update register values. This is handled by cutehmi::services::Service - the client just
+ * needs to be set as its @ref cutehmi::services::Service::serviceable "serviceable" object.
+ *
+ * During polling a sequence of tasks is being processed. A task is usually a single request-response exchange performed to update
+ * register value. During polling all awaken registers are updated. Intervals between complete polling sequences and individual
+ * tasks can be with @ref pollingInterval and @ref pollingTaskInterval properties respectively.
+ *
+ * To protect Modbus device from flooding it with too many requests @ref requestInterval property can be used. If requests are
+ * comming too fast they will be queued and sent to the device one by one in constant intervals.
  *
  * @remark Client becomes ready to handle requests only when it establishes connection with server.
  */
@@ -27,9 +39,31 @@ class CUTEHMI_MODBUS_API AbstractClient:
 
 		static constexpr int INITIAL_POLLING_TASK_INTERVAL = 10;
 
+		static constexpr int INITIAL_REQUEST_INTERVAL = 5;
+
+		/**
+		 * Time interval between complete polling sequences [ms].
+		 */
 		Q_PROPERTY(int pollingInterval READ pollingInterval WRITE setPollingInterval NOTIFY pollingIntervalChanged)
 
+		/**
+		 * Time interval between individual polling tasks [ms]. Task is usually a single request-response exchange performed to
+		 * update register value.
+		 */
 		Q_PROPERTY(int pollingTaskInterval READ pollingTaskInterval WRITE setPollingTaskInterval NOTIFY pollingTaskIntervalChanged)
+
+		/**
+		 * Time interval between any individual requests [ms].
+		 *
+		 * @note this property is not mutually exclusive with @ref pollingTaskInterval. Property @ref pollingTaskInterval is used
+		 * for polling only, while this property controls the interval between any Modbus requests. Requests can not be sent faster
+		 * than specified by @a requestInterval. If value of @ref pollingTaskInterval is lower this property enforces its
+		 * precedence.
+		 *
+		 * @note subtle difference between @pollingTaskInterval and @a requestInterval is that first one measures interval between
+		 * last response and new request, while this one measures interval between last request and new request.
+		 */
+		Q_PROPERTY(int requestInterval READ requestInterval WRITE setRequestInterval NOTIFY requestIntervalChanged)
 
 		int pollingInterval() const;
 
@@ -38,6 +72,10 @@ class CUTEHMI_MODBUS_API AbstractClient:
 		int pollingTaskInterval() const;
 
 		void setPollingTaskInterval(int interval);
+
+		int requestInterval() const;
+
+		void setRequestInterval(int interval);
 
 		std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
 
@@ -66,6 +104,8 @@ class CUTEHMI_MODBUS_API AbstractClient:
 
 		void pollingTaskIntervalChanged();
 
+		void requestIntervalChanged();
+
 	protected:
 		AbstractClient(QObject * parent = nullptr);
 
@@ -81,7 +121,7 @@ class CUTEHMI_MODBUS_API AbstractClient:
 		void pollingTask();
 
 	protected:
-		Q_SIGNAL void requestReceived(QJsonObject request);
+		Q_SIGNAL void requestAccepted(QJsonObject request);
 
 		Q_SIGNAL void pollingRequested();
 
@@ -91,16 +131,27 @@ class CUTEHMI_MODBUS_API AbstractClient:
 
 		Q_SIGNAL void pollingTaskFinished();
 
+	private slots:
+		void dequeueRequest();
+
 	private:
+		typedef QQueue<QJsonObject> RequestQueueContainer;
+
 		struct Members {
 			internal::PollingIterator pollingIterator;
 			int pollingInterval;
 			int pollingTaskInterval;
+			int requestInterval;
+			qint64 lastProcessRequestTimestamp;
+			QTimer requestDequeueTimer;
+			RequestQueueContainer requestQueue;
 
 			Members(AbstractDevice * device):
 				pollingIterator(device),
 				pollingInterval(INITIAL_POLLING_INTERVAL),
-				pollingTaskInterval(INITIAL_POLLING_TASK_INTERVAL)
+				pollingTaskInterval(INITIAL_POLLING_TASK_INTERVAL),
+				requestInterval(INITIAL_REQUEST_INTERVAL),
+				lastProcessRequestTimestamp(0)
 			{
 			}
 		};

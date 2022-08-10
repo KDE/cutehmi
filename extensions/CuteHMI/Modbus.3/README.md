@@ -84,14 +84,14 @@ The extension is supplemented by following examples.
 - [CuteHMI.Examples.Modbus.Requests.2](../Examples/Modbus/Requests.2/)
 
 The one to get started with is [CuteHMI.Examples.Modbus.Basic.2](../Examples/Modbus/Basic.2/). This example shows basic usage of QML
-components. Another simple example [CuteHMI.Examples.Modbus.ControllerItems.2](../Examples/Modbus/ControllerItems.2/) is provided to
-work with Qt Creator in "Design" mode. The other examples are provided to demonstrate more advanced features.
+components. The other examples are provided to demonstrate more advanced features.
 
 ## Changes
 
 ### Version 3
 
-Register items do not have aliases to internal controller, instead they expose `controller` property.
-
-Property `pollingTimer` has been replaced in cutehmi::modbus::AbstractClient by `pollingInterval` and `pollingTaskInterval` 
+- Register items do not have aliases to internal controller, instead they expose `controller` property.
+- Property `pollingTimer` has been replaced in cutehmi::modbus::AbstractClient by `pollingInterval` and `pollingTaskInterval`
 properties.
+- Property `requestInterval` has been added to cutehmi::modbus::AbstractClient.
+- Names of protected signals have been changed in server and client classes from `requestReceived` to `requestAccepted`.
