@@ -12,6 +12,8 @@ Project {
 	cutehmi.Tool {
 		name: parent.name
 
+		consoleApplication: false
+
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"
