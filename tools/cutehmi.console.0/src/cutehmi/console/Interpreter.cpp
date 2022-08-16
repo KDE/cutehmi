@@ -34,7 +34,7 @@ static QString strErrors(const QStringList & errorMessages) {
 		return strError(errorMessages.at(0));
 
 	QString result = QCoreApplication::translate("cutehmi::console::strErrors", "Command has failed because of following errors:");
-	for (auto message : errorMessages) {
+	for (auto && message : errorMessages) {
 		result.append("\n- ");
 		result.append(message);
 	}
@@ -45,12 +45,12 @@ static QObjectList findInChildren(const QObjectList & children, const QString & 
 {
 	QObjectList result;
 
-	for (auto child : children)
+	for (auto && child : children)
 		if (child->objectName() == name)
 			result.append(child);
 
 	// Search recursively.
-	for (auto child : children)
+	for (auto && child : children)
 		result.append(findInChildren(child->children(), name));
 
 	return result;
@@ -68,7 +68,7 @@ static QString strWarnings(const QStringList & warningMessages) {
 		return strWarning(warningMessages.at(0));
 
 	QString result = QCoreApplication::translate("cutehmi::console::commandWarnings", "Warnings:");
-	for (auto message : warningMessages) {
+	for (auto && message : warningMessages) {
 		result.append("\n- ");
 		result.append(message);
 	}
@@ -166,7 +166,7 @@ void Interpreter::interperetLine(const QString & line)
 			Command::ErrorsContainer errors = m_consoleCommand.collectErrors();
 			if (!errors.isEmpty()) {
 				QStringList errorMessages;
-				for (auto error : errors)
+				for (auto && error : qAsConst(errors))
 					errorMessages.append(error.message());
 				CUTEHMI_CRITICAL(strErrors(errorMessages));
 			} else
@@ -199,7 +199,7 @@ QStringList Interpreter::parseLine(const QString & line)
 		QStringList whitespaceSeparatedCommands = linePart.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
 
 		// Split words by non-word characters (especially '\' character).
-		for (auto command : whitespaceSeparatedCommands)
+		for (auto && command : qAsConst(whitespaceSeparatedCommands))
 			if (command.contains('\\'))
 				commands.append(command.split(QRegularExpression("\\b"), Qt::SkipEmptyParts));
 			else
@@ -226,7 +226,7 @@ QStringList Interpreter::parseLine(const QString & line)
 	linePart.reserve(line.length());
 
 	int state = S_DEFAULT;
-	for (auto ch : line) {
+	for (auto && ch : line) {
 		switch (state) {
 			case S_DEFAULT:
 				if (ch == '\\')
@@ -337,7 +337,7 @@ QString Interpreter::Commands::Help::createSynopsisString(const Command::Command
 	bool makeSpaceBefore = true;
 	bool insideOptional = false;
 	int currentCommandIndex = 0;
-	for (auto command : commands) {
+	for (auto && command : commands) {
 		QString commandString = command->names().at(0);
 
 		if (makeSpaceBefore)
@@ -386,14 +386,14 @@ QString Interpreter::Commands::Help::createDescriptionString(const Command::Comm
 
 	QStringList nameList;
 	QStringList helpList;
-	for (auto command : commands) {
+	for (auto && command : commands) {
 		QString names = command->names().join(", ");
 		names.prepend(' ');
 		nameList.append(names);
 		helpList.append(command->help());
 	}
 	int nameMaxLenght = 0;
-	for (auto name : nameList)
+	for (auto && name : qAsConst(nameList))
 		nameMaxLenght = qMax(nameMaxLenght, name.length());
 
 	for (QStringList::iterator name = nameList.begin(); name != nameList.end(); ++name)
@@ -401,12 +401,12 @@ QString Interpreter::Commands::Help::createDescriptionString(const Command::Comm
 
 	const int helpMaxLength = TERMINAL_WIDTH - nameMaxLenght - SPACING;	// Reserve characters for space betweeen names and help string.
 	auto helpIt = helpList.begin();
-	for (auto nameIt : nameList) {
+	for (auto && nameIt : qAsConst(nameList)) {
 		QStringList helpLineWords;
 		QList<QStringList> helpLineWordsList;
 		QStringList helpWords = helpIt->split(' ');
 		int remainingLineWidth = helpMaxLength;
-		for (auto helpWord : helpWords) {
+		for (auto && helpWord : qAsConst(helpWords)) {
 			if (remainingLineWidth < helpWord.length()) {
 				helpLineWordsList.append(helpLineWords);
 				helpLineWords.clear();
@@ -425,7 +425,7 @@ QString Interpreter::Commands::Help::createDescriptionString(const Command::Comm
 		line.append(helpLineWordsList.takeFirst().join(' '));
 		lines.append(line);
 
-		for (auto helpLineIt : helpLineWordsList)
+		for (auto && helpLineIt : qAsConst(helpLineWordsList))
 			lines.append(QString(nameMaxLenght + SPACING, ' ') + helpLineIt.join(' '));
 
 		++helpIt;
@@ -439,7 +439,7 @@ QString Interpreter::Commands::Help::createDefaultsString(const Command::Command
 	QString result(QCoreApplication::translate("cutehmi::console::Interpreter", "Defaults:"));
 
 	QString defaultSubcommand;
-	for (auto command : commands) {
+	for (auto && command : commands) {
 		if (!defaultSubcommand.isEmpty()) {
 			if (result.back() != '\\')
 				result.append(' ');
@@ -477,7 +477,7 @@ QString Interpreter::Commands::Scope::execute(ExecutionContext & context)
 				candidate = context.engine;
 			else
 				candidate = context.scopeObject;
-			for (auto part : parts) {
+			for (auto && part : qAsConst(parts)) {
 				if (part == ".") {
 					candidate = context.scopeObject;
 				} else if (part == "..") {
@@ -552,7 +552,7 @@ QString Interpreter::Commands::List::Children::execute(Command::ExecutionContext
 	} else {
 		result.append("\n\n");
 		int index = 0;
-		for (auto child : childList) {
+		for (auto && child : qAsConst(childList)) {
 			result.append(QString::number(index)).append(": ");
 			result.append(qobjectShortInfo(child));
 			result.append('\n');
