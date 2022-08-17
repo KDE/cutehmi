@@ -25,7 +25,7 @@ Module {
 	property string libdir: undefined
 
 	property string plugindir: product.cutehmi.windeployqt.dir !== undefined ? product.cutehmi.windeployqt.dir + "/plugins"
-																			 : "plugins"
+																			 : product.cutehmi.dirs.toolsInstallSubdir + "/plugins"
 
 	property bool debug: false
 
