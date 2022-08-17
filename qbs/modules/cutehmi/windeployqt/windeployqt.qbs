@@ -204,11 +204,11 @@ Module {
 		}
 
 		outputFileTags: ["cutehmi.windeployqt"]
+	}
 
-		JobLimit {
-			jobPool: "windeployqt"
-			jobCount: 1
-		}
+	JobLimit {
+		jobPool: "windeployqt"
+		jobCount: 1
 	}
 }
 
