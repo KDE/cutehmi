@@ -14,12 +14,62 @@ Module {
 
 	property string windeployqtProgram: "windeployqt"
 
-	property string dir: "windeployqt"
+	property string qmake: undefined
+
+	/**
+	  Defines where collected files are being copied. This can be useful to distinguish Qt runtime from project artifacts. Uses
+	  location of the binary if undefined.
+	  */
+	property string dir: undefined
+
+	property string libdir: undefined
 
 	property string plugindir: product.cutehmi.windeployqt.dir + "/plugins"
 
+	property bool debug: false
+
+	property bool release: false
+
+	property bool pdb: false
+
+	property bool force: false
+
+	property bool dryRun: false
+
+	property bool noPatchqt: false
+
+	property bool ignoreLibraryErrors: false
+
+	property bool noPlugins: false
+
+	property bool noLibraries: false
+
 	property string qmldir: product.dedicatedInstallSubdir !== undefined ? product.dedicatedInstallSubdir
 																		 : undefined
+
+	property string qmlimport: undefined
+
+	property bool noQuickImport: false
+
+	property string languages: undefined
+
+	property bool noTranslations: false
+
+	property bool noSystemD3dCompiler: false
+
+	property bool compilerRuntime: false
+
+	property bool noVirtualkeyboard: false
+
+	property bool noCompilerRuntime: false
+
+	property bool json: false
+
+	property bool noOpenglSw: false
+
+	property string list: undefined
+
+	property int verbose: undefined
 
 	Depends { name: "Qt.core" }
 
@@ -50,9 +100,46 @@ Module {
 					console.warn("Can not invoke '" + windeployqtProgram + "' when '--no-install` options has been set from command line (tip: remove your build directory entirely after unchecking '--no-install' option)")
 				}
 			} else {
-				var cmdArgs = ["--dir", product.cutehmi.windeployqt.dir,
-							   "--plugindir", product.cutehmi.windeployqt.plugindir,
-						]
+				var cmdArgs = []
+
+				if (product.cutehmi.windeployqt.qmake !== undefined)
+					cmdArgs.push("--qmake", product.cutehmi.windeployqt.qmake)
+
+				if (product.cutehmi.windeployqt.dir !== undefined)
+					cmdArgs.push("--dir", product.cutehmi.windeployqt.dir)
+
+				if (product.cutehmi.windeployqt.libdir !== undefined)
+					cmdArgs.push("--libdir", product.cutehmi.windeployqt.libdir)
+
+				if (product.cutehmi.windeployqt.plugindir !== undefined)
+					cmdArgs.push("--plugindir", product.cutehmi.windeployqt.plugindir)
+
+				if (product.cutehmi.windeployqt.debug)
+					cmdArgs.push("--debug")
+
+				if (product.cutehmi.windeployqt.release)
+					cmdArgs.push("--release")
+
+				if (product.cutehmi.windeployqt.pdb)
+					cmdArgs.push("--pdb")
+
+				if (product.cutehmi.windeployqt.force)
+					cmdArgs.push("--force")
+
+				if (product.cutehmi.windeployqt.dryRun)
+					cmdArgs.push("--dry-run")
+
+				if (product.cutehmi.windeployqt.noPatchqt)
+					cmdArgs.push("--no-patchqt")
+
+				if (product.cutehmi.windeployqt.ignoreLibraryErrors)
+					cmdArgs.push("----ignore-library-errors")
+
+				if (product.cutehmi.windeployqt.noPlugins)
+					cmdArgs.push("--no-plugins")
+
+				if (product.cutehmi.windeployqt.noLibraries)
+					cmdArgs.push("--no-libraries")
 
 				if (product.cutehmi.windeployqt.qmldir !== undefined) {
 					var qmldirPath = FileInfo.isAbsolutePath(product.cutehmi.windeployqt.qmldir) ? product.cutehmi.windeployqt.qmldir
@@ -60,6 +147,42 @@ Module {
 					if (File.exists(qmldirPath))
 						cmdArgs.push("--qmldir", product.cutehmi.windeployqt.qmldir)
 				}
+
+				if (product.cutehmi.windeployqt.qmlimport !== undefined)
+					cmdArgs.push("--qmlimport", product.cutehmi.windeployqt.qmlimport)
+
+				if (product.cutehmi.windeployqt.noQuickImport)
+					cmdArgs.push("--no-quick-import")
+
+				if (product.cutehmi.windeployqt.languages !== undefined)
+					cmdArgs.push("--languages", product.cutehmi.windeployqt.languages)
+
+				if (product.cutehmi.windeployqt.noTranslations)
+					cmdArgs.push("--no-translations")
+
+				if (product.cutehmi.windeployqt.noSystemD3dCompiler)
+					cmdArgs.push("--no-system-d3d-compiler")
+
+				if (product.cutehmi.windeployqt.compilerRuntime)
+					cmdArgs.push("--compiler-runtime")
+
+				if (product.cutehmi.windeployqt.noVirtualkeyboard)
+					cmdArgs.push("--no-virtualkeyboard")
+
+				if (product.cutehmi.windeployqt.noCompilerRuntime)
+					cmdArgs.push("--no-compiler-runtime")
+
+				if (product.cutehmi.windeployqt.json)
+					cmdArgs.push("--json")
+
+				if (product.cutehmi.windeployqt.noOpenglSw)
+					cmdArgs.push("--no-opengl-sw")
+
+				if (product.cutehmi.windeployqt.list !== undefined)
+					cmdArgs.push("--list", product.cutehmi.windeployqt.list)
+
+				if (product.cutehmi.windeployqt.verbose !== undefined)
+					cmdArgs.push("--verbose", product.cutehmi.windeployqt.verbose)
 
 				var binaryFile = product.cutehmiType == "tool" ? product.cutehmi.dirs.toolsInstallSubdir + "/" + input.fileName
 															   : product.cutehmi.dirs.extensionsInstallSubdir + "/" + input.fileName
