@@ -190,6 +190,7 @@ Module {
 				cmdArgs.push(binaryFile)
 
 				var cmd = new Command(product.Qt.core.binPath + "/" + windeployqtProgram, cmdArgs)
+				cmd.jobPool = "windeployqt"
 				cmd.description = "invoking '" + windeployqtProgram
 			}
 			cmd.workingDirectory = product.cutehmi.dirs.installDir
@@ -203,10 +204,15 @@ Module {
 		}
 
 		outputFileTags: ["cutehmi.windeployqt"]
+
+		JobLimit {
+			jobPool: "windeployqt"
+			jobCount: 1
+		}
 	}
 }
 
-//(c)C: Copyright © 2018-2022, Michał Policht <michal@policht.pl>, Wojtek Zygmuntowicz <wzygmuntowicz.zygmuntowicz@gmail.com>. All rights reserved.
+//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
