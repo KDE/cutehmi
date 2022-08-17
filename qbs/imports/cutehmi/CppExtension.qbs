@@ -20,6 +20,8 @@ Extension {
 		targetName: "android_" + name
 	}
 
+	extensionType: "cpp"
+
 	property string macroName: baseName.toUpperCase().replace(/\./g, '_')
 
 	Export {

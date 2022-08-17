@@ -47,6 +47,11 @@ Project {
          "qml/NotificationListView.qml",
      ]
 
+		Properties {
+			condition: project.windeployqt
+			cutehmi.windeployqt.qmldir: sourceDirectory + "/qml"
+		}
+
 		property string defaultExtension
 
 		property string defaultMinor
