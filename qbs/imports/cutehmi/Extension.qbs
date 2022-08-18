@@ -4,7 +4,7 @@ import qbs.FileInfo
 import "CommonProduct.qbs" as CommonProduct
 
 /**
-  Extension product. This item denotes pure QML extension. No C++ artifacts are generated for the product. Use CppExtension item if
+  Extension product. This item denotes simple QML extension. No C++ artifacts are generated for the product. Use CppExtension item if
   extension is using C++ code.
   */
 CommonProduct {
@@ -15,6 +15,8 @@ CommonProduct {
 	baseName: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? name : name.substring(0, name.lastIndexOf(".", name.length - 1))
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
+
+	property string extensionType: "simple"
 
 	property string installSourceBase: sourceDirectory
 
@@ -36,6 +38,14 @@ CommonProduct {
 	Depends { name: "cutehmi.conventions" }
 
 	Depends { name: "cutehmi.metadata" }
+
+	Depends { name: "cutehmi.windeployqt"; condition: project.windeployqt }
+	//<qbs-cutehmi.windeployqt-1.workaround target="windeployqt" cause="missing">
+	Depends { name: "CuteHMI.Workarounds.windeployqt.0"; condition: project.windeployqt
+																	&& product.cutehmiType === "extension"
+																	&& product.extensionType === "simple"
+	}
+	//</qbs-cutehmi.windeployqt-1.workaround>
 
 	FileTagger {
 		patterns: ["*.bdf", "*.otf", "*.pcf", "*.ttf"]

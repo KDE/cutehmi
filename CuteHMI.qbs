@@ -15,6 +15,8 @@ Project {
 
 	property bool buildBinaries: true
 
+	property bool windeployqt: false
+
 	qbsSearchPaths: ["qbs"]
 
 	references: [

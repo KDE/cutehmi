@@ -1,0 +1,12 @@
+Problem:
+
+Tool windeployqt can not be run without specifying a binary file. It makes the tool unusable with pure QML extensions, which do not
+provide any binary file.
+
+Workaround:
+
+Workaround is to provide dummy extension that can be used when deploying QML extensions.
+
+Snippet:
+
+

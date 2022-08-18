@@ -38,6 +38,8 @@ CommonProduct {
 
 	Depends { name: "cutehmi.metadata" }
 
+	Depends { name: "cutehmi.windeployqt"; condition: project.windeployqt }
+
 	Group {
 		name: "Application"
 		fileTagsFilter: "application"

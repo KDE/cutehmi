@@ -51,6 +51,11 @@ Project {
 
 		property bool forceDefaultOptions: false
 
+		Properties {
+			condition: project.windeployqt
+			cutehmi.windeployqt.qmldir: sourceDirectory + "/qml"
+		}
+
 		cpp.defines: {
 			var result = []
 

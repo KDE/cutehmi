@@ -1,47 +1,45 @@
 import qbs
-import qbs.FileInfo
 
-import "Extension.qbs" as Extension
+import cutehmi
 
-/**
-  Puppet extension product.
-  */
-Extension {
-	name: "puppet." + originalExtension
+//<qbs-cutehmi.windeployqt-1.workaround target="windeployqt" cause="missing">
 
-	 extensionType: "puppet"
+Project {
+	name: "CuteHMI.Workarounds.windeployqt.0"
 
-	installSourceBase: sourceDirectory + "/" + cutehmi.dirs.puppetSourceSubdir
+	condition: qbs.targetOS.contains("windows")
 
-	dedicatedInstallSubdir: cutehmi.dirs.puppetsInstallSubdir + "/" + FileInfo.relativePath(cutehmi.dirs.extensionsSourceDir, sourceDirectory)
+	cutehmi.CppExtension {
+		name: parent.name
 
-	property string originalExtension
+		vendor: "CuteHMI"
 
-	cutehmi.metadata.artifacts: false
+		domain: "cutehmi.kde.org"
 
-	Depends { name: "cutehmi.qmldir" }
-	cutehmi.qmldir.puppet: true
-	// PuppetExtension normally should not have its own binaries. The only reason it would want its own binaries is for workarounds.
-	// Because of workarounds plugins array is always concatenated with that of original extension, so if there are no workarounds
-	// it must be explicitly specified as empty. Otherwise a default plugin entry would act as a supposed workaround.
-	// Note: plugin entry in 'qmldir' of a puppet extension will be created by 'cutehmi.qmldir' only if original extensions has a
-	// plugin.
-	//<qbs-imports-cutehmi-4.workaround target="QtCreator_Windows" cause="missing">
-	Properties {
-		condition: qbs.targetOS.contains("windows")
-		cutehmi.qmldir.plugins: [{
-				name: "CuteHMI.Workarounds.PuppetBootloader.0",
-				path: FileInfo.relativePath(cutehmi.dirs.installDir + "/" + dedicatedInstallSubdir,
-											cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionsInstallSubdir)
-			}]
-	}
-	//</qbs-imports-cutehmi-4.workaround>
-	cutehmi.qmldir.plugins: []
+		friendlyName: "Windeployqt Workaround"
 
-	Depends { name: originalExtension }
+		description: "Workaround for windeployqt tool."
+
+		files: [
+         "LICENSE.LGPL3",
+         "LICENSE.MIT",
+         "README.md",
+		 "src/workarounds/windeployqt/internal/dummy.cpp",
+     ]
+
+		// Binary must depend on Qt.qml in order to make `windeployqt` scan for QML files.
+		Depends { name: "Qt.qml" }
+
+		Group {
+			fileTagsFilter: ["dynamiclibrary"]
+			fileTags: ["CuteHMI.Workarounds.windeployqt.0.dynamiclibrary"]
+		}
+    }
 }
 
-//(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//</qbs-cutehmi.windeployqt-1.workaround>
+
+//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
