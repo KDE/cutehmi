@@ -1,17 +1,21 @@
 import qbs
 
 /**
-  This module generates 'rcc' artifact.
+  This module generates 'rcc' artifact. By default input files must be marked with "cutehmi.qrc" tag. This prevents `Qt.core`
+  module, which uses `qrc` file tag from creating `cpp` resource files, which later can cause problems due to rules invoking
+  compiler/linker on simple QML extensions. This behavior can be changed however by setting `inputFileTags` property.
   */
 Module {
 	additionalProductTypes: ["cutehmi.rcc"]
 
 	property string rccProgram: "rcc"
 
+	property stringList inputFileTags: ["cutehmi.qrc"]
+
 	Depends { name: "Qt.core" }
 
 	Rule {
-		inputs: ["qrc"]
+		inputs: product.cutehmi.rcc.inputFileTags
 		outputFileTags: ["rcc", "cutehmi.rcc"]
 		outputArtifacts: {
 			return [{
