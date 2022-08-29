@@ -12,6 +12,12 @@ import qbs.Environment
 Module {
 	additionalProductTypes: ["cutehmi.windeployqt"]
 
+	property bool artifacts: true
+
+	property path windeployqtArtifact: artifacts ? json ? "cutehmi.windeployqt.json"
+														: "cutehmi.windeployqt.txt"
+												 : undefined
+
 	property string windeployqtProgram: "windeployqt"
 
 	property string qmake: undefined
@@ -64,7 +70,7 @@ Module {
 
 	property bool noCompilerRuntime: false
 
-	property bool json: false
+	property bool json: true
 
 	property bool noOpenglSw: false
 
@@ -192,6 +198,7 @@ Module {
 				var cmd = new Command(product.Qt.core.binPath + "/" + windeployqtProgram, cmdArgs)
 				cmd.jobPool = "windeployqt"
 				cmd.description = "invoking '" + windeployqtProgram
+				cmd.stdoutFilePath = product.cutehmi.windeployqt.windeployqtArtifact
 			}
 			cmd.workingDirectory = product.cutehmi.dirs.installDir
 			var paths = product.cpp.libraryPaths.concat([product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionsInstallSubdir,
@@ -203,7 +210,10 @@ Module {
 			return [cmd]
 		}
 
-		outputFileTags: ["cutehmi.windeployqt"]
+		Artifact {
+			filePath: product.cutehmi.windeployqt.windeployqtArtifact
+			fileTags: ["cutehmi.windeployqt", "cutehmi.windeployqt.json", "json"]
+		}
 	}
 
 	JobLimit {
