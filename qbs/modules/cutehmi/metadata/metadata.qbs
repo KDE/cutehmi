@@ -86,7 +86,7 @@ Module {
 
 		Artifact {
 			filePath: product.cutehmi.metadata.metadataJsonArtifact
-			fileTags: ["cutehmi.metadata", "cutehmi.metadata.json", "qt.core.resource_data", "qt_plugin_metadata"]
+			fileTags: ["cutehmi.metadata", "cutehmi.metadata.json"]
 		}
 	}
 
