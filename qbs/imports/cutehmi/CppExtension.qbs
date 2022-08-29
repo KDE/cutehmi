@@ -6,6 +6,8 @@ import "Extension.qbs" as Extension
 /**
   C++ extension product. This item sets up properties for extensions that use C++ code (either if C++ code is going to be used for a
   library or QML plugin, or both).
+
+  @note Set `type` explicitly to `[]` if the library contains only header files. Otherwise Qbs `cpp` module will trigger a linker.
   */
 Extension {
 	type: project.buildBinaries ? (project.staticExtensions ? ["staticlibrary"] : ["dynamiclibrary"]) : []

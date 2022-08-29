@@ -8,6 +8,8 @@ Project {
 	cutehmi.CppExtension {
 		name: parent.name
 
+		type: []
+
 		vendor: "CuteHMI"
 
 		domain: "cutehmi.kde.org"
