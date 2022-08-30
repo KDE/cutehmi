@@ -40,10 +40,17 @@ For debug builds use `cutehmi.view.4.debug` instead of `cutehmi.view.4`.
 Qt allows for configuring the style of application with a special `qtquickcontrols2.conf` file. This file has to be built into
 application resources. Extension may provide it within `cutehmi.view.rcc` resource file, which shall be intalled into extension
 dedicated directory. For this `cutehmi.rcc` Qbs module can be used, which generates `rcc` artifacts from `qrc` files. Extension just
-needs to put `qtquickcontrols2.conf` (root prefix) inside `cutehmi.view.qrc` and declare dependency on `cutehmi.rcc` module.
+needs to put `qtquickcontrols2.conf` (root prefix) inside `cutehmi.view.qrc`, declare dependency on `cutehmi.rcc` module and assign
+`cutehmi.qrc` tag to the `cutehmi.view.qrc` file (module `cutehmi.rcc` uses distinct tag to prevent `Qt.core` from creating `cpp`
+files with `qrc` resources, which is not desired for simple QML extensions).
 
 ```
 Depends { name: "cutehmi.rcc" }
+
+Group {
+    files: "cutehmi.view.qrc"
+    fileTags: "cutehmi.qrc"
+}
 ```
 
 Resource file can be also specified with `--resource` option.

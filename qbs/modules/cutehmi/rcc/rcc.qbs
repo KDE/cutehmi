@@ -1,17 +1,21 @@
 import qbs
 
 /**
-  This module generates 'rcc' artifact.
+  This module generates 'rcc' artifact. By default input files must be marked with "cutehmi.qrc" tag. This prevents `Qt.core`
+  module, which uses `qrc` file tag from creating `cpp` resource files, which later can cause problems due to rules invoking
+  compiler/linker on simple QML extensions. This behavior can be changed however by setting `inputFileTags` property.
   */
 Module {
 	additionalProductTypes: ["cutehmi.rcc"]
 
 	property string rccProgram: "rcc"
 
+	property stringList inputFileTags: ["cutehmi.qrc"]
+
 	Depends { name: "Qt.core" }
 
 	Rule {
-		inputs: ["qrc"]
+		inputs: product.cutehmi.rcc.inputFileTags
 		outputFileTags: ["rcc", "cutehmi.rcc"]
 		outputArtifacts: {
 			return [{
@@ -33,7 +37,7 @@ Module {
 	}
 }
 
-//(c)C: Copyright © 2021, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2021-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
