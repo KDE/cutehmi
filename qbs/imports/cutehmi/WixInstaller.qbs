@@ -21,7 +21,7 @@ import "js/wixInstaller.js" as Wix
   modified by editting the file locally, but product, project and module properties can be also [overriden from command line](https://doc.qt.io/qbs/language-introduction.html#overriding-property-values-from-the-command-line).
 
   For complete runtime you may need to specify MSVC merge modules and 3rd party libraries. WixInstaller rule packs to `msi` all
-  files marked with "installable" tag from products it depends on.
+  files marked with "installable" tag from products it depends on. Merge modules can be specified with `mergeModules` property.
 
   Note that WixInstaller products are not built by default.
   */
