@@ -24,6 +24,8 @@ import "js/wixInstaller.js" as Wix
   files marked with "installable" tag from products it depends on. Merge modules can be specified with `mergeModules` property.
 
   Note that WixInstaller products are not built by default.
+
+  You may want to set `destinationDirectory` property to move artifacts in desired location.
   */
 CommonProduct {
 	condition: qbs.targetOS.contains("windows")
