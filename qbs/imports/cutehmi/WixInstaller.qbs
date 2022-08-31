@@ -128,17 +128,17 @@ CommonProduct {
 	/**
 	  Codepage used in the `wxs` document. Note that WiX has troubles with "UTF-8" (see https://wixtoolset.org/documentation/manual/v3/overview/codepage.html).
 	*/
-	property string xmlCodepage: "Windows-1252"
+	property string xmlCodepage: "iso-8859-1"
 
 	/**
 	  Codepage of the resulting MSI.
 	  */
-	property string productCodepage: xmlCodepage
+	property string productCodepage: "Windows-1252"
 
 	/**
 	  Codepage for the package summary info strings.
 	  */
-	property string packageSummaryCodepage: xmlCodepage
+	property string packageSummaryCodepage: productCodepage
 
 	/**
 	  Product version.
@@ -323,7 +323,7 @@ CommonProduct {
 				//<WixInstaller-2.workaround target="Qbs" cause="missing">
 				// Module qbs.Xml writes strings as they come, therefore as a workaround TextFile codec is used to convert WXS
 				// file to proper codepage.
-				if (!["UTF-8", "WINDOWS-1252"].contains(product.xmlCodepage.toUpperCase())) {
+				if (!["UTF-8", "WINDOWS-1252", "ISO-8859-1"].contains(product.xmlCodepage.toUpperCase())) {
 					var wxsTextFile = TextFile(output.filePath, TextFile.ReadOnly)
 					try  {
 						var wxsContent = wxsTextFile.readAll()
