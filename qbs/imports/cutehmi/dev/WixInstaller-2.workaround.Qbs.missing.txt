@@ -1,0 +1,8 @@
+Problem:
+
+Module qbs.Xml writes strings as they come, ignoring XML document encoding.
+
+Workaround:
+
+Workaround is to rewrite XML file with qbs.TextFile and appropriate codec.
+

@@ -1,0 +1,9 @@
+Problem:
+
+The tool _windeployqt_ sometimes does not copy the files it lists in JSON
+output.
+
+Workaround:
+
+Workaround is to copy the files from JavaScript.
+
