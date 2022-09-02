@@ -515,6 +515,11 @@ function getInstallDirFromInput(input)
 	return FileInfo.cleanPath(installDir)
 }
 
+function getInstallDirFromWindeployqtEntry(product, entry)
+{
+	return FileInfo.cleanPath(FileInfo.relativePath(product.qbs.installRoot + product.qbs.installPrefix, entry["target"]))
+}
+
 function addDirectoryTreeEntry(directoryTree, sourcePath, installDir, productName)
 {
 	var dirs = installDir.split("/")
@@ -568,7 +573,7 @@ function buildDirectoryTree(product, inputs)
 				}
 				for (var entryIndex in json["files"]) {
 					var entry = json["files"][entryIndex]
-					var installDir = FileInfo.relativePath(product.qbs.installRoot + product.qbs.installPrefix, entry["target"])
+					var installDir = getInstallDirFromWindeployqtEntry(product, entry)
 					addDirectoryTreeEntry(directoryTree, entry["source"], installDir, qtRuntimeProductMock["name"])
 				}
 			}
@@ -651,7 +656,7 @@ function buildFileComponentGroups(product, inputs)
 						File.copy(entry["source"], targetPath)
 					//</WixInstaller-1.workaround>
 
-					var installDir = FileInfo.relativePath(product.qbs.installRoot + product.qbs.installPrefix, entry["target"])
+					var installDir = getInstallDirFromWindeployqtEntry(product, entry)
 					addFileComponentGroupEntry(fileComponentGroups, installPaths, entry["source"], installDir, [], qtRuntimeProductMock["name"])
 				}
 			}
