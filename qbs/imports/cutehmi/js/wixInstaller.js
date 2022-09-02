@@ -536,7 +536,7 @@ function addDirectoryTreeEntry(directoryTree, sourcePath, installDir, productNam
 		"sourcePath": FileInfo.fromWindowsSeparators(sourcePath),
 		"installDir": installDir,
 		// This property should correspond with "installPath" returned by buildFileCompoenentGroup().
-		"installPath": installDir + "/" + FileInfo.fileName(sourcePath),
+		"installPath": installDir + "/" + FileInfo.fileName(FileInfo.fromWindowsSeparators(sourcePath)),
 		"productName": productName,
 	})
 }
@@ -591,7 +591,7 @@ function buildDirectoryTree(product, inputs)
 
 function addFileComponentGroupEntry(fileComponentGroups, installPaths, sourcePath, installDir, fileTags, productName)
 {
-	var installPath = installDir + "/" + FileInfo.fileName(sourcePath)
+	var installPath = installDir + "/" + FileInfo.fileName(FileInfo.fromWindowsSeparators(sourcePath))
 	// Prevent adding duplicates.
 	if (installPaths.contains(installPath))
 		return
