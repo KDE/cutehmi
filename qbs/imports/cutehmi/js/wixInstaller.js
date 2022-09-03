@@ -70,26 +70,26 @@ function getComponentGroupId(productName) {
 
 /**
   Get file component id.
-  @param sourcePath file source path.
+  @param installPath file install path.
 */
-function getFileComponentId(sourcePath) {
-	return "component_" + makeUniqueShortId(sourcePath)
+function getFileComponentId(installPath) {
+	return "component_" + makeUniqueShortId(installPath)
 }
 
 /**
   Get start menu shortcut id.
-  @param sourcePath file source path.
+  @param installPath file install path.
 */
-function getStartMenuShortcutId(sourcePath) {
-	return "startMenuShortcut_" + makeUniqueShortId(sourcePath)
+function getStartMenuShortcutId(installPath) {
+	return "startMenuShortcut_" + makeUniqueShortId(installPath)
 }
 
 /**
   Get desktop shortcut id.
-  @param sourcePath file source path.
+  @param installPath file install path.
 */
-function getDesktopShortcutId(sourcePath) {
-	return "desktopShortcut_" + makeUniqueShortId(sourcePath)
+function getDesktopShortcutId(installPath) {
+	return "desktopShortcut_" + makeUniqueShortId(installPath)
 }
 
 function getFeatureId(productName) {
@@ -99,10 +99,10 @@ function getFeatureId(productName) {
 
 /**
   Get file id.
-  @param sourcePath file source path.
+  @param installPath file install path.
 */
-function getFileId(sourcePath) {
-	return "file_" + makeUniqueShortId(sourcePath)
+function getFileId(installPath) {
+	return "file_" + makeUniqueShortId(installPath)
 }
 
 function getMergeId(msmPath) {
@@ -132,20 +132,20 @@ function dumpFileComponentGroups(fileComponentGroups, parentElement, xmlFile)
 		for (var componentKey in components) {
 			var component = components[componentKey]
 			var componentElement = xmlFile.createElement("Component")
-			componentElement.setAttribute("Id", getFileComponentId(component["sourcePath"]))
+			componentElement.setAttribute("Id", getFileComponentId(component["installPath"]))
 			componentElement.setAttribute("Directory", getDirectoryId(component["installDir"]))
 			componentElement.setAttribute("Guid", createGuid())
 
 			var fileElement = xmlFile.createElement("File")
 			// File id is constructed in a similar way to component id.
-			fileElement.setAttribute("Id", getFileId(component["sourcePath"]))
+			fileElement.setAttribute("Id", getFileId(component["installPath"]))
 			fileElement.setAttribute("KeyPath", "yes")
-			fileElement.setAttribute("Source", FileInfo.toWindowsSeparators(component["installDir"] + "/" + FileInfo.fileName(component["sourcePath"])))
+			fileElement.setAttribute("Source", FileInfo.toWindowsSeparators(component["installPath"]))
 			componentElement.appendChild(fileElement)
 
 			if (component["fileTags"].contains("application")) {
 				var startMenuShortcutElement = xmlFile.createElement("Shortcut")
-				var id = getStartMenuShortcutId(component["sourcePath"])
+				var id = getStartMenuShortcutId(component["installPath"])
 				startMenuShortcutElement.setAttribute("Id", id)
 				startMenuShortcutElement.setAttribute("Directory", "startMenuDirectory")
 				startMenuShortcutElement.setAttribute("Name", "!(loc." + id + "_Name)")
@@ -159,7 +159,7 @@ function dumpFileComponentGroups(fileComponentGroups, parentElement, xmlFile)
 				fileElement.appendChild(startMenuShortcutElement)
 
 				var desktopShortcutElement = xmlFile.createElement("Shortcut")
-				id = getDesktopShortcutId(component["sourcePath"])
+				id = getDesktopShortcutId(component["installPath"])
 				desktopShortcutElement.setAttribute("Id", id)
 				desktopShortcutElement.setAttribute("Directory", "DesktopFolder")
 				desktopShortcutElement.setAttribute("Name", "!(loc." + id + "_Name)")
@@ -490,13 +490,13 @@ function dumpProductToWxl(product, inputs, xmlFile)
 			var component = components[componentKey]
 			if (component["fileTags"].contains("application")) {
 				stringElement = xmlFile.createElement("String")
-				id = getStartMenuShortcutId(component["sourcePath"]) + "_Name"
+				id = getStartMenuShortcutId(component["installPath"]) + "_Name"
 				stringElement.setAttribute("Id", id)
 				stringElement.appendChild(xmlFile.createTextNode(getDefaultStringTranslation(id, findDependentProductByName(componentGroupProductName).friendlyName)))
 				rootElement.appendChild(stringElement)
 
 				stringElement = xmlFile.createElement("String")
-				id = getDesktopShortcutId(component["sourcePath"]) + "_Name"
+				id = getDesktopShortcutId(component["installPath"]) + "_Name"
 				stringElement.setAttribute("Id", id)
 				stringElement.appendChild(xmlFile.createTextNode(getDefaultStringTranslation(id, findDependentProductByName(componentGroupProductName).friendlyName)))
 				rootElement.appendChild(stringElement)
@@ -515,6 +515,11 @@ function getInstallDirFromInput(input)
 	return FileInfo.cleanPath(installDir)
 }
 
+function getInstallDirFromWindeployqtEntry(product, entry)
+{
+	return FileInfo.cleanPath(FileInfo.relativePath(product.qbs.installRoot + product.qbs.installPrefix, entry["target"]))
+}
+
 function addDirectoryTreeEntry(directoryTree, sourcePath, installDir, productName)
 {
 	var dirs = installDir.split("/")
@@ -530,10 +535,13 @@ function addDirectoryTreeEntry(directoryTree, sourcePath, installDir, productNam
 		}
 		currentNode = currentNode["subdirectories"][dirName]
 	}
+
 	currentNode["files"].push({
-		// Always store full path as file name alone may not be unique accross products. This property should correspond with
-		// "sorucePath" returned by buildFileCompoenentGroup().
+		// This property should correspond with "sorucePath" returned by buildFileCompoenentGroup().
 		"sourcePath": FileInfo.fromWindowsSeparators(sourcePath),
+		"installDir": installDir,
+		// This property should correspond with "installPath" returned by buildFileCompoenentGroup().
+		"installPath": installDir + "/" + FileInfo.fileName(FileInfo.fromWindowsSeparators(sourcePath)),
 		"productName": productName,
 	})
 }
@@ -565,7 +573,7 @@ function buildDirectoryTree(product, inputs)
 				}
 				for (var entryIndex in json["files"]) {
 					var entry = json["files"][entryIndex]
-					var installDir = FileInfo.relativePath(product.qbs.installRoot + product.qbs.installPrefix, entry["target"])
+					var installDir = getInstallDirFromWindeployqtEntry(product, entry)
 					addDirectoryTreeEntry(directoryTree, entry["source"], installDir, qtRuntimeProductMock["name"])
 				}
 			}
@@ -586,12 +594,13 @@ function buildDirectoryTree(product, inputs)
 	return directoryTree
 }
 
-function addFileComponentGroupEntry(fileComponentGroups, sourcePaths, sourcePath, installDir, fileTags, productName)
+function addFileComponentGroupEntry(fileComponentGroups, installPaths, sourcePath, installDir, fileTags, productName)
 {
+	var installPath = installDir + "/" + FileInfo.fileName(FileInfo.fromWindowsSeparators(sourcePath))
 	// Prevent adding duplicates.
-	if (sourcePaths.contains(sourcePath))
+	if (installPaths.contains(installPath))
 		return
-	sourcePaths.push(sourcePath)
+	installPaths.push(installPath)
 
 	// By principle product name is the key of each component group.
 	if (fileComponentGroups[productName] === undefined) {
@@ -601,10 +610,11 @@ function addFileComponentGroupEntry(fileComponentGroups, sourcePaths, sourcePath
 	}
 
 	fileComponentGroups[productName]["components"].push({
-		// Always store full path as file name alone may not be unique accross products. This property should correspond with
-		// "sourcePath" returned by buildDirectoryTree().
+		// This property should correspond with "sourcePath" returned by buildDirectoryTree().
 		"sourcePath": FileInfo.fromWindowsSeparators(sourcePath),
 		"installDir": installDir,
+		// This property should correspond with "installPath" returned by buildDirectoryTree().
+		"installPath": installPath,
 		"fileTags": fileTags,
 	})
 }
@@ -619,7 +629,7 @@ function addFileComponentGroupEntry(fileComponentGroups, sourcePaths, sourcePath
 function buildFileComponentGroups(product, inputs)
 {
 	var fileComponentGroups = {}
-	var sourcePaths = []	// Used to prevent duplicates (JSON files produced by windeployqt contain duplicates).
+	var installPaths = []	// Used to prevent duplicates (JSON files produced by windeployqt contain duplicates).
 
 	for (var tagIndex = 0; tagIndex < product.inputFileTags.length; tagIndex++) {
 		var tagInputs = inputs[product.inputFileTags[tagIndex]]
@@ -646,8 +656,8 @@ function buildFileComponentGroups(product, inputs)
 						File.copy(entry["source"], targetPath)
 					//</WixInstaller-1.workaround>
 
-					var installDir = FileInfo.relativePath(product.qbs.installRoot + product.qbs.installPrefix, entry["target"])
-					addFileComponentGroupEntry(fileComponentGroups, sourcePaths, entry["source"], installDir, [], qtRuntimeProductMock["name"])
+					var installDir = getInstallDirFromWindeployqtEntry(product, entry)
+					addFileComponentGroupEntry(fileComponentGroups, installPaths, entry["source"], installDir, [], qtRuntimeProductMock["name"])
 				}
 			}
 		} else if (product.inputFileTags[tagIndex] === "installable") {
@@ -657,7 +667,7 @@ function buildFileComponentGroups(product, inputs)
 					console.warn("File " + tagInputs[i].filePath + " is not installable and it won't be listed in " + output.filePath)
 					continue
 				}
-				addFileComponentGroupEntry(fileComponentGroups, sourcePaths, tagInputs[i].filePath, installDir, tagInputs[i].fileTags, tagInputs[i].product.name)
+				addFileComponentGroupEntry(fileComponentGroups, installPaths, tagInputs[i].filePath, installDir, tagInputs[i].fileTags, tagInputs[i].product.name)
 			}
 		} else
 			console.warn("Unsupported file tag '" + product.inputFileTags[tagIndex] + "' used in inputs")
