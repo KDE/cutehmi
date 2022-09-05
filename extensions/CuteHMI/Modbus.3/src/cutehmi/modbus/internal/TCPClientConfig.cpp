@@ -64,6 +64,22 @@ void TCPClientConfig::setSlaveAddress(int slaveAddress)
 	emit configChanged();
 }
 
+int TCPClientConfig::timeout() const
+{
+	QReadLocker locker(& m->lock);
+
+	return m->timeout;
+}
+
+void TCPClientConfig::setTimeout(int timeout)
+{
+	QWriteLocker locker(& m->lock);
+
+	m->timeout = timeout;
+
+	emit configChanged();
+}
+
 }
 }
 }

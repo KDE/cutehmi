@@ -19,10 +19,11 @@ int QtTCPClientBackend::slaveAddress() const
 
 void QtTCPClientBackend::configureConnection()
 {
+	qClient()->setTimeout(m->config->timeout());
 	qClient()->setConnectionParameter(QModbusDevice::NetworkAddressParameter, m->config->host());
 	qClient()->setConnectionParameter(QModbusDevice::NetworkPortParameter, m->config->port());
 
-	CUTEHMI_DEBUG("Client configured on '" << m->config->host() << ":" << m->config->port() << "'.");
+	CUTEHMI_DEBUG("Client configured on '" << m->config->host() << ":" << m->config->port() << "' with timeout " << m->config->timeout() << ".");
 }
 
 }

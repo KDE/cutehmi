@@ -120,6 +120,19 @@ void RTUClient::setSlaveAddress(int slaveAddress)
 	}
 }
 
+int RTUClient::timeout() const
+{
+	return m->config.timeout();
+}
+
+void RTUClient::setTimeout(int timeout)
+{
+	if (m->config.timeout() != timeout) {
+		m->config.setTimeout(timeout);
+		emit timeoutChanged();
+	}
+}
+
 void RTUClient::open()
 {
 	emit m->backend.openRequested();

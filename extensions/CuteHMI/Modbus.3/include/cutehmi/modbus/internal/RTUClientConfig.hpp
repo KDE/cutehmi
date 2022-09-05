@@ -27,6 +27,7 @@ class CUTEHMI_MODBUS_PRIVATE RTUClientConfig:
 		static constexpr QSerialPort::DataBits INITIAL_DATA_BITS = QSerialPort::Data8;
 		static constexpr QSerialPort::StopBits INITIAL_STOP_BITS = QSerialPort::OneStop;
 		static constexpr int INITIAL_SLAVE_ADDRESS = MIN_SLAVE_ADDRESS;
+		static constexpr int INITIAL_TIMEOUT = 1000;
 
 		explicit RTUClientConfig(QObject * parent = nullptr);
 
@@ -54,6 +55,10 @@ class CUTEHMI_MODBUS_PRIVATE RTUClientConfig:
 
 		void setSlaveAddress(int slaveAddress);
 
+		int timeout() const;
+
+		void setTimeout(int timeout);
+
 	private:
 		struct Members
 		{
@@ -63,6 +68,7 @@ class CUTEHMI_MODBUS_PRIVATE RTUClientConfig:
 			QSerialPort::DataBits dataBits = INITIAL_DATA_BITS;
 			QSerialPort::StopBits stopBits = INITIAL_STOP_BITS;
 			int slaveAddress = INITIAL_SLAVE_ADDRESS;
+			int timeout = INITIAL_TIMEOUT;
 			mutable QReadWriteLock lock;
 		};
 

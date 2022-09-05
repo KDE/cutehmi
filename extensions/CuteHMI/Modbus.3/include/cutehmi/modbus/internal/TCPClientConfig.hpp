@@ -22,6 +22,7 @@ class CUTEHMI_MODBUS_PRIVATE TCPClientConfig:
 		static const char * INITIAL_HOST;
 		static constexpr int INITIAL_PORT = 502;
 		static constexpr int INITIAL_SLAVE_ADDRESS = MIN_SLAVE_ADDRESS;
+		static constexpr int INITIAL_TIMEOUT = 1000;
 
 		explicit TCPClientConfig(QObject * parent = nullptr);
 
@@ -37,12 +38,17 @@ class CUTEHMI_MODBUS_PRIVATE TCPClientConfig:
 
 		void setSlaveAddress(int slaveAddress);
 
+		int timeout() const;
+
+		void setTimeout(int timeout);
+
 	private:
 		struct Members
 		{
 			QString host = INITIAL_HOST;
 			int	port = INITIAL_PORT;
 			int slaveAddress = INITIAL_SLAVE_ADDRESS;
+			int timeout = INITIAL_TIMEOUT;
 			mutable QReadWriteLock lock;
 		};
 

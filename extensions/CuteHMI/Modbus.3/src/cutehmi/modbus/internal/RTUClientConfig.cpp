@@ -115,6 +115,22 @@ void RTUClientConfig::setSlaveAddress(int slaveId)
 	emit configChanged();
 }
 
+int RTUClientConfig::timeout() const
+{
+	QReadLocker locker(& m->lock);
+
+	return m->timeout;
+}
+
+void RTUClientConfig::setTimeout(int timeout)
+{
+	QWriteLocker locker(& m->lock);
+
+	m->timeout = timeout;
+
+	emit configChanged();
+}
+
 }
 }
 }
