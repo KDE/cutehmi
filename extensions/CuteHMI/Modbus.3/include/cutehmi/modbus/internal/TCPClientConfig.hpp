@@ -22,6 +22,7 @@ class CUTEHMI_MODBUS_PRIVATE TCPClientConfig:
 		static const char * INITIAL_HOST;
 		static constexpr int INITIAL_PORT = 502;
 		static constexpr int INITIAL_SLAVE_ADDRESS = MIN_SLAVE_ADDRESS;
+		static constexpr int INITIAL_TIMEOUT = 1000;
 
 		explicit TCPClientConfig(QObject * parent = nullptr);
 
@@ -37,12 +38,17 @@ class CUTEHMI_MODBUS_PRIVATE TCPClientConfig:
 
 		void setSlaveAddress(int slaveAddress);
 
+		int timeout() const;
+
+		void setTimeout(int timeout);
+
 	private:
 		struct Members
 		{
 			QString host = INITIAL_HOST;
 			int	port = INITIAL_PORT;
 			int slaveAddress = INITIAL_SLAVE_ADDRESS;
+			int timeout = INITIAL_TIMEOUT;
 			mutable QReadWriteLock lock;
 		};
 
@@ -55,7 +61,7 @@ class CUTEHMI_MODBUS_PRIVATE TCPClientConfig:
 
 #endif
 
-//(c)C: Copyright © 2021, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2021-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

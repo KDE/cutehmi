@@ -28,6 +28,7 @@ class CUTEHMI_MODBUS_API RTUClient:
 		static constexpr QSerialPort::DataBits INITIAL_DATA_BITS = internal::RTUClientConfig::INITIAL_DATA_BITS;
 		static constexpr QSerialPort::StopBits INITIAL_STOP_BITS = internal::RTUClientConfig::INITIAL_STOP_BITS;
 		static constexpr int INITIAL_SLAVE_ADDRESS = internal::RTUClientConfig::INITIAL_SLAVE_ADDRESS;
+		static constexpr int INITIAL_TIMEOUT = internal::RTUClientConfig::INITIAL_TIMEOUT;
 
 		Q_PROPERTY(QString port READ port WRITE setPort NOTIFY portChanged)
 		Q_PROPERTY(QSerialPort::Parity parity READ parity WRITE setParity NOTIFY parityChanged)
@@ -63,6 +64,10 @@ class CUTEHMI_MODBUS_API RTUClient:
 		int slaveAddress() const;
 
 		void setSlaveAddress(int slaveAddress);
+
+		int timeout() const override;
+
+		void setTimeout(int timeout) override;
 
 	public slots:
 		void open() override;

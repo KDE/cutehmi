@@ -57,13 +57,18 @@ class CUTEHMI_MODBUS_API AbstractClient:
 		 *
 		 * @note this property is not mutually exclusive with @ref pollingTaskInterval. Property @ref pollingTaskInterval is used
 		 * for polling only, while this property controls the interval between any Modbus requests. Requests can not be sent faster
-		 * than specified by @a requestInterval. If value of @ref pollingTaskInterval is lower this property enforces its
+		 * than specified by @a requestInterval. If value of @ref pollingTaskInterval is lower, this property enforces its
 		 * precedence.
 		 *
 		 * @note subtle difference between @pollingTaskInterval and @a requestInterval is that first one measures interval between
 		 * last response and new request, while this one measures interval between last request and new request.
 		 */
 		Q_PROPERTY(int requestInterval READ requestInterval WRITE setRequestInterval NOTIFY requestIntervalChanged)
+
+		/**
+		 * Modbus response timeout [ms].
+		 */
+		Q_PROPERTY(int timeout READ timeout WRITE setTimeout NOTIFY timeoutChanged STORED false)
 
 		int pollingInterval() const;
 
@@ -76,6 +81,10 @@ class CUTEHMI_MODBUS_API AbstractClient:
 		int requestInterval() const;
 
 		void setRequestInterval(int interval);
+
+		virtual int timeout() const = 0;
+
+		virtual void setTimeout(int timeout) = 0;
 
 		std::unique_ptr<ServiceStatuses> configureStarting(QState * starting) override;
 
@@ -105,6 +114,8 @@ class CUTEHMI_MODBUS_API AbstractClient:
 		void pollingTaskIntervalChanged();
 
 		void requestIntervalChanged();
+
+		void timeoutChanged();
 
 	protected:
 		AbstractClient(QObject * parent = nullptr);

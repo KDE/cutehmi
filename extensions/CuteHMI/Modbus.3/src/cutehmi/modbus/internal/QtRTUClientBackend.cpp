@@ -25,6 +25,7 @@ int QtRTUClientBackend::slaveAddress() const
 
 void QtRTUClientBackend::configureConnection()
 {
+	qClient()->setTimeout(m->config->timeout());
 	qClient()->setConnectionParameter(QModbusDevice::SerialPortNameParameter, m->config->port());
 	qClient()->setConnectionParameter(QModbusDevice::SerialParityParameter, m->config->parity());
 	qClient()->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, m->config->baudRate());
@@ -35,7 +36,7 @@ void QtRTUClientBackend::configureConnection()
 			<< ", " << m->config->parity()
 			<< ", " << m->config->dataBits()
 			<< ", " << m->config->stopBits()
-			<< ".");
+			<< " with timeout " << m->config->timeout() << ".");
 }
 
 }

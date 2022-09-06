@@ -78,6 +78,19 @@ void TCPClient::setSlaveAddress(int slaveAddress)
 	}
 }
 
+int TCPClient::timeout() const
+{
+	return m->config.timeout();
+}
+
+void TCPClient::setTimeout(int timeout)
+{
+	if (m->config.timeout() != timeout) {
+		m->config.setTimeout(timeout);
+		emit timeoutChanged();
+	}
+}
+
 void TCPClient::open()
 {
 	emit m->backend.openRequested();

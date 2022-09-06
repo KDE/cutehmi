@@ -25,6 +25,7 @@ class CUTEHMI_MODBUS_API TCPClient:
 		static const char * INITIAL_HOST;
 		static constexpr int INITIAL_PORT = internal::TCPClientConfig::INITIAL_PORT;
 		static constexpr int INITIAL_SLAVE_ADDRESS = internal::TCPClientConfig::INITIAL_SLAVE_ADDRESS;
+		static constexpr int INITIAL_TIMEOUT = internal::TCPClientConfig::INITIAL_TIMEOUT;
 
 		Q_PROPERTY(QString host READ host WRITE setHost NOTIFY hostChanged)
 		Q_PROPERTY(int port READ port WRITE setPort NOTIFY portChanged)
@@ -45,6 +46,10 @@ class CUTEHMI_MODBUS_API TCPClient:
 		int slaveAddress() const;
 
 		void setSlaveAddress(int slaveAddress);
+
+		int timeout() const override;
+
+		void setTimeout(int timeout) override;
 
 	public slots:
 		void open() override;
