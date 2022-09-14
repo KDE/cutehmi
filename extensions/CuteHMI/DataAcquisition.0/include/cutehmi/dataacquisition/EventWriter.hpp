@@ -11,7 +11,7 @@ namespace cutehmi {
 namespace dataacquisition {
 
 class CUTEHMI_DATAACQUISITION_API EventWriter:
-	public AbstractWriter,
+	public cutehmi::dataacquisition::AbstractWriter,
 	private internal::DbServiceableMixin<EventWriter>
 {
 		Q_OBJECT

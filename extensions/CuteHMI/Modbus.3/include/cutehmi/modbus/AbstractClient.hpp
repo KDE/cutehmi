@@ -28,7 +28,7 @@ namespace modbus {
  * @remark Client becomes ready to handle requests only when it establishes connection with server.
  */
 class CUTEHMI_MODBUS_API AbstractClient:
-	public AbstractDevice
+	public cutehmi::modbus::AbstractDevice
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(AbstractClient)

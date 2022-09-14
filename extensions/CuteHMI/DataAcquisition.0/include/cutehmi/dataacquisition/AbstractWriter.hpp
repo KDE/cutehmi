@@ -22,7 +22,7 @@ namespace dataacquisition {
  */
 class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 	public QObject,
-	public services::Serviceable
+	public cutehmi::services::Serviceable
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(AbstractWriter)

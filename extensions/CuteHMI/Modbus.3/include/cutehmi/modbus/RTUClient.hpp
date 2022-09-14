@@ -14,7 +14,7 @@ namespace modbus {
  * Modbus TCP client.
  */
 class CUTEHMI_MODBUS_API RTUClient:
-	public AbstractClient
+	public cutehmi::modbus::AbstractClient
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(RTUClient)

@@ -15,7 +15,7 @@ namespace modbus {
  * because requests are affecting server internal state.
  */
 class CUTEHMI_MODBUS_API AbstractServer:
-	public AbstractDevice
+	public cutehmi::modbus::AbstractDevice
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(AbstractServer)

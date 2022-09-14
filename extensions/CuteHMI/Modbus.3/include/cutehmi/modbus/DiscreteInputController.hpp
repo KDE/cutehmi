@@ -11,7 +11,7 @@ namespace cutehmi {
 namespace modbus {
 
 class CUTEHMI_MODBUS_API DiscreteInputController:
-	public Register1Controller
+	public cutehmi::modbus::Register1Controller
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(DiscreteInputController)

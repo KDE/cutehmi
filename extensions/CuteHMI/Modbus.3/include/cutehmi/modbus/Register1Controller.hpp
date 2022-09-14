@@ -18,7 +18,7 @@ namespace modbus {
  * Register controller for 1 bit registers.
  */
 class CUTEHMI_MODBUS_API Register1Controller:
-	public AbstractRegisterController,
+	public cutehmi::modbus::AbstractRegisterController,
 	protected internal::RegisterControllerMixin<Register1Controller>
 {
 		Q_OBJECT

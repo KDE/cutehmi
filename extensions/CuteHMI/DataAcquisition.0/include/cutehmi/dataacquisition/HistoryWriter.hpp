@@ -13,7 +13,7 @@ namespace cutehmi {
 namespace dataacquisition {
 
 class CUTEHMI_DATAACQUISITION_API HistoryWriter:
-	public AbstractWriter,
+	public cutehmi::dataacquisition::AbstractWriter,
 	private internal::DbServiceableMixin<HistoryWriter>
 {
 		Q_OBJECT

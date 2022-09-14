@@ -14,7 +14,7 @@ namespace dataacquisition {
  * Database schema.
  */
 class CUTEHMI_DATAACQUISITION_API Schema:
-	public shareddatabase::DataObject
+	public cutehmi::shareddatabase::DataObject
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(Schema)

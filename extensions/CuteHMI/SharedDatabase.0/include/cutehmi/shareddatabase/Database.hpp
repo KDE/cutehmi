@@ -20,7 +20,7 @@ namespace shareddatabase {
  */
 class CUTEHMI_SHAREDDATABASE_API Database:
 	public QObject,
-	public services::Serviceable
+	public cutehmi::services::Serviceable
 
 {
 		Q_OBJECT

@@ -13,7 +13,7 @@ namespace cutehmi {
 namespace dataacquisition {
 
 class CUTEHMI_DATAACQUISITION_API RecencyWriter:
-	public AbstractWriter,
+	public cutehmi::dataacquisition::AbstractWriter,
 	private internal::DbServiceableMixin<RecencyWriter>
 {
 		Q_OBJECT
