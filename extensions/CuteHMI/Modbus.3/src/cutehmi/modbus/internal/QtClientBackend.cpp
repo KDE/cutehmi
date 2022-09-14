@@ -309,6 +309,7 @@ void QtClientBackend::readFileRecord(QUuid requestId, quint8 byteCount, QJsonArr
 					while (byte <= byteCount) {
 						QJsonObject subresponse;
 
+						// coverity[tainted_data_transitive]
 						uchar subByteCount = pullByte(data);
 						subresponse.insert("byteCount", static_cast<double>(subByteCount));
 
@@ -385,6 +386,7 @@ void QtClientBackend::writeFileRecord(QUuid requestId, quint8 byteCount, QJsonAr
 
 						subresponse.insert("address", static_cast<double>(pullWord(data)));
 
+						// coverity[tainted_return_value]
 						uint amount = pullWord(data);
 						subresponse.insert("amount", static_cast<double>(amount));
 
@@ -503,6 +505,7 @@ void QtClientBackend::readFIFOQueue(QUuid requestId, quint16 address)
 					QByteArray dataArray = response.data();
 					const uchar * data = reinterpret_cast<const uchar *>(dataArray.data());
 					reply.insert("byteCount", static_cast<double>(pullWord(data)));
+					// coverity[tainted_return_value]
 					uint fifoCount = pullWord(data);
 					reply.insert("fifoCount", static_cast<double>(fifoCount));
 					QJsonArray registers;
@@ -712,7 +715,7 @@ uint QtClientBackend::pullWord(const uchar *& source)
 }
 }
 
-//(c)C: Copyright © 2021, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2021-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
