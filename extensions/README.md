@@ -82,8 +82,7 @@ documentation on [qmldir] files. You can either create [qmldir] by hand or use
 ```
 Depends { name: "cutehmi.qmldir" }
 ```
-
-You can also use `cutehmi.qmltypes` Qbs module dependency to generate
+You can also use `cutehmi.qmltyperegistrar` Qbs module dependency to generate
 `plugins.qmltypes` file (though it is rather needed by C++ QML plugins).
 
 ### C++ extensions

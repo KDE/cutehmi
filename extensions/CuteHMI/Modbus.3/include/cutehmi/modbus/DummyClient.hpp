@@ -22,7 +22,7 @@ namespace modbus {
  * emulate latency and it does not require running Modbus slave (server) to work with.
  */
 class CUTEHMI_MODBUS_API DummyClient:
-	public AbstractClient
+	public cutehmi::modbus::AbstractClient
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(DummyClient)

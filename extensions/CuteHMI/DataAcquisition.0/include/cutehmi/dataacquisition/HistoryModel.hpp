@@ -13,7 +13,7 @@ namespace cutehmi {
 namespace dataacquisition {
 
 class CUTEHMI_DATAACQUISITION_API HistoryModel:
-	public AbstractListModel,
+	public cutehmi::dataacquisition::AbstractListModel,
 	private internal::ModelMixin<HistoryModel>
 {
 		Q_OBJECT

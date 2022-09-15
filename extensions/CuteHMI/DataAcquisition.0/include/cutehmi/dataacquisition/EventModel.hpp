@@ -11,7 +11,7 @@ namespace cutehmi {
 namespace dataacquisition {
 
 class CUTEHMI_DATAACQUISITION_API EventModel:
-	public AbstractListModel,
+	public cutehmi::dataacquisition::AbstractListModel,
 	private internal::ModelMixin<EventModel>
 {
 		Q_OBJECT

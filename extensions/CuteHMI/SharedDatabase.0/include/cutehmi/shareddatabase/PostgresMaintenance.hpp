@@ -13,7 +13,7 @@ namespace shareddatabase {
  * PostgreSQL database maintenance.
  */
 class CUTEHMI_SHAREDDATABASE_API PostgresMaintenance:
-	public DataObject
+	public cutehmi::shareddatabase::DataObject
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(PostgresMaintenance)

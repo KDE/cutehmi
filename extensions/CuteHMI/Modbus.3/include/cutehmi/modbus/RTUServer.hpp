@@ -15,7 +15,7 @@ namespace cutehmi {
 namespace modbus {
 
 class CUTEHMI_MODBUS_API RTUServer:
-	public AbstractServer
+	public cutehmi::modbus::AbstractServer
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(RTUServer)
