@@ -179,6 +179,8 @@ void Schema::validate()
 
 			bool result = true;
 
+			result &= validatePostgresTable("tag", query);
+
 			result &= validatePostgresTable("history_int", query);
 			result &= validatePostgresTable("history_bool", query);
 			result &= validatePostgresTable("history_real", query);
@@ -196,6 +198,8 @@ void Schema::validate()
 			QSqlQuery query(db);
 
 			bool result = true;
+
+			result &= validateSqliteTable("tag", query);
 
 			result &= validateSqliteTable("history_int", query);
 			result &= validateSqliteTable("history_bool", query);
