@@ -110,6 +110,10 @@ void Schema::create()
 		else
 			Notification::Info(tr("Successfully created '%1' schema.").arg(name()));
 
+		if (error)
+			emit created(false);
+		else
+			emit created(true);
 	})->work();
 }
 
@@ -168,6 +172,10 @@ void Schema::drop()
 		else
 			Notification::Info(tr("Dropped '%1' schema.").arg(name()));
 
+		if (error)
+			emit dropped(false);
+		else
+			emit dropped(true);
 	})->work();
 }
 

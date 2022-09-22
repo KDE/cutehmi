@@ -41,13 +41,21 @@ class CUTEHMI_DATAACQUISITION_API Schema:
 		void setUser(const QString & user);
 
 	public slots:
+		/**
+		 * Create schema. Creation is performed asynchronously. Status of the operation can be determined by connecting to created()
+		 * signal and examining its @a success parameter value.
+		 */
 		void create();
 
+		/**
+		 * Drop schema. Drop is performed asynchronously. Status of the operation can be determined by connecting to dropped()
+		 * signal and examining its @a success parameter value.
+		 */
 		void drop();
 
 		/**
 		 * Validate schema. Validation is performed asynchronously. Validation status can be determined by connecting to validated()
-		 * signal and examining its @a result parameter.
+		 * signal and examining its @a positive parameter value.
 		 */
 		void validate();
 
@@ -56,7 +64,11 @@ class CUTEHMI_DATAACQUISITION_API Schema:
 
 		void userChanged();
 
-		void validated(bool result);
+		void created(bool success);
+
+		void dropped(bool success);
+
+		void validated(bool positive);
 
 	private:
 		static constexpr const char * SQL_SCRIPTS_SUBDIR = "sql";
