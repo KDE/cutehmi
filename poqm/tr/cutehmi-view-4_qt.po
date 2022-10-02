@@ -1,0 +1,202 @@
+# Emir SARI <emir_sari@icloud.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2022-07-29 14:52+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 22.04.2\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr ""
+"Kullanılabilir seçenekleri görmek için uygulamayı --help seçeneği ile "
+"başlatın."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "'%1' uzantısı yüklenemedi."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "Nedenler:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr "Bilgi"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "Uyarı"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr "Hata"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr "Soru"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr "İleti"
+
+#: tools/cutehmi.view.4/src/main.cpp:117
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "Uygulamayı tam ekran kipinde başlat."
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr "Yükleyiciyi, başlangıç QML <dosya>'sını belirterek geçersiz kıl."
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "file"
+msgstr "dosya"
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr "İçe aktarılacak uzantı minör sürümü için <sürüm> kullanın."
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "version"
+msgstr "sürüm"
+
+#: tools/cutehmi.view.4/src/main.cpp:128
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "Dokunmatik ekran (fare imlecini gizler)."
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "Qt Quick <biçem>'ini ayarla."
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "style"
+msgstr "biçem"
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "<uygulama> diliini seç."
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "language"
+msgstr "dil"
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "Taban dizini <dizin> olarak ayarla."
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "dir"
+msgstr "dizin"
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr "Başlangıçta yüklenecek <özkaynak>'ı açıkça belirt."
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "resource"
+msgstr "özkaynak"
+
+#: tools/cutehmi.view.4/src/main.cpp:148
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "İçe aktarılacak uzantı."
+
+#: tools/cutehmi.view.4/src/main.cpp:149
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr "Oluşturulacak bileşenler. Öntanımlı: '%1'."
+
+#: tools/cutehmi.view.4/src/main.cpp:217
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"'component' seçeneğini kullanamazsınız; çünkü derleme sırasında "
+"'forceDefaultOptions' seçeneği ayarlanmış."
+
+#: tools/cutehmi.view.4/src/main.cpp:219
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"'extension' seçeneğini kullanamazsınız; çünkü derleme sırasında "
+"'forceDefaultOptions' seçeneği ayarlanmış."
+
+#: tools/cutehmi.view.4/src/main.cpp:221 tools/cutehmi.view.4/src/main.cpp:223
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+"'%1' seçeneğini kullanamazsınız; çünkü derleme sırasında "
+"'forceDefaultOptions' seçeneği ayarlanmış."
+
+#: tools/cutehmi.view.4/src/main.cpp:229
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr ""
+"Komut satırı argüman hatası: '%1' seçeneğinin değeri bir sayı olmalıdır."
+
+#: tools/cutehmi.view.4/src/main.cpp:237
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+"Komut satırı argüman hatası: Son noktadan sonra majör sürüm numaralı uzantı "
+"belirtin."
+
+#: tools/cutehmi.view.4/src/main.cpp:285
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr ""
+"'%1' URL'si, URL şemasının yanında yasaklanmış olan göreceli yol içeriyor."
+
+#: tools/cutehmi.view.4/src/main.cpp:292
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "'%1' QML dosyası yok."
+
+#: tools/cutehmi.view.4/src/main.cpp:297
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr "QML dosya URL'sinin geçersiz biçimi '%1'."

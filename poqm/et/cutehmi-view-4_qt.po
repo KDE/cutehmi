@@ -1,0 +1,1590 @@
+# Marek Laane <qiilaq69@gmail.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2020-05-07 13:29+0300\n"
+"Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
+"Language-Team: Estonian <kde-et@lists.linux.ee>\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 19.12.3\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr ""
+"Rakenduse käivitamine võtmega --help kõigi saadaolevate võtmete nägemiseks."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "Laienduse \"%1\" laadimine nurjus."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "Põhjused:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+#, fuzzy
+#| msgctxt "ElementSettings|"
+#| msgid "Warning"
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "Hoiatus"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+#, fuzzy
+#| msgctxt "AirFilterSettings|"
+#| msgid "Mirror:"
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr "Peegel:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:117
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "Rakenduse käivitamine täisekraanirežiimis."
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr "Laadija tühistamine laaditavat algset QML-faili <file> määrates."
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "file"
+msgstr "file"
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "version"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:128
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "Puuteekraan (hiirekursor peidetakse)."
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "Qt Quicki stiili <style> määramine."
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "style"
+msgstr "style"
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "Rakenduse <keel>e valimine"
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "language"
+msgstr "language"
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "Baaskataloogiks <dir> määramine."
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "dir"
+msgstr "dir"
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "resource"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:148
+#, fuzzy
+#| msgctxt "main|"
+#| msgid "Extension component <name>."
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "Laienduse komponendi nimi <name>."
+
+#: tools/cutehmi.view.4/src/main.cpp:149
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:217
+#, fuzzy
+#| msgctxt "main|"
+#| msgid ""
+#| "You can not use '%1' option, because 'forceDefaultOptions' option has "
+#| "been set during compilation time."
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"Valikut '%1' ei saa kasutada, sest kompileerimisajal määrati valik "
+"'forceDefaultOptions'."
+
+#: tools/cutehmi.view.4/src/main.cpp:219
+#, fuzzy
+#| msgctxt "main|"
+#| msgid ""
+#| "You can not use '%1' option, because 'forceDefaultOptions' option has "
+#| "been set during compilation time."
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"Valikut '%1' ei saa kasutada, sest kompileerimisajal määrati valik "
+"'forceDefaultOptions'."
+
+#: tools/cutehmi.view.4/src/main.cpp:221 tools/cutehmi.view.4/src/main.cpp:223
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+"Valikut '%1' ei saa kasutada, sest kompileerimisajal määrati valik "
+"'forceDefaultOptions'."
+
+#: tools/cutehmi.view.4/src/main.cpp:229
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:237
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:285
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr ""
+"URL '%1' sisaldab suhtelist asukohta koos URL-i skeemiga, mis on keelatud."
+
+#: tools/cutehmi.view.4/src/main.cpp:292
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "QML-faili \"%1\" ei ole olemas."
+
+#: tools/cutehmi.view.4/src/main.cpp:297
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr "QML-faili URL-i \"%1\" vorming on vigane."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "No error."
+#~ msgstr "Tõrkeid pole."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "Undescribed error."
+#~ msgstr "Kirjeldamatu tõrge."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "Uninitialized error."
+#~ msgstr "Initsialiseerimata tõrge."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "Unrecognized error code: %1."
+#~ msgstr "Tundmatu veakood: %1."
+
+#, fuzzy
+#~| msgctxt "RecencyWriter|"
+#~| msgid "Updating values"
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Updating model"
+#~ msgstr "Väärtuste uuendamine"
+
+#, fuzzy
+#~| msgctxt "AbstractWriter|"
+#~| msgid "Waiting for database"
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Waiting for finishing an update"
+#~ msgstr "Ootamine andmebaasi järel"
+
+#, fuzzy
+#~| msgctxt "RecencyWriter|"
+#~| msgid "Stopping store timer"
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Stopping update timer"
+#~ msgstr "Salvestustaimeri peatamine"
+
+#, fuzzy
+#~| msgctxt "RecencyWriter|"
+#~| msgid "Starting store timer"
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Starting store timer"
+#~ msgstr "Salvestustaimeri käivitamine"
+
+#~ msgctxt "EventWriter|"
+#~ msgid "Listening for events"
+#~ msgstr "Sündmuste jälgimine"
+
+#~ msgctxt "EventWriter|"
+#~ msgid "Waiting for database workers to finish"
+#~ msgstr "Oodatakse andmebaasi tööliste lõpetamist"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Inserting values"
+#~ msgstr "Väärtuste lisamine"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Sampling"
+#~ msgstr "Valimite võtmine"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Waiting for database workers to finish"
+#~ msgstr "Oodatakse andmebaasi tööliste lõpetamist"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Stopping sampling timer"
+#~ msgstr "Valimite võtmise taimeri peatamine"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Starting sampling timer"
+#~ msgstr "Valimite võtmise taimeri käivitamine"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Initializing"
+#~ msgstr "Initsialiseerimine"
+
+#, fuzzy
+#~| msgctxt "TagCache|"
+#~| msgid "Driver '%1' is not supported."
+#~ msgctxt "EventCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Draiver \"%1\" ei ole toetatud."
+
+#, fuzzy
+#~| msgctxt "TagCache|"
+#~| msgid "Driver '%1' is not supported."
+#~ msgctxt "HistoryCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Draiver \"%1\" ei ole toetatud."
+
+#, fuzzy
+#~| msgctxt "TagCache|"
+#~| msgid "Driver '%1' is not supported."
+#~ msgctxt "RecencyCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Draiver \"%1\" ei ole toetatud."
+
+#~ msgctxt "TagCache|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Draiver \"%1\" ei ole toetatud."
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Updating values"
+#~ msgstr "Väärtuste uuendamine"
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Waiting for database workers to finish"
+#~ msgstr "Oodatakse andmebaasi tööliste lõpetamist"
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Stopping store timer"
+#~ msgstr "Salvestustaimeri peatamine"
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Starting store timer"
+#~ msgstr "Salvestustaimeri käivitamine"
+
+#~ msgctxt "Schema|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Draiver \"%1\" ei ole toetatud."
+
+#~ msgctxt "QObject|"
+#~ msgid "Table '%1' does not exist in schema '%2'."
+#~ msgstr "Tabelit \"%1\" ei ole skeemis \"%2\"."
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Device state:"
+#~ msgstr "Seadme olek:"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opening"
+#~ msgstr "Avamine"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opened"
+#~ msgstr "Avatud"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Closing"
+#~ msgstr "Sulgemine"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Closed"
+#~ msgstr "Suletud"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Unrecognized state"
+#~ msgstr "Tundmatu olek"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Open"
+#~ msgstr "Ava"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Close"
+#~ msgstr "Sulge"
+
+#~ msgctxt "DiscreteInputControl|"
+#~ msgid "Discrete input"
+#~ msgstr "Diskreetne sisend"
+
+#~ msgctxt "InputRegisterControl|"
+#~ msgid "Input register"
+#~ msgstr "Sisendregister"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "%1 status:"
+#~ msgstr "%1 olek:"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "Start"
+#~ msgstr "Alusta"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "Stop"
+#~ msgstr "Peata"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Masin:"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Slave address:"
+#~ msgstr "Alama aadress:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Masin:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Slave address:"
+#~ msgstr "Alama aadress:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Busy:"
+#~ msgstr "Hõivatud:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Register type:"
+#~ msgctxt "View|"
+#~ msgid "Register type:"
+#~ msgstr "Registri tüüp:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Address:"
+#~ msgctxt "View|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Value:"
+#~ msgctxt "View|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Discrete input (read-only)"
+#~ msgctxt "View|"
+#~ msgid "Discrete input (read-only)"
+#~ msgstr "Diskreetne sisend (kirjutuskaitstud)"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Input register (read-only)"
+#~ msgctxt "View|"
+#~ msgid "Input register (read-only)"
+#~ msgstr "Sisendregister (kirjutuskaitstud)"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Switch"
+#~ msgstr "Lüliti"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Check Box"
+#~ msgstr "Märkekast"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Label"
+#~ msgstr "Pealdis"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Write mode:"
+#~ msgstr "Kirjutamisrežiim"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Write delay:"
+#~ msgstr "Kirjutamisviivitus:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Read on write:"
+#~ msgstr "Lugemine kirjutamisel:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Lubatud:"
+
+#~ msgctxt "DeviceLoader|"
+#~ msgid "Device type:"
+#~ msgstr "Seadme tüüp:"
+
+#~ msgctxt "DummyClientConfiguration|"
+#~ msgid "Connect latency:"
+#~ msgstr "Ühendamisviivitus:"
+
+#~ msgctxt "DummyClientConfiguration|"
+#~ msgid "Disconnect latency:"
+#~ msgstr "Lahutamisviivitus:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Value scale:"
+#~ msgstr "Väärtusskaala:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Encoding:"
+#~ msgstr "Kodeering:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Write mode:"
+#~ msgstr "Kirjutamisrežiim"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Write delay:"
+#~ msgstr "Kirjutamisviivitus:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Read on write:"
+#~ msgstr "Lugemine kirjutamisel:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Lubatud:"
+
+#, fuzzy
+#~| msgctxt "Screen.ui|"
+#~| msgid "Check Box"
+#~ msgctxt "View|"
+#~ msgid "Coil check box"
+#~ msgstr "Märkekast"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Subfunction:"
+#~ msgstr "Alamfunktsioon:"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return query data"
+#~ msgstr "Päringuandmete tagastamine"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return diagnostics register"
+#~ msgstr "Diagnostikaregistri tagastamine"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Change ASCII input delimiter"
+#~ msgstr "ASCII sisendi eraldaja muutmine"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Force listen only mode"
+#~ msgstr "Jõuga ainult jälgimise režiim"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Clear counters and diagnostic register"
+#~ msgstr "Loendurite ja diagnostikaregistri puhastamine"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return slave message count"
+#~ msgstr "Alama teadete arvu tagastamine"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return slave no response count"
+#~ msgstr "Alama vastamata jätmiste kordade tagastamine"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return slave busy count"
+#~ msgstr "Alama hõivatud oleku kordade tagastamine"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Data:"
+#~ msgstr "Andmed:"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Data (hex):"
+#~ msgstr "Andmed (16nd):"
+
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "And mask (hex):"
+#~ msgstr "JA mask (16nd):"
+
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "Or mask (hex):"
+#~ msgstr "VÕI mask (16nd):"
+
+#~ msgctxt "ReadCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "ReadCoilsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "ReadDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "ReadDiscreteInputsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "ReadFIFOQueueControl|"
+#~ msgid "FIFO pointer address:"
+#~ msgstr "FIFO viida aadress:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "Fail:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "ReadHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "ReadHoldingRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "ReadInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "ReadInputRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Read address:"
+#~ msgstr "Lugemisaadress:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Read amount:"
+#~ msgstr "Lugemiskogus:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Write address:"
+#~ msgstr "Kirjutamisaadress:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Write amount:"
+#~ msgstr "Kirjutamiskogus:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Väärtused:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Server state:"
+#~ msgctxt "View|"
+#~ msgid "Server state:"
+#~ msgstr "Serveri olek:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Client state:"
+#~ msgctxt "View|"
+#~ msgid "Client state:"
+#~ msgstr "Kliendi olek:"
+
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus:"
+
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "Fail:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Values:"
+#~ msgstr "Väärtused:"
+
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus:"
+
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Values:"
+#~ msgstr "Väärtused:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Values:"
+#~ msgstr "Väärtused:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Väärtused:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Kogus:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Väärtused:"
+
+#, fuzzy
+#~| msgctxt "ServiceControl|"
+#~| msgid "Start"
+#~ msgctxt "View|"
+#~ msgid "Start"
+#~ msgstr "Alusta"
+
+#, fuzzy
+#~| msgctxt "ServiceControl|"
+#~| msgid "Stop"
+#~ msgctxt "View|"
+#~ msgid "Stop"
+#~ msgstr "Peata"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Sümbol:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Mirror:"
+#~ msgstr "Peeglis:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Horizontal:"
+#~ msgstr "Rõhtselt:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Blades:"
+#~ msgstr "Labad:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "Mirror:"
+#~ msgstr "Peegel:"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM:"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Common properties"
+#~ msgstr "Ühisomadused"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Neutral"
+#~ msgstr "Neutraalne"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Active"
+#~ msgstr "Aktiivne"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Alarm"
+#~ msgstr "Häire"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Indirect warning"
+#~ msgstr "Kaudne hoiatus"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Indirect alarm"
+#~ msgstr "Kaudne häire"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Segments:"
+#~ msgstr "Segmendid:"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM:"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Clockwise:"
+#~ msgstr "Päripäeva:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Sümbol:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Start angle:"
+#~ msgstr "Algusnurk:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus:"
+
+#~ msgctxt "PumpSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "PumpSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM:"
+
+#~ msgctxt "TankSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "TankSettings|"
+#~ msgid "Level:"
+#~ msgstr "Tase:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Kohandatud omadused"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Left way:"
+#~ msgstr "Vasakult lahti:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Right way:"
+#~ msgstr "Paremalt lahti:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Top way:"
+#~ msgstr "Ülalt lahti:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Bottom way:"
+#~ msgstr "Alt lahti:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Left closed:"
+#~ msgstr "Vasakult suletud"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Right closed:"
+#~ msgstr "Paremalt suletud"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Top closed:"
+#~ msgstr "Ülalt suletud:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Bottom closed:"
+#~ msgstr "Alt suletud:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Size:"
+#~ msgctxt "View|"
+#~ msgid "Size:"
+#~ msgstr "Suurus:"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Air filter"
+#~ msgctxt "View|"
+#~ msgid "Air filter"
+#~ msgstr "Õhufilter"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Basic cooler"
+#~ msgctxt "View|"
+#~ msgid "Basic cooler"
+#~ msgstr "Lihtne jahuti"
+
+#, fuzzy
+#~| msgctxt "DiscreteInputControl|"
+#~| msgid "Discrete input"
+#~ msgctxt "View|"
+#~ msgid "Basic discrete instrument"
+#~ msgstr "Diskreetne sisend"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Basic heater"
+#~ msgctxt "View|"
+#~ msgid "Basic heater"
+#~ msgstr "Lihtne kuumuti"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Centrifugal fan"
+#~ msgctxt "View|"
+#~ msgid "Centrifugal fan"
+#~ msgstr "Ventilaator"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Cooler"
+#~ msgctxt "View|"
+#~ msgid "Cooler"
+#~ msgstr "Jahuti"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Heater"
+#~ msgctxt "View|"
+#~ msgid "Heater"
+#~ msgstr "Kuumuti"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Heat exchanger"
+#~ msgctxt "View|"
+#~ msgid "Heat exchanger"
+#~ msgstr "Soojusvaheti"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Motor actuator"
+#~ msgctxt "View|"
+#~ msgid "Motor actuator"
+#~ msgstr "Mootori täitur"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Pump"
+#~ msgctxt "View|"
+#~ msgid "Pump"
+#~ msgstr "Pump"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Tank"
+#~ msgctxt "View|"
+#~ msgid "Tank"
+#~ msgstr "Paak"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Valve"
+#~ msgctxt "View|"
+#~ msgid "Valve"
+#~ msgstr "Ventiil"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Seade"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Aadress"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegaat"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Omadus Delegate"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Kirjutuskaitstud"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Lugemine kirjutamisel"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Kirjutamisrežiim"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Kirjutamisviivitus"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Seade"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Aadress"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegaat"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Omadus Delegate"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Kirjutuskaitstud"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Lugemine kirjutamisel"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Kirjutamisrežiim"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Kirjutamisviivitus"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Seade"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Aadress"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegaat"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Omadus Delegate"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Kirjutuskaitstud"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Lugemine kirjutamisel"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Kirjutamisrežiim"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Kirjutamisviivitus"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Kodeering"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Value scale"
+#~ msgstr "Väärtusskaala"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Seade"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Aadress"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegaat"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Omadus Delegate"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Kirjutuskaitstud"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Lugemine kirjutamisel"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Kirjutamisrežiim"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Kirjutamisviivitus"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Kodeering"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Value scale"
+#~ msgstr "Väärtusskaala"
+
+#~ msgctxt "AbstractClient|"
+#~ msgid "Connecting"
+#~ msgstr "Ühendumine"
+
+#~ msgctxt "AbstractClient|"
+#~ msgid "Disconnecting"
+#~ msgstr "Lahutamine"
+
+#~ msgctxt "AbstractDevice|"
+#~ msgid "Request queue is full."
+#~ msgstr "Nõuete järjekord on juba täis."
+
+#~ msgctxt "AbstractDevice|"
+#~ msgid "Request is illformed."
+#~ msgstr "Nõue on valesti vormistatud."
+
+#~ msgctxt "AbstractDevice|"
+#~ msgid "Request '%1' has failed."
+#~ msgstr "Nõue \"%1\" nurjus."
+
+#~ msgctxt "AbstractServer|"
+#~ msgid "Initiating listening"
+#~ msgstr "Jälgimise alustamine"
+
+#, fuzzy
+#~| msgctxt "DeviceControl|"
+#~| msgid "Closing"
+#~ msgctxt "AbstractServer|"
+#~ msgid "Closing"
+#~ msgstr "Sulgemine"
+
+#~ msgctxt "QtClientBackend|"
+#~ msgid "Failed to initialize connection."
+#~ msgstr "Ühenduse initsialiseerimine nurjus."
+
+#~ msgctxt "QtClientBackend|"
+#~ msgid "Client is currently proceeding with disconnect operation."
+#~ msgstr "Klient tegeleb praegu lahutamisega."
+
+#~ msgctxt "QtClientBackend|"
+#~ msgid ""
+#~ "Client is in some unrecognized state, which prevents it from initiating a "
+#~ "connection to the server."
+#~ msgstr ""
+#~ "Klient on mingis tundmatus olekus, mis takistab tal algatamast ühendust "
+#~ "serveriga."
+
+#~ msgctxt "QtServerBackend|"
+#~ msgid "Failed to initialize listening."
+#~ msgstr "Jälgimise initsialiseerimine nurjus."
+
+#~ msgctxt "QtServerBackend|"
+#~ msgid "Server is currently proceeding with stop listening operation."
+#~ msgstr "Server tegeleb praegu jälgimise peatamisega"
+
+#~ msgctxt "QtServerBackend|"
+#~ msgid ""
+#~ "Server is in some unrecognized state, which prevents it from initiating "
+#~ "listening."
+#~ msgstr ""
+#~ "Server on mingis tundmatus olekus, mis takistab tal algatamast jälgimist."
+
+#~ msgctxt "QObject|"
+#~ msgid "Unmanaged"
+#~ msgstr "Haldamata"
+
+#~ msgctxt "Service|"
+#~ msgid ""
+#~ "Stop sequence of '%1' service has been interrupted, because it took more "
+#~ "than %2 [ms] to stop the service."
+#~ msgstr ""
+#~ "\"%1\" teenuse peatamisjada katkestati, sest teenuse peatamiseks kulus "
+#~ "rohke kui %2 [ms]."
+
+#~ msgctxt "Service|"
+#~ msgid "Service '%1' has started."
+#~ msgstr "Teenus \"%1\" on käivitatud."
+
+#~ msgctxt "Service|"
+#~ msgid "Service '%1' is stopped."
+#~ msgstr "Teenus \"%1\" on peatatud."
+
+#~ msgctxt "Service|"
+#~ msgid "Service '%1' broke."
+#~ msgstr "Teenus \"%1\" läks katki."
+
+#~ msgctxt "Service|"
+#~ msgid "Stopped"
+#~ msgstr "Peatatud"
+
+#~ msgctxt "Service|"
+#~ msgid "Interrupted"
+#~ msgstr "Vahele segatud"
+
+#~ msgctxt "Service|"
+#~ msgid "Starting"
+#~ msgstr "Käivitatakse"
+
+#~ msgctxt "Service|"
+#~ msgid "Started"
+#~ msgstr "Käivitatud"
+
+#~ msgctxt "Service|"
+#~ msgid "Idling"
+#~ msgstr "Jõude"
+
+#~ msgctxt "Service|"
+#~ msgid "Active"
+#~ msgstr "Aktiivne"
+
+#~ msgctxt "Service|"
+#~ msgid "Stopping"
+#~ msgstr "Peatamine"
+
+#~ msgctxt "Service|"
+#~ msgid "Broken"
+#~ msgstr "Katki"
+
+#~ msgctxt "Service|"
+#~ msgid "Repairing"
+#~ msgstr "Parandamisel"
+
+#~ msgctxt "Service|"
+#~ msgid "Evacuating"
+#~ msgstr "Evakueerimine"
+
+#~ msgctxt "Database|"
+#~ msgid "Connected"
+#~ msgstr "Ühendatud"
+
+#~ msgctxt "Database|"
+#~ msgid "Connecting"
+#~ msgstr "Ühendumine"
+
+#~ msgctxt "Database|"
+#~ msgid "Disconnecting"
+#~ msgstr "Lahutamine"
+
+#~ msgctxt "QObject|"
+#~ msgid "database connection '%1' is not open"
+#~ msgstr "Andmebaasiühendus \"%1\" ei ole avatud"
+
+#, fuzzy
+#~| msgctxt "QObject|"
+#~| msgid "Database worker striked, because of following reason: %1."
+#~ msgctxt "QObject|"
+#~ msgid ""
+#~ "Database worker has refused to do the job, because of following reason: "
+#~ "%1."
+#~ msgstr "Andmebaasi tööline streikis järgmisel põhjusel: %1."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "No driver found for database type '%1'."
+#~ msgstr "Andmebaasile tüübiga \"%1\" ei leitud draiverit."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "Failed to establish connection with database."
+#~ msgstr "Ühenduse loomine andmebaasiga nurjus."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "Performing database maintenance through connection '%1'."
+#~ msgstr "Andmebaasi hoolduse teostamine ühenduse \"%1\" kaudu."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "Lost connection with database."
+#~ msgstr "Ühendus andmebaasiga kadus."
+
+#, fuzzy
+#~| msgctxt "TagCache|"
+#~| msgid "Driver '%1' is not supported."
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Draiver \"%1\" ei ole toetatud."
+
+#, fuzzy
+#~| msgctxt "DatabaseConnectionHandler|"
+#~| msgid "Failed to establish connection with database."
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Failed to create '%1' database."
+#~ msgstr "Ühenduse loomine andmebaasiga nurjus."
+
+#, fuzzy
+#~| msgctxt "QObject|"
+#~| msgid "Database worker striked, because of following reason: %1."
+#~ msgctxt "cutehmi::console::strErrors|"
+#~ msgid "Command has failed because of following errors:"
+#~ msgstr "Andmebaasi tööline streikis järgmisel põhjusel: %1."
+
+#, fuzzy
+#~| msgctxt "ElementSettings|"
+#~| msgid "Warning"
+#~ msgctxt "cutehmi::console::strWarning|"
+#~ msgid "Warning: %1"
+#~ msgstr "Hoiatus"
+
+#, fuzzy
+#~| msgctxt "ElementSettings|"
+#~| msgid "Warning"
+#~ msgctxt "cutehmi::console::commandWarnings|"
+#~ msgid "Warnings:"
+#~ msgstr "Hoiatus"
+
+#, fuzzy
+#~| msgctxt "AirFilterSettings|"
+#~| msgid "Custom properties"
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "List properties of '%1'..."
+#~ msgstr "Kohandatud omadused"
+
+#, fuzzy
+#~| msgctxt "ElementSettings|"
+#~| msgid "Warning"
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Flag: %1"
+#~ msgstr "Hoiatus"
+
+#, fuzzy
+#~| msgctxt "ElementSettings|"
+#~| msgid "Warning"
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Writable: %1"
+#~ msgstr "Hoiatus"
+
+#~ msgctxt "main|"
+#~ msgid "Run project in application mode."
+#~ msgstr "Projekti käivitamine rakenduserežiimis."
+
+#~ msgctxt "main|"
+#~ msgid "PID file <path> (Unix-specific)."
+#~ msgstr "PID-faili <asukoht> (Unixile omane)"
+
+#~ msgctxt "main|"
+#~ msgid "path"
+#~ msgstr "path"
+
+#~ msgctxt "main|"
+#~ msgid "No initial loader has been specified."
+#~ msgstr "Algset laadijat pole määratud."
+
+#~ msgctxt "cutehmi::modbus::AbstractServer|"
+#~ msgid "Closing"
+#~ msgstr "Sulgemine"
+
+#~ msgctxt "AbstractWriter|"
+#~ msgid "Validating schema"
+#~ msgstr "Skeemi valideerimine"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Start"
+#~ msgctxt "Main|"
+#~ msgid "Start DB"
+#~ msgstr "Alusta"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Stop"
+#~ msgctxt "Main|"
+#~ msgid "Stop DB"
+#~ msgstr "Peata"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Start"
+#~ msgctxt "Main|"
+#~ msgid "Start All"
+#~ msgstr "Alusta"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Stop"
+#~ msgctxt "Main|"
+#~ msgid "Stop All"
+#~ msgstr "Peata"
+
+#, fuzzy
+#~| msgctxt "RecencyWriter|"
+#~| msgid "Starting store timer"
+#~ msgctxt "Main|"
+#~ msgid "Start History"
+#~ msgstr "Salvestustaimeri käivitamine"
+
+#, fuzzy
+#~| msgctxt "Service|"
+#~| msgid "Started"
+#~ msgctxt "Main|"
+#~ msgid "Start Event"
+#~ msgstr "Käivitatud"
+
+#~ msgctxt "Main|"
+#~ msgid "Register type:"
+#~ msgstr "Registri tüüp:"
+
+#~ msgctxt "Main|"
+#~ msgid "Address:"
+#~ msgstr "Aadress:"
+
+#~ msgctxt "Main|"
+#~ msgid "Value:"
+#~ msgstr "Väärtus:"
+
+#~ msgctxt "Main|"
+#~ msgid "Discrete input (read-only)"
+#~ msgstr "Diskreetne sisend (kirjutuskaitstud)"
+
+#~ msgctxt "Main|"
+#~ msgid "Input register (read-only)"
+#~ msgstr "Sisendregister (kirjutuskaitstud)"
+
+#~ msgctxt "Main|"
+#~ msgid "Server state:"
+#~ msgstr "Serveri olek:"
+
+#~ msgctxt "Main|"
+#~ msgid "Client state:"
+#~ msgstr "Kliendi olek:"
+
+#~ msgctxt "Main|"
+#~ msgid "Start"
+#~ msgstr "Alusta"
+
+#~ msgctxt "Main|"
+#~ msgid "Stop"
+#~ msgstr "Peata"
+
+#~ msgctxt "Main|"
+#~ msgid "Size:"
+#~ msgstr "Suurus:"
+
+#~ msgctxt "Main|"
+#~ msgid "Air filter"
+#~ msgstr "Õhufilter"
+
+#~ msgctxt "Main|"
+#~ msgid "Basic cooler"
+#~ msgstr "Lihtne jahuti"
+
+#~ msgctxt "Main|"
+#~ msgid "Basic heater"
+#~ msgstr "Lihtne kuumuti"
+
+#~ msgctxt "Main|"
+#~ msgid "Centrifugal fan"
+#~ msgstr "Ventilaator"
+
+#~ msgctxt "Main|"
+#~ msgid "Cooler"
+#~ msgstr "Jahuti"
+
+#~ msgctxt "Main|"
+#~ msgid "Heater"
+#~ msgstr "Kuumuti"
+
+#~ msgctxt "Main|"
+#~ msgid "Heat exchanger"
+#~ msgstr "Soojusvaheti"
+
+#~ msgctxt "Main|"
+#~ msgid "Motor actuator"
+#~ msgstr "Mootori täitur"
+
+#~ msgctxt "Main|"
+#~ msgid "Pump"
+#~ msgstr "Pump"
+
+#~ msgctxt "Main|"
+#~ msgid "Tank"
+#~ msgstr "Paak"
+
+#~ msgctxt "Main|"
+#~ msgid "Valve"
+#~ msgstr "Ventiil"
+
+#~ msgctxt "main|"
+#~ msgid "name"
+#~ msgstr "name"
+
+#~ msgctxt "main|"
+#~ msgid "Extension component <name>."
+#~ msgstr "Laienduse komponendi nimi <name>."
+
+#~ msgctxt "main|"
+#~ msgid "Load QML project <URL>."
+#~ msgstr "QML-projekti <URL> laadimine."
+
+#~ msgctxt "main|"
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgctxt "QObject|"
+#~ msgid ""
+#~ "URL '%1' contains relative path along with URL scheme, which is forbidden."
+#~ msgstr ""
+#~ "URL '%1' sisaldab suhtelist asukohta koos URL-i skeemiga, mis on keelatud."
+
+#~ msgctxt "QObject|"
+#~ msgid "Project file '%1' does not exist."
+#~ msgstr "Projektifaili \"%1\" ei ole olemas."
+
+#~ msgctxt "QObject|"
+#~ msgid "Invalid format of project URL '%1'."
+#~ msgstr "Projekti URL-i \"%1\" vorming on vigane."
+
+#~ msgctxt "QObject|"
+#~ msgid "No project file has been specified."
+#~ msgstr "Projektifaili pole määratud."
+
+#~ msgctxt "main|"
+#~ msgid "Load extension specified by QML <import>."
+#~ msgstr "QML-i impordiga <import> määratud laienduse laadimine"
+
+#~ msgctxt "main|"
+#~ msgid "import"
+#~ msgstr "import"
+
+#~ msgctxt "ExtensionLoader|"
+#~ msgid "Reason:"
+#~ msgstr "Põhjus:"
