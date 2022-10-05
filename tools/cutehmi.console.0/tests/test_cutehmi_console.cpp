@@ -44,7 +44,7 @@ void test_cutehmi_console::helpOption()
 	argumentsList << QStringList({"--help"})
 			<< QStringList({"--h"});
 
-	for (auto arguments : argumentsList) {
+	for (auto && arguments : argumentsList) {
 		QProcess process;
 		process.start(m_programPath, arguments);
 		process.waitForFinished(1000);
@@ -62,7 +62,7 @@ void test_cutehmi_console::versionOption()
 	argumentsList << QStringList({"--version"})
 			<< QStringList({"--v"});
 
-	for (auto arguments : argumentsList) {
+	for (auto && arguments : argumentsList) {
 		QProcess process;
 		process.start(m_programPath, arguments);
 		process.waitForFinished(1000);
