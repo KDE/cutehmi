@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cutehmi_qt\n"
+"Language-Team: Japanese <kde-jp@kde.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: qtrich\n"
+"X-Qt-Contexts: true\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:117
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "file"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "version"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:128
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "style"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "language"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "dir"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "resource"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:148
+msgctxt "main|"
+msgid "Extension to import."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:149
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:217
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:219
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:221 tools/cutehmi.view.4/src/main.cpp:223
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:229
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:237
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:285
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:292
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:297
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr ""

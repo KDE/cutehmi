@@ -1,0 +1,679 @@
+# Burkhard Lück <lueck@hube-lueck.de>, 2020, 2021.
+# Frederik Schwarzer <schwarzer@kde.org>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2022-02-20 11:56+0100\n"
+"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 21.08.0\n"
+"X-Qt-Contexts: true\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr ""
+"Starten Sie die Anwendung mit „--help“, um die verfügbaren Optionen zu sehen."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "Die Erweiterung „'%1“ kann nicht geladen werden'."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "Gründe:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+#, fuzzy
+#| msgctxt "ElementSettings|"
+#| msgid "Warning"
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "Warnung"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr ""
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:117
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "Anwendung im Vollbildmodus starten."
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "file"
+msgstr "Datei"
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "version"
+msgstr "Version"
+
+#: tools/cutehmi.view.4/src/main.cpp:128
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "Touchscreen (Mauscursor ausgeblendet)"
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "Qt-Quick-<style> festlegen."
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "style"
+msgstr "Stil"
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "Anwendungssprache (<language>) wählen."
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "language"
+msgstr "Sprache"
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "Basisordner auf <dir> festlegen."
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "dir"
+msgstr "dir"
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "resource"
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:148
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "Zu impportierende Erweiterungen."
+
+#: tools/cutehmi.view.4/src/main.cpp:149
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr "Zu erstellende Komponente. Standard ist: „%1“."
+
+#: tools/cutehmi.view.4/src/main.cpp:217
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:219
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:221 tools/cutehmi.view.4/src/main.cpp:223
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:229
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:237
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:285
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr ""
+
+#: tools/cutehmi.view.4/src/main.cpp:292
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "Die QML-Datei „%1“ existiert nicht."
+
+#: tools/cutehmi.view.4/src/main.cpp:297
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr ""
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "No error."
+#~ msgstr "Kein Fehler."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "Unrecognized error code: %1."
+#~ msgstr "Unbekannter Fehlercode: %1."
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Inserting values"
+#~ msgstr "Werte werden eingefügt"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Initializing"
+#~ msgstr "Initialisierung"
+
+#~ msgctxt "EventCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Treiber „%1“ wird nicht unterstützt."
+
+#~ msgctxt "HistoryCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Treiber „%1“ wird nicht unterstützt."
+
+#~ msgctxt "RecencyCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Treiber „%1“ wird nicht unterstützt."
+
+#~ msgctxt "TagCache|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Treiber „%1“ wird nicht unterstützt."
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Updating values"
+#~ msgstr "Werte werden aktualisiert"
+
+#~ msgctxt "Schema|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Treiber „%1“ wird nicht unterstützt."
+
+#~ msgctxt "QObject|"
+#~ msgid "Table '%1' does not exist in schema '%2'."
+#~ msgstr "Die Tabelle „'%1“ existiert nicht im Schema „%2“."
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opening"
+#~ msgstr "Öffnen"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opened"
+#~ msgstr "Geöffnet"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Closing"
+#~ msgstr "Schließen"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Closed"
+#~ msgstr "Geschlossen"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Unrecognized state"
+#~ msgstr "Nicht erkannter Status"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Open"
+#~ msgstr "Öffnen"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Close"
+#~ msgstr "Schließen"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "Stop"
+#~ msgstr "Stopp"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Rechner:"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Rechner:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "View|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "View|"
+#~ msgid "Value:"
+#~ msgstr "Wert:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Aktiviert:"
+
+#~ msgctxt "DeviceLoader|"
+#~ msgid "Device type:"
+#~ msgstr "Gerätetyp:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Encoding:"
+#~ msgstr "Kodierung:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Write mode:"
+#~ msgstr "Schreibmodus:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Aktiviert:"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Data:"
+#~ msgstr "Daten:"
+
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "ReadCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "ReadDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "Datei:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "ReadHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "ReadInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Werte:"
+
+#~ msgctxt "View|"
+#~ msgid "Server state:"
+#~ msgstr "Serverstatus:"
+
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Value:"
+#~ msgstr "Wert:"
+
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Value:"
+#~ msgstr "Wert:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "Datei:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Values:"
+#~ msgstr "Werte:"
+
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Wert:"
+
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Wert:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Values:"
+#~ msgstr "Werte:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Values:"
+#~ msgstr "Werte:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Werte:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Werte:"
+
+#~ msgctxt "View|"
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgctxt "View|"
+#~ msgid "Stop"
+#~ msgstr "Stopp"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Symbol:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Horizontal:"
+#~ msgstr "Waagerecht:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Value:"
+#~ msgstr "Wert:"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Active"
+#~ msgstr "Aktiv"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Clockwise:"
+#~ msgstr "Im Uhrzeigersinn:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Symbol:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Start angle:"
+#~ msgstr "Startwinkel:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Value:"
+#~ msgstr "Wert:"
+
+#~ msgctxt "PumpSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "TankSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Eigene Eigenschaften"
+
+#~ msgctxt "View|"
+#~ msgid "Size:"
+#~ msgstr "Größe:"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Schreibgeschützt"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Schreibmodus"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Gerät"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Schreibgeschützt"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Schreibmodus"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Gerät"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Schreibgeschützt"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Schreibmodus"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Kodierung"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Gerät"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Schreibgeschützt"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Schreibmodus"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Kodierung"
+
+#~ msgctxt "AbstractServer|"
+#~ msgid "Closing"
+#~ msgstr "Schließen"
+
+#~ msgctxt "QObject|"
+#~ msgid "Unmanaged"
+#~ msgstr "Nicht verwaltet"
+
+#~ msgctxt "Service|"
+#~ msgid "Stopped"
+#~ msgstr "Angehalten"
+
+#~ msgctxt "Service|"
+#~ msgid "Interrupted"
+#~ msgstr "Unterbrochen"
+
+#~ msgctxt "Service|"
+#~ msgid "Starting"
+#~ msgstr "Startvorgang"
+
+#~ msgctxt "Service|"
+#~ msgid "Started"
+#~ msgstr "Gestartet"
+
+#~ msgctxt "Service|"
+#~ msgid "Idling"
+#~ msgstr "Leerlauf"
+
+#~ msgctxt "Service|"
+#~ msgid "Active"
+#~ msgstr "Aktiv"
+
+#~ msgctxt "Database|"
+#~ msgid "Connected"
+#~ msgstr "Verbunden"
+
+#~ msgctxt "Database|"
+#~ msgid "Connecting"
+#~ msgstr "Verbindung wird aufgebaut"
+
+#~ msgctxt "Database|"
+#~ msgid "Disconnecting"
+#~ msgstr "Verbindung wird getrennt"
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Treiber „%1“ wird nicht unterstützt."
+
+#~ msgctxt "cutehmi::console::strError|"
+#~ msgid "Command error: %1"
+#~ msgstr "Fehler im Befehl: %1"
+
+#~ msgctxt "cutehmi::console::strWarning|"
+#~ msgid "Warning: %1"
+#~ msgstr "Warnung: %1"
+
+#~ msgctxt "cutehmi::console::commandWarnings|"
+#~ msgid "Warnings:"
+#~ msgstr "Warnungen:"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Help '%1'..."
+#~ msgstr "Hilfe „%1“ ..."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Defaults:"
+#~ msgstr "Voreinstellungen:"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "yes"
+#~ msgstr "Ja"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "no"
+#~ msgstr "Nein"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Name: '%1'"
+#~ msgstr "Name: „%1“"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Type: '%1'"
+#~ msgstr "Typ: „%1“"
+
+#~ msgctxt "main|"
+#~ msgid "path"
+#~ msgstr "Pfad"

@@ -1,0 +1,1666 @@
+# Steve Allewell <steve.allewell@gmail.com>, 2020, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2022-08-07 11:08+0100\n"
+"Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
+"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.04.3\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr "Start application with --help option to see available options."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "Could not load extension '%1'."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "Reasons:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr "Information"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "Warning"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr "Error"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr "Question"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr "Message"
+
+#: tools/cutehmi.view.4/src/main.cpp:117
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "Run application in full screen mode."
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr "Override loader by specifying initial QML <file> to load."
+
+#: tools/cutehmi.view.4/src/main.cpp:120
+msgctxt "main|"
+msgid "file"
+msgstr "file"
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr "Use <version> for extension minor version to import."
+
+#: tools/cutehmi.view.4/src/main.cpp:124
+msgctxt "main|"
+msgid "version"
+msgstr "version"
+
+#: tools/cutehmi.view.4/src/main.cpp:128
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "Touch screen (hides mouse cursor)."
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "Set Qt Quick <style>."
+
+#: tools/cutehmi.view.4/src/main.cpp:131
+msgctxt "main|"
+msgid "style"
+msgstr "style"
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "Choose application <language>."
+
+#: tools/cutehmi.view.4/src/main.cpp:134
+msgctxt "main|"
+msgid "language"
+msgstr "language"
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "Set base directory to <dir>."
+
+#: tools/cutehmi.view.4/src/main.cpp:138
+msgctxt "main|"
+msgid "dir"
+msgstr "dir"
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr "Explicitly specify <resource> file to be loaded on startup."
+
+#: tools/cutehmi.view.4/src/main.cpp:141
+msgctxt "main|"
+msgid "resource"
+msgstr "resource"
+
+#: tools/cutehmi.view.4/src/main.cpp:148
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "Extension to import."
+
+#: tools/cutehmi.view.4/src/main.cpp:149
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr "Component to create. Defaults to '%1'."
+
+#: tools/cutehmi.view.4/src/main.cpp:217
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+
+#: tools/cutehmi.view.4/src/main.cpp:219
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+
+#: tools/cutehmi.view.4/src/main.cpp:221 tools/cutehmi.view.4/src/main.cpp:223
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+
+#: tools/cutehmi.view.4/src/main.cpp:229
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr "Command line argument error: value of '%1' option must be a number."
+
+#: tools/cutehmi.view.4/src/main.cpp:237
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+
+#: tools/cutehmi.view.4/src/main.cpp:285
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+
+#: tools/cutehmi.view.4/src/main.cpp:292
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "QML file '%1' does not exist."
+
+#: tools/cutehmi.view.4/src/main.cpp:297
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr "Invalid format of QML file URL '%1'."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "No error."
+#~ msgstr "No error."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "Undescribed error."
+#~ msgstr "Unknown error."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "Uninitialized error."
+#~ msgstr "Uninitialised error."
+
+#~ msgctxt "cutehmi::Error|"
+#~ msgid "Unrecognized error code: %1."
+#~ msgstr "Unrecognised error code: %1."
+
+#~ msgctxt "cutehmi::Messenger|"
+#~ msgid "No advertiser has been set. Dialog message: "
+#~ msgstr "No advertiser has been set. Dialogue message: "
+
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Updating model"
+#~ msgstr "Updating model"
+
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Waiting for finishing an update"
+#~ msgstr "Waiting for finishing an update"
+
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Stopping update timer"
+#~ msgstr "Stopping update timer"
+
+#~ msgctxt "AbstractListModel|"
+#~ msgid "Starting store timer"
+#~ msgstr "Starting store timer"
+
+#~ msgctxt "EventWriter|"
+#~ msgid "Listening for events"
+#~ msgstr "Listening for events"
+
+#~ msgctxt "EventWriter|"
+#~ msgid "Waiting for database workers to finish"
+#~ msgstr "Waiting for database workers to finish"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Inserting values"
+#~ msgstr "Inserting values"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Sampling"
+#~ msgstr "Sampling"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Waiting for database workers to finish"
+#~ msgstr "Waiting for database workers to finish"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Stopping sampling timer"
+#~ msgstr "Stopping sampling timer"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Starting sampling timer"
+#~ msgstr "Starting sampling timer"
+
+#~ msgctxt "HistoryWriter|"
+#~ msgid "Initializing"
+#~ msgstr "Initialising"
+
+#~ msgctxt "EventCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Driver '%1' is not supported."
+
+#~ msgctxt "HistoryCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Driver '%1' is not supported."
+
+#~ msgctxt "RecencyCollective|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Driver '%1' is not supported."
+
+#~ msgctxt "TagCache|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Driver '%1' is not supported."
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Updating values"
+#~ msgstr "Updating values"
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Waiting for database workers to finish"
+#~ msgstr "Waiting for database workers to finish"
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Stopping store timer"
+#~ msgstr "Stopping store timer"
+
+#~ msgctxt "RecencyWriter|"
+#~ msgid "Starting store timer"
+#~ msgstr "Starting store timer"
+
+#~ msgctxt "Schema|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Driver '%1' is not supported."
+
+#~ msgctxt "Schema|"
+#~ msgid "Failed to create '%1' schema."
+#~ msgstr "Failed to create '%1' schema."
+
+#~ msgctxt "Schema|"
+#~ msgid "Created '%1' schema although the operation wasn't clean."
+#~ msgstr "Created '%1' schema although the operation wasn't clean."
+
+#~ msgctxt "Schema|"
+#~ msgid "Successfully created '%1' schema."
+#~ msgstr "Successfully created '%1' schema."
+
+#~ msgctxt "Schema|"
+#~ msgid "Failed to drop '%1' schema."
+#~ msgstr "Failed to drop '%1' schema."
+
+#~ msgctxt "Schema|"
+#~ msgid "Dropped '%1' schema although the operation wasn't clean."
+#~ msgstr "Dropped '%1' schema although the operation was not clean."
+
+#~ msgctxt "Schema|"
+#~ msgid "Dropped '%1' schema."
+#~ msgstr "Dropped '%1' schema."
+
+#~ msgctxt "QObject|"
+#~ msgid "Table '%1' does not exist in schema '%2'."
+#~ msgstr "Table '%1' does not exist in schema '%2'."
+
+#~ msgctxt "Console|"
+#~ msgid "I highly recommend the book %1!"
+#~ msgstr "I highly recommend the book %1!"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Coil"
+#~ msgstr "Coil"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Device state:"
+#~ msgstr "Device state:"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opening"
+#~ msgstr "Opening"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opened"
+#~ msgstr "Opened"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Closing"
+#~ msgstr "Closing"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Closed"
+#~ msgstr "Closed"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Unrecognized state"
+#~ msgstr "Unrecognised state"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Open"
+#~ msgstr "Open"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Close"
+#~ msgstr "Close"
+
+#~ msgctxt "DiscreteInputControl|"
+#~ msgid "Discrete input"
+#~ msgstr "Discrete input"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Holding register"
+#~ msgstr "Holding register"
+
+#~ msgctxt "InputRegisterControl|"
+#~ msgid "Input register"
+#~ msgstr "Input register"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "%1 status:"
+#~ msgstr "%1 status:"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "Stop"
+#~ msgstr "Stop"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Host:"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Slave address:"
+#~ msgstr "Slave address:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Host:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Slave address:"
+#~ msgstr "Slave address:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Busy:"
+#~ msgstr "Busy:"
+
+#~ msgctxt "View|"
+#~ msgid "Register type:"
+#~ msgstr "Register type:"
+
+#~ msgctxt "View|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "View|"
+#~ msgid "Value:"
+#~ msgstr "Value:"
+
+#~ msgctxt "View|"
+#~ msgid "Discrete input (read-only)"
+#~ msgstr "Discrete input (read-only)"
+
+#~ msgctxt "View|"
+#~ msgid "Input register (read-only)"
+#~ msgstr "Input register (read-only)"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Switch"
+#~ msgstr "Switch"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Check Box"
+#~ msgstr "Tick Box"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Label"
+#~ msgstr "Label"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Write mode:"
+#~ msgstr "Write mode:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Write delay:"
+#~ msgstr "Write delay:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Read on write:"
+#~ msgstr "Read on write:"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Enabled:"
+
+#~ msgctxt "DeviceLoader|"
+#~ msgid "Device type:"
+#~ msgstr "Device type:"
+
+#~ msgctxt "DummyClientConfiguration|"
+#~ msgid "Connect latency:"
+#~ msgstr "Connect latency:"
+
+#~ msgctxt "DummyClientConfiguration|"
+#~ msgid "Disconnect latency:"
+#~ msgstr "Disconnect latency:"
+
+#~ msgctxt "DummyClientConfiguration|"
+#~ msgid "Latency (requests):"
+#~ msgstr "Latency (requests):"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Value scale:"
+#~ msgstr "Value scale:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Encoding:"
+#~ msgstr "Encoding:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Write mode:"
+#~ msgstr "Write mode:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Write delay:"
+#~ msgstr "Write delay:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Read on write:"
+#~ msgstr "Read on write:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Enabled:"
+
+#~ msgctxt "View|"
+#~ msgid "Holding register spin box"
+#~ msgstr "Holding register spin box"
+
+#~ msgctxt "View|"
+#~ msgid "Holding register text field"
+#~ msgstr "Holding register text field"
+
+#~ msgctxt "View|"
+#~ msgid "Coil check box"
+#~ msgstr "Coil tick box"
+
+#~ msgctxt "View|"
+#~ msgid "Coil switch"
+#~ msgstr "Coil switch"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Subfunction:"
+#~ msgstr "Sub-function:"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return query data"
+#~ msgstr "Return query data"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Restart communications option"
+#~ msgstr "Restart communications option"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return diagnostics register"
+#~ msgstr "Return diagnostics register"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Change ASCII input delimiter"
+#~ msgstr "Change ASCII input delimiter"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Force listen only mode"
+#~ msgstr "Force listen only mode"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Clear counters and diagnostic register"
+#~ msgstr "Clear counters and diagnostic register"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return bus message count"
+#~ msgstr "Return bus message count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return bus communication error count"
+#~ msgstr "Return bus communication error count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return bus exception error count"
+#~ msgstr "Return bus exception error count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return slave message count"
+#~ msgstr "Return slave message count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return slave no response count"
+#~ msgstr "Return slave no response count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return slave NAK count"
+#~ msgstr "Return slave NAK count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return slave busy count"
+#~ msgstr "Return slave busy count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return bus character overrun count"
+#~ msgstr "Return bus character overrun count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Return IOP overrun count"
+#~ msgstr "Return IOP overrun count"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Clear overrun counter and flag"
+#~ msgstr "Clear overrun counter and flag"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Get/Clear modbus plus statistics"
+#~ msgstr "Get/Clear modbus plus statistics"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Data:"
+#~ msgstr "Data:"
+
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Data (hex):"
+#~ msgstr "Data (hex):"
+
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "And mask (hex):"
+#~ msgstr "And mask (hex):"
+
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "Or mask (hex):"
+#~ msgstr "Or mask (hex):"
+
+#~ msgctxt "ReadCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "ReadCoilsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "ReadDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "ReadDiscreteInputsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "ReadFIFOQueueControl|"
+#~ msgid "FIFO pointer address:"
+#~ msgstr "FIFO pointer address:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Subrequests:"
+#~ msgstr "Sub-requests:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "File:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "ReadHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "ReadHoldingRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "ReadInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "ReadInputRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Read address:"
+#~ msgstr "Read address:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Read amount:"
+#~ msgstr "Read amount:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Write address:"
+#~ msgstr "Write address:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Write amount:"
+#~ msgstr "Write amount:"
+
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Values:"
+
+#~ msgctxt "View|"
+#~ msgid "Server state:"
+#~ msgstr "Server state:"
+
+#~ msgctxt "View|"
+#~ msgid "Client state:"
+#~ msgstr "Client state:"
+
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Value:"
+#~ msgstr "Value:"
+
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Value:"
+#~ msgstr "Value:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Subrequests:"
+#~ msgstr "Sub-requests:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "File:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Values:"
+#~ msgstr "Values:"
+
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Value:"
+
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Value:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Values:"
+#~ msgstr "Values:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Values:"
+#~ msgstr "Values:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Values:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Address:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Amount:"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Values:"
+
+#~ msgctxt "View|"
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgctxt "View|"
+#~ msgid "Stop"
+#~ msgstr "Stop"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Pockets:"
+#~ msgstr "Pockets:"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Fill:"
+#~ msgstr "Fill:"
+
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Symbol:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Mirror:"
+#~ msgstr "Mirror:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Horizontal:"
+#~ msgstr "Horizontal:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Blades:"
+#~ msgstr "Blades:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Value:"
+#~ msgstr "Value:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Opposed blade:"
+#~ msgstr "Opposed blade:"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "Mirror:"
+#~ msgstr "Mirror:"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM:"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Common properties"
+#~ msgstr "Common properties"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Neutral"
+#~ msgstr "Neutral"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Active"
+#~ msgstr "Active"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Alarm"
+#~ msgstr "Alarm"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Indirect warning"
+#~ msgstr "Indirect warning"
+
+#~ msgctxt "ElementSettings|"
+#~ msgid "Indirect alarm"
+#~ msgstr "Indirect alarm"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Segments:"
+#~ msgstr "Segments:"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM:"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Clockwise:"
+#~ msgstr "Clockwise:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Symbol:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Start angle:"
+#~ msgstr "Start angle:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Value:"
+#~ msgstr "Value:"
+
+#~ msgctxt "PumpSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "PumpSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM:"
+
+#~ msgctxt "TankSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "TankSettings|"
+#~ msgid "Head ratio:"
+#~ msgstr "Head ratio:"
+
+#~ msgctxt "TankSettings|"
+#~ msgid "Level:"
+#~ msgstr "Level:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Custom properties"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Left way:"
+#~ msgstr "Left way:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Right way:"
+#~ msgstr "Right way:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Top way:"
+#~ msgstr "Top way:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Bottom way:"
+#~ msgstr "Bottom way:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Left closed:"
+#~ msgstr "Left closed:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Right closed:"
+#~ msgstr "Right closed:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Top closed:"
+#~ msgstr "Top closed:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Bottom closed:"
+#~ msgstr "Bottom closed:"
+
+#~ msgctxt "View|"
+#~ msgid "Size:"
+#~ msgstr "Size:"
+
+#~ msgctxt "View|"
+#~ msgid "Air filter"
+#~ msgstr "Air filter"
+
+#~ msgctxt "View|"
+#~ msgid "Basic cooler"
+#~ msgstr "Basic cooler"
+
+#~ msgctxt "View|"
+#~ msgid "Basic discrete instrument"
+#~ msgstr "Basic discrete instrument"
+
+#~ msgctxt "View|"
+#~ msgid "Basic heater"
+#~ msgstr "Basic heater"
+
+#~ msgctxt "View|"
+#~ msgid "Blade damper"
+#~ msgstr "Blade damper"
+
+#~ msgctxt "View|"
+#~ msgid "Centrifugal fan"
+#~ msgstr "Centrifugal fan"
+
+#~ msgctxt "View|"
+#~ msgid "Cooler"
+#~ msgstr "Cooler"
+
+#~ msgctxt "View|"
+#~ msgid "Heater"
+#~ msgstr "Heater"
+
+#~ msgctxt "View|"
+#~ msgid "Heat exchanger"
+#~ msgstr "Heat exchanger"
+
+#~ msgctxt "View|"
+#~ msgid "Heat recovery wheel"
+#~ msgstr "Heat recovery wheel"
+
+#~ msgctxt "View|"
+#~ msgid "Motor actuator"
+#~ msgstr "Motor actuator"
+
+#~ msgctxt "View|"
+#~ msgid "Pump"
+#~ msgstr "Pump"
+
+#~ msgctxt "View|"
+#~ msgid "Tank"
+#~ msgstr "Tank"
+
+#~ msgctxt "View|"
+#~ msgid "Valve"
+#~ msgstr "Valve"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Device"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Address"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegate"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Delegate property"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Read-only"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Read-on-write"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Write mode"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Write delay"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Device"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Address"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegate"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Delegate property"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Read-only"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Read-on-write"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Write mode"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Write delay"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Device"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Address"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegate"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Delegate property"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Read-only"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Read-on-write"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Write mode"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Write delay"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Encoding"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Value scale"
+#~ msgstr "Value scale"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Device"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Address"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegate"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Delegate property"
+#~ msgstr "Delegate property"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Read-only"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Read-on-write"
+#~ msgstr "Read-on-write"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Write mode"
+#~ msgstr "Write mode"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Write delay"
+#~ msgstr "Write delay"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Encoding"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Value scale"
+#~ msgstr "Value scale"
+
+#~ msgctxt "AbstractClient|"
+#~ msgid "Connecting"
+#~ msgstr "Connecting"
+
+#~ msgctxt "AbstractClient|"
+#~ msgid "Polling"
+#~ msgstr "Polling"
+
+#~ msgctxt "AbstractClient|"
+#~ msgid "Disconnecting"
+#~ msgstr "Disconnecting"
+
+#~ msgctxt "AbstractDevice|"
+#~ msgid "Request queue is full."
+#~ msgstr "Request queue is full."
+
+#~ msgctxt "AbstractDevice|"
+#~ msgid "Request is illformed."
+#~ msgstr "Request is ill-formed."
+
+#~ msgctxt "AbstractDevice|"
+#~ msgid "Request '%1' has failed."
+#~ msgstr "Request '%1' has failed."
+
+#~ msgctxt "AbstractServer|"
+#~ msgid "Initiating listening"
+#~ msgstr "Initiating listening"
+
+#~ msgctxt "AbstractServer|"
+#~ msgid "Closing"
+#~ msgstr "Closing"
+
+#~ msgctxt "QtClientBackend|"
+#~ msgid "Failed to initialize connection."
+#~ msgstr "Failed to initialise connection."
+
+#~ msgctxt "QtClientBackend|"
+#~ msgid "Client is currently proceeding with disconnect operation."
+#~ msgstr "Client is currently proceeding with disconnect operation."
+
+#~ msgctxt "QtClientBackend|"
+#~ msgid ""
+#~ "Client is in some unrecognized state, which prevents it from initiating a "
+#~ "connection to the server."
+#~ msgstr ""
+#~ "Client is in some unrecognised state, which prevents it from initiating a "
+#~ "connection to the server."
+
+#~ msgctxt "QtServerBackend|"
+#~ msgid "Failed to initialize listening."
+#~ msgstr "Failed to initialise listening."
+
+#~ msgctxt "QtServerBackend|"
+#~ msgid "Server is currently proceeding with stop listening operation."
+#~ msgstr "Server is currently proceeding with stop listening operation."
+
+#~ msgctxt "QtServerBackend|"
+#~ msgid ""
+#~ "Server is in some unrecognized state, which prevents it from initiating "
+#~ "listening."
+#~ msgstr ""
+#~ "Server is in some unrecognised state, which prevents it from initiating "
+#~ "listening."
+
+#~ msgctxt "QObject|"
+#~ msgid "Unmanaged"
+#~ msgstr "Unmanaged"
+
+#~ msgctxt "Service|"
+#~ msgid ""
+#~ "Stop sequence of '%1' service has been interrupted, because it took more "
+#~ "than %2 [ms] to stop the service."
+#~ msgstr ""
+#~ "Stop sequence of '%1' service has been interrupted, because it took more "
+#~ "than %2 [ms] to stop the service."
+
+#~ msgctxt "Service|"
+#~ msgid "Service '%1' has started."
+#~ msgstr "Service '%1' has started."
+
+#~ msgctxt "Service|"
+#~ msgid "Service '%1' is stopped."
+#~ msgstr "Service '%1' is stopped."
+
+#~ msgctxt "Service|"
+#~ msgid "Service '%1' broke."
+#~ msgstr "Service '%1' broke."
+
+#~ msgctxt "Service|"
+#~ msgid "Stopped"
+#~ msgstr "Stopped"
+
+#~ msgctxt "Service|"
+#~ msgid "Interrupted"
+#~ msgstr "Interrupted"
+
+#~ msgctxt "Service|"
+#~ msgid "Starting"
+#~ msgstr "Starting"
+
+#~ msgctxt "Service|"
+#~ msgid "Started"
+#~ msgstr "Started"
+
+#~ msgctxt "Service|"
+#~ msgid "Idling"
+#~ msgstr "Idling"
+
+#~ msgctxt "Service|"
+#~ msgid "Yielding"
+#~ msgstr "Yielding"
+
+#~ msgctxt "Service|"
+#~ msgid "Active"
+#~ msgstr "Active"
+
+#~ msgctxt "Service|"
+#~ msgid "Stopping"
+#~ msgstr "Stopping"
+
+#~ msgctxt "Service|"
+#~ msgid "Broken"
+#~ msgstr "Broken"
+
+#~ msgctxt "Service|"
+#~ msgid "Repairing"
+#~ msgstr "Repairing"
+
+#~ msgctxt "Service|"
+#~ msgid "Evacuating"
+#~ msgstr "Evacuating"
+
+#~ msgctxt "Database|"
+#~ msgid "Connected"
+#~ msgstr "Connected"
+
+#~ msgctxt "Database|"
+#~ msgid "Connecting"
+#~ msgstr "Connecting"
+
+#~ msgctxt "Database|"
+#~ msgid "Disconnecting"
+#~ msgstr "Disconnecting"
+
+#~ msgctxt "QObject|"
+#~ msgid "database connection '%1' is not open"
+#~ msgstr "database connection '%1' is not open"
+
+#~ msgctxt "QObject|"
+#~ msgid ""
+#~ "Database worker has refused to do the job, because of following reason: "
+#~ "%1."
+#~ msgstr ""
+#~ "Database worker has refused to do the job, because of following reason: "
+#~ "%1."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "No driver found for database type '%1'."
+#~ msgstr "No driver found for database type '%1'."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "Failed to establish connection with database."
+#~ msgstr "Failed to establish connection with database."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "Performing database maintenance through connection '%1'."
+#~ msgstr "Performing database maintenance through connection '%1'."
+
+#~ msgctxt "DatabaseConnectionHandler|"
+#~ msgid "Lost connection with database."
+#~ msgstr "Lost connection with database."
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Driver '%1' is not supported."
+#~ msgstr "Driver '%1' is not supported."
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Failed to create '%1' database."
+#~ msgstr "Failed to create '%1' database."
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Created '%1' database although the operation wasn't clean."
+#~ msgstr "Created '%1' database although the operation wasn't clean."
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Created '%1' database."
+#~ msgstr "Created '%1' database."
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Failed to drop '%1' database."
+#~ msgstr "Failed to drop '%1' database."
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Dropped '%1' database although the operation wasn't clean."
+#~ msgstr "Dropped '%1' database although the operation wasn't clean."
+
+#~ msgctxt "PostgresMaintenance|"
+#~ msgid "Dropped '%1' database."
+#~ msgstr "Dropped '%1' database."
+
+#~ msgctxt "Command|"
+#~ msgid "Unaccepted command line argument '%1'."
+#~ msgstr "Unaccepted command line argument '%1'."
+
+#~ msgctxt "Command|"
+#~ msgid "Command '%1' requires an argument."
+#~ msgstr "Command '%1' requires an argument."
+
+#~ msgctxt "cutehmi::console::strError|"
+#~ msgid "Command error: %1"
+#~ msgstr "Command error: %1"
+
+#~ msgctxt "cutehmi::console::strErrors|"
+#~ msgid "Command has failed because of following errors:"
+#~ msgstr "Command has failed because of following errors:"
+
+#~ msgctxt "cutehmi::console::strWarning|"
+#~ msgid "Warning: %1"
+#~ msgstr "Warning: %1"
+
+#~ msgctxt "cutehmi::console::commandWarnings|"
+#~ msgid "Warnings:"
+#~ msgstr "Warnings:"
+
+#~ msgctxt "main|"
+#~ msgid "Gracefully quit the console."
+#~ msgstr "Gracefully quit the console."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Denotes console command."
+#~ msgstr "Denotes console command."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "List selected things."
+#~ msgstr "List selected things."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid ""
+#~ "List scope object children. List is presented in the form: `index: type "
+#~ "[- object_name]`."
+#~ msgstr ""
+#~ "List scope object children. List is presented in the form: `index: type "
+#~ "[- object_name]`."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid ""
+#~ "List scope object properties or property details. Without argument "
+#~ "command lists properties of current scope object. Properties are grouped "
+#~ "into meta-object class sections. Each section lists properties in the "
+#~ "form: `index: type - propery_name`. If argument is given command prints "
+#~ "details on property selected by the argument."
+#~ msgstr ""
+#~ "List scope object properties or property details. Without argument "
+#~ "command lists properties of current scope object. Properties are grouped "
+#~ "into meta-object class sections. Each section lists properties in the "
+#~ "form: `index: type - propery_name`. If argument is given command prints "
+#~ "details on property selected by the argument."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Property name or index."
+#~ msgstr "Property name or index."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid ""
+#~ "Remind current scope object or select a new one. Without argument command "
+#~ "prints short memento of a current scope object. If argument is given, "
+#~ "command will try to change current scope object to the one specified by "
+#~ "the argument."
+#~ msgstr ""
+#~ "Remind current scope object or select a new one. Without argument command "
+#~ "prints short memento of a current scope object. If argument is given, "
+#~ "command will try to change current scope object to the one specified by "
+#~ "the argument."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid ""
+#~ "Object path relative to current scope object. Object path can be composed "
+#~ "of object names or indices separated by slash character ('/'). Double dot "
+#~ "('..') can be used to choose parent object. If object names are given "
+#~ "search is performed recursively, thus this command does not work like "
+#~ "standard file path lookup. If more than one objects with given name were "
+#~ "found, command picks the first one."
+#~ msgstr ""
+#~ "Object path relative to current scope object. Object path can be composed "
+#~ "of object names or indices separated by slash character ('/'). Double dot "
+#~ "('..') can be used to choose parent object. If object names are given "
+#~ "search is performed recursively, thus this command does not work like "
+#~ "standard file path lookup. If more than one objects with given name were "
+#~ "found, command picks the first one."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Quit the console."
+#~ msgstr "Quit the console."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Shows help on specified command (arguments may follow)."
+#~ msgstr "Shows help on specified command (arguments may follow)."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Unclosed double quote."
+#~ msgstr "Unmatched double quote."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Help '%1'..."
+#~ msgstr "Help '%1'..."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Where:"
+#~ msgstr "Where:"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "And <command> is one of the following:"
+#~ msgstr "And <command> is one of the following:"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Synopsis:"
+#~ msgstr "Synopsis:"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "<command>"
+#~ msgstr "<command>"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Defaults:"
+#~ msgstr "Defaults:"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Can not select parent - root object already reached."
+#~ msgstr "Can not select parent - root object already reached."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Can not use negative indices."
+#~ msgstr "Can not use negative indices."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Given index ('%1') is too large."
+#~ msgstr "Given index ('%1') is too large."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Child object with given name ('%1') not found."
+#~ msgstr "Child object with given name ('%1') not found."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Found more than one object with given name ('%1')."
+#~ msgstr "Found more than one object with given name ('%1')."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "New scope object: '%1'."
+#~ msgstr "New scope object: '%1'."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "List children of '%1'..."
+#~ msgstr "List children of '%1'..."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "None"
+#~ msgstr "None"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "List properties of '%1'..."
+#~ msgstr "List properties of '%1'..."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Could not find property with given name ('%1')."
+#~ msgstr "Could not find property with given name ('%1')."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "yes"
+#~ msgstr "yes"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "no"
+#~ msgstr "no"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "List property '%1' details..."
+#~ msgstr "List property '%1' details..."
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Name: '%1'"
+#~ msgstr "Name: '%1'"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Type: '%1'"
+#~ msgstr "Type: '%1'"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Constant: %1"
+#~ msgstr "Constant: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Designable: %1"
+#~ msgstr "Designable: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Enum: %1"
+#~ msgstr "Enum: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Final: %1"
+#~ msgstr "Final: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Flag: %1"
+#~ msgstr "Flag: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Readable: %1"
+#~ msgstr "Readable: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Resettable: %1"
+#~ msgstr "Re-settable: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Scriptable: %1"
+#~ msgstr "Scriptable: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Stored: %1"
+#~ msgstr "Stored: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "User: %1"
+#~ msgstr "User: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Valid: %1"
+#~ msgstr "Valid: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Writable: %1"
+#~ msgstr "Writable: %1"
+
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Notify signal: %1"
+#~ msgstr "Notify signal: %1"
+
+#~ msgctxt "main|"
+#~ msgid "Welcome to %1 %2. Type \\help to see the list of commands."
+#~ msgstr "Welcome to %1 %2. Type \\help to see the list of commands."
+
+#~ msgctxt "main|"
+#~ msgid "Extension: '%1 %2.%3'"
+#~ msgstr "Extension: '%1 %2.%3'"
+
+#~ msgctxt "main|"
+#~ msgid "Component: '%1'"
+#~ msgstr "Component: '%1'"
+
+#~ msgctxt "main|"
+#~ msgid "Run project in application mode."
+#~ msgstr "Run project in application mode."
+
+#~ msgctxt "main|"
+#~ msgid "PID file <path> (Unix-specific)."
+#~ msgstr "PID file <path> (Unix-specific)."
+
+#~ msgctxt "main|"
+#~ msgid "path"
+#~ msgstr "path"
+
+#~ msgctxt "main|"
+#~ msgid "Denotes <number> of forks the daemon should perform (Unix-specific)."
+#~ msgstr ""
+#~ "Denotes <number> of forks the daemon should perform (Unix-specific)."
+
+#~ msgctxt "main|"
+#~ msgid "number"
+#~ msgstr "number"
+
+#~ msgctxt "main|"
+#~ msgid "No initial loader has been specified."
+#~ msgstr "No initial loader has been specified."
+
+#~ msgctxt "cutehmi::modbus::AbstractServer|"
+#~ msgid "Closing"
+#~ msgstr "Closing"
