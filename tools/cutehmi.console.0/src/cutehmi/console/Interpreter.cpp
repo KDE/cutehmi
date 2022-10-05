@@ -338,8 +338,6 @@ QString Interpreter::Commands::Help::createSynopsisString(const Command::Command
 	bool insideOptional = false;
 	int currentCommandIndex = 0;
 	for (auto && command : commands) {
-		QString commandString = command->names().at(0);
-
 		if (makeSpaceBefore)
 			synopsis.append(' ');
 
@@ -348,9 +346,10 @@ QString Interpreter::Commands::Help::createSynopsisString(const Command::Command
 			insideOptional = true;
 		}
 
-		synopsis.append(command->names().at(0));
+		QString commandString = command->names().at(0);
+		synopsis.append(commandString);
 
-		if (command->names().at(0) == "\\")
+		if (commandString == "\\")
 			makeSpaceBefore = false;
 		else
 			makeSpaceBefore = true;
