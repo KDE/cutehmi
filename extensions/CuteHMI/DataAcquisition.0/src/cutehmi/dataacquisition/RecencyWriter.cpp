@@ -117,6 +117,22 @@ std::unique_ptr<QAbstractTransition> RecencyWriter::transitionToIdling() const
 	return std::make_unique<QSignalTransition>(this, & RecencyWriter::collectiveFinished);
 }
 
+void RecencyWriter::onValueAppend(TagValue * tagValue)
+{
+#ifndef CUTEHMI_DEBUG
+	Q_UNUSED(tagValue)
+#endif
+	CUTEHMI_DEBUG("Source of values tagged '" << tagValue->name() << "' appended to recency writer.");
+}
+
+void RecencyWriter::onValueRemove(TagValue * tagValue)
+{
+#ifndef CUTEHMI_DEBUG
+	Q_UNUSED(tagValue)
+#endif
+	CUTEHMI_DEBUG("Source of values tagged '" << tagValue->name() << "' removed from recency writer.");
+}
+
 void RecencyWriter::updateValues()
 {
 	internal::RecencyCollective::TuplesContainer tuples;

@@ -1,5 +1,7 @@
 #include <cutehmi/dataacquisition/AbstractWriter.hpp>
 
+#include <cutehmi/dataacquisition/AbstractWriterAttachedType.hpp>
+
 #include <cutehmi/shareddatabase/Database.hpp>
 
 #include <QTimer>
@@ -11,6 +13,11 @@ AbstractWriter::AbstractWriter(QObject * parent):
 	QObject(parent),
 	m(new Members(this))
 {
+}
+
+cutehmi::dataacquisition::AbstractWriterAttachedType * AbstractWriter::qmlAttachedProperties(QObject * object)
+{
+	return new AbstractWriterAttachedType(object);
 }
 
 QQmlListProperty<TagValue> AbstractWriter::valueList()
@@ -80,14 +87,16 @@ TagValue * AbstractWriter::ValueListAt(QQmlListProperty<TagValue> * property, wo
 void AbstractWriter::ValueListClear(QQmlListProperty<TagValue> * property)
 {
 	AbstractWriter * writer = static_cast<AbstractWriter *>(property->object);
-	for (TagValueContainer::const_iterator it = writer->values().begin(); it != writer->values().end(); ++it) {
-		(*it)->disconnect(writer);
-	}
+
+	for (TagValueContainer::const_iterator it = writer->values().begin(); it != writer->values().end(); ++it)
+		writer->onValueRemove(*it);
+
 	static_cast<TagValueContainer *>(property->data)->clear();
 }
 
 void AbstractWriter::ValuesListAppend(QQmlListProperty<TagValue> * property, TagValue * value)
 {
+	static_cast<AbstractWriter *>(property->object)->onValueAppend(value);
 	static_cast<TagValueContainer *>(property->data)->append(value);
 }
 

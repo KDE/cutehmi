@@ -27,8 +27,8 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> EventWriter::configureSt
 	active->setInitialState(receivingEvents);
 	statuses->insert(receivingEvents, tr("Listening for events"));
 
-	connect(receivingEvents, & QState::entered, this, & EventWriter::connectTagSignals);
-	connect(receivingEvents, & QState::exited, this, & EventWriter::disconnectTagSignals);
+	connect(receivingEvents, & QState::entered, this, & EventWriter::connectValueChangedSignals);
+	connect(receivingEvents, & QState::exited, this, & EventWriter::disconnectValueChangedSignals);
 
 	return statuses;
 }
@@ -95,34 +95,47 @@ std::unique_ptr<QAbstractTransition> EventWriter::transitionToIdling() const
 	return nullptr;
 }
 
+void EventWriter::onValueAppend(TagValue * tagValue)
+{
+	if (m->valueChangedConnectionsActive)
+		connectValueChangedSignal(tagValue);
+	CUTEHMI_DEBUG("Source of values tagged '" << tagValue->name() << "' appended to event writer.");
+}
+
+void EventWriter::onValueRemove(TagValue * tagValue)
+{
+	if (m->valueChangedConnectionsActive)
+		tagValue->disconnect(this);
+	CUTEHMI_DEBUG("Source of values tagged '" << tagValue->name() << "' removed from event writer.");
+}
+
 void EventWriter::onSchemaChanged()
 {
 	m->dbCollective.setSchema(schema());
 }
 
-void EventWriter::insertEvent(TagValue * tag)
+void EventWriter::insertEvent(TagValue * tagValue)
 {
 	CUTEHMI_DEBUG("Requesting database handler to insert values into database.");
 
 	if (schema())
-		m->dbCollective.insert(*tag);
+		m->dbCollective.insert(*tagValue);
 	else
 		CUTEHMI_CRITICAL("Schema is not set for '" << this << "' object.");
 }
 
-void EventWriter::connectTagSignals()
+void EventWriter::connectValueChangedSignals()
 {
-	for (TagValueContainer::const_iterator it = values().begin(); it != values().end(); ++it) {
-		QObject::connect(*it, & TagValue::valueChanged, this, [it, this]() {
-			insertEvent(*it);
-		});
-	}
+	for (TagValueContainer::const_iterator it = values().begin(); it != values().end(); ++it)
+		connectValueChangedSignal(*it);
+	m->valueChangedConnectionsActive = true;
 }
 
-void EventWriter::disconnectTagSignals()
+void EventWriter::disconnectValueChangedSignals()
 {
 	for (TagValueContainer::const_iterator it = values().begin(); it != values().end(); ++it)
 		(*it)->disconnect(this);
+	m->valueChangedConnectionsActive = false;
 }
 
 void EventWriter::confirmCollectiveFinished()
@@ -141,6 +154,13 @@ std::unique_ptr<services::Serviceable::ServiceStatuses> EventWriter::configureSt
 	parent->setInitialState(waitingForDatabase);
 
 	return statuses;
+}
+
+void EventWriter::connectValueChangedSignal(TagValue * value)
+{
+	QObject::connect(value, & TagValue::valueChanged, this, [value, this]() {
+		insertEvent(value);
+	});
 }
 
 }

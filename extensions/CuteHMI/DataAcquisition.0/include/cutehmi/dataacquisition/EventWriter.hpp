@@ -47,23 +47,35 @@ class CUTEHMI_DATAACQUISITION_API EventWriter:
 	protected:
 		Q_SIGNAL void collectiveFinished();
 
+		void onValueAppend(TagValue * tagValue) override;
+
+		void onValueRemove(TagValue * tagValue) override;
+
 	private slots:
 		void onSchemaChanged();
 
-		void insertEvent(cutehmi::dataacquisition::TagValue * tag);
+		void insertEvent(cutehmi::dataacquisition::TagValue * tagValue);
 
-		void connectTagSignals();
+		void connectValueChangedSignals();
 
-		void disconnectTagSignals();
+		void disconnectValueChangedSignals();
 
 		void confirmCollectiveFinished();
 
 	private:
 		std::unique_ptr<services::Serviceable::ServiceStatuses> configureStartingOrRepairing(QState * parent);
 
+		void connectValueChangedSignal(TagValue * value);
+
 		struct Members
 		{
+			bool valueChangedConnectionsActive;
 			internal::EventCollective dbCollective;
+
+			Members():
+				valueChangedConnectionsActive(false)
+			{
+			}
 		};
 
 		MPtr<Members> m;

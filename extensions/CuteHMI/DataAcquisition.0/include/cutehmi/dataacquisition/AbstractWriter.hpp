@@ -17,6 +17,8 @@
 namespace cutehmi {
 namespace dataacquisition {
 
+class AbstractWriterAttachedType;
+
 /**
  * Abstract database writer.
  */
@@ -25,8 +27,11 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 	public cutehmi::services::Serviceable
 {
 		Q_OBJECT
+		QML_ATTACHED(cutehmi::dataacquisition::AbstractWriterAttachedType)
 		QML_NAMED_ELEMENT(AbstractWriter)
 		QML_UNCREATABLE("AbstractWriter is an abstract class")
+
+		friend class AbstractWriterAttachedType;
 
 	public:
 		Q_PROPERTY(QQmlListProperty<cutehmi::dataacquisition::TagValue> values READ valueList CONSTANT)
@@ -35,6 +40,8 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 		Q_PROPERTY(cutehmi::dataacquisition::Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
 
 		AbstractWriter(QObject * parent = nullptr);
+
+		static cutehmi::dataacquisition::AbstractWriterAttachedType * qmlAttachedProperties(QObject * object);
 
 		QQmlListProperty<TagValue> valueList();
 
@@ -52,6 +59,8 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 		void schemaChanged();
 
 	protected:
+		typedef QList<TagValue *> TagValueContainer;
+
 		Q_SIGNAL void broke();
 
 		Q_SIGNAL void started();
@@ -62,7 +71,9 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 
 		Q_SIGNAL void schemaValidated();
 
-		typedef QList<TagValue *> TagValueContainer;
+		virtual void onValueAppend(TagValue * value) = 0;
+
+		virtual void onValueRemove(TagValue * value) = 0;
 
 		const TagValueContainer & values() const;
 

@@ -88,6 +88,22 @@ void HistoryWriter::insertValues()
 		CUTEHMI_CRITICAL("Schema is not set for '" << this << "' object.");
 }
 
+void HistoryWriter::onValueAppend(TagValue * tagValue)
+{
+#ifndef CUTEHMI_DEBUG
+	Q_UNUSED(tagValue)
+#endif
+	CUTEHMI_DEBUG("Source of values tagged '" << tagValue->name() << "' appended to history writer.");
+}
+
+void HistoryWriter::onValueRemove(TagValue * tagValue)
+{
+#ifndef CUTEHMI_DEBUG
+	Q_UNUSED(tagValue)
+#endif
+	CUTEHMI_DEBUG("Source of values tagged '" << tagValue->name() << "' removed from history writer.");
+}
+
 void HistoryWriter::onSchemaChanged()
 {
 	m->dbCollective.setSchema(schema());
