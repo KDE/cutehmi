@@ -98,6 +98,10 @@ class CUTEHMI_DATAACQUISITION_API HistoryWriter:
 
 		Q_SIGNAL void collectiveFinished();
 
+		void onValueAppend(TagValue * tagValue)	override;
+
+		void onValueRemove(TagValue * tagValue) override;
+
 	private slots:
 		void onSchemaChanged();
 

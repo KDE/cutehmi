@@ -49,10 +49,10 @@ void Schema::create()
 		bool error = false;
 
 		if (db.driverName() == "QPSQL") {
+			CUTEHMI_DEBUG("Creating schema...");
+
 			QSqlQuery query(db);
 			try {
-				CUTEHMI_DEBUG("Creating schema...");
-
 				QString queryString = readScript(POSTGRESQL_SCRIPTS_SUBDIR, "create.sql").arg(name());
 				CUTEHMI_DEBUG("SQL query:\n```\n" << queryString + "\n```");
 
@@ -79,10 +79,10 @@ void Schema::create()
 				query.finish();
 			}
 		} else if (db.driverName() == "QSQLITE") {
+			CUTEHMI_DEBUG("Creating schema...");
+
 			QSqlQuery query(db);
 			try {
-				CUTEHMI_DEBUG("Creating schema...");
-
 				QString queryString = readScript(SQLITE_SCRIPTS_SUBDIR, "create.sql").arg(name());
 				QStringList queryList = queryString.split(';');
 				queryList.removeLast();	// Remove empty query.
@@ -125,10 +125,10 @@ void Schema::drop()
 		bool error = false;
 
 		if (db.driverName() == "QPSQL") {
+			CUTEHMI_DEBUG("Dropping schema...");
+
 			QSqlQuery query(db);
 			try {
-				CUTEHMI_DEBUG("Dropping schema...");
-
 				QString queryString = readScript(POSTGRESQL_SCRIPTS_SUBDIR, "drop.sql").arg(name());
 				CUTEHMI_DEBUG("SQL query:\n```\n" << queryString + "\n```");
 
@@ -141,10 +141,10 @@ void Schema::drop()
 				error = true;
 			}
 		} else if (db.driverName() == "QSQLITE") {
+			CUTEHMI_DEBUG("Dropping schema...");
+
 			QSqlQuery query(db);
 			try {
-				CUTEHMI_DEBUG("Dropping schema...");
-
 				QString queryString = readScript(SQLITE_SCRIPTS_SUBDIR, "drop.sql").arg(name());
 				QStringList queryList = queryString.split(';');
 				queryList.removeLast();	// Remove empty query.
@@ -183,6 +183,8 @@ void Schema::validate()
 {
 	worker([this](QSqlDatabase & db) {
 		if (db.driverName() == "QPSQL") {
+			CUTEHMI_DEBUG("Validating schema...");
+
 			QSqlQuery query(db);
 
 			bool result = true;
@@ -203,6 +205,8 @@ void Schema::validate()
 
 			emit validated(result);
 		} else if (db.driverName() == "QSQLITE") {
+			CUTEHMI_DEBUG("Validating schema...");
+
 			QSqlQuery query(db);
 
 			bool result = true;

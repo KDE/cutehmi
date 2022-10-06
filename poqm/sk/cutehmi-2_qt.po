@@ -1,0 +1,812 @@
+# translation of cutehmi-2_qt.po Slovak
+# Roman Paholik <wizzardsk@gmail.com>, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: cutehmi-2_qt\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-03-10 03:41+0100\n"
+"PO-Revision-Date: 2021-11-15 17:46+0100\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 21.08.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Qt-Contexts: true\n"
+
+#: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
+msgctxt "cutehmi::Error|"
+msgid "No error."
+msgstr "Žiadna chyba."
+
+#: extensions/CuteHMI.2/src/cutehmi/Error.cpp:41
+msgctxt "cutehmi::Error|"
+msgid "Error."
+msgstr "Chyba."
+
+#: extensions/CuteHMI.2/src/cutehmi/Error.cpp:43
+msgctxt "cutehmi::Error|"
+msgid "Uninitialized error."
+msgstr "Neinicializovaná chyba."
+
+#: extensions/CuteHMI.2/src/cutehmi/Error.cpp:45
+#, qt-format
+msgctxt "cutehmi::Error|"
+msgid "Unrecognized error code: %1."
+msgstr "Neznámy chybový kód: %1."
+
+#: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
+msgctxt "cutehmi::Messenger|"
+msgid "No advertiser has been set. Dialog message: "
+msgstr "Nebol nastavený žiadny inzerent. Správa dialógu: "
+
+#: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:45
+#: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:50
+#: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:111
+#: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:114
+#: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:117
+msgctxt "cutehmi::Error~||"
+msgid "No error."
+msgstr "Žiadna chyba."
+
+#, fuzzy
+#~ msgctxt "CoilControl|"
+#~ msgid "Coil"
+#~ msgstr "cievka"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opening"
+#~ msgstr "Otvára sa"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Opened"
+#~ msgstr "Otvorené"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Closed"
+#~ msgstr "Uzavreté"
+
+#~ msgctxt "DeviceControl|"
+#~ msgid "Open"
+#~ msgstr "Otvoriť"
+
+#, fuzzy
+#~ msgctxt "DeviceControl|"
+#~ msgid "Close"
+#~ msgstr "Zavrieť"
+
+#, fuzzy
+#~ msgctxt "ServiceControl|"
+#~ msgid "%1 status:"
+#~ msgstr "Stav"
+
+#, fuzzy
+#~ msgctxt "ServiceControl|"
+#~ msgid "Start"
+#~ msgstr "Spustiť"
+
+#~ msgctxt "ServiceControl|"
+#~ msgid "Stop"
+#~ msgstr "Zastaviť"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Hostiteľ:"
+
+#~ msgctxt "TCPClientConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Host:"
+#~ msgstr "Hostiteľ:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Port:"
+#~ msgstr "Port:"
+
+#~ msgctxt "TCPServerConfiguration|"
+#~ msgid "Busy:"
+#~ msgstr "Zaneprázdnený:"
+
+#, fuzzy
+#~| msgctxt "DeviceLoader|"
+#~| msgid "Device type:"
+#~ msgctxt "View|"
+#~ msgid "Register type:"
+#~ msgstr "Typ zariadenia:"
+
+#, fuzzy
+#~ msgctxt "View|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~| msgctxt "Main|"
+#~| msgid "Value:"
+#~ msgctxt "View|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Switch"
+#~ msgstr "Prepnúť"
+
+#~ msgctxt "Screen.ui|"
+#~ msgid "Check Box"
+#~ msgstr "Zaškrtávacie políčko"
+
+#, fuzzy
+#~ msgctxt "Screen.ui|"
+#~ msgid "Label"
+#~ msgstr "Štítok"
+
+#, fuzzy
+#~ msgctxt "CoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "CoilControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Povolené:"
+
+#~ msgctxt "DeviceLoader|"
+#~ msgid "Device type:"
+#~ msgstr "Typ zariadenia:"
+
+#, fuzzy
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Encoding:"
+#~ msgstr "Kódovanie:"
+
+#~ msgctxt "HoldingRegisterControl|"
+#~ msgid "Enabled:"
+#~ msgstr "Povolené:"
+
+#, fuzzy
+#~| msgctxt "Screen.ui|"
+#~| msgid "Check Box"
+#~ msgctxt "View|"
+#~ msgid "Coil check box"
+#~ msgstr "Zaškrtávacie políčko"
+
+#, fuzzy
+#~ msgctxt "DiagnosticsControl|"
+#~ msgid "Data:"
+#~ msgstr "Dáta"
+
+#, fuzzy
+#~ msgctxt "MaskWrite4xRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~ msgctxt "ReadCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "ReadCoilsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "ReadDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "ReadDiscreteInputsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "&Súbor"
+
+#, fuzzy
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "ReadFileRecordControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "ReadHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "ReadHoldingRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "ReadInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "ReadInputRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "ReadWriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Hodnoty"
+
+#, fuzzy
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteCoilControl|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#, fuzzy
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteDiscreteInputControl|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#, fuzzy
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "File:"
+#~ msgstr "&Súbor"
+
+#, fuzzy
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "WriteFileRecordControl|"
+#~ msgid "Values:"
+#~ msgstr "Hodnoty"
+
+#, fuzzy
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteHoldingRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#, fuzzy
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteInputRegisterControl|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleCoilsControl|"
+#~ msgid "Values:"
+#~ msgstr "Hodnoty"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleDiscreteInputsControl|"
+#~ msgid "Values:"
+#~ msgstr "Hodnoty"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleHoldingRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Hodnoty"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Amount:"
+#~ msgstr "Množstvo:"
+
+#, fuzzy
+#~ msgctxt "WriteMultipleInputRegistersControl|"
+#~ msgid "Values:"
+#~ msgstr "Hodnoty"
+
+#, fuzzy
+#~ msgctxt "View|"
+#~ msgid "Start"
+#~ msgstr "Spustiť"
+
+#, fuzzy
+#~| msgctxt "ServiceControl|"
+#~| msgid "Stop"
+#~ msgctxt "View|"
+#~ msgid "Stop"
+#~ msgstr "Zastaviť"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Mirror:"
+#~ msgstr "Zrkadlo:"
+
+#~ msgctxt "AirFilterSettings|"
+#~ msgid "Fill:"
+#~ msgstr "Výplň:"
+
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#, fuzzy
+#~ msgctxt "BasicDiscreteInstrumentSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Symbol"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Mirror:"
+#~ msgstr "Zrkadlo:"
+
+#, fuzzy
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Horizontal:"
+#~ msgstr "Horizontálna:"
+
+#~ msgctxt "BladeDamperSettings|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "Mirror:"
+#~ msgstr "Zrkadlo:"
+
+#, fuzzy
+#~ msgctxt "CentrifugalFanSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM"
+
+#, fuzzy
+#~ msgctxt "ElementSettings|"
+#~ msgid "Active"
+#~ msgstr "Aktívne"
+
+#, fuzzy
+#~ msgctxt "ElementSettings|"
+#~ msgid "Warning"
+#~ msgstr "Upozornenie"
+
+#, fuzzy
+#~ msgctxt "ElementSettings|"
+#~ msgid "Alarm"
+#~ msgstr "Poplach"
+
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#, fuzzy
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Segments:"
+#~ msgstr "Segmenty"
+
+#, fuzzy
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM"
+
+#, fuzzy
+#~ msgctxt "HeatRecoveryWheelSettings|"
+#~ msgid "Clockwise:"
+#~ msgstr "V smere hodinových ručičiek"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#, fuzzy
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Symbol:"
+#~ msgstr "Symbol"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Start angle:"
+#~ msgstr "Začiatočný uhol:"
+
+#~ msgctxt "MotorActuatorSettings|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#~ msgctxt "PumpSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#, fuzzy
+#~ msgctxt "PumpSettings|"
+#~ msgid "RPM:"
+#~ msgstr "RPM"
+
+#~ msgctxt "TankSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#, fuzzy
+#~ msgctxt "TankSettings|"
+#~ msgid "Level:"
+#~ msgstr "Úroveň:"
+
+#~ msgctxt "ValveSettings|"
+#~ msgid "Custom properties"
+#~ msgstr "Vlastné vlastnosti"
+
+#, fuzzy
+#~ msgctxt "View|"
+#~ msgid "Size:"
+#~ msgstr "Veľkosť:"
+
+#, fuzzy
+#~ msgctxt "View|"
+#~ msgid "Cooler"
+#~ msgstr "Chladič:"
+
+#, fuzzy
+#~ msgctxt "View|"
+#~ msgid "Pump"
+#~ msgstr "pump"
+
+#, fuzzy
+#~ msgctxt "View|"
+#~ msgid "Tank"
+#~ msgstr "tank"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Zariadenie"
+
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegát:"
+
+#, fuzzy
+#~ msgctxt "CoilItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Iba na čítanie"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Zariadenie"
+
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegát:"
+
+#, fuzzy
+#~ msgctxt "DiscreteInputItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Iba na čítanie"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Zariadenie"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegát:"
+
+#, fuzzy
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Iba na čítanie"
+
+#~ msgctxt "HoldingRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Kódovanie"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Device"
+#~ msgstr "Zariadenie"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Address"
+#~ msgstr "Adresa"
+
+#, fuzzy
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Delegate"
+#~ msgstr "Delegát:"
+
+#, fuzzy
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Read-only"
+#~ msgstr "Iba na čítanie"
+
+#~ msgctxt "InputRegisterItemSpecifics|"
+#~ msgid "Encoding"
+#~ msgstr "Kódovanie"
+
+#, fuzzy
+#~ msgctxt "AbstractClient|"
+#~ msgid "Connecting"
+#~ msgstr "Pripájam"
+
+#~ msgctxt "AbstractClient|"
+#~ msgid "Disconnecting"
+#~ msgstr "Odpája sa"
+
+#, fuzzy
+#~ msgctxt "AbstractServer|"
+#~ msgid "Closing"
+#~ msgstr "Zavrieť"
+
+#~ msgctxt "QObject|"
+#~ msgid "Unmanaged"
+#~ msgstr "Nespravované"
+
+#~ msgctxt "Service|"
+#~ msgid "Stopped"
+#~ msgstr "Zastavené"
+
+#~ msgctxt "Service|"
+#~ msgid "Interrupted"
+#~ msgstr "Prerušené"
+
+#~ msgctxt "Service|"
+#~ msgid "Starting"
+#~ msgstr "Spúšťam"
+
+#, fuzzy
+#~ msgctxt "Service|"
+#~ msgid "Started"
+#~ msgstr "Spustené"
+
+#~ msgctxt "Service|"
+#~ msgid "Idling"
+#~ msgstr "Voľný beh"
+
+#, fuzzy
+#~ msgctxt "Service|"
+#~ msgid "Active"
+#~ msgstr "Aktívne"
+
+#, fuzzy
+#~ msgctxt "Service|"
+#~ msgid "Stopping"
+#~ msgstr "Zastavujem %1..."
+
+#~ msgctxt "Service|"
+#~ msgid "Broken"
+#~ msgstr "Chybné"
+
+#, fuzzy
+#~ msgctxt "Database|"
+#~ msgid "Connected"
+#~ msgstr "Pripájam"
+
+#, fuzzy
+#~ msgctxt "Database|"
+#~ msgid "Connecting"
+#~ msgstr "Pripájam"
+
+#, fuzzy
+#~| msgctxt "AbstractClient|"
+#~| msgid "Disconnecting"
+#~ msgctxt "Database|"
+#~ msgid "Disconnecting"
+#~ msgstr "Odpája sa"
+
+#, fuzzy
+#~ msgctxt "cutehmi::console::strWarning|"
+#~ msgid "Warning: %1"
+#~ msgstr "Upozornenie"
+
+#, fuzzy
+#~ msgctxt "cutehmi::console::commandWarnings|"
+#~ msgid "Warnings:"
+#~ msgstr "Upozornenie"
+
+#, fuzzy
+#~| msgctxt "AirFilterSettings|"
+#~| msgid "Custom properties"
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "List properties of '%1'..."
+#~ msgstr "Vlastné vlastnosti"
+
+#, fuzzy
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Flag: %1"
+#~ msgstr "Upozornenie"
+
+#, fuzzy
+#~ msgctxt "cutehmi::console::Interpreter|"
+#~ msgid "Writable: %1"
+#~ msgstr "Upozornenie"
+
+#, fuzzy
+#~ msgctxt "main|"
+#~ msgid "Choose application <language>."
+#~ msgstr "Vyberte aplikáciu"
+
+#, fuzzy
+#~ msgctxt "main|"
+#~ msgid "language"
+#~ msgstr "Jazyk"
+
+#~ msgctxt "main|"
+#~ msgid "dir"
+#~ msgstr "dir"
+
+#, fuzzy
+#~| msgctxt "ExtensionLoader|"
+#~| msgid "Reason: "
+#~ msgctxt "ExtensionLoader|"
+#~ msgid "Reasons:"
+#~ msgstr "Dôvod: "
+
+#, fuzzy
+#~ msgctxt "main|"
+#~ msgid "file"
+#~ msgstr "&Súbor"
+
+#, fuzzy
+#~ msgctxt "main|"
+#~ msgid "path"
+#~ msgstr "Cesta:"
+
+#~ msgctxt "main|"
+#~ msgid "style"
+#~ msgstr "štýl"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Start DB"
+#~ msgstr "Spustiť"
+
+#, fuzzy
+#~| msgctxt "ServiceControl|"
+#~| msgid "Stop"
+#~ msgctxt "Main|"
+#~ msgid "Stop DB"
+#~ msgstr "Zastaviť"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Start All"
+#~ msgstr "Spustiť"
+
+#, fuzzy
+#~| msgctxt "ServiceControl|"
+#~| msgid "Stop"
+#~ msgctxt "Main|"
+#~ msgid "Stop All"
+#~ msgstr "Zastaviť"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Start Event"
+#~ msgstr "Spustené"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Address:"
+#~ msgstr "Adresa"
+
+#~ msgctxt "Main|"
+#~ msgid "Value:"
+#~ msgstr "Hodnota:"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Start"
+#~ msgstr "Spustiť"
+
+#, fuzzy
+#~| msgctxt "ServiceControl|"
+#~| msgid "Stop"
+#~ msgctxt "Main|"
+#~ msgid "Stop"
+#~ msgstr "Zastaviť"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Size:"
+#~ msgstr "Veľkosť:"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Cooler"
+#~ msgstr "Chladič:"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Pump"
+#~ msgstr "pump"
+
+#, fuzzy
+#~ msgctxt "Main|"
+#~ msgid "Tank"
+#~ msgstr "tank"
+
+#, fuzzy
+#~ msgctxt "main|"
+#~ msgid "name"
+#~ msgstr "názov"
+
+#~ msgctxt "main|"
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#, fuzzy
+#~ msgctxt "main|"
+#~ msgid "import"
+#~ msgstr "Importovať"
+
+#, fuzzy
+#~| msgctxt "ExtensionLoader|"
+#~| msgid "Reason: "
+#~ msgctxt "ExtensionLoader|"
+#~ msgid "Reason:"
+#~ msgstr "Dôvod: "

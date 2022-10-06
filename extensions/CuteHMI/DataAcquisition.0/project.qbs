@@ -22,11 +22,12 @@ Project {
 
 		files: [
          "Console.qml",
-		 "LICENSE.MIT",
-		 "LICENSE.LGPL3",
-		 "README.md",
+         "LICENSE.MIT",
+         "LICENSE.LGPL3",
+         "README.md",
          "include/cutehmi/dataacquisition/AbstractListModel.hpp",
          "include/cutehmi/dataacquisition/AbstractWriter.hpp",
+         "include/cutehmi/dataacquisition/AbstractWriterAttachedType.hpp",
          "include/cutehmi/dataacquisition/EventModel.hpp",
          "include/cutehmi/dataacquisition/EventWriter.hpp",
          "include/cutehmi/dataacquisition/Exception.hpp",
@@ -56,6 +57,7 @@ Project {
          "sql/sqlite/drop.sql",
          "src/cutehmi/dataacquisition/AbstractListModel.cpp",
          "src/cutehmi/dataacquisition/AbstractWriter.cpp",
+         "src/cutehmi/dataacquisition/AbstractWriterAttachedType.cpp",
          "src/cutehmi/dataacquisition/EventModel.cpp",
          "src/cutehmi/dataacquisition/EventWriter.cpp",
          "src/cutehmi/dataacquisition/HistoryModel.cpp",
