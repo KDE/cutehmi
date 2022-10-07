@@ -5,13 +5,18 @@
 
 #include <QFile>
 #include <QSqlRecord>
+#include <QRegularExpression>
 
 namespace cutehmi {
 namespace dataacquisition {
 
+const char * Schema::INITIAL_NAME = "cutehmi_dataacquisition";
+
 Schema::Schema(QObject * parent):
 	shareddatabase::DataObject(parent),
-	m(new Members)
+	m(new Members{
+	INITIAL_NAME,
+	""})
 {
 }
 
@@ -23,6 +28,12 @@ QString Schema::name() const
 void Schema::setName(const QString & name)
 {
 	if (m->name != name) {
+		static QRegularExpression recommendedPattern("^[a-z_][a-z0-9_]*$");
+		if (!recommendedPattern.match(name).hasMatch())
+			CUTEHMI_WARNING("Schema name '" << name << "' may not be handled properly by some database drivers - it is recommended that schema name starts with lowercase letter or underscore and contains only lowercase letters, digits or underscore characters.");
+		if (name.startsWith("pg_"))
+			CUTEHMI_WARNING("Schema name '" << name << "' starts with 'pg_', which is a prefix reserved by PostgreSQL system schemas.");
+
 		m->name = name;
 		emit nameChanged();
 	}
