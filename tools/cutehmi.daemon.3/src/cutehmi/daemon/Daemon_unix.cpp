@@ -86,7 +86,6 @@ void _Daemon::initializeSignalHandling()
 		CUTEHMI_DIE("Could not create socket pair for signal handling.");
 	m_signalSocketNotifier.reset(new QSocketNotifier(signalFd[1], QSocketNotifier::Read));
 	connect(m_signalSocketNotifier.get(), & QSocketNotifier::activated, this, & _Daemon::handleSignal);
-
 }
 
 void _Daemon::initializePidFile()

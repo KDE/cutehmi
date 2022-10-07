@@ -167,9 +167,7 @@ int main(int argc, char * argv[])
 		inputHandler.readLine();
 
 		return app.exec();
-
 		//</Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
-
 	} catch (const cutehmi::Messenger::NoAdvertiserException & e) {
 		CUTEHMI_CRITICAL("Dialog message: " << e.message()->text());
 		if (!e.message()->informativeText().isEmpty())

@@ -12,7 +12,6 @@ PostgresMaintenance::PostgresMaintenance(QObject * parent):
 void PostgresMaintenance::createDatabase(const QString & name, const QVariantMap & withArgs)
 {
 	worker([this, name, withArgs](QSqlDatabase & db) {
-
 		bool warning = false;
 		bool error = false;
 
@@ -54,14 +53,12 @@ CREATE DATABASE %1;
 			Notification::Warning(tr("Created '%1' database although the operation wasn't clean.").arg(name));
 		else
 			Notification::Info(tr("Created '%1' database.").arg(name));
-
 	})->work();
 }
 
 void PostgresMaintenance::dropDatabase(const QString & name)
 {
 	worker([this, name](QSqlDatabase & db) {
-
 		bool warning = false;
 		bool error = false;
 
@@ -97,7 +94,6 @@ DROP DATABASE %1;
 			Notification::Warning(tr("Dropped '%1' database although the operation wasn't clean.").arg(name));
 		else
 			Notification::Info(tr("Dropped '%1' database.").arg(name));
-
 	})->work();
 }
 

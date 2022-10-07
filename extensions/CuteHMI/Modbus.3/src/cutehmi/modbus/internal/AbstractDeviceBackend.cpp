@@ -398,7 +398,6 @@ const char * AbstractDeviceBackend::humanFunctionName(AbstractDevice::Function f
 			CUTEHMI_CRITICAL("Unrecognized function code " << function << ".");
 			return "unrecognized function name";
 	}
-
 }
 
 }

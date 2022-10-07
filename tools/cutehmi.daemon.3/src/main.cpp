@@ -259,7 +259,6 @@ int main(int argc, char * argv[])
 				throw Exception(QCoreApplication::translate("main", "No initial loader has been specified."));
 
 			return EXIT_SUCCESS;
-
 		} catch (const Exception & e) {
 			CUTEHMI_CRITICAL(e.what());
 		} catch (const cutehmi::Messenger::NoAdvertiserException & e) {

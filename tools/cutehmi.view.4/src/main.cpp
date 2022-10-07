@@ -66,7 +66,6 @@ int main(int argc, char * argv[])
 	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_VIEW_MAJOR).arg(CUTEHMI_VIEW_MINOR).arg(CUTEHMI_VIEW_MICRO));
 
 	try {
-
 #ifdef CUTEHMI_VIEW_VIRTUAL_KEYBOARD
 		if (qgetenv("QT_IM_MODULE").isEmpty())
 			qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
@@ -323,9 +322,7 @@ int main(int argc, char * argv[])
 		});
 
 		return app.exec();
-
 		//</Qt-Qt_5_9_1_Reference_Documentation-Qt_Core-C++_Classes-QCoreApplication-exec.assumption>
-
 	} catch (const cutehmi::Messenger::NoAdvertiserException & e) {
 		CUTEHMI_CRITICAL("Dialog message: " << e.message()->text());
 		if (!e.message()->informativeText().isEmpty())

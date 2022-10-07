@@ -55,7 +55,6 @@ void Schema::setUser(const QString & user)
 void Schema::create()
 {
 	worker([this](QSqlDatabase & db) {
-
 		bool warning = false;
 		bool error = false;
 
@@ -131,7 +130,6 @@ void Schema::create()
 void Schema::drop()
 {
 	worker([this](QSqlDatabase & db) {
-
 		bool warning = false;
 		bool error = false;
 
