@@ -12,7 +12,6 @@ PostgresMaintenance::PostgresMaintenance(QObject * parent):
 void PostgresMaintenance::createDatabase(const QString & name, const QVariantMap & withArgs)
 {
 	worker([this, name, withArgs](QSqlDatabase & db) {
-
 		bool warning = false;
 		bool error = false;
 
@@ -54,14 +53,12 @@ CREATE DATABASE %1;
 			Notification::Warning(tr("Created '%1' database although the operation wasn't clean.").arg(name));
 		else
 			Notification::Info(tr("Created '%1' database.").arg(name));
-
 	})->work();
 }
 
 void PostgresMaintenance::dropDatabase(const QString & name)
 {
 	worker([this, name](QSqlDatabase & db) {
-
 		bool warning = false;
 		bool error = false;
 
@@ -97,14 +94,13 @@ DROP DATABASE %1;
 			Notification::Warning(tr("Dropped '%1' database although the operation wasn't clean.").arg(name));
 		else
 			Notification::Info(tr("Dropped '%1' database.").arg(name));
-
 	})->work();
 }
 
 }
 }
 
-//(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2022, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

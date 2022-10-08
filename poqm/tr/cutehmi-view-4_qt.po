@@ -56,88 +56,88 @@ msgctxt "MessageDialog|"
 msgid "Message"
 msgstr "İleti"
 
-#: tools/cutehmi.view.4/src/main.cpp:117
+#: tools/cutehmi.view.4/src/main.cpp:116
 msgctxt "main|"
 msgid "Run application in full screen mode."
 msgstr "Uygulamayı tam ekran kipinde başlat."
 
-#: tools/cutehmi.view.4/src/main.cpp:120
+#: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
 msgstr "Yükleyiciyi, başlangıç QML <dosya>'sını belirterek geçersiz kıl."
 
-#: tools/cutehmi.view.4/src/main.cpp:120
+#: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
 msgid "file"
 msgstr "dosya"
 
-#: tools/cutehmi.view.4/src/main.cpp:124
+#: tools/cutehmi.view.4/src/main.cpp:123
 msgctxt "main|"
 msgid "Use <version> for extension minor version to import."
 msgstr "İçe aktarılacak uzantı minör sürümü için <sürüm> kullanın."
 
-#: tools/cutehmi.view.4/src/main.cpp:124
+#: tools/cutehmi.view.4/src/main.cpp:123
 msgctxt "main|"
 msgid "version"
 msgstr "sürüm"
 
-#: tools/cutehmi.view.4/src/main.cpp:128
+#: tools/cutehmi.view.4/src/main.cpp:127
 msgctxt "main|"
 msgid "Touch screen (hides mouse cursor)."
 msgstr "Dokunmatik ekran (fare imlecini gizler)."
 
-#: tools/cutehmi.view.4/src/main.cpp:131
+#: tools/cutehmi.view.4/src/main.cpp:130
 msgctxt "main|"
 msgid "Set Qt Quick <style>."
 msgstr "Qt Quick <biçem>'ini ayarla."
 
-#: tools/cutehmi.view.4/src/main.cpp:131
+#: tools/cutehmi.view.4/src/main.cpp:130
 msgctxt "main|"
 msgid "style"
 msgstr "biçem"
 
-#: tools/cutehmi.view.4/src/main.cpp:134
+#: tools/cutehmi.view.4/src/main.cpp:133
 msgctxt "main|"
 msgid "Choose application <language>."
 msgstr "<uygulama> diliini seç."
 
-#: tools/cutehmi.view.4/src/main.cpp:134
+#: tools/cutehmi.view.4/src/main.cpp:133
 msgctxt "main|"
 msgid "language"
 msgstr "dil"
 
-#: tools/cutehmi.view.4/src/main.cpp:138
+#: tools/cutehmi.view.4/src/main.cpp:137
 msgctxt "main|"
 msgid "Set base directory to <dir>."
 msgstr "Taban dizini <dizin> olarak ayarla."
 
-#: tools/cutehmi.view.4/src/main.cpp:138
+#: tools/cutehmi.view.4/src/main.cpp:137
 msgctxt "main|"
 msgid "dir"
 msgstr "dizin"
 
-#: tools/cutehmi.view.4/src/main.cpp:141
+#: tools/cutehmi.view.4/src/main.cpp:140
 msgctxt "main|"
 msgid "Explicitly specify <resource> file to be loaded on startup."
 msgstr "Başlangıçta yüklenecek <özkaynak>'ı açıkça belirt."
 
-#: tools/cutehmi.view.4/src/main.cpp:141
+#: tools/cutehmi.view.4/src/main.cpp:140
 msgctxt "main|"
 msgid "resource"
 msgstr "özkaynak"
 
-#: tools/cutehmi.view.4/src/main.cpp:148
+#: tools/cutehmi.view.4/src/main.cpp:147
 msgctxt "main|"
 msgid "Extension to import."
 msgstr "İçe aktarılacak uzantı."
 
-#: tools/cutehmi.view.4/src/main.cpp:149
+#: tools/cutehmi.view.4/src/main.cpp:148
 #, qt-format
 msgctxt "main|"
 msgid "Component to create. Defaults to '%1'."
 msgstr "Oluşturulacak bileşenler. Öntanımlı: '%1'."
 
-#: tools/cutehmi.view.4/src/main.cpp:217
+#: tools/cutehmi.view.4/src/main.cpp:216
 msgctxt "main|"
 msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
@@ -146,7 +146,7 @@ msgstr ""
 "'component' seçeneğini kullanamazsınız; çünkü derleme sırasında "
 "'forceDefaultOptions' seçeneği ayarlanmış."
 
-#: tools/cutehmi.view.4/src/main.cpp:219
+#: tools/cutehmi.view.4/src/main.cpp:218
 msgctxt "main|"
 msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
@@ -155,7 +155,7 @@ msgstr ""
 "'extension' seçeneğini kullanamazsınız; çünkü derleme sırasında "
 "'forceDefaultOptions' seçeneği ayarlanmış."
 
-#: tools/cutehmi.view.4/src/main.cpp:221 tools/cutehmi.view.4/src/main.cpp:223
+#: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -165,14 +165,14 @@ msgstr ""
 "'%1' seçeneğini kullanamazsınız; çünkü derleme sırasında "
 "'forceDefaultOptions' seçeneği ayarlanmış."
 
-#: tools/cutehmi.view.4/src/main.cpp:229
+#: tools/cutehmi.view.4/src/main.cpp:228
 #, qt-format
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
 msgstr ""
 "Komut satırı argüman hatası: '%1' seçeneğinin değeri bir sayı olmalıdır."
 
-#: tools/cutehmi.view.4/src/main.cpp:237
+#: tools/cutehmi.view.4/src/main.cpp:236
 msgctxt "main|"
 msgid ""
 "Command line argument error: please specify extension with major version "
@@ -181,7 +181,7 @@ msgstr ""
 "Komut satırı argüman hatası: Son noktadan sonra majör sürüm numaralı uzantı "
 "belirtin."
 
-#: tools/cutehmi.view.4/src/main.cpp:285
+#: tools/cutehmi.view.4/src/main.cpp:284
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -189,13 +189,13 @@ msgid ""
 msgstr ""
 "'%1' URL'si, URL şemasının yanında yasaklanmış olan göreceli yol içeriyor."
 
-#: tools/cutehmi.view.4/src/main.cpp:292
+#: tools/cutehmi.view.4/src/main.cpp:291
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
 msgstr "'%1' QML dosyası yok."
 
-#: tools/cutehmi.view.4/src/main.cpp:297
+#: tools/cutehmi.view.4/src/main.cpp:296
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."

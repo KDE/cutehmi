@@ -20,8 +20,17 @@ class CUTEHMI_DATAACQUISITION_API Schema:
 		QML_NAMED_ELEMENT(Schema)
 
 	public:
+		static const char * INITIAL_NAME;	///< Schema name initial value ("cutehmi_dataacquisition").
+
 		/**
 		  Schema name.
+
+		  Initial value is defined by INITIAL_NAME constant.
+
+		  @warning DBMS may require specific schema name format. It is recommended that schema name is not empty, it starts with
+		  lowercase letter or underscore and contains only lowercase letters, digits or underscore characters. Prefix "pg_" is
+		  reserved by PostgreSQL for system schemas. Current implementation won't sanitize or mitigate errors, which result from
+		  using unsupported schema name.
 		  */
 		Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 

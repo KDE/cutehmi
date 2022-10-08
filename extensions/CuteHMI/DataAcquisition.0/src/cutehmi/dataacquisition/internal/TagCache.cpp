@@ -106,7 +106,6 @@ void TagCache::insert(const QString & name, QSqlDatabase & db)
 
 void TagCache::update(QSqlDatabase & db)
 {
-
 	if (db.driverName() == "QPSQL") {
 		QSqlQuery query(db);
 		query.setForwardOnly(true);
