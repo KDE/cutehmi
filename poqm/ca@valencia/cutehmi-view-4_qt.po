@@ -61,91 +61,91 @@ msgctxt "MessageDialog|"
 msgid "Message"
 msgstr "Missatge"
 
-#: tools/cutehmi.view.4/src/main.cpp:117
+#: tools/cutehmi.view.4/src/main.cpp:116
 msgctxt "main|"
 msgid "Run application in full screen mode."
 msgstr "Executa l'aplicació en el mode de pantalla completa."
 
-#: tools/cutehmi.view.4/src/main.cpp:120
+#: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
 msgstr ""
 "Substituïx el carregador especificant el <file> QML inicial que es carregarà."
 
-#: tools/cutehmi.view.4/src/main.cpp:120
+#: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
 msgid "file"
 msgstr "fitxer"
 
-#: tools/cutehmi.view.4/src/main.cpp:124
+#: tools/cutehmi.view.4/src/main.cpp:123
 msgctxt "main|"
 msgid "Use <version> for extension minor version to import."
 msgstr ""
 "Utilitza <version> com a versió secundària de l'extensió que s'importarà."
 
-#: tools/cutehmi.view.4/src/main.cpp:124
+#: tools/cutehmi.view.4/src/main.cpp:123
 msgctxt "main|"
 msgid "version"
 msgstr "versió"
 
-#: tools/cutehmi.view.4/src/main.cpp:128
+#: tools/cutehmi.view.4/src/main.cpp:127
 msgctxt "main|"
 msgid "Touch screen (hides mouse cursor)."
 msgstr "Pantalla tàctil (oculta el cursor del ratolí)."
 
-#: tools/cutehmi.view.4/src/main.cpp:131
+#: tools/cutehmi.view.4/src/main.cpp:130
 msgctxt "main|"
 msgid "Set Qt Quick <style>."
 msgstr "Establix l'<style> de Qt Quick."
 
-#: tools/cutehmi.view.4/src/main.cpp:131
+#: tools/cutehmi.view.4/src/main.cpp:130
 msgctxt "main|"
 msgid "style"
 msgstr "estil"
 
-#: tools/cutehmi.view.4/src/main.cpp:134
+#: tools/cutehmi.view.4/src/main.cpp:133
 msgctxt "main|"
 msgid "Choose application <language>."
 msgstr "Tria l'<language> de l'aplicació."
 
-#: tools/cutehmi.view.4/src/main.cpp:134
+#: tools/cutehmi.view.4/src/main.cpp:133
 msgctxt "main|"
 msgid "language"
 msgstr "idioma"
 
-#: tools/cutehmi.view.4/src/main.cpp:138
+#: tools/cutehmi.view.4/src/main.cpp:137
 msgctxt "main|"
 msgid "Set base directory to <dir>."
 msgstr "Establix el directori base a <dir>."
 
-#: tools/cutehmi.view.4/src/main.cpp:138
+#: tools/cutehmi.view.4/src/main.cpp:137
 msgctxt "main|"
 msgid "dir"
 msgstr "dir"
 
-#: tools/cutehmi.view.4/src/main.cpp:141
+#: tools/cutehmi.view.4/src/main.cpp:140
 msgctxt "main|"
 msgid "Explicitly specify <resource> file to be loaded on startup."
 msgstr ""
 "Especifiqueu explícitament el fitxer <resource> que es carregarà a l'inici."
 
-#: tools/cutehmi.view.4/src/main.cpp:141
+#: tools/cutehmi.view.4/src/main.cpp:140
 msgctxt "main|"
 msgid "resource"
 msgstr "recurs"
 
-#: tools/cutehmi.view.4/src/main.cpp:148
+#: tools/cutehmi.view.4/src/main.cpp:147
 msgctxt "main|"
 msgid "Extension to import."
 msgstr "Extensió que s'ha d'importar."
 
-#: tools/cutehmi.view.4/src/main.cpp:149
+#: tools/cutehmi.view.4/src/main.cpp:148
 #, qt-format
 msgctxt "main|"
 msgid "Component to create. Defaults to '%1'."
 msgstr "Component que s'ha de crear. Valors predeterminats a «%1»."
 
-#: tools/cutehmi.view.4/src/main.cpp:217
+#: tools/cutehmi.view.4/src/main.cpp:216
 msgctxt "main|"
 msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
@@ -154,7 +154,7 @@ msgstr ""
 "No podeu utilitzar l'opció «component» perquè s'ha establit l'opció "
 "«forceDefaultOptions» en el moment de la compilació."
 
-#: tools/cutehmi.view.4/src/main.cpp:219
+#: tools/cutehmi.view.4/src/main.cpp:218
 msgctxt "main|"
 msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
@@ -163,7 +163,7 @@ msgstr ""
 "No podeu utilitzar l'opció «extensió» perquè s'ha establit l'opció "
 "«forceDefaultOptions» en el moment de la compilació."
 
-#: tools/cutehmi.view.4/src/main.cpp:221 tools/cutehmi.view.4/src/main.cpp:223
+#: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -173,7 +173,7 @@ msgstr ""
 "No podeu utilitzar l'opció «%1» perquè s'ha establit l'opció "
 "«forceDefaultOptions» en el moment de la compilació."
 
-#: tools/cutehmi.view.4/src/main.cpp:229
+#: tools/cutehmi.view.4/src/main.cpp:228
 #, qt-format
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
@@ -181,7 +181,7 @@ msgstr ""
 "S'ha produït un error d'argument de la línia d'ordres: el valor de l'opció "
 "«%1» cal que siga un nombre."
 
-#: tools/cutehmi.view.4/src/main.cpp:237
+#: tools/cutehmi.view.4/src/main.cpp:236
 msgctxt "main|"
 msgid ""
 "Command line argument error: please specify extension with major version "
@@ -190,7 +190,7 @@ msgstr ""
 "S'ha produït un error d'argument de la línia d'ordres: especifiqueu "
 "l'extensió amb un número de versió principal després de l'últim punt."
 
-#: tools/cutehmi.view.4/src/main.cpp:285
+#: tools/cutehmi.view.4/src/main.cpp:284
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -198,13 +198,13 @@ msgid ""
 msgstr ""
 "L'URL «%1» conté un camí relatiu amb un esquema d'URL, que està prohibit."
 
-#: tools/cutehmi.view.4/src/main.cpp:292
+#: tools/cutehmi.view.4/src/main.cpp:291
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
 msgstr "El fitxer QML «%1» no existix."
 
-#: tools/cutehmi.view.4/src/main.cpp:297
+#: tools/cutehmi.view.4/src/main.cpp:296
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."
