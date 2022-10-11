@@ -60,7 +60,7 @@ class CUTEHMI_MODBUS_API AbstractClient:
 		 * than specified by @a requestInterval. If value of @ref pollingTaskInterval is lower, this property enforces its
 		 * precedence.
 		 *
-		 * @note subtle difference between @pollingTaskInterval and @a requestInterval is that first one measures interval between
+		 * @note subtle difference between @a pollingTaskInterval and @a requestInterval is that first one measures interval between
 		 * last response and new request, while this one measures interval between last request and new request.
 		 */
 		Q_PROPERTY(int requestInterval READ requestInterval WRITE setRequestInterval NOTIFY requestIntervalChanged)
