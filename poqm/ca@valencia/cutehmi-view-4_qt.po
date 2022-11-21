@@ -137,13 +137,13 @@ msgstr "recurs"
 #: tools/cutehmi.view.4/src/main.cpp:147
 msgctxt "main|"
 msgid "Extension to import."
-msgstr "Extensió que s'ha d'importar."
+msgstr "Extensió que s'importarà."
 
 #: tools/cutehmi.view.4/src/main.cpp:148
 #, qt-format
 msgctxt "main|"
 msgid "Component to create. Defaults to '%1'."
-msgstr "Component que s'ha de crear. Valors predeterminats a «%1»."
+msgstr "Component que es crearà. Valors predeterminats a «%1»."
 
 #: tools/cutehmi.view.4/src/main.cpp:216
 msgctxt "main|"
