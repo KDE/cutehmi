@@ -27,7 +27,6 @@ Service operations can be managed by controllers (descendants of cutehmi::servic
 
 ### Version 3
 
-- ServiceStatuses are using QAbstractState * as a hash map key.
 - ServiceManager has been replaced with cutehmi::services::ServiceGroup and classes derived from
   cutehmi::services::AbstractServiceController or cutehmi::services::ServiceGroupRule can be used to control service operations.
 - cutehmi::services::SelfService can be used to define QML services without the need of using C++ API.
