@@ -492,7 +492,7 @@ void ServiceStateMachine::resetInterruptedState()
 
 void ServiceStateMachine::setUpStopped(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -529,7 +529,7 @@ void ServiceStateMachine::setUpStopped(bool reconfigure)
 
 void ServiceStateMachine::setUpStarting(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -571,7 +571,7 @@ void ServiceStateMachine::setUpStarting(bool reconfigure)
 
 void ServiceStateMachine::setUpStarted(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -617,7 +617,7 @@ void ServiceStateMachine::setUpStarted(bool reconfigure)
 
 void ServiceStateMachine::setUpStopping(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -657,7 +657,7 @@ void ServiceStateMachine::setUpStopping(bool reconfigure)
 
 void ServiceStateMachine::setUpBroken(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -704,7 +704,7 @@ void ServiceStateMachine::setUpBroken(bool reconfigure)
 
 void ServiceStateMachine::setUpRepairing(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -746,7 +746,7 @@ void ServiceStateMachine::setUpRepairing(bool reconfigure)
 
 void ServiceStateMachine::setUpEvacuating(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -786,7 +786,7 @@ void ServiceStateMachine::setUpEvacuating(bool reconfigure)
 
 void ServiceStateMachine::setUpInterrupted(bool reconfigure)
 {
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
 
 	if (reconfigure) {
 		// Remove and delete old transitions (incomming and outgoing).
@@ -821,8 +821,8 @@ void ServiceStateMachine::addStoppedTransition(int index)
 {
 	auto state = stoppedState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
@@ -837,8 +837,8 @@ void ServiceStateMachine::addStartingTransition(int index)
 {
 	auto state = startingState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
@@ -860,8 +860,8 @@ void ServiceStateMachine::addStartedTransition(int index)
 {
 	auto state = startedState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
@@ -879,8 +879,8 @@ void ServiceStateMachine::addStoppingTransition(int index)
 {
 	auto state = stoppingState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
@@ -898,8 +898,8 @@ void ServiceStateMachine::addBrokenTransition(int index)
 {
 	auto state = brokenState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
@@ -917,8 +917,8 @@ void ServiceStateMachine::addRepairingTransition(int index)
 {
 	auto state = repairingState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
@@ -939,8 +939,8 @@ void ServiceStateMachine::addEvacuatingTransition(int index)
 {
 	auto state = evacuatingState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
@@ -958,8 +958,8 @@ void ServiceStateMachine::addInterrputedTransition(int index)
 {
 	auto state = interruptedState();
 
-	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(m->serviceable != nullptr, "serviceable can not be nullptr");
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		default:
@@ -1099,7 +1099,7 @@ void ServiceStateMachine::StartedState::addYieldingTransition(int index)
 {
 	auto state = yieldingState();
 
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
