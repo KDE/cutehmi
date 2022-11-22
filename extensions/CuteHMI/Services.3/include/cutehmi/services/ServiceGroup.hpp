@@ -21,8 +21,8 @@ namespace services {
  * Service group.
  *
  * Service group allows to collectively manage a group of services. By its most basic principle, whenever any of
- * start(), stop() or activate() slot is called on the group it forwards the call to the services managed by it. This basic behavior
- * can be customized by using of rules.
+ * start(), stop() or activate() slots is called on the group it forwards the call to the services managed by it. This basic behavior
+ * can be customized by using rules.
  *
  * Service group is a service by itself, so it makes use of the state machine to handle propagation of slot calls. Internally for
  * each service it creates substates in its own states configured via Serviceable interface. These substates are executed in
