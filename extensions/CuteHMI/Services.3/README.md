@@ -2,13 +2,15 @@
 
 ![Development status](doc/status-alpha.svg)
 
-Extension that helps creating services. Many extensions may need to behave like services or daemons, doing their tasks in the
+Extension that helps to create services. Many extensions may need to behave like services or daemons, doing their tasks in the
 background, independently from UI. This extension helps to organize and coordinate them.
 
-Services work on a basis of [The State Machine Framework](https://doc.qt.io/qt-5/statemachine-api.html). Each service is controlled
-by its own state machine. This state machine is composed of some standard, predefined states commonly referred as _state interface_.
-The details of actions performed in those state, as well as some of the transitions, are a subject of cutehmi::services::Serviceable
-implementation.
+Services work on the basis of [The State Machine Framework](https://doc.qt.io/qt-6/qtstatemachine-cpp-guide.html). Each service is
+controlled by its own state machine. This state machine is composed of some standard, predefined states commonly referred as
+_state interface_. The details of actions performed in those state, as well as some of the transitions, are a subject of
+cutehmi::services::Serviceable implementation.
+
+![State interface](doc/standard_states.png)
 
 # Major classes
 
