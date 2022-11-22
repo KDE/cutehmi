@@ -1,0 +1,25 @@
+Problem:
+
+The Declarative State Machiine Framework in QML provides a convenient properties
+to specify signals, which trigger state transitions. These properties use
+QJSValue type in C++ implementation. Unfortunately QJSValue is not suitable for
+C++ State Machine Framework counterpart.
+
+Investigation:
+
+C++ implementation of SignalTransition::setSignal() uses Qt private API to
+convert signal stored in QJSValue to QObject * and QByteArray pair suitable for
+QSignalTransition C++ API.
+
+Workaround:
+
+Instead of dealing with Qt private API a helper SignalTransition object can be
+created with the aid of C++ QML API. This object can be turned into QJSValue
+and then appropriate QJSValue can be assigned to its 'signal' propery. Because
+SignalTransition class inherites after QSignalTransition signal name and sender
+object can be read with standard QSignalTransition C++ API. This turns
+SignalTransition object into a cheap converter, which can be kept as
+implementation detail.
+
+Snippet:
+

@@ -1,0 +1,46 @@
+Problem:
+
+Function handleCounters() relies on values returned by QState::active().
+Unfortunately `active` property is being set to true only after the signal
+QState::entered() has been emitted.
+
+Investigation:
+
+Following code in `qt5/qtbase/src/corelib/statemachine/qabstractstate.cpp` is
+responsible for setting up the `active` property and emitting `entered()`
+signal.
+
+```
+void QAbstractStatePrivate::emitEntered()
+{
+    Q_Q(QAbstractState);
+    emit q->entered(QAbstractState::QPrivateSignal());
+    if (!active) {
+        active = true;
+        emit q->activeChanged(true);
+    }
+}
+```
+
+As one can see signal is emitted first and then the property is being set.
+
+Here's what the [documentation](https://doc.qt.io/qt-6/qabstractstate.html#active-prop)
+says about `QAbstractState::active` property:
+
+> This property holds the active property of this state. A state is active
+> between entered() and exited() signals.
+
+This is strict definition in continuous space, but the program lives in a
+discrete space and we end up with an undetermined state, when the signal
+`entered()` has been emitted, but `active` property has not been set yet.
+Unfortunatelly `entered()` signal can be connected to slots that may rely on
+`active` property in this short-lived window.
+
+Workaround:
+
+A workaround is to rely on `QAbstractState::activeChanged()` signal instead
+of `QAbstractState::entered()` whenever access to `active` property in slot is
+needed.
+
+Snippet:
+

@@ -1,0 +1,30 @@
+Problem:
+
+Component State from Qt declarative state machine framework (QtQml.StateMachine)
+prints warning "No top level StateMachine found. Nothing will run without a
+StateMachine" if it is not enclosed in some state machine.
+
+Investigation:
+
+Code that triggers the warning can be found in
+`qtdeclarative/src/imports/statemachine/state.cpp` file:
+
+```
+void State::componentComplete()
+{
+    if (this->machine() == nullptr) {
+        static bool once = false;
+        if (!once) {
+            once = true;
+            qmlWarning(this) << "No top level StateMachine found.  Nothing will run without a StateMachine.";
+        }
+    }
+}
+```
+
+Workaround:
+
+Workaround is to use surrogate state machine until configureXYZ() function are
+called and the state is reparented to the destination state machine.
+
+Snippet:

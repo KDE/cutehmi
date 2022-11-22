@@ -1,0 +1,15 @@
+Problem:
+
+Qml2Puppet can not handle indefinitely recursive properties.
+
+Workaround:
+
+Workaround is to detect if current application is Qml2Puppet and return nullptr if so.
+
+Snippet:
+
+Solution:
+
+Recursive properties can be troublesome not only for Qml2Puppet, but for various tools, which inspect properties. Additionaly
+approach used by PollingTimer class does not seem to stand to KISS principle. For these reasons PollingTimer class has been entirely
+removed.
