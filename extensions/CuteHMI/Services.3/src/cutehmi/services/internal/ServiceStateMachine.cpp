@@ -829,7 +829,7 @@ void ServiceStateMachine::addStoppedTransition(int index)
 			stoppedTransition(index) = state->addTransition(m->service, & AbstractService::started, startingState());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
@@ -851,7 +851,7 @@ void ServiceStateMachine::addStartingTransition(int index)
 			startingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, brokenState());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 
 }
@@ -871,7 +871,7 @@ void ServiceStateMachine::addStartedTransition(int index)
 			startedTransition(index) = addServiceableTransition(state, brokenState(), m->serviceable->transitionToBroken());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
@@ -890,7 +890,7 @@ void ServiceStateMachine::addStoppingTransition(int index)
 			stoppingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, interruptedState());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
@@ -909,7 +909,7 @@ void ServiceStateMachine::addBrokenTransition(int index)
 			brokenTransition(index) = state->addTransition(m->service, & AbstractService::stopped, evacuatingState());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
@@ -931,7 +931,7 @@ void ServiceStateMachine::addRepairingTransition(int index)
 			repairingTransition(index) = addServiceableTransition(state, brokenState(), m->serviceable->transitionToBroken());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
@@ -950,7 +950,7 @@ void ServiceStateMachine::addEvacuatingTransition(int index)
 			evacuatingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, interruptedState());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
@@ -963,7 +963,7 @@ void ServiceStateMachine::addInterrputedTransition(int index)
 
 	switch (index) {
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
@@ -1106,35 +1106,35 @@ void ServiceStateMachine::StartedState::addYieldingTransition(int index)
 			yieldingTransition(index) = state->addTransition(serviceStateMachine()->service(), & AbstractService::activated, activeState());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
 void ServiceStateMachine::StartedState::addIdlingTransition(int index)
 {
-	CUTEHMI_ASSERT(serviceStateMachine() != nullptr, "serviceableStateMachine can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(serviceStateMachine()->serviceable() != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(serviceStateMachine() != nullptr, "serviceableStateMachine can not be nullptr");
+	CUTEHMI_ASSERT(serviceStateMachine()->serviceable() != nullptr, "serviceable can not be nullptr");
 
 	switch (index) {
 		case 0:
 			idlingTransition(0) = addServiceableTransition(idlingState(), yieldingState(), serviceStateMachine()->serviceable()->transitionToYielding(), true);
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
 void ServiceStateMachine::StartedState::addActiveTransition(int index)
 {
-	CUTEHMI_ASSERT(serviceStateMachine() != nullptr, "serviceableStateMachine can not be nullptr when calling " Q_FUNC_INFO);
-	CUTEHMI_ASSERT(serviceStateMachine()->serviceable() != nullptr, "serviceable can not be nullptr when calling " Q_FUNC_INFO);
+	CUTEHMI_ASSERT(serviceStateMachine() != nullptr, "serviceableStateMachine can not be nullptr");
+	CUTEHMI_ASSERT(serviceStateMachine()->serviceable() != nullptr, "serviceable can not be nullptr");
 
 	switch (index) {
 		case 0:
 			activeTransition(0) = addServiceableTransition(activeState(), idlingState(), serviceStateMachine()->serviceable()->transitionToIdling());
 			break;
 		default:
-			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " Q_FUNC_INFO " function.");
+			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
 }
 
