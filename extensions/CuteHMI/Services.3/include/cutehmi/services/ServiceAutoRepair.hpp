@@ -10,6 +10,7 @@
 #include <memory>
 
 class QAbstractState;
+class QTimer;
 
 namespace cutehmi {
 namespace services {
