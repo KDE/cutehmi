@@ -12,7 +12,7 @@ cutehmi::services::Serviceable implementation.
 
 ![State interface](doc/standard_states.png)
 
-# Major classes
+## Major classes
 
 Each object that wants to become a service either extends cutehmi::services::AbstractService or implements 
 cutehmi::services::Serviceable interface. In order to turn object that implements cutehmi::services::Serviceable interface into a 
@@ -25,13 +25,6 @@ Class cutehmi::services::ServiceGroup can be used to conveniently manage a group
 Service operations can be managed by controllers (descendants of cutehmi::services::AbstractServiceController) and group rules
 (descendants of cutehmi::services::ServiceGroupRule).
 
-## Changes
+## Related pages
 
-### Version 3
-
-- ServiceManager has been replaced with cutehmi::services::ServiceGroup and classes derived from
-  cutehmi::services::AbstractServiceController or cutehmi::services::ServiceGroupRule can be used to control service operations.
-- cutehmi::services::SelfService can be used to define QML services without the need of using C++ API.
-- cutehmi::services::StateInterface provides clean access to service states.
-- cutehmi::services::Serviceable has been slightly modified and state interface allows for reconfiguration of the state machine.
-- PollingTimer has been removed.
+- [CHANGES](CHANGES.md)

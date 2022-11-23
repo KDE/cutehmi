@@ -18,17 +18,17 @@ namespace cutehmi {
 namespace services {
 
 /**
- * Service group.
+ * %Service group.
  *
- * Service group allows to collectively manage a group of services. By its most basic principle, whenever any of
- * start(), stop() or activate() slots is called on the group it forwards the call to the services managed by it. This basic behavior
- * can be customized by using rules.
+ * %Service group allows to collectively manage a group of services. By its most basic principle, whenever any of
+ * start(), stop() or activate() slots is called on the group it forwards the call to the services managed by it. This basic
+ * behavior can be customized by the use of @ref rules.
  *
- * Service group is a service by itself, so it makes use of the state machine to handle propagation of slot calls. Internally for
- * each service it creates substates in its own states configured via Serviceable interface. These substates are executed in
- * parallel, so for example all services will be started at once. However if service group rule can be applied to a particular
- * service then additional subsequent states are added to the substate dedicated to a particular service and rule defines the
- * transition between them.
+ * %Service group is a @ref Service "service" by itself, so it makes use of the state machine to handle propagation of slot calls.
+ * Internally for each service it creates substates, which are a children of its own states configured via Serviceable interface.
+ * These substates are executed in parallel, so for example all services will be started at once. However if some
+ * @ref ServiceGroupRule "service group rule" can be applied to a particular service, then additional subsequent states are added to
+ * the substate created for a particular service and the rule defines the transition between them.
  */
 class CUTEHMI_SERVICES_API ServiceGroup:
 	public cutehmi::services::AbstractService,

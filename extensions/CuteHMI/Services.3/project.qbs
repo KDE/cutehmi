@@ -22,6 +22,7 @@ Project {
 		description: "Extension that helps creating services."
 
 		files: [
+         "CHANGES.md",
          "README.md",
          "LICENSE.MIT",
          "LICENSE.LGPL3",

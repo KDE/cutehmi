@@ -23,7 +23,7 @@ class AbstractServiceController;
 /**
  * Abstract service.
  *
- * Guarantee is given that @a states property is never @a nullptr, nor any of its states is ever @p nullptr, though it is allowed
+ * Guarantee is given that @ref states property is never @a nullptr, nor any of its states is ever @p nullptr, though it is allowed
  * that individual states can change. Subclasses have to take care to ensure that this guarantee is not violated. Additionaly they
  * should take care about initialized() signal, which should be emitted once the service has been initialized and it's ready to be
  * started. It is also well-seen if subclasses update service @a status accordingly to the service state during its lifecycle.
