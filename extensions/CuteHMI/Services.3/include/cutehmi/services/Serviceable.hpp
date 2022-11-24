@@ -32,7 +32,7 @@ namespace services {
 class CUTEHMI_SERVICES_API Serviceable
 {
 	public:
-		typedef std::function<void (QState & state, const QString &)> AssignStatusFunction;
+		typedef std::function<void (QState & state, const QString & status)> AssignStatusFunction;
 
 		Serviceable() = default;
 
