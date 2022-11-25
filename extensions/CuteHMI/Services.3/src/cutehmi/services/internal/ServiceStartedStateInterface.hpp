@@ -9,6 +9,8 @@ namespace cutehmi {
 namespace services {
 namespace internal {
 
+class ServiceStateInterface;
+
 class CUTEHMI_SERVICES_PRIVATE ServiceStartedStateInterface:
 	public StartedStateInterface
 {
