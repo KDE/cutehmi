@@ -17,7 +17,7 @@ class AbstractService;
  *
  * %State interface is basically a predefined state machine configuration, which can be utilized and extended by the service.
  *
- * States and transitions can be customized through Serviceable interface. %State passed to the Serviceable are not exactly the same
+ * States and transitions can be customized through Serviceable interface. States passed to the Serviceable are not exactly the same
  * ones as the ones available as StateInterface properties however. Each state comes up with two flavors - persistent and ephemeric.
  * Each ephemeric state has a persistent parent. Ephemeric children can be deleted and recreated. They are the ones which are passed
  * to Servicable functions. This allows the service to be reconfigured from the inside when necessary, while keeping external
