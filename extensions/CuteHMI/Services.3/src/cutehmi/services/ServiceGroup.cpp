@@ -371,20 +371,9 @@ void ServiceGroup::handleCounters()
 		if (yieldingCount() == m->services.count())
 			emit groupStarted();
 
-	if (states()->repairing()->active())
-		if (startedCount() == m->services.count())
-			emit groupStarted();
-
 	if (states()->stopping()->active() || states()->evacuating()->active())
 		if (stoppedCount() == m->services.count())
 			emit groupStopped();
-
-	if (!states()->repairing()->active())
-		if (brokenCount() > 0)
-			emit groupBroken();
-
-	if (interruptedCount() > 0)
-		emit groupBroken();
 }
 
 QString & ServiceGroup::DefaultStatus()
