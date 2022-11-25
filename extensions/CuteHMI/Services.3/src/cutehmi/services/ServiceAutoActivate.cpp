@@ -19,14 +19,8 @@ void ServiceAutoActivate::subscribe(AbstractService * service)
 		return;
 	}
 
-	ServiceEntry entry;
-	entry.yieldingEnteredConnection = connect(service->states()->startedStates()->yielding(), & QAbstractState::entered, service, & AbstractService::activate);
-	entry.yieldingChangedConnection = connect(service->states()->startedStates(), & StartedStateInterface::yieldingChanged, this, [this, service]() {
-		CUTEHMI_ASSERT(m->serviceData.contains(service), "serviceData must contain service");
-		disconnect(m->serviceData[service].yieldingEnteredConnection);
-		m->serviceData[service].yieldingEnteredConnection = connect(service->states()->startedStates()->yielding(), & QAbstractState::entered, service, & AbstractService::activate);
-	});
-	m->serviceData.insert(service, entry);
+	auto connection = connect(service->states()->startedStates()->yielding(), & QAbstractState::entered, service, & AbstractService::activate);
+	m->serviceData.insert(service, connection);
 }
 
 void ServiceAutoActivate::unsubscribe(AbstractService * service)
@@ -36,9 +30,7 @@ void ServiceAutoActivate::unsubscribe(AbstractService * service)
 		return;
 	}
 
-	auto entry = m->serviceData.take(service);
-	disconnect(entry.yieldingEnteredConnection);
-	disconnect(entry.yieldingChangedConnection);
+	disconnect(m->serviceData.take(service));
 }
 
 }

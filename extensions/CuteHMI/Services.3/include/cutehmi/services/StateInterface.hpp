@@ -33,21 +33,21 @@ class CUTEHMI_SERVICES_API StateInterface:
 		QML_UNCREATABLE("StateInterface is an abstract class")
 
 	public:
-		Q_PROPERTY(QAbstractState * stopped READ stopped NOTIFY stoppedChanged)
+		Q_PROPERTY(QAbstractState * stopped READ stopped CONSTANT)
 
-		Q_PROPERTY(QAbstractState * starting READ starting NOTIFY startingChanged)
+		Q_PROPERTY(QAbstractState * starting READ starting CONSTANT)
 
-		Q_PROPERTY(QAbstractState * started READ started NOTIFY startedChanged)
+		Q_PROPERTY(QAbstractState * started READ started CONSTANT)
 
-		Q_PROPERTY(QAbstractState * stopping READ stopping NOTIFY stoppingChanged)
+		Q_PROPERTY(QAbstractState * stopping READ stopping CONSTANT)
 
-		Q_PROPERTY(QAbstractState * broken READ broken NOTIFY brokenChanged)
+		Q_PROPERTY(QAbstractState * broken READ broken CONSTANT)
 
-		Q_PROPERTY(QAbstractState * repairing READ repairing NOTIFY repairingChanged)
+		Q_PROPERTY(QAbstractState * repairing READ repairing CONSTANT)
 
-		Q_PROPERTY(QAbstractState * evacuating READ evacuating NOTIFY evacuatingChanged)
+		Q_PROPERTY(QAbstractState * evacuating READ evacuating CONSTANT)
 
-		Q_PROPERTY(QAbstractState * interrupted READ interrupted NOTIFY interruptedChanged)
+		Q_PROPERTY(QAbstractState * interrupted READ interrupted CONSTANT)
 
 		Q_PROPERTY(cutehmi::services::StartedStateInterface * startedStates READ startedStates CONSTANT)
 
@@ -88,23 +88,6 @@ class CUTEHMI_SERVICES_API StateInterface:
 		 * @return state.
 		 */
 		Q_INVOKABLE QAbstractState * findState(const QString & name) const;
-
-	signals:
-		void stoppedChanged();
-
-		void startingChanged();
-
-		void startedChanged();
-
-		void stoppingChanged();
-
-		void brokenChanged();
-
-		void repairingChanged();
-
-		void evacuatingChanged();
-
-		void interruptedChanged();
 
 	protected:
 		AbstractService * service() const;

@@ -22,12 +22,7 @@ class CUTEHMI_SERVICES_API ServiceAutoActivate:
 		void unsubscribe(AbstractService * service) override;
 
 	private:
-		struct ServiceEntry {
-			QMetaObject::Connection yieldingEnteredConnection;
-			QMetaObject::Connection yieldingChangedConnection;
-		};
-
-		typedef QHash<AbstractService *, ServiceEntry> ServiceDataContainer;
+		typedef QHash<AbstractService *, QMetaObject::Connection> ServiceDataContainer;
 
 		struct Members {
 			ServiceDataContainer serviceData;

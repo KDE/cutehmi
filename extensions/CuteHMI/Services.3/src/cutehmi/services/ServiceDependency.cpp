@@ -89,96 +89,55 @@ void ServiceDependency::RequiredServiceListAppend(QQmlListProperty<AbstractServi
 
 ServiceDependency::StartConditionTransition::StartConditionTransition(QPointer<ServiceDependency> serviceDependency):
 	m(new Members{
-	serviceDependency,
-	{}})
+	serviceDependency})
 {
 	if (m->serviceDependency)
-		for (auto && requiredService : m->serviceDependency->requiredServices())
-			connect(requiredService->states(), & StateInterface::startedChanged, this, [this]() {
-			reconnectStateEntered();
-		});
-	reconnectStateEntered();
-}
-
-bool ServiceDependency::StartConditionTransition::test() const
-{
-	if (m->serviceDependency)
-		for (auto && requiredService : m->serviceDependency->requiredServices())
-			if (!requiredService->states()->started()->active())
-				return false;
-
-	return true;
+		for (auto && requiredService : m->serviceDependency->requiredServices()) {
+			connect(requiredService->states()->started(), & QState::entered, this, [this]() {
+				ServiceGroup::PostConditionCheckEvent(machine());
+			});
+		}
 }
 
 bool ServiceDependency::StartConditionTransition::eventTest(QEvent * event)
 {
-	if (event->type() == static_cast<QEvent::Type>(ServiceGroup::CONDITION_CHECK_EVENT))
-		return test();
+	if (event->type() == static_cast<QEvent::Type>(ServiceGroup::CONDITION_CHECK_EVENT)) {
+		if (m->serviceDependency)
+			for (auto && requiredService : m->serviceDependency->requiredServices())
+				if (!requiredService->states()->started()->active())
+					return false;
+
+		return true;
+	}
 
 	return QSignalTransition::event(event);
-}
-
-void ServiceDependency::StartConditionTransition::reconnectStateEntered()
-{
-	for (auto && connection : m->stateEnteredConnections)
-		disconnect(connection);
-
-	if (m->serviceDependency)
-		for (auto && requiredService : m->serviceDependency->requiredServices()) {
-			auto connection = connect(requiredService->states()->started(), & QState::entered, this, [this]() {
-				ServiceGroup::PostConditionCheckEvent(machine());
-			});
-			m->stateEnteredConnections.append(connection);
-		}
 }
 
 ServiceDependency::StopConditionTransition::StopConditionTransition(QPointer<ServiceDependency> serviceDependency):
 	m(new Members{
-	serviceDependency,
-	{},
-	{}})
+	serviceDependency})
 {
 	if (m->serviceDependency) {
-		connect(m->serviceDependency->service()->states(), & StateInterface::stoppedChanged, this, [this]() {
-			reconnectStateEntered();
+		connect(m->serviceDependency->service()->states()->stopped(), & QState::entered, this, [this]() {
+			ServiceGroup::PostConditionCheckEvent(machine());
 		});
-		connect(m->serviceDependency->service()->states(), & StateInterface::interruptedChanged, this, [this]() {
-			reconnectStateEntered();
+		connect(m->serviceDependency->service()->states()->interrupted(), & QState::entered, this, [this]() {
+			ServiceGroup::PostConditionCheckEvent(machine());
 		});
 	}
-	reconnectStateEntered();
-}
-
-bool ServiceDependency::StopConditionTransition::test() const
-{
-	if (m->serviceDependency)
-		return m->serviceDependency->service()->states()->stopped()->active()
-				|| m->serviceDependency->service()->states()->interrupted()->active();
-
-	return true;
 }
 
 bool ServiceDependency::StopConditionTransition::eventTest(QEvent * event)
 {
-	if (event->type() == static_cast<QEvent::Type>(ServiceGroup::CONDITION_CHECK_EVENT))
-		return test();
+	if (event->type() == static_cast<QEvent::Type>(ServiceGroup::CONDITION_CHECK_EVENT)) {
+		if (m->serviceDependency)
+			return m->serviceDependency->service()->states()->stopped()->active()
+					|| m->serviceDependency->service()->states()->interrupted()->active();
+
+		return true;
+	}
 
 	return QSignalTransition::event(event);
-}
-
-void ServiceDependency::StopConditionTransition::reconnectStateEntered()
-{
-	disconnect(m->stoppedEnteredConnection);
-	disconnect(m->interruptedEnteredConnection);
-
-	if (m->serviceDependency) {
-		m->stoppedEnteredConnection = connect(m->serviceDependency->service()->states()->stopped(), & QState::entered, this, [this]() {
-			ServiceGroup::PostConditionCheckEvent(machine());
-		});
-		m->interruptedEnteredConnection = connect(m->serviceDependency->service()->states()->interrupted(), & QState::entered, this, [this]() {
-			ServiceGroup::PostConditionCheckEvent(machine());
-		});
-	}
 }
 
 }

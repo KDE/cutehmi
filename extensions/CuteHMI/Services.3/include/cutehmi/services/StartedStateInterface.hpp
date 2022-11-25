@@ -16,6 +16,9 @@ namespace services {
 
 class StateInterface;
 
+/**
+ * Substates of started state of the state interface.
+ */
 class CUTEHMI_SERVICES_API StartedStateInterface:
 	public QObject
 {
@@ -24,24 +27,17 @@ class CUTEHMI_SERVICES_API StartedStateInterface:
 		QML_UNCREATABLE("StartedStateInterface is an abstract class")
 
 	public:
-		Q_PROPERTY(QAbstractState * yielding READ yielding NOTIFY yieldingChanged)
+		Q_PROPERTY(QAbstractState * yielding READ yielding CONSTANT)
 
-		Q_PROPERTY(QAbstractState * active READ active NOTIFY activeChanged)
+		Q_PROPERTY(QAbstractState * active READ active CONSTANT)
 
-		Q_PROPERTY(QAbstractState * idling READ idling NOTIFY idlingChanged)
+		Q_PROPERTY(QAbstractState * idling READ idling CONSTANT)
 
 		virtual QAbstractState * yielding() const = 0;
 
 		virtual QAbstractState * active() const = 0;
 
 		virtual QAbstractState * idling() const = 0;
-
-	signals:
-		void yieldingChanged();
-
-		void activeChanged();
-
-		void idlingChanged();
 
 	protected:
 		StartedStateInterface(StateInterface * parent);

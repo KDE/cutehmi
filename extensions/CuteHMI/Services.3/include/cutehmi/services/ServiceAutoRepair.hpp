@@ -57,13 +57,9 @@ class CUTEHMI_SERVICES_API ServiceAutoRepair:
 		struct ServiceEntry {
 			QTimer * timer;
 			QMetaObject::Connection startingEnteredConnection;
-			QMetaObject::Connection startingChangedConnection;
 			QMetaObject::Connection startedEnteredConnection;
-			QMetaObject::Connection startedChangedConnection;
 			QMetaObject::Connection repairingEnteredConnection;
-			QMetaObject::Connection repairingChangedConnection;
 			QMetaObject::Connection brokenEnteredConnection;
-			QMetaObject::Connection brokenChangedConnection;
 		};
 
 		typedef QHash<AbstractService *, ServiceEntry *> ServiceDataContainer;

@@ -77,37 +77,13 @@ void ServiceAutoRepair::subscribe(AbstractService * service)
 
 	// Reset interval when the service was in started or starting state (all states that lead to broken, except of repairing).
 	serviceEntry->startedEnteredConnection = connectResetIntervalOnStateEntered(service->states()->started(), serviceEntry->timer);
-	serviceEntry->startedChangedConnection = connect(service->states(), & StateInterface::startedChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->startedEnteredConnection);
-		serviceEntry->startedEnteredConnection = connectResetIntervalOnStateEntered(service->states()->started(), serviceEntry->timer);
-	});
 	serviceEntry->startingEnteredConnection = connectResetIntervalOnStateEntered(service->states()->starting(), serviceEntry->timer);
-	serviceEntry->startingChangedConnection = connect(service->states(), & StateInterface::startingChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->startingEnteredConnection);
-		serviceEntry->startingEnteredConnection = connectResetIntervalOnStateEntered(service->states()->starting(), serviceEntry->timer);
-	});
 
 	// Set new interval, when the service entered repairing state (if service fails to start the new interval will be used).
 	serviceEntry->repairingEnteredConnection = connectRepairingEntered(service, serviceEntry->timer);
-	serviceEntry->repairingChangedConnection = connect(service->states(), & StateInterface::repairingChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->repairingEnteredConnection);
-		serviceEntry->repairingEnteredConnection = connectRepairingEntered(service, serviceEntry->timer);
-	});
 
 	// Trigger the timer, when the service enters broken state.
 	serviceEntry->brokenEnteredConnection = connectBrokenEntered(service, serviceEntry->timer);
-	serviceEntry->brokenChangedConnection = connect(service->states(), & StateInterface::brokenChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->brokenEnteredConnection);
-		serviceEntry->brokenEnteredConnection = connectBrokenEntered(service, serviceEntry->timer);
-	});
 
 	// Trigger the repair when the timer timeout is reached.
 	connect(serviceEntry->timer, & QTimer::timeout, service, & AbstractService::start);
@@ -161,13 +137,9 @@ void ServiceAutoRepair::clearServiceEntry(AbstractService * service)
 {
 	ServiceEntry * serviceEntry = m->serviceData.take(service);
 	disconnect(serviceEntry->startingEnteredConnection);
-	disconnect(serviceEntry->startingChangedConnection);
 	disconnect(serviceEntry->startedEnteredConnection);
-	disconnect(serviceEntry->startedChangedConnection);
 	disconnect(serviceEntry->repairingEnteredConnection);
-	disconnect(serviceEntry->repairingChangedConnection);
 	disconnect(serviceEntry->brokenEnteredConnection);
-	disconnect(serviceEntry->brokenChangedConnection);
 	disconnect(serviceEntry->timer, & QTimer::timeout, service, & AbstractService::start);
 	serviceEntry->timer->deleteLater();
 	delete serviceEntry;

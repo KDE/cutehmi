@@ -59,16 +59,11 @@ class CUTEHMI_SERVICES_API ServiceDependency:
 				StartConditionTransition(QPointer<ServiceDependency> serviceDependency);
 
 			protected:
-				bool test() const;
-
 				bool eventTest(QEvent * event) override;
 
 			private:
-				void reconnectStateEntered();
-
 				struct Members {
 					QPointer<ServiceDependency> serviceDependency;
-					QList<QMetaObject::Connection> stateEnteredConnections;
 				};
 
 				MPtr<Members> m;
@@ -79,17 +74,11 @@ class CUTEHMI_SERVICES_API ServiceDependency:
 				StopConditionTransition(QPointer<ServiceDependency> serviceDependency);
 
 			protected:
-				bool test() const;
-
 				bool eventTest(QEvent * event) override;
 
 			private:
-				void reconnectStateEntered();
-
 				struct Members {
 					QPointer<ServiceDependency> serviceDependency;
-					QMetaObject::Connection stoppedEnteredConnection;
-					QMetaObject::Connection interruptedEnteredConnection;
 				};
 
 				MPtr<Members> m;

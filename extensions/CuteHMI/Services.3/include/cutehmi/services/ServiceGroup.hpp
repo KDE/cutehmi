@@ -211,21 +211,18 @@ class CUTEHMI_SERVICES_API ServiceGroup:
 		void handleCounters();
 
 	private:
-		typedef QList<QMetaObject::Connection> ConnectionsContainer;
-
 		struct ConnectionData {
-			ConnectionsContainer stopped;
-			ConnectionsContainer starting;
-			ConnectionsContainer started;
-			ConnectionsContainer stopping;
-			ConnectionsContainer broken;
-			ConnectionsContainer repairing;
-			ConnectionsContainer evacuating;
-			ConnectionsContainer interrupted;
-			ConnectionsContainer yielding;
-			ConnectionsContainer active;
-			ConnectionsContainer idling;
-			ConnectionsContainer stateChanged;
+			QMetaObject::Connection stopped;
+			QMetaObject::Connection starting;
+			QMetaObject::Connection started;
+			QMetaObject::Connection stopping;
+			QMetaObject::Connection broken;
+			QMetaObject::Connection repairing;
+			QMetaObject::Connection evacuating;
+			QMetaObject::Connection interrupted;
+			QMetaObject::Connection yielding;
+			QMetaObject::Connection active;
+			QMetaObject::Connection idling;
 		};
 
 		typedef QHash<AbstractService *, ConnectionData *> ServiceConnectionsContainer;
@@ -253,10 +250,6 @@ class CUTEHMI_SERVICES_API ServiceGroup:
 		static void ServiceListAppend(QQmlListProperty<AbstractService> * property, AbstractService * value);
 
 		static void ConnectStateCounters(ConnectionData & connectionData, ServiceGroup * serviceGroup, AbstractService * service);
-
-		static void ReconnectStateCounter(ServiceGroup * serviceGroup, ConnectionsContainer & connections, int (ServiceGroup::*getter)() const, void (ServiceGroup::*setter)(int), const QAbstractState & state);
-
-		static void ClearConnections(ConnectionsContainer & connections);
 
 		static ConnectionData * CreateConnectionDataEntry(ServiceConnectionsContainer & serviceConnections, AbstractService * service);
 
