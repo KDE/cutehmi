@@ -23,8 +23,8 @@ class AbstractServiceController;
 /**
  * Abstract service.
  *
- * Guarantee is given that @ref states property is never @a nullptr, nor any of its states is ever @p nullptr, though it is allowed
- * that individual states can change. Subclasses have to take care to ensure that this guarantee is not violated. Additionaly they
+ * Guarantee is given that @ref states property is never @a nullptr, nor any of its states is ever @p nullptr and states are
+ * persistent - they do not change. Subclasses have to take care to ensure that this guarantee is not violated. Additionaly they
  * should take care about initialized() signal, which should be emitted once the service has been initialized and it's ready to be
  * started. It is also well-seen if subclasses update service @a status accordingly to the service state during its lifecycle.
  */
@@ -36,6 +36,8 @@ class CUTEHMI_SERVICES_API AbstractService:
 		QML_UNCREATABLE("AbstractService is an abstract class")
 
 	public:
+		static constexpr int INITIAL_SHUTDOWN_TIMEOUT = 180000;
+
 		static constexpr int INITIAL_STOP_TIMEOUT = 30000;
 
 		static constexpr int INITIAL_START_TIMEOUT = 30000;
@@ -43,6 +45,8 @@ class CUTEHMI_SERVICES_API AbstractService:
 		static constexpr int INITIAL_REPAIR_TIMEOUT = 30000;
 
 		static constexpr const char * INITIAL_NAME = "Unnamed Service";
+
+		Q_PROPERTY(int shutdownTimeout READ shutdownTimeout WRITE setShutdownTimeout NOTIFY shutdownTimeoutChanged)
 
 		Q_PROPERTY(int stopTimeout READ stopTimeout WRITE setStopTimeout NOTIFY stopTimeoutChanged)
 
@@ -61,6 +65,16 @@ class CUTEHMI_SERVICES_API AbstractService:
 		Q_PROPERTY(QQmlListProperty<cutehmi::services::AbstractServiceController> controllers READ controllerList CONSTANT)
 
 		~AbstractService() override;
+
+		int shutdownTimeout() const;
+
+		/**
+		 * Set shutdown timeout.
+		 * @param shutdownTimeout time limit [milliseconds] to wait for the service to shutdown itself. If service can not reach
+		 * @p stopped nor even @p interrupted state by this time, it will be killed. This can happen if its state interface
+		 * implementation is entirely broken.
+		 */
+		void setShutdownTimeout(int shutdownTimeout);
 
 		int stopTimeout() const;
 
@@ -98,9 +112,6 @@ class CUTEHMI_SERVICES_API AbstractService:
 		/**
 		 * Get state interface.
 		 *
-		 * This is the object passed to the constructor as @a stateInterface. The pointer always points to the same object, but its
-		 * individual state properties can change.
-		 *
 		 * @return state interface.
 		 */
 		cutehmi::services::StateInterface * states() const;
@@ -127,6 +138,8 @@ class CUTEHMI_SERVICES_API AbstractService:
 
 		void repairTimeoutChanged();
 
+		void shutdownTimeoutChanged();
+
 		void nameChanged();
 
 		void statusChanged();
@@ -148,12 +161,13 @@ class CUTEHMI_SERVICES_API AbstractService:
 
 		/**
 		 * Constructor.
-		 * @param stateInterface state interface.
+		 * @param stateInterface state interface. Abstract service will take ownership of this object by explicitly setting itself
+		 * as its parent. This object is exposed as @ref states property.
 		 * @param status initial service status.
 		 * @param defaultControllers default controllers.
 		 * @param parent parent object.
 		 */
-		AbstractService(std::unique_ptr<StateInterface> stateInterface, const QString & status, QObject * parent = nullptr, const ControllersContainer * defaultControllers = & DefaultControllers());
+		AbstractService(StateInterface * stateInterface, const QString & status, QObject * parent = nullptr, const ControllersContainer * defaultControllers = & DefaultControllers());
 
 		static const ControllersContainer & DefaultControllers();
 
@@ -187,6 +201,7 @@ class CUTEHMI_SERVICES_API AbstractService:
 			int stopTimeout = INITIAL_STOP_TIMEOUT;
 			int startTimeout = INITIAL_START_TIMEOUT;
 			int repairTimeout = INITIAL_REPAIR_TIMEOUT;
+			int shutdownTimeout = INITIAL_SHUTDOWN_TIMEOUT;
 			QString name = INITIAL_NAME;
 			QString status;
 			StateInterface * stateInterface;

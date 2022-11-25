@@ -264,9 +264,7 @@ class CUTEHMI_SERVICES_API ServiceGroup:
 
 		internal::ServiceStateInterface * stateInterface() const;
 
-		void initializeStateMachine(bool start = true);
-
-		void destroyStateMachine();
+		void configureStateInterface();
 
 		void configureStoppingOrEvacuating(QState * state, AssignStatusFunction assignStatus);
 
@@ -290,7 +288,6 @@ class CUTEHMI_SERVICES_API ServiceGroup:
 			int activeCount;
 			int idlingCount;
 			bool qmlBeingParsed;
-			internal::ServiceStateMachine * stateMachine;
 
 			Members(ServiceGroup * p_parent):
 				ruleList(p_parent, & rules, & ServiceGroup::RuleListAppend, & ServiceGroup::RuleListCount, & ServiceGroup::RuleListAt, & ServiceGroup::RuleListClear),
@@ -306,8 +303,7 @@ class CUTEHMI_SERVICES_API ServiceGroup:
 				yieldingCount(0),
 				activeCount(0),
 				idlingCount(0),
-				qmlBeingParsed(false),
-				stateMachine(nullptr)
+				qmlBeingParsed(false)
 			{
 			}
 		};

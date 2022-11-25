@@ -188,9 +188,7 @@ class CUTEHMI_SERVICES_API SelfService:
 
 		//</CuteHMI.Services-4.workaround>
 
-		void initializeStateMachine(bool start = true);
-
-		void destroyStateMachine();
+		void configureStateInterface();
 
 		struct Members
 		{
@@ -213,7 +211,6 @@ class CUTEHMI_SERVICES_API SelfService:
 			QJSValue signalToBroken;
 			QJSValue signalToIdling;
 			QJSValue signalToYielding;
-			internal::ServiceStateMachine * stateMachine;
 			bool qmlBeingParsed;
 
 			//<CuteHMI.Services-4.workaround target="Qt" cause="missing">

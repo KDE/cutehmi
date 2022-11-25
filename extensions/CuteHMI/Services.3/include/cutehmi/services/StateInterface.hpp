@@ -5,15 +5,32 @@
 #include "StartedStateInterface.hpp"
 
 #include <QObject>
-#include <QAbstractState>
+#include <QQmlEngine>
 
 namespace cutehmi {
 namespace services {
 
+class AbstractService;
+
+/**
+ * %State interface.
+ *
+ * %State interface is basically a predefined state machine configuration, which can be utilized and extended by the service.
+ *
+ * States and transitions can be customized through Serviceable interface. %State passed to the Serviceable are not exactly the same
+ * ones as the ones available as StateInterface properties however. Each state comes up with two flavors - persistent and ephemeric.
+ * Each ephemeric state has a persistent parent. Ephemeric children can be deleted and recreated. They are the ones which are passed
+ * to Servicable functions. This allows the service to be reconfigured from the inside when necessary, while keeping external
+ * states and any existing signal-slot connections they may have intact. Typically you should rely on persistent states and don't
+ * bother about ephemeric variants, but this information is given to avoid confusion when dealing with Serviceable and noticing that
+ * it's using different state objects.
+ */
 class CUTEHMI_SERVICES_API StateInterface:
 	public QObject
 {
 		Q_OBJECT
+		QML_NAMED_ELEMENT(StateInterface)
+		QML_UNCREATABLE("StateInterface is an abstract class")
 
 	public:
 		Q_PROPERTY(QAbstractState * stopped READ stopped NOTIFY stoppedChanged)
@@ -34,38 +51,38 @@ class CUTEHMI_SERVICES_API StateInterface:
 
 		Q_PROPERTY(cutehmi::services::StartedStateInterface * startedStates READ startedStates CONSTANT)
 
-		QAbstractState * stopped() const;
+		virtual QAbstractState * stopped() const = 0;
 
-		QAbstractState * starting() const;
+		virtual QAbstractState * starting() const = 0;
 
-		QAbstractState * started() const;
+		virtual QAbstractState * started() const = 0;
 
-		QAbstractState * stopping() const;
+		virtual QAbstractState * stopping() const = 0;
 
-		QAbstractState * broken() const;
+		virtual QAbstractState * broken() const = 0;
 
-		QAbstractState * repairing() const;
+		virtual QAbstractState * repairing() const = 0;
 
-		QAbstractState * evacuating() const;
+		virtual QAbstractState * evacuating() const = 0;
 
-		QAbstractState * interrupted() const;
+		virtual QAbstractState * interrupted() const = 0;
 
-		cutehmi::services::StartedStateInterface * startedStates() const;
+		virtual cutehmi::services::StartedStateInterface * startedStates() const = 0;
 
 		/**
 		 * Find state by its name. States can be given name using QObject::setObjectName() function. Standard states have following
 		 * names:
-		 * - @p "stopped"
-		 * - @p "interrupted"
-		 * - @p "starting"
-		 * - @p "started"
-		 * - @p "stopping"
-		 * - @p "broken"
-		 * - @p "repairing"
-		 * - @p "evacuating"
-		 * - @p "started.active"
-		 * - @p "started.idling"
-		 * - @p "started.yielding"
+		 * - @p "stopped" and @p "stopped.ephemeric"
+		 * - @p "interrupted" and @p "interrupted.ephemeric"
+		 * - @p "starting" and @p "starting.ephemeric"
+		 * - @p "started" and @p "started.ephemeric"
+		 * - @p "stopping" and @p "stopping.ephemeric"
+		 * - @p "broken" and @p "broken.ephemeric"
+		 * - @p "repairing" and @p "repairing.ephemeric"
+		 * - @p "evacuating" and @p "evacuating.ephemeric"
+		 * - @p "started.active" and @p "started.active.ephemeric"
+		 * - @p "started.idling" and @p "started.idling.ephemeric"
+		 * - @p "started.yielding" and @p "started.yielding.ephemeric".
 		 * .
 		 * @param name state name.
 		 * @return state.
@@ -90,38 +107,7 @@ class CUTEHMI_SERVICES_API StateInterface:
 		void interruptedChanged();
 
 	protected:
-		StateInterface();
-
-		void setStopped(QAbstractState * stopped);
-
-		void setStarting(QAbstractState * starting);
-
-		void setStarted(QAbstractState * started, QAbstractState * yielding, QAbstractState * active, QAbstractState * idling);
-
-		void setStopping(QAbstractState * stopping);
-
-		void setBroken(QAbstractState * broken);
-
-		void setRepairing(QAbstractState * repairing);
-
-		void setEvacuating(QAbstractState * evacuating);
-
-		void setInterrupted(QAbstractState * interrupted);
-
-	private:
-		struct Members {
-			QAbstractState * stopped;
-			QAbstractState * starting;
-			QAbstractState * started;
-			QAbstractState * stopping;
-			QAbstractState * broken;
-			QAbstractState * repairing;
-			QAbstractState * evacuating;
-			QAbstractState * interrupted;
-			StartedStateInterface * startedStateInterface;
-		};
-
-		MPtr<Members> m;
+		AbstractService * service() const;
 };
 
 }

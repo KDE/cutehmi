@@ -19,6 +19,19 @@ AbstractService::~AbstractService()
 	clearControllers();
 }
 
+int AbstractService::shutdownTimeout() const
+{
+	return m->shutdownTimeout;
+}
+
+void AbstractService::setShutdownTimeout(int shutdownTimeout)
+{
+	if (m->shutdownTimeout != shutdownTimeout) {
+		m->shutdownTimeout = shutdownTimeout;
+		emit shutdownTimeoutChanged();
+	}
+}
+
 int AbstractService::stopTimeout() const
 {
 	return m->stopTimeout;
@@ -116,11 +129,11 @@ void AbstractService::activate()
 	emit activated();
 }
 
-AbstractService::AbstractService(std::unique_ptr<StateInterface> stateInterface, const QString & status, QObject * parent, const ControllersContainer * defaultControllers):
+AbstractService::AbstractService(StateInterface * stateInterface, const QString & status, QObject * parent, const ControllersContainer * defaultControllers):
 	QObject(parent),
-	m(new Members(this, stateInterface.get(), status, defaultControllers))
+	m(new Members(this, stateInterface, status, defaultControllers))
 {
-	stateInterface.release()->setParent(this);	// Switch to Qt parent-child memory management.
+	m->stateInterface->setParent(this);
 
 	for (auto && controller : *defaultControllerListData())
 		appendController(controller);

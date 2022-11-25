@@ -1,5 +1,6 @@
 #include <cutehmi/services/ServiceGroup.hpp>
 #include <cutehmi/services/ServiceAutoActivate.hpp>
+#include <cutehmi/services/ServiceAutoStart.hpp>
 
 #include "internal/ServiceStateMachine.hpp"
 #include "internal/ServiceStateInterface.hpp"
@@ -18,9 +19,12 @@ void ServiceGroup::PostConditionCheckEvent(QStateMachine * stateMachine)
 }
 
 ServiceGroup::ServiceGroup(QObject * parent):
-	AbstractService(std::make_unique<internal::ServiceStateInterface>(), DefaultStatus(), parent, & DefaultControllers()),
+	AbstractService(new internal::ServiceStateInterface, DefaultStatus(), parent, & DefaultControllers()),
 	m(new Members(this))
 {
+	// Service status is read-only property, thus it is updated through state interface writebale double.
+	connect(stateInterface(), & internal::ServiceStateInterface::statusChanged, this, & ServiceGroup::setStatus);
+
 	connect(this, & ServiceGroup::stoppedCountChanged, this, & ServiceGroup::handleCounters);
 	connect(this, & ServiceGroup::startingCountChanged, this, & ServiceGroup::handleCounters);
 	connect(this, & ServiceGroup::startedCountChanged, this, & ServiceGroup::handleCounters);
@@ -36,13 +40,7 @@ ServiceGroup::ServiceGroup(QObject * parent):
 
 ServiceGroup::~ServiceGroup()
 {
-	// Stop the service.
-	stop();
-
-	if (m->stateMachine)
-		m->stateMachine->shutdown();
-
-	destroyStateMachine();
+	stateInterface()->shutdown();
 
 	clearServices();
 }
@@ -148,8 +146,8 @@ void ServiceGroup::configureStarted(QState * active, const QState * idling, cons
 	for (auto && service : m->services) {
 		QState * serviceSequence = new QState(active);
 
-		QState * serviceActive = new QState(serviceSequence);
-		connect(serviceActive, & QState::entered, service, & AbstractService::activate);
+		QState * activateService = new QState(serviceSequence);
+		connect(activateService, & QState::entered, service, & AbstractService::activate);
 
 		std::list<std::unique_ptr<QAbstractTransition>> transitionList;
 		for (auto && rule : m->rules) {
@@ -158,7 +156,7 @@ void ServiceGroup::configureStarted(QState * active, const QState * idling, cons
 				transitionList.push_back(std::move(transition));
 		}
 
-		QState * lastState = serviceActive;
+		QState * lastState = activateService;
 		while (!transitionList.empty()) {
 			auto transition = std::move(transitionList.back());
 			transitionList.pop_back();
@@ -169,6 +167,15 @@ void ServiceGroup::configureStarted(QState * active, const QState * idling, cons
 		}
 
 		serviceSequence->setInitialState(lastState);
+
+		// Form a loop.
+		activateService->addTransition(service->states()->startedStates()->yielding(), & QState::entered, lastState);
+		connect(service->states()->startedStates(), & StartedStateInterface::yieldingChanged, activateService, [lastState, activateService, service]() {
+			auto oldTransition = activateService->transitions().constFirst();
+			activateService->removeTransition(oldTransition);
+			oldTransition->deleteLater();
+			activateService->addTransition(service->states()->startedStates()->yielding(), & QState::entered, lastState);
+		});
 	}
 }
 
@@ -240,21 +247,19 @@ void ServiceGroup::componentComplete()
 {
 	m->qmlBeingParsed = false;
 
-	initializeStateMachine();
+	configureStateInterface();
 }
 
 void ServiceGroup::postConditionCheckEvent() const
 {
-	if (m->stateMachine)
-		PostConditionCheckEvent(m->stateMachine);
-	else
-		CUTEHMI_WARNING("Could not post condition check event, because state machine has not been initialized yet.");
+	PostConditionCheckEvent(stateInterface()->stateMachine());
 }
 
 const AbstractService::ControllersContainer & ServiceGroup::DefaultControllers()
 {
 	static ServiceAutoActivate defaultAutoActivate;
-	static ControllersContainer defaultControllers = {& defaultAutoActivate};
+	static ServiceAutoStart defaultAutoStart;
+	static ControllersContainer defaultControllers = {& defaultAutoActivate, & defaultAutoStart};
 	return defaultControllers;
 }
 
@@ -435,7 +440,8 @@ void ServiceGroup::ServiceListClear(QQmlListProperty<AbstractService> * property
 
 	static_cast<ServicesContainer *>(property->data)->clear();
 
-	serviceGroup->destroyStateMachine();
+	if (!serviceGroup->stateInterface()->isShutdown())
+		serviceGroup->stateInterface()->configureServiceable(serviceGroup);
 }
 
 void ServiceGroup::ServiceListAppend(QQmlListProperty<AbstractService> * property, AbstractService * value)
@@ -447,18 +453,8 @@ void ServiceGroup::ServiceListAppend(QQmlListProperty<AbstractService> * propert
 
 	static_cast<ServicesContainer *>(property->data)->append(value);
 
-	if (!serviceGroup->m->qmlBeingParsed) {
-		if (!serviceGroup->m->stateMachine)
-			serviceGroup->initializeStateMachine();
-		else {
-			serviceGroup->m->stateMachine->reconfigureStarting();
-			serviceGroup->m->stateMachine->reconfigureStarted();
-			serviceGroup->m->stateMachine->reconfigureStopping();
-			serviceGroup->m->stateMachine->reconfigureBroken();
-			serviceGroup->m->stateMachine->reconfigureRepairing();
-			serviceGroup->m->stateMachine->reconfigureEvacuating();
-		}
-	}
+	if (!serviceGroup->m->qmlBeingParsed)
+		serviceGroup->stateInterface()->configureServiceable(serviceGroup);
 }
 
 void ServiceGroup::ConnectStateCounters(ConnectionData & connectionData, ServiceGroup * serviceGroup, AbstractService * service)
@@ -626,34 +622,10 @@ internal::ServiceStateInterface * ServiceGroup::stateInterface() const
 	return static_cast<internal::ServiceStateInterface *>(states());
 }
 
-void ServiceGroup::initializeStateMachine(bool start)
+void ServiceGroup::configureStateInterface()
 {
-	try {
-		m->stateMachine = new internal::ServiceStateMachine(this, this);
-
-		// Service status is read-only property, thus it is updated through state machine writebale double.
-		connect(m->stateMachine, & internal::ServiceStateMachine::statusChanged, this, & ServiceGroup::setStatus);
-
-		stateInterface()->bindStateMachine(m->stateMachine);
-
-		if (start)
-			m->stateMachine->start();	// Note: start() function is shadowed by internal::ServiceStateMachine.
-
-		emit initialized();
-	} catch (const std::exception & e) {
-		CUTEHMI_CRITICAL("Service '" << name() << "' could not initialize new state machine, because of the following exception: " << e.what());
-	}
-}
-
-void ServiceGroup::destroyStateMachine()
-{
-	if (m->stateMachine) {
-		stateInterface()->unbindStateMachine();
-
-		m->stateMachine->stop();
-		m->stateMachine->deleteLater();
-		m->stateMachine = nullptr;
-	}
+	stateInterface()->configureServiceable(this);
+	emit initialized();
 }
 
 void ServiceGroup::configureStoppingOrEvacuating(QState * state, AssignStatusFunction assignStatus)

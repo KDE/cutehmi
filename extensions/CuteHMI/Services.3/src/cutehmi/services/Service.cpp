@@ -10,23 +10,18 @@ namespace cutehmi {
 namespace services {
 
 Service::Service(QObject * parent):
-	AbstractService(std::make_unique<internal::ServiceStateInterface>(), DefaultStatus(), parent),
+	AbstractService(new internal::ServiceStateInterface, DefaultStatus(), parent),
 	m(new Members{
-	nullptr,
 	nullptr,
 	false})
 {
+	// Service status is read-only property, thus it is updated through state interface writebale double.
+	connect(stateInterface(), & internal::ServiceStateInterface::statusChanged, this, & Service::setStatus);
 }
 
 Service::~Service()
 {
-	// Stop the service.
-	stop();
-
-	if (m->stateMachine)
-		m->stateMachine->shutdown();
-
-	destroyStateMachine();
+	stateInterface()->shutdown();
 }
 
 void Service::setServiceable(QVariant serviceable)
@@ -37,12 +32,10 @@ void Service::setServiceable(QVariant serviceable)
 		CUTEHMI_WARNING("Object assigned as serviceable to '"  << name() << "' service does not implement 'cutehmi::services::Serviceable' interface.");
 
 	if (m->serviceable != serviceablePtr) {
-		destroyStateMachine();
 		m->serviceable = serviceablePtr;
-		if (m->serviceable) {
-			if (!m->qmlBeingParsed)
-				initializeStateMachine();
-		} else
+		if (!m->qmlBeingParsed)
+			configureStateInterface();
+		if (!m->serviceable)
 			setStatus(DefaultStatus());
 
 		emit serviceableChanged();
@@ -62,7 +55,7 @@ void Service::classBegin()
 void cutehmi::services::Service::componentComplete()
 {
 	if (m->qmlBeingParsed && m->serviceable)
-		initializeStateMachine();
+		configureStateInterface();
 
 	m->qmlBeingParsed = false;
 }
@@ -78,34 +71,10 @@ internal::ServiceStateInterface * Service::stateInterface() const
 	return static_cast<internal::ServiceStateInterface *>(states());
 }
 
-void Service::initializeStateMachine(bool start)
+void Service::configureStateInterface()
 {
-	try {
-		m->stateMachine = new internal::ServiceStateMachine(this, m->serviceable);
-
-		// Service status is read-only property, thus it is updated through state machine writebale double.
-		connect(m->stateMachine, & internal::ServiceStateMachine::statusChanged, this, & Service::setStatus);
-
-		stateInterface()->bindStateMachine(m->stateMachine);
-
-		if (start)
-			m->stateMachine->start();	// Note: start() function is shadowed by internal::ServiceStateMachine.
-
-		emit initialized();
-	} catch (const std::exception & e) {
-		CUTEHMI_CRITICAL("Could not initialize new state machine, because of the following exception: " << e.what());
-	}
-}
-
-void Service::destroyStateMachine()
-{
-	if (m->stateMachine) {
-		stateInterface()->unbindStateMachine();
-
-		m->stateMachine->stop();
-		m->stateMachine->deleteLater();
-		m->stateMachine = nullptr;
-	}
+	stateInterface()->configureServiceable(m->serviceable);
+	emit initialized();
 }
 
 }
