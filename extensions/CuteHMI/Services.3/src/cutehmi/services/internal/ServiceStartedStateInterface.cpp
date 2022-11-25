@@ -230,13 +230,13 @@ void ServiceStartedStateInterface::setUpIdling(bool reconfigure, const Serviceab
 
 void ServiceStartedStateInterface::addYieldingTransition(int index)
 {
-	auto state = yieldingEphemeric();
+	auto state = yieldingPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			yieldingTransition(index) = state->addTransition(stateInterface()->service(), & AbstractService::activated, activeEphemeric());
+			yieldingTransition(index) = state->addTransition(stateInterface()->service(), & AbstractService::activated, activePersistent());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -247,7 +247,7 @@ void ServiceStartedStateInterface::addIdlingTransition(int index, const Servicea
 {
 	switch (index) {
 		case 0:
-			idlingTransition(0) = addServiceableTransition(idlingEphemeric(), yieldingEphemeric(), serviceable.transitionToYielding(), true);
+			idlingTransition(0) = addServiceableTransition(idlingPersistent(), yieldingPersistent(), serviceable.transitionToYielding(), true);
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -258,7 +258,7 @@ void ServiceStartedStateInterface::addActiveTransition(int index, const Servicea
 {
 	switch (index) {
 		case 0:
-			activeTransition(0) = addServiceableTransition(activeEphemeric(), idlingEphemeric(), serviceable.transitionToIdling());
+			activeTransition(0) = addServiceableTransition(activePersistent(), idlingPersistent(), serviceable.transitionToIdling());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");

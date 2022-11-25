@@ -28,8 +28,8 @@ template<typename T>
 void clearTransition(T & stateData, std::size_t index)
 {
 	if (stateData.transitions[index] != nullptr) {
-		if (stateData.ephemeric)
-			stateData.ephemeric->removeTransition(stateData.transitions[index]);
+		if (stateData.persistent)
+			stateData.persistent->removeTransition(stateData.transitions[index]);
 		stateData.transitions[index]->deleteLater();
 		stateData.transitions[index] = nullptr;
 	}

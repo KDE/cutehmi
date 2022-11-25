@@ -805,13 +805,13 @@ void ServiceStateInterface::setUpInterrupted(bool reconfigure, const Serviceable
 
 void ServiceStateInterface::addStoppedTransition(int index)
 {
-	auto state = stoppedEphemeric();
+	auto state = stoppedPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			stoppedTransition(index) = state->addTransition(service(), & AbstractService::started, startingEphemeric());
+			stoppedTransition(index) = state->addTransition(service(), & AbstractService::started, startingPersistent());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -820,19 +820,19 @@ void ServiceStateInterface::addStoppedTransition(int index)
 
 void ServiceStateInterface::addStartingTransition(int index, const Serviceable & serviceable)
 {
-	auto state = startingEphemeric();
+	auto state = startingPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			startingTransition(index) = addServiceableTransition(state, startedEphemeric(), serviceable.transitionToStarted(), true);
+			startingTransition(index) = addServiceableTransition(state, startedPersistent(), serviceable.transitionToStarted(), true);
 			break;
 		case 1:
-			startingTransition(index) = addServiceableTransition(state, brokenEphemeric(), serviceable.transitionToBroken());
+			startingTransition(index) = addServiceableTransition(state, brokenPersistent(), serviceable.transitionToBroken());
 			break;
 		case 2:
-			startingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, brokenEphemeric());
+			startingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, brokenPersistent());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -842,16 +842,16 @@ void ServiceStateInterface::addStartingTransition(int index, const Serviceable &
 
 void ServiceStateInterface::addStartedTransition(int index, const Serviceable & serviceable)
 {
-	auto state = startedEphemeric();
+	auto state = startedPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			startedTransition(index) = state->addTransition(service(), & AbstractService::stopped, stoppingEphemeric());
+			startedTransition(index) = state->addTransition(service(), & AbstractService::stopped, stoppingPersistent());
 			break;
 		case 1:
-			startedTransition(index) = addServiceableTransition(state, brokenEphemeric(), serviceable.transitionToBroken());
+			startedTransition(index) = addServiceableTransition(state, brokenPersistent(), serviceable.transitionToBroken());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -860,16 +860,16 @@ void ServiceStateInterface::addStartedTransition(int index, const Serviceable & 
 
 void ServiceStateInterface::addStoppingTransition(int index, const Serviceable & serviceable)
 {
-	auto state = stoppingEphemeric();
+	auto state = stoppingPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			stoppingTransition(index) = addServiceableTransition(state, stoppedEphemeric(), serviceable.transitionToStopped(), true);
+			stoppingTransition(index) = addServiceableTransition(state, stoppedPersistent(), serviceable.transitionToStopped(), true);
 			break;
 		case 1:
-			stoppingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, interruptedEphemeric());
+			stoppingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, interruptedPersistent());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -878,16 +878,16 @@ void ServiceStateInterface::addStoppingTransition(int index, const Serviceable &
 
 void ServiceStateInterface::addBrokenTransition(int index)
 {
-	auto state = brokenEphemeric();
+	auto state = brokenPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			brokenTransition(index) = state->addTransition(service(), & AbstractService::started, repairingEphemeric());
+			brokenTransition(index) = state->addTransition(service(), & AbstractService::started, repairingPersistent());
 			break;
 		case 1:
-			brokenTransition(index) = state->addTransition(service(), & AbstractService::stopped, evacuatingEphemeric());
+			brokenTransition(index) = state->addTransition(service(), & AbstractService::stopped, evacuatingPersistent());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -896,19 +896,19 @@ void ServiceStateInterface::addBrokenTransition(int index)
 
 void ServiceStateInterface::addRepairingTransition(int index, const Serviceable & serviceable)
 {
-	auto state = repairingEphemeric();
+	auto state = repairingPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			repairingTransition(index) = addServiceableTransition(state, startedEphemeric(), serviceable.transitionToStarted(), true);
+			repairingTransition(index) = addServiceableTransition(state, startedPersistent(), serviceable.transitionToStarted(), true);
 			break;
 		case 1:
-			repairingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, brokenEphemeric());
+			repairingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, brokenPersistent());
 			break;
 		case 2:
-			repairingTransition(index) = addServiceableTransition(state, brokenEphemeric(), serviceable.transitionToBroken());
+			repairingTransition(index) = addServiceableTransition(state, brokenPersistent(), serviceable.transitionToBroken());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -917,16 +917,16 @@ void ServiceStateInterface::addRepairingTransition(int index, const Serviceable 
 
 void ServiceStateInterface::addEvacuatingTransition(int index, const Serviceable & serviceable)
 {
-	auto state = evacuatingEphemeric();
+	auto state = evacuatingPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
 		case 0:
-			evacuatingTransition(index) = addServiceableTransition(state, stoppedEphemeric(), serviceable.transitionToStopped(), true);
+			evacuatingTransition(index) = addServiceableTransition(state, stoppedPersistent(), serviceable.transitionToStopped(), true);
 			break;
 		case 1:
-			evacuatingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, interruptedEphemeric());
+			evacuatingTransition(index) = state->addTransition(& m->timeoutTimer, & QTimer::timeout, interruptedPersistent());
 			break;
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
@@ -935,7 +935,7 @@ void ServiceStateInterface::addEvacuatingTransition(int index, const Serviceable
 
 void ServiceStateInterface::addInterrputedTransition(int index)
 {
-	auto state = interruptedEphemeric();
+	auto state = interruptedPersistent();
 
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
