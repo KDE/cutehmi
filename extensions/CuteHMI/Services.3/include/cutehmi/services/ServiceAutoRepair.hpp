@@ -16,10 +16,12 @@ namespace cutehmi {
 namespace services {
 
 class CUTEHMI_SERVICES_API ServiceAutoRepair:
-	public cutehmi::services::AbstractServiceController
+	public cutehmi::services::AbstractServiceController,
+	public QQmlParserStatus
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(ServiceAutoRepair)
+		Q_INTERFACES(QQmlParserStatus)
 
 	public:
 		static constexpr int INITIAL_INITIAL_INTERVAL = 10000;
@@ -48,6 +50,10 @@ class CUTEHMI_SERVICES_API ServiceAutoRepair:
 
 		void unsubscribe(AbstractService * service) override;
 
+		void classBegin() override;
+
+		void componentComplete() override;
+
 	signals:
 		void initialIntervalChanged();
 
@@ -64,8 +70,11 @@ class CUTEHMI_SERVICES_API ServiceAutoRepair:
 
 		typedef QHash<AbstractService *, ServiceEntry *> ServiceDataContainer;
 
-		// Helper engine to evaulate interval strings (QJSEngine related to QJSValue must available when QJSValue::call() is made).
-		static QJSEngine & JSEngine();
+		// Helper engine to evaulate interval strings (QJSEngine related to QJSValue must be available when QJSValue::call() is
+		// made). If QML engine associated with the object is not available then static instance of QJSEngine is returned. This may
+		// cause problems however, because JSValue values can not be reassigned to another engine, thus try to use QML engine
+		// associated with the object if possible.
+		static QJSEngine & JSEngine(const QObject & object);
 
 		QMetaObject::Connection connectResetIntervalOnStateEntered(const QAbstractState * state, QTimer * timer);
 

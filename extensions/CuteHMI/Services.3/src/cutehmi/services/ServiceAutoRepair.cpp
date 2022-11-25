@@ -56,7 +56,7 @@ void ServiceAutoRepair::setIntervalFunction(const QJSValue & intervalFunction)
 
 void ServiceAutoRepair::setIntervalFunction(const QString & intervalFunction)
 {
-	QJSValue function = JSEngine().evaluate(intervalFunction);
+	QJSValue function = JSEngine(*this).evaluate(intervalFunction);
 	if (function.isCallable())
 		setIntervalFunction(function);
 	else
@@ -101,10 +101,21 @@ void ServiceAutoRepair::unsubscribe(AbstractService * service)
 	clearServiceEntry(service);
 }
 
-QJSEngine & ServiceAutoRepair::JSEngine()
+void ServiceAutoRepair::classBegin()
+{
+	// If service is created from QML then reassign initial interval function once QML engine is available to avoid
+	// "JSValue can't be reassigned to another engine" errors.
+	setIntervalFunction(QString(INITIAL_INTERVAL_FUNCTION));
+}
+
+void ServiceAutoRepair::componentComplete()
+{
+}
+
+QJSEngine & ServiceAutoRepair::JSEngine(const QObject & object)
 {
 	static QJSEngine engine;
-	return engine;
+	return qmlEngine(& object) ? *qmlEngine(& object) : engine;
 }
 
 QMetaObject::Connection ServiceAutoRepair::connectResetIntervalOnStateEntered(const QAbstractState * state, QTimer * timer)
