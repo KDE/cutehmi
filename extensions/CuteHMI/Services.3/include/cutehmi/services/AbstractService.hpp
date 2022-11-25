@@ -62,6 +62,11 @@ class CUTEHMI_SERVICES_API AbstractService:
 
 		Q_PROPERTY(QQmlListProperty<cutehmi::services::AbstractServiceController> defaultControllers READ defaultControllerList CONSTANT)
 
+		//<CuteHMI.Services-6.workaround target="Qt5" cause="missing">
+		// Instead of:
+		// QML_LIST_PROPERTY_ASSIGN_BEHAVIOR_REPLACE
+		// Some workaround code in AbstractService::ControllerListAppend() is provided.
+		//</CuteHMI.Services-6.workaround>
 		Q_PROPERTY(QQmlListProperty<cutehmi::services::AbstractServiceController> controllers READ controllerList CONSTANT)
 
 		~AbstractService() override;

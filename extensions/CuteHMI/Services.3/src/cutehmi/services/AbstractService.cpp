@@ -189,6 +189,18 @@ void AbstractService::ControllerListClear(QQmlListProperty<AbstractServiceContro
 void AbstractService::ControllerListAppend(QQmlListProperty<AbstractServiceController> * property, AbstractServiceController * value)
 {
 	AbstractService * service = static_cast<AbstractService *>(property->object);
+
+	//<CuteHMI.Services-6.workaround target="Qt5" cause="missing">
+	// Qt 5 misses QML_LIST_PROPERTY_ASSIGN_BEHAVIOR_REPLACE. Firstly we check whether the list is initialized with default
+	// controllers (for a shortcut checking only the first one). Secondly we determine what is being appended by checking if
+	// controller exists in defaultControllerList(). The list should usually be very short, so this shouldn't cause performance
+	// problems.
+	if (!static_cast<ControllersContainer *>(property->data)->empty() && !static_cast<ControllersContainer *>(service->defaultControllerList().data)->empty()
+			&& static_cast<ControllersContainer *>(property->data)->constFirst() == static_cast<ControllersContainer *>(service->defaultControllerList().data)->constFirst()
+			&& !static_cast<ControllersContainer *>(service->defaultControllerList().data)->contains(value))
+		ControllerListClear(property);
+	//</CuteHMI.Services-6.workaround>
+
 	value->subscribe(service);
 
 	static_cast<ControllersContainer *>(property->data)->append(value);

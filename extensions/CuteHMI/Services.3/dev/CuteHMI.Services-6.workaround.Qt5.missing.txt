@@ -1,0 +1,13 @@
+Problem:
+
+Qt 5 misses QML_LIST_PROPERTY_ASSIGN_BEHAVIOR_REPLACE macro, which would be
+desired for AbstractService::controllers property.
+
+Workaround:
+
+A workaround is to mimic the behavior by adding some code in
+AbstractService::ControllerListAppend() to determine whether the list should be
+cleared.
+
+Snippet:
+
