@@ -1,5 +1,4 @@
 #include <cutehmi/dataacquisition/AbstractWriter.hpp>
-
 #include <cutehmi/dataacquisition/AbstractWriterAttachedType.hpp>
 
 #include <cutehmi/shareddatabase/Database.hpp>
