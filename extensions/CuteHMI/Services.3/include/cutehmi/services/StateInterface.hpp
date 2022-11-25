@@ -21,9 +21,9 @@ class AbstractService;
  * ones as the ones available as StateInterface properties however. Each state comes up with two flavors - persistent and ephemeric.
  * Each ephemeric state has a persistent parent. Ephemeric children can be deleted and recreated. They are the ones which are passed
  * to Servicable functions. This allows the service to be reconfigured from the inside when necessary, while keeping external
- * states and any existing signal-slot connections they may have intact. Typically you should rely on persistent states and don't
- * bother about ephemeric variants, but this information is given to avoid confusion when dealing with Serviceable and noticing that
- * it's using different state objects.
+ * states and any existing signal-slot connections intact. Typically you should rely on persistent states and don't bother about
+ * ephemeric variants, but this information is given to avoid confusion when dealing with Serviceable and noticing that it's using
+ * different state objects.
  */
 class CUTEHMI_SERVICES_API StateInterface:
 	public QObject
