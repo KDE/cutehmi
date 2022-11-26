@@ -1,0 +1,17 @@
+Problem:
+
+QModbusDataUnit constructor accepts 'size' parameter as quint16, which makes it
+impossible to cover extended address space of Modbus with 65536 registers
+(https://en.wikipedia.org/wiki/Modbus).
+
+Workaround:
+
+Workaround is to use a constructor, wich accepts QVector as 'data' parameter and
+fill it with desired number of registers.
+
+Snippet:
+
+Solution:
+
+QModbusDataUnit has been replaced by internal data containers.
+

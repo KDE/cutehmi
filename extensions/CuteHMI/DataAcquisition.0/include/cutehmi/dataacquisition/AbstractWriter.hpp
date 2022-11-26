@@ -39,7 +39,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 
 		Q_PROPERTY(cutehmi::dataacquisition::Schema * schema READ schema WRITE setSchema NOTIFY schemaChanged)
 
-		AbstractWriter(QObject * parent = nullptr);
+		explicit AbstractWriter(QObject * parent = nullptr);
 
 		static cutehmi::dataacquisition::AbstractWriterAttachedType * qmlAttachedProperties(QObject * object);
 

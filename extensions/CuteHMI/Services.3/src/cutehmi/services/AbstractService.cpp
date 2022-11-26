@@ -19,6 +19,19 @@ AbstractService::~AbstractService()
 	clearControllers();
 }
 
+int AbstractService::shutdownTimeout() const
+{
+	return m->shutdownTimeout;
+}
+
+void AbstractService::setShutdownTimeout(int shutdownTimeout)
+{
+	if (m->shutdownTimeout != shutdownTimeout) {
+		m->shutdownTimeout = shutdownTimeout;
+		emit shutdownTimeoutChanged();
+	}
+}
+
 int AbstractService::stopTimeout() const
 {
 	return m->stopTimeout;
@@ -116,11 +129,11 @@ void AbstractService::activate()
 	emit activated();
 }
 
-AbstractService::AbstractService(std::unique_ptr<StateInterface> stateInterface, const QString & status, QObject * parent, const ControllersContainer * defaultControllers):
+AbstractService::AbstractService(StateInterface * stateInterface, const QString & status, QObject * parent, const ControllersContainer * defaultControllers):
 	QObject(parent),
-	m(new Members(this, stateInterface.get(), status, defaultControllers))
+	m(new Members(this, stateInterface, status, defaultControllers))
 {
-	stateInterface.release()->setParent(this);	// Switch to Qt parent-child memory management.
+	m->stateInterface->setParent(this);
 
 	for (auto && controller : *defaultControllerListData())
 		appendController(controller);
@@ -176,6 +189,18 @@ void AbstractService::ControllerListClear(QQmlListProperty<AbstractServiceContro
 void AbstractService::ControllerListAppend(QQmlListProperty<AbstractServiceController> * property, AbstractServiceController * value)
 {
 	AbstractService * service = static_cast<AbstractService *>(property->object);
+
+	//<CuteHMI.Services-6.workaround target="Qt5" cause="missing">
+	// Qt 5 misses QML_LIST_PROPERTY_ASSIGN_BEHAVIOR_REPLACE. Firstly we check whether the list is initialized with default
+	// controllers (for a shortcut checking only the first one). Secondly we determine what is being appended by checking if
+	// controller exists in defaultControllerList(). The list should usually be very short, so this shouldn't cause performance
+	// problems.
+	if (!static_cast<ControllersContainer *>(property->data)->empty() && !static_cast<ControllersContainer *>(service->defaultControllerList().data)->empty()
+			&& static_cast<ControllersContainer *>(property->data)->constFirst() == static_cast<ControllersContainer *>(service->defaultControllerList().data)->constFirst()
+			&& !static_cast<ControllersContainer *>(service->defaultControllerList().data)->contains(value))
+		ControllerListClear(property);
+	//</CuteHMI.Services-6.workaround>
+
 	value->subscribe(service);
 
 	static_cast<ControllersContainer *>(property->data)->append(value);

@@ -66,11 +66,14 @@ Project {
          "src/cutehmi/services/StateInterface.cpp",
          "src/cutehmi/services/internal/QMLPlugin.cpp",
          "src/cutehmi/services/internal/QMLPlugin.hpp",
+         "src/cutehmi/services/internal/ServiceStartedStateInterface.cpp",
+         "src/cutehmi/services/internal/ServiceStartedStateInterface.hpp",
          "src/cutehmi/services/internal/ServiceStateInterface.cpp",
          "src/cutehmi/services/internal/ServiceStateInterface.hpp",
          "src/cutehmi/services/internal/ServiceStateMachine.cpp",
          "src/cutehmi/services/SelfService.cpp",
          "src/cutehmi/services/internal/ServiceStateMachine.hpp",
+         "src/cutehmi/services/internal/stateInterfaceHelpers.hpp",
          "src/cutehmi/services/logging.cpp",
      ]
 

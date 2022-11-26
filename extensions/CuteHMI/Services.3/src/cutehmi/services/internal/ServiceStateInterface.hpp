@@ -4,15 +4,21 @@
 #include <cutehmi/services/internal/common.hpp>
 #include <cutehmi/services/StateInterface.hpp>
 
+#include "ServiceStartedStateInterface.hpp"
+#include "ServiceStateMachine.hpp"
+
 #include <QState>
+#include <QTimer>
+#include <QStateMachine>
 
 #include <memory>
 
 namespace cutehmi {
 namespace services {
-namespace internal {
 
-class ServiceStateMachine;
+class Serviceable;
+
+namespace internal {
 
 class CUTEHMI_SERVICES_PRIVATE ServiceStateInterface:
 	public StateInterface
@@ -20,45 +26,302 @@ class CUTEHMI_SERVICES_PRIVATE ServiceStateInterface:
 		Q_OBJECT
 
 	public:
+		Q_PROPERTY(QString status READ status WRITE setStatus NOTIFY statusChanged)
+
 		ServiceStateInterface();
 
-		void bindStateMachine(ServiceStateMachine * serviceStateMachine);
+		~ServiceStateInterface() override;
 
-		void unbindStateMachine();
+		using StateInterface::service;
 
-	private slots:
-		void smSetStopped();
+		QString status() const;
 
-		void smSetStarting();
+		void setStatus(const QString & status);
 
-		void smSetStarted();
+		bool isShutdown() const;
 
-		void smSetStopping();
+		ServiceStateMachine * stateMachine() const;
 
-		void smSetBroken();
+		void configureServiceable(Serviceable * serviceable);
 
-		void smSetRepairing();
+		QAbstractState * stopped() const override;
 
-		void smSetEvacuating();
+		QAbstractState * starting() const override;
 
-		void smSetInterrupted();
+		QAbstractState * started() const override;
+
+		QAbstractState * stopping() const override;
+
+		QAbstractState * broken() const override;
+
+		QAbstractState * repairing() const override;
+
+		QAbstractState * evacuating() const override;
+
+		QAbstractState * interrupted() const override;
+
+		StartedStateInterface * startedStates() const override;
+
+		void reconfigureStopped(const Serviceable & serviceable);
+
+		void reconfigureStarting(Serviceable & serviceable);
+
+		void reconfigureStarted(Serviceable & serviceable);
+
+		void reconfigureStopping(Serviceable & serviceable);
+
+		void reconfigureBroken(Serviceable & serviceable);
+
+		void reconfigureRepairing(Serviceable & serviceable);
+
+		void reconfigureEvacuating(Serviceable & serviceable);
+
+		void reconfigureInterrupted(const Serviceable & serviceable);
+
+		void replaceTransitionToStarted(const Serviceable & serviceable);
+
+		void replaceTransitionToStopped(const Serviceable & serviceable);
+
+		void replaceTransitionToBroken(const Serviceable & serviceable);
+
+		void replaceTransitionToYielding(const Serviceable & serviceable);
+
+		void replaceTransitionToIdling(const Serviceable & serviceable);
+
+		/**
+		 * Perform service shutdown.
+		 *
+		 * This function executes a loop, which repeatedly calls QCoreApplication::processEvents() until the state machine ends up
+		 * in stopped or interrupted state.
+		 *
+		 * The service may end up in inconsistent state after getting killed. Non-const methods should not used after the shutdown.
+		 * This also applies to return values of const methods.
+		 */
+		void shutdown();
+
+	signals:
+		void statusChanged(const QString & status);
 
 	private:
-		void setDummyStates();
+		QState * startingPersistent() const;
 
+		QState * startedPersistent() const;
+
+		cutehmi::services::internal::ServiceStartedStateInterface * startedInterface() const;
+
+		QState * stoppingPersistent() const;
+
+		QState * stoppedPersistent() const;
+
+		QState * brokenPersistent() const;
+
+		QState * repairingPersistent() const;
+
+		QState * evacuatingPersistent() const;
+
+		QState * interruptedPersistent() const;
+
+		QState * startingEphemeric() const;
+
+		QState * startedEphemeric() const;
+
+		QState * stoppingEphemeric() const;
+
+		QState * stoppedEphemeric() const;
+
+		QState * brokenEphemeric() const;
+
+		QState * repairingEphemeric() const;
+
+		QState * evacuatingEphemeric() const;
+
+		QState * interruptedEphemeric() const;
+
+		QAbstractTransition *& startingTransition(int index);
+
+		QAbstractTransition * const & startingTransition(int index) const;
+
+		QAbstractTransition *& startedTransition(int index);
+
+		QAbstractTransition * const & startedTransition(int index) const;
+
+		QAbstractTransition *& stoppingTransition(int index);
+
+		QAbstractTransition * const & stoppingTransition(int index) const;
+
+		QAbstractTransition *& stoppedTransition(int index);
+
+		QAbstractTransition * const & stoppedTransition(int index) const;
+
+		QAbstractTransition *& brokenTransition(int index);
+
+		QAbstractTransition * const & brokenTransition(int index) const;
+
+		QAbstractTransition *& repairingTransition(int index);
+
+		QAbstractTransition * const & repairingTransition(int index) const;
+
+		QAbstractTransition *& evacuatingTransition(int index);
+
+		QAbstractTransition * const & evacuatingTransition(int index) const;
+
+		void initializePersistentStates();
+
+		void resetEphemericStates();
+
+		void resetStartingEphemeric();
+
+		void resetStartedEphemeric();
+
+		void resetStoppingEphemeric();
+
+		void resetStoppedEphemeric();
+
+		void resetBrokenEphemeric();
+
+		void resetRepairingEphemeric();
+
+		void resetEvacuatingEphemeric();
+
+		void resetInterruptedEphemeric();
+
+		void setUpStopped(bool reconfigure, const Serviceable & serviceable);
+
+		void setUpStarting(bool reconfigure, Serviceable & serviceable);
+
+		void setUpStarted(bool reconfigure, Serviceable & serviceable);
+
+		void setUpStopping(bool reconfigure, Serviceable & serviceable);
+
+		void setUpBroken(bool reconfigure, Serviceable & serviceable);
+
+		void setUpRepairing(bool reconfigure, Serviceable & serviceable);
+
+		void setUpEvacuating(bool reconfigure, Serviceable & serviceable);
+
+		void setUpInterrupted(bool reconfigure, const Serviceable & serviceable);
+
+		/**
+		 * Add outgoing transition to stopped state.
+		 * @param index transition index.
+		 */
+		void addStoppedTransition(int index);
+
+		/**
+		 * Add outgoing transition to starting state.
+		 * @param index transition index.
+		 * @param serviceable serviceable object.
+		 */
+		void addStartingTransition(int index, const Serviceable & serviceable);
+
+		/**
+		 * Add outgoing transition to started state.
+		 * @param index transition index.
+		 * @param serviceable serviceable object.
+		 */
+		void addStartedTransition(int index, const Serviceable & serviceable);
+
+		/**
+		 * Add outgoing transition to stopping state.
+		 * @param index transition index.
+		 * @param serviceable serviceable object.
+		 */
+		void addStoppingTransition(int index, const Serviceable & serviceable);
+
+		/**
+		 * Add outgoing transition to broken state.
+		 * @param index transition index.
+		 */
+		void addBrokenTransition(int index);
+
+		/**
+		 * Add outgoing transition to repairing state.
+		 * @param index transition index.
+		 * @param serviceable serviceable object.
+		 */
+		void addRepairingTransition(int index, const Serviceable & serviceable);
+
+		/**
+		 * Add outgoing transition to evacuating state.
+		 * @param index transition index.
+		 * @param serviceable serviceable object.
+		 */
+		void addEvacuatingTransition(int index, const Serviceable & serviceable);
+
+		/**
+		 * Add outgoing transition to interrupted state.
+		 * @param index transition index.
+		 */
+		void addInterrputedTransition(int index);
+
+	private:
 		struct Members {
-			std::unique_ptr<QState> dummyStopped;
-			std::unique_ptr<QState> dummyStarting;
-			std::unique_ptr<QState> dummyStarted;
-			std::unique_ptr<QState> dummyStopping;
-			std::unique_ptr<QState> dummyBroken;
-			std::unique_ptr<QState> dummyRepairing;
-			std::unique_ptr<QState> dummyEvacuating;
-			std::unique_ptr<QState> dummyInterrupted;
-			std::unique_ptr<QState> dummyStartedYielding;
-			std::unique_ptr<QState> dummyStartedActive;
-			std::unique_ptr<QState> dummyStartedIdling;
-			ServiceStateMachine * serviceStateMachine;
+			QTimer timeoutTimer;
+
+			// Variable m->lastNotifiableState is used to prevent notification spam, i.e. when service fails to leave notifiable state
+			// through intermediate, non-notifiable state (e.g. 'broken' is a notifiable state, 'repairing' is an intermediate state;
+			// without the condition "Service 'XYZ' broke" message would be posted after each failed repair attempt).
+			QState * lastNotifiableState = nullptr;
+
+			ServiceStateMachine * stateMachine;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 3> transitions;
+			} starting;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 2> transitions;
+				ServiceStartedStateInterface * interface;
+			} started;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 2> transitions;
+			} stopping;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 1> transitions;
+			} stopped;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 2> transitions;
+			} broken;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 3> transitions;
+			} repairing;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 2> transitions;
+			} evacuating;
+			struct {
+				QState * persistent;
+				QState * ephemeric;
+				std::array<QAbstractTransition *, 0> transitions;
+			} interrupted;
+			QString status;
+			bool isShutdown;
+
+			Members(ServiceStateInterface * p_parent):
+				stateMachine(new ServiceStateMachine(p_parent)),
+				starting{new QState(stateMachine), nullptr, {}},
+			started{new QState(stateMachine), nullptr, {}, nullptr},
+			stopping{new QState(stateMachine), nullptr, {}},
+			stopped{new QState(stateMachine), nullptr, {}},
+			broken{new QState(stateMachine), nullptr, {}},
+			repairing{new QState(stateMachine), nullptr, {}},
+			evacuating{new QState(stateMachine), nullptr, {}},
+			interrupted{new QState(stateMachine), nullptr, {}},
+			isShutdown(false)
+			{
+				started.interface = new ServiceStartedStateInterface(p_parent, started.persistent);
+			}
 		};
 
 		MPtr<Members> m;

@@ -56,7 +56,7 @@ void ServiceAutoRepair::setIntervalFunction(const QJSValue & intervalFunction)
 
 void ServiceAutoRepair::setIntervalFunction(const QString & intervalFunction)
 {
-	QJSValue function = JSEngine().evaluate(intervalFunction);
+	QJSValue function = JSEngine(*this).evaluate(intervalFunction);
 	if (function.isCallable())
 		setIntervalFunction(function);
 	else
@@ -77,37 +77,13 @@ void ServiceAutoRepair::subscribe(AbstractService * service)
 
 	// Reset interval when the service was in started or starting state (all states that lead to broken, except of repairing).
 	serviceEntry->startedEnteredConnection = connectResetIntervalOnStateEntered(service->states()->started(), serviceEntry->timer);
-	serviceEntry->startedChangedConnection = connect(service->states(), & StateInterface::startedChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->startedEnteredConnection);
-		serviceEntry->startedEnteredConnection = connectResetIntervalOnStateEntered(service->states()->started(), serviceEntry->timer);
-	});
 	serviceEntry->startingEnteredConnection = connectResetIntervalOnStateEntered(service->states()->starting(), serviceEntry->timer);
-	serviceEntry->startingChangedConnection = connect(service->states(), & StateInterface::startingChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->startingEnteredConnection);
-		serviceEntry->startingEnteredConnection = connectResetIntervalOnStateEntered(service->states()->starting(), serviceEntry->timer);
-	});
 
 	// Set new interval, when the service entered repairing state (if service fails to start the new interval will be used).
 	serviceEntry->repairingEnteredConnection = connectRepairingEntered(service, serviceEntry->timer);
-	serviceEntry->repairingChangedConnection = connect(service->states(), & StateInterface::repairingChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->repairingEnteredConnection);
-		serviceEntry->repairingEnteredConnection = connectRepairingEntered(service, serviceEntry->timer);
-	});
 
 	// Trigger the timer, when the service enters broken state.
 	serviceEntry->brokenEnteredConnection = connectBrokenEntered(service, serviceEntry->timer);
-	serviceEntry->brokenChangedConnection = connect(service->states(), & StateInterface::brokenChanged, serviceEntry->timer, [this, service]() {
-		ServiceEntry * serviceEntry = m->serviceData.value(service);
-		CUTEHMI_ASSERT(serviceEntry != nullptr, "serviceEntry can not be nullptr");
-		disconnect(serviceEntry->brokenEnteredConnection);
-		serviceEntry->brokenEnteredConnection = connectBrokenEntered(service, serviceEntry->timer);
-	});
 
 	// Trigger the repair when the timer timeout is reached.
 	connect(serviceEntry->timer, & QTimer::timeout, service, & AbstractService::start);
@@ -125,10 +101,21 @@ void ServiceAutoRepair::unsubscribe(AbstractService * service)
 	clearServiceEntry(service);
 }
 
-QJSEngine & ServiceAutoRepair::JSEngine()
+void ServiceAutoRepair::classBegin()
+{
+	// If service is created from QML then reassign initial interval function once QML engine is available to avoid
+	// "JSValue can't be reassigned to another engine" errors.
+	setIntervalFunction(QString(INITIAL_INTERVAL_FUNCTION));
+}
+
+void ServiceAutoRepair::componentComplete()
+{
+}
+
+QJSEngine & ServiceAutoRepair::JSEngine(const QObject & object)
 {
 	static QJSEngine engine;
-	return engine;
+	return qmlEngine(& object) ? *qmlEngine(& object) : engine;
 }
 
 QMetaObject::Connection ServiceAutoRepair::connectResetIntervalOnStateEntered(const QAbstractState * state, QTimer * timer)
@@ -161,13 +148,9 @@ void ServiceAutoRepair::clearServiceEntry(AbstractService * service)
 {
 	ServiceEntry * serviceEntry = m->serviceData.take(service);
 	disconnect(serviceEntry->startingEnteredConnection);
-	disconnect(serviceEntry->startingChangedConnection);
 	disconnect(serviceEntry->startedEnteredConnection);
-	disconnect(serviceEntry->startedChangedConnection);
 	disconnect(serviceEntry->repairingEnteredConnection);
-	disconnect(serviceEntry->repairingChangedConnection);
 	disconnect(serviceEntry->brokenEnteredConnection);
-	disconnect(serviceEntry->brokenChangedConnection);
 	disconnect(serviceEntry->timer, & QTimer::timeout, service, & AbstractService::start);
 	serviceEntry->timer->deleteLater();
 	delete serviceEntry;

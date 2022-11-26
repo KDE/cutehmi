@@ -5,54 +5,42 @@
 
 #include <QObject>
 #include <QAbstractState>
+#include <QQmlEngine>
+
+#include <array>
+
+class QAbstractTransition;
 
 namespace cutehmi {
 namespace services {
 
+class StateInterface;
+
+/**
+ * Substates of started state of the state interface.
+ */
 class CUTEHMI_SERVICES_API StartedStateInterface:
 	public QObject
 {
 		Q_OBJECT
-
-		friend class StateInterface;
+		QML_NAMED_ELEMENT(StartedStateInterface)
+		QML_UNCREATABLE("StartedStateInterface is an abstract class")
 
 	public:
-		Q_PROPERTY(QAbstractState * yielding READ yielding NOTIFY yieldingChanged)
+		Q_PROPERTY(QAbstractState * yielding READ yielding CONSTANT)
 
-		Q_PROPERTY(QAbstractState * active READ active NOTIFY activeChanged)
+		Q_PROPERTY(QAbstractState * active READ active CONSTANT)
 
-		Q_PROPERTY(QAbstractState * idling READ idling NOTIFY idlingChanged)
+		Q_PROPERTY(QAbstractState * idling READ idling CONSTANT)
 
-		QAbstractState * yielding() const;
+		virtual QAbstractState * yielding() const = 0;
 
-		QAbstractState * active() const;
+		virtual QAbstractState * active() const = 0;
 
-		QAbstractState * idling() const;
-
-	signals:
-		void yieldingChanged();
-
-		void activeChanged();
-
-		void idlingChanged();
+		virtual QAbstractState * idling() const = 0;
 
 	protected:
-		StartedStateInterface(QObject * parent = nullptr);
-
-		void setYielding(QAbstractState * yielding);
-
-		void setActive(QAbstractState * active);
-
-		void setIdling(QAbstractState * idling);
-
-	private:
-		struct Members {
-			QAbstractState * yielding;
-			QAbstractState * active;
-			QAbstractState * idling;
-		};
-
-		MPtr<Members> m;
+		StartedStateInterface(StateInterface * parent);
 };
 
 }

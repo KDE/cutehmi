@@ -20,8 +20,9 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriterAttachedType:
 	public QObject
 {
 		Q_OBJECT
-		Q_PROPERTY(QQmlListProperty<cutehmi::dataacquisition::AbstractWriter> targets READ targetList CONSTANT)
 		QML_ANONYMOUS
+
+		Q_PROPERTY(QQmlListProperty<cutehmi::dataacquisition::AbstractWriter> targets READ targetList CONSTANT)
 
 	public:
 		explicit AbstractWriterAttachedType(QObject * parent = nullptr);

@@ -293,9 +293,11 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		addTransition(& m->stateInterface->starting(), & m->stateInterface->started(), serviceable.transitionToStarted());
 		addTransition(& m->stateInterface->repairing(), & m->stateInterface->started(), serviceable.transitionToStarted());
 		addTransition(& m->stateInterface->stopping(), & m->stateInterface->stopped(), serviceable.transitionToStopped());
-		addTransition(& m->stateInterface->starting(), & m->stateInterface->broken(), serviceable.transitionToBroken());
-		addTransition(& m->stateInterface->started(), & m->stateInterface->broken(), serviceable.transitionToBroken());
-		addTransition(& m->stateInterface->repairing(), & m->stateInterface->broken(), serviceable.transitionToBroken());
+		if (serviceable.transitionToBroken()) {
+			addTransition(& m->stateInterface->starting(), & m->stateInterface->broken(), serviceable.transitionToBroken());
+			addTransition(& m->stateInterface->started(), & m->stateInterface->broken(), serviceable.transitionToBroken());
+			addTransition(& m->stateInterface->repairing(), & m->stateInterface->broken(), serviceable.transitionToBroken());
+		}
 		if (serviceable.transitionToIdling())
 			addTransition(& m->stateInterface->active(), & m->stateInterface->idling(), serviceable.transitionToIdling());
 		addTransition(& m->stateInterface->idling(), & m->stateInterface->yielding(), serviceable.transitionToYielding());
@@ -312,7 +314,7 @@ void Service::initializeStateMachine(Serviceable & serviceable)
 		m->stateMachine->start();
 		QCoreApplication::processEvents();	// This is required in order to truly start state machine and prevent it from ignoring incoming events.
 	} catch (const std::exception & e) {
-		CUTEHMI_CRITICAL("Could not initialize new state machine, because of following exception: " << e.what());
+		CUTEHMI_CRITICAL("Service '" << name() << "' could not initialize new state machine, because of the following exception: " << e.what());
 	}
 }
 

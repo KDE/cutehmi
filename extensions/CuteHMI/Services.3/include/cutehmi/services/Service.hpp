@@ -70,13 +70,10 @@ class CUTEHMI_SERVICES_API Service:
 
 		internal::ServiceStateInterface * stateInterface() const;
 
-		void initializeStateMachine(bool start = true);
-
-		void destroyStateMachine();
+		void configureStateInterface();
 
 		struct Members {
 			Serviceable * serviceable;
-			internal::ServiceStateMachine * stateMachine;
 			mutable bool qmlBeingParsed;
 		};
 

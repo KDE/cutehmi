@@ -12,7 +12,7 @@ namespace services {
 const char * SelfService::DSM_IMPORT_STATEMENT = "import QtQml.StateMachine 1.15";
 
 SelfService::SelfService(QObject * parent):
-	AbstractService(std::make_unique<internal::ServiceStateInterface>(), DefaultStatus(), parent),
+	AbstractService(new internal::ServiceStateInterface, DefaultStatus(), parent),
 	m(new Members{
 	//<CuteHMI.Services-3.workaround target="Qt" cause="design">
 	QStateMachine{},	// C++17 mandatory copy elision of explicit ctor call (see: https://en.cppreference.com/w/cpp/language/copy_elision).
@@ -33,7 +33,6 @@ SelfService::SelfService(QObject * parent):
 	QJSValue::UndefinedValue,
 	QJSValue::UndefinedValue,
 	QJSValue::UndefinedValue,
-	nullptr,
 	false,
 	{
 		nullptr,
@@ -41,17 +40,13 @@ SelfService::SelfService(QObject * parent):
 		QJSValue::UndefinedValue
 	}})
 {
+	// Service status is read-only property, thus it is updated through state interface writebale double.
+	connect(stateInterface(), & internal::ServiceStateInterface::statusChanged, this, & SelfService::setStatus);
 }
 
 SelfService::~SelfService()
 {
-	// Stop the service.
-	stop();
-
-	if (m->stateMachine)
-		m->stateMachine->shutdown();
-
-	destroyStateMachine();
+	stateInterface()->shutdown();
 }
 
 SelfServiceAttachedType * SelfService::qmlAttachedProperties(QObject * object)
@@ -73,8 +68,10 @@ void SelfService::setStartingState(QAbstractState * startingState)
 		//</CuteHMI.Services-3.workaround>
 		emit startingStateChanged();
 
-		if (!m->qmlBeingParsed)
-			m->stateMachine ? m->stateMachine->reconfigureStarting() : initializeStateMachine();
+		if (!m->qmlBeingParsed) {
+			stateInterface()->reconfigureStarting(*this);
+			emit initialized();
+		}
 	}
 }
 
@@ -92,8 +89,10 @@ void SelfService::setActiveState(QAbstractState * activeState)
 		//</CuteHMI.Services-3.workaround>
 		emit activeStateChanged();
 
-		if (!m->qmlBeingParsed)
-			m->stateMachine ? m->stateMachine->reconfigureStarted() : initializeStateMachine();
+		if (!m->qmlBeingParsed) {
+			stateInterface()->reconfigureStarted(*this);
+			emit initialized();
+		}
 	}
 }
 
@@ -111,8 +110,10 @@ void SelfService::setStoppingState(QAbstractState * stoppingState)
 		//</CuteHMI.Services-3.workaround>
 		emit stoppingStateChanged();
 
-		if (!m->qmlBeingParsed)
-			m->stateMachine ?  m->stateMachine->reconfigureStopping() : initializeStateMachine();
+		if (!m->qmlBeingParsed) {
+			stateInterface()->reconfigureStopping(*this);
+			emit initialized();
+		}
 	}
 }
 
@@ -130,8 +131,10 @@ void SelfService::setBrokenState(QAbstractState * brokenState)
 		//</CuteHMI.Services-3.workaround>
 		emit brokenStateChanged();
 
-		if (!m->qmlBeingParsed)
-			m->stateMachine ? m->stateMachine->reconfigureBroken() : initializeStateMachine();
+		if (!m->qmlBeingParsed) {
+			stateInterface()->reconfigureBroken(*this);
+			emit initialized();
+		}
 	}
 }
 
@@ -149,8 +152,10 @@ void SelfService::setRepairingState(QAbstractState * repairingState)
 		//</CuteHMI.Services-3.workaround>
 		emit repairingStateChanged();
 
-		if (!m->qmlBeingParsed)
-			m->stateMachine ? m->stateMachine->reconfigureRepairing() : initializeStateMachine();
+		if (!m->qmlBeingParsed) {
+			stateInterface()->reconfigureRepairing(*this);
+			emit initialized();
+		}
 	}
 }
 
@@ -168,8 +173,10 @@ void SelfService::setEvacuatingState(QAbstractState * evacuatingState)
 		//</CuteHMI.Services-3.workaround>
 		emit evacuatingStateChanged();
 
-		if (!m->qmlBeingParsed)
-			m->stateMachine ? m->stateMachine->reconfigureEvacuating() : initializeStateMachine();
+		if (!m->qmlBeingParsed) {
+			stateInterface()->reconfigureEvacuating(*this);
+			emit initialized();
+		}
 	}
 }
 
@@ -187,8 +194,10 @@ void SelfService::setSignalToStarted(const QJSValue & signal)
 
 	emit signalToStartedChanged();
 
-	if (!m->qmlBeingParsed)
-		m->stateMachine ? m->stateMachine->replaceTransitionToStarted() : initializeStateMachine();
+	if (!m->qmlBeingParsed) {
+		stateInterface()->replaceTransitionToStarted(*this);
+		emit initialized();
+	}
 }
 
 QJSValue SelfService::signalToStopped() const
@@ -205,8 +214,10 @@ void SelfService::setSignalToStopped(const QJSValue & signal)
 
 	emit signalToStoppedChanged();
 
-	if (!m->qmlBeingParsed)
-		m->stateMachine ? m->stateMachine->replaceTransitionToStopped() : initializeStateMachine();
+	if (!m->qmlBeingParsed) {
+		stateInterface()->replaceTransitionToStopped(*this);
+		emit initialized();
+	}
 }
 
 QJSValue SelfService::signalToBroken() const
@@ -223,8 +234,9 @@ void SelfService::setSignalToBroken(const QJSValue & signal)
 
 	emit signalToBrokenChanged();
 
-	if (!m->qmlBeingParsed)
-		m->stateMachine ? m->stateMachine->replaceTransitionToBroken() : initializeStateMachine();
+	if (!m->qmlBeingParsed) {
+		stateInterface()->replaceTransitionToBroken(*this);
+	}
 }
 
 QJSValue SelfService::signalToIdling() const
@@ -241,8 +253,10 @@ void SelfService::setSignalToIdling(const QJSValue & signal)
 
 	emit signalToIdlingChanged();
 
-	if (!m->qmlBeingParsed)
-		m->stateMachine ? m->stateMachine->replaceTransitionToIdling() : initializeStateMachine();
+	if (!m->qmlBeingParsed) {
+		stateInterface()->replaceTransitionToIdling(*this);
+		emit initialized();
+	}
 }
 
 QJSValue SelfService::signalToYielding() const
@@ -259,8 +273,10 @@ void SelfService::setSignalToYielding(const QJSValue & signal)
 
 	emit signalToYieldingChanged();
 
-	if (!m->qmlBeingParsed)
-		m->stateMachine ? m->stateMachine->replaceTransitionToYielding() : initializeStateMachine();
+	if (!m->qmlBeingParsed) {
+		stateInterface()->replaceTransitionToYielding(*this);
+		emit initialized();
+	}
 }
 
 void SelfService::configureStarting(QState * starting, AssignStatusFunction assignStatus)
@@ -469,7 +485,7 @@ void SelfService::componentComplete()
 {
 	m->qmlBeingParsed = false;
 
-	initializeStateMachine();
+	configureStateInterface();
 }
 
 QString & SelfService::DefaultStatus()
@@ -560,37 +576,13 @@ QJSValue SelfService::helperSignalTransitionJSValue() const
 	return m->cache.helperSignalTransitionJSValue;
 }
 
+void SelfService::configureStateInterface()
+{
+	stateInterface()->configureServiceable(this);
+	emit initialized();
+}
+
 // </CuteHMI.Services-4.workaround>
-
-void SelfService::initializeStateMachine(bool start)
-{
-	try {
-		m->stateMachine = new internal::ServiceStateMachine(this, this);
-
-		// Service status is read-only property, thus it is updated through state machine writebale double.
-		connect(m->stateMachine, & internal::ServiceStateMachine::statusChanged, this, & SelfService::setStatus);
-
-		stateInterface()->bindStateMachine(m->stateMachine);
-
-		if (start)
-			m->stateMachine->start();	// Note: start() function is shadowed by internal::ServiceStateMachine.
-
-		emit initialized();
-	} catch (const std::exception & e) {
-		CUTEHMI_CRITICAL("Service '" << name() << "' could not initialize new state machine, because of the following exception: " << e.what());
-	}
-}
-
-void SelfService::destroyStateMachine()
-{
-	if (m->stateMachine) {
-		stateInterface()->unbindStateMachine();
-
-		m->stateMachine->stop();
-		m->stateMachine->deleteLater();
-		m->stateMachine = nullptr;
-	}
-}
 
 }
 }
