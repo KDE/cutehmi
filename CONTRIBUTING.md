@@ -4,6 +4,8 @@ Identity](https://identity.kde.org/) to have anything more than view-only access
 to the repositories. If you don't have KDE Identity you can
 [register](https://identity.kde.org/index.php?r=registration/index) yourself.
 Thereafter you simply open [new issue](https://invent.kde.org/kde/cutehmi/issues).
+You can use GitLab issues to report any vulnerabilities, bugs, stories or feature
+requests.
 
 If you can't have KDE Identity for whatever reason, as a last resort, you can
 open an issue on Michal's private GitHub
