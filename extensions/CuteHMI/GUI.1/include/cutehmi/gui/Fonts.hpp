@@ -58,7 +58,6 @@ class CUTEHMI_GUI_API Fonts:
 		};
 
 		MPtr<Members> m;
-
 };
 
 }

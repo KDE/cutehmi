@@ -141,7 +141,6 @@ QMetaObject::Connection ServiceAutoRepair::connectBrokenEntered(const AbstractSe
 	return connect(service->states()->broken(), & QAbstractState::entered, timer, [timer] {
 		timer->start();
 	});
-
 }
 
 void ServiceAutoRepair::clearServiceEntry(AbstractService * service)

@@ -95,7 +95,6 @@ class CUTEHMI_MODBUS_PRIVATE QtServerBackend:
 		};
 
 		MPtr<Members> m;
-
 };
 
 }

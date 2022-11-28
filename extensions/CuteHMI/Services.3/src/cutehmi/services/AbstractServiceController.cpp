@@ -6,7 +6,6 @@ namespace services {
 AbstractServiceController::AbstractServiceController(QObject * parent):
 	QObject(parent)
 {
-
 }
 
 }

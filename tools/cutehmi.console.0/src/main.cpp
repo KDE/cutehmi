@@ -185,7 +185,6 @@ int main(int argc, char * argv[])
 	}
 
 	return EXIT_FAILURE;
-
 }
 
 //(c)C: Copyright © 2020-2022, Michał Policht <michal@policht.pl>. All rights reserved.
