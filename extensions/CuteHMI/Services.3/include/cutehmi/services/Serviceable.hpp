@@ -34,8 +34,6 @@ class CUTEHMI_SERVICES_API Serviceable
 	public:
 		typedef std::function<void (QState & state, const QString & status)> AssignStatusFunction;
 
-		Serviceable() = default;
-
 		/**
 		 * Configure starting state.
 		 * @param starting state.
@@ -121,6 +119,8 @@ class CUTEHMI_SERVICES_API Serviceable
 		virtual std::unique_ptr<QAbstractTransition> transitionToIdling() const = 0;
 
 	protected:
+		Serviceable() = default;
+
 		virtual ~Serviceable() = default;
 
 		Serviceable(const Serviceable & other) = default;
