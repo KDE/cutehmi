@@ -52,7 +52,7 @@ int main(int argc, char * argv[])
 #ifdef CUTEHMI_CONSOLE_DEFAULT_LANGUAGE
 		language = CUTEHMI_CONSOLE_DEFAULT_LANGUAGE;
 #endif
-		if (!qgetenv("CUTEHMI_LANGUAGE").isEmpty()) {
+		if (!qEnvironmentVariableIsEmpty("CUTEHMI_LANGUAGE")) {
 			language = qgetenv("CUTEHMI_LANGUAGE");
 			CUTEHMI_DEBUG("Default language set by 'CUTEHMI_LANGUAGE' environmental variable: " << qgetenv("CUTEHMI_LANGUAGE"));
 		}
