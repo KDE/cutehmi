@@ -837,7 +837,6 @@ void ServiceStateInterface::addStartingTransition(int index, const Serviceable &
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
 	}
-
 }
 
 void ServiceStateInterface::addStartedTransition(int index, const Serviceable & serviceable)

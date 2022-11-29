@@ -79,7 +79,7 @@ int main(int argc, char * argv[])
 #ifdef CUTEHMI_DAEMON_DEFAULT_LANGUAGE
 	language = CUTEHMI_DAEMON_DEFAULT_LANGUAGE;
 #endif
-	if (!qgetenv("CUTEHMI_LANGUAGE").isEmpty())
+	if (!qEnvironmentVariableIsEmpty("CUTEHMI_LANGUAGE"))
 		language = qgetenv("CUTEHMI_LANGUAGE");
 
 

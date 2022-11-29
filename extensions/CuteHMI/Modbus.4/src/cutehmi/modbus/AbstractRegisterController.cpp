@@ -45,7 +45,6 @@ void AbstractRegisterController::setDevice(AbstractDevice * device)
 			});
 			if (!m->deferRequestRead && deviceReady() && enabled())
 				requestReadRegisters(static_cast<quint16>(address()), bytes(), nullptr);
-
 		}
 		emit deviceChanged();
 	}

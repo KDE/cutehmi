@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
 msgctxt "DefaultScreen|"
@@ -62,7 +62,7 @@ msgstr "აპლიკაციის მთელ ეკრანზე გა
 #: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
-msgstr ""
+msgstr "ჩამტვირთავის გადაფარვა დასაწყისში ჩასატვირთი QML <ფაილის> მითითებით."
 
 #: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
@@ -72,7 +72,7 @@ msgstr "ფაილი"
 #: tools/cutehmi.view.4/src/main.cpp:123
 msgctxt "main|"
 msgid "Use <version> for extension minor version to import."
-msgstr ""
+msgstr "გამოიყენეთ <ვერსია> გაფართოების მცირე ვერსიისთვის, შემოსატანად."
 
 #: tools/cutehmi.view.4/src/main.cpp:123
 msgctxt "main|"
