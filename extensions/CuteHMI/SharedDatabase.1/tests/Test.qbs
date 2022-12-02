@@ -7,7 +7,7 @@ import cutehmi
 cutehmi.Test {
 	testNamePrefix: parent.parent.name
 
-	Depends { name: "CuteHMI.SharedDatabase.0" }
+	Depends { name: "CuteHMI.SharedDatabase.1" }
 }
 
 //(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
