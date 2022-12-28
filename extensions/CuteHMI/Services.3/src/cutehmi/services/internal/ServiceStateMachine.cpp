@@ -17,7 +17,13 @@ ServiceStateMachine::ServiceStateMachine(QObject * parent):
 void ServiceStateMachine::start()
 {
 	QStateMachine::start();
-	QCoreApplication::processEvents();	// This is required in order to truly start state machine and prevent it from ignoring incoming events.
+	QCoreApplication::processEvents();	// This is required in order to start state machine without skipping or reordering events.
+}
+
+void ServiceStateMachine::stop()
+{
+	QStateMachine::stop();
+	QCoreApplication::processEvents();	// This is required in order to stop state machine without skipping or reordering events.
 }
 
 }

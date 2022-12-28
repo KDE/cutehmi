@@ -33,6 +33,13 @@ class CUTEHMI_SERVICES_PRIVATE ServiceStateMachine:
 		 * This is shadowed function, which additionaly calls QCoreApplication::processEvents().
 		 */
 		void start();
+
+		/**
+		 * Stop the state machine.
+		 *
+		 * This is shadowed function, which additionaly calls QCoreApplication::processEvents().
+		 */
+		void stop();
 };
 
 }
