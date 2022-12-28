@@ -52,7 +52,7 @@ TagValue * AbstractWriter::getValue(int index)
 
 void AbstractWriter::appendValue(TagValue * value)
 {
-	ValuesListAppend(& m->valueList, value);
+	ValueListAppend(& m->valueList, value);
 }
 
 void AbstractWriter::clearValues()
@@ -93,7 +93,7 @@ void AbstractWriter::ValueListClear(QQmlListProperty<TagValue> * property)
 	static_cast<TagValueContainer *>(property->data)->clear();
 }
 
-void AbstractWriter::ValuesListAppend(QQmlListProperty<TagValue> * property, TagValue * value)
+void AbstractWriter::ValueListAppend(QQmlListProperty<TagValue> * property, TagValue * value)
 {
 	static_cast<AbstractWriter *>(property->object)->onValueAppend(value);
 	static_cast<TagValueContainer *>(property->data)->append(value);
