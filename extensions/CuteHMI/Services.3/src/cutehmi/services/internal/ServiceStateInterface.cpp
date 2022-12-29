@@ -50,7 +50,7 @@ ServiceStateMachine * ServiceStateInterface::stateMachine() const
 
 void ServiceStateInterface::configureServiceable(Serviceable * serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	startedInterface()->resetEphemericStates();
 	resetEphemericStates();
@@ -116,7 +116,7 @@ StartedStateInterface * ServiceStateInterface::startedStates() const
 
 void ServiceStateInterface::reconfigureStopped(const Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpStopped(true, serviceable);
 
@@ -125,7 +125,7 @@ void ServiceStateInterface::reconfigureStopped(const Serviceable & serviceable)
 
 void ServiceStateInterface::reconfigureStarting(Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpStarting(true, serviceable);
 
@@ -134,7 +134,7 @@ void ServiceStateInterface::reconfigureStarting(Serviceable & serviceable)
 
 void ServiceStateInterface::reconfigureStarted(Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpStarted(true, serviceable);
 
@@ -143,7 +143,7 @@ void ServiceStateInterface::reconfigureStarted(Serviceable & serviceable)
 
 void ServiceStateInterface::reconfigureStopping(Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpStopping(true, serviceable);
 
@@ -152,7 +152,7 @@ void ServiceStateInterface::reconfigureStopping(Serviceable & serviceable)
 
 void ServiceStateInterface::reconfigureBroken(Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpBroken(true, serviceable);
 
@@ -161,7 +161,7 @@ void ServiceStateInterface::reconfigureBroken(Serviceable & serviceable)
 
 void ServiceStateInterface::reconfigureRepairing(Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpRepairing(true, serviceable);
 
@@ -170,7 +170,7 @@ void ServiceStateInterface::reconfigureRepairing(Serviceable & serviceable)
 
 void ServiceStateInterface::reconfigureEvacuating(Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpEvacuating(true, serviceable);
 
@@ -179,7 +179,7 @@ void ServiceStateInterface::reconfigureEvacuating(Serviceable & serviceable)
 
 void ServiceStateInterface::reconfigureInterrupted(const Serviceable & serviceable)
 {
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	setUpInterrupted(true, serviceable);
 
@@ -245,7 +245,7 @@ void ServiceStateInterface::shutdown()
 		QCoreApplication::processEvents();
 	}
 
-	m->stateMachine->stop();
+	m->stateMachine->stop();	// Note: stop() function is shadowed by internal::ServiceStateMachine.
 
 	m->isShutdown = true;
 }

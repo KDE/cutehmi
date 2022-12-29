@@ -89,7 +89,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 
 		static void ValueListClear(QQmlListProperty<TagValue> * property);
 
-		static void ValuesListAppend(QQmlListProperty<TagValue> * property, TagValue * value);
+		static void ValueListAppend(QQmlListProperty<TagValue> * property, TagValue * value);
 
 		struct Members
 		{
@@ -98,7 +98,7 @@ class CUTEHMI_DATAACQUISITION_API AbstractWriter:
 			Schema * schema;
 
 			Members(AbstractWriter * p_parent):
-				valueList(p_parent, & values, & AbstractWriter::ValuesListAppend, & AbstractWriter::ValueListCount, & AbstractWriter::ValueListAt, & AbstractWriter::ValueListClear),
+				valueList(p_parent, & values, & AbstractWriter::ValueListAppend, & AbstractWriter::ValueListCount, & AbstractWriter::ValueListAt, & AbstractWriter::ValueListClear),
 				schema(nullptr)
 			{
 			}

@@ -117,7 +117,7 @@ msgstr "dir"
 #: tools/cutehmi.view.4/src/main.cpp:140
 msgctxt "main|"
 msgid "Explicitly specify <resource> file to be loaded on startup."
-msgstr ""
+msgstr "საჭიროა <resource> ფაილის გაშვებისას ჩატვირთვა."
 
 #: tools/cutehmi.view.4/src/main.cpp:140
 msgctxt "main|"
@@ -141,6 +141,8 @@ msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
 "been set during compilation time."
 msgstr ""
+"პარამეტრს 'component' ვერ გამოიყენებთ იმიტომ, რომ 'forceDefaultOptions' "
+"პარამეტრი აგების დროსაა დაყენებული."
 
 #: tools/cutehmi.view.4/src/main.cpp:218
 msgctxt "main|"
@@ -148,6 +150,8 @@ msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
 "been set during compilation time."
 msgstr ""
+"პარამეტრს 'extension' ვერ გამოიყენებთ იმიტომ, რომ 'forceDefaultOptions' "
+"პარამეტრი აგების დროსაა დაყენებული."
 
 #: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
 #, qt-format
@@ -156,12 +160,16 @@ msgid ""
 "You can not use '%1' option, because 'forceDefaultOptions' option has been "
 "set during compilation time."
 msgstr ""
+"პარამეტრს '%1' ვერ გამოიყენებთ იმიტომ, რომ 'forceDefaultOptions' პარამეტრი "
+"აგების დროსაა დაყენებული."
 
 #: tools/cutehmi.view.4/src/main.cpp:228
 #, qt-format
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
 msgstr ""
+"ბრძანების სტრიქონის არგუმენტის შეცდომა: '%1' პარამეტრის მნიშვნელობა რიცხვს "
+"უნდა წარმოადგენდეს."
 
 #: tools/cutehmi.view.4/src/main.cpp:236
 msgctxt "main|"
@@ -169,22 +177,24 @@ msgid ""
 "Command line argument error: please specify extension with major version "
 "number after the last dot."
 msgstr ""
+"ბრძანების სტრიქონის არგუმენტის შეცდომა: მიუთითეთ გაფართოება მთავარი ვერსიის "
+"ნომრით ბოლო წერტილის შემდეგ."
 
 #: tools/cutehmi.view.4/src/main.cpp:284
 #, qt-format
 msgctxt "main|"
 msgid ""
 "URL '%1' contains relative path along with URL scheme, which is forbidden."
-msgstr ""
+msgstr "ბმული %1 URL-ის შემცველ ფარდობით ბილიკს წარმოადგენს, რაც აკრძალულია."
 
 #: tools/cutehmi.view.4/src/main.cpp:291
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
-msgstr ""
+msgstr "QML ფაილი '%1' არ არსებობს."
 
 #: tools/cutehmi.view.4/src/main.cpp:296
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."
-msgstr ""
+msgstr "QML ფაილის URL-ის არასწორი ფორმატი '%1'."
