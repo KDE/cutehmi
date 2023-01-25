@@ -103,6 +103,7 @@ void test_functions::testMetadata()
 	QVERIFY(json.contains("major"));
 	QVERIFY(json.contains("minor"));
 	QVERIFY(json.contains("micro"));
+	QVERIFY(json.contains("hash"));
 	QVERIFY(json.contains("vendor"));
 }
 
