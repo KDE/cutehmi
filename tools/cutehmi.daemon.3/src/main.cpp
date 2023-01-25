@@ -68,7 +68,7 @@ int main(int argc, char * argv[])
 	QCoreApplication::setOrganizationName(CUTEHMI_DAEMON_VENDOR);
 	QCoreApplication::setOrganizationDomain(CUTEHMI_DAEMON_DOMAIN);
 	QCoreApplication::setApplicationName(CUTEHMI_DAEMON_FRIENDLY_NAME);
-	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_DAEMON_MAJOR).arg(CUTEHMI_DAEMON_MINOR).arg(CUTEHMI_DAEMON_MICRO));
+	QCoreApplication::setApplicationVersion(CUTEHMI_DAEMON_VERSION);
 
 	QCoreApplication app(argc, argv);
 

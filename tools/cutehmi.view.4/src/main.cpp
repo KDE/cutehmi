@@ -63,7 +63,7 @@ int main(int argc, char * argv[])
 	QCoreApplication::setOrganizationName(CUTEHMI_VIEW_VENDOR);
 	QCoreApplication::setOrganizationDomain(CUTEHMI_VIEW_DOMAIN);
 	QCoreApplication::setApplicationName(CUTEHMI_VIEW_FRIENDLY_NAME);
-	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_VIEW_MAJOR).arg(CUTEHMI_VIEW_MINOR).arg(CUTEHMI_VIEW_MICRO));
+	QCoreApplication::setApplicationVersion(CUTEHMI_VIEW_VERSION);
 
 	try {
 #ifdef CUTEHMI_VIEW_VIRTUAL_KEYBOARD

@@ -35,7 +35,7 @@ int main(int argc, char * argv[])
 	QCoreApplication::setOrganizationName(CUTEHMI_CONSOLE_VENDOR);
 	QCoreApplication::setOrganizationDomain(CUTEHMI_CONSOLE_DOMAIN);
 	QCoreApplication::setApplicationName(CUTEHMI_CONSOLE_FRIENDLY_NAME);
-	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_CONSOLE_MAJOR).arg(CUTEHMI_CONSOLE_MINOR).arg(CUTEHMI_CONSOLE_MICRO));
+	QCoreApplication::setApplicationVersion(CUTEHMI_CONSOLE_VERSION);
 
 	try {
 		//<Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
