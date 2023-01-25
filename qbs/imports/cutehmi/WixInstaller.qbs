@@ -143,7 +143,8 @@ CommonProduct {
 	property string packageSummaryCodepage: productCodepage
 
 	/**
-	  Product version.
+	  Product version. Note that hash is not used and other parts must be numbers.
+	  See: https://learn.microsoft.com/en-us/windows/win32/msi/productversion.
 	  */
 	property string productVersion: major + "." + minor + "." + micro
 
