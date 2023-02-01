@@ -68,7 +68,7 @@ int main(int argc, char * argv[])
 	QCoreApplication::setOrganizationName(CUTEHMI_DAEMON_VENDOR);
 	QCoreApplication::setOrganizationDomain(CUTEHMI_DAEMON_DOMAIN);
 	QCoreApplication::setApplicationName(CUTEHMI_DAEMON_FRIENDLY_NAME);
-	QCoreApplication::setApplicationVersion(QString("%1.%2.%3").arg(CUTEHMI_DAEMON_MAJOR).arg(CUTEHMI_DAEMON_MINOR).arg(CUTEHMI_DAEMON_MICRO));
+	QCoreApplication::setApplicationVersion(CUTEHMI_DAEMON_VERSION);
 
 	QCoreApplication app(argc, argv);
 
@@ -302,7 +302,7 @@ int main(int argc, char * argv[])
 	//</Qt-Qt_5_7_0_Reference_Documentation-Threads_and_QObjects-QObject_Reentrancy-creating_QObjects_before_QApplication.assumption>
 }
 
-//(c)C: Copyright © 2020-2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

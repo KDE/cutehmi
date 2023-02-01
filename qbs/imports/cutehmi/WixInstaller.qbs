@@ -143,7 +143,8 @@ CommonProduct {
 	property string packageSummaryCodepage: productCodepage
 
 	/**
-	  Product version.
+	  Product version. Note that hash is not used and other parts must be numbers.
+	  See: https://learn.microsoft.com/en-us/windows/win32/msi/productversion.
 	  */
 	property string productVersion: major + "." + minor + "." + micro
 
@@ -374,7 +375,7 @@ CommonProduct {
 	}
 }
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

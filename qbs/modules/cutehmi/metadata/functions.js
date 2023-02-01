@@ -1,57 +1,12 @@
-import qbs
-
-/**
-  Common product. Defines common properties for all CuteHMI product types.
-  */
-Product {
-	targetName: qbs.buildVariant.contains("debug") ? name + "d" : name
-
-	//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
-	// Using 'builtByDefault' instead of 'condition', because products with condition set to false are not evaluated at all, which
-	// gives no chance to propagate condition accross dependencies.
-	builtByDefault: cutehmi.product.disabledProducts.length == 0 && cutehmi.product.enabled
-	//</qbs-imports-cutehmi-1.workaround>
-
-	property string cutehmiType: "product"	///< CuteHMI product type.
-
-	property string vendor					///< Product vendor.
-
-	property string domain					///< Organization domain.
-
-	property string friendlyName			///< Descriptive product name for ordinary humans.
-
-	property string description				///< Short product description.
-
-	property string baseName				///< Base name of the product (without the major version suffix).
-
-	property int major						///< Major version number.
-
-	property int minor: 0					///< Minor version number.
-
-	property int micro: 0					///< Micro version number.
-
-	property string hash: ""				///< Hash version string.
-
-	property bool i18n: false				///< Indicates whether translations should be loaded for this product.
-
-	//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
-
-	Export {
-		Depends { name: "cutehmi.product" }
-		Properties {
-			//<qbs-imports-cutehmi-1.workaround target="Qbs" cause="design">
-			condition: !exportingProduct.builtByDefault
-			//</qbs-imports-cutehmi-1.workaround>
-			cutehmi.product.disabledProducts: exportingProduct.name
-		}
-	}
-
-	Depends { name: "cutehmi.product" }
-
-	//</qbs-cutehmi.product-1.workaround>
+function versionString(product)
+{
+	if (product.cutehmiType !== undefined)
+		return product.major + "." + product.minor + "." + product.micro + (product.hash !== "" ? "." + product.hash : "")
+	else
+		return product.version
 }
 
-//(c)C: Copyright © 2018-2023, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
