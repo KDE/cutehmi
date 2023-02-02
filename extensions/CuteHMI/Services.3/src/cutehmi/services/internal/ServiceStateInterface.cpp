@@ -934,8 +934,6 @@ void ServiceStateInterface::addEvacuatingTransition(int index, const Serviceable
 
 void ServiceStateInterface::addInterrputedTransition(int index)
 {
-	auto state = interruptedPersistent();
-
 	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
 
 	switch (index) {
