@@ -2,7 +2,7 @@ import QtQml 2.8
 import QtQuick 2.8
 import QtQuick.Controls 2.1
 
-import CuteHMI.Modbus 3.0
+import CuteHMI.Modbus 4.0
 
 import "RegisterItem.js" as Private
 
