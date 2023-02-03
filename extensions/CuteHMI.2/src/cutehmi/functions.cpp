@@ -12,7 +12,7 @@ namespace cutehmi {
 static QString metadataPath(const QString & product)
 {
 	QString relativePath = QDir("/" CUTEHMI_DIRS_TOOLS_INSTALL_SUBDIR).relativeFilePath("/" CUTEHMI_DIRS_METADATA_INSTALL_SUBDIR);
-	return relativePath + "/" + product + ".metadata.json";
+	return QCoreApplication::applicationDirPath() + "/" + relativePath + "/" + product + ".metadata.json";
 }
 
 QJsonObject metadata(const QString & product)
