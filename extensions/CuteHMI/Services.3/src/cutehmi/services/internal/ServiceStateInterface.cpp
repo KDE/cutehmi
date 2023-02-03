@@ -934,8 +934,6 @@ void ServiceStateInterface::addEvacuatingTransition(int index, const Serviceable
 
 void ServiceStateInterface::addInterrputedTransition(int index)
 {
-	CUTEHMI_ASSERT(state != nullptr, "state can not be nullptr");
-
 	switch (index) {
 		default:
 			CUTEHMI_CRITICAL("Transition with index " << index << " is not known to " << Q_FUNC_INFO << " function.");
