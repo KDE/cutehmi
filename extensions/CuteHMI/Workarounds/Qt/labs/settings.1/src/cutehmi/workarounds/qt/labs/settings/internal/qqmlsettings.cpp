@@ -513,16 +513,42 @@ void QQmlSettings::sync()
 	d->instance()->sync();
 }
 
+/*!
+   \qmlmethod Settings::remove()
+
+	Removes the settings \a key any sub-settings of \a key.
+
+   \sa QSettings::remove
+*/
 void QQmlSettings::remove(const QString & key)
 {
 	Q_D(QQmlSettings);
 	d->instance()->remove(key);
 }
 
+/*!
+   \qmlmethod Settings::clear()
+
+	Clear all the entries in the primary location associated with Settings object.
+
+	Entries in fallback locations, which can be enabled by QSettings, are not removed.
+
+   \sa QSettings::clear
+*/
 void QQmlSettings::clear()
 {
 	Q_D(QQmlSettings);
 	d->instance()->clear();
+}
+
+QVariant QQmlSettings::getOrSet(const QString & key, const QVariant & defaultValue)
+{
+	Q_D(QQmlSettings);
+
+	if (!d->instance()->contains(key))
+		setValue(key, defaultValue);
+
+	return value(key);
 }
 
 void QQmlSettings::classBegin()
