@@ -409,7 +409,7 @@ std::unique_ptr<QAbstractTransition> SelfService::transitionToStarted() const
 	transition->setSignal(senderSignal.second);
 	// </CuteHMI.Services-4.workaround>
 
-	return std::move(transition);
+	return transition;
 }
 
 std::unique_ptr<QAbstractTransition> SelfService::transitionToStopped() const
@@ -425,7 +425,7 @@ std::unique_ptr<QAbstractTransition> SelfService::transitionToStopped() const
 	transition->setSignal(senderSignal.second);
 	// </CuteHMI.Services-4.workaround>
 
-	return std::move(transition);
+	return transition;
 }
 
 std::unique_ptr<QAbstractTransition> SelfService::transitionToBroken() const
@@ -441,7 +441,7 @@ std::unique_ptr<QAbstractTransition> SelfService::transitionToBroken() const
 	transition->setSignal(senderSignal.second);
 	// </CuteHMI.Services-4.workaround>
 
-	return std::move(transition);
+	return transition;
 }
 
 std::unique_ptr<QAbstractTransition> SelfService::transitionToYielding() const
@@ -457,7 +457,7 @@ std::unique_ptr<QAbstractTransition> SelfService::transitionToYielding() const
 	transition->setSignal(senderSignal.second);
 	// </CuteHMI.Services-4.workaround>
 
-	return std::move(transition);
+	return transition;
 }
 
 std::unique_ptr<QAbstractTransition> SelfService::transitionToIdling() const
@@ -473,7 +473,7 @@ std::unique_ptr<QAbstractTransition> SelfService::transitionToIdling() const
 	transition->setSignal(senderSignal.second);
 	// </CuteHMI.Services-4.workaround>
 
-	return std::move(transition);
+	return transition;
 }
 
 void SelfService::classBegin()
@@ -587,7 +587,7 @@ void SelfService::configureStateInterface()
 }
 }
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
