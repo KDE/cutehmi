@@ -1,16 +1,17 @@
 #include "QMLPlugin.hpp"
 
-#include <cutehmi/gui/CuteApplication.hpp>
-#include <cutehmi/gui/ColorSet.hpp>
-#include <cutehmi/gui/Palette.hpp>
-#include <cutehmi/gui/Fonts.hpp>
-#include <cutehmi/gui/Units.hpp>
-#include <cutehmi/gui/Theme.hpp>
+#include "CuteApplication.hpp"
+#include "Theme.hpp"
 
 #include <QtQml>
 
 //<Doxygen-3.workaround target="Doxygen" cause="missing">
 #ifdef DOXYGEN_WORKAROUND
+
+#include "ColorSet.hpp"
+#include "Palette.hpp"
+#include "Fonts.hpp"
+#include "Units.hpp"
 
 namespace CuteHMI {
 namespace GUI {
@@ -101,7 +102,7 @@ QObject * QMLPlugin::ThemeProvider(QQmlEngine * engine, QJSEngine * scriptEngine
 }
 }
 
-//(c)C: Copyright © 2020-2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2020-2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

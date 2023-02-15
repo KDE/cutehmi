@@ -1,11 +1,11 @@
 #include "QMLPlugin.hpp"
 
-#include <cutehmi/metadata.hpp>
-#include <cutehmi/Message.hpp>
-#include <cutehmi/Messenger.hpp>
-#include <cutehmi/Notification.hpp>
-#include <cutehmi/Notifier.hpp>
-#include <cutehmi/Internationalizer.hpp>
+#include "metadata.hpp"
+#include "Message.hpp"
+#include "Messenger.hpp"
+#include "Notification.hpp"
+#include "Notifier.hpp"
+#include "Internationalizer.hpp"
 
 #include <QtQml>
 
@@ -96,7 +96,7 @@ QObject * QMLPlugin::InternationalizationProvider(QQmlEngine * engine, QJSEngine
 }
 }
 
-//(c)C: Copyright © 2018-2022, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
+//(c)C: Copyright © 2018-2023, Michał Policht <michal@policht.pl>, Yuri Chornoivan <yurchor@ukr.net>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

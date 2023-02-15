@@ -37,6 +37,8 @@
 **
 ****************************************************************************/
 
+#include "logging.hpp"
+
 #include "qqmlsettings_p.h"
 #include <qcoreevent.h>
 #include <qcoreapplication.h>
@@ -47,8 +49,6 @@
 #include <qqmlinfo.h>
 #include <qdebug.h>
 #include <qhash.h>
-
-#include <cutehmi/workarounds/qt/labs/settings/logging.hpp>
 
 namespace cutehmi {
 namespace workarounds {
@@ -513,16 +513,42 @@ void QQmlSettings::sync()
 	d->instance()->sync();
 }
 
+/*!
+   \qmlmethod Settings::remove()
+
+	Removes the settings \a key any sub-settings of \a key.
+
+   \sa QSettings::remove
+*/
 void QQmlSettings::remove(const QString & key)
 {
 	Q_D(QQmlSettings);
 	d->instance()->remove(key);
 }
 
+/*!
+   \qmlmethod Settings::clear()
+
+	Clear all the entries in the primary location associated with Settings object.
+
+	Entries in fallback locations, which can be enabled by QSettings, are not removed.
+
+   \sa QSettings::clear
+*/
 void QQmlSettings::clear()
 {
 	Q_D(QQmlSettings);
 	d->instance()->clear();
+}
+
+QVariant QQmlSettings::getOrSet(const QString & key, const QVariant & defaultValue)
+{
+	Q_D(QQmlSettings);
+
+	if (!d->instance()->contains(key))
+		setValue(key, defaultValue);
+
+	return value(key);
 }
 
 void QQmlSettings::classBegin()
@@ -556,7 +582,7 @@ void QQmlSettings::timerEvent(QTimerEvent * event)
 
 #include "moc_qqmlsettings_p.cpp"
 
-//(c)C: Copyright © 2021-2022, Michał Policht <michal@policht.pl>, The Qt Company Ltd <sales@qt.io>. All rights reserved.
+//(c)C: Copyright © 2021-2023, Michał Policht <michal@policht.pl>, The Qt Company Ltd <sales@qt.io>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR GPL-2.0-or-later
 //(c)C: CuteHMI.Workarounds.Qt.labs.settings.1 extension is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version approved by the KDE Free Qt Foundation.
 //(c)C: This file is a part of CuteHMI.Workarounds.Qt.labs.settings.1 extension.

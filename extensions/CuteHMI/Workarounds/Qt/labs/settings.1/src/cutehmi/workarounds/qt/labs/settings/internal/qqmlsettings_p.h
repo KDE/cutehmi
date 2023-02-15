@@ -89,8 +89,11 @@ class QQmlSettings : public QObject, public QQmlParserStatus
 		Q_INVOKABLE QVariant value(const QString & key, const QVariant & defaultValue = QVariant()) const;
 		Q_INVOKABLE void setValue(const QString & key, const QVariant & value);
 		Q_INVOKABLE void sync();
+
+		// CuteHMI extra methods:
 		Q_INVOKABLE void remove(const QString & key);
 		Q_INVOKABLE void clear();
+		Q_INVOKABLE QVariant getOrSet(const QString & key, const QVariant & defaultValue);
 
 	signals:
 		void categoryChanged();
@@ -121,7 +124,7 @@ QML_DECLARE_TYPE(cutehmi::workarounds::qt::labs::settings::internal::QQmlSetting
 
 #endif
 
-//(c)C: Copyright © 2021-2022, Michał Policht <michal@policht.pl>, The Qt Company Ltd <sales@qt.io>. All rights reserved.
+//(c)C: Copyright © 2021-2023, Michał Policht <michal@policht.pl>, The Qt Company Ltd <sales@qt.io>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR GPL-2.0-or-later
 //(c)C: CuteHMI.Workarounds.Qt.labs.settings.1 extension is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version approved by the KDE Free Qt Foundation.
 //(c)C: This file is a part of CuteHMI.Workarounds.Qt.labs.settings.1 extension.

@@ -1,10 +1,9 @@
-#include <cutehmi/modbus/internal/PollingIterator.hpp>
-
-#include <cutehmi/modbus/AbstractDevice.hpp>
-#include <cutehmi/modbus/internal/HoldingRegisterPolling.hpp>
-#include <cutehmi/modbus/internal/CoilPolling.hpp>
-#include <cutehmi/modbus/internal/DiscreteInputPolling.hpp>
-#include <cutehmi/modbus/internal/InputRegisterPolling.hpp>
+#include "internal/PollingIterator.hpp"
+#include "internal/HoldingRegisterPolling.hpp"
+#include "internal/CoilPolling.hpp"
+#include "internal/DiscreteInputPolling.hpp"
+#include "internal/InputRegisterPolling.hpp"
+#include "AbstractDevice.hpp"
 
 namespace cutehmi {
 namespace modbus {
@@ -51,7 +50,7 @@ const QUuid & PollingIterator::requestId() const
 }
 }
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

@@ -1,5 +1,5 @@
-#include "../../include/cutehmi/functions.hpp"
-#include "../cutehmi.dirs.hpp"
+#include "functions.hpp"
+#include "../../cutehmi.dirs.hpp"
 
 #include <QDir>
 #include <QJsonObject>

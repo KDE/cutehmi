@@ -1,8 +1,8 @@
-# Vit Pelcak <vit@pelcak.org>, 2020, 2021.
+# Vit Pelcak <vit@pelcak.org>, 2020, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2021-03-15 18:34+0100\n"
+"PO-Revision-Date: 2023-01-30 11:22+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.12.3\n"
+"X-Generator: Lokalize 22.12.1\n"
 "X-Qt-Contexts: true\n"
 
 #: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
@@ -32,27 +32,27 @@ msgstr "Důvody:"
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:17
 msgctxt "MessageDialog|"
 msgid "Information"
-msgstr ""
+msgstr "Informace"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:20
 msgctxt "MessageDialog|"
 msgid "Warning"
-msgstr ""
+msgstr "Varování"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:23
 msgctxt "MessageDialog|"
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:26
 msgctxt "MessageDialog|"
 msgid "Question"
-msgstr ""
+msgstr "Otázka"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:29
 msgctxt "MessageDialog|"
 msgid "Message"
-msgstr ""
+msgstr "Zpráva"
 
 #: tools/cutehmi.view.4/src/main.cpp:116
 msgctxt "main|"

@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/AbstractRegisterController.hpp>
-
-#include <cutehmi/modbus/internal/functions.hpp>
+#include "AbstractRegisterController.hpp"
+#include "internal/functions.hpp"
 
 namespace cutehmi {
 namespace modbus {
@@ -151,7 +150,7 @@ bool AbstractRegisterController::deviceReady() const
 }
 }
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

@@ -1,7 +1,7 @@
 #ifndef H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_STATEINTERFACEHELPERS_HPP
 #define H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_STATEINTERFACEHELPERS_HPP
 
-#include <cutehmi/services/internal/common.hpp>
+#include "internal/common.hpp"
 
 #include <QAbstractTransition>
 #include <QState>
@@ -70,7 +70,7 @@ void recreateState(T & stateData, const QString & ephemericName)
 
 #endif
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2023, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

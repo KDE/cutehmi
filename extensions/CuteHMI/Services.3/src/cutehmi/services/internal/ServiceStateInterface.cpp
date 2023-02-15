@@ -1,9 +1,8 @@
 #include "ServiceStateInterface.hpp"
 #include "ServiceStartedStateInterface.hpp"
 #include "stateInterfaceHelpers.hpp"
-
-#include <cutehmi/services/Serviceable.hpp>
-#include <cutehmi/services/AbstractService.hpp>
+#include "Serviceable.hpp"
+#include "AbstractService.hpp"
 
 #include <cutehmi/Notification.hpp>
 
