@@ -1,5 +1,5 @@
-#include "../../include/cutehmi/Notification.hpp"
-#include "../../include/cutehmi/Notifier.hpp"
+#include "Notification.hpp"
+#include "Notifier.hpp"
 
 namespace cutehmi {
 

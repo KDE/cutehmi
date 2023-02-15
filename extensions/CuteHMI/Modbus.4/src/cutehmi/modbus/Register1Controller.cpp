@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/Register1Controller.hpp>
-
-#include <cutehmi/modbus/internal/functions.hpp>
+#include "Register1Controller.hpp"
+#include "internal/functions.hpp"
 
 #include <QTimerEvent>
 

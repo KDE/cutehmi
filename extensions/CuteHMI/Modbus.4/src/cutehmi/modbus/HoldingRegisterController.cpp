@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/HoldingRegisterController.hpp>
+#include "HoldingRegisterController.hpp"
 
 namespace cutehmi {
 namespace modbus {

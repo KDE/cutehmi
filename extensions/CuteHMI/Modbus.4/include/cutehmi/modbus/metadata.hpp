@@ -1,7 +1,7 @@
 #ifndef H_EXTENSIONS_CUTEHMI_MODBUS_4_INCLUDE_CUTEHMI_MODBUS_METADATA_HPP
 #define H_EXTENSIONS_CUTEHMI_MODBUS_4_INCLUDE_CUTEHMI_MODBUS_METADATA_HPP
 
-#include "../cutehmi.metadata.hpp"
+#include "../../../cutehmi.metadata.hpp"
 
 #endif
 

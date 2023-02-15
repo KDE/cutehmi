@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/Coil.hpp>
+#include "internal/Coil.hpp"
 
 namespace cutehmi {
 namespace modbus {

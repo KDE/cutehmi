@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/DummyClientBackend.hpp>
+#include "internal/DummyClientBackend.hpp"
 
 #include <QThread>
 #include <QJsonArray>

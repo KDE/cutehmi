@@ -1,5 +1,5 @@
-#include <cutehmi/modbus/internal/QtTCPServerBackend.hpp>
-#include <cutehmi/modbus/internal/functions.hpp>
+#include "internal/QtTCPServerBackend.hpp"
+#include "internal/functions.hpp"
 
 #include <QThread>
 #include <QJsonArray>

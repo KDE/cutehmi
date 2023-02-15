@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/QtTCPServer.hpp>
+#include "internal/QtTCPServer.hpp"
 
 namespace cutehmi {
 namespace modbus {

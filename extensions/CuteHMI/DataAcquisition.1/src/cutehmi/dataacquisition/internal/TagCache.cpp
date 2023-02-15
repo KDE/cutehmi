@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/internal/TagCache.hpp>
+#include "internal/TagCache.hpp"
 
 #include <QSqlRecord>
 #include <QSqlResult>

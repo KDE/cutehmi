@@ -1,4 +1,4 @@
-#include <cutehmi/lockscreen/Gatekeeper.hpp>
+#include "Gatekeeper.hpp"
 
 #include <QDebug>
 #include <QDateTime>

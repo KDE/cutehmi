@@ -1,5 +1,5 @@
-#include <cutehmi/services/SelfService.hpp>
-#include <cutehmi/services/SelfServiceAttachedType.hpp>
+#include "SelfService.hpp"
+#include "SelfServiceAttachedType.hpp"
 #include "internal/ServiceStateMachine.hpp"
 #include "internal/ServiceStateInterface.hpp"
 

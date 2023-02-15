@@ -129,7 +129,7 @@ Module {
 		name: "initHeader"
 		description: "Header file with Init class declaration."
 	}
-	readonly property string initHeader: dedicatedSubdir + "/Init.hpp"
+	readonly property string initHeader: "include/" + dedicatedSubdir + "/Init.hpp"
 
 	PropertyOptions {
 		name: "hyphenatedName"

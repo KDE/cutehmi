@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/HistoryModel.hpp>
+#include "HistoryModel.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

@@ -1,9 +1,8 @@
 #include "ServiceStartedStateInterface.hpp"
 #include "ServiceStateMachine.hpp"
-#include <cutehmi/services/AbstractService.hpp>
-
 #include "ServiceStateInterface.hpp"
 #include "stateInterfaceHelpers.hpp"
+#include "AbstractService.hpp"
 
 #include <QStateMachine>
 

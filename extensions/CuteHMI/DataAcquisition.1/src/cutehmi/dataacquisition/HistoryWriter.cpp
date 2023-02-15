@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/HistoryWriter.hpp>
+#include "HistoryWriter.hpp"
 
 #include <cutehmi/shareddatabase/Database.hpp>
 

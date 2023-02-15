@@ -1,6 +1,6 @@
-#include <cutehmi/services/AbstractService.hpp>
-#include <cutehmi/services/ServiceDependency.hpp>
-#include <cutehmi/services/ServiceGroup.hpp>
+#include "AbstractService.hpp"
+#include "ServiceDependency.hpp"
+#include "ServiceGroup.hpp"
 
 namespace cutehmi {
 namespace services {

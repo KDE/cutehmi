@@ -1,11 +1,11 @@
 #include "QMLPlugin.hpp"
 
-#include <cutehmi/metadata.hpp>
-#include <cutehmi/Message.hpp>
-#include <cutehmi/Messenger.hpp>
-#include <cutehmi/Notification.hpp>
-#include <cutehmi/Notifier.hpp>
-#include <cutehmi/Internationalizer.hpp>
+#include "metadata.hpp"
+#include "Message.hpp"
+#include "Messenger.hpp"
+#include "Notification.hpp"
+#include "Notifier.hpp"
+#include "Internationalizer.hpp"
 
 #include <QtQml>
 

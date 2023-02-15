@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/RTUClientConfig.hpp>
+#include "internal/RTUClientConfig.hpp"
 
 namespace cutehmi {
 namespace modbus {

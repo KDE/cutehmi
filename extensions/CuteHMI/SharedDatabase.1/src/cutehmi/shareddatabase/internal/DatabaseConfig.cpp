@@ -1,6 +1,5 @@
-#include <cutehmi/shareddatabase/internal/DatabaseConfig.hpp>
-
-#include <cutehmi/shareddatabase/Database.hpp>
+#include "internal/DatabaseConfig.hpp"
+#include "Database.hpp"
 
 #include <QUuid>
 

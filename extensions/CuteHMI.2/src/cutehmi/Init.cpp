@@ -1,7 +1,7 @@
-#include <cutehmi/Init.hpp>
-#include <cutehmi/ErrorInfo.hpp>
-#include <cutehmi/InplaceError.hpp>
-#include <cutehmi/Message.hpp>
+#include "Init.hpp"
+#include "ErrorInfo.hpp"
+#include "InplaceError.hpp"
+#include "Message.hpp"
 
 namespace cutehmi {
 

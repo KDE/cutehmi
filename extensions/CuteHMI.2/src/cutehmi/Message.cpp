@@ -1,5 +1,5 @@
-#include "../../include/cutehmi/Message.hpp"
-#include "../../include/cutehmi/Messenger.hpp"
+#include "Message.hpp"
+#include "Messenger.hpp"
 
 #include <QEventLoop>
 #include <QMutexLocker>

@@ -1,5 +1,5 @@
-#include <cutehmi/bitcoincash/logging.hpp>
-#include <cutehmi/bitcoincash/metadata.hpp>
+#include "logging.hpp"
+#include "metadata.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_bitcoincash_0_loggingCategory, CUTEHMI_BITCOINCASH_NAME)
 

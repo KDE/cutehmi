@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/InputRegister.hpp>
+#include "internal/InputRegister.hpp"
 
 namespace cutehmi {
 namespace modbus {

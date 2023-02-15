@@ -1,5 +1,5 @@
-#include <cutehmi/services/ServiceAutoStart.hpp>
-#include <cutehmi/services/AbstractService.hpp>
+#include "ServiceAutoStart.hpp"
+#include "AbstractService.hpp"
 
 namespace cutehmi {
 namespace services {

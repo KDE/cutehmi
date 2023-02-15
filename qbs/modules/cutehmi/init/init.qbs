@@ -41,7 +41,7 @@ Module {
 						console.error("Value of 'cutehmi.init.initHeader' property has not been defined by product '" + product.name + "'!")
 						f.writeLine("// Value of 'cutehmi.init.initHeader' property has not been defined by product '" + product.name + "'!")
 					} else
-						f.writeLine("#include <" + product.cutehmi.init.initHeader + "> // Specified by 'cutehmi.init.initHeader'.")
+						f.writeLine("#include \"" + product.cutehmi.init.initHeader + "\" // Specified by 'cutehmi.init.initHeader'.")
 
 					f.writeLine("")
 

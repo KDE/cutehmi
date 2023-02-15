@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/DummyClient.hpp>
-
-#include <cutehmi/modbus/internal/HoldingRegisterPolling.hpp>
+#include "DummyClient.hpp"
+#include "internal/HoldingRegisterPolling.hpp"
 
 #include <QJsonArray>
 

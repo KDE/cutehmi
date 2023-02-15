@@ -1,7 +1,6 @@
-#include <cutehmi/services/ServiceGroup.hpp>
-#include <cutehmi/services/ServiceAutoActivate.hpp>
-#include <cutehmi/services/ServiceAutoStart.hpp>
-
+#include "ServiceGroup.hpp"
+#include "ServiceAutoActivate.hpp"
+#include "ServiceAutoStart.hpp"
 #include "internal/ServiceStateMachine.hpp"
 #include "internal/ServiceStateInterface.hpp"
 

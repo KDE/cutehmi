@@ -1,4 +1,4 @@
-#include "../../../include/cutehmi/gui/CuteApplication.hpp"
+#include "CuteApplication.hpp"
 
 namespace cutehmi {
 namespace gui {

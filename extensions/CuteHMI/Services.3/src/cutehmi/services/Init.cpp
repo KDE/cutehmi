@@ -1,5 +1,5 @@
-#include <cutehmi/services/Init.hpp>
-#include <cutehmi/services/Serviceable.hpp>
+#include "Init.hpp"
+#include "Serviceable.hpp"
 
 namespace cutehmi {
 namespace services {

@@ -1,5 +1,5 @@
-#include <cutehmi/services/ServiceAutoActivate.hpp>
-#include <cutehmi/services/AbstractService.hpp>
+#include "ServiceAutoActivate.hpp"
+#include "AbstractService.hpp"
 
 #include <QAbstractState>
 

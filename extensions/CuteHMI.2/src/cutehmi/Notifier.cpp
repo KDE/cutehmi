@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/Notifier.hpp"
+#include "Notifier.hpp"
 
 namespace cutehmi {
 

@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/AbstractWriterAttachedType.hpp>
+#include "AbstractWriterAttachedType.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

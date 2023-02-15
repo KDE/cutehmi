@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/AbstractClient.hpp>
+#include "AbstractClient.hpp"
 
 #include <QTimer>
 

@@ -65,7 +65,7 @@ Extension {
 			defines.push(macroName + "_TESTS")
 		return base.concat(defines)
 	}
-	cpp.includePaths: [product.sourceDirectory + "/include", cutehmi.dirs.externalIncludeDir]
+	cpp.includePaths: [cutehmi.conventions.includeDir, cutehmi.dirs.externalIncludeDir]
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	Depends { name: "cutehmi.cpp" }

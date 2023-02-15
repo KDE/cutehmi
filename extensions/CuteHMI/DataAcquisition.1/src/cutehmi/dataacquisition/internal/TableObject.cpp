@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/internal/TableObject.hpp>
+#include "internal/TableObject.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

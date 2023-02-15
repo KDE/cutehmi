@@ -7,7 +7,7 @@ import qbs.TextFile
   This module eneables generation of 'qmltypes' artifacts through _qmltyperegistrar_ facility.
   */
 Module {
-	property pathList includePaths: cutehmi.conventions.includeDir
+	property pathList includePaths: []
 
 	Depends { name: "Qt.qml" }
 

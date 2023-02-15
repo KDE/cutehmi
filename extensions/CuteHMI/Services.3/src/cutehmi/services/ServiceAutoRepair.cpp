@@ -1,5 +1,5 @@
-#include <cutehmi/services/ServiceAutoRepair.hpp>
-#include <cutehmi/services/AbstractService.hpp>
+#include "ServiceAutoRepair.hpp"
+#include "AbstractService.hpp"
 
 #include <QJSEngine>
 #include <QTimer>

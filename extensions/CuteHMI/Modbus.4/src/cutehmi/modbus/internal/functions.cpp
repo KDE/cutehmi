@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/functions.hpp>
+#include "internal/functions.hpp"
 
 #include <QtGlobal>
 

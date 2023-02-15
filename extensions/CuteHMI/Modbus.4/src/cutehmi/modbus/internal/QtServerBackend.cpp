@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/QtServerBackend.hpp>
+#include "internal/QtServerBackend.hpp"
 
 #include <QThread>
 

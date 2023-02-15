@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/Singleton.hpp"
+#include "Singleton.hpp"
 
 namespace cutehmi {
 

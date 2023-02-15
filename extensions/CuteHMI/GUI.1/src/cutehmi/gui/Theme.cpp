@@ -1,4 +1,4 @@
-#include <cutehmi/gui/Theme.hpp>
+#include "Theme.hpp"
 
 //<CuteHMI.GUI-2.workaround target="Qt" cause="bug">
 #include <QFontDatabase>

@@ -1,4 +1,4 @@
-#include <cutehmi/gpio/internal/LineEventMonitorThread.hpp>
+#include "internal/LineEventMonitorThread.hpp"
 
 namespace cutehmi {
 namespace gpio {

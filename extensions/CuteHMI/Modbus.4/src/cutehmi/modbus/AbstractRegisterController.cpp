@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/AbstractRegisterController.hpp>
-
-#include <cutehmi/modbus/internal/functions.hpp>
+#include "AbstractRegisterController.hpp"
+#include "internal/functions.hpp"
 
 namespace cutehmi {
 namespace modbus {

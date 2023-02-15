@@ -1,5 +1,5 @@
-#include <cutehmi/dataacquisition/internal/HistoryCollective.hpp>
-#include <cutehmi/dataacquisition/internal/TableNameTraits.hpp>
+#include "internal/HistoryCollective.hpp"
+#include "internal/TableNameTraits.hpp"
 
 #include "helpers.hpp"
 

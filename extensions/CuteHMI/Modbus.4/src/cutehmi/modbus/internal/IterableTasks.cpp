@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/internal/IterableTasks.hpp>
-
-#include <cutehmi/modbus/AbstractDevice.hpp>
+#include "internal/IterableTasks.hpp"
+#include "AbstractDevice.hpp"
 
 namespace cutehmi {
 namespace modbus {

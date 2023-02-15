@@ -1,6 +1,5 @@
-#include <cutehmi/dataacquisition/Schema.hpp>
-#include <cutehmi/dataacquisition/Exception.hpp>
-
+#include "Schema.hpp"
+#include "Exception.hpp"
 #include "../../../cutehmi.dirs.hpp"
 
 #include <QFile>

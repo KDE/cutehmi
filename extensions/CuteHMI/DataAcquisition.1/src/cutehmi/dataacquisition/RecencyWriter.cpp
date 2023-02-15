@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/RecencyWriter.hpp>
+#include "RecencyWriter.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

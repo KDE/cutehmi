@@ -3,9 +3,9 @@
 
 #include "common.hpp"
 #include "RegisterTraits.hpp"
+#include "../AbstractClient.hpp"
 
 #include <cutehmi/InplaceError.hpp>
-#include <cutehmi/modbus/AbstractClient.hpp>
 
 #include <QObject>
 #include <QJsonObject>

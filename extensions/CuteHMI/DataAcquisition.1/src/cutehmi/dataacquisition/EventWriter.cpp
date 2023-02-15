@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/EventWriter.hpp>
+#include "EventWriter.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

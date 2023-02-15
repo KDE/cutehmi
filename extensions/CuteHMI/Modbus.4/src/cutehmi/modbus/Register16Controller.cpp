@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/Register16Controller.hpp>
+#include "Register16Controller.hpp"
 
 #include <QTimerEvent>
 

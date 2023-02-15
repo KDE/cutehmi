@@ -1,4 +1,4 @@
-#include <cutehmi/services/SelfServiceAttachedType.hpp>
+#include "SelfServiceAttachedType.hpp"
 
 namespace cutehmi {
 namespace services {

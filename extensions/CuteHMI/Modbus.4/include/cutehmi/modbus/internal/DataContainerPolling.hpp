@@ -2,8 +2,7 @@
 #define H_EXTENSIONS_CUTEHMI_MODBUS_4_INCLUDE_CUTEHMI_MODBUS_INTERNAL_DATACONTAINERPOLLING_HPP
 
 #include "IterableTasks.hpp"
-
-#include <cutehmi/modbus/AbstractDevice.hpp>
+#include "../AbstractDevice.hpp"
 
 namespace cutehmi {
 namespace modbus {

@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/AbstractServer.hpp>
+#include "AbstractServer.hpp"
 
 namespace cutehmi {
 namespace modbus {

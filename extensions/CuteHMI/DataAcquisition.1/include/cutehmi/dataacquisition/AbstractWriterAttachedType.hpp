@@ -2,12 +2,11 @@
 #define H_EXTENSIONS_CUTEHMI_DATAACQUISITION_1_INCLUDE_CUTEHMI_DATAACQUISITION_ABSTRACTWRITERATTACHEDTYPE_HPP
 
 #include "internal/common.hpp"
+#include "AbstractWriter.hpp"
 
 //<CuteHMI.Workarounds.Qt5Compatibility-1.workaround target="Qt" cause="Qt5">
 #include <cutehmi/workarounds/qt5compatibility/qsizetype.hpp>
 //</CuteHMI.Workarounds.Qt5Compatibility-1.workaround>
-
-#include <cutehmi/dataacquisition/AbstractWriter.hpp>
 
 #include <QObject>
 #include <QQmlListProperty>

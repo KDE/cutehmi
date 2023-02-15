@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/AbstractListModel.hpp>
+#include "AbstractListModel.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

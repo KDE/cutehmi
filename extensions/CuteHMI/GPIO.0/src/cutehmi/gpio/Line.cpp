@@ -1,4 +1,4 @@
-#include <cutehmi/gpio/Line.hpp>
+#include "Line.hpp"
 
 namespace cutehmi {
 namespace gpio {

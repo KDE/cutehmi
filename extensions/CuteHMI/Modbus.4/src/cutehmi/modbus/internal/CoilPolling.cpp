@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/internal/CoilPolling.hpp>
-
-#include <cutehmi/modbus/AbstractDevice.hpp>
+#include "internal/CoilPolling.hpp"
+#include "AbstractDevice.hpp"
 
 namespace cutehmi {
 namespace modbus {

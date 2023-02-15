@@ -1,5 +1,5 @@
-#include <cutehmi/gpio/logging.hpp>
-#include <cutehmi/gpio/metadata.hpp>
+#include "logging.hpp"
+#include "metadata.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_gpio_loggingCategory, CUTEHMI_GPIO_NAME)
 

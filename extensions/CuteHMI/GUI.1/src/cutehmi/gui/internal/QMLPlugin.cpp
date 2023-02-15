@@ -1,16 +1,17 @@
 #include "QMLPlugin.hpp"
 
-#include <cutehmi/gui/CuteApplication.hpp>
-#include <cutehmi/gui/ColorSet.hpp>
-#include <cutehmi/gui/Palette.hpp>
-#include <cutehmi/gui/Fonts.hpp>
-#include <cutehmi/gui/Units.hpp>
-#include <cutehmi/gui/Theme.hpp>
+#include "CuteApplication.hpp"
+#include "Theme.hpp"
 
 #include <QtQml>
 
 //<Doxygen-3.workaround target="Doxygen" cause="missing">
 #ifdef DOXYGEN_WORKAROUND
+
+#include "ColorSet.hpp"
+#include "Palette.hpp"
+#include "Fonts.hpp"
+#include "Units.hpp"
 
 namespace CuteHMI {
 namespace GUI {

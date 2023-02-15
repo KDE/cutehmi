@@ -1,9 +1,8 @@
 #ifndef H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_SERVICESTATEINTERFACE_HPP
 #define H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_SERVICESTATEINTERFACE_HPP
 
-#include <cutehmi/services/internal/common.hpp>
-#include <cutehmi/services/StateInterface.hpp>
-
+#include "internal/common.hpp"
+#include "StateInterface.hpp"
 #include "ServiceStartedStateInterface.hpp"
 #include "ServiceStateMachine.hpp"
 

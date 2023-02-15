@@ -1,4 +1,4 @@
-#include <cutehmi/gui/ColorSet.hpp>
+#include "ColorSet.hpp"
 
 namespace cutehmi {
 namespace gui {

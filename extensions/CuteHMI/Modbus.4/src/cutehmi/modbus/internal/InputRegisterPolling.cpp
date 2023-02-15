@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/internal/InputRegisterPolling.hpp>
-
-#include <cutehmi/modbus/AbstractDevice.hpp>
+#include "internal/InputRegisterPolling.hpp"
+#include "AbstractDevice.hpp"
 
 namespace cutehmi {
 namespace modbus {

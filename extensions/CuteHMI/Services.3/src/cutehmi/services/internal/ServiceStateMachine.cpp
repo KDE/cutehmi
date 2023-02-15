@@ -1,8 +1,7 @@
 #include "ServiceStateMachine.hpp"
+#include "AbstractService.hpp"
 
 #include <cutehmi/Notification.hpp>
-#include <cutehmi/services/Service.hpp>
-#include <cutehmi/services/AbstractService.hpp>
 
 
 namespace cutehmi {

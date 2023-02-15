@@ -1,9 +1,9 @@
 #ifndef H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_SERVICESTARTEDSTATEINTERFACE_HPP
 #define H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_SERVICESTARTEDSTATEINTERFACE_HPP
 
-#include <cutehmi/services/internal/common.hpp>
-#include <cutehmi/services/StartedStateInterface.hpp>
-#include <cutehmi/services/Serviceable.hpp>
+#include "internal/common.hpp"
+#include "StartedStateInterface.hpp"
+#include "Serviceable.hpp"
 
 namespace cutehmi {
 namespace services {

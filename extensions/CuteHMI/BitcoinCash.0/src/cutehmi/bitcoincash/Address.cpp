@@ -1,4 +1,4 @@
-#include "../../../include/cutehmi/bitcoincash/Address.hpp"
+#include "Address.hpp"
 
 #include <QJsonDocument>
 #include <QJsonObject>

@@ -1,5 +1,4 @@
-#include <cutehmi/shareddatabase/DatabaseWorker.hpp>
-
+#include "DatabaseWorker.hpp"
 #include "internal/DatabaseDictionary.hpp"
 
 #include <QSqlDatabase>

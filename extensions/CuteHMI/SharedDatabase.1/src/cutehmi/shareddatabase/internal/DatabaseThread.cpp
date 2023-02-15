@@ -1,4 +1,4 @@
-#include <cutehmi/shareddatabase/internal/DatabaseThread.hpp>
+#include "internal/DatabaseThread.hpp"
 
 namespace cutehmi {
 namespace shareddatabase {

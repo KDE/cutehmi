@@ -1,6 +1,5 @@
-#include <cutehmi/modbus/AbstractDevice.hpp>
-
-#include <cutehmi/modbus/Exception.hpp>
+#include "AbstractDevice.hpp"
+#include "Exception.hpp"
 
 #include <QJsonArray>
 #include <QDateTime>

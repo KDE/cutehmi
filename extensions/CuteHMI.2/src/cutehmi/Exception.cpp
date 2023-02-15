@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/Exception.hpp"
+#include "Exception.hpp"
 
 namespace cutehmi {
 
@@ -9,7 +9,7 @@ Exception::Exception(const QString & what):
 
 void Exception::raise() const noexcept(false)
 {
-	throw *this;
+	throw * this;
 }
 
 Exception * Exception::clone() const

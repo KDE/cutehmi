@@ -1,4 +1,4 @@
-#include <cutehmi/services/ServiceGroupRule.hpp>
+#include "ServiceGroupRule.hpp"
 
 namespace cutehmi {
 namespace services {

@@ -1,10 +1,9 @@
-#include <cutehmi/modbus/internal/PollingIterator.hpp>
-
-#include <cutehmi/modbus/AbstractDevice.hpp>
-#include <cutehmi/modbus/internal/HoldingRegisterPolling.hpp>
-#include <cutehmi/modbus/internal/CoilPolling.hpp>
-#include <cutehmi/modbus/internal/DiscreteInputPolling.hpp>
-#include <cutehmi/modbus/internal/InputRegisterPolling.hpp>
+#include "internal/PollingIterator.hpp"
+#include "internal/HoldingRegisterPolling.hpp"
+#include "internal/CoilPolling.hpp"
+#include "internal/DiscreteInputPolling.hpp"
+#include "internal/InputRegisterPolling.hpp"
+#include "AbstractDevice.hpp"
 
 namespace cutehmi {
 namespace modbus {

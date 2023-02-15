@@ -1,4 +1,4 @@
-#include <cutehmi/gui/Palette.hpp>
+#include "Palette.hpp"
 
 namespace cutehmi {
 namespace gui {

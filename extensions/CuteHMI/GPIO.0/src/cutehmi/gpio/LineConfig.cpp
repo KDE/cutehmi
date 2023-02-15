@@ -1,4 +1,4 @@
-#include <cutehmi/gpio/LineConfig.hpp>
+#include "LineConfig.hpp"
 
 namespace cutehmi {
 namespace gpio {

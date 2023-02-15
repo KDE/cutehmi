@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/EventModel.hpp>
+#include "EventModel.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

@@ -1,7 +1,7 @@
 #ifndef H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_SERVICESTATEMACHINE_HPP
 #define H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_SERVICESTATEMACHINE_HPP
 
-#include <cutehmi/services/internal/common.hpp>
+#include "internal/common.hpp"
 
 #include <QStateMachine>
 

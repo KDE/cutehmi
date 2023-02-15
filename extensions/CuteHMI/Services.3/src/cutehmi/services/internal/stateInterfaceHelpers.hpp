@@ -1,7 +1,7 @@
 #ifndef H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_STATEINTERFACEHELPERS_HPP
 #define H_EXTENSIONS_CUTEHMI_SERVICES_3_SRC_CUTEHMI_SERVICES_INTERNAL_STATEINTERFACEHELPERS_HPP
 
-#include <cutehmi/services/internal/common.hpp>
+#include "internal/common.hpp"
 
 #include <QAbstractTransition>
 #include <QState>

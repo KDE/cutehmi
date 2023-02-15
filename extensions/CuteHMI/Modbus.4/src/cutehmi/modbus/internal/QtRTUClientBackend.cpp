@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/QtRTUClientBackend.hpp>
+#include "internal/QtRTUClientBackend.hpp"
 
 //<CuteHMI.Workarounds.Qt5Compatibility-2.workaround target="Qt" cause="Qt5">
 #include <cutehmi/workarounds/qt5compatibility/QModbusRtuSerialClient.hpp>

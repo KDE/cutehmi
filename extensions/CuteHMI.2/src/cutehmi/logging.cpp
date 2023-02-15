@@ -1,5 +1,5 @@
-#include "../../include/cutehmi/logging.hpp"
-#include "../../include/cutehmi/metadata.hpp"
+#include "logging.hpp"
+#include "metadata.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_loggingCategory, CUTEHMI_NAME)
 

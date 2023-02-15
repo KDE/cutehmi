@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/DummyClientConfig.hpp>
+#include "internal/DummyClientConfig.hpp"
 
 namespace cutehmi {
 namespace modbus {

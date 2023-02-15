@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/Messenger.hpp"
+#include "Messenger.hpp"
 
 namespace cutehmi {
 

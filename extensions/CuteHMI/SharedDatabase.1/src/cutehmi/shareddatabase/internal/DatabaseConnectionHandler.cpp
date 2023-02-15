@@ -1,5 +1,5 @@
-#include <cutehmi/shareddatabase/internal/DatabaseConnectionHandler.hpp>
-#include <cutehmi/shareddatabase/DatabaseWorker.hpp>
+#include "internal/DatabaseConnectionHandler.hpp"
+#include "DatabaseWorker.hpp"
 
 #include <QTimer>
 #include <QSqlQuery>

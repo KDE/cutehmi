@@ -1,6 +1,6 @@
-#include <cutehmi/dataacquisition/internal/EventCollective.hpp>
-#include <cutehmi/dataacquisition/internal/TableNameTraits.hpp>
-#include <cutehmi/dataacquisition/TagValue.hpp>
+#include "internal/EventCollective.hpp"
+#include "internal/TableNameTraits.hpp"
+#include "TagValue.hpp"
 
 #include "helpers.hpp"
 

@@ -1,5 +1,5 @@
-#include <cutehmi/modbus/logging.hpp>
-#include <cutehmi/modbus/metadata.hpp>
+#include "logging.hpp"
+#include "metadata.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_modbus_loggingCategory, CUTEHMI_MODBUS_NAME)
 

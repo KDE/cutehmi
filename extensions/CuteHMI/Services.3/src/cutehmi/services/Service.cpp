@@ -1,4 +1,4 @@
-#include <cutehmi/services/Service.hpp>
+#include "Service.hpp"
 #include "internal/ServiceStateMachine.hpp"
 #include "internal/ServiceStateInterface.hpp"
 

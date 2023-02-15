@@ -1,5 +1,5 @@
-#include <cutehmi/services/StartedStateInterface.hpp>
-#include <cutehmi/services/StateInterface.hpp>
+#include "StartedStateInterface.hpp"
+#include "StateInterface.hpp"
 
 namespace cutehmi {
 namespace services {

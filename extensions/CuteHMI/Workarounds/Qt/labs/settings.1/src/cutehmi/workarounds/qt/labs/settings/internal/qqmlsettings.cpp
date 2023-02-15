@@ -37,6 +37,8 @@
 **
 ****************************************************************************/
 
+#include "logging.hpp"
+
 #include "qqmlsettings_p.h"
 #include <qcoreevent.h>
 #include <qcoreapplication.h>
@@ -47,8 +49,6 @@
 #include <qqmlinfo.h>
 #include <qdebug.h>
 #include <qhash.h>
-
-#include <cutehmi/workarounds/qt/labs/settings/logging.hpp>
 
 namespace cutehmi {
 namespace workarounds {

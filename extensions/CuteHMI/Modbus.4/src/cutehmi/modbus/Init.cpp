@@ -1,5 +1,5 @@
-#include <cutehmi/modbus/Init.hpp>
-#include <cutehmi/modbus/AbstractDevice.hpp>
+#include "Init.hpp"
+#include "AbstractDevice.hpp"
 
 namespace cutehmi {
 namespace modbus {

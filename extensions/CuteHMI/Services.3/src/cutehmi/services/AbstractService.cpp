@@ -1,8 +1,8 @@
-#include <cutehmi/services/AbstractService.hpp>
+#include "AbstractService.hpp"
+#include "AbstractServiceController.hpp"
+#include "ServiceAutoRepair.hpp"
 
 #include <cutehmi/Notification.hpp>
-#include <cutehmi/services/AbstractServiceController.hpp>
-#include <cutehmi/services/ServiceAutoRepair.hpp>
 
 #include <QCoreApplication>
 

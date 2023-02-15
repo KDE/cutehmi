@@ -1,4 +1,4 @@
-#include <cutehmi/shareddatabase/DataObject.hpp>
+#include "DataObject.hpp"
 
 #include <QMutexLocker>
 

@@ -1,4 +1,4 @@
-#include <cutehmi/gpio/ChipEnumerator.hpp>
+#include "ChipEnumerator.hpp"
 
 #include <gpiod.h>
 

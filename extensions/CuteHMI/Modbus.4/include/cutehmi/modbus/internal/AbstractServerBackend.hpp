@@ -3,9 +3,9 @@
 
 #include "common.hpp"
 #include "AbstractDeviceBackend.hpp"
+#include "../AbstractServer.hpp"
 
 #include <cutehmi/InplaceError.hpp>
-#include <cutehmi/modbus/AbstractServer.hpp>
 
 #include <QObject>
 #include <QUuid>

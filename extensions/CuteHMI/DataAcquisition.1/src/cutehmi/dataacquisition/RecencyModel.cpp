@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/RecencyModel.hpp>
+#include "RecencyModel.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

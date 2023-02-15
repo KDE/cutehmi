@@ -1,4 +1,4 @@
-#include <cutehmi/gui/Fonts.hpp>
+#include "Fonts.hpp"
 
 #include <QFontDatabase>
 

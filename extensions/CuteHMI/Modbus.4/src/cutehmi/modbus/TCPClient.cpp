@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/TCPClient.hpp>
+#include "TCPClient.hpp"
 
 namespace cutehmi {
 namespace modbus {

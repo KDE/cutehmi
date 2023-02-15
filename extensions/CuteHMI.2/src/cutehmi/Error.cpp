@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/Error.hpp"
+#include "Error.hpp"
 
 namespace cutehmi {
 

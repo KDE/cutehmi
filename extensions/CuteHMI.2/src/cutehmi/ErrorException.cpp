@@ -1,4 +1,4 @@
-#include "../../include/cutehmi/ErrorException.hpp"
+#include "ErrorException.hpp"
 
 namespace cutehmi {
 

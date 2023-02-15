@@ -1,5 +1,4 @@
-#include <cutehmi/shareddatabase/Database.hpp>
-
+#include "Database.hpp"
 #include "internal/DatabaseDictionary.hpp"
 
 namespace cutehmi {

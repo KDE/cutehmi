@@ -1,4 +1,4 @@
-#include <cutehmi/services/AbstractServiceController.hpp>
+#include "AbstractServiceController.hpp"
 
 namespace cutehmi {
 namespace services {

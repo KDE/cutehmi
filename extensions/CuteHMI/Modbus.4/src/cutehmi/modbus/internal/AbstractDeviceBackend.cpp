@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/AbstractDeviceBackend.hpp>
+#include "internal/AbstractDeviceBackend.hpp"
 
 #include <QModbusDevice>
 

@@ -1,4 +1,4 @@
-#include <cutehmi/dataacquisition/TagValue.hpp>
+#include "TagValue.hpp"
 
 namespace cutehmi {
 namespace dataacquisition {

@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/DiscreteInputController.hpp>
+#include "DiscreteInputController.hpp"
 
 namespace cutehmi {
 namespace modbus {

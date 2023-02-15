@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/internal/QtTCPClientBackend.hpp>
+#include "internal/QtTCPClientBackend.hpp"
 
 #include <QModbusTcpClient>
 

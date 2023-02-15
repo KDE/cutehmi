@@ -1,4 +1,4 @@
-#include <cutehmi/modbus/Register1.hpp>
+#include "Register1.hpp"
 
 namespace cutehmi {
 namespace modbus {

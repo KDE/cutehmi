@@ -1,5 +1,5 @@
-#include <cutehmi/dataacquisition/internal/RecencyCollective.hpp>
-#include <cutehmi/dataacquisition/internal/TableNameTraits.hpp>
+#include "internal/RecencyCollective.hpp"
+#include "internal/TableNameTraits.hpp"
 
 #include <QSqlField>
 

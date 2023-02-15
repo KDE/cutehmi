@@ -1,5 +1,4 @@
-#include <cutehmi/test/qml.hpp>
-
+#include "qml.hpp"
 #include "../../../cutehmi.dirs.hpp"
 
 #include <QQmlEngine>

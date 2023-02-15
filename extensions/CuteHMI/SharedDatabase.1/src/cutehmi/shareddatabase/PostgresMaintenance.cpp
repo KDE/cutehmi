@@ -1,5 +1,5 @@
-#include <cutehmi/shareddatabase/PostgresMaintenance.hpp>
-#include <cutehmi/shareddatabase/Exception.hpp>
+#include "PostgresMaintenance.hpp"
+#include "Exception.hpp"
 
 namespace cutehmi {
 namespace shareddatabase {
