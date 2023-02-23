@@ -22,8 +22,14 @@ Project {
          "LICENSE.LGPL3",
          "LICENSE.MIT",
          "README.md",
+         "dev/CuteHMI.Workarounds.Qt5Compatibility-1.workaround.Qt.Qt5.txt",
+         "dev/CuteHMI.Workarounds.Qt5Compatibility-2.workaround.Qt.Qt5.txt",
+         "dev/CuteHMI.Workarounds.Qt5Compatibility-3.workaround.Qt.Qt5.txt",
+         "dev/CuteHMI.Workarounds.Qt5Compatibility-4.workaround.Qt.Qt5.15-QML_SINGLETON.txt",
+         "dev/CuteHMI.Workarounds.Qt5Compatibility-5.workaround.Qt.Qt5.txt",
          "include/cutehmi/workarounds/qt5compatibility/QModbusRtuSerialClient.hpp",
          "include/cutehmi/workarounds/qt5compatibility/QModbusRtuSerialServer.hpp",
+         "include/cutehmi/workarounds/qt5compatibility/cutehmiQt6MocInclude.hpp",
          "include/cutehmi/workarounds/qt5compatibility/qsizetype.hpp",
      ]
 

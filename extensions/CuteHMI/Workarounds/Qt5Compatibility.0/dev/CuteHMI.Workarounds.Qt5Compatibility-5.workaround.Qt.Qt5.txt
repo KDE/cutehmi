@@ -1,0 +1,14 @@
+Problem:
+
+Due to changes in QMetaType the type (or if it’s a pointer/reference, the pointed to type) needs to be complete when
+moc sees it (see https://www.qt.io/blog/whats-new-in-qmetatype-qvariant). It is not always possible to include
+headers, because they may end up depending on each other. One way to overcome this is to use Q_MOC_INCLUDE macro.
+This macro was introduced in Qt 6.0 however. On the other hand pointers to forward declared types work with Qt5.
+
+Workaround:
+
+Workaround is to use forward declarations for Qt5 code and define CUTEHMI_QT6_MOC_INCLUDE macro for both Qt5 and Qt6.
+Qt5 version will be void, while Qt6 version will be an alias to Q_MOC_INCLUDE. Redundant forward declarations may
+be removed once Qt5 support is dropped and CUTEHMI_MOC_INCLUDE macros can be renamed to Q_MOC_INCLUDE.
+
+Snippet:
