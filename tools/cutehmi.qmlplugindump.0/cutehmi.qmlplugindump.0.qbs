@@ -36,6 +36,8 @@ Project {
 			 "src/5/12/6/qmltypereader.cpp",
 			 "src/5/12/6/qmltypereader.h",
 			 ]
+
+			cpp.cxxLanguageVersion: "c++17"
 		}
 
 		Group {
@@ -50,6 +52,8 @@ Project {
 				"src/5/13/2/qmltypereader.cpp",
 				"src/5/13/2/qmltypereader.h",
 			 ]
+
+			cpp.cxxLanguageVersion: "c++17"
 		}
 
 		Group {
@@ -64,6 +68,8 @@ Project {
 				"src/5/14/0/qmltypereader.cpp",
 				"src/5/14/0/qmltypereader.h",
 			 ]
+
+			cpp.cxxLanguageVersion: "c++17"
 		}
 
 		Group {
@@ -80,6 +86,7 @@ Project {
 			 ]
 
 			cpp.includePaths: outer.concat(product.sourceDirectory + "/src/5/15/2/shared/")
+			cpp.cxxLanguageVersion: "c++17"
 		}
 
 		files: [

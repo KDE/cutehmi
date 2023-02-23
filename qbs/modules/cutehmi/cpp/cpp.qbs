@@ -30,7 +30,7 @@ Module {
 
 	cpp.defines: ["QT_DEPRECATED_WARNINGS"]
 
-	cpp.cxxLanguageVersion: "c++17"
+	cpp.cxxLanguageVersion: "c++20"
 }
 
 //(c)C: Copyright © 2019-2022, Michał Policht <michal@policht.pl>. All rights reserved.
