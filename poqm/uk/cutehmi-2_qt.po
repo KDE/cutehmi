@@ -3,11 +3,11 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: cutehmi-2_qt\n"
-"PO-Revision-Date: 2020-11-09 08:55+0200\n"
+"PO-Revision-Date: 2023-02-16 08:25+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -18,31 +18,31 @@ msgstr ""
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.11.70\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
-msgctxt "cutehmi::Error|"
+msgctxt "Error|"
 msgid "No error."
 msgstr "Без помилок."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:41
-msgctxt "cutehmi::Error|"
+msgctxt "Error|"
 msgid "Error."
-msgstr "Помилка"
+msgstr "Помилка."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:43
-msgctxt "cutehmi::Error|"
+msgctxt "Error|"
 msgid "Uninitialized error."
 msgstr "Помилка — не ініціалізовано."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:45
 #, qt-format
-msgctxt "cutehmi::Error|"
+msgctxt "Error|"
 msgid "Unrecognized error code: %1."
 msgstr "Нерозпізнаний код помилки: %1."
 
 #: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
-msgctxt "cutehmi::Messenger|"
+msgctxt "Messenger::NoAdvertiserException|"
 msgid "No advertiser has been set. Dialog message: "
 msgstr "Не встановлено засобу оголошення. Повідомлення з діалогового вікна: "
 

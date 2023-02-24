@@ -3,13 +3,28 @@
 
 #include "internal/common.hpp"
 
-#include <QObject>
-#include <QQmlEngine>
+//<CuteHMI.Workarounds.Qt5Compatibility-5.workaround target="Qt" cause="Qt5">
+
+#include <cutehmi/workarounds/qt5compatibility/cutehmiQt6MocInclude.hpp>
 
 namespace cutehmi {
 namespace services {
 
 class AbstractService;
+
+}
+}
+
+CUTEHMI_QT6_MOC_INCLUDE("AbstractService.hpp")
+
+//</CuteHMI.Workarounds.Qt5Compatibility-5.workaround>
+
+
+#include <QObject>
+#include <QQmlEngine>
+
+namespace cutehmi {
+namespace services {
 
 /**
  * Abstract service controller.

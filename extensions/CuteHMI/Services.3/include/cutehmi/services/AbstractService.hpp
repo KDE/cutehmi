@@ -8,6 +8,24 @@
 #include <cutehmi/workarounds/qt5compatibility/qsizetype.hpp>
 //</CuteHMI.Workarounds.Qt5Compatibility-1.workaround>
 
+
+//<CuteHMI.Workarounds.Qt5Compatibility-5.workaround target="Qt" cause="Qt5">
+
+#include <cutehmi/workarounds/qt5compatibility/cutehmiQt6MocInclude.hpp>
+
+namespace cutehmi {
+namespace services {
+
+class AbstractServiceController;
+
+}
+}
+
+CUTEHMI_QT6_MOC_INCLUDE("AbstractServiceController.hpp")
+
+//</CuteHMI.Workarounds.Qt5Compatibility-5.workaround>
+
+
 #include <QObject>
 #include <QString>
 #include <QStateMachine>
@@ -17,8 +35,6 @@
 
 namespace cutehmi {
 namespace services {
-
-class AbstractServiceController;
 
 /**
  * Abstract service.
