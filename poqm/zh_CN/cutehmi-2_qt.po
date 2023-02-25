@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2023-02-15 11:03\n"
+"PO-Revision-Date: 2023-02-24 12:43\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -16,36 +16,25 @@ msgstr ""
 "X-Crowdin-File-ID: 25034\n"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "No error."
 msgctxt "Error|"
 msgid "No error."
-msgstr "没有错误。"
+msgstr ""
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:41
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "Error."
 msgctxt "Error|"
 msgid "Error."
-msgstr "错误"
+msgstr ""
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:43
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "Uninitialized error."
 msgctxt "Error|"
 msgid "Uninitialized error."
-msgstr "未初始化错误。"
+msgstr ""
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:45
-#, fuzzy, qt-format
-#| msgctxt "cutehmi::Error|"
-#| msgid "Unrecognized error code: %1."
+#, qt-format
 msgctxt "Error|"
 msgid "Unrecognized error code: %1."
-msgstr "未识别错误：%1"
+msgstr ""
 
 #: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
 msgctxt "Messenger::NoAdvertiserException|"
