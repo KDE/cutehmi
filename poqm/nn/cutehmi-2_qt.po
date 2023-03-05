@@ -1,10 +1,10 @@
 # Translation of cutehmi-2_qt to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2020.
+# Karl Ove Hufthammer <karl@huftis.org>, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2020-11-11 18:24+0100\n"
+"PO-Revision-Date: 2023-03-04 16:17+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.08.2\n"
+"X-Generator: Lokalize 22.12.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: qtrich\n"
@@ -26,23 +26,23 @@ msgstr ""
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:41
 msgctxt "Error|"
 msgid "Error."
-msgstr ""
+msgstr "Feil."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:43
 msgctxt "Error|"
 msgid "Uninitialized error."
-msgstr ""
+msgstr "Uinitialisert feil."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:45
 #, qt-format
 msgctxt "Error|"
 msgid "Unrecognized error code: %1."
-msgstr ""
+msgstr "Ukjend feilkode: %1."
 
 #: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
 msgctxt "Messenger::NoAdvertiserException|"
 msgid "No advertiser has been set. Dialog message: "
-msgstr ""
+msgstr "Ingen annonsør er valt. Dialogmelding: "
 
 #: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:45
 #: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:50
