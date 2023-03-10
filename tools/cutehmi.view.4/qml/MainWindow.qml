@@ -18,7 +18,7 @@ ApplicationWindow {
 	FocusScope {
 		focus: true
 
-		Keys.onPressed: {
+		Keys.onPressed: (event) => {
 			// Toggle full screen.
 			if (event.key === Qt.Key_F11) {
 				if (mainWindow.visibility != Window.FullScreen) {
