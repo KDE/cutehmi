@@ -51,6 +51,12 @@ Module {
 	readonly property string extensionsSourceDir: project.sourceDirectory + "/extensions"
 
 	PropertyOptions {
+		name: "toolsSourceDir"
+		description: "Directory where source code of tools resides."
+	}
+	readonly property string toolsSourceDir: project.sourceDirectory + "/tools"
+
+	PropertyOptions {
 		name: "externalDeployDir"
 		description: "Deployment directory of external libraries."
 	}
