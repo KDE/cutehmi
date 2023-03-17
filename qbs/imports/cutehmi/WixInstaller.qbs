@@ -360,6 +360,12 @@ CommonProduct {
 			var cmd = new JavaScriptCommand();
 			cmd.description = 'generating ' + output.filePath
 			cmd.highlight = 'codegen';
+			//<WixInstaller-1.workaround target="windeployqt" cause="bug">
+			// Because Wix.buildFileComponentGroups() may now try to copy translation files concurrently to `windeployqt`, let's
+			// bind it to the same job pool as windeployqt.
+			if (project.windeployqt)
+				cmd.jobPool = "windeployqt"
+			//</WixInstaller-1.workaround>
 			cmd.sourceCode = function() {
 				var wxlFile = Xml.DomDocument()
 				Wix.dumpProductToWxl(product, inputs, wxlFile)
