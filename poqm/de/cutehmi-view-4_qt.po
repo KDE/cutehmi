@@ -1,17 +1,17 @@
 # Burkhard Lück <lueck@hube-lueck.de>, 2020, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-02-20 11:56+0100\n"
+"PO-Revision-Date: 2023-03-12 19:51+0100\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
-"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Qt-Contexts: true\n"
 
 #: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
@@ -34,12 +34,9 @@ msgstr "Gründe:"
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:17
 msgctxt "MessageDialog|"
 msgid "Information"
-msgstr ""
+msgstr "Informationen"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:20
-#, fuzzy
-#| msgctxt "ElementSettings|"
-#| msgid "Warning"
 msgctxt "MessageDialog|"
 msgid "Warning"
 msgstr "Warnung"
@@ -47,17 +44,17 @@ msgstr "Warnung"
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:23
 msgctxt "MessageDialog|"
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:26
 msgctxt "MessageDialog|"
 msgid "Question"
-msgstr ""
+msgstr "Frage"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:29
 msgctxt "MessageDialog|"
 msgid "Message"
-msgstr ""
+msgstr "Nachricht"
 
 #: tools/cutehmi.view.4/src/main.cpp:116
 msgctxt "main|"
@@ -127,7 +124,7 @@ msgstr ""
 #: tools/cutehmi.view.4/src/main.cpp:140
 msgctxt "main|"
 msgid "resource"
-msgstr ""
+msgstr "Ressource"
 
 #: tools/cutehmi.view.4/src/main.cpp:147
 msgctxt "main|"
