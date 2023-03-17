@@ -300,6 +300,12 @@ CommonProduct {
 	Rule {
 		multiplex: true
 		inputsFromDependencies: product.inputFileTags
+		explicitlyDependsOnFromDependencies: product.inputFileTags
+		//<WixInstaller-1.workaround target="windeployqt" cause="bug">
+		// Run wxs generation after wxl, because there is race condition due to workaround - both functions: dumpProductToWxl() and
+		// dumpProductToWxs() call buildFileComponentGroups(), which attempts to copy missing files.
+		auxiliaryInputs: ["wxl"]
+		//</WixInstaller-1.workaround>
 
 		prepare: {
 			var cmd = new JavaScriptCommand();
@@ -355,17 +361,12 @@ CommonProduct {
 	Rule {
 		multiplex: true
 		inputsFromDependencies: product.inputFileTags
+		explicitlyDependsOnFromDependencies: product.inputFileTags
 
 		prepare: {
 			var cmd = new JavaScriptCommand();
 			cmd.description = 'generating ' + output.filePath
 			cmd.highlight = 'codegen';
-			//<WixInstaller-1.workaround target="windeployqt" cause="bug">
-			// Because Wix.buildFileComponentGroups() may now try to copy translation files concurrently to `windeployqt`, let's
-			// bind it to the same job pool as windeployqt.
-			if (project.windeployqt)
-				cmd.jobPool = "windeployqt"
-			//</WixInstaller-1.workaround>
 			cmd.sourceCode = function() {
 				var wxlFile = Xml.DomDocument()
 				Wix.dumpProductToWxl(product, inputs, wxlFile)
