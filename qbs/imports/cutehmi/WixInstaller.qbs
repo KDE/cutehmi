@@ -300,6 +300,11 @@ CommonProduct {
 	Rule {
 		multiplex: true
 		inputsFromDependencies: product.inputFileTags
+		//<WixInstaller-1.workaround target="windeployqt" cause="bug">
+		// Run wxs generation after wxl, because there is race condition due to workaround - both functions: dumpProductToWxl() and
+		// dumpProductToWxs() call buildFileComponentGroups(), which attempts to copy missing files.
+		auxiliaryInputs: ["wxl"]
+		//</WixInstaller-1.workaround>
 
 		prepare: {
 			var cmd = new JavaScriptCommand();
