@@ -8,7 +8,7 @@
 
 [![License: LGPL 3.0](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://invent.kde.org/sdk/cutehmi/badges/6/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)
+[![Build Status](https://invent.kde.org/sdk/cutehmi/badges/7/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/20988/badge.svg)](https://scan.coverity.com/projects/cutehmi)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/michpolicht/CuteHMI)](https://www.codefactor.io/repository/github/michpolicht/cutehmi/overview/master)
 [![Matrix](https://img.shields.io/matrix/cutehmi:kde.org?server_fqdn=kde.modular.im)](https://webchat.kde.org/#/room/#cutehmi:kde.org)
@@ -56,8 +56,8 @@ branch. By the time the project is finished branch should also stabilize.
 | Branch                                          | Build status                                                                                                                   | Development status |
 |-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------|
 | [master](https://invent.kde.org/sdk/cutehmi)    | [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/master/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines) | pre-alpha          |
-| [6](https://invent.kde.org/sdk/cutehmi/-/tree/6)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/6/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
-| [5](https://invent.kde.org/sdk/cutehmi/-/tree/5)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/5/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
+| [7](https://invent.kde.org/sdk/cutehmi/-/tree/7)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/7/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | alpha              |
+| [6](https://invent.kde.org/sdk/cutehmi/-/tree/6)| [![Build Status](https://invent.kde.org/sdk/cutehmi/badges/6/pipeline.svg)](https://invent.kde.org/sdk/cutehmi/pipelines)      | perpetual beta     |
 
 [//]: # (\endhtmlonly)
 </div>
