@@ -1,8 +1,8 @@
-# Tommi Nieminen <translator@legisign.org>, 2021.
+# Tommi Nieminen <translator@legisign.org>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2021-02-07 09:57+0200\n"
+"PO-Revision-Date: 2023-03-12 15:17+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -10,37 +10,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Qt-Contexts: true\n"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "No error."
 msgctxt "Error|"
 msgid "No error."
 msgstr "Ei virheitä."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:41
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "Error."
 msgctxt "Error|"
 msgid "Error."
 msgstr "Virhe."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:43
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "Uninitialized error."
 msgctxt "Error|"
 msgid "Uninitialized error."
-msgstr "Alustamaton virhe."
+msgstr "Valmistelematon virhe."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:45
-#, fuzzy, qt-format
-#| msgctxt "cutehmi::Error|"
-#| msgid "Unrecognized error code: %1."
+#, qt-format
 msgctxt "Error|"
 msgid "Unrecognized error code: %1."
 msgstr "Tuntematon virhekoodi: %1."
