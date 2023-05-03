@@ -91,7 +91,6 @@ Project {
 		Depends { name: "cutehmi.init" }
 
 		Depends { name: "cutehmi.qmldir" }
-		cutehmi.qmldir.singletons: ["Palette"]
 
 		Depends { name: "cutehmi.qmltyperegistrar" }
 
