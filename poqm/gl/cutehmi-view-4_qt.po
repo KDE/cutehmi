@@ -1,0 +1,203 @@
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2023-05-11 17:36+0200\n"
+"Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.0\n"
+"X-Qt-Contexts: true\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr ""
+"Inicie a aplicación coa opción «--help» para ver as opcións dispoñíbeis."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "Non se puido cargar a excepción «%1»."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "Motivos:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr "Información"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "Aviso"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr "Erro"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr "Pregunta"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr "Mensaxe"
+
+#: tools/cutehmi.view.4/src/main.cpp:116
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "Executar a aplicación a pantalla completa."
+
+#: tools/cutehmi.view.4/src/main.cpp:119
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr "Saltar o cargador cun ficheiro QML inicial para cargar."
+
+#: tools/cutehmi.view.4/src/main.cpp:119
+msgctxt "main|"
+msgid "file"
+msgstr "ficheiro"
+
+#: tools/cutehmi.view.4/src/main.cpp:123
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr "Use <versión> para indicar a versión menor da extensión para importar."
+
+#: tools/cutehmi.view.4/src/main.cpp:123
+msgctxt "main|"
+msgid "version"
+msgstr "versión"
+
+#: tools/cutehmi.view.4/src/main.cpp:127
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "Pantalla táctil (agocha o cursor do rato)."
+
+#: tools/cutehmi.view.4/src/main.cpp:130
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "Definir o estilo de Qt Quick."
+
+#: tools/cutehmi.view.4/src/main.cpp:130
+msgctxt "main|"
+msgid "style"
+msgstr "estilo"
+
+#: tools/cutehmi.view.4/src/main.cpp:133
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "Escoller o idioma da aplicación."
+
+#: tools/cutehmi.view.4/src/main.cpp:133
+msgctxt "main|"
+msgid "language"
+msgstr "idioma"
+
+#: tools/cutehmi.view.4/src/main.cpp:137
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "Definir o directorio base."
+
+#: tools/cutehmi.view.4/src/main.cpp:137
+msgctxt "main|"
+msgid "dir"
+msgstr "dir"
+
+#: tools/cutehmi.view.4/src/main.cpp:140
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr "Indicar explicitamente o ficheiro de recurso para cargar no inicio."
+
+#: tools/cutehmi.view.4/src/main.cpp:140
+msgctxt "main|"
+msgid "resource"
+msgstr "recurso"
+
+#: tools/cutehmi.view.4/src/main.cpp:147
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "Extensión para importar."
+
+#: tools/cutehmi.view.4/src/main.cpp:148
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr "Compoñente para crear. O predeterminado é «%1»."
+
+#: tools/cutehmi.view.4/src/main.cpp:216
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"Non pode usar a opción de compoñente porque se definiu a opción "
+"«forceDefaultOptions» durante a compilación."
+
+#: tools/cutehmi.view.4/src/main.cpp:218
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"Non pode usar a opción de extensión porque se definiu a opción "
+"«forceDefaultOptions» durante a compilación."
+
+#: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+"Non pode usar a opción «%1» porque se definiu a opción «forceDefaultOptions» "
+"durante a compilación."
+
+#: tools/cutehmi.view.4/src/main.cpp:228
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr ""
+"Erro nun argumento da liña de ordes: o valor da opción «%1» ha de ser un "
+"número."
+
+#: tools/cutehmi.view.4/src/main.cpp:236
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+"Erro nun argumento da liña de ordes: indique a extensión co número de "
+"version superior despois do último punto."
+
+#: tools/cutehmi.view.4/src/main.cpp:284
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr ""
+"O URL «%1» contén unha ruta relativa e un esquema de URL, o cal non está "
+"permitido."
+
+#: tools/cutehmi.view.4/src/main.cpp:291
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "O ficheiro QML «%1» non existe."
+
+#: tools/cutehmi.view.4/src/main.cpp:296
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr "O formato do URL de ficheiro «%1» QML é incorrecto."
