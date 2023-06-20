@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-05-11 17:26+0200\n"
+"PO-Revision-Date: 2023-06-19 14:41+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.2\n"
 "X-Qt-Contexts: true\n"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
@@ -37,7 +37,7 @@ msgstr "Erro de código non recoñecido: %1."
 #: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
 msgctxt "Messenger::NoAdvertiserException|"
 msgid "No advertiser has been set. Dialog message: "
-msgstr "Non se definiu un anunciante. Mensaxe do diálogo:"
+msgstr "Non se definiu un anunciante. Mensaxe do diálogo: "
 
 #: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:45
 #: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:50
