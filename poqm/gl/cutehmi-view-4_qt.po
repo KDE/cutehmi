@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-06-17 08:49+0200\n"
+"PO-Revision-Date: 2023-06-24 11:28+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -63,7 +63,7 @@ msgstr "Executar a aplicación a pantalla completa."
 #: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
-msgstr "Saltar o cargador cun ficheiro QML inicial para cargar."
+msgstr "Sobredefinir o cargador cun ficheiro QML inicial para cargar."
 
 #: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
@@ -108,7 +108,7 @@ msgstr "idioma"
 #: tools/cutehmi.view.4/src/main.cpp:137
 msgctxt "main|"
 msgid "Set base directory to <dir>."
-msgstr "Definir o directorio base."
+msgstr "Definir o cartafol base."
 
 #: tools/cutehmi.view.4/src/main.cpp:137
 msgctxt "main|"
