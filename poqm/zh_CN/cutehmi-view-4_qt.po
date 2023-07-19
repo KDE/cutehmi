@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2023-07-03 11:38\n"
+"PO-Revision-Date: 2023-07-18 11:10\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -34,17 +34,17 @@ msgstr "原因"
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:17
 msgctxt "MessageDialog|"
 msgid "Information"
-msgstr ""
+msgstr "信息"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:20
 msgctxt "MessageDialog|"
 msgid "Warning"
-msgstr ""
+msgstr "警告"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:23
 msgctxt "MessageDialog|"
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: tools/cutehmi.view.4/qml/MessageDialog.qml:26
 msgctxt "MessageDialog|"
@@ -142,14 +142,14 @@ msgctxt "main|"
 msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
 "been set during compilation time."
-msgstr ""
+msgstr "无法使用“component”选项，因为在编译过程中设置了“强制默认选项”。"
 
 #: tools/cutehmi.view.4/src/main.cpp:218
 msgctxt "main|"
 msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
 "been set during compilation time."
-msgstr ""
+msgstr "无法使用“extension”选项，因为在编译过程中设置了“强制默认选项”。"
 
 #: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
 #, qt-format
@@ -157,20 +157,20 @@ msgctxt "main|"
 msgid ""
 "You can not use '%1' option, because 'forceDefaultOptions' option has been "
 "set during compilation time."
-msgstr ""
+msgstr "无法使用“%1”选项，因为在编译过程中设置了“强制默认选项”。"
 
 #: tools/cutehmi.view.4/src/main.cpp:228
 #, qt-format
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
-msgstr ""
+msgstr "命令行参数错误：“%1”选项的值必须是数字。"
 
 #: tools/cutehmi.view.4/src/main.cpp:236
 msgctxt "main|"
 msgid ""
 "Command line argument error: please specify extension with major version "
 "number after the last dot."
-msgstr ""
+msgstr "命令行参数错误：请在最后一个点之后指定主要版本号的扩展名。"
 
 #: tools/cutehmi.view.4/src/main.cpp:284
 #, qt-format
@@ -183,10 +183,10 @@ msgstr ""
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
-msgstr ""
+msgstr "QML 文件“%1”不存在。"
 
 #: tools/cutehmi.view.4/src/main.cpp:296
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."
-msgstr ""
+msgstr "QML 文件 URL 的“%1”格式无效。"
