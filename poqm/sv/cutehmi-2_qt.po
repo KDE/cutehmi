@@ -1,8 +1,8 @@
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2020.
+# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2020-11-09 07:20+0100\n"
+"PO-Revision-Date: 2023-07-30 12:10+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -11,44 +11,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.04.3\n"
+"X-Generator: Lokalize 20.08.1\n"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "No error."
 msgctxt "Error|"
 msgid "No error."
 msgstr "Inget fel."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:41
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "Error."
 msgctxt "Error|"
 msgid "Error."
 msgstr "Fel."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:43
-#, fuzzy
-#| msgctxt "cutehmi::Error|"
-#| msgid "Uninitialized error."
 msgctxt "Error|"
 msgid "Uninitialized error."
 msgstr "Oinitierat fel."
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:45
-#, fuzzy, qt-format
-#| msgctxt "cutehmi::Error|"
-#| msgid "Unrecognized error code: %1."
+#, qt-format
 msgctxt "Error|"
 msgid "Unrecognized error code: %1."
 msgstr "Okänd felkod: %1."
 
 #: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
-#, fuzzy
-#| msgctxt "cutehmi::Messenger|"
-#| msgid "No advertiser has been set. Dialog message: "
 msgctxt "Messenger::NoAdvertiserException|"
 msgid "No advertiser has been set. Dialog message: "
 msgstr "Ingen annonsör har ställts in. Dialogmeddelande:"
