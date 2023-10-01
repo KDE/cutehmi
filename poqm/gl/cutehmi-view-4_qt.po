@@ -23,7 +23,7 @@ msgstr ""
 #, qt-format
 msgctxt "ExtensionLoader|"
 msgid "Could not load extension '%1'."
-msgstr "Non se puido cargar o complemento «%1»."
+msgstr "Non foi posíbel cargar o complemento «%1»."
 
 #: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
 msgctxt "ExtensionLoader|"
