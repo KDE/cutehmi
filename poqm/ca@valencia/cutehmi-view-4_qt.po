@@ -202,10 +202,10 @@ msgstr ""
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
-msgstr "El fitxer QML «%1» no existix."
+msgstr "El fitxer en QML «%1» no existix."
 
 #: tools/cutehmi.view.4/src/main.cpp:296
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."
-msgstr "Format no vàlid de l'URL «%1» del fitxer QML."
+msgstr "Format no vàlid de l'URL «%1» del fitxer en QML."
