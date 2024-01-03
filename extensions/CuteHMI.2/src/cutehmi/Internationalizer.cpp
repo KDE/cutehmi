@@ -1,6 +1,6 @@
 #include "Internationalizer.hpp"
 #include "functions.hpp"
-#include "../../cutehmi.dirs.hpp"
+#include "autogen/cutehmi.dirs.hpp"
 
 #include <QDir>
 #include <QJsonArray>

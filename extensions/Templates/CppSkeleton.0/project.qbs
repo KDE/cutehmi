@@ -24,11 +24,6 @@ Project {
 			"README.md",
 			"LICENSE.MIT",
 			"LICENSE.LGPL3",
-			"include/templates/cppskeleton/internal/platform.hpp",
-			"include/templates/cppskeleton/internal/common.hpp",
-			"include/templates/cppskeleton/logging.hpp",
-			"include/templates/cppskeleton/metadata.hpp",
-			"src/templates/cppskeleton/logging.cpp",
 		]
 
 		Depends { name: "CuteHMI.2" }
@@ -38,6 +33,7 @@ Project {
 		cutehmi.doxygen.exclude: ['tests']
 
 		Depends { name: "cutehmi.skeleton.cpp" }
+		cutehmi.skeleton.cpp.generateLoggingTest: true
 
 		Export {
 			Depends { name: "CuteHMI.2" }

@@ -1,7 +1,7 @@
 #include "Daemon.hpp"
 #include "Daemon_unix.hpp"
 #include "logging.hpp"
-#include "../../../cutehmi.metadata.hpp"
+#include "autogen/cutehmi.metadata.hpp"
 
 #include <QCoreApplication>
 #include <QDir>

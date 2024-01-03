@@ -3,9 +3,9 @@ import qbs.TextFile
 import qbs.Environment
 
 Module {
-	property string initClassName: product.cutehmi.conventions.initClassName
+	property string initClassName: product.cutehmi.conventions.functions.initClassName(product.name)
 
-	property string initHeader: product.cutehmi.conventions.initHeader
+	property string initHeader: product.cutehmi.conventions.functions.initHeader(product.name)
 
 	PropertyOptions {
 		name: "artifacts"

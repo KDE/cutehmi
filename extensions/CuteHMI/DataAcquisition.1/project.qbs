@@ -94,9 +94,6 @@ Project {
 
 		Depends { name: "cutehmi.qmltyperegistrar" }
 
-		Depends { name: "cutehmi.skeleton.cpp" }
-		cutehmi.skeleton.cpp.generateQMLPlugin: true
-
 		Depends { name: "CuteHMI.SharedDatabase.1" }
 
 		//<CuteHMI.Workarounds.Qt5Compatibility-1.workaround target="Qt" cause="Qt5">

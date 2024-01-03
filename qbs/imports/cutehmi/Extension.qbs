@@ -12,9 +12,9 @@ CommonProduct {
 
 	condition: project.buildExtensions
 
-	baseName: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? name : name.substring(0, name.lastIndexOf(".", name.length - 1))
+	baseName: cutehmi.conventions.functions.baseName(name)
 
-	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
+	major: cutehmi.conventions.functions.major(name)
 
 	property string extensionType: "simple"
 
@@ -29,13 +29,13 @@ CommonProduct {
 										 cutehmi.dirs.installDir + "/" + cutehmi.dirs.extensionsInstallSubdir]	// QML import paths for QtCreator.
 	//</qbs-imports-cutehmi-3.workaround>
 
+	Depends { name: "cutehmi.conventions" }
+
 	Depends { name: "cutehmi.dirs" }
 
 	//<cutehmi.qmlplugindump.0-1.workaround target="Qt" cause="missing">
 	Depends { name: "cutehmi.qmlplugindump.0"; required: false }
 	//</cutehmi.qmlplugindump.0-1.workaround>
-
-	Depends { name: "cutehmi.conventions" }
 
 	Depends { name: "cutehmi.metadata" }
 
@@ -112,11 +112,6 @@ CommonProduct {
 		qbs.install: true
 		qbs.installSourceBase: installSourceBase
 		qbs.installDir: dedicatedInstallSubdir
-	}
-
-	FileTagger {
-		patterns: ["LICENSE", "README.md", "*.txt"]
-		fileTags: ["ReadmeFiles"]
 	}
 
 	Group {

@@ -1,5 +1,5 @@
 #include "qml.hpp"
-#include "../../../cutehmi.dirs.hpp"
+#include "autogen/cutehmi.dirs.hpp"
 
 #include <QQmlEngine>
 #include <QQmlContext>

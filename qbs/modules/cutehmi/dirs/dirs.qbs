@@ -9,6 +9,8 @@ import "private.js" as Private
   generate 'cutehmi.dirs.hpp' artifact for a product, which contains macros describing directory locations.
   */
 Module {
+	additionalProductTypes: ["cutehmi.dirs"]
+
 	setupRunEnvironment: {
 		Private.setupEnvironment()
 	}
@@ -27,7 +29,8 @@ Module {
 		name: "dirsHppArtifact"
 		description: "Actual filename of artifact tagged as 'cutehmi.dirs.hpp'. If set to undefined artifact won't be generated."
 	}
-	property path dirsHppArtifact: artifacts ? "cutehmi.dirs.hpp" : undefined
+	property path dirsHppArtifact: artifacts ? product.cutehmi.conventions.functions.autogenIncludesSubdir(product.name) + "/cutehmi.dirs.hpp"
+											 : undefined
 
 	PropertyOptions {
 		name: "installDir"
@@ -116,6 +119,8 @@ Module {
 	}
 	property string metadataInstallSubdir: "cutehmi/metadata"
 
+	Depends { name: "cutehmi.conventions" }
+
 	Rule {
 		condition: product.cutehmi.dirs.dirsHppArtifact !== undefined
 		multiplex: true
@@ -163,7 +168,7 @@ Module {
 
 		Artifact {
 			filePath: product.cutehmi.dirs.dirsHppArtifact
-			fileTags: ["cutehmi.dirs.hpp", "hpp"]
+			fileTags: ["cutehmi.dirs.hpp", "cutehmi.dirs", "hpp"]
 		}
 	}
 }

@@ -1,5 +1,5 @@
 #include "logging.hpp"
-#include "../../../cutehmi.metadata.hpp"
+#include "autogen/cutehmi.metadata.hpp"
 
 Q_LOGGING_CATEGORY(cutehmi_daemon_loggingCategory, CUTEHMI_DAEMON_NAME)
 

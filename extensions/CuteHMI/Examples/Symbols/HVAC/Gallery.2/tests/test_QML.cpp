@@ -1,4 +1,4 @@
-#include "cutehmi.dirs.hpp"
+#include "autogen/cutehmi.dirs.hpp"
 
 #include <cutehmi/test/qml.hpp>
 
@@ -21,7 +21,7 @@ class test_QML:
 };
 
 
-QUICK_TEST_MAIN_WITH_SETUP(CuteHMI.Examples.Symbols.HVAC.Gallery.1, test_QML)
+QUICK_TEST_MAIN_WITH_SETUP(CuteHMI.Examples.Symbols.HVAC.Gallery.2, test_QML)
 #include "test_QML.moc"
 
 //(c)C: Copyright © 2020, Michał Policht <michal@policht.pl>. All rights reserved.

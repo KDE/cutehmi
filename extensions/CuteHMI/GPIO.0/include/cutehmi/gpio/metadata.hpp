@@ -1,7 +1,7 @@
 #ifndef H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_METADATA_HPP
 #define H_EXTENSIONS_CUTEHMI_GPIO_0_INCLUDE_CUTEHMI_GPIO_METADATA_HPP
 
-#include "../../../cutehmi.metadata.hpp"
+#include "autogen/cutehmi.metadata.hpp"
 
 #endif
 

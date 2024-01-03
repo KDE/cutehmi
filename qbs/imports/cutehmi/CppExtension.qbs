@@ -65,13 +65,19 @@ Extension {
 			defines.push(macroName + "_TESTS")
 		return base.concat(defines)
 	}
-	cpp.includePaths: [cutehmi.conventions.includeDir, cutehmi.dirs.externalIncludeDir]
+	cpp.includePaths: [
+		product.sourceDirectory + "/" + cutehmi.conventions.functions.includesSubdir(product.name),
+		cutehmi.dirs.externalIncludeDir
+	]
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	Depends { name: "cutehmi.cpp" }
 	//<qbs-cutehmi.cpp-1.workaround target="Qbs" cuase="missing">
 	// Qbs does not allow Export within Module items. Using 'cutehmi.cpp.exportedIncludePaths' property to export include paths.
-	cutehmi.cpp.exportedIncludePaths: [sourceDirectory + "/include"]
+	cutehmi.cpp.exportedIncludePaths: [
+		sourceDirectory + "/include",
+		buildDirectory + "/include"
+	]
 	//</qbs-cutehmi.cpp-1.workaround>
 
 	Group {

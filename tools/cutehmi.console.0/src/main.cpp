@@ -1,5 +1,5 @@
-#include "../cutehmi.metadata.hpp"
-#include "../cutehmi.dirs.hpp"
+#include "autogen/cutehmi.metadata.hpp"
+#include "autogen/cutehmi.dirs.hpp"
 #include "cutehmi/console/logging.hpp"
 #include "cutehmi/console/Exception.hpp"
 #include "cutehmi/console/Interpreter.hpp"

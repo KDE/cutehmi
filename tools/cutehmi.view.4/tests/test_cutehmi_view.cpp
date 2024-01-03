@@ -3,7 +3,7 @@
 #include <QScreen>
 #include <QPixmap>
 
-#include "../cutehmi.dirs.hpp"
+#include <cutehmi/view/autogen/cutehmi.dirs.hpp>
 
 namespace cutehmi {
 namespace daemon {

@@ -20,15 +20,19 @@ Module {
 	}
 	property bool artifacts: true
 
-	property path metadataHppArtifact: artifacts && product.cpp !== undefined ? "cutehmi.metadata.hpp" : undefined
+	property path metadataHppArtifact: artifacts && product.cpp !== undefined ? product.cutehmi.conventions.functions.autogenIncludesSubdir(product.name) + "/cutehmi.metadata.hpp"
+																			  : undefined
 
-	property path metadataJsonArtifact: artifacts ? product.name + ".metadata.json" : undefined
+	property path metadataJsonArtifact: artifacts ? product.cutehmi.conventions.functions.autogenIncludesSubdir(product.name) + "/" + product.name + ".metadata.json"
+												  : undefined
 
 	Depends { name: "Qt.core" }
 	Qt.core.resourcePrefix: product.name
 
+	Depends { name: "cutehmi.conventions" }
+
 	Rule {
-		condition: metadataHppArtifact !== undefined
+		condition: metadataJsonArtifact !== undefined
 		multiplex: true
 
 		prepare: {
@@ -99,15 +103,15 @@ Module {
 	}
 
 	Rule {
-		condition: metadataJsonArtifact !== undefined
+		condition: metadataHppArtifact !== undefined
 		multiplex: true
 
 		prepare: {
 			var cmd = new JavaScriptCommand();
-			cmd.description = "generating " + product.sourceDirectory + "/cutehmi.metadata.hpp"
+			cmd.description = "generating " + output.filePath
 			cmd.highlight = "codegen";
 			cmd.sourceCode = function() {
-				var f = new TextFile(product.sourceDirectory + "/cutehmi.metadata.hpp", TextFile.WriteOnly);
+				var f = new TextFile(output.filePath, TextFile.WriteOnly);
 				try {
 					var shortPrefix = product.baseName.toUpperCase().replace(/\./g, '_')
 					var prefix = product.name.toUpperCase().replace(/\./g, '_')

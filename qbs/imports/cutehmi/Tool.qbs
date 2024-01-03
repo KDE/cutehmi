@@ -15,9 +15,9 @@ CommonProduct {
 
 	condition: project.buildTools
 
-	baseName: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? name : name.substring(0, name.lastIndexOf(".", name.length - 1))
+	baseName: cutehmi.conventions.functions.baseName(name)
 
-	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
+	major: cutehmi.conventions.functions.major(name)
 
 	Depends { name: "cpp" }
 	Properties {
@@ -26,7 +26,10 @@ CommonProduct {
 		condition: qbs.targetOS.contains("linux")
 		cpp.linkerFlags: "-rpath=$ORIGIN" + (extensionsRelativePath === "." ? "" : "/" + extensionsRelativePath)
 	}
-	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+	cpp.includePaths: [
+		cutehmi.dirs.externalIncludeDir,
+		product.sourceDirectory + "/" + cutehmi.conventions.functions.includesSubdir(product.name)
+	]
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	Depends { name: "cutehmi.android.package"; condition: project.buildApk }
@@ -34,11 +37,19 @@ CommonProduct {
 
 	Depends { name: "cutehmi.cpp" }
 
+	Depends { name: "cutehmi.conventions" }
+
 	Depends { name: "cutehmi.dirs" }
 
 	Depends { name: "cutehmi.metadata" }
 
 	Depends { name: "cutehmi.windeployqt"; condition: project.windeployqt }
+
+	Export {
+		Depends { name: "cpp" }
+
+		cpp.includePaths: [exportingProduct.sourceDirectory + "/include"]
+	}
 
 	Group {
 		name: "Application"

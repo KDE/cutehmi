@@ -61,9 +61,6 @@ Project {
 
 		Depends { name: "cutehmi.qmltyperegistrar" }
 
-		Depends { name: "cutehmi.skeleton.cpp" }
-		cutehmi.skeleton.cpp.generateQMLPlugin: true
-
 		Depends { name: "cutehmi.probes.libpq" }	// Using probe just to print some debug output. It is not required to link against client library.
 
 		Depends { name: "Qt.sql" }

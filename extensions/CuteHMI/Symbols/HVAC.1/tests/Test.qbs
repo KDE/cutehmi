@@ -4,10 +4,9 @@ import cutehmi
 
 cutehmi.Test
 {
-	testNamePrefix: parent.parent.name
+	testedProduct: parent.parent.name
 
-	Depends { name: "CuteHMI.Symbols.HVAC.1" }
-
+	Depends { name: product.testedProduct }
 	Depends { name: "CuteHMI.Test.0" }
 }
 

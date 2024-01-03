@@ -1,7 +1,7 @@
 #ifndef H_EXTENSIONS_CUTEHMI_GUI_1_INCLUDE_CUTEHMI_GUI_METADATA_HPP
 #define H_EXTENSIONS_CUTEHMI_GUI_1_INCLUDE_CUTEHMI_GUI_METADATA_HPP
 
-#include "../../../cutehmi.metadata.hpp"
+#include "autogen/cutehmi.metadata.hpp"
 
 #endif
 

@@ -32,7 +32,7 @@ Module {
 		name: "moduleIdentifier"
 		description: "Module identifier."
 	}
-	property string moduleIdentifier: product.cutehmi.conventions.qmlModuleIdentifier
+	property string moduleIdentifier: product.cutehmi.conventions.functions.qmlModuleIdentifier(product.name)
 
 	PropertyOptions {
 		name: "major"
@@ -55,7 +55,7 @@ Module {
 		+ " `classname` entries will be generated. Additionaly product type must contain `dynamiclibrary`. Files matching given"
 		+ " patterns receive 'cutehmi.qmldir.qmlPlugin' file tag."
 	}
-	property stringList qmlPluginFiles: [product.cutehmi.conventions.qmlPluginSource]
+	property stringList qmlPluginFiles: [product.cutehmi.conventions.functions.qmlPluginSource(product.name)]
 
 	PropertyOptions {
 		name: "plugins"
@@ -67,7 +67,7 @@ Module {
 	}
 	property var plugins: [
 		{
-			name: product.cutehmi.conventions.qmlPluginName,
+			name: product.cutehmi.conventions.functions.qmlPluginName(product.name),
 			path: FileInfo.relativePath(product.cutehmi.dirs.installDir + "/" + product.dedicatedInstallSubdir,
 										product.cutehmi.dirs.installDir + "/" + product.cutehmi.dirs.extensionsInstallSubdir)
 		}]
@@ -77,14 +77,14 @@ Module {
 		description: "Plugin class name. For some reason 'qmldir' specification allows for many plugins, but only one plugin class"
 		+ " can be specified. This entry is relevant only for static builds though."
 	}
-	property string className: product.cutehmi.conventions.qmlPluginClassName
+	property string className: product.cutehmi.conventions.functions.qmlPluginClassName(product.name)
 
 	PropertyOptions {
 		name: "typeInfo"
 		description: "Name of type description file. Setting value to undefined means no typeinfo entry."
 	}
 	// Better not use 'qmltypes' artifact, because to generate 'qmltypes' one needs 'qmldir' in the first place.
-	property string typeInfo: product.cutehmi.conventions.qmlTypeInfo
+	property string typeInfo: product.cutehmi.conventions.functions.qmlTypeInfo(product.name)
 
 	PropertyOptions {
 		name: "designerSupported"

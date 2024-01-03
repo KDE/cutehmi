@@ -1,4 +1,4 @@
-#include "../cutehmi.dirs.hpp"
+#include <cutehmi/autogen/cutehmi.dirs.hpp>
 
 #include <cutehmi/Internationalizer.hpp>
 

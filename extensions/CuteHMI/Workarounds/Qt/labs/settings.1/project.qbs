@@ -28,19 +28,19 @@ Project {
          "README.md",
          "include/cutehmi/workarounds/qt/labs/settings/internal/common.hpp",
          "include/cutehmi/workarounds/qt/labs/settings/internal/platform.hpp",
-         "include/cutehmi/workarounds/qt/labs/settings/logging.hpp",
+		 "include/cutehmi/workarounds/qt/labs/settings/logging.hpp",
          "include/cutehmi/workarounds/qt/labs/settings/metadata.hpp",
          "src/cutehmi/workarounds/qt/labs/settings/internal/QMLPlugin.cpp",
          "src/cutehmi/workarounds/qt/labs/settings/internal/QMLPlugin.hpp",
          "src/cutehmi/workarounds/qt/labs/settings/internal/qqmlsettings.cpp",
          "src/cutehmi/workarounds/qt/labs/settings/internal/qqmlsettings_p.h",
-         "src/cutehmi/workarounds/qt/labs/settings/logging.cpp",
+		 "src/cutehmi/workarounds/qt/labs/settings/logging.cpp",
      ]
 
 		Depends { name: "cutehmi.qmldir" }
 
 		Depends { name: "cutehmi.qmltyperegistrar" }
-		cutehmi.qmltyperegistrar.includePaths: cutehmi.conventions.sourceDir + "/internal"
+		cutehmi.qmltyperegistrar.includePaths: cutehmi.conventions.functions.internalSourcesSubdir(product.name)
 
 		Depends { name: "CuteHMI.2" }
 

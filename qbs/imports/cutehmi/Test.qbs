@@ -23,9 +23,11 @@ CommonProduct {
 	condition: project.buildTests && cutehmi.product.enabled
 	//</qbs-imports-cutehmi-2.workaround>
 
+	property string testedProduct
+
 	property string testName
 
-	property string testNamePrefix
+	property string testNamePrefix: testedProduct
 
 	Depends { name: "cpp" }
 	Properties {
@@ -33,7 +35,10 @@ CommonProduct {
 		cpp.linkerFlags: "-rpath=$ORIGIN"
 	}
 	cpp.defines: base.concat("QUICK_TEST_SOURCE_DIR=\"" + sourceDirectory + "\"")
-	cpp.includePaths: [cutehmi.dirs.externalIncludeDir]
+	cpp.includePaths: [
+		cutehmi.dirs.externalIncludeDir,
+		product.sourceDirectory + "/" + cutehmi.conventions.functions.includesSubdir(product.name)
+	]
 	cpp.libraryPaths: [cutehmi.dirs.externalLibDir]
 
 	Depends { name: "autotest" }

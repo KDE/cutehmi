@@ -4,10 +4,10 @@ import cutehmi
 
 cutehmi.Test
 {
-	testNamePrefix: parent.parent.name
+	testedProduct: parent.parent.name
 
+	Depends { name: product.testedProduct }
 	Depends { name: "CuteHMI.2" }
-	Depends { name: "CuteHMI.Test.0" }
 }
 
 //(c)C: Copyright © 2019-2020, Michał Policht <michal@policht.pl>. All rights reserved.

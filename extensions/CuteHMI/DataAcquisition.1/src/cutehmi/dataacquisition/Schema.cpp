@@ -1,6 +1,6 @@
 #include "Schema.hpp"
 #include "Exception.hpp"
-#include "../../../cutehmi.dirs.hpp"
+#include "autogen/cutehmi.dirs.hpp"
 
 #include <QFile>
 #include <QSqlRecord>

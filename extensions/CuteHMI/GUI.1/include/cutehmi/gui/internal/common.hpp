@@ -2,7 +2,7 @@
 #define H_EXTENSIONS_CUTEHMI_GUI_0_INCLUDE_CUTEHMI_GUI_INTERNAL_COMMON_HPP
 
 #include "platform.hpp"
-#include "../metadata.hpp"
+#include "autogen/cutehmi.metadata.hpp"
 #include "../logging.hpp"
 
 #include <cutehmi/MPtr.hpp>

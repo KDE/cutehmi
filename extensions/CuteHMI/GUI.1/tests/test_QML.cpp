@@ -1,4 +1,4 @@
-#include "cutehmi.dirs.hpp"
+#include "autogen/cutehmi.dirs.hpp"
 
 #include <cutehmi/test/qml.hpp>
 

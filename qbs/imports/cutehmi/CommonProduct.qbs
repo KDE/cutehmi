@@ -12,27 +12,27 @@ Product {
 	builtByDefault: cutehmi.product.disabledProducts.length == 0 && cutehmi.product.enabled
 	//</qbs-imports-cutehmi-1.workaround>
 
-	property string cutehmiType: "product"	///< CuteHMI product type.
+	property string cutehmiType: "product"	  ///< CuteHMI product type.
 
-	property string vendor					///< Product vendor.
+	property string vendor					  ///< Product vendor.
 
-	property string domain					///< Organization domain.
+	property string domain					  ///< Organization domain.
 
-	property string friendlyName			///< Descriptive product name for ordinary humans.
+	property string friendlyName			  ///< Descriptive product name for ordinary humans.
 
-	property string description				///< Short product description.
+	property string description				  ///< Short product description.
 
-	property string baseName				///< Base name of the product (without the major version suffix).
+	property string baseName				  ///< Base name of the product (without the major version suffix).
 
-	property int major						///< Major version number.
+	property int major						  ///< Major version number.
 
-	property int minor: 0					///< Minor version number.
+	property int minor: 0					  ///< Minor version number.
 
-	property int micro: 0					///< Micro version number.
+	property int micro: 0					  ///< Micro version number.
 
-	property string hash: ""				///< Hash version string.
+	property string hash: ""				  ///< Hash version string.
 
-	property bool i18n: false				///< Indicates whether translations should be loaded for this product.
+	property bool i18n: false				  ///< Indicates whether translations should be loaded for this product.
 
 	//<qbs-cutehmi.product-1.workaround target="Qbs" cause="missing">
 
@@ -47,6 +47,17 @@ Product {
 	}
 
 	Depends { name: "cutehmi.product" }
+
+	FileTagger {
+		patterns: ["LICENSE*.inc"]
+		fileTags: ["LicenseInclusionFiles"]
+		priority: 1
+	}
+
+	FileTagger {
+		patterns: ["LICENSE", "LICENSE.*", "README.md", "CHANGES.md", "*.txt"]
+		fileTags: ["ReadmeFiles"]
+	}
 
 	//</qbs-cutehmi.product-1.workaround>
 }

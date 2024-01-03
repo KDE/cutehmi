@@ -7,7 +7,7 @@ Project {
 		testName: "test_QML"
 
 		files: [
-         "test_QML.cpp",
+		 "test_QML.cpp",
 		 "tst_View.qml",
      ]
 

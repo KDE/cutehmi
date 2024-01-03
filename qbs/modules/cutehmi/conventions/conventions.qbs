@@ -1,22 +1,10 @@
 import "functions.js" as Functions
 
 /**
-  Naming conventions. This module groups properties that provide values for a specific extension, to be used with various language
-  and application constructs, generated according to the conventions from core CommonProduct properties (such as 'name').
+  Naming conventions. This module is used to generates values from core CommonProduct properties (such as 'name') according to
+  CuteHMI naming conventions.
  */
 Module {
-	PropertyOptions {
-		name: "productName"
-		description: "Product name. Defaults to name of the product that declares dependency."
-	}
-	property string productName: product.name
-
-	PropertyOptions {
-		name: "baseName"
-		description: "Product base name. Defaults to base name of the product that declares dependency."
-	}
-	property string baseName: product.baseName !== undefined ? product.baseName : product.name
-
 	PropertyOptions {
 		name: "debugOutput"
 		description: "Debug output. When enabled module will print generated values to standard output."
@@ -24,148 +12,36 @@ Module {
 	property bool debugOutput: false
 
 	PropertyOptions {
-		name: "namespace"
-		description: "C++ namespace qualifier."
-	}
-	readonly property string namespace: baseName.toLowerCase().replace(/\./g, '::')
-
-	PropertyOptions {
-		name: "namespaceArray"
-		description: "C++ namespace array. Contains parts of a namespace as array elements. Useful for pre-C++17 nested namespace definitions."
-	}
-	readonly property stringList namespaceArray: baseName.toLowerCase().split('.')
-
-	PropertyOptions {
-		name: "macroPrefix"
-		description: "C++ macro prefix. Supposed to be used when defining API-related macros."
-	}
-	readonly property string macroPrefix: baseName.toUpperCase().replace(/\./g, '_')
-
-	PropertyOptions {
-		name: "longMacroPrefix"
-		description: "C++ \"long\" macro prefix. Includes major version. Supposed to be used when dealing with unique macros."
-	}
-	readonly property string longMacroPrefix: productName.toUpperCase().replace(/\./g, '_')
-
-	PropertyOptions {
-		name: "loggingCategory"
-		description: "Logging category function name."
-	}
-	readonly property string loggingCategory: baseName.toLowerCase().replace(/\./g, '_') + "_loggingCategory"
-
-	PropertyOptions {
-		name: "dedicatedSubdir"
-		description: "Subdirectory dedicated to keep header and source files within product subdirectory."
-	}
-	readonly property string dedicatedSubdir: baseName.toLowerCase().replace(/\./g, '/')
-
-	PropertyOptions {
-		name: "includeDir"
-		description: "Directory dedicated to keep product's public C++ header files."
-	}
-	readonly property string includeDir: product.sourceDirectory + "/include/" + dedicatedSubdir
-
-	PropertyOptions {
-		name: "sourceDir"
-		description: "Directory dedicated to keep product's C++ source files."
-	}
-	readonly property string sourceDir: product.sourceDirectory + "/src/" + dedicatedSubdir
-
-	PropertyOptions {
-		name: "internalIncludeDir"
-		description: "Directory dedicated to keep product's internal C++ header files."
-	}
-	readonly property string internalIncludeDir: includeDir + "/internal"
-
-	PropertyOptions {
-		name: "internalSourceDir"
-		description: "Directory dedicated to keep product's C++ source files corresponding to internal header files."
-	}
-	readonly property string internalSourceDir: sourceDir + "/internal"
-
-	PropertyOptions {
-		name: "testsDir"
-		description: "Directory dedicated to keep product test files."
-	}
-	readonly property string testsDir: product.sourceDirectory + "/tests"
-
-	PropertyOptions {
-		name: "qmlModuleIdentifier"
-		description: "Respective identifier of a QML module represented by an extension."
-	}
-	readonly property string qmlModuleIdentifier: baseName
-
-	PropertyOptions {
-		name: "qmlPluginName"
-		description: "Name of QML plugin binary (as expected by QML importer - not a filename with various suffixes)."
-	}
-	readonly property string qmlPluginName: product.name
-
-	PropertyOptions {
-		name: "qmlPluginSource"
-		description: "Standard filename pattern of a source file that implements QQmlExtensionPlugin derived class."
-	}
-	readonly property string qmlPluginSource: "QMLPlugin.cpp"
-
-	PropertyOptions {
-		name: "qmlPluginClassName"
-		description: "Standard, qualified name of a QQmlExtensionPlugin derived class."
-	}
-	readonly property string qmlPluginClassName: namespace + "::internal::QMLPlugin"
-
-	PropertyOptions {
-		name: "qmlTypeInfo"
-		description: "Standard name of QML type description file."
-	}
-	readonly property string qmlTypeInfo: "plugins.qmltypes"
-
-	PropertyOptions {
-		name: "initClassName"
-		description: "Standard name of Init class used to initialize extension."
-	}
-	readonly property string initClassName: namespace + "::Init"
-
-	PropertyOptions {
-		name: "initHeader"
-		description: "Header file with Init class declaration."
-	}
-	readonly property string initHeader: "include/" + dedicatedSubdir + "/Init.hpp"
-
-	PropertyOptions {
-		name: "hyphenatedName"
-		description: "Lowercased product name written with hyphens instead of dots."
-	}
-	readonly property string hyphenatedName: productName.toLowerCase().replace(/\./g, '-')
-
-	PropertyOptions {
 		name: "functions"
-		description: "This property exposes various helper functions."
+		description: "This property exposes various functions."
 	}
 	readonly property var functions: Functions
 
 	validate: {
 		if (debugOutput) {
 			console.info(" ")
-			console.info("Module '" + name + "' has generated following property values for product '" + productName + "'")
-			console.info("namespace: '" + namespace + "'")
-			console.info("namespaceArray: '" + JSON.stringify(namespaceArray) + "'")
-			console.info("macroPrefix: '" + macroPrefix + "'")
-			console.info("longMacroPrefix: '" + longMacroPrefix + "'")
-			console.info("loggingCategory: '" + loggingCategory + "'")
-			console.info("dedicatedSubdir: '" + dedicatedSubdir + "'")
-			console.info("includeDir: '" + includeDir + "'")
-			console.info("sourceDir: '" + sourceDir + "'")
-			console.info("internalIncludeDir: '" + internalIncludeDir + "'")
-			console.info("internalSourceDir: '" + internalSourceDir + "'")
-			console.info("testsDir: '" + testsDir + "'")
-			console.info("qmlModuleIdentifier: '" + qmlModuleIdentifier + "'")
-			console.info("qmlPluginName : '" + qmlPluginName + "'")
-			console.info("qmlPluginSource: '" + qmlPluginSource + "'")
-			console.info("qmlPluginClassName: '" + qmlPluginClassName + "'")
-			console.info("qmlTypeInfo: '" + qmlTypeInfo + "'")
-			console.info("initClassName: '" + initClassName + "'")
-			console.info("initHeader: '" + initHeader + "'")
-			console.info("hyphenatedName: '" + hyphenatedName + "'")
+			console.info("Module '" + name + "' has generated following property values for product '" + product.name + "'")
+			console.info("namespace: '" + Functions.namespace(product.name) + "'")
+			console.info("namespaceArray: '" + JSON.stringify(Functions.namespaceArray(product.name)) + "'")
+			console.info("macroPrefix: '" + Functions.macroPrefix(product.name) + "'")
+			console.info("longMacroPrefix: '" + Functions.longMacroPrefix(product.name) + "'")
+			console.info("loggingCategory: '" + Functions.loggingCategory(product.name) + "'")
+			console.info("dedicatedSubdir: '" + Functions.dedicatedSubdir(product.name) + "'")
+			console.info("includesSubdir: '" + Functions.includesSubdir(product.name) + "'")
+			console.info("sourcesSubdir: '" + Functions.sourcesSubdir(product.name) + "'")
+			console.info("internalIncludesSubdir: '" + Functions.internalIncludesSubdir(product.name) + "'")
+			console.info("internalSourcesSubdir: '" + Functions.internalSourcesSubdir(product.name) + "'")
+			console.info("autogenIncludesSubdir: '" + Functions.autogenIncludesSubdir(product.name) + "'")
+			console.info("autogenSourcesSubdir: '" + Functions.autogenSourcesSubdir(product.name) + "'")
+			console.info("testsSubdir: '" + Functions.testsSubdir(product.name) + "'")
+			console.info("qmlModuleIdentifier: '" + Functions.qmlModuleIdentifier(product.name) + "'")
+			console.info("qmlPluginName : '" + Functions.qmlPluginName(product.name) + "'")
+			console.info("qmlPluginSource: '" + Functions.qmlPluginSource(product.name) + "'")
+			console.info("qmlPluginClassName: '" + Functions.qmlPluginClassName(product.name) + "'")
+			console.info("qmlTypeInfo: '" + Functions.qmlTypeInfo(product.name) + "'")
+			console.info("initClassName: '" + Functions.initClassName(product.name) + "'")
+			console.info("initHeader: '" + Functions.initHeader(product.name) + "'")
+			console.info("hyphenatedName: '" + Functions.hyphenatedName(product.name) + "'")
 			console.info("---")
 		}
 	}
