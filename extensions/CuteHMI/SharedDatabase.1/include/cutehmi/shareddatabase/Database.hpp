@@ -21,7 +21,6 @@ namespace shareddatabase {
 class CUTEHMI_SHAREDDATABASE_API Database:
 	public QObject,
 	public cutehmi::services::Serviceable
-
 {
 		Q_OBJECT
 		QML_NAMED_ELEMENT(Database)
