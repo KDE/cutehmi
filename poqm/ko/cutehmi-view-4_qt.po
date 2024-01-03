@@ -57,7 +57,7 @@ msgstr "메시지"
 #: tools/cutehmi.view.4/src/main.cpp:116
 msgctxt "main|"
 msgid "Run application in full screen mode."
-msgstr "프로그램을 전체 화면 모드로 실행하십시오."
+msgstr "앱을 전체 화면 모드로 실행하십시오."
 
 #: tools/cutehmi.view.4/src/main.cpp:119
 msgctxt "main|"
@@ -97,7 +97,7 @@ msgstr "style"
 #: tools/cutehmi.view.4/src/main.cpp:133
 msgctxt "main|"
 msgid "Choose application <language>."
-msgstr "프로그램 <language>를 선택합니다."
+msgstr "앱 <language>를 선택합니다."
 
 #: tools/cutehmi.view.4/src/main.cpp:133
 msgctxt "main|"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2023-04-29 08:33\n"
+"PO-Revision-Date: 2023-12-30 13:40\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -18,23 +18,23 @@ msgstr ""
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
 msgctxt "Error|"
 msgid "No error."
-msgstr ""
+msgstr "没有错误。"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:41
 msgctxt "Error|"
 msgid "Error."
-msgstr ""
+msgstr "错误。"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:43
 msgctxt "Error|"
 msgid "Uninitialized error."
-msgstr ""
+msgstr "未初始化错误。"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:45
 #, qt-format
 msgctxt "Error|"
 msgid "Unrecognized error code: %1."
-msgstr ""
+msgstr "未知错误：%1。"
 
 #: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
 msgctxt "Messenger::NoAdvertiserException|"
