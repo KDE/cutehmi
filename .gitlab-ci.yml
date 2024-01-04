@@ -5,7 +5,7 @@ variables:
   QT_DEBUG_PLUGINS: 0
   XDG_RUNTIME_DIR: "/tmp/runtime-kdeci/"
   DISPLAY: ":90"
-  UBUNTU_IMAGE: "cutehmi/qt:ubuntu-22.04-qt-6.5.3"
+  UBUNTU_IMAGE: "cutehmi/qt:ubuntu-23.10-qt-6.5.3"
 
 stages:
   - build
