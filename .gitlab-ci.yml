@@ -1,11 +1,11 @@
 variables:
   QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-11"
-  QBS_PROFILE: "qt-5-15-2"
+  QBS_PROFILE: "qt-6-5-3"
   QBS_CONFIG: "debug"
   QT_DEBUG_PLUGINS: 0
   XDG_RUNTIME_DIR: "/tmp/runtime-kdeci/"
   DISPLAY: ":90"
-  UBUNTU_IMAGE: "cutehmi/qt:ubuntu-22.04-qt-5.15.2"
+  UBUNTU_IMAGE: "cutehmi/qt:ubuntu-22.04-qt-6.5.3"
 
 stages:
   - build
