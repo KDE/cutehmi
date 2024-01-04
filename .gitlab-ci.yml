@@ -1,5 +1,5 @@
 variables:
-  QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-11"
+  QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-13"
   QBS_PROFILE: "qt-6-5-3"
   QBS_CONFIG: "debug"
   QT_DEBUG_PLUGINS: 0
@@ -50,7 +50,7 @@ stages:
 build gcc ubuntu debug:
   extends: .build ubuntu
   variables:
-    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-11"
+    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-13"
     QBS_CONFIG: "debug"
 
 build clang ubuntu debug:
@@ -62,13 +62,13 @@ build clang ubuntu debug:
 build gcc ubuntu release:
   extends: .build ubuntu
   variables:
-    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-11"
+    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-13"
     QBS_CONFIG: "release"
 
 build clang ubuntu release:
   extends: .build ubuntu
   variables:
-    QBS_BASE_PROFILE: "clang-14"
+    QBS_BASE_PROFILE: "clang-16"
     QBS_CONFIG: "release"
 
 
