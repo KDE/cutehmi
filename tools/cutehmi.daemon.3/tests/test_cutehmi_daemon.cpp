@@ -1,7 +1,7 @@
 #include <QtTest/QtTest>
 #include <QProcess>
 
-#include "autogen/cutehmi.dirs.hpp"
+#include <cutehmi/daemon/autogen/cutehmi.dirs.hpp>
 
 namespace cutehmi {
 namespace daemon {
