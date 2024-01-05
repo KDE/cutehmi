@@ -57,12 +57,12 @@ void Chip::close()
 	}
 }
 
-int Chip::LineCount(QQmlListProperty<Line> * property)
+qsizetype Chip::LineCount(QQmlListProperty<Line> * property)
 {
 	return static_cast<LinesDataContainer *>(property->data)->count();
 }
 
-Line * Chip::LineAt(QQmlListProperty<Line> * property, int index)
+Line * Chip::LineAt(QQmlListProperty<Line> * property, qsizetype index)
 {
 	Chip * chip = static_cast<Chip *>(property->object);
 	LinesDataContainer * linesData = static_cast<LinesDataContainer *>(property->data);

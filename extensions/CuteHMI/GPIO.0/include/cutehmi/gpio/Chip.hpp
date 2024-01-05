@@ -52,9 +52,9 @@ class CUTEHMI_GPIO_API Chip:
 	private:
 		typedef QVector<Line *> LinesDataContainer;
 
-		static int LineCount(QQmlListProperty<Line> * property);
+		static qsizetype LineCount(QQmlListProperty<Line> * property);
 
-		static Line * LineAt(QQmlListProperty<Line> * property, int index);
+		static Line * LineAt(QQmlListProperty<Line> * property, qsizetype index);
 
 		void setLabel(const QString & label);
 
