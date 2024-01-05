@@ -1,11 +1,11 @@
 variables:
-  QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-13"
+  QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-12"
   QBS_PROFILE: "qt-6-5-3"
   QBS_CONFIG: "debug"
   QT_DEBUG_PLUGINS: 0
   XDG_RUNTIME_DIR: "/tmp/runtime-kdeci/"
   DISPLAY: ":90"
-  UBUNTU_IMAGE: "cutehmi/qt:ubuntu-23.10-qt-6.5.3"
+  UBUNTU_IMAGE: "cutehmi/qt:ubuntu-23.04-qt-6.5.3"
 
 stages:
   - build
@@ -50,25 +50,25 @@ stages:
 build gcc ubuntu debug:
   extends: .build ubuntu
   variables:
-    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-13"
+    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-12"
     QBS_CONFIG: "debug"
 
 build clang ubuntu debug:
   extends: .build ubuntu
   variables:
-    QBS_BASE_PROFILE: "clang-14"
+    QBS_BASE_PROFILE: "clang-15"
     QBS_CONFIG: "debug"
 
 build gcc ubuntu release:
   extends: .build ubuntu
   variables:
-    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-13"
+    QBS_BASE_PROFILE: "x86_64-linux-gnu-gcc-12"
     QBS_CONFIG: "release"
 
 build clang ubuntu release:
   extends: .build ubuntu
   variables:
-    QBS_BASE_PROFILE: "clang-16"
+    QBS_BASE_PROFILE: "clang-15"
     QBS_CONFIG: "release"
 
 
