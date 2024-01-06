@@ -1,18 +1,18 @@
 # Yi-Jyun Pan <pan93412@gmail.com>, 2020.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: pan 93412\n"
-"PO-Revision-Date: 2023-06-15 04:05+0900\n"
+"PO-Revision-Date: 2024-01-05 20:07+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
-"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
 msgctxt "DefaultScreen|"
@@ -167,14 +167,11 @@ msgid "Command line argument error: value of '%1' option must be a number."
 msgstr "命令列引數錯誤： '%1' 選項的值必須是數字。"
 
 #: tools/cutehmi.view.4/src/main.cpp:236
-#, fuzzy
 msgctxt "main|"
 msgid ""
 "Command line argument error: please specify extension with major version "
 "number after the last dot."
-msgstr ""
-"命令列引數錯誤：please specify extension with major version number after the "
-"last dot."
+msgstr "命令列引數錯誤：請在指定擴充功能時將大版本置於最後一個點的後方。"
 
 #: tools/cutehmi.view.4/src/main.cpp:284
 #, qt-format
