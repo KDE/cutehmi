@@ -1,0 +1,204 @@
+# Sergiu Bivol <sergiu@cip.md>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2024-01-07 15:42+0000\n"
+"Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
+"Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
+"X-Qt-Contexts: true\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr ""
+"Porniți aplicația cu opțiunea --help pentru a vedea opțiunile disponibile."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "Extensia „%1” nu a putut fi încărcată."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "Motive:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr "Informații"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "Avertisment"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr "Eroare"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr "Întrebare"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr "Mesaj"
+
+#: tools/cutehmi.view.4/src/main.cpp:116
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "Rulează aplicația în regim de ecran complet."
+
+#: tools/cutehmi.view.4/src/main.cpp:119
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr ""
+"Suprimă încărcătorul prin specificarea <fișierului> QML inițial de încărcat."
+
+#: tools/cutehmi.view.4/src/main.cpp:119
+msgctxt "main|"
+msgid "file"
+msgstr "fișier"
+
+#: tools/cutehmi.view.4/src/main.cpp:123
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr "Folosește <versiune> drept versiune minoră a extensiei de importat."
+
+#: tools/cutehmi.view.4/src/main.cpp:123
+msgctxt "main|"
+msgid "version"
+msgstr "versiune"
+
+#: tools/cutehmi.view.4/src/main.cpp:127
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "Ecran tactil (ascunde cursorul mausului)."
+
+#: tools/cutehmi.view.4/src/main.cpp:130
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "Stabilește <stilul> Qt Quick."
+
+#: tools/cutehmi.view.4/src/main.cpp:130
+msgctxt "main|"
+msgid "style"
+msgstr "stil"
+
+#: tools/cutehmi.view.4/src/main.cpp:133
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "Alege <limba> aplicației."
+
+#: tools/cutehmi.view.4/src/main.cpp:133
+msgctxt "main|"
+msgid "language"
+msgstr "limbă"
+
+#: tools/cutehmi.view.4/src/main.cpp:137
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "Stabilește directorul de bază la <dir>."
+
+#: tools/cutehmi.view.4/src/main.cpp:137
+msgctxt "main|"
+msgid "dir"
+msgstr "dir"
+
+#: tools/cutehmi.view.4/src/main.cpp:140
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr "Specifică explicit fișierul cu <resursă> de încărcat la pornire."
+
+#: tools/cutehmi.view.4/src/main.cpp:140
+msgctxt "main|"
+msgid "resource"
+msgstr "resursă"
+
+#: tools/cutehmi.view.4/src/main.cpp:147
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "Extensia de importat."
+
+#: tools/cutehmi.view.4/src/main.cpp:148
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr "Componenta de creat. Implicit e „%1”."
+
+#: tools/cutehmi.view.4/src/main.cpp:216
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"Nu puteți folosi opțiunea „component” deoarece opțiunea "
+"„forceDefaultOptions” a fost stabilită la compilare."
+
+#: tools/cutehmi.view.4/src/main.cpp:218
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"Nu puteți folosi opțiunea „extension” deoarece opțiunea "
+"„forceDefaultOptions” a fost stabilită la compilare."
+
+#: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+"Nu puteți folosi opțiunea „%1” deoarece opțiunea „forceDefaultOptions” a "
+"fost stabilită la compilare."
+
+#: tools/cutehmi.view.4/src/main.cpp:228
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr ""
+"Eroare argument în linie de comandă: valoarea pentru „%1” trebuie să fie un "
+"număr."
+
+#: tools/cutehmi.view.4/src/main.cpp:236
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+"Eroare argument în linie de comandă: specificați extensia cu număr de "
+"versiune majoră după ultimul punct."
+
+#: tools/cutehmi.view.4/src/main.cpp:284
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr ""
+"URL-ul „%1” conține cale relativă împreună cu schema URL, ceea ce e interzis."
+
+#: tools/cutehmi.view.4/src/main.cpp:291
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "Fișierul QML „%1” nu există."
+
+#: tools/cutehmi.view.4/src/main.cpp:296
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr "Format nevalid pentru URL-ul de fișier QML „%1”."
