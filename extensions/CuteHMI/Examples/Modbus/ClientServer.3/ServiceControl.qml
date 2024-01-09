@@ -19,8 +19,6 @@ ColumnLayout {
 	}
 
 	Row {
-		Layout.alignment: Qt.AlignRight
-
 		spacing: 5
 
 		Button {
