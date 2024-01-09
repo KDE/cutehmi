@@ -1,7 +1,6 @@
 import QtQml 2.2
 import QtQuick 2.11
 import QtQuick.Controls 2.1
-import QtQuick.Extras 1.4
 
 import CuteHMI.Modbus 4.0
 import CuteHMI.Services 3.0
@@ -33,7 +32,7 @@ Item {
 		}
 	}
 
-	Screen {
+	UiScreen {
 		anchors.fill: parent
 	}
 }

@@ -17,13 +17,13 @@ Project {
 		description: "Example demonstrates the use of controller items, useful when dealing with Qt Creator Design mode."
 
 		files: [
-			"CHANGES.md",
-			"LICENSE.MIT",
-			"LICENSE.LGPL3",
-			"View.qml",
-			"README.md",
-			"Screen.ui.qml",
-		]
+         "CHANGES.md",
+         "LICENSE.MIT",
+         "LICENSE.LGPL3",
+         "UiScreen.ui.qml",
+         "View.qml",
+         "README.md",
+     ]
 
 		Depends { name: "cutehmi.doxygen" }
 		cutehmi.doxygen.useDoxyqml: true

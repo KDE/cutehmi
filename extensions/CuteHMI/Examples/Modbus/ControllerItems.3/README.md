@@ -37,5 +37,5 @@ no longer supported and methods described in this document may not work.
 \example View.qml
 Here is a complete listing of the example source file.
 
-\example Screen.ui.qml
+\example UiScreen.ui.qml
 Here is a complete listing of the example source file.
