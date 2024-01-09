@@ -13,8 +13,13 @@ ColumnLayout {
 	Column {
 		Layout.alignment: Qt.AlignCenter
 
+		spacing: 10
+
 		Slider {
 			id: slider
+
+			anchors.left: parent.left
+			anchors.right: parent.right
 
 			from: 0
 			to: 100
