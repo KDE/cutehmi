@@ -1,7 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 2.1
 import QtQuick.Window 2.2
-import Qt.labs.settings 1.0
+import QtCore
 
 import CuteHMI 2.0
 
