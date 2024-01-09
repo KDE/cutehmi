@@ -2,8 +2,8 @@ import qbs
 
 import cutehmi
 
-Project {
-	name: "Templates.CppSkeleton.0"
+cutehmi.ExtensionProject {
+	groupSourceDirectory: path
 
 	references: [
 		"tests/tests.qbs"

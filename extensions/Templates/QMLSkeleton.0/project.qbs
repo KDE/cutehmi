@@ -2,8 +2,8 @@ import qbs
 
 import cutehmi
 
-Project {
-	name: "Templates.QMLSkeleton.0"
+cutehmi.ExtensionProject {
+	groupSourceDirectory: path
 
 	cutehmi.Extension {
 		name: parent.name

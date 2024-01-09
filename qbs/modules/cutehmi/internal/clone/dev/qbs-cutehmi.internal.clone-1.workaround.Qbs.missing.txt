@@ -1,0 +1,16 @@
+Problem:
+
+Sometimes there is a need to sanitize cloned files (e.g. to modify the names
+related to the product). This could be done by associating file tag with a
+function callback. Unfortunately Qbs does not provide an easy way to pass a
+JavaScript function callback from one module to another. Such callback would be
+handy to apply sanitization to the auto-generated files by the module, which is
+responsible for generating such file.
+
+Workaround:
+
+Workaround is to simply use hard-coded Javascript function within
+cutehmi.internal.clone Qbs module. The function can be put into separate
+JavaScript file to mitigate the problem to some extent until proper solution is
+found.
+

@@ -2,8 +2,8 @@ import qbs 1.0
 
 import cutehmi
 
-Project {
-	name: "cutehmi.console.0"
+cutehmi.ToolProject {
+	groupSourceDirectory: path
 
 	condition: !qbs.targetOS.contains("android")
 
