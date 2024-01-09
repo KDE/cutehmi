@@ -1,7 +1,6 @@
 import QtQml 2.2
 import QtQuick 2.11
 import QtQuick.Controls 2.1
-import QtQuick.Extras 1.4
 
 //! [Import statements]
 import CuteHMI.Modbus 4.0
@@ -112,9 +111,13 @@ Item {
 				//! [Coil controller]
 			}
 
-			StatusIndicator {
+			Rectangle {
+				width: 20
+				height: 20
+				radius: height * 0.5
+
 				//! [Status indicator binding]
-				active: coilController.value
+				color: coilController.value ? "red" : "black"
 				//! [Status indicator binding]
 			}
 		}
