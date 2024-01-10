@@ -34,7 +34,7 @@ cutehmi.ExtensionProject {
 	}
 }
 
-//(c)ANYONE: Copyright © 2020-2022, Anyone. All rights reserved.
+//(c)ANYONE: Copyright © 2020-2024, Anyone. All rights reserved.
 //(c)ANYONE: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)ANYONE: This file is a part of CuteHMI.
 //(c)ANYONE: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
