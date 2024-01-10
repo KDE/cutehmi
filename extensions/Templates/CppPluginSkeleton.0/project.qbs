@@ -2,8 +2,8 @@ import qbs
 
 import cutehmi
 
-Project {
-	name: "Templates.CppPluginSkeleton.0"
+cutehmi.ExtensionProject {
+	groupSourceDirectory: path
 
 	references: [
 		"tests/tests.qbs"
@@ -24,6 +24,7 @@ Project {
 			"README.md",
 			"LICENSE.MIT",
 			"LICENSE.LGPL3",
+			"tests/Test.qbs",
 			"include/templates/cpppluginskeleton/Exception.hpp",
 			"include/templates/cpppluginskeleton/Init.hpp",
 			"src/templates/cpppluginskeleton/Init.cpp",

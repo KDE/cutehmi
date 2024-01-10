@@ -17,11 +17,15 @@ Project {
 
 	property bool windeployqt: false
 
+	property string extensionsSubdir: "extensions"
+
+	property string toolsSubdir: "tools"
+
 	qbsSearchPaths: ["qbs"]
 
 	references: [
-		"tools/tools.qbs",
-		"extensions/extensions.qbs"
+		toolsSubdir + "/tools.qbs",
+		extensionsSubdir + "/extensions.qbs"
 	]
 
 	AutotestRunner {

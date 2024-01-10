@@ -1,43 +1,34 @@
-import QtQml 2.2
-import QtQuick 2.11
-import QtQuick.Controls 2.1
-
-import CuteHMI.Modbus 4.0
-import CuteHMI.Services 3.0
-
 /**
-  %View component.
-*/
-Item {
-	width: 640
-	height: 480
+  Project cloner.
 
-	Service {
-		id: clientService
+  To make the project clonable it must use one of the cutehmi.ProjectGroup items (cutehmi.ToolProject or cutehmi.ExtensionProject),
+  which provide extra `groupName` property.
 
-		name: "Dummy Client"
+  Files which are going to be copied must be referenced in one of the products belonging to the project group.
 
-		controllers: [
-			ServiceAutoStart {},
-			ServiceAutoActivate {},
-			ServiceAutoRepair {}
-		]
+  Files tagged with 'cutehmi.clone.exclude' won't be cloned.
 
-		DummyClient {
-			id: client
+  To clone the project set Qbs `modules.cutehmi.clone.projects` property according to the pattern:
+  `modules.cutehmi.clone.projects:<old project>,<new project>`. For example to clone Templates.CppPluginSkeleton.0 into
+  My.Extension.0 set following:
 
-			latency: 250
-			connectLatency: 0
-			disconnectLatency: 0
-		}
-	}
+  ```
+  modules.cutehmi.clone.projects:Templates.CppPluginSkeleton.0,My.Extension.0
+  ```
 
-	UiScreen {
-		anchors.fill: parent
-	}
+  Note that most of the product-specific elements such as export macros, namespaces, etc are currently not refactored automatically.
+  */
+Module {
+	readonly property bool enabled: oldProject !== undefined && newProject !== undefined
+
+	property stringList projects: undefined
+
+	property string oldProject: projects !== undefined ? projects[0] : undefined
+
+	property string newProject: projects !== undefined ? projects[1] : undefined
 }
 
-//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

@@ -48,6 +48,10 @@ Product {
 
 	Depends { name: "cutehmi.product" }
 
+	Depends { name: "cutehmi.clone" }
+
+	Depends { name: "cutehmi.internal.clone"; condition: cutehmi.clone.enabled }
+
 	FileTagger {
 		patterns: ["LICENSE*.inc"]
 		fileTags: ["LicenseInclusionFiles"]

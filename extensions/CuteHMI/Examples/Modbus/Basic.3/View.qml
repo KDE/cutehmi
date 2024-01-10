@@ -1,7 +1,6 @@
 import QtQml 2.2
 import QtQuick 2.11
 import QtQuick.Controls 2.1
-import QtQuick.Extras 1.4
 
 //! [Import statements]
 import CuteHMI.Modbus 4.0
@@ -112,9 +111,13 @@ Item {
 				//! [Coil controller]
 			}
 
-			StatusIndicator {
+			Rectangle {
+				width: 20
+				height: 20
+				radius: height * 0.5
+
 				//! [Status indicator binding]
-				active: coilController.value
+				color: coilController.value ? "red" : "black"
 				//! [Status indicator binding]
 			}
 		}
@@ -159,7 +162,7 @@ Item {
 	}
 }
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

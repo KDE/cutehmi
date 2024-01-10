@@ -1,43 +1,28 @@
-import QtQml 2.2
-import QtQuick 2.11
-import QtQuick.Controls 2.1
+function process(copiedQbsFiles, copiedAllFiles) {
+	for (var allFileIndex in copiedAllFiles) {
+		var entry = copiedAllFiles[allFileIndex]
+		if (entry["targetRelativePath"] === "tests/test_logging.cpp") {
+			var file = new TextFile(entry["targetPath"], TextFile.ReadOnly);
+			try {
+				var content = file.readAll()
+						console.warn(content)
+			} finally {
+				file.close()
+			}
 
-import CuteHMI.Modbus 4.0
-import CuteHMI.Services 3.0
+			content = content.replace("\"" + product.cutehmi.clone.oldProject + "\");", "\"" + product.cutehmi.clone.newProject + "\");")
 
-/**
-  %View component.
-*/
-Item {
-	width: 640
-	height: 480
-
-	Service {
-		id: clientService
-
-		name: "Dummy Client"
-
-		controllers: [
-			ServiceAutoStart {},
-			ServiceAutoActivate {},
-			ServiceAutoRepair {}
-		]
-
-		DummyClient {
-			id: client
-
-			latency: 250
-			connectLatency: 0
-			disconnectLatency: 0
+			file = new TextFile(entry["targetPath"], TextFile.WriteOnly);
+			try {
+				file.write(content)
+			} finally {
+				file.close()
+			}
 		}
-	}
-
-	UiScreen {
-		anchors.fill: parent
 	}
 }
 
-//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

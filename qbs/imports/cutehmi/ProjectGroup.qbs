@@ -1,77 +1,18 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+import qbs
+import qbs.FileInfo
 
-import CuteHMI.Modbus 4.0
+/**
+  Project group.
+  */
+Project {
+	name: groupName
 
-Item {
-	Switch {
-		id: element
-		x: 10
-		y: 10
-		text: qsTr("Switch")
+	property string groupName
 
-		CoilItem {
-			id: coilItem
-			controller.device: client
-			controller.address: 10
-			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.verticalCenter: parent.verticalCenter
-		}
-	}
-
-	CheckBox {
-		id: checkBox
-		x: 10
-		y: 80
-		text: qsTr("Check Box")
-
-		CoilItem {
-			id: coilItem1
-			controller.device: client
-			controller.address: 10
-			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.verticalCenter: parent.verticalCenter
-		}
-	}
-
-	Label {
-		id: label
-		x: 227
-		y: 94
-		text: qsTr("Label")
-
-		HoldingRegisterItem {
-			id: holdingRegisterItem1
-			controller.device: client
-			controller.address: 10
-			delegateProperty: "text"
-			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.verticalCenter: parent.verticalCenter
-		}
-	}
-
-	SpinBox {
-		id: spinBox
-		x: 160
-		y: 10
-
-		HoldingRegisterItem {
-			id: holdingRegisterItem
-			controller.device: client
-			controller.address: 10
-			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.verticalCenter: parent.verticalCenter
-		}
-	}
+	property string groupSourceDirectory
 }
 
-/*##^##
-Designer {
-	D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
-
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
