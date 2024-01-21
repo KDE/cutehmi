@@ -83,7 +83,7 @@ items' results, so if the library is installed after the project has been
 configured with Qbs, it will not show up. You can use `--force-probe-execution`
 option to force Qbs to not use cached results.
 
-__NOTE__: Qbs versions 2.1.2-2.2.1 are affected by a
+__NOTE__: Qbs versions 2.1.0-2.2.1 are affected by a
 [bug](https://bugreports.qt.io/projects/QBS/issues/QBS-1772?filter=allissues), which
 will result in errors at project configuration stage. Please use unaffected Qbs
 version.
