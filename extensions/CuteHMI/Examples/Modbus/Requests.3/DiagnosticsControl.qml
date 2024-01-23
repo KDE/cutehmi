@@ -1,5 +1,5 @@
 import QtQml.Models 2.12
-import QtQuick 2.0
+import QtQuick 2
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
@@ -69,8 +69,8 @@ RowLayout {
 
 	TextField {
 		text: "0x" + parent.diagnosticsData.toString(16)
-		validator: RegExpValidator {
-			regExp: /0x[0-9A-Fa-f]{1,4}/
+		validator: RegularExpressionValidator {
+			regularExpression: /0x[0-9A-Fa-f]{1,4}/
 		}
 
 		onAccepted: parent.diagnosticsData = parseInt(text)

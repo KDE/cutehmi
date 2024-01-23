@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
@@ -33,8 +33,8 @@ RowLayout {
 
 	TextField {
 		text: "0x" + parent.andMask.toString(16)
-		validator: RegExpValidator {
-			regExp: /0x[0-9A-Fa-f]{1,4}/
+		validator: RegularExpressionValidator {
+			regularExpression: /0x[0-9A-Fa-f]{1,4}/
 		}
 
 		onAccepted: parent.andMask = parseInt(text)
@@ -46,8 +46,8 @@ RowLayout {
 
 	TextField {
 		text: "0x" + parent.orMask.toString(16)
-		validator: RegExpValidator {
-			regExp: /0x[0-9A-Fa-f]{1,4}/
+		validator: RegularExpressionValidator {
+			regularExpression: /0x[0-9A-Fa-f]{1,4}/
 		}
 
 		onAccepted: parent.orMask = parseInt(text)

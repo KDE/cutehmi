@@ -22,7 +22,6 @@ Item {
 		anchors.margins: 40
 		spacing: 40
 
-
 		ColumnLayout {
 			spacing: 40
 
