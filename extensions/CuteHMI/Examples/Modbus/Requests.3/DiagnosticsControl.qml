@@ -1,5 +1,5 @@
 import QtQml.Models 2.12
-import QtQuick 2.0
+import QtQuick 2
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
@@ -69,15 +69,15 @@ RowLayout {
 
 	TextField {
 		text: "0x" + parent.diagnosticsData.toString(16)
-		validator: RegExpValidator {
-			regExp: /0x[0-9A-Fa-f]{1,4}/
+		validator: RegularExpressionValidator {
+			regularExpression: /0x[0-9A-Fa-f]{1,4}/
 		}
 
 		onAccepted: parent.diagnosticsData = parseInt(text)
 	}
 }
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
