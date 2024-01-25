@@ -513,8 +513,11 @@ void AbstractDevice::handleReply(QUuid requestId, QJsonObject reply)
 					quint16 address = static_cast<quint16>(request.value("payload").toObject().value("address").toDouble());
 					// If reply contains values, write them down to data container, otherwise assume containers have been already updated.
 					if (reply.contains("values")) {
+						// Qt (6.5.3) Modbus client returns "values" arrays which are multiply of 8 in size, but values beyond end address are not read from the slave device at all...
+						quint16 amount = static_cast<quint16>(request.value("payload").toObject().value("amount").toDouble());
+						quint16 endAddress = address + amount;
 						QJsonArray values = reply.value("values").toArray();
-						for (auto valueIt = values.begin(); valueIt != values.end(); ++valueIt) {
+						for (auto valueIt = values.begin(); valueIt != values.end() && address != endAddress; ++valueIt) {
 							coilData().value(address)->setValue(valueIt->toBool());
 							address++;
 						}
@@ -529,8 +532,11 @@ void AbstractDevice::handleReply(QUuid requestId, QJsonObject reply)
 					quint16 address = static_cast<quint16>(request.value("payload").toObject().value("address").toDouble());
 					// If reply contains values, write them down to data container, otherwise assume containers have been already updated.
 					if (reply.contains("values")) {
+						// Qt (6.5.3) Modbus client returns "values" arrays which are multiply of 8 in size, but values beyond end address are not read from the slave device at all...
+						quint16 amount = static_cast<quint16>(request.value("payload").toObject().value("amount").toDouble());
+						quint16 endAddress = address + amount;
 						QJsonArray values = reply.value("values").toArray();
-						for (auto valueIt = values.begin(); valueIt != values.end(); ++valueIt) {
+						for (auto valueIt = values.begin(); valueIt != values.end() && address != endAddress; ++valueIt) {
 							discreteInputData().value(address)->setValue(valueIt->toBool());
 							address++;
 						}
@@ -545,8 +551,11 @@ void AbstractDevice::handleReply(QUuid requestId, QJsonObject reply)
 					quint16 address = static_cast<quint16>(request.value("payload").toObject().value("address").toDouble());
 					// If reply contains values, write them down to data container, otherwise assume containers have been already updated.
 					if (reply.contains("values")) {
+						// Just in case Qt does something like with coils or discrete inputs check whether we don't read beyond end address.
+						quint16 amount = static_cast<quint16>(request.value("payload").toObject().value("amount").toDouble());
+						quint16 endAddress = address + amount;
 						QJsonArray values = reply.value("values").toArray();
-						for (auto valueIt = values.begin(); valueIt != values.end(); ++valueIt) {
+						for (auto valueIt = values.begin(); valueIt != values.end() && address != endAddress; ++valueIt) {
 							holdingRegisterData().value(address)->setValue(static_cast<quint16>(valueIt->toDouble()));
 							address++;
 						}
@@ -561,8 +570,11 @@ void AbstractDevice::handleReply(QUuid requestId, QJsonObject reply)
 					quint16 address = static_cast<quint16>(request.value("payload").toObject().value("address").toDouble());
 					// If reply contains values, write them down to data container, otherwise assume containers have been already updated.
 					if (reply.contains("values")) {
+						// Just in case Qt does something like with coils or discrete inputs check whether we don't read beyond end address.
+						quint16 amount = static_cast<quint16>(request.value("payload").toObject().value("amount").toDouble());
+						quint16 endAddress = address + amount;
 						QJsonArray values = reply.value("values").toArray();
-						for (auto valueIt = values.begin(); valueIt != values.end(); ++valueIt) {
+						for (auto valueIt = values.begin(); valueIt != values.end() && address != endAddress; ++valueIt) {
 							inputRegisterData().value(address)->setValue(static_cast<quint16>(valueIt->toDouble()));
 							address++;
 						}
