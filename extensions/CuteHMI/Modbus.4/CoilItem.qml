@@ -27,7 +27,7 @@ Item {
 
 		parent: root
 		visible: root.enabled
-		running: root.controller.busy
+		running: root.controller.busy || !controller.initialized
 	}
 
 	// Private properties.
@@ -37,9 +37,20 @@ Item {
 		property var delegateValue: delegate[delegateProperty]
 	}
 
+	Connections {
+		target: controller
+
+		function onInitializedChanged() {
+			if (controller.initialized)
+				Private.onInitialized()
+			else
+				Private.disconnect()
+		}
+	}
+
 	Component.onCompleted: Private.onCompleted()
 
-	Component.onDestruction: Private.onDestruction()
+	Component.onDestruction: Private.disconnect()
 
 	onReadOnlyChanged: Private.onReadOnlyChanged()
 }

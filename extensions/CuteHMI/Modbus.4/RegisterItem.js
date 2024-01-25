@@ -1,12 +1,20 @@
 function onCompleted()
 {
+	if (controller.initialized)
+		onInitialized()
+	else
+		delegate[delegateProperty] = controller.value
+}
+
+function onInitialized()
+{
 	delegate[delegateProperty] = controller.value
 	controller.valueUpdated.connect(onValueUpdatedFromBackend)
 	if (!readOnly)
 		p.delegateValueChanged.connect(onValueChangedFromFrontend)
 }
 
-function onDestruction()
+function disconnect()
 {
 	controller.valueUpdated.disconnect(onValueUpdatedFromBackend)
 	p.delegateValueChanged.disconnect(onValueChangedFromFrontend)
