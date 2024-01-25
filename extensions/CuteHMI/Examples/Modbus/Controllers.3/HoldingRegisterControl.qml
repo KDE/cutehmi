@@ -185,6 +185,16 @@ ColumnLayout {
 
 				checked: true
 			}
+
+			Label {
+				Layout.alignment: Qt.AlignRight
+
+				text: qsTr("Initialized:")
+			}
+
+			Label {
+				text: controller.initialized
+			}
 		}
 	}
 }
