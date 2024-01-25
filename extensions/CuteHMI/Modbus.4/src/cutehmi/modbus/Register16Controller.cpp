@@ -100,7 +100,6 @@ void Register16Controller::updateValue(quint16 value)
 	if (m->adjustingValue)
 		return;
 
-//	qWarning() << "val " << m->value << " req val " << m->requestedValue << " " << (m->value == m->requestedValue);
 	qreal newValue = m->valueScale * Decode(value, encoding());
 	if (m->value != newValue) {
 		m->value = newValue;
@@ -128,6 +127,7 @@ void Register16Controller::onRequestCompleted(QJsonObject request, QJsonObject r
 
 void Register16Controller::resetRegister()
 {
+	setInitialized(false);
 	m->requestId = QUuid();	// Setting up new register invalidates previous requests.
 	m->postponedWritePending = false;
 	m->adjustingValue = false;
@@ -137,6 +137,7 @@ void Register16Controller::resetRegister()
 
 	if (device()) {
 		m->register16 = registerAt(static_cast<quint16>(address()));
+		updateValue(m->register16->value());
 		if (enabled()) {
 			setBusy(true);
 			m->register16->awake();
@@ -212,7 +213,7 @@ bool Register16Controller::verifyRegisterValue() const
 }
 }
 
-//(c)C: Copyright © 2022-2023, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

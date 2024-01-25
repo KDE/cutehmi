@@ -69,6 +69,11 @@ bool AbstractRegisterController::busy() const
 	return m->busy;
 }
 
+bool AbstractRegisterController::initialized() const
+{
+	return m->initialized;
+}
+
 bool AbstractRegisterController::readOnWrite() const
 {
 	return m->readOnWrite;
@@ -142,6 +147,14 @@ void AbstractRegisterController::setBusy(bool busy)
 	}
 }
 
+void AbstractRegisterController::setInitialized(bool initialized)
+{
+	if (m->initialized != initialized) {
+		m->initialized = initialized;
+		emit initializedChanged();
+	}
+}
+
 bool AbstractRegisterController::deviceReady() const
 {
 	return (m->device != nullptr) && m->device->ready();
@@ -150,7 +163,7 @@ bool AbstractRegisterController::deviceReady() const
 }
 }
 
-//(c)C: Copyright © 2022-2023, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

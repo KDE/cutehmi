@@ -148,6 +148,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 					emit derived().valueMismatch(); // In case of read failure we can't verify value. Even though write request must have succeeded assume valueMismatch() in such case.
 
 				derived().updateValue();
+				derived().setInitialized(true);
 
 				derived().m->requestId = QUuid();
 			} else if (derived().m->requestId.isNull()) {
@@ -156,6 +157,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 				derived().setBusy(!success || derived().m->postponedWritePending);
 
 				derived().updateValue();
+				derived().setInitialized(true);
 			}
 		}
 	}
@@ -188,7 +190,7 @@ DERIVED & RegisterControllerMixin<DERIVED>::derived()
 
 #endif
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

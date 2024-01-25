@@ -60,6 +60,11 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
 
 		/**
+		 * Initialized value flag. Determines whether controller value has been initialized with an actual value from the register.
+		 */
+		Q_PROPERTY(bool initialized READ initialized NOTIFY initializedChanged)
+
+		/**
 		  Read-on-write. If @p true, then controller requests subsequent read upon write.
 		  */
 		Q_PROPERTY(bool readOnWrite READ readOnWrite WRITE setReadOnWrite NOTIFY readOnWriteChanged)
@@ -91,6 +96,8 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 
 		bool busy() const;
 
+		bool initialized() const;
+
 		bool readOnWrite() const;
 
 		void setReadOnWrite(bool readOnWrite);
@@ -114,6 +121,8 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 
 		void busyChanged();
 
+		void initializedChanged();
+
 		void readOnWriteChanged();
 
 		void writeModeChanged();
@@ -135,6 +144,8 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 
 		void setBusy(bool busy);
 
+		void setInitialized(bool initialized);
+
 	protected slots:
 		virtual void onRequestCompleted(QJsonObject request, QJsonObject reply) = 0;
 
@@ -146,6 +157,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 			AbstractDevice * device;
 			unsigned int address;
 			bool busy;
+			bool initialized;
 			bool readOnWrite;
 			WriteMode writeMode;
 			int writeDelay;
@@ -156,6 +168,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 				device(nullptr),
 				address(INITIAL_ADDRESS),
 				busy(INITIAL_BUSY),
+				initialized(false),
 				readOnWrite(INITIAL_READ_ON_WRITE),
 				writeMode(INITIAL_WRITE_MODE),
 				writeDelay(INITIAL_WRITE_DELAY),
@@ -173,7 +186,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 
 #endif
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
