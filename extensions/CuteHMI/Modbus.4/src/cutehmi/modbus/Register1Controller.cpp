@@ -97,6 +97,7 @@ void Register1Controller::onRequestCompleted(QJsonObject request, QJsonObject re
 
 void Register1Controller::resetRegister()
 {
+	setInitialized(false);
 	m->requestId = QUuid();	// Setting up new register invalidates previous requests.
 	m->postponedWritePending = false;
 	m->adjustingValue = false;
@@ -106,6 +107,7 @@ void Register1Controller::resetRegister()
 
 	if (device()) {
 		m->register1 = registerAt(static_cast<quint16>(address()));
+		updateValue(m->register1->value());
 		if (enabled()) {
 			setBusy(true);
 			m->register1->awake();

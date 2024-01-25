@@ -69,6 +69,11 @@ bool AbstractRegisterController::busy() const
 	return m->busy;
 }
 
+bool AbstractRegisterController::initialized() const
+{
+	return m->initialized;
+}
+
 bool AbstractRegisterController::readOnWrite() const
 {
 	return m->readOnWrite;
@@ -139,6 +144,14 @@ void AbstractRegisterController::setBusy(bool busy)
 	if (m->busy != busy) {
 		m->busy = busy;
 		emit busyChanged();
+	}
+}
+
+void AbstractRegisterController::setInitialized(bool initialized)
+{
+	if (m->initialized != initialized) {
+		m->initialized = initialized;
+		emit initializedChanged();
 	}
 }
 

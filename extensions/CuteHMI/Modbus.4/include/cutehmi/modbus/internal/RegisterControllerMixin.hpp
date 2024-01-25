@@ -148,6 +148,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 					emit derived().valueMismatch(); // In case of read failure we can't verify value. Even though write request must have succeeded assume valueMismatch() in such case.
 
 				derived().updateValue();
+				derived().setInitialized(true);
 
 				derived().m->requestId = QUuid();
 			} else if (derived().m->requestId.isNull()) {
@@ -156,6 +157,7 @@ void RegisterControllerMixin<DERIVED>::onRequestCompleted(QJsonObject request, Q
 				derived().setBusy(!success || derived().m->postponedWritePending);
 
 				derived().updateValue();
+				derived().setInitialized(true);
 			}
 		}
 	}
