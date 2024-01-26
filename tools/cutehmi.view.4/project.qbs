@@ -63,6 +63,9 @@ cutehmi.ToolProject {
 
 		property string defaultLanguage
 
+		// This is obsolete option and it will be removed in cutehmi.view.5, but is currently needed to force a Qt Quick style.
+		property string defaultStyle
+
 		property bool forceDefaultOptions: false
 
 		property bool virtualKeyboard: false
@@ -90,6 +93,9 @@ cutehmi.ToolProject {
 
 			if (defaultLanguage)
 				result.push("CUTEHMI_VIEW_DEFAULT_LANGUAGE=\"" + defaultLanguage + "\"")
+
+			if (defaultStyle)
+				result.push("CUTEHMI_VIEW_DEFAULT_STYLE=\"" + defaultStyle + "\"")
 
 			return result
 		}

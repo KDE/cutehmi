@@ -107,7 +107,6 @@ int main(int argc, char * argv[])
 		cutehmi::Internationalizer::Instance().loadQtTranslation();
 		cutehmi::Internationalizer::Instance().loadTranslation(CUTEHMI_VIEW_NAME);
 
-
 		QCommandLineParser cmd;
 		cmd.setApplicationDescription(CUTEHMI_VIEW_TRANSLATED_FRIENDLY_NAME + "\n" + CUTEHMI_VIEW_TRANSLATED_DESCRIPTION);
 		cmd.addHelpOption();
@@ -128,6 +127,9 @@ int main(int argc, char * argv[])
 		cmd.addOption(hideCursorOption);
 
 		QCommandLineOption styleOption("qstyle", QCoreApplication::translate("main", "Set Qt Quick <style>."), QCoreApplication::translate("main", "style"));
+#ifdef CUTEHMI_VIEW_DEFAULT_STYLE
+		styleOption.setDefaultValue(CUTEHMI_VIEW_DEFAULT_STYLE);
+#endif
 		cmd.addOption(styleOption);
 
 		QCommandLineOption langOption("lang", QCoreApplication::translate("main", "Choose application <language>."), QCoreApplication::translate("main", "language"));
@@ -156,9 +158,15 @@ int main(int argc, char * argv[])
 		CUTEHMI_DEBUG("Language: " << cmd.value(langOption));
 		cutehmi::Internationalizer::Instance().setUILanguage(cmd.value(langOption));	// Reset language according to 'lang' option.
 
-		if (cmd.isSet(styleOption)) {
-			qputenv("QT_QUICK_CONTROLS_STYLE", cmd.value(styleOption).toLocal8Bit());
-			CUTEHMI_DEBUG("Qt Quick style: " << cmd.value(styleOption));
+		QByteArray style;
+		if (cmd.isSet(styleOption))
+			style = cmd.value(styleOption).toLocal8Bit();
+		else if (!styleOption.defaultValues().empty())
+			style = styleOption.defaultValues().constFirst().toLocal8Bit();
+
+		if (!style.isEmpty()) {
+			qputenv("QT_QUICK_CONTROLS_STYLE", style);
+			CUTEHMI_DEBUG("Qt Quick style: " << style);
 		}
 
 		if (cmd.isSet(hideCursorOption))
