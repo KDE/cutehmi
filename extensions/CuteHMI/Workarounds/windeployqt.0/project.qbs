@@ -30,6 +30,9 @@ Project {
 		// Binary must depend on Qt.qml in order to make `windeployqt` scan for QML files.
 		Depends { name: "Qt.qml" }
 
+		// QGuiApplication is need in order to make make `windeployqt` find platform plugin.
+		Depends { name: "Qt.quick" }
+
 		Group {
 			fileTagsFilter: ["dynamiclibrary"]
 			fileTags: ["CuteHMI.Workarounds.windeployqt.0.dynamiclibrary"]
