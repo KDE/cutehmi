@@ -57,90 +57,90 @@ msgctxt "MessageDialog|"
 msgid "Message"
 msgstr "Sporočilo"
 
-#: tools/cutehmi.view.4/src/main.cpp:116
+#: tools/cutehmi.view.4/src/main.cpp:115
 msgctxt "main|"
 msgid "Run application in full screen mode."
 msgstr "Poženi aplikacijo v celozaslonskem načinu."
 
-#: tools/cutehmi.view.4/src/main.cpp:119
+#: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
 msgstr ""
 "Preglasite nalagalnik z določitvijo začetne QML <datoteke> za nalaganje."
 
-#: tools/cutehmi.view.4/src/main.cpp:119
+#: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
 msgid "file"
 msgstr "datoteka"
 
-#: tools/cutehmi.view.4/src/main.cpp:123
+#: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
 msgid "Use <version> for extension minor version to import."
 msgstr "Uporabite <version> za manjšo verzijo razširitve za uvoz."
 
-#: tools/cutehmi.view.4/src/main.cpp:123
+#: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
 msgid "version"
 msgstr "verzija"
 
-#: tools/cutehmi.view.4/src/main.cpp:127
+#: tools/cutehmi.view.4/src/main.cpp:126
 msgctxt "main|"
 msgid "Touch screen (hides mouse cursor)."
 msgstr "Zaslon na dotik (skrije miškin kazalnik)."
 
-#: tools/cutehmi.view.4/src/main.cpp:130
+#: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
 msgid "Set Qt Quick <style>."
 msgstr "Nastavi Qt Quick <style>."
 
-#: tools/cutehmi.view.4/src/main.cpp:130
+#: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
 msgid "style"
 msgstr "stil"
 
-#: tools/cutehmi.view.4/src/main.cpp:133
+#: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
 msgid "Choose application <language>."
 msgstr "Izberi aplikacijo <language>."
 
-#: tools/cutehmi.view.4/src/main.cpp:133
+#: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
 msgid "language"
 msgstr "jezik"
 
-#: tools/cutehmi.view.4/src/main.cpp:137
+#: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
 msgid "Set base directory to <dir>."
 msgstr "Nastavi osnovni imenik na <dir>."
 
-#: tools/cutehmi.view.4/src/main.cpp:137
+#: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
 msgid "dir"
 msgstr "dir"
 
-#: tools/cutehmi.view.4/src/main.cpp:140
+#: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
 msgid "Explicitly specify <resource> file to be loaded on startup."
 msgstr ""
 "Eksplicitno določite datoteko <resource>, ki naj bo naložena ob zagonu."
 
-#: tools/cutehmi.view.4/src/main.cpp:140
+#: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
 msgid "resource"
 msgstr "vir"
 
-#: tools/cutehmi.view.4/src/main.cpp:147
+#: tools/cutehmi.view.4/src/main.cpp:149
 msgctxt "main|"
 msgid "Extension to import."
 msgstr "Razširitev za uvoz."
 
-#: tools/cutehmi.view.4/src/main.cpp:148
+#: tools/cutehmi.view.4/src/main.cpp:150
 #, qt-format
 msgctxt "main|"
 msgid "Component to create. Defaults to '%1'."
 msgstr "Komponenta za ustvarjanje. Privzeto je '%1'."
 
-#: tools/cutehmi.view.4/src/main.cpp:216
+#: tools/cutehmi.view.4/src/main.cpp:224
 msgctxt "main|"
 msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
@@ -149,7 +149,7 @@ msgstr ""
 "Ne morete uporabiti možnosti 'component', ker je bila med prevodom "
 "nastavljena možnost 'forceDefaultOptions'."
 
-#: tools/cutehmi.view.4/src/main.cpp:218
+#: tools/cutehmi.view.4/src/main.cpp:226
 msgctxt "main|"
 msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
@@ -158,7 +158,7 @@ msgstr ""
 "Ne morete uporabiti možnosti 'extension', ker je bila med prevodom "
 "nastavljena možnost 'forceDefaultOptions'."
 
-#: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
+#: tools/cutehmi.view.4/src/main.cpp:228 tools/cutehmi.view.4/src/main.cpp:230
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -168,14 +168,14 @@ msgstr ""
 "Ne morete uporabiti možnosti '%1', ker je bila med prevodom nastavljena "
 "možnost 'forceDefaultOptions'."
 
-#: tools/cutehmi.view.4/src/main.cpp:228
+#: tools/cutehmi.view.4/src/main.cpp:236
 #, qt-format
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
 msgstr ""
 "Napaka argumenta ukazne vrstice: vrednost možnosti '%1' mora biti število."
 
-#: tools/cutehmi.view.4/src/main.cpp:236
+#: tools/cutehmi.view.4/src/main.cpp:244
 msgctxt "main|"
 msgid ""
 "Command line argument error: please specify extension with major version "
@@ -184,7 +184,7 @@ msgstr ""
 "Napaka argumenta ukazne vrstice: navedite razširitev z glavno verzijo "
 "številke za zadnjo piko."
 
-#: tools/cutehmi.view.4/src/main.cpp:284
+#: tools/cutehmi.view.4/src/main.cpp:292
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -192,13 +192,13 @@ msgid ""
 msgstr ""
 "URL '%1' vsebuje relativno pot skupaj s shemo URL-ja, kar je prepovedano."
 
-#: tools/cutehmi.view.4/src/main.cpp:291
+#: tools/cutehmi.view.4/src/main.cpp:299
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
 msgstr "Datoteka QML '%1' ne obstaja."
 
-#: tools/cutehmi.view.4/src/main.cpp:296
+#: tools/cutehmi.view.4/src/main.cpp:304
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."
