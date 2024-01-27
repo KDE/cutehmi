@@ -55,88 +55,88 @@ msgctxt "MessageDialog|"
 msgid "Message"
 msgstr "訊息"
 
-#: tools/cutehmi.view.4/src/main.cpp:116
+#: tools/cutehmi.view.4/src/main.cpp:115
 msgctxt "main|"
 msgid "Run application in full screen mode."
 msgstr "以全螢幕模式執行應用程式。"
 
-#: tools/cutehmi.view.4/src/main.cpp:119
+#: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
 msgstr "無視載入器，指定初始要載入的 QML <檔案>。"
 
-#: tools/cutehmi.view.4/src/main.cpp:119
+#: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
 msgid "file"
 msgstr "檔案"
 
-#: tools/cutehmi.view.4/src/main.cpp:123
+#: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
 msgid "Use <version> for extension minor version to import."
 msgstr "使用 <版本> 指定要載入的擴充功能次版號。"
 
-#: tools/cutehmi.view.4/src/main.cpp:123
+#: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
 msgid "version"
 msgstr "版本"
 
-#: tools/cutehmi.view.4/src/main.cpp:127
+#: tools/cutehmi.view.4/src/main.cpp:126
 msgctxt "main|"
 msgid "Touch screen (hides mouse cursor)."
 msgstr "觸控螢幕（隱藏滑鼠游標）。"
 
-#: tools/cutehmi.view.4/src/main.cpp:130
+#: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
 msgid "Set Qt Quick <style>."
 msgstr "設定 Qt Quick <風格>。"
 
-#: tools/cutehmi.view.4/src/main.cpp:130
+#: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
 msgid "style"
 msgstr "風格"
 
-#: tools/cutehmi.view.4/src/main.cpp:133
+#: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
 msgid "Choose application <language>."
 msgstr "選取應用程式的 <語言>。"
 
-#: tools/cutehmi.view.4/src/main.cpp:133
+#: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
 msgid "language"
 msgstr "語言"
 
-#: tools/cutehmi.view.4/src/main.cpp:137
+#: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
 msgid "Set base directory to <dir>."
 msgstr "將基礎目錄設為 <目錄>。"
 
-#: tools/cutehmi.view.4/src/main.cpp:137
+#: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
 msgid "dir"
 msgstr "目錄"
 
-#: tools/cutehmi.view.4/src/main.cpp:140
+#: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
 msgid "Explicitly specify <resource> file to be loaded on startup."
 msgstr "明確指定啟動時要載入的 <資源> 檔案。"
 
-#: tools/cutehmi.view.4/src/main.cpp:140
+#: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
 msgid "resource"
 msgstr "資源"
 
-#: tools/cutehmi.view.4/src/main.cpp:147
+#: tools/cutehmi.view.4/src/main.cpp:149
 msgctxt "main|"
 msgid "Extension to import."
 msgstr "要載入的擴充功能。"
 
-#: tools/cutehmi.view.4/src/main.cpp:148
+#: tools/cutehmi.view.4/src/main.cpp:150
 #, qt-format
 msgctxt "main|"
 msgid "Component to create. Defaults to '%1'."
 msgstr "要建立的元件。預設為 '%1'。"
 
-#: tools/cutehmi.view.4/src/main.cpp:216
+#: tools/cutehmi.view.4/src/main.cpp:224
 msgctxt "main|"
 msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
@@ -144,7 +144,7 @@ msgid ""
 msgstr ""
 "無法使用 'component' 選項，因為編譯時已設定 'forceDefaultOptions' 選項。"
 
-#: tools/cutehmi.view.4/src/main.cpp:218
+#: tools/cutehmi.view.4/src/main.cpp:226
 msgctxt "main|"
 msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
@@ -152,7 +152,7 @@ msgid ""
 msgstr ""
 "無法使用 'extension' 選項，因為編譯時已設定 'forceDefaultOptions' 選項。"
 
-#: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
+#: tools/cutehmi.view.4/src/main.cpp:228 tools/cutehmi.view.4/src/main.cpp:230
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -160,33 +160,33 @@ msgid ""
 "set during compilation time."
 msgstr "無法使用 '%1' 選項，因為編譯時已設定 'forceDefaultOptions' 選項。"
 
-#: tools/cutehmi.view.4/src/main.cpp:228
+#: tools/cutehmi.view.4/src/main.cpp:236
 #, qt-format
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
 msgstr "命令列引數錯誤： '%1' 選項的值必須是數字。"
 
-#: tools/cutehmi.view.4/src/main.cpp:236
+#: tools/cutehmi.view.4/src/main.cpp:244
 msgctxt "main|"
 msgid ""
 "Command line argument error: please specify extension with major version "
 "number after the last dot."
 msgstr "命令列引數錯誤：請在指定擴充功能時將大版本置於最後一個點的後方。"
 
-#: tools/cutehmi.view.4/src/main.cpp:284
+#: tools/cutehmi.view.4/src/main.cpp:292
 #, qt-format
 msgctxt "main|"
 msgid ""
 "URL '%1' contains relative path along with URL scheme, which is forbidden."
 msgstr "URL '%1' 中同時包含相對路徑和 URL 機制，這是不允許的。"
 
-#: tools/cutehmi.view.4/src/main.cpp:291
+#: tools/cutehmi.view.4/src/main.cpp:299
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
 msgstr "QML 檔案 '%1' 不存在。"
 
-#: tools/cutehmi.view.4/src/main.cpp:296
+#: tools/cutehmi.view.4/src/main.cpp:304
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."
