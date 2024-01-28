@@ -78,6 +78,12 @@ Module {
 
 	property int verbose: undefined
 
+	property string addPluginTypes: undefined
+
+	property string includePlugins: undefined
+
+	property string excludePlugins: undefined
+
 	Depends { name: "Qt.core" }
 
 	Depends { name: "cutehmi.dirs" }
@@ -190,6 +196,15 @@ Module {
 
 				if (product.cutehmi.windeployqt.verbose !== undefined)
 					cmdArgs.push("--verbose", product.cutehmi.windeployqt.verbose)
+
+				if (product.cutehmi.windeployqt.addPluginTypes !== undefined)
+					cmdArgs.push("--add-plugin-types", product.cutehmi.windeployqt.addPluginTypes)
+
+				if (product.cutehmi.windeployqt.includePlugins !== undefined)
+					cmdArgs.push("--include-plugins", product.cutehmi.windeployqt.includePlugins)
+
+				if (product.cutehmi.windeployqt.excludePlugins !== undefined)
+					cmdArgs.push("--exclude-plugins", product.cutehmi.windeployqt.excludePlugins)
 
 				var binaryFile = product.cutehmiType == "tool" ? product.cutehmi.dirs.toolsInstallSubdir + "/" + input.fileName
 															   : product.cutehmi.dirs.extensionsInstallSubdir + "/" + input.fileName
