@@ -1,5 +1,4 @@
 #include <QQmlEngine>
-#include <QGuiApplication>
 
 namespace cutehmi {
 namespace workarounds {
@@ -8,9 +7,6 @@ namespace internal {
 
 // Some symbols must be exported in order to create a dependency on Qt.Qml.
 Q_DECL_EXPORT const QQmlEngine & dummy() {
-	char * argv[1] = {};
-	int argc = 1;
-	QGuiApplication app(argc, argv);
 	static const QQmlEngine e;
 	return e;
 }
