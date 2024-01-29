@@ -78,6 +78,12 @@ Module {
 
 	property int verbose: undefined
 
+	property string addPluginTypes: undefined
+
+	property string includePlugins: undefined
+
+	property string excludePlugins: undefined
+
 	Depends { name: "Qt.core" }
 
 	Depends { name: "cutehmi.dirs" }
@@ -191,6 +197,15 @@ Module {
 				if (product.cutehmi.windeployqt.verbose !== undefined)
 					cmdArgs.push("--verbose", product.cutehmi.windeployqt.verbose)
 
+				if (product.cutehmi.windeployqt.addPluginTypes !== undefined)
+					cmdArgs.push("--add-plugin-types", product.cutehmi.windeployqt.addPluginTypes)
+
+				if (product.cutehmi.windeployqt.includePlugins !== undefined)
+					cmdArgs.push("--include-plugins", product.cutehmi.windeployqt.includePlugins)
+
+				if (product.cutehmi.windeployqt.excludePlugins !== undefined)
+					cmdArgs.push("--exclude-plugins", product.cutehmi.windeployqt.excludePlugins)
+
 				var binaryFile = product.cutehmiType == "tool" ? product.cutehmi.dirs.toolsInstallSubdir + "/" + input.fileName
 															   : product.cutehmi.dirs.extensionsInstallSubdir + "/" + input.fileName
 				cmdArgs.push(binaryFile)
@@ -222,7 +237,7 @@ Module {
 	}
 }
 
-//(c)C: Copyright © 2022, Michał Policht <michal@policht.pl>. All rights reserved.
+//(c)C: Copyright © 2022-2024, Michał Policht <michal@policht.pl>. All rights reserved.
 //(c)C: SPDX-License-Identifier: LGPL-3.0-or-later OR MIT
 //(c)C: This file is a part of CuteHMI.
 //(c)C: CuteHMI is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
