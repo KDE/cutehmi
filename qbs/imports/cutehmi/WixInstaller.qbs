@@ -38,6 +38,8 @@ CommonProduct {
 
 	major: isNaN(name.substr(name.lastIndexOf(".", name.length - 1) + 1)) ? 1 : Number(name.substr(name.lastIndexOf(".", name.length - 1) + 1))
 
+	targetName: name + "-" + minor + "-" + micro
+
 	/**
 	  Prefefined id of manufacturer installation directory.
 	  */
