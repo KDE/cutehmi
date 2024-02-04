@@ -5,6 +5,7 @@
 - This version has switched from CuteHMI.Services.2 to CuteHMI.Services.3.
 - Property `initialized` has been introduced in cutehmi::modbus::AbstractRegisterController. Controller items use it for more robust
 delegate initialization.
+- Property `valueSettingPolicy` has been introduced in cutehmi::modbus::AbstractRegisterController.
 
 ## Version 3
 

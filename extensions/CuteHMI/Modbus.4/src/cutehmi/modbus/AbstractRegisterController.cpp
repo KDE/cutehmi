@@ -100,6 +100,19 @@ void AbstractRegisterController::setWriteMode(AbstractRegisterController::WriteM
 	}
 }
 
+AbstractRegisterController::ValueSettingPolicy AbstractRegisterController::valueSettingPolicy() const
+{
+	return m->valueSettingPolicy;
+}
+
+void AbstractRegisterController::setValueSettingPolicy(ValueSettingPolicy valueSettingPolicy)
+{
+	if (m->valueSettingPolicy != valueSettingPolicy) {
+		m->valueSettingPolicy = valueSettingPolicy;
+		emit valueSettingPolicyChanged();
+	}
+}
+
 int AbstractRegisterController::writeDelay() const
 {
 	return m->writeDelay;
