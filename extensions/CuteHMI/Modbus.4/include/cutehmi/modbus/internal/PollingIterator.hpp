@@ -30,7 +30,7 @@ class CUTEHMI_MODBUS_PRIVATE PollingIterator:
 	private:
 		typedef std::vector<std::unique_ptr<internal::IterableTasks>> TasksCointainer;
 
-		TasksCointainer::iterator m_currentTask;
+		TasksCointainer::iterator m_currentTasks;
 		TasksCointainer m_tasks;
 		QUuid m_requestId;
 };
