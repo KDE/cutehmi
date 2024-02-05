@@ -15,15 +15,15 @@ PollingIterator::PollingIterator(AbstractDevice * device)
 	m_tasks.emplace_back(std::unique_ptr<internal::IterableTasks>(new internal::DiscreteInputPolling(device, & m_requestId)));
 	m_tasks.emplace_back(std::unique_ptr<internal::IterableTasks>(new internal::HoldingRegisterPolling(device, & m_requestId)));
 	m_tasks.emplace_back(std::unique_ptr<internal::IterableTasks>(new internal::InputRegisterPolling(device, & m_requestId)));
-	m_currentTask = m_tasks.begin();
+	m_currentTasks = m_tasks.begin();
 }
 
 bool PollingIterator::runNext()
 {
-	while (m_currentTask != m_tasks.end()) {
-		if ((*m_currentTask)->runNext())
+	while (m_currentTasks != m_tasks.end()) {
+		if ((*m_currentTasks)->runNext())
 			return true;
-		++m_currentTask;
+		++m_currentTasks;
 	}
 	return false;
 }
@@ -31,7 +31,7 @@ bool PollingIterator::runNext()
 void PollingIterator::reset()
 {
 	m_requestId = QUuid();
-	m_currentTask = m_tasks.begin();
+	m_currentTasks = m_tasks.begin();
 	for (auto it = m_tasks.begin(); it != m_tasks.end(); ++it)
 		(*it)->reset();
 }

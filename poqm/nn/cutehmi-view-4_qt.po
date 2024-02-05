@@ -59,88 +59,88 @@ msgctxt "MessageDialog|"
 msgid "Message"
 msgstr "Melding"
 
-#: tools/cutehmi.view.4/src/main.cpp:116
+#: tools/cutehmi.view.4/src/main.cpp:115
 msgctxt "main|"
 msgid "Run application in full screen mode."
 msgstr "Køyr programmet i fullskjerms­modus."
 
-#: tools/cutehmi.view.4/src/main.cpp:119
+#: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
 msgstr "Overstyr lastar ved å oppgje QML-<file> å lasta."
 
-#: tools/cutehmi.view.4/src/main.cpp:119
+#: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
 msgid "file"
 msgstr "fil"
 
-#: tools/cutehmi.view.4/src/main.cpp:123
+#: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
 msgid "Use <version> for extension minor version to import."
 msgstr "Bruk <versjon> for å velja utvidings­versjon å importera."
 
-#: tools/cutehmi.view.4/src/main.cpp:123
+#: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
 msgid "version"
 msgstr "versjon"
 
-#: tools/cutehmi.view.4/src/main.cpp:127
+#: tools/cutehmi.view.4/src/main.cpp:126
 msgctxt "main|"
 msgid "Touch screen (hides mouse cursor)."
 msgstr "Trykkskjerm (gøymer musepeikaren)."
 
-#: tools/cutehmi.view.4/src/main.cpp:130
+#: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
 msgid "Set Qt Quick <style>."
 msgstr "Vel Qt Quick-<stil>."
 
-#: tools/cutehmi.view.4/src/main.cpp:130
+#: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
 msgid "style"
 msgstr "stil"
 
-#: tools/cutehmi.view.4/src/main.cpp:133
+#: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
 msgid "Choose application <language>."
 msgstr "Vel program <språk>."
 
-#: tools/cutehmi.view.4/src/main.cpp:133
+#: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
 msgid "language"
 msgstr "språk"
 
-#: tools/cutehmi.view.4/src/main.cpp:137
+#: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
 msgid "Set base directory to <dir>."
 msgstr "Bruk grunnmappa <mappe>."
 
-#: tools/cutehmi.view.4/src/main.cpp:137
+#: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
 msgid "dir"
 msgstr "mappe"
 
-#: tools/cutehmi.view.4/src/main.cpp:140
+#: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
 msgid "Explicitly specify <resource> file to be loaded on startup."
 msgstr "Oppgje <ressurs>-fil som skal lastast ved oppstart."
 
-#: tools/cutehmi.view.4/src/main.cpp:140
+#: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
 msgid "resource"
 msgstr "ressurs"
 
-#: tools/cutehmi.view.4/src/main.cpp:147
+#: tools/cutehmi.view.4/src/main.cpp:149
 msgctxt "main|"
 msgid "Extension to import."
 msgstr "Utviding som skal importerast."
 
-#: tools/cutehmi.view.4/src/main.cpp:148
+#: tools/cutehmi.view.4/src/main.cpp:150
 #, qt-format
 msgctxt "main|"
 msgid "Component to create. Defaults to '%1'."
 msgstr "Komponent som skal lagast. Standard er «%1»."
 
-#: tools/cutehmi.view.4/src/main.cpp:216
+#: tools/cutehmi.view.4/src/main.cpp:224
 msgctxt "main|"
 msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
@@ -149,7 +149,7 @@ msgstr ""
 "Du kan ikkje bruka valet «component», sidan valet «forceDefaultOptions» var "
 "slått på ved kompilering."
 
-#: tools/cutehmi.view.4/src/main.cpp:218
+#: tools/cutehmi.view.4/src/main.cpp:226
 msgctxt "main|"
 msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
@@ -158,7 +158,7 @@ msgstr ""
 "Du kan ikkje bruka valet «extension», sidan valet «forceDefaultOptions» var "
 "slått på ved kompilering."
 
-#: tools/cutehmi.view.4/src/main.cpp:220 tools/cutehmi.view.4/src/main.cpp:222
+#: tools/cutehmi.view.4/src/main.cpp:228 tools/cutehmi.view.4/src/main.cpp:230
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -168,14 +168,14 @@ msgstr ""
 "Du kan ikkje bruka valet «%1», sidan valet «forceDefaultOptions» var slått "
 "på ved kompilering."
 
-#: tools/cutehmi.view.4/src/main.cpp:228
+#: tools/cutehmi.view.4/src/main.cpp:236
 #, qt-format
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
 msgstr ""
 "Feil ved kommandolinje­argument: Verdien til valet «%1» må vera eit tal."
 
-#: tools/cutehmi.view.4/src/main.cpp:236
+#: tools/cutehmi.view.4/src/main.cpp:244
 msgctxt "main|"
 msgid ""
 "Command line argument error: please specify extension with major version "
@@ -184,7 +184,7 @@ msgstr ""
 "Feil ved kommandolinje­argument: Vel utviding med hovud-versjonsnummer etter "
 "siste punktum."
 
-#: tools/cutehmi.view.4/src/main.cpp:284
+#: tools/cutehmi.view.4/src/main.cpp:292
 #, qt-format
 msgctxt "main|"
 msgid ""
@@ -193,13 +193,13 @@ msgstr ""
 "Adressa «%1» inneheld både relativ adresse og URL-syntaks, noko som er "
 "forbode."
 
-#: tools/cutehmi.view.4/src/main.cpp:291
+#: tools/cutehmi.view.4/src/main.cpp:299
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
 msgstr "QML-fila «%1» finst ikkje."
 
-#: tools/cutehmi.view.4/src/main.cpp:296
+#: tools/cutehmi.view.4/src/main.cpp:304
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."

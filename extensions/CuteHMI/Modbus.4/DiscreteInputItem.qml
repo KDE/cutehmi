@@ -37,20 +37,9 @@ Item {
 		property var delegateValue: delegate[delegateProperty]
 	}
 
-	Connections {
-		target: controller
-
-		function onInitializedChanged() {
-			if (controller.initialized)
-				Private.onInitialized()
-			else
-				Private.disconnect()
-		}
-	}
-
 	Component.onCompleted: Private.onCompleted()
 
-	Component.onDestruction: Private.disconnect()
+	Component.onDestruction: Private.onDestruction()
 
 	onReadOnlyChanged: Private.onReadOnlyChanged()
 }

@@ -35,8 +35,18 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		};
 		Q_ENUM(WriteMode)
 
+		/**
+		 * Value setting policy enum.
+		 */
+		enum ValueSettingPolicy {
+			VALUE_SETTING_ALWAYS,			///< Always handle setting a value and create write requests according to selected writeMode.
+			VALUE_SETTING_INITIALIZED,		///< Handle set value and create write requests only when controller value has been initialized with value read from the device.
+		};
+		Q_ENUM(ValueSettingPolicy)
+
 		static constexpr unsigned int INITIAL_ADDRESS = 0;
 		static constexpr WriteMode INITIAL_WRITE_MODE = WRITE_DELAYED;
+		static constexpr ValueSettingPolicy INITIAL_VALUE_SETTING_POLICY = VALUE_SETTING_INITIALIZED;
 		static constexpr int INITIAL_WRITE_DELAY = 500;
 		static constexpr bool INITIAL_BUSY = true;
 		static constexpr bool INITIAL_READ_ON_WRITE = true;
@@ -75,6 +85,11 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		Q_PROPERTY(WriteMode writeMode READ writeMode WRITE setWriteMode NOTIFY writeModeChanged)
 
 		/**
+		 * Value setting policy.
+		 */
+		Q_PROPERTY(ValueSettingPolicy valueSettingPolicy READ valueSettingPolicy WRITE setValueSettingPolicy NOTIFY valueSettingPolicyChanged)
+
+		/**
 		  Write delay [ms]. Relevant only when write mode is set to WRITE_DELAYED.
 		  */
 		Q_PROPERTY(int writeDelay READ writeDelay WRITE setWriteDelay NOTIFY writeDelayChanged)
@@ -106,6 +121,10 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 
 		void setWriteMode(WriteMode writeMode);
 
+		ValueSettingPolicy valueSettingPolicy() const;
+
+		void setValueSettingPolicy(ValueSettingPolicy valueSettingPolicy);
+
 		int writeDelay() const;
 
 		void setWriteDelay(int writeDelay);
@@ -126,6 +145,8 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 		void readOnWriteChanged();
 
 		void writeModeChanged();
+
+		void valueSettingPolicyChanged();
 
 		void writeDelayChanged();
 
@@ -160,6 +181,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 			bool initialized;
 			bool readOnWrite;
 			WriteMode writeMode;
+			ValueSettingPolicy valueSettingPolicy;
 			int writeDelay;
 			bool enabled;
 			bool deferRequestRead;
@@ -171,6 +193,7 @@ class CUTEHMI_MODBUS_API AbstractRegisterController:
 				initialized(false),
 				readOnWrite(INITIAL_READ_ON_WRITE),
 				writeMode(INITIAL_WRITE_MODE),
+				valueSettingPolicy(INITIAL_VALUE_SETTING_POLICY),
 				writeDelay(INITIAL_WRITE_DELAY),
 				enabled(INITIAL_ENABLED),
 				deferRequestRead(false)
