@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cutehmi\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 13:43+0100\n"
-"PO-Revision-Date: 2024-02-26 21:30+0100\n"
+"PO-Revision-Date: 2024-03-24 10:34+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo.org>\n"
 "Language: eo\n"
@@ -22,13 +22,13 @@ msgstr ""
 #: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
 msgctxt "DefaultScreen|"
 msgid "Start application with --help option to see available options."
-msgstr ""
+msgstr "Komencu aplikaĵon per --help-opcio por vidi disponeblajn opciojn."
 
 #: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
 #, qt-format
 msgctxt "ExtensionLoader|"
 msgid "Could not load extension '%1'."
-msgstr ""
+msgstr "Ne eblis ŝargi etendon '%1'."
 
 #: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
 msgctxt "ExtensionLoader|"
@@ -63,12 +63,12 @@ msgstr "Mesaĝo"
 #: tools/cutehmi.view.4/src/main.cpp:115
 msgctxt "main|"
 msgid "Run application in full screen mode."
-msgstr ""
+msgstr "Ruli aplikaĵon en plenekrana reĝimo."
 
 #: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
 msgid "Override loader by specifying initial QML <file> to load."
-msgstr ""
+msgstr "Anstataŭigi ŝargilon specifante komencan QML <dosiero> por ŝargi."
 
 #: tools/cutehmi.view.4/src/main.cpp:118
 msgctxt "main|"
@@ -78,7 +78,7 @@ msgstr "dosiero"
 #: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
 msgid "Use <version> for extension minor version to import."
-msgstr ""
+msgstr "Uzi <version> kiel etenda minora versio de importo."
 
 #: tools/cutehmi.view.4/src/main.cpp:122
 msgctxt "main|"
@@ -88,12 +88,12 @@ msgstr "versio"
 #: tools/cutehmi.view.4/src/main.cpp:126
 msgctxt "main|"
 msgid "Touch screen (hides mouse cursor)."
-msgstr ""
+msgstr "Tuŝekrano (kaŝas muskursoron)."
 
 #: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
 msgid "Set Qt Quick <style>."
-msgstr ""
+msgstr "Meti Qt-Quick <style>."
 
 #: tools/cutehmi.view.4/src/main.cpp:129
 msgctxt "main|"
@@ -103,7 +103,7 @@ msgstr "stilo"
 #: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
 msgid "Choose application <language>."
-msgstr ""
+msgstr "Elekti aplikaĵan <language>."
 
 #: tools/cutehmi.view.4/src/main.cpp:135
 msgctxt "main|"
@@ -113,7 +113,7 @@ msgstr "lingvo"
 #: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
 msgid "Set base directory to <dir>."
-msgstr ""
+msgstr "Meti bazan dosierujon al <dir>."
 
 #: tools/cutehmi.view.4/src/main.cpp:139
 msgctxt "main|"
@@ -123,7 +123,7 @@ msgstr "dir"
 #: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
 msgid "Explicitly specify <resource> file to be loaded on startup."
-msgstr ""
+msgstr "Eksplicite specifi <resource>-dosieron ŝargenda dum lanĉo."
 
 #: tools/cutehmi.view.4/src/main.cpp:142
 msgctxt "main|"
@@ -133,13 +133,13 @@ msgstr "rimedo"
 #: tools/cutehmi.view.4/src/main.cpp:149
 msgctxt "main|"
 msgid "Extension to import."
-msgstr ""
+msgstr "Etendo por importi."
 
 #: tools/cutehmi.view.4/src/main.cpp:150
 #, qt-format
 msgctxt "main|"
 msgid "Component to create. Defaults to '%1'."
-msgstr ""
+msgstr "Komponanto kreenda. Defaŭltas al '%1'."
 
 #: tools/cutehmi.view.4/src/main.cpp:224
 msgctxt "main|"
@@ -168,6 +168,7 @@ msgstr ""
 msgctxt "main|"
 msgid "Command line argument error: value of '%1' option must be a number."
 msgstr ""
+"Eraro de argumentlinia komandlinio: valoro de opcio '%1' devas esti nombro."
 
 #: tools/cutehmi.view.4/src/main.cpp:244
 msgctxt "main|"
@@ -187,10 +188,10 @@ msgstr ""
 #, qt-format
 msgctxt "main|"
 msgid "QML file '%1' does not exist."
-msgstr ""
+msgstr "QML-dosiero '%1' ne ekzistas."
 
 #: tools/cutehmi.view.4/src/main.cpp:304
 #, qt-format
 msgctxt "main|"
 msgid "Invalid format of QML file URL '%1'."
-msgstr ""
+msgstr "Nevalida formato de QML-dosiero URL '%1'."
