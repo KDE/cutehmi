@@ -1,15 +1,15 @@
 # translation of cutehmi-view-4_qt.pot to Esperanto
 # Copyright (C) 2024 Free Software Foundation, Inc.
 # This file is distributed under the same license as the cutehmi package.
-# Oliver Kellogg <okellogg@users.sourceforge.net>, 2024.
+# Oliver Kellogg <olivermkellogg@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: cutehmi\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 13:43+0100\n"
-"PO-Revision-Date: 2024-03-24 10:34+0100\n"
-"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"PO-Revision-Date: 2024-05-31 19:37+0200\n"
+"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -147,6 +147,8 @@ msgid ""
 "You can not use 'component' option, because 'forceDefaultOptions' option has "
 "been set during compilation time."
 msgstr ""
+"Vi ne povas uzi elekteblon 'component', ĉar opcio 'forceDefaultOptions' "
+"estis metita dum kompiltempo."
 
 #: tools/cutehmi.view.4/src/main.cpp:226
 msgctxt "main|"
@@ -154,6 +156,8 @@ msgid ""
 "You can not use 'extension' option, because 'forceDefaultOptions' option has "
 "been set during compilation time."
 msgstr ""
+"Vi ne povas uzi elekteblon 'extension', ĉar opcio 'forceDefaultOptions' "
+"estis metita dum kompiltempo."
 
 #: tools/cutehmi.view.4/src/main.cpp:228 tools/cutehmi.view.4/src/main.cpp:230
 #, qt-format
@@ -162,6 +166,8 @@ msgid ""
 "You can not use '%1' option, because 'forceDefaultOptions' option has been "
 "set during compilation time."
 msgstr ""
+"Vi ne povas uzi elekteblon '%1', ĉar opcio 'forceDefaultOptions' estis "
+"metita dum kompiltempo."
 
 #: tools/cutehmi.view.4/src/main.cpp:236
 #, qt-format
@@ -176,6 +182,8 @@ msgid ""
 "Command line argument error: please specify extension with major version "
 "number after the last dot."
 msgstr ""
+"Argumenta eraro de komandlinio: bonvolu specifi etendon kun ĉefa versio-"
+"numero post la lasta punkto."
 
 #: tools/cutehmi.view.4/src/main.cpp:292
 #, qt-format
@@ -183,6 +191,7 @@ msgctxt "main|"
 msgid ""
 "URL '%1' contains relative path along with URL scheme, which is forbidden."
 msgstr ""
+"URL '%1' enhavas relativan vojon kune kun URL-skemo, kiu estas malpermesita."
 
 #: tools/cutehmi.view.4/src/main.cpp:299
 #, qt-format
