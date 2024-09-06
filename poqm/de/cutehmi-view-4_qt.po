@@ -2,7 +2,7 @@
 # Frederik Schwarzer <schwarzer@kde.org>, 2022, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: cutehmi-view-4_qt\n"
 "PO-Revision-Date: 2023-03-12 19:51+0100\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
