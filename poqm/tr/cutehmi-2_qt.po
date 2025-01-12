@@ -1,8 +1,8 @@
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-02-16 10:28+0300\n"
+"PO-Revision-Date: 2025-01-11 17:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #: extensions/CuteHMI.2/src/cutehmi/Error.cpp:39
 msgctxt "Error|"
@@ -37,7 +37,7 @@ msgstr "Tanımlanamayan hata kodu: %1."
 #: extensions/CuteHMI.2/src/cutehmi/Messenger.cpp:6
 msgctxt "Messenger::NoAdvertiserException|"
 msgid "No advertiser has been set. Dialog message: "
-msgstr "Bir reklamcı ayarlanmamış. İletişim kutusu iletisi: "
+msgstr "Bir reklâmcı ayarlanmamış. İletişim kutusu iletisi: "
 
 #: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:45
 #: extensions/CuteHMI.2/tests/test_Internationalizer.cpp:50
