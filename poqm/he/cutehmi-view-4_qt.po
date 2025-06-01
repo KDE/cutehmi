@@ -1,0 +1,198 @@
+# SPDX-FileCopyrightText: 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2025-05-31 19:25+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.1\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr "יש להפעיל את היישום עם האפשרות ‎--help כדי לראות את האפשרויות הזמינות."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "לא ניתן לטעון את ההרחבה ‚%1’."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "סיבות:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr "מידע"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "אזהרה"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr "שגיאה"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr "שאלה"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr "הודעה"
+
+#: tools/cutehmi.view.4/src/main.cpp:115
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "הרצת יישום במסך מלא."
+
+#: tools/cutehmi.view.4/src/main.cpp:118
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr "אפשר לדרוס את הטוען על ידי ציון <קובץ> QML ראשוני לטעינה."
+
+#: tools/cutehmi.view.4/src/main.cpp:118
+msgctxt "main|"
+msgid "file"
+msgstr "קובץ"
+
+#: tools/cutehmi.view.4/src/main.cpp:122
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr "אפשר להשתמש ב<גרסה> לגרסה מזערית של הרחבה לייבוא."
+
+#: tools/cutehmi.view.4/src/main.cpp:122
+msgctxt "main|"
+msgid "version"
+msgstr "גרסה"
+
+#: tools/cutehmi.view.4/src/main.cpp:126
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "מסך מגע (הסתרת סמן העכבר)."
+
+#: tools/cutehmi.view.4/src/main.cpp:129
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "הגדרת <סגנון> Qt Quick."
+
+#: tools/cutehmi.view.4/src/main.cpp:129
+msgctxt "main|"
+msgid "style"
+msgstr "סגנון"
+
+#: tools/cutehmi.view.4/src/main.cpp:135
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "בחירת <שפה> ליישום."
+
+#: tools/cutehmi.view.4/src/main.cpp:135
+msgctxt "main|"
+msgid "language"
+msgstr "שפה"
+
+#: tools/cutehmi.view.4/src/main.cpp:139
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "הגדרת תיקיית הבסיס ל<תיקייה>"
+
+#: tools/cutehmi.view.4/src/main.cpp:139
+msgctxt "main|"
+msgid "dir"
+msgstr "תיקייה"
+
+#: tools/cutehmi.view.4/src/main.cpp:142
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr "ציון <משאב> במפורש לטעינה בעלייה."
+
+#: tools/cutehmi.view.4/src/main.cpp:142
+msgctxt "main|"
+msgid "resource"
+msgstr "משאב"
+
+#: tools/cutehmi.view.4/src/main.cpp:149
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "הרחבה לייבוא."
+
+#: tools/cutehmi.view.4/src/main.cpp:150
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr "רכיב ליצירה. ברירת המחדל תהיה ‚%1’."
+
+#: tools/cutehmi.view.4/src/main.cpp:224
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"אי אפשר להשתמש באפשרות ‚component’, כיוון שהאפשרות ‚forceDefaultOptions’ "
+"הוגדרה במהלך זמן ההידור."
+
+#: tools/cutehmi.view.4/src/main.cpp:226
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"אי אפשר להשתמש באפשרות ‚extension’, כיוון שהאפשרות ‚forceDefaultOptions’ "
+"הוגדרה במהלך זמן ההידור."
+
+#: tools/cutehmi.view.4/src/main.cpp:228 tools/cutehmi.view.4/src/main.cpp:230
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+"אי אפשר להשתמש באפשרות ‚%1’, כיוון שהאפשרות ‚forceDefaultOptions’ הוגדרה "
+"במהלך זמן ההידור."
+
+#: tools/cutehmi.view.4/src/main.cpp:236
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr "שגיאת ארגומנט שורת פקודות: ערך האפשרות ‚%1’ חייב להיות מספר."
+
+#: tools/cutehmi.view.4/src/main.cpp:244
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+"שגיאת ארגומנט שורת פקודות: נא לציין הרחבה עם מספר גרסה עיקרי אחרי הנקודה "
+"האחרונה."
+
+#: tools/cutehmi.view.4/src/main.cpp:292
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr "הכתובת ‚%1’ מכילה נתיב יחסי לצד תבנית הכתובת, שזה אסור."
+
+#: tools/cutehmi.view.4/src/main.cpp:299
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "קובץ ה־QML‏ ‚%1’ לא קיים."
+
+#: tools/cutehmi.view.4/src/main.cpp:304
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr "תבנית שגויה של כתובת קובץ QML‏ ‚%1’."
