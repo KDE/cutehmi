@@ -1,8 +1,13 @@
-# Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2020, 2023.
+# Spanish translations for cutehmi-2_qt.po package.
+# Copyright (C) 2020-2025 This file is copyright:
+# This file is distributed under the same license as the cutehmi package.
+#
+# SPDX-FileCopyrightText: 2020, 2023, 2025 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: cutehmi_qt\n"
-"PO-Revision-Date: 2023-02-25 16:50+0100\n"
+"Project-Id-Version: cutehmi-2_qt\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"PO-Revision-Date: 2025-06-09 02:34+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
