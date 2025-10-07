@@ -1,0 +1,199 @@
+# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2025-10-06 16:44+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
+"X-Qt-Contexts: true\n"
+
+#: tools/cutehmi.view.4/qml/DefaultScreen.qml:6
+msgctxt "DefaultScreen|"
+msgid "Start application with --help option to see available options."
+msgstr "ابدأ التطبيق بخيار --help لرؤية الخيارات المتاحة."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:13
+#, qt-format
+msgctxt "ExtensionLoader|"
+msgid "Could not load extension '%1'."
+msgstr "لا يمكن تحميل الملحق '%1'."
+
+#: tools/cutehmi.view.4/qml/ExtensionLoader.qml:26
+msgctxt "ExtensionLoader|"
+msgid "Reasons:"
+msgstr "الأسباب:"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:17
+msgctxt "MessageDialog|"
+msgid "Information"
+msgstr "معلومات"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:20
+msgctxt "MessageDialog|"
+msgid "Warning"
+msgstr "تحذير"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:23
+msgctxt "MessageDialog|"
+msgid "Error"
+msgstr "خطأ"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:26
+msgctxt "MessageDialog|"
+msgid "Question"
+msgstr "سؤال"
+
+#: tools/cutehmi.view.4/qml/MessageDialog.qml:29
+msgctxt "MessageDialog|"
+msgid "Message"
+msgstr "الرسالة"
+
+#: tools/cutehmi.view.4/src/main.cpp:115
+msgctxt "main|"
+msgid "Run application in full screen mode."
+msgstr "شغّل التطبيق في وضع ملء الشاشة."
+
+#: tools/cutehmi.view.4/src/main.cpp:118
+msgctxt "main|"
+msgid "Override loader by specifying initial QML <file> to load."
+msgstr "تجاوز المحمّل بتحديد ملف QML <file> المبدئي للتحميل."
+
+#: tools/cutehmi.view.4/src/main.cpp:118
+msgctxt "main|"
+msgid "file"
+msgstr "ملف"
+
+#: tools/cutehmi.view.4/src/main.cpp:122
+msgctxt "main|"
+msgid "Use <version> for extension minor version to import."
+msgstr "استخدم <version> لإصدارة الملحق الفرعية لاستيرادها."
+
+#: tools/cutehmi.view.4/src/main.cpp:122
+msgctxt "main|"
+msgid "version"
+msgstr "إصدارة"
+
+#: tools/cutehmi.view.4/src/main.cpp:126
+msgctxt "main|"
+msgid "Touch screen (hides mouse cursor)."
+msgstr "شاشة تعمل باللمس (يُخفي مؤشر الفأرة)."
+
+#: tools/cutehmi.view.4/src/main.cpp:129
+msgctxt "main|"
+msgid "Set Qt Quick <style>."
+msgstr "اضبط نمط Qt Quick <style>."
+
+#: tools/cutehmi.view.4/src/main.cpp:129
+msgctxt "main|"
+msgid "style"
+msgstr "نمط"
+
+#: tools/cutehmi.view.4/src/main.cpp:135
+msgctxt "main|"
+msgid "Choose application <language>."
+msgstr "اختر تطبيقًا <language>."
+
+#: tools/cutehmi.view.4/src/main.cpp:135
+msgctxt "main|"
+msgid "language"
+msgstr "اللغة"
+
+#: tools/cutehmi.view.4/src/main.cpp:139
+msgctxt "main|"
+msgid "Set base directory to <dir>."
+msgstr "اضبط الدليل الأساسي إلى <dir>."
+
+#: tools/cutehmi.view.4/src/main.cpp:139
+msgctxt "main|"
+msgid "dir"
+msgstr "اتجاه"
+
+#: tools/cutehmi.view.4/src/main.cpp:142
+msgctxt "main|"
+msgid "Explicitly specify <resource> file to be loaded on startup."
+msgstr "حدد صراحةً ملف <resource> للتحميل عند بدء التشغيل."
+
+#: tools/cutehmi.view.4/src/main.cpp:142
+msgctxt "main|"
+msgid "resource"
+msgstr "مورد"
+
+#: tools/cutehmi.view.4/src/main.cpp:149
+msgctxt "main|"
+msgid "Extension to import."
+msgstr "الملحق للاستيراد."
+
+#: tools/cutehmi.view.4/src/main.cpp:150
+#, qt-format
+msgctxt "main|"
+msgid "Component to create. Defaults to '%1'."
+msgstr "المكون للإنشاء. مبدئيًا هو '%1'."
+
+#: tools/cutehmi.view.4/src/main.cpp:224
+msgctxt "main|"
+msgid ""
+"You can not use 'component' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"لا يمكنك استخدام خيار 'component' (المكون)، لأن خيار "
+"'forceDefaultOptions' (فرض الخيارات المبدئية) ضُبِط أثناء وقت التصريف."
+
+#: tools/cutehmi.view.4/src/main.cpp:226
+msgctxt "main|"
+msgid ""
+"You can not use 'extension' option, because 'forceDefaultOptions' option has "
+"been set during compilation time."
+msgstr ""
+"لا يمكنك استخدام خيار 'extension' (الملحق)، لأن خيار "
+"'forceDefaultOptions' (فرض الخيارات المبدئية) ضُبِط أثناء وقت التصريف."
+
+#: tools/cutehmi.view.4/src/main.cpp:228 tools/cutehmi.view.4/src/main.cpp:230
+#, qt-format
+msgctxt "main|"
+msgid ""
+"You can not use '%1' option, because 'forceDefaultOptions' option has been "
+"set during compilation time."
+msgstr ""
+"لا يمكنك استخدام الخيار '%1'، لأن خيار 'forceDefaultOptions' (فرض الخيارات "
+"المبدئية) ضُبِط أثناء وقت التصريف."
+
+#: tools/cutehmi.view.4/src/main.cpp:236
+#, qt-format
+msgctxt "main|"
+msgid "Command line argument error: value of '%1' option must be a number."
+msgstr "خطأ في وسيط سطر الأوامر: يجب أن تكون قيمة الخيار '%1' رقمًا."
+
+#: tools/cutehmi.view.4/src/main.cpp:244
+msgctxt "main|"
+msgid ""
+"Command line argument error: please specify extension with major version "
+"number after the last dot."
+msgstr ""
+"خطأ في وسيط سطر الأوامر: رجاءً حدد الملحق برقم الإصدار الرئيسي بعد النقطة "
+"الأخيرة."
+
+#: tools/cutehmi.view.4/src/main.cpp:292
+#, qt-format
+msgctxt "main|"
+msgid ""
+"URL '%1' contains relative path along with URL scheme, which is forbidden."
+msgstr "عنوان URL '%1' يحتوي على مسار نسبي مع مخطط عنوان URL، وهذا ممنوع."
+
+#: tools/cutehmi.view.4/src/main.cpp:299
+#, qt-format
+msgctxt "main|"
+msgid "QML file '%1' does not exist."
+msgstr "ملف QML '%1' غير موجود."
+
+#: tools/cutehmi.view.4/src/main.cpp:304
+#, qt-format
+msgctxt "main|"
+msgid "Invalid format of QML file URL '%1'."
+msgstr "صيغة غير صالحة لعنوان URL لملف QML '%1'."
